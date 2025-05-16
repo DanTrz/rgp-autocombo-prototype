@@ -1,0 +1,19 @@
+<Project Sdk="Godot.NET.Sdk/4.4.1">
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<LangVersion>preview</LangVersion>
+		<!-- Optional: Required for new Field Keyword -->
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+
+
+		<!--Enable NativeAOT-->
+		<PublishAot>true</PublishAot>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- Root the assemblies to avoid trimming. -->
+		<TrimmerRootAssembly Include="GodotSharp" />
+		<TrimmerRootAssembly Include="$(TargetName)" />
+	</ItemGroup>
+</Project>
