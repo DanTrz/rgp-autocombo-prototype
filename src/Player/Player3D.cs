@@ -8,10 +8,7 @@ public partial class Player3D : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
     {
-
-
         //CONTROLED IN THE STATEMACHINE
-
 
         // Vector3 velocity = Velocity;
 
