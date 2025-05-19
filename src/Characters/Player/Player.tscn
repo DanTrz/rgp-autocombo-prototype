@@ -503,7 +503,6 @@ script = ExtResource("4_od3vv")
 [node name="PlayerJumpState" type="Node" parent="StateMachineManager"]
 script = ExtResource("5_hnn2c")
 JumpVelocity = 7.0
-jumpForwardSlowRate = null
 
 [node name="PlayerFallState" type="Node" parent="StateMachineManager"]
 script = ExtResource("6_hkqm1")

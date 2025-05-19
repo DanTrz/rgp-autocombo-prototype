@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Godot;
 
@@ -21,15 +22,11 @@ public partial class ComboManager : Node
 	private Button _attack1Button => field ?? GetNode<Button>("%Attack1"); //TODO: Temp/pROTOTYPE
 	private Button _attack2Button => field ?? GetNode<Button>("%Attack2");  //TODO: Temp/pROTOTYPE
 
-	private Dictionary<string, bool> _skillsWithComboMap = new()  //TODO: Temp/pROTOTYPE
+	//Using a TEMP tuple //TODO: THis will come from a COllection Stored Somewhere else in the future. 
+	List<(string skillName, bool hasCombo, List<string> comboSequence)> _skillsComboMap = new()  //TODO: Temp/pROTOTYPE
 	{
-		{"Attack1", true}, //TODO: Temp to test a Skill/Action that has Combo and another that doesn't
-		{"Attack2", false}
-	};
-
-	private Dictionary<string, List<string>> _skillsComboSequence = new()  //TODO: Temp/pROTOTYPE
-	{
-		{"Attack1", new List<string> { "R", "T" }}, //Attack1 has ComboSequence of R + T
+		("Attack1", true, new List<string> { "R", "T" }),
+		("Attack2", false, new List<string> { ""}),
 	};
 
 	public override void _Ready()
@@ -44,22 +41,21 @@ public partial class ComboManager : Node
 	#region TEMP CODE - PROTOTYPE ONLY   //TODO: Temp/pROTOTYPE
 	private void OnAttackButtonPressed(string skillSelected)
 	{
-		if (_skillsWithComboMap.TryGetValue(skillSelected, out bool hasCombo))
+		// if (_skillsWithComboMap.TryGetValue(skillSelected, out bool hasCombo))
+		var selectedSkill = _skillsComboMap.Find(x => x.skillName == skillSelected);
+		if (selectedSkill.hasCombo && !_isComboActive)
 		{
-			if (hasCombo && !_isComboActive)
-			{
-				Log.Debug($"Skill {skillSelected} has Combo - Starting Monitoring Combo");
-				GetViewport().SetInputAsHandled();
+			Log.Debug($"Skill {skillSelected} has Combo - Starting Monitoring Combo");
+			GetViewport().SetInputAsHandled();
 
-				ComboSequenceStart(_skillsComboSequence[skillSelected]);
-				foreach (string key in _skillsComboSequence[skillSelected])
-				{
-					_comboKeyContaier.AddComboKey(key);
-				}
+			// ComboSequenceStart(_skillsComboSequence[skillSelected]);
+			ComboSequenceStart(selectedSkill.comboSequence);
+			foreach (string key in selectedSkill.comboSequence)
+			{
+				_comboKeyContaier.AddComboKey(key);
 			}
 		}
 	}
-
 
 	#endregion TEMP CODE - PROTOTYPE ONLY
 

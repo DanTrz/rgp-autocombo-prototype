@@ -14,7 +14,7 @@ unique_name_in_owner = true
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
+offset_top = -62.0
 offset_right = 302.0
 grow_vertical = 0
 
@@ -34,6 +34,9 @@ text = "Attack2 - No Combo
 
 [node name="Label" type="Label" parent="DebugUIComboSystem/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.821789, 0.821789, 0.821789, 1)
+theme_override_colors/font_outline_color = Color(0.0687983, 0.0687983, 0.0687983, 1)
 text = "Active Combo Sequence"
 
 [node name="ComboKeysContainer" type="FlowContainer" parent="DebugUIComboSystem/VBoxContainer"]
