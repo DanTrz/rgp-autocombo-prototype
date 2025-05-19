@@ -1,7 +1,9 @@
 using Godot;
 
-public partial class PlayerJumpState : PlayerState, IState
+public partial class PlayerJumpState : PlayerBaseState, ICharacterState
 {
+    public override Const.CharactersEnums.States StateName { get; set; } = Const.CharactersEnums.States.PLAYER_JUMP_STATE;
+
     [Export] public float JumpVelocity = 6.0f;
 
     // public Vector2 direction = Vector2.Zero;
@@ -33,9 +35,9 @@ public partial class PlayerJumpState : PlayerState, IState
 
     private void ManageJumpState(double delta)
     {
-        if (characterNode == null) return;
+        if (_characterNode == null) return;
 
-        if (characterNode.IsOnFloor())//JUMP
+        if (_characterNode.IsOnFloor())//JUMP
         {
             //characterNode.Velocity += characterNode.GetGravity() * JumpVelocity * (float)delta;
             //velocity.Y = JumpVelocity;
@@ -45,15 +47,15 @@ public partial class PlayerJumpState : PlayerState, IState
             // velocity.Y = JumpVelocity;
             // characterNode.Velocity = velocity;
 
-            characterNode.Velocity = new Vector3(
-                characterNode.Velocity.X * jumpForwardSlowRate,
+            _characterNode.Velocity = new Vector3(
+                _characterNode.Velocity.X * jumpForwardSlowRate,
                 JumpVelocity,
-                characterNode.Velocity.Z * jumpForwardSlowRate);
+                _characterNode.Velocity.Z * jumpForwardSlowRate);
 
-            characterNode.MoveAndSlide();
+            _characterNode.MoveAndSlide();
         }
 
-        if (!characterNode.IsOnFloor())//FALL
+        if (!_characterNode.IsOnFloor())//FALL
         {
             TransitionToFall(delta);
         }
@@ -99,7 +101,7 @@ public partial class PlayerJumpState : PlayerState, IState
     private void TransitionToFall(double delta)
     {
 
-        EmitStateTransition(this, Const.PLAYER_FALL_STATE, characterNode);
+        EmitStateTransition(this, Const.CharactersEnums.States.PLAYER_FALL_STATE, _characterNode);//Const.CharacterStates.States.PLAYER_FALL_STATE, _characterNode);
 
     }
 

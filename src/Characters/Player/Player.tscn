@@ -1,0 +1,521 @@
+[gd_scene load_steps=36 format=3 uid="uid://bgl60s3lk782m"]
+
+[ext_resource type="Script" uid="uid://cacru6rngrblp" path="res://src/Characters/Player/Player.cs" id="1_dccqb"]
+[ext_resource type="PackedScene" uid="uid://co43x2woraq8u" path="res://src/Characters/Player/PlayerStates/StateMachineManagerCS.tscn" id="2_1gqxp"]
+[ext_resource type="Script" uid="uid://djucnayndubaf" path="res://src/Characters/Player/PlayerStates/PlayerWalkState.cs" id="3_leb0m"]
+[ext_resource type="Script" uid="uid://0bc13py14r7o" path="res://src/Characters/Player/PlayerStates/PlayerIdleState.cs" id="4_od3vv"]
+[ext_resource type="Script" uid="uid://diigiyilrn1dh" path="res://src/Characters/Player/PlayerStates/PlayerJumpState.cs" id="5_hnn2c"]
+[ext_resource type="Script" uid="uid://bxklq4qvcnp54" path="res://src/Characters/Player/PlayerStates/PlayerFallState.cs" id="6_hkqm1"]
+[ext_resource type="Texture2D" uid="uid://ddr4k6180ribr" path="res://src/Characters/Player/PlayerSprites/SpriteSheet_World_Anya_TealBlue v8_UpdatedSettings.png" id="7_kq2lw"]
+[ext_resource type="PackedScene" uid="uid://cib4j7yjiceer" path="res://src/BattleComponents/ComboSystem/ComboManager.tscn" id="8_qjua4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fxi4e"]
+radius = 0.4
+
+[sub_resource type="Animation" id="Animation_v1xub"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [16]
+}
+
+[sub_resource type="Animation" id="Animation_vs18o"]
+resource_name = "idle_east"
+length = 1.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 3]
+}
+
+[sub_resource type="Animation" id="Animation_fdats"]
+resource_name = "idle_north"
+length = 1.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [8, 11]
+}
+
+[sub_resource type="Animation" id="Animation_tcvsb"]
+resource_name = "idle_north_east"
+length = 1.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [4, 7]
+}
+
+[sub_resource type="Animation" id="Animation_a1cfe"]
+resource_name = "idle_north_west"
+length = 1.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [12, 15]
+}
+
+[sub_resource type="Animation" id="Animation_qihuj"]
+resource_name = "idle_south"
+length = 1.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [24, 27]
+}
+
+[sub_resource type="Animation" id="Animation_1v5xo"]
+resource_name = "idle_south_east"
+length = 1.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [28, 31]
+}
+
+[sub_resource type="Animation" id="Animation_m6gql"]
+resource_name = "idle_south_west"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [20, 23]
+}
+
+[sub_resource type="Animation" id="Animation_k7fbb"]
+resource_name = "idle_west"
+length = 1.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [16, 19]
+}
+
+[sub_resource type="Animation" id="Animation_foiw0"]
+resource_name = "run_east"
+length = 0.55
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [72, 77]
+}
+
+[sub_resource type="Animation" id="Animation_kyxvb"]
+resource_name = "run_north"
+length = 0.55
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [84, 89]
+}
+
+[sub_resource type="Animation" id="Animation_ph12p"]
+resource_name = "run_north_east"
+length = 0.55
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [78, 83]
+}
+
+[sub_resource type="Animation" id="Animation_mdq8m"]
+resource_name = "run_north_west"
+length = 0.55
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [90, 95]
+}
+
+[sub_resource type="Animation" id="Animation_2amuh"]
+resource_name = "run_south"
+length = 0.55
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [108, 113]
+}
+
+[sub_resource type="Animation" id="Animation_jaiy6"]
+resource_name = "run_south_east"
+length = 0.55
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [114, 119]
+}
+
+[sub_resource type="Animation" id="Animation_13ujd"]
+resource_name = "run_south_west"
+length = 0.55
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [102, 107]
+}
+
+[sub_resource type="Animation" id="Animation_hb2dq"]
+resource_name = "run_west"
+length = 0.55
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [96, 101]
+}
+
+[sub_resource type="Animation" id="Animation_jdjjp"]
+resource_name = "walk_right"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [32, 36]
+}
+
+[sub_resource type="Animation" id="Animation_jv56p"]
+resource_name = "walk_up"
+length = 0.8
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [42, 46]
+}
+
+[sub_resource type="Animation" id="Animation_mt2v5"]
+resource_name = "walk_north_east"
+length = 0.8
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [37, 41]
+}
+
+[sub_resource type="Animation" id="Animation_2ukk1"]
+resource_name = "walk_north_west"
+length = 0.8
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [47, 51]
+}
+
+[sub_resource type="Animation" id="Animation_ohuqm"]
+resource_name = "walk_down"
+length = 0.8
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [62, 66]
+}
+
+[sub_resource type="Animation" id="Animation_03v20"]
+resource_name = "walk_south_east"
+length = 0.8
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [67, 71]
+}
+
+[sub_resource type="Animation" id="Animation_40bqp"]
+resource_name = "walk_south_west"
+length = 0.8
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [57, 61]
+}
+
+[sub_resource type="Animation" id="Animation_0pajg"]
+resource_name = "walk_left"
+length = 0.8
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2DWorld:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [52, 56]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_buopq"]
+_data = {
+&"RESET": SubResource("Animation_v1xub"),
+&"idle_east": SubResource("Animation_vs18o"),
+&"idle_north": SubResource("Animation_fdats"),
+&"idle_north_east": SubResource("Animation_tcvsb"),
+&"idle_north_west": SubResource("Animation_a1cfe"),
+&"idle_south": SubResource("Animation_qihuj"),
+&"idle_south_east": SubResource("Animation_1v5xo"),
+&"idle_south_west": SubResource("Animation_m6gql"),
+&"idle_west": SubResource("Animation_k7fbb"),
+&"run_east": SubResource("Animation_foiw0"),
+&"run_north": SubResource("Animation_kyxvb"),
+&"run_north_east": SubResource("Animation_ph12p"),
+&"run_north_west": SubResource("Animation_mdq8m"),
+&"run_south": SubResource("Animation_2amuh"),
+&"run_south_east": SubResource("Animation_jaiy6"),
+&"run_south_west": SubResource("Animation_13ujd"),
+&"run_west": SubResource("Animation_hb2dq"),
+&"walk_east": SubResource("Animation_jdjjp"),
+&"walk_north": SubResource("Animation_jv56p"),
+&"walk_north_east": SubResource("Animation_mt2v5"),
+&"walk_north_west": SubResource("Animation_2ukk1"),
+&"walk_south": SubResource("Animation_ohuqm"),
+&"walk_south_east": SubResource("Animation_03v20"),
+&"walk_south_west": SubResource("Animation_40bqp"),
+&"walk_west": SubResource("Animation_0pajg")
+}
+
+[node name="Player" type="CharacterBody3D" groups=["character"]]
+collision_layer = 2
+collision_mask = 15
+script = ExtResource("1_dccqb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_fxi4e")
+
+[node name="AnimationPlayerWorld" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_buopq")
+}
+playback_auto_capture_ease_type = 2
+playback_default_blend_time = 0.01
+next/idle_east = &"run_east"
+blend_times = [&"walk_south", &"idle_east", 0.5, &"walk_south", &"idle_north", 0.5, &"walk_south", &"idle_north_east", 0.5, &"walk_south", &"idle_north_west", 0.5, &"walk_south", &"idle_south", 0.5, &"walk_south", &"idle_south_east", 0.5, &"walk_south", &"idle_south_west", 0.5, &"walk_south", &"idle_west", 0.5, &"walk_south", &"run_east", 0.5, &"walk_south", &"run_north", 0.5, &"walk_south", &"run_north_east", 0.5, &"walk_south", &"run_north_west", 0.5, &"walk_south", &"run_south", 0.5, &"walk_south", &"run_south_east", 0.5, &"walk_south", &"run_south_west", 0.5, &"walk_south", &"run_west", 0.5]
+
+[node name="StateMachineManager" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("2_1gqxp")]
+_initialState = NodePath("PlayerIdleState")
+
+[node name="PlayerWalkState" type="Node" parent="StateMachineManager"]
+script = ExtResource("3_leb0m")
+WalkSpeed = 10.0
+
+[node name="PlayerIdleState" type="Node" parent="StateMachineManager"]
+script = ExtResource("4_od3vv")
+
+[node name="PlayerJumpState" type="Node" parent="StateMachineManager"]
+script = ExtResource("5_hnn2c")
+JumpVelocity = 7.0
+jumpForwardSlowRate = null
+
+[node name="PlayerFallState" type="Node" parent="StateMachineManager"]
+script = ExtResource("6_hkqm1")
+fallSpeed = 1.5
+
+[node name="Sprite2DWorld" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+billboard = 1
+texture_filter = 0
+texture = ExtResource("7_kq2lw")
+hframes = 16
+vframes = 12
+frame = 16
+
+[node name="ComboManager" parent="." instance=ExtResource("8_qjua4")]

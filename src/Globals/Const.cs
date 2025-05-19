@@ -1,14 +1,44 @@
 public static class Const
 {
+    public class CharactersEnums
+    {
+        public enum States
+        {
+            //COMMON STATES
+            IN_BATTLE_STATE, IN_PREBATTLE_STATE,
 
+            //PLAYER STATES
+            PLAYER_IDLE_STATE, PLAYER_WALK_STATE, PLAYER_FALL_STATE, PLAYER_JUMP_STATE,
+
+            //ENEMY STATES
+            ENEMY_IDLE_STATE, ENEMY_WALK_STATE, ENEMY_FALL_STATE,
+        };
+
+
+    }
+    // public class PlayerStates
+    // {
+    //     public const string PLAYER_WALK_STATE = "PlayerWalkState";
+    //     public const string PLAYER_IDLE_STATE = "PlayerIdleState";
+    //     public const string PLAYER_FALL_STATE = "PlayerFallState";
+    //     public const string PLAYER_JUMP_STATE = "PlayerJumpState";
+    //     public const string RUN_STATE = "PlayerRunState";
+
+    // }
+
+    // public class EnemyStates
+    // {
+    //     public const string BATTLE_LOADING_STATE = "battleloading";
+    //     public const string IN_BATTLE_STATE = "inbattle";
+    //     public const string PLAYER_WALK_STATE = "EnemyWalkState";
+    //     public const string PLAYER_IDLE_STATE = "EnemyIdleState";
+    //     public const string PLAYER_FALL_STATE = "EnemyFallState";
+    //     public const string PLAYER_JUMP_STATE = "EnemyJumpState";
+    //     public const string RUN_STATE = "EnemyRunState";
+
+    // }
     // STATES
-    public const string BATTLE_LOADING_STATE = "battleloading";
-    public const string IN_BATTLE_STATE = "inbattle";
-    public const string PLAYER_WALK_STATE = "PlayerWalkState";
-    public const string PLAYER_IDLE_STATE = "PlayerIdleState";
-    public const string PLAYER_FALL_STATE = "PlayerFallState";
-    public const string PLAYER_JUMP_STATE = "PlayerJumpState";
-    public const string RUN_STATE = "PlayerRunState";
+
 
 
     // public static class Models

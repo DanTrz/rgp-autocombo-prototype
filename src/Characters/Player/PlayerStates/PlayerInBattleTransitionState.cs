@@ -1,5 +1,8 @@
-public partial class PlayerInBattleTransitionState : PlayerState, IState
+public partial class PlayerInBattleTransitionState : PlayerBaseState, ICharacterState
 {
+
+    public override Const.CharactersEnums.States StateName { get; set; } = Const.CharactersEnums.States.IN_PREBATTLE_STATE;
+
     public override void Enter()
     {
         Log.Info("CS BatteTransition State Entered");

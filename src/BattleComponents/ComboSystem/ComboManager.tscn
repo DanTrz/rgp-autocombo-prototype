@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://cib4j7yjiceer"]
+
+[ext_resource type="Script" uid="uid://dithpcmu3b6vf" path="res://src/BattleComponents/ComboSystem/ComboManager.cs" id="1_cly13"]
+[ext_resource type="Script" uid="uid://v4tsdn47re4u" path="res://src/BattleComponents/ComboSystem/ComboKeysContainer.cs" id="2_2p4ey"]
+[ext_resource type="PackedScene" uid="uid://cej78u7rano31" path="res://src/UIControls/ComboKeyUI.tscn" id="3_5hbau"]
+
+[node name="ComboManager" type="Node"]
+script = ExtResource("1_cly13")
+
+[node name="DebugUIComboSystem" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugUIComboSystem"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 302.0
+grow_vertical = 0
+
+[node name="Buttons" type="HBoxContainer" parent="DebugUIComboSystem/VBoxContainer"]
+layout_mode = 2
+
+[node name="Attack1" type="Button" parent="DebugUIComboSystem/VBoxContainer/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Attack1 - Combo"
+
+[node name="Attack2" type="Button" parent="DebugUIComboSystem/VBoxContainer/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Attack2 - No Combo
+"
+
+[node name="Label" type="Label" parent="DebugUIComboSystem/VBoxContainer"]
+layout_mode = 2
+text = "Active Combo Sequence"
+
+[node name="ComboKeysContainer" type="FlowContainer" parent="DebugUIComboSystem/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("2_2p4ey")
+_comboKeyUiPackedScene = ExtResource("3_5hbau")
+
+[node name="ComboTotalTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="ComboKeyPressTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true

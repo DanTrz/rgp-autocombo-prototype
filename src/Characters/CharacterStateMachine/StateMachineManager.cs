@@ -1,18 +1,16 @@
-using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
 
 public partial class StateMachineManager : Node
 {
 
-    public State CurrentState { get; set; }
-    protected Dictionary<string, State> StatesList = new();
-    [Export] public State _initialState { get; set; }
+    public CharacterBaseState CurrentState { get; set; }
+    protected Dictionary<Const.CharactersEnums.States, CharacterBaseState> _statesList = new();
+    [Export] private CharacterBaseState _initialState { get; set; }
 
     // [OnReady("/root/Globals")]
-    private Player3D _currentPlayer { get; set; }
-
-    GDScript MyGDScript { get; set; }
+    private BaseCharacter _currentCharacter { get; set; }
 
 
     public StateMachineManager()
@@ -22,18 +20,14 @@ public partial class StateMachineManager : Node
 
     public override void _Ready()
     {
-        Log.Info("State Machine Manager READY");
+        Log.Info($"{GetOwner().Name} : State Machine Manager READY");
 
-        // GDNodeGlobals = GetNode<Node>("/root/Globals");
-
-        foreach (var node in GetChildren()) //foreach (State states in GetChildren())
+        foreach (var node in GetChildren())
         {
-            State state = GetNodeOrNull<State>(node.Name.ToString());
-
-            if (state is State)
+            if (node is CharacterBaseState _characterState)
             {
-                StatesList.Add(node.Name.ToString().ToLower(), state);
-                state.OnStateTransition += OnStateTransition;
+                _statesList.Add(_characterState.StateName, _characterState);
+                _characterState.OnStateTransition += OnCharacterStateTransition;
             }
         }
 
@@ -56,9 +50,9 @@ public partial class StateMachineManager : Node
             CurrentState.ProcessUpdate(delta);
         }
 
-        if (_currentPlayer != null)
+        if (_currentCharacter != null)
         {
-            UpdatePlayerGlobals(_currentPlayer, delta);
+            UpdatePlayerGlobals(_currentCharacter, delta);
         }
     }
 
@@ -68,34 +62,32 @@ public partial class StateMachineManager : Node
         if (CurrentState != null)
         {
             CurrentState.PhysicsUpdate(delta);
-
-            // update__player_globals(current_player, delta)
-
         }
     }
 
-
-    private void OnStateTransition(State currentState, string NewStateName, Player3D character)
+    private void OnCharacterStateTransition(CharacterBaseState currentState, Const.CharactersEnums.States NewStateName, BaseCharacter character)
     {
         if (currentState != CurrentState) { return; } //No need to switch states
 
-        State NextState = StatesList.Where((state) => state.Key == NewStateName.ToLower()).FirstOrDefault().Value;
+        // CharacterState _nextState = StatesList.Where((state) => state.Key == NewStateName.ToLower()).FirstOrDefault().Value;
+        CharacterBaseState _nextState = _statesList.Where((state) => state.Value.StateName == NewStateName).FirstOrDefault().Value;
+
 
         if (CurrentState != null)
         {
             CurrentState.Exit();
-            CurrentState = NextState;
+            CurrentState = _nextState;
             CurrentState.Enter();
         }
 
         if (character != null)
         {
-            _currentPlayer = character;
+            _currentCharacter = character;
         }
 
     }
 
-    private void UpdatePlayerGlobals(Player3D currentPlayer, double delta)
+    private void UpdatePlayerGlobals(BaseCharacter currentPlayer, double delta)
     {
         if (currentPlayer != null)
         {

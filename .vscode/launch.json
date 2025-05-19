@@ -13,7 +13,7 @@
       "preLaunchTask": "dotnet: build",
       "program": "C:/Local Documents/Development/Godot/Godot Versions/Godot_v4.4.1-stable_mono_win64/Godot_v4.4.1-stable_mono_win64.exe",
       "args": [
-        // "--debug-collisions",
+        //"--debug-collisions",
         // "--debug-paths",
         // "--debug-navigation",
         //"--verbose",

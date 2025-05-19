@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ddr4k6180ribr"
-path.s3tc="res://.godot/imported/SpriteSheet_World_Anya_TealBlue v8_UpdatedSettings.png-6c30eb34993da6edec048488b72fa447.s3tc.ctex"
+path.s3tc="res://.godot/imported/SpriteSheet_World_Anya_TealBlue v8_UpdatedSettings.png-826581ef56fdeaac0c672b467c892d71.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://src/Player/PlayerSprites/SpriteSheet_World_Anya_TealBlue v8_UpdatedSettings.png"
-dest_files=["res://.godot/imported/SpriteSheet_World_Anya_TealBlue v8_UpdatedSettings.png-6c30eb34993da6edec048488b72fa447.s3tc.ctex"]
+source_file="res://src/Characters/Player/PlayerSprites/SpriteSheet_World_Anya_TealBlue v8_UpdatedSettings.png"
+dest_files=["res://.godot/imported/SpriteSheet_World_Anya_TealBlue v8_UpdatedSettings.png-826581ef56fdeaac0c672b467c892d71.s3tc.ctex"]
 
 [params]
 

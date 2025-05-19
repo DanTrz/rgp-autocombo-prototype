@@ -1,12 +1,10 @@
-[gd_scene load_steps=35 format=3 uid="uid://bgl60s3lk782m"]
+[gd_scene load_steps=33 format=3 uid="uid://biaog6mroxjei"]
 
-[ext_resource type="Script" uid="uid://to3t0s45hpwe" path="res://src/Player/Player3D.cs" id="1_ilqo4"]
-[ext_resource type="PackedScene" uid="uid://co43x2woraq8u" path="res://src/Player/PlayerStateMachine/StateMachineManagerCS.tscn" id="2_1gqxp"]
-[ext_resource type="Script" uid="uid://djucnayndubaf" path="res://src/Player/PlayerStateMachine/PlayerWalkState.cs" id="3_leb0m"]
-[ext_resource type="Script" uid="uid://0bc13py14r7o" path="res://src/Player/PlayerStateMachine/PlayerIdleState.cs" id="4_od3vv"]
-[ext_resource type="Script" uid="uid://diigiyilrn1dh" path="res://src/Player/PlayerStateMachine/PlayerJumpState.cs" id="5_hnn2c"]
-[ext_resource type="Script" uid="uid://bxklq4qvcnp54" path="res://src/Player/PlayerStateMachine/PlayerFallState.cs" id="6_hkqm1"]
-[ext_resource type="Texture2D" uid="uid://ddr4k6180ribr" path="res://src/Player/PlayerSprites/SpriteSheet_World_Anya_TealBlue v8_UpdatedSettings.png" id="7_kq2lw"]
+[ext_resource type="Script" uid="uid://cacru6rngrblp" path="res://src/Characters/Player/Player.cs" id="1_g8w1u"]
+[ext_resource type="PackedScene" uid="uid://co43x2woraq8u" path="res://src/Characters/Player/PlayerStates/StateMachineManagerCS.tscn" id="2_srx6x"]
+[ext_resource type="Script" uid="uid://d1e50tkd70bfn" path="res://src/Characters/Enemy/EnemyStates/EnemyIdleState.cs" id="3_e4ifr"]
+[ext_resource type="Script" uid="uid://ip7mw47w0l2" path="res://src/Characters/Enemy/EnemyStates/EnemyFallState.cs" id="4_g1k0j"]
+[ext_resource type="Texture2D" uid="uid://ddr4k6180ribr" path="res://src/Characters/Player/PlayerSprites/SpriteSheet_World_Anya_TealBlue v8_UpdatedSettings.png" id="7_8yq1j"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fxi4e"]
 radius = 0.4
@@ -471,14 +469,15 @@ _data = {
 &"walk_west": SubResource("Animation_0pajg")
 }
 
-[node name="Player3D" type="CharacterBody3D" node_paths=PackedStringArray("stateMachineManager")]
-script = ExtResource("1_ilqo4")
-stateMachineManager = NodePath("StateMachineManagerCS")
+[node name="Enemy" type="CharacterBody3D" groups=["character"]]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_g8w1u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_fxi4e")
 
-[node name="AnimationPlayerWorld" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_buopq")
@@ -488,28 +487,21 @@ playback_default_blend_time = 0.01
 next/idle_east = &"run_east"
 blend_times = [&"walk_south", &"idle_east", 0.5, &"walk_south", &"idle_north", 0.5, &"walk_south", &"idle_north_east", 0.5, &"walk_south", &"idle_north_west", 0.5, &"walk_south", &"idle_south", 0.5, &"walk_south", &"idle_south_east", 0.5, &"walk_south", &"idle_south_west", 0.5, &"walk_south", &"idle_west", 0.5, &"walk_south", &"run_east", 0.5, &"walk_south", &"run_north", 0.5, &"walk_south", &"run_north_east", 0.5, &"walk_south", &"run_north_west", 0.5, &"walk_south", &"run_south", 0.5, &"walk_south", &"run_south_east", 0.5, &"walk_south", &"run_south_west", 0.5, &"walk_south", &"run_west", 0.5]
 
-[node name="StateMachineManagerCS" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("2_1gqxp")]
-_initialState = NodePath("PlayerIdleState")
+[node name="StateMachineManager" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("2_srx6x")]
+_initialState = NodePath("EnemyIdleState")
 
-[node name="PlayerWalkState" type="Node" parent="StateMachineManagerCS"]
-script = ExtResource("3_leb0m")
+[node name="EnemyIdleState" type="Node" parent="StateMachineManager"]
+script = ExtResource("3_e4ifr")
 
-[node name="PlayerIdleState" type="Node" parent="StateMachineManagerCS"]
-script = ExtResource("4_od3vv")
-
-[node name="PlayerJumpState" type="Node" parent="StateMachineManagerCS"]
-script = ExtResource("5_hnn2c")
-JumpVelocity = 7.0
-
-[node name="PlayerFallState" type="Node" parent="StateMachineManagerCS"]
-script = ExtResource("6_hkqm1")
-fallSpeed = 1.5
+[node name="EnemyFallState" type="Node" parent="StateMachineManager"]
+script = ExtResource("4_g1k0j")
 
 [node name="Sprite2DWorld" type="Sprite3D" parent="."]
 unique_name_in_owner = true
+modulate = Color(1, 0, 0, 1)
 billboard = 1
 texture_filter = 0
-texture = ExtResource("7_kq2lw")
+texture = ExtResource("7_8yq1j")
 hframes = 16
 vframes = 12
 frame = 16

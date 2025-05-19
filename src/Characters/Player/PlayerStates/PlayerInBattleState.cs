@@ -1,5 +1,7 @@
-public partial class PlayerInBattleState : PlayerState, IState
+public partial class PlayerInBattleState : PlayerBaseState, ICharacterState
 {
+    public override Const.CharactersEnums.States StateName { get; set; } = Const.CharactersEnums.States.IN_BATTLE_STATE;
+
 
     public override void Enter()
     {

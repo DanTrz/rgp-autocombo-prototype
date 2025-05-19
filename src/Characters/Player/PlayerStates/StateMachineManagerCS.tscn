@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://co43x2woraq8u"]
 
-[ext_resource type="Script" uid="uid://dkom3a44gd151" path="res://src/Player/PlayerStateMachine/StateMachineManager.cs" id="1_gnsj1"]
+[ext_resource type="Script" uid="uid://dkom3a44gd151" path="res://src/Characters/CharacterStateMachine/StateMachineManager.cs" id="1_gnsj1"]
 
 [node name="StateMachineManagerCS" type="Node"]
 script = ExtResource("1_gnsj1")

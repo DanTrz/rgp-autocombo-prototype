@@ -1,12 +1,15 @@
 using Godot;
 
-public partial class PlayerFallState : PlayerState, IState
+public partial class PlayerFallState : PlayerBaseState, ICharacterState
 {
+    public override Const.CharactersEnums.States StateName { get; set; } = Const.CharactersEnums.States.PLAYER_FALL_STATE;
+
+
     [Export] public float fallSpeed = 10.0f;
     public override void Enter()
     {
 
-        Log.Info("CS Fall State Entered");
+        Log.Info($" {_characterNode.Name} - Fall State Entered");
     }
 
     public override void Exit()
@@ -27,23 +30,24 @@ public partial class PlayerFallState : PlayerState, IState
 
     private void ManageFallState(double delta)
     {
-        if (characterNode == null) return;
+        if (_characterNode == null) return;
 
-        if (!characterNode.IsOnFloor())//FALLing - Apply Gravity
+        if (!_characterNode.IsOnFloor())//FALLing - Apply Gravity
         {
-            characterNode.Velocity += characterNode.GetGravity() * fallSpeed * (float)delta;
+            _characterNode.Velocity += _characterNode.GetGravity() * fallSpeed * (float)delta;
             // characterNode.Velocity = new Vector3((characterNode.Velocity.X / 2), (characterNode.Velocity.Y / 2), (characterNode.Velocity.Z / 2));
 
-            characterNode.MoveAndSlide();
+            _characterNode.MoveAndSlide();
         }
 
-        if (characterNode.IsOnFloor())//landed
+        if (_characterNode.IsOnFloor())//landed
         {
             TransitionToIdle(delta);
 
         }
 
     }
+
 
     private void PlayFallAnimation()
     {
@@ -53,9 +57,9 @@ public partial class PlayerFallState : PlayerState, IState
     private void TransitionToIdle(double delta)
     {
 
-        if (characterNode.IsOnFloor())//HAS LANDED
+        if (_characterNode.IsOnFloor())//HAS LANDED
         {
-            EmitStateTransition(this, Const.PLAYER_IDLE_STATE, characterNode);
+            EmitStateTransition(this, Const.CharactersEnums.States.PLAYER_IDLE_STATE, _characterNode);
         }
 
     }

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cej78u7rano31"]
+
+[ext_resource type="Script" uid="uid://b43jy8gfmvulc" path="res://src/UIControls/ComboKeyUi.cs" id="1_i4afr"]
+
+[node name="ComboKeyUI" type="PanelContainer"]
+custom_minimum_size = Vector2(20, 20)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_i4afr")
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "A"
+horizontal_alignment = 1

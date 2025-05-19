@@ -1,10 +1,9 @@
+using Godot;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Godot;
 
 public static class GlobalUtil
 {
@@ -275,6 +274,23 @@ public static class GlobalUtil
         foreach (Node child in fromParentNode.GetChildren())
         {
             nodesFound.AddRange(GetAllChildNodesByType<T>(child));
+        }
+
+        return nodesFound;
+    }
+
+    /// <summary>
+    /// Returns all Nodes within a Group that matches type T. Does not search within child nodes
+    /// </summary>
+    public static List<T> GetNodesInGroupByType<T>(Node callerNode, string groupName) where T : Node
+    {
+        List<T> nodesFound = new List<T>();
+        foreach (Node nodeInGroup in callerNode.GetTree().GetNodesInGroup(groupName))
+        {
+            if (nodeInGroup is T typedNode)
+            {
+                nodesFound.Add(typedNode);
+            }
         }
 
         return nodesFound;

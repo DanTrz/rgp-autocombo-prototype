@@ -1,4 +1,4 @@
-public interface IState
+public interface ICharacterState
 {
     public void Enter();
     public void Exit();
