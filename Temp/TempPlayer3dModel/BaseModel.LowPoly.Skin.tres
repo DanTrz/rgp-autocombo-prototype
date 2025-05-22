@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c1g6mbhxp88w6"]
+
+[ext_resource type="Texture2D" uid="uid://dplwrj1ksvyxh" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_Ucupaint BaseModel.png" id="1_vai38"]
+
+[resource]
+resource_name = "BaseModel.LowPoly.Skin"
+cull_mode = 2
+albedo_texture = ExtResource("1_vai38")
+roughness = 0.5

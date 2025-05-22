@@ -4,14 +4,13 @@ public partial class EnemyIdleState : EnemyBaseState, ICharacterState
 {
     public override Const.CharactersEnums.States StateName { get; set; } = Const.CharactersEnums.States.ENEMY_IDLE_STATE;
 
-
     public override void Enter()
     {
-        Log.Info($" {_characterNode.Name} - Idle State Entered");
+        Log.Info($" {_charMainNode.Name} - Idle State Entered");
 
-        if (_characterNode.IsOnFloor())//landed
+        if (_charMainNode.IsOnFloor())//landed
         {
-            _characterNode.Velocity = Vector3.Zero;
+            _charMainNode.Velocity = Vector3.Zero;
         }
     }
 
@@ -35,17 +34,17 @@ public partial class EnemyIdleState : EnemyBaseState, ICharacterState
 
         PlayIdleAnimation();
 
-        if (_characterNode != null)
+        if (_charMainNode != null)
         {
             //Move to Fall State if not on Floor
-            if (!_characterNode.IsOnFloor())
+            if (!_charMainNode.IsOnFloor())
             {
-                EmitStateTransition(this, Const.CharactersEnums.States.ENEMY_FALL_STATE, _characterNode);
+                EmitStateTransition(this, Const.CharactersEnums.States.ENEMY_FALL_STATE, _charMainNode);
             }
 
-            if (_characterNode.IsOnFloor())
+            if (_charMainNode.IsOnFloor())
             {
-                _characterNode.Velocity = Vector3.Zero;
+                _charMainNode.Velocity = Vector3.Zero;
             }
         }
 

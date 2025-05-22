@@ -1,5 +1,5 @@
-using Godot;
 using System;
+using Godot;
 
 public partial class GlobalEvents : Node
 {
@@ -12,13 +12,13 @@ public partial class GlobalEvents : Node
     public static Action<Node, Node[], Node[]> OnBattleEnding;
     public static Action<Node[]> OnBattleLootDropped; //TODO replace with  //Array[InventorySlotData]
 
-    public string GetLookDirectionCardinal(Vector2 direction)
+    public string GetLookDirection2DCardinal(Vector2 direction)
     {
-        float angle = DirectionVectorToAngle(direction);
+        float angle = DirectionVector2DToAngle(direction);
         return ConvertAngleToText(angle);
     }
 
-    private float DirectionVectorToAngle(Vector2 direction)
+    public float DirectionVector2DToAngle(Vector2 direction)
     {
         float angle360 = Mathf.RadToDeg(direction.Angle());
         if (angle360 < 0)

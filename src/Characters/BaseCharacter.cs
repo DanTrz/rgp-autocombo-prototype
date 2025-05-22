@@ -1,5 +1,5 @@
-using Godot;
 using System.Linq;
+using Godot;
 
 public abstract partial class BaseCharacter : CharacterBody3D
 {
@@ -14,6 +14,9 @@ public abstract partial class BaseCharacter : CharacterBody3D
     public virtual int BaseDamage { get; set; }
 
     public virtual StateMachineManager StateMachine { get; set; }
+
+
+    public virtual bool IsModel3D { get; set; } = false; //TODO: remove - this is just for testing the TEMP 3D Model
 
 
     public virtual void TakeDamage(int amount)

@@ -1,0 +1,37 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://f6uj4t8it7k8"
+path="res://.godot/imported/BaseModelHD_CLOTHED_Ucupaint ARM_SLEEVE Color.png-0fd342482f2daa44e0cb36ca75e0a513.ctex"
+metadata={
+"vram_texture": false
+}
+generator_parameters={
+"md5": "f0d33ba374ee3ad10b1c7017c5912b50"
+}
+
+[deps]
+
+source_file="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_Ucupaint ARM_SLEEVE Color.png"
+dest_files=["res://.godot/imported/BaseModelHD_CLOTHED_Ucupaint ARM_SLEEVE Color.png-0fd342482f2daa44e0cb36ca75e0a513.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

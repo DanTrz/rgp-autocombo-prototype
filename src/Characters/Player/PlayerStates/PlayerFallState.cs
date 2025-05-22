@@ -9,7 +9,7 @@ public partial class PlayerFallState : PlayerBaseState, ICharacterState
     public override void Enter()
     {
 
-        Log.Info($" {_characterNode.Name} - Fall State Entered");
+        Log.Info($" {_charMainNode.Name} - Fall State Entered");
     }
 
     public override void Exit()
@@ -30,17 +30,17 @@ public partial class PlayerFallState : PlayerBaseState, ICharacterState
 
     private void ManageFallState(double delta)
     {
-        if (_characterNode == null) return;
+        if (_charMainNode == null) return;
 
-        if (!_characterNode.IsOnFloor())//FALLing - Apply Gravity
+        if (!_charMainNode.IsOnFloor())//FALLing - Apply Gravity
         {
-            _characterNode.Velocity += _characterNode.GetGravity() * fallSpeed * (float)delta;
+            _charMainNode.Velocity += _charMainNode.GetGravity() * fallSpeed * (float)delta;
             // characterNode.Velocity = new Vector3((characterNode.Velocity.X / 2), (characterNode.Velocity.Y / 2), (characterNode.Velocity.Z / 2));
 
-            _characterNode.MoveAndSlide();
+            _charMainNode.MoveAndSlide();
         }
 
-        if (_characterNode.IsOnFloor())//landed
+        if (_charMainNode.IsOnFloor())//landed
         {
             TransitionToIdle(delta);
 
@@ -57,9 +57,9 @@ public partial class PlayerFallState : PlayerBaseState, ICharacterState
     private void TransitionToIdle(double delta)
     {
 
-        if (_characterNode.IsOnFloor())//HAS LANDED
+        if (_charMainNode.IsOnFloor())//HAS LANDED
         {
-            EmitStateTransition(this, Const.CharactersEnums.States.PLAYER_IDLE_STATE, _characterNode);
+            EmitStateTransition(this, Const.CharactersEnums.States.PLAYER_IDLE_STATE, _charMainNode);
         }
 
     }

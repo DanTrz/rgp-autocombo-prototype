@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://df0rnid05puse"]
+
+[ext_resource type="Texture2D" uid="uid://dxf260qm7ng63" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_HAIR BASE Layer.png" id="1_djrxu"]
+
+[resource]
+resource_name = "HAIR"
+cull_mode = 2
+albedo_texture = ExtResource("1_djrxu")
+metallic = 1.0

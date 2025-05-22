@@ -495,7 +495,8 @@ _initialState = NodePath("PlayerIdleState")
 
 [node name="PlayerWalkState" type="Node" parent="StateMachineManager"]
 script = ExtResource("3_leb0m")
-WalkSpeed = 10.0
+WalkSpeed = 15.0
+WalkAcceleration = 50.0
 
 [node name="PlayerIdleState" type="Node" parent="StateMachineManager"]
 script = ExtResource("4_od3vv")

@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cthr34br8lva1"]
+
+[ext_resource type="Texture2D" uid="uid://f6uj4t8it7k8" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_Ucupaint ARM_SLEEVE Color.png" id="1_5s5pu"]
+
+[resource]
+resource_name = "ARM_SLEEVE"
+cull_mode = 2
+albedo_texture = ExtResource("1_5s5pu")

@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b0r3sq4m0c8c6"]
+
+[ext_resource type="Texture2D" uid="uid://c7mc0p8fykcph" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_LEGS Layer.png" id="1_3ed6e"]
+
+[resource]
+resource_name = "LEGS"
+cull_mode = 2
+albedo_texture = ExtResource("1_3ed6e")
+metallic = 1.0

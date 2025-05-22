@@ -6,11 +6,11 @@ public partial class PlayerIdleState : PlayerBaseState, ICharacterState
 
     public override void Enter()
     {
-        Log.Info($" {_characterNode.Name} - Idle State Entered");
+        //Log.Info($" {_characterNode.Name} - Idle State Entered");
 
-        if (_characterNode.IsOnFloor())//landed
+        if (_charMainNode.IsOnFloor())//landed
         {
-            _characterNode.Velocity = Vector3.Zero;
+            _charMainNode.Velocity = Vector3.Zero;
         }
     }
 
@@ -33,29 +33,29 @@ public partial class PlayerIdleState : PlayerBaseState, ICharacterState
     {
         PlayIdleAnimation();
 
-        if (_characterNode != null)
+        if (_charMainNode != null)
         {
             //Move to Fall State if not on Floor
-            if (!_characterNode.IsOnFloor())
+            if (!_charMainNode.IsOnFloor())
             {
-                EmitStateTransition(this, Const.CharactersEnums.States.PLAYER_FALL_STATE, _characterNode);
+                EmitStateTransition(this, Const.CharactersEnums.States.PLAYER_FALL_STATE, _charMainNode);
             }
 
-            if (_characterNode.IsOnFloor())
+            if (_charMainNode.IsOnFloor())
             {
-                _characterNode.Velocity = Vector3.Zero;
+                _charMainNode.Velocity = Vector3.Zero;
             }
 
             Vector2 _inputDirection = Input.GetVector("left", "right", "up", "down");
             //Log.Info($"inputDirection: {_inputDirection.ToString()} isOnFloor: {_characterNode.IsOnFloor()}");
 
-            if (_inputDirection != Vector2.Zero && _characterNode.IsOnFloor())
+            if (_inputDirection != Vector2.Zero && _charMainNode.IsOnFloor())
             {
-                EmitStateTransition(this, Const.CharactersEnums.States.PLAYER_WALK_STATE, _characterNode);
+                EmitStateTransition(this, Const.CharactersEnums.States.PLAYER_WALK_STATE, _charMainNode);
             }
-            else if (Input.IsActionJustPressed("jump") && _characterNode.IsOnFloor())
+            else if (Input.IsActionJustPressed("jump") && _charMainNode.IsOnFloor())
             {
-                Log.Info("Jump Pressed from idle state");
+                //Log.Info("Jump Pressed from idle state");
                 TransitionToJump();
             }
         }
@@ -64,9 +64,9 @@ public partial class PlayerIdleState : PlayerBaseState, ICharacterState
 
     private void TransitionToJump()
     {
-        if (_characterNode != null)
+        if (_charMainNode != null)
         {
-            EmitStateTransition(this, Const.CharactersEnums.States.PLAYER_JUMP_STATE, _characterNode);
+            EmitStateTransition(this, Const.CharactersEnums.States.PLAYER_JUMP_STATE, _charMainNode);
             //direction = Vector2.Zero;
         }
     }
@@ -74,36 +74,43 @@ public partial class PlayerIdleState : PlayerBaseState, ICharacterState
     private void PlayIdleAnimation()
     {
 
-        //string cardinalDirection = GDNodeGlobals.Get("player_look_cardinal_direction").ToString();
-        string cardinalDirection = GlobalEvents.Instance.GetLookDirectionCardinal(_direction);
-
-
-        switch (cardinalDirection)
+        if (_charMainNode.IsModel3D == true) //TODO: Refacot all of This. ADD IsModel3D CHECK AND ADD 3D ANIMATIONS CALLS.
         {
-            case "east":
-                _animPlayer.Play("idle_east");
-                break;
-            case "south_east":
-                _animPlayer.Play("idle_south_east");
-                break;
-            case "south":
-                _animPlayer.Play("idle_south");
-                break;
-            case "south_west":
-                _animPlayer.Play("idle_south_west");
-                break;
-            case "west":
-                _animPlayer.Play("idle_west");
-                break;
-            case "north_west":
-                _animPlayer.Play("idle_north_west");
-                break;
-            case "north":
-                _animPlayer.Play("idle_north");
-                break;
-            case "north_east":
-                _animPlayer.Play("idle_north_east");
-                break;
+
+            _animPlayer.Play("AnimPack_1/StandardIdle");
+        }
+        else
+        {
+
+            //string cardinalDirection = GDNodeGlobals.Get("player_look_cardinal_direction").ToString();
+            string cardinalDirection = GlobalEvents.Instance.GetLookDirection2DCardinal(_direction2D);
+            switch (cardinalDirection)
+            {
+                case "east":
+                    _animPlayer.Play("idle_east");
+                    break;
+                case "south_east":
+                    _animPlayer.Play("idle_south_east");
+                    break;
+                case "south":
+                    _animPlayer.Play("idle_south");
+                    break;
+                case "south_west":
+                    _animPlayer.Play("idle_south_west");
+                    break;
+                case "west":
+                    _animPlayer.Play("idle_west");
+                    break;
+                case "north_west":
+                    _animPlayer.Play("idle_north_west");
+                    break;
+                case "north":
+                    _animPlayer.Play("idle_north");
+                    break;
+                case "north_east":
+                    _animPlayer.Play("idle_north_east");
+                    break;
+            }
         }
 
     }

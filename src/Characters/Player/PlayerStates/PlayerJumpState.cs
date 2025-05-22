@@ -35,9 +35,9 @@ public partial class PlayerJumpState : PlayerBaseState, ICharacterState
 
     private void ManageJumpState(double delta)
     {
-        if (_characterNode == null) return;
+        if (_charMainNode == null) return;
 
-        if (_characterNode.IsOnFloor())//JUMP
+        if (_charMainNode.IsOnFloor())//JUMP
         {
             //characterNode.Velocity += characterNode.GetGravity() * JumpVelocity * (float)delta;
             //velocity.Y = JumpVelocity;
@@ -47,15 +47,15 @@ public partial class PlayerJumpState : PlayerBaseState, ICharacterState
             // velocity.Y = JumpVelocity;
             // characterNode.Velocity = velocity;
 
-            _characterNode.Velocity = new Vector3(
-                _characterNode.Velocity.X * jumpForwardSlowRate,
+            _charMainNode.Velocity = new Vector3(
+                _charMainNode.Velocity.X * jumpForwardSlowRate,
                 JumpVelocity,
-                _characterNode.Velocity.Z * jumpForwardSlowRate);
+                _charMainNode.Velocity.Z * jumpForwardSlowRate);
 
-            _characterNode.MoveAndSlide();
+            _charMainNode.MoveAndSlide();
         }
 
-        if (!_characterNode.IsOnFloor())//FALL
+        if (!_charMainNode.IsOnFloor())//FALL
         {
             TransitionToFall(delta);
         }
@@ -101,7 +101,7 @@ public partial class PlayerJumpState : PlayerBaseState, ICharacterState
     private void TransitionToFall(double delta)
     {
 
-        EmitStateTransition(this, Const.CharactersEnums.States.PLAYER_FALL_STATE, _characterNode);//Const.CharacterStates.States.PLAYER_FALL_STATE, _characterNode);
+        EmitStateTransition(this, Const.CharactersEnums.States.PLAYER_FALL_STATE, _charMainNode);//Const.CharacterStates.States.PLAYER_FALL_STATE, _characterNode);
 
     }
 

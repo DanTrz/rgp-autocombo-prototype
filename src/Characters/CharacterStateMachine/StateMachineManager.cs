@@ -4,12 +4,13 @@ using Godot;
 
 public partial class StateMachineManager : Node
 {
-
     public CharacterBaseState CurrentState { get; set; }
-    protected Dictionary<Const.CharactersEnums.States, CharacterBaseState> _statesList = new();
+    protected Dictionary<Const.CharactersEnums.States, CharacterBaseState> _statesList = [];
     [Export] private CharacterBaseState _initialState { get; set; }
 
-    // [OnReady("/root/Globals")]
+    /// <summary>
+    /// [OnReady("/root/Globals")]
+    /// </summary>
     private BaseCharacter _currentCharacter { get; set; }
 
 
@@ -22,7 +23,7 @@ public partial class StateMachineManager : Node
     {
         Log.Info($"{GetOwner().Name} : State Machine Manager READY");
 
-        foreach (var node in GetChildren())
+        foreach (Node node in GetChildren())
         {
             if (node is CharacterBaseState _characterState)
             {
@@ -45,10 +46,7 @@ public partial class StateMachineManager : Node
 
     public override void _Process(double delta)
     {
-        if (CurrentState != null)
-        {
-            CurrentState.ProcessUpdate(delta);
-        }
+        CurrentState?.ProcessUpdate(delta);
 
         if (_currentCharacter != null)
         {
@@ -59,10 +57,7 @@ public partial class StateMachineManager : Node
 
     public override void _PhysicsProcess(double delta)
     {
-        if (CurrentState != null)
-        {
-            CurrentState.PhysicsUpdate(delta);
-        }
+        CurrentState?.PhysicsUpdate(delta);
     }
 
     private void OnCharacterStateTransition(CharacterBaseState currentState, Const.CharactersEnums.States NewStateName, BaseCharacter character)
@@ -70,8 +65,8 @@ public partial class StateMachineManager : Node
         if (currentState != CurrentState) { return; } //No need to switch states
 
         // CharacterState _nextState = StatesList.Where((state) => state.Key == NewStateName.ToLower()).FirstOrDefault().Value;
-        CharacterBaseState _nextState = _statesList.Where((state) => state.Value.StateName == NewStateName).FirstOrDefault().Value;
-
+        //CharacterBaseState _nextState = _statesList.Where((state) => state.Value.StateName == NewStateName).FirstOrDefault().Value;
+        CharacterBaseState _nextState = _statesList.FirstOrDefault((state) => state.Value.StateName == NewStateName).Value;
 
         if (CurrentState != null)
         {
@@ -101,15 +96,13 @@ public partial class StateMachineManager : Node
                     // GDNodeGlobals.Call("set_player_look_cardinal_direction", CurrentState.direction, delta);
 
                 }
-
             }
         }
-
     }
 
     public override void _ExitTree()
     {
-        Log.Info("State Machine Manager EXITED_TREE");
+        //Log.Info("State Machine Manager EXITED_TREE");
         // GlobalEvents.OnBattleEnded -= OnBattleEnded;
         // GlobalEvents.OnBattleStarted -= OnBattleStarted;
         // GlobalEvents.OnBattleLoading -= OnBattleLoading;
@@ -128,19 +121,19 @@ public partial class StateMachineManager : Node
 
 
 
-    private void OnBattleLoading(Node areaNode, Node[] playersNodes, Node[] enemiesNodes)
+    private static void OnBattleLoading(Node areaNode, Node[] playersNodes, Node[] enemiesNodes)
     {
 
     }
 
 
-    private void OnBattleStarted(Node areaNode, Node[] playersNodes, Node[] enemiesNodes)
+    private static void OnBattleStarted(Node areaNode, Node[] playersNodes, Node[] enemiesNodes)
     {
 
     }
 
 
-    private void OnBattleEnded(Node areaNode, Node[] playersNodes, Node[] enemiesNodes)
+    private static void OnBattleEnded(Node areaNode, Node[] playersNodes, Node[] enemiesNodes)
     {
 
     }
