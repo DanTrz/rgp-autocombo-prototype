@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://wyue684b075p" path="res://src/Levels/BatteArea.cs" id="3_omubm"]
 [ext_resource type="PackedScene" uid="uid://biaog6mroxjei" path="res://src/Characters/Enemy/Enemy.tscn" id="4_bkap4"]
 [ext_resource type="PackedScene" uid="uid://cedw1iorowriy" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.tscn" id="5_2vb8y"]
-[ext_resource type="Shader" uid="uid://dpfl7bh0kjtl0" path="res://Assets/Shaders/edge_detection.gdshader" id="5_m58r2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_334cf"]
 
@@ -34,14 +33,105 @@ height = 0.01
 flip_faces = true
 size = Vector2(5, 5)
 
+[sub_resource type="Shader" id="Shader_2vb8y"]
+code = "// edge_highlight_shader.gdshader
+shader_type spatial;
+
+uniform vec4 albedo : source_color = vec4(1.0);
+uniform sampler2D albedo_texture : source_color,filter_linear_mipmap,repeat_enable;
+
+// For Toon Lighting (simplified from above)
+uniform int flags_shadow_steps :hint_range(1,5) = 2;
+uniform float toon_smoothness : hint_range(0.0, 1.0) = 0.01;
+uniform vec3 source_hint_direction_3d = vec3(0.5, 0.5, 1.0);
+
+// For Inner Highlights (Normal-based)
+uniform float inner_edge_threshold : hint_range(0.0, 1.0) = 0.5;
+uniform vec4 inner_highlight_color : source_color = vec4(1.0, 1.0, 0.0, 1.0); // Yellowish
+
+// For a simple Outer \"Edge\" Feel (Fresnel-like)
+uniform float fresnel_power : hint_range(0.1, 5.0) = 1.5;
+uniform vec4 fresnel_color : source_color = vec4(0.8, 0.8, 1.0, 1.0); // Light blueish
+
+varying vec3 v_world_normal;
+varying vec3 v_view_vector; // Vector from fragment to camera
+varying vec2 v_uv;
+varying vec3 v_vertex_world_pos;
+
+
+void vertex() {
+    v_uv = UV;
+    // World normal (ensure it handles non-uniform scale if any)
+    v_world_normal = normalize(mat3(MODEL_MATRIX) * NORMAL);
+    // If non-uniform scaling: v_world_normal = normalize(transpose(inverse(mat3(MODEL_MATRIX))) * NORMAL);
+
+    v_view_vector = normalize((inverse(CAMERA_MATRIX) * vec4(0.0, 0.0, 0.0, 1.0)).xyz - (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz);
+    v_vertex_world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+
+    // Standard position calculation
+    POSITION = PROJECTION_MATRIX * VIEW_MATRIX * MODEL_MATRIX * vec4(VERTEX, 1.0);
+}
+
+
+// Helper function to get normal from dFdx/dFdy (for inner edges)
+vec3 get_normal_from_derivatives(vec3 world_pos) {
+    return normalize(cross(dFdx(world_pos), dFdy(world_pos)));
+}
+
+
+void fragment() {
+    vec4 tex_color = texture(albedo_texture, v_uv);
+    vec4 base_albedo = albedo * tex_color;
+
+    vec3 N = normalize(v_world_normal); // Interpolated normal
+    vec3 V = normalize(v_view_vector);
+    vec3 L = normalize(light_dir);
+
+    // --- Toon Lighting ---
+    float n_dot_l = dot(N, L);
+    float diffuse_intensity = max(0.0, n_dot_l);
+    float steps = float(shadow_steps);
+    float stepped_diffuse = floor(diffuse_intensity * steps + toon_smoothness) / steps;
+    vec3 toon_lit_color = base_albedo.rgb * stepped_diffuse + (base_albedo.rgb * 0.1); // Base with ambient
+
+    // --- Inner Highlights (Normal Discontinuity) ---
+    // Compare the interpolated normal N with a normal derived from geometry changes
+    // This is a simplified way to detect sharp changes in surface normal.
+    // More robust methods might involve sampling neighbor normals if possible or using geometry shaders.
+    vec3 geometry_normal = get_normal_from_derivatives(v_vertex_world_pos);
+    float normal_diff = (1.0 - dot(N, geometry_normal)); // Higher value means more difference
+
+    vec3 final_color = toon_lit_color;
+
+    if (normal_diff > inner_edge_threshold) {
+        final_color = mix(final_color, inner_highlight_color.rgb, inner_highlight_color.a);
+    }
+
+    // --- Fresnel \"Edge\" Effect (can simulate outer highlight somewhat) ---
+    float fresnel_intensity = pow(1.0 - clamp(dot(N, V), 0.0, 1.0), fresnel_power);
+    final_color = mix(final_color, fresnel_color.rgb, fresnel_intensity * fresnel_color.a);
+
+
+    // --- Screen-space Depth Outline (More robust outer highlight) ---
+    // This part is typically done as a full-screen post-process shader on the SubViewport's texture.
+    // Accessing depth of neighbors directly in a material shader is not straightforward.
+    // However, the video mentions \"depth information of a pixel to its surrounding neighbors\".
+    // For a material shader, you could use SCREEN_TEXTURE with DEPTH_TEXTURE for some effects,
+    // but it's more limited than a dedicated post-process.
+
+    // Example of using SCREEN_UV and DEPTH_TEXTURE (needs depth prepass or opaque prepass enabled)
+    // float depth = texture(DEPTH_TEXTURE, SCREEN_UV).r;
+    // float depth_up = texture(DEPTH_TEXTURE, SCREEN_UV + vec2(0.0, 1.0/VIEWPORT_SIZE.y)).r;
+    // ... (compare depths) ... this is complex here.
+
+    ALBEDO = final_color;
+    ALPHA = base_albedo.a; // Preserve alpha from texture/color
+}
+"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m58r2"]
 render_priority = 0
-shader = ExtResource("5_m58r2")
-shader_parameter/lightIntensity = 0.8
-shader_parameter/lineAlpha = 1.0
-shader_parameter/useLighting = true
-shader_parameter/lineHighlight = 0.2
-shader_parameter/lineShadow = 0.55
+shader = SubResource("Shader_2vb8y")
 
 [node name="BaseLevelTest" type="Node3D"]
 
@@ -101,17 +191,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9361, 0.037781, 1.07727)
 [node name="Player2D" parent="3dScene" instance=ExtResource("2_eiixs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.42196, 1.83331, 0)
 
-[node name="Camera3D" type="Camera3D" parent="3dScene"]
-transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 1.13261, 7.74868, 10.184)
+[node name="TemplPlayer3dModel" parent="3dScene" instance=ExtResource("5_2vb8y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.689499, 0)
+
+[node name="Camera3D" type="Camera3D" parent="3dScene/TemplPlayer3dModel"]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 1.13261, 7.05918, 10.184)
 projection = 1
+current = true
 size = 15.0
 
-[node name="Shader" type="MeshInstance3D" parent="3dScene/Camera3D"]
+[node name="Shader" type="MeshInstance3D" parent="3dScene/TemplPlayer3dModel/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.694777, -4.98137)
 visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_334cf")
 surface_material_override/0 = SubResource("ShaderMaterial_m58r2")
-
-[node name="TemplPlayer3dModel" parent="3dScene" instance=ExtResource("5_2vb8y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.689499, 0)

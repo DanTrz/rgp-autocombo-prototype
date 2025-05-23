@@ -9,13 +9,14 @@ uniform sampler2D NORMAL_TEXTURE : hint_normal_roughness_texture, filter_nearest
 
 // Outline Appearance
 uniform vec3 depthline_color : source_color = vec3(0.0); // Tint color for the outline
-// New uniform to control the opacity of the shadow_color tint itself
+
+// New uniform to control the opacity of the shadow_color tint itself and how much it will use the neighbor color
 uniform float colorblend_factor : hint_range(0.0, 1.0) = 0.75;
-uniform float depthline_thickness : hint_range(0.0, 10.0) = 0.0;
+uniform float depthline_thickness : hint_range(0.0, 10.0) = 1.0;
 
 // Sensitivity Controls
-uniform float depth_sensitivity : hint_range(0.0, 10.0) = 0.0;
-uniform float normal_sensitivity : hint_range(0.0, 5.0) = 0.00;
+uniform float depth_sensitivity : hint_range(0.0, 10.0) = 1.0;
+uniform float normal_sensitivity : hint_range(0.0, 5.0) = 4.00;
 uniform float outline_threshold_min : hint_range(0.0, 1.0) = 0.2;
 uniform float outline_threshold_max : hint_range(0.0, 1.0) = 0.3;
 

@@ -1,17 +1,35 @@
-[gd_scene load_steps=11 format=3 uid="uid://cedw1iorowriy"]
+[gd_scene load_steps=26 format=3 uid="uid://cedw1iorowriy"]
 
 [ext_resource type="Script" uid="uid://cyycitd6e0er0" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.cs" id="1_gsf8r"]
 [ext_resource type="ArrayMesh" uid="uid://bfshqh0tvekd" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_SHIRT_002.res" id="1_t7jms"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/3dOutlineHighlight.gdshader" id="2_nkn45"]
 [ext_resource type="AnimationLibrary" uid="uid://c2y1lqlv4bprp" path="res://Assets/AnimLib/AnimPack_1.res" id="2_sug53"]
 [ext_resource type="PackedScene" uid="uid://co43x2woraq8u" path="res://src/Characters/Player/PlayerStates/StateMachineManagerCS.tscn" id="3_8hc65"]
+[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/flexible_toon_shader/flexible_toon_v2.gdshader" id="3_utqhd"]
+[ext_resource type="Texture2D" uid="uid://fwiagu5cgeau" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_Ucupaint SHIRT Color.png" id="4_23k1y"]
 [ext_resource type="Script" uid="uid://djucnayndubaf" path="res://src/Characters/Player/PlayerStates/PlayerWalkState.cs" id="4_gsf8r"]
 [ext_resource type="Script" uid="uid://0bc13py14r7o" path="res://src/Characters/Player/PlayerStates/PlayerIdleState.cs" id="5_8ula1"]
+[ext_resource type="Texture2D" uid="uid://f6uj4t8it7k8" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_Ucupaint ARM_SLEEVE Color.png" id="5_w2sbi"]
+[ext_resource type="Texture2D" uid="uid://c7mc0p8fykcph" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_LEGS Layer.png" id="6_76yau"]
 [ext_resource type="Script" uid="uid://diigiyilrn1dh" path="res://src/Characters/Player/PlayerStates/PlayerJumpState.cs" id="6_utqhd"]
 [ext_resource type="Script" uid="uid://bxklq4qvcnp54" path="res://src/Characters/Player/PlayerStates/PlayerFallState.cs" id="7_23k1y"]
+[ext_resource type="Texture2D" uid="uid://dxf260qm7ng63" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_HAIR BASE Layer.png" id="7_76yau"]
+[ext_resource type="Texture2D" uid="uid://cjf523gxarbu7" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_Ucupaint BOOTS Color.png" id="8_7dnui"]
+[ext_resource type="Texture2D" uid="uid://dplwrj1ksvyxh" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_Ucupaint BaseModel.png" id="9_0m67w"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sug53"]
-radius = 0.177708
+radius = 0.450531
 height = 1.34486
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fba3b"]
+render_priority = 0
+shader = ExtResource("2_nkn45")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = false
+shader_parameter/shadow_strength = 1.0
+shader_parameter/highlight_strength = 0.1
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Skin" id="Skin_alh28"]
 resource_name = "Skin"
@@ -110,6 +128,156 @@ bind/30/name = &"IK-LegsPole.R"
 bind/30/bone = -1
 bind/30/pose = Transform3D(-0.0187548, -0.999824, 0, 0, 0, 1, -0.999824, 0.0187548, 0, 5.90003, -9.24914, -2.47791)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w2sbi"]
+render_priority = 0
+shader = ExtResource("3_utqhd")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture = ExtResource("4_23k1y")
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_76yau"]
+render_priority = 0
+shader = ExtResource("3_utqhd")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture = ExtResource("5_w2sbi")
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7dnui"]
+render_priority = 0
+shader = ExtResource("3_utqhd")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture = ExtResource("6_76yau")
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0m67w"]
+render_priority = 0
+shader = ExtResource("3_utqhd")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture = ExtResource("7_76yau")
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nkn45"]
+render_priority = 0
+shader = ExtResource("3_utqhd")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture = ExtResource("8_7dnui")
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u2d7s"]
+render_priority = 0
+shader = ExtResource("3_utqhd")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture = ExtResource("9_0m67w")
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 5
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
 [node name="TemplPlayer3dModel" type="CharacterBody3D"]
 script = ExtResource("1_gsf8r")
 
@@ -128,71 +296,71 @@ bones/0/name = "Hips"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0465032, 9.05348, 0.249642)
 bones/0/enabled = true
-bones/0/position = Vector3(0.0237702, 8.98126, -0.0114608)
-bones/0/rotation = Quaternion(-0.0313076, -0.0465223, -0.0291194, 0.998002)
+bones/0/position = Vector3(-0.0481821, 6.97865, 0.0884481)
+bones/0/rotation = Quaternion(0.0367337, -0.449539, -0.0125588, 0.892417)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "LeftUpperLeg"
 bones/1/parent = 0
 bones/1/rest = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, 1, 2.04178, 0.193636, -0.281047)
 bones/1/enabled = true
 bones/1/position = Vector3(2.04178, 0.193636, -0.281047)
-bones/1/rotation = Quaternion(0.135134, 0.0850516, 0.984213, -0.0763583)
+bones/1/rotation = Quaternion(0.141848, 0.42026, 0.840804, -0.310337)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "LeftLowerLeg"
 bones/2/parent = 1
 bones/2/rest = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.278538, 4.15798, 0.320256)
 bones/2/enabled = true
 bones/2/position = Vector3(-0.278538, 4.15798, 0.320256)
-bones/2/rotation = Quaternion(-0.038368, 0.99258, -0.114584, 0.0135407)
+bones/2/rotation = Quaternion(0.019287, 0.866153, -0.493164, -0.078711)
 bones/2/scale = Vector3(1, 1, 1)
 bones/3/name = "LeftFoot"
 bones/3/parent = 2
 bones/3/rest = Transform3D(-1, 0, 0, 0, 0, -1, 0, -1, 0, 0.177451, 3.42641, 1.17277)
 bones/3/enabled = true
 bones/3/position = Vector3(0.177451, 3.42641, 1.17277)
-bones/3/rotation = Quaternion(-0.0411072, 0.710523, -0.700793, 0.0485385)
+bones/3/rotation = Quaternion(-0.266157, 0.606346, -0.749255, 0.0110352)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/name = "LeftToes"
 bones/4/parent = 3
 bones/4/rest = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.163463, 2.72448, -1.05467)
 bones/4/enabled = true
 bones/4/position = Vector3(-0.163463, 2.72448, -1.05467)
-bones/4/rotation = Quaternion(-8.47876e-08, 0.999074, 0.0430347, -1.31215e-07)
+bones/4/rotation = Quaternion(1.16562e-07, 1, -2.98023e-08, -1.9888e-07)
 bones/4/scale = Vector3(1, 1, 1)
 bones/5/name = "RightUpperLeg"
 bones/5/parent = 0
 bones/5/rest = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, 1, -2.13479, 0.193636, -0.281047)
 bones/5/enabled = true
 bones/5/position = Vector3(-2.13479, 0.193636, -0.281047)
-bones/5/rotation = Quaternion(-0.0903865, -0.0102482, 0.995422, -0.0293271)
+bones/5/rotation = Quaternion(-0.134259, 0.313669, 0.908813, 0.240094)
 bones/5/scale = Vector3(1, 1, 1)
 bones/6/name = "RightLowerLeg"
 bones/6/parent = 5
 bones/6/rest = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.278536, 4.15798, 0.320257)
 bones/6/enabled = true
 bones/6/position = Vector3(0.278536, 4.15798, 0.320257)
-bones/6/rotation = Quaternion(0.0330144, 0.994404, -0.0558902, -0.0833494)
+bones/6/rotation = Quaternion(0.0204816, 0.849012, -0.519242, 0.0956412)
 bones/6/scale = Vector3(1, 1, 1)
 bones/7/name = "RightFoot"
 bones/7/parent = 6
 bones/7/rest = Transform3D(-1, 0, 0, 0, 0, -1, 0, -1, 0, -0.177448, 3.42641, 1.17277)
 bones/7/enabled = true
 bones/7/position = Vector3(-0.177448, 3.42641, 1.17277)
-bones/7/rotation = Quaternion(0.00971495, 0.685339, -0.727597, -0.0286241)
+bones/7/rotation = Quaternion(0.169377, 0.51909, -0.819544, -0.173794)
 bones/7/scale = Vector3(1, 1, 1)
 bones/8/name = "RightToes"
 bones/8/parent = 7
 bones/8/rest = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.163465, 2.72448, -1.05467)
 bones/8/enabled = true
 bones/8/position = Vector3(0.163465, 2.72448, -1.05467)
-bones/8/rotation = Quaternion(5.08396e-07, 0.997992, 0.063347, -1.13928e-07)
+bones/8/rotation = Quaternion(5.65854e-07, 0.999994, 0.00341651, -1.99045e-07)
 bones/8/scale = Vector3(1, 1, 1)
 bones/9/name = "Spine"
 bones/9/parent = 0
 bones/9/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0263167, 1.94261, 0.113291)
 bones/9/enabled = true
 bones/9/position = Vector3(-0.0263167, 1.94261, 0.113291)
-bones/9/rotation = Quaternion(0.029071, 0.0127152, 0.0219413, 0.999256)
+bones/9/rotation = Quaternion(0.063598, 0.0112474, 0.0175796, 0.997757)
 bones/9/scale = Vector3(1, 1, 1)
 bones/10/name = "Spine1"
 bones/10/parent = 9
@@ -206,63 +374,63 @@ bones/11/parent = 10
 bones/11/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02509, 1.50619, -0.39466)
 bones/11/enabled = true
 bones/11/position = Vector3(0.02509, 1.50619, -0.39466)
-bones/11/rotation = Quaternion(0.00998973, 0.00269039, 0.0135094, 0.999855)
+bones/11/rotation = Quaternion(0.130006, 0.0190013, 0.00260809, 0.991328)
 bones/11/scale = Vector3(1, 1, 1)
 bones/12/name = "UpperChest"
 bones/12/parent = 11
 bones/12/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0419935, 2.65598, 0.0593049)
 bones/12/enabled = true
 bones/12/position = Vector3(-0.0419935, 2.65598, 0.0593049)
-bones/12/rotation = Quaternion(0.0097661, 0.00292544, 0.0135522, 0.999856)
+bones/12/rotation = Quaternion(0.129687, 0.0208806, 0.00241773, 0.991332)
 bones/12/scale = Vector3(1, 1, 1)
 bones/13/name = "Neck"
 bones/13/parent = 12
 bones/13/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00168406, 1.16098, -0.330736)
 bones/13/enabled = true
 bones/13/position = Vector3(-0.00168406, 1.16098, -0.330736)
-bones/13/rotation = Quaternion(0.0490441, -0.000959311, 0.00406307, 0.998788)
+bones/13/rotation = Quaternion(-0.0498387, 0.0544693, -0.000120417, 0.997271)
 bones/13/scale = Vector3(1, 1, 1)
 bones/14/name = "Head"
 bones/14/parent = 13
 bones/14/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00611161, 1.56637, 0.0626871)
 bones/14/enabled = true
 bones/14/position = Vector3(0.00611161, 1.56637, 0.0626871)
-bones/14/rotation = Quaternion(-0.0659544, 0.0119581, -0.00150101, 0.99775)
+bones/14/rotation = Quaternion(-0.0622281, 0.282126, -0.188182, 0.93868)
 bones/14/scale = Vector3(1, 1, 1)
 bones/15/name = "LeftShoulder"
 bones/15/parent = 12
 bones/15/rest = Transform3D(0, 1, 0, 0, 0, 1, 1, 0, 0, 0.329272, 0.683649, -0.310517)
 bones/15/enabled = true
 bones/15/position = Vector3(0.329272, 0.683649, -0.310517)
-bones/15/rotation = Quaternion(0.457509, 0.499849, 0.632503, -0.375201)
+bones/15/rotation = Quaternion(0.550448, 0.442977, 0.526542, -0.472791)
 bones/15/scale = Vector3(1, 1, 1)
 bones/16/name = "LeftUpperArm"
 bones/16/parent = 15
 bones/16/rest = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.853403, 3.22406, -0.371586)
 bones/16/enabled = true
 bones/16/position = Vector3(-0.853403, 3.22406, -0.371586)
-bones/16/rotation = Quaternion(0.123026, 0.804047, -0.567706, -0.126821)
+bones/16/rotation = Quaternion(0.146375, 0.819994, -0.422389, 0.357451)
 bones/16/scale = Vector3(1, 1, 1)
 bones/17/name = "LeftLowerArm"
 bones/17/parent = 16
 bones/17/rest = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -0.573461, 3.46738, -0.552934)
 bones/17/enabled = true
 bones/17/position = Vector3(-0.573461, 3.46738, -0.552934)
-bones/17/rotation = Quaternion(0.00896199, -0.70705, 0.0089622, 0.70705)
+bones/17/rotation = Quaternion(0.367566, -0.604033, 0.367566, 0.604098)
 bones/17/scale = Vector3(1, 1, 1)
 bones/18/name = "LeftHand"
 bones/18/parent = 17
 bones/18/rest = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -0.20687, 3.24686, 0.555629)
 bones/18/enabled = true
 bones/18/position = Vector3(-0.20687, 3.24686, 0.555629)
-bones/18/rotation = Quaternion(0.0531588, 0.47524, -0.0152289, 0.878117)
+bones/18/rotation = Quaternion(0.118598, 0.738651, 0.112504, 0.653966)
 bones/18/scale = Vector3(1, 1, 1)
 bones/19/name = "LeftThumbMetacarpal"
 bones/19/parent = 18
 bones/19/rest = Transform3D(0, -0.577, 0.816, 0, 0.816, 0.577, -1, 0, 0, -0.317912, 0.800833, 0.322084)
 bones/19/enabled = true
 bones/19/position = Vector3(-0.317912, 0.800833, 0.322084)
-bones/19/rotation = Quaternion(-0.230499, 0.682891, 0.1717, 0.671602)
+bones/19/rotation = Quaternion(-0.158325, 0.727147, 0.336234, 0.57718)
 bones/19/scale = Vector3(1, 0.999392, 0.999392)
 bones/20/name = "Fingers.L"
 bones/20/parent = 18
@@ -276,35 +444,35 @@ bones/21/parent = 12
 bones/21/rest = Transform3D(0, -1, 0, 0, 0, 1, -1, 0, 0, -0.320416, 0.683649, -0.310517)
 bones/21/enabled = true
 bones/21/position = Vector3(-0.320416, 0.683649, -0.310517)
-bones/21/rotation = Quaternion(0.476203, -0.479146, -0.634616, -0.375382)
+bones/21/rotation = Quaternion(0.515569, -0.477258, -0.537175, -0.466751)
 bones/21/scale = Vector3(1, 1, 1)
 bones/22/name = "RightUpperArm"
 bones/22/parent = 21
 bones/22/rest = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.853403, 3.22406, -0.371585)
 bones/22/enabled = true
 bones/22/position = Vector3(0.853403, 3.22406, -0.371585)
-bones/22/rotation = Quaternion(-0.151496, 0.827254, -0.497296, 0.213063)
+bones/22/rotation = Quaternion(-0.419475, 0.8191, -0.389687, -0.0354934)
 bones/22/scale = Vector3(1, 1, 1)
 bones/23/name = "RightLowerArm"
 bones/23/parent = 22
 bones/23/rest = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.573461, 3.46739, -0.552937)
 bones/23/enabled = true
 bones/23/position = Vector3(0.573461, 3.46739, -0.552937)
-bones/23/rotation = Quaternion(0.0412545, 0.705858, -0.0412599, 0.705946)
+bones/23/rotation = Quaternion(0.503704, 0.496312, -0.503703, 0.496225)
 bones/23/scale = Vector3(1, 1, 1)
 bones/24/name = "RightHand"
 bones/24/parent = 23
 bones/24/rest = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0.206871, 3.24686, 0.555629)
 bones/24/enabled = true
 bones/24/position = Vector3(0.206871, 3.24686, 0.555629)
-bones/24/rotation = Quaternion(0.0459938, -0.571092, 0.037656, 0.818731)
+bones/24/rotation = Quaternion(0.093731, -0.595816, -0.0986547, 0.791508)
 bones/24/scale = Vector3(1, 1, 1)
 bones/25/name = "RightThumbMetacarpal"
 bones/25/parent = 24
 bones/25/rest = Transform3D(0, 0.577, -0.816, 0, 0.816, 0.577, 1, 0, 0, 0.317912, 0.800833, 0.322086)
 bones/25/enabled = true
 bones/25/position = Vector3(0.317912, 0.800833, 0.322086)
-bones/25/rotation = Quaternion(-0.240519, -0.67193, -0.184746, 0.67567)
+bones/25/rotation = Quaternion(0.137493, -0.720426, -0.181359, 0.655126)
 bones/25/scale = Vector3(1, 0.999392, 0.999392)
 bones/26/name = "Fingers.R"
 bones/26/parent = 24
@@ -343,8 +511,15 @@ bones/30/rotation = Quaternion(-0.0419027, 0, 0.999122, 0)
 bones/30/scale = Vector3(1, 1, 1)
 
 [node name="JOINT_CLOTHED_BASED_MODEL" type="MeshInstance3D" parent="Skin/GeneralSkeleton"]
+material_overlay = SubResource("ShaderMaterial_fba3b")
 mesh = ExtResource("1_t7jms")
 skin = SubResource("Skin_alh28")
+surface_material_override/0 = SubResource("ShaderMaterial_w2sbi")
+surface_material_override/1 = SubResource("ShaderMaterial_76yau")
+surface_material_override/2 = SubResource("ShaderMaterial_7dnui")
+surface_material_override/3 = SubResource("ShaderMaterial_0m67w")
+surface_material_override/4 = SubResource("ShaderMaterial_nkn45")
+surface_material_override/5 = SubResource("ShaderMaterial_u2d7s")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -358,9 +533,8 @@ _initialState = NodePath("PlayerIdleState")
 
 [node name="PlayerWalkState" type="Node" parent="StateMachineManager"]
 script = ExtResource("4_gsf8r")
-WalkSpeed = 15.0
 WalkRotationSpeed = 200.0
-WalkAcceleration = 0.0
+WalkAcceleration = 1.0
 
 [node name="PlayerIdleState" type="Node" parent="StateMachineManager"]
 script = ExtResource("5_8ula1")

@@ -61,7 +61,7 @@ public partial class PlayerWalkState : PlayerBaseState, ICharacterState
     {
         _direction2D.X = Input.GetActionStrength("right") - Input.GetActionStrength("left");
         _direction2D.Y = Input.GetActionStrength("down") - Input.GetActionStrength("up");
-        //direction2D = _direction2D.Normalized();
+        _direction2D = _direction2D.Normalized();
         _direction3D = (_charMainNode.Transform.Basis * new Vector3(_direction2D.X, 0, _direction2D.Y)).Normalized();
 
         if (_direction3D != Vector3.Zero) //TODO: Refacot all of This. ADD IsModel3D CHECK AND ADD 3D ANIMATIONS CALLS.
@@ -88,35 +88,43 @@ public partial class PlayerWalkState : PlayerBaseState, ICharacterState
             {
                 float direction2DAngle = GlobalEvents.Instance.Vector2DToAngle(_direction2D);
                 float direction3DAngle = GlobalEvents.Instance.Vector3DToAngle(_direction3D);
-                Log.Debug($"Direction2D Angle: {direction2DAngle} Direction3D Angle: {direction3DAngle}");
+                //Log.Debug($"Direction2D Angle: {direction2DAngle} Direction3D Angle: {direction3DAngle}");
 
-                // float rotationAngle = directionAngle switch
+                float camRotation = GetViewport().GetCamera3D().Rotation.X;
+                Log.Debug($"camRotation X - {camRotation} X");
+
+                float radXRotation = direction2DAngle switch
+                {
+                    90 => camRotation,
+                    270 => -camRotation,
+                    _ => 0
+                };
+
+                float radZRotation = direction2DAngle switch
+                {
+                    0 => camRotation,
+                    180 => -camRotation,
+                    _ => 0
+                };
+
+                //TODO: Implement a Switch in a separate function that fixes all X, Y and Z rotations (Diagnonal use camera rotation / 2 for X and Z but adjust positve and negative for Y)
+                // switch (direction2DAngle)
                 // {
-                //     90 => GetViewport().GetCamera3D().RotationDegrees.X,
-                //     270 => GetViewport().GetCamera3D().RotationDegrees.X * -1,
-                //     _ => 0
-                //     // 0 = Z -25 / X = 0
-                //     // 90 = X -25 // Z = 0
-                //     // 180 = Z +25 // X  = 0
-                //     // 270 = X +25 // Z = 0
-                // };
+                //     case 90:
+                //         break;
+                //     case 270:
+                //         var a = 0;
+                //         radXRotation = Godot.Mathf.LerpAngle(_charSkin.Rotation.X, lookAngle, 50f * (float)delta);
+                //         break;
 
-                // var rotationRad = Godot.Mathf.DegToRad(directionAngle);
-                // var rotationLerp = Godot.Mathf.LerpAngle(_charSkin.Rotation.X, lookAngle, 50f * (float)delta);
+                //     default:
+                //         // radXRotation = Godot.Mathf.LerpAngle(_charSkin.Rotation.X, lookAngle, 50f * (float)delta);
+                //         break;
+                // }
 
-
-                // Vector3 rotationVector = new Vector3(rotationLerp, _charSkin.Rotation.Y, _charSkin.Rotation.Z);
-                // Log.Debug($"X Rotation: {rotationAngle} rotationRag: {rotationRad} rotationLerpX: {rotationLerp}");
-                // _charSkin.Rotation = rotationVector;
-
-                _charSkin.GlobalRotation = new Vector3(_charSkin.Rotation.X, Godot.Mathf.LerpAngle(_charSkin.Rotation.Y, lookAngle, 50f * (float)delta), 0);
-
-                // _charSkin?.SetGlobalTransform(new Transform3D(
-                //     Basis.FromEuler(
-                //         new Vector3(0, Godot.Mathf.LerpAngle(_charSkin.Transform.Basis.GetEuler().Y,
-                //         lookAngle, 50f * (float)delta), 0)),
-                //    _charSkin.GlobalTransform.Origin
-                // ));
+                float radYRotation = Godot.Mathf.LerpAngle(_charSkin.Rotation.Y, lookAngle, 50f * (float)delta);
+                _charSkin.GlobalRotation = new Vector3(radXRotation, radYRotation, radZRotation);
+                Log.Debug($"RadRotation - X: {radXRotation} Y: {radYRotation}");
             }
 
             PlayWalkAnimation();
@@ -127,7 +135,7 @@ public partial class PlayerWalkState : PlayerBaseState, ICharacterState
 
     private void PlayWalkAnimation()
     {
-        Log.Debug($"{_charMainNode.Name} _charSpeed:{_charSpeed}");
+        //Log.Debug($"{_charMainNode.Name} _charSpeed:{_charSpeed}");
 
         if (_charMainNode.IsModel3D == true) //TODO: Refacot all of This. ADD IsModel3D CHECK AND ADD 3D ANIMATIONS CALLS.
         {

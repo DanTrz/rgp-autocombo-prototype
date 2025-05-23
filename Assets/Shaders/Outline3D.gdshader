@@ -15,10 +15,10 @@ uniform float alpha_threshold : hint_range(0.0, 1.0, 0.01) = 0.3; // Threshold f
 uniform vec3 outline_fallback_color : source_color = vec3(0.0, 0.0, 0.0); // Fallback color for outline
 
 //We can make these Uniforms is required.
-//uniform float outline_depth_threshold : hint_range(0.0, 0.5, 0.005) = 0.05;
-//uniform float outline_depth_artifact_correction_coef : hint_range(0.0, 10.0, 0.1) = 3.0;
-const float outline_depth_threshold = 0.05;
-const float outline_depth_artifact_correction_coef = 3.0;
+uniform float outline_depth_threshold : hint_range(0.0, 0.5, 0.005) = 0.05;
+uniform float outline_depth_artifact_correction_coef : hint_range(0.0, 10.0, 0.1) = 3.0;
+//const float outline_depth_threshold = 0.05;
+//const float outline_depth_artifact_correction_coef = 3.0;
 
 
 // Sobel Kernels (Constants)
