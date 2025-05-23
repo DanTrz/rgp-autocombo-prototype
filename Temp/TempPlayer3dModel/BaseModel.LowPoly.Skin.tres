@@ -5,5 +5,10 @@
 [resource]
 resource_name = "BaseModel.LowPoly.Skin"
 cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
 albedo_texture = ExtResource("1_vai38")
 roughness = 0.5
+rim_tint = 0.99
+backlight = Color(0.753984, 0.753984, 0.753984, 1)
+refraction_scale = 0.65

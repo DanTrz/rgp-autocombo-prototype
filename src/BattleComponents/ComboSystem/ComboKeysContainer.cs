@@ -30,6 +30,7 @@ public partial class ComboKeysContainer : FlowContainer
 
 	public void UpdateComboKeyColor(int indexPosition, Color color)
 	{
+		if (indexPosition >= _loadedComoboKeys.Count) return;
 		_loadedComoboKeys[indexPosition].Modulate = color;
 	}
 

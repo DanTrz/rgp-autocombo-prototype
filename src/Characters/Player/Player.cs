@@ -9,6 +9,9 @@ public partial class Player : BaseCharacter
     public override void _Ready()
     {
         base._Ready();
+
+
+
     }
 
 }

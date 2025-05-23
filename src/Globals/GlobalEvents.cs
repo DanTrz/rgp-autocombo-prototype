@@ -14,13 +14,23 @@ public partial class GlobalEvents : Node
 
     public string GetLookDirection2DCardinal(Vector2 direction)
     {
-        float angle = DirectionVector2DToAngle(direction);
+        float angle = Vector2DToAngle(direction);
         return ConvertAngleToText(angle);
     }
 
-    public float DirectionVector2DToAngle(Vector2 direction)
+    public float Vector2DToAngle(Vector2 direction)
     {
         float angle360 = Mathf.RadToDeg(direction.Angle());
+        if (angle360 < 0)
+        {
+            angle360 += 360; // Normalize the angle to the range [0, 360)
+        }
+        return angle360;
+    }
+
+    public float Vector3DToAngle(Vector3 direction)
+    {
+        float angle360 = Mathf.RadToDeg(Mathf.Atan2(direction.Z, direction.X));
         if (angle360 < 0)
         {
             angle360 += 360; // Normalize the angle to the range [0, 360)

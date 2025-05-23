@@ -5,4 +5,6 @@
 [resource]
 resource_name = "ARM_SLEEVE"
 cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
 albedo_texture = ExtResource("1_5s5pu")

@@ -8,11 +8,8 @@ public partial class StateMachineManager : Node
     protected Dictionary<Const.CharactersEnums.States, CharacterBaseState> _statesList = [];
     [Export] private CharacterBaseState _initialState { get; set; }
 
-    /// <summary>
-    /// [OnReady("/root/Globals")]
-    /// </summary>
+    // [OnReady("/root/Globals")]
     private BaseCharacter _currentCharacter { get; set; }
-
 
     public StateMachineManager()
     {

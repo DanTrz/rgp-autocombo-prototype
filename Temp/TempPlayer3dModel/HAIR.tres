@@ -5,5 +5,9 @@
 [resource]
 resource_name = "HAIR"
 cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
 albedo_texture = ExtResource("1_djrxu")
-metallic = 1.0
+emission = Color(0.0923971, 0.0923971, 0.0923971, 1)
+emission_energy_multiplier = 9.79
+rim_tint = 0.01

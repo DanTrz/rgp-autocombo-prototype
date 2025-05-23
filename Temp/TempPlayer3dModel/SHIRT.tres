@@ -5,4 +5,10 @@
 [resource]
 resource_name = "SHIRT"
 cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
 albedo_texture = ExtResource("1_maq32")
+emission = Color(0.542628, 0.102259, 0.388524, 1)
+emission_energy_multiplier = 15.02
+rim_enabled = true
+rim = 0.09

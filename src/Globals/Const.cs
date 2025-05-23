@@ -1,6 +1,6 @@
 public static class Const
 {
-    public class CharactersEnums
+    public static class CharactersEnums
     {
         public enum States
         {

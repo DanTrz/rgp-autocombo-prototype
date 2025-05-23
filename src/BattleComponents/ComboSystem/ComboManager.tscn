@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cib4j7yjiceer"]
+[gd_scene load_steps=5 format=3 uid="uid://cib4j7yjiceer"]
 
 [ext_resource type="Script" uid="uid://dithpcmu3b6vf" path="res://src/BattleComponents/ComboSystem/ComboManager.cs" id="1_cly13"]
 [ext_resource type="Script" uid="uid://v4tsdn47re4u" path="res://src/BattleComponents/ComboSystem/ComboKeysContainer.cs" id="2_2p4ey"]
+[ext_resource type="LabelSettings" uid="uid://bdvjw4j8s2g81" path="res://Assets/BasicLabel.tres" id="2_tsh05"]
 [ext_resource type="PackedScene" uid="uid://cej78u7rano31" path="res://src/UIControls/ComboKeyUI.tscn" id="3_5hbau"]
 
 [node name="ComboManager" type="Node"]
@@ -18,7 +19,31 @@ offset_top = -62.0
 offset_right = 302.0
 grow_vertical = 0
 
+[node name="HBoxContainer" type="HBoxContainer" parent="DebugUIComboSystem/VBoxContainer"]
+layout_mode = 2
+
+[node name="StartTurn" type="Button" parent="DebugUIComboSystem/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "StartTurn"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="DebugUIComboSystem/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DebugUIComboSystem/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Turn: ChoiceSelector"
+label_settings = ExtResource("2_tsh05")
+
+[node name="ChoiceSelectorProgressBar" type="ProgressBar" parent="DebugUIComboSystem/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+show_percentage = false
+
 [node name="Buttons" type="HBoxContainer" parent="DebugUIComboSystem/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="Attack1" type="Button" parent="DebugUIComboSystem/VBoxContainer/Buttons"]
@@ -38,6 +63,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0.821789, 0.821789, 0.821789, 1)
 theme_override_colors/font_outline_color = Color(0.0687983, 0.0687983, 0.0687983, 1)
 text = "Active Combo Sequence"
+label_settings = ExtResource("2_tsh05")
 
 [node name="ComboKeysContainer" type="FlowContainer" parent="DebugUIComboSystem/VBoxContainer"]
 unique_name_in_owner = true
@@ -45,10 +71,42 @@ layout_mode = 2
 script = ExtResource("2_2p4ey")
 _comboKeyUiPackedScene = ExtResource("3_5hbau")
 
+[node name="HBoxContainer3" type="HBoxContainer" parent="DebugUIComboSystem/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DebugUIComboSystem/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Combo TotalTime"
+label_settings = ExtResource("2_tsh05")
+
+[node name="ComboTotalTimerProgressBar" type="ProgressBar" parent="DebugUIComboSystem/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+show_percentage = false
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="DebugUIComboSystem/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DebugUIComboSystem/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Combo StepTime"
+label_settings = ExtResource("2_tsh05")
+
+[node name="ComboStepTimerProgressBar" type="ProgressBar" parent="DebugUIComboSystem/VBoxContainer/HBoxContainer4"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+show_percentage = false
+
 [node name="ComboTotalTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 one_shot = true
 
-[node name="ComboKeyPressTimer" type="Timer" parent="."]
+[node name="ComboStepTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="ChoiceSelectorTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 one_shot = true

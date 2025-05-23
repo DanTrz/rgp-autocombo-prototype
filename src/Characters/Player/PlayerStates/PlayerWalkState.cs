@@ -8,7 +8,6 @@ public partial class PlayerWalkState : PlayerBaseState, ICharacterState
     [Export] public float WalkRotationSpeed = 10;
     [Export] public float WalkAcceleration = 10;
 
-
     public override void Enter()
     {
         _charSpeed = WalkSpeed;
@@ -85,19 +84,44 @@ public partial class PlayerWalkState : PlayerBaseState, ICharacterState
 
             float lookAngle = Vector3.Back.SignedAngleTo(_direction3D, Vector3.Up);
             //Node3D skin = _characterNode.GetNode<Node3D>("%Skin");
-            _charSkin?.GlobalRotation = new Vector3(0, Godot.Mathf.LerpAngle(_charSkin.Rotation.Y, lookAngle, 50f * (float)delta), 0);
+            if (_charSkin != null)
+            {
+                float direction2DAngle = GlobalEvents.Instance.Vector2DToAngle(_direction2D);
+                float direction3DAngle = GlobalEvents.Instance.Vector3DToAngle(_direction3D);
+                Log.Debug($"Direction2D Angle: {direction2DAngle} Direction3D Angle: {direction3DAngle}");
+
+                // float rotationAngle = directionAngle switch
+                // {
+                //     90 => GetViewport().GetCamera3D().RotationDegrees.X,
+                //     270 => GetViewport().GetCamera3D().RotationDegrees.X * -1,
+                //     _ => 0
+                //     // 0 = Z -25 / X = 0
+                //     // 90 = X -25 // Z = 0
+                //     // 180 = Z +25 // X  = 0
+                //     // 270 = X +25 // Z = 0
+                // };
+
+                // var rotationRad = Godot.Mathf.DegToRad(directionAngle);
+                // var rotationLerp = Godot.Mathf.LerpAngle(_charSkin.Rotation.X, lookAngle, 50f * (float)delta);
 
 
-            // _charSkin?.SetGlobalTransform(new Transform3D(
-            //     Basis.FromEuler(
-            //         new Vector3(0, Godot.Mathf.LerpAngle(_charSkin.Transform.Basis.GetEuler().Y,
-            //         lookAngle, 50f * (float)delta), 0)),
-            //    _charSkin.GlobalTransform.Origin
-            // ));
+                // Vector3 rotationVector = new Vector3(rotationLerp, _charSkin.Rotation.Y, _charSkin.Rotation.Z);
+                // Log.Debug($"X Rotation: {rotationAngle} rotationRag: {rotationRad} rotationLerpX: {rotationLerp}");
+                // _charSkin.Rotation = rotationVector;
+
+                _charSkin.GlobalRotation = new Vector3(_charSkin.Rotation.X, Godot.Mathf.LerpAngle(_charSkin.Rotation.Y, lookAngle, 50f * (float)delta), 0);
+
+                // _charSkin?.SetGlobalTransform(new Transform3D(
+                //     Basis.FromEuler(
+                //         new Vector3(0, Godot.Mathf.LerpAngle(_charSkin.Transform.Basis.GetEuler().Y,
+                //         lookAngle, 50f * (float)delta), 0)),
+                //    _charSkin.GlobalTransform.Origin
+                // ));
+            }
+
             PlayWalkAnimation();
 
         }
-
     }
 
 
@@ -150,10 +174,6 @@ public partial class PlayerWalkState : PlayerBaseState, ICharacterState
                     break;
             }
         }
-
-
-
-
     }
 
     private void TransitionToIdle()

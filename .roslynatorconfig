@@ -1,0 +1,69 @@
+# .roslynatorconfig
+
+# Analyzer severity configuration
+# Possible severities: Info, Suggestion, Warning, Error, Hidden
+
+# Category: Argument
+RN1001.RethrowException: Warning
+RN1002.ArgumentNullExceptionThrown: Error
+
+# Category: Array
+RN2001.UseSpanInsteadOfListForReadOnlyAccess: Suggestion
+
+# Category: Async
+RN3001.AwaitTaskWithoutConfigureAwaitFalse: Info
+RN3002.UseConfigureAwaitFalse: Suggestion
+
+# Category: Class
+RN4001.OrderMembersByAccessibility: Info
+RN4002.OrderMembersByType: Info
+RN4003.DeclareVirtualMembersBeforeNonVirtualMembers: Suggestion
+RN4004.SealClass: Suggestion
+
+# Category: Collection
+RN5001.UseReadOnlyCollectionAbstraction: Suggestion
+
+# Category: Comment
+RN6001.FileMustHaveCopyrightHeader: Info
+
+# Category: Complexity
+RN7001.MethodTooLong: Warning
+RN7002.CognitiveComplexityTooHigh: Warning
+
+# Category: Design
+RN8001.ConsiderIntroducingBaseType: Suggestion
+
+# Category: Empty
+RN9001.RemoveEmptyStatement: Suggestion
+
+# Category: Exception
+RN10001.DoNotCatchGenericExceptionTypes: Warning
+
+# Category: Formatting (consider using .editorconfig for most formatting)
+RF0001.UseExpressionBodyForSimpleMethods: Suggestion
+
+# Category: Language Features
+RL1001.UseStringInterpolation: Suggestion
+RL1002.UseObjectInitializer: Suggestion
+RL1003.UseCollectionInitializer: Suggestion
+RL1004.UseExplicitTypeWhenUnecessary: Suggestion
+RL1005.UseImplicitTypeWhenPossible: Suggestion
+
+# Category: Maintainability
+RM2001.SimplifyBooleanExpression: Suggestion
+
+# Category: Naming
+RN3001.UseMeaningfulVariableName: Suggestion
+
+# Category: New Feature
+RNCF1001.UsePrimaryConstructor: Suggestion # Example for a C# 12 feature
+
+# You can also disable specific rules:
+# RN1001.RethrowException: Hidden
+
+# Or configure severity for a specific file or folder (using path matching):
+# [src/MySpecificFile.cs]
+# RN1001.RethrowException: Error
+
+# [src/Subfolder/]
+# RN3001.AwaitTaskWithoutConfigureAwaitFalse: Warning
