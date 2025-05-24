@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cyycitd6e0er0" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.cs" id="1_gsf8r"]
 [ext_resource type="ArrayMesh" uid="uid://bfshqh0tvekd" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_SHIRT_002.res" id="1_t7jms"]
-[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/3dOutlineHighlight.gdshader" id="2_nkn45"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="2_nkn45"]
 [ext_resource type="AnimationLibrary" uid="uid://c2y1lqlv4bprp" path="res://Assets/AnimLib/AnimPack_1.res" id="2_sug53"]
 [ext_resource type="PackedScene" uid="uid://co43x2woraq8u" path="res://src/Characters/Player/PlayerStates/StateMachineManagerCS.tscn" id="3_8hc65"]
-[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/flexible_toon_shader/flexible_toon_v2.gdshader" id="3_utqhd"]
+[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/PixelShaders/flexible_toon_v2.gdshader" id="3_utqhd"]
 [ext_resource type="Texture2D" uid="uid://fwiagu5cgeau" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_Ucupaint SHIRT Color.png" id="4_23k1y"]
 [ext_resource type="Script" uid="uid://djucnayndubaf" path="res://src/Characters/Player/PlayerStates/PlayerWalkState.cs" id="4_gsf8r"]
 [ext_resource type="Script" uid="uid://0bc13py14r7o" path="res://src/Characters/Player/PlayerStates/PlayerIdleState.cs" id="5_8ula1"]
@@ -260,8 +260,8 @@ shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/albedo_texture = ExtResource("9_0m67w")
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
-shader_parameter/clamp_diffuse_to_max = false
-shader_parameter/cuts = 5
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 1
 shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true

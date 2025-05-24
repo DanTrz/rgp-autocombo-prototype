@@ -148,7 +148,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(320, 180)
+size = Vector2i(1920, 1080)
 render_target_update_mode = 0
 
 [node name="3dScene" type="Node3D" parent="."]

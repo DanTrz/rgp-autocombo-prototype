@@ -1,19 +1,29 @@
-[gd_scene load_steps=39 format=3 uid="uid://c6cb3soqkrc21"]
+[gd_scene load_steps=42 format=3 uid="uid://c6cb3soqkrc21"]
 
 [ext_resource type="Script" uid="uid://b7o5064b45yqm" path="res://Temp/CSharpPixelPerfect/RotatingCube.cs" id="1_00j36"]
 [ext_resource type="Material" uid="uid://c7xavcy54jyrx" path="res://Temp/GDSCriptPixelPerfect/mat_cube_moving.tres" id="2_uabre"]
 [ext_resource type="PackedScene" uid="uid://c7kjke7mmdjoa" path="res://Temp/CSharpPixelPerfect/world.tscn" id="4_o76b6"]
-[ext_resource type="Shader" uid="uid://cair4uoxj5lif" path="res://Assets/Shaders/Outline3D.gdshader" id="5_0hk0o"]
-[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/3dOutlineHighlight.gdshader" id="6_cmp7w"]
-[ext_resource type="Shader" uid="uid://d4q5ai1l6seh" path="res://Temp/GDSCriptPixelPerfect/pixel_art_upscale.gdshader" id="6_lxoyt"]
-[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/flexible_toon_shader/flexible_toon_v2.gdshader" id="7_00j36"]
-[ext_resource type="Script" uid="uid://yyk7v6dy4cgt" path="res://Temp/CSharpPixelPerfect/CameraRig.cs" id="8_cmp7w"]
-[ext_resource type="Shader" uid="uid://im2pcdmdj31a" path="res://Assets/Shaders/DepthInLineWithNormals.gdshader" id="8_kg2n0"]
-[ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://Temp/CSharpPixelPerfect/CameraPixelSnap.cs" id="9_00j36"]
+[ext_resource type="Shader" uid="uid://cair4uoxj5lif" path="res://Assets/Shaders/OtherShadersRepo/Outline3D.gdshader" id="5_0hk0o"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="6_cmp7w"]
+[ext_resource type="Shader" uid="uid://d4q5ai1l6seh" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale.gdshader" id="6_lxoyt"]
+[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/PixelShaders/flexible_toon_v2.gdshader" id="7_00j36"]
+[ext_resource type="Script" uid="uid://yyk7v6dy4cgt" path="res://src/DisplayAndCamera/CameraRig.cs" id="8_cmp7w"]
+[ext_resource type="Shader" uid="uid://c3j14atbm7u6e" path="res://Temp/CSharpPixelPerfect/Assets/fixed_colors_outline_and_edge.gdshader" id="8_g3wal"]
+[ext_resource type="Material" uid="uid://bhs5wo5aw14xm" path="res://Assets/Materials/PixelToonAndHighlightShader.tres" id="8_gufyq"]
+[ext_resource type="Shader" uid="uid://im2pcdmdj31a" path="res://Assets/Shaders/OtherShadersRepo/DepthInLineWithNormals.gdshader" id="8_kg2n0"]
+[ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="9_00j36"]
 [ext_resource type="PackedScene" uid="uid://cedw1iorowriy" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.tscn" id="9_cmp7w"]
-[ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://Temp/CSharpPixelPerfect/DisplayPixelRenderer.cs" id="10_cmp7w"]
+[ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="10_cmp7w"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_drxdm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gufyq"]
+albedo_color = Color(0.521569, 1, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gufyq"]
+material = SubResource("StandardMaterial3D_gufyq")
+top_radius = 3.865
+height = 0.001
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cmp7w"]
 render_priority = 0
@@ -157,62 +167,31 @@ size = Vector3(0.5, 0.5, 0.5)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rfprd"]
 points = PackedVector3Array(0.25, 0.25, 0.25, 0.25, 0.25, -0.25, -0.25, 0.25, 0.25, 0.25, -0.25, 0.25, 0.25, -0.25, -0.25, -0.25, 0.25, -0.25, -0.25, -0.25, 0.25, -0.25, -0.25, -0.25)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_syeed"]
-render_priority = 0
-shader = ExtResource("8_kg2n0")
-shader_parameter/depthline_color = Color(0, 0, 0, 1)
-shader_parameter/colorblend_factor = 0.7
-shader_parameter/depthline_thickness = 2.0
-shader_parameter/depth_sensitivity = 1.0
-shader_parameter/normal_sensitivity = 4.0
-shader_parameter/outline_threshold_min = 0.2
-shader_parameter/outline_threshold_max = 0.3
-shader_parameter/foreground_depth_bias = 0.01
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xdma1"]
-render_priority = 0
-next_pass = SubResource("ShaderMaterial_syeed")
-shader = ExtResource("7_00j36")
-shader_parameter/albedo = Color(0.299042, 0.493057, 0.326024, 1)
-shader_parameter/albedo_uv_scale = Vector2(1, 1)
-shader_parameter/albedo_uv_offset = Vector2(0, 0)
-shader_parameter/clamp_diffuse_to_max = false
-shader_parameter/cuts = 3
-shader_parameter/wrap = 0.0
-shader_parameter/steepness = 1.0
-shader_parameter/use_attenuation = true
-shader_parameter/use_specular = false
-shader_parameter/specular_strength = 1.0
-shader_parameter/specular_shininess = 16.0
-shader_parameter/use_rim = false
-shader_parameter/rim_width = 8.0
-shader_parameter/rim_color = Color(1, 1, 1, 1)
-shader_parameter/use_ramp = false
-shader_parameter/use_borders = false
-shader_parameter/border_width = 0.05
-shader_parameter/normal_rotation_pitch = 0.0
-shader_parameter/normal_rotation_yaw = 0.0
-shader_parameter/normal_rotation_roll = 0.0
-
 [sub_resource type="CylinderMesh" id="CylinderMesh_fhhyk"]
-material = SubResource("ShaderMaterial_xdma1")
+material = ExtResource("8_gufyq")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2b0gj"]
 points = PackedVector3Array(-0.5, -1, 0, -0.497651, -1, -0.0490407, -0.497651, -1, 0.0489429, -0.5, 1, 0, -0.490407, -1, -0.097592, -0.497651, 1, -0.0490407, -0.490407, -1, 0.0974941, -0.497651, 1, 0.0489429, -0.478563, -1, -0.145164, -0.490407, 1, -0.097592, -0.478563, -1, 0.145067, -0.490407, 1, 0.0974941, -0.46202, -1, -0.191366, -0.478563, 1, -0.145164, -0.46202, -1, 0.191269, -0.478563, 1, 0.145067, -0.440975, -1, -0.235709, -0.46202, 1, -0.191366, -0.440975, -1, 0.235611, -0.46202, 1, 0.191269, -0.415818, -1, -0.2778, -0.440975, 1, -0.235709, -0.415818, -1, 0.277702, -0.440975, 1, 0.235611, -0.386551, -1, -0.317247, -0.415818, 1, -0.2778, -0.386551, -1, 0.31715, -0.415818, 1, 0.277702, -0.353563, -1, -0.353563, -0.386551, 1, -0.317247, -0.353563, -1, 0.353465, -0.386551, 1, 0.31715, -0.317247, -1, -0.386551, -0.353563, 1, -0.353563, -0.317247, -1, 0.386453, -0.353563, 1, 0.353465, -0.2778, -1, -0.415818, -0.317247, 1, -0.386551, -0.2778, -1, 0.41572, -0.317247, 1, 0.386453, -0.235709, -1, -0.440975, -0.2778, 1, -0.415818, -0.235709, -1, 0.440877, -0.2778, 1, 0.41572, -0.191366, -1, -0.46202, -0.235709, 1, -0.440975, -0.191366, -1, 0.461922, -0.235709, 1, 0.440877, -0.145164, -1, -0.478563, -0.191366, 1, -0.46202, -0.145164, -1, 0.478465, -0.191366, 1, 0.461922, -0.097592, -1, -0.490407, -0.145164, 1, -0.478563, -0.097592, -1, 0.490309, -0.145164, 1, 0.478465, -0.0490407, -1, -0.497651, -0.097592, 1, -0.490407, -0.0490407, -1, 0.497553, -0.097592, 1, 0.490309, 0, -1, -0.5, -0.0490407, 1, -0.497651, 0, -1, 0.5, -0.0490407, 1, 0.497553, 0.0489429, -1, -0.497651, 0, 1, -0.5, 0.0489429, -1, 0.497553, 0, 1, 0.5, 0.0974941, -1, -0.490407, 0.0489429, 1, -0.497651, 0.0974941, -1, 0.490309, 0.0489429, 1, 0.497553, 0.145067, -1, -0.478563, 0.0974941, 1, -0.490407, 0.145067, -1, 0.478465, 0.0974941, 1, 0.490309, 0.191269, -1, -0.46202, 0.145067, 1, -0.478563, 0.191269, -1, 0.461922, 0.145067, 1, 0.478465, 0.235611, -1, -0.440975, 0.191269, 1, -0.46202, 0.235611, -1, 0.440877, 0.191269, 1, 0.461922, 0.277702, -1, -0.415818, 0.235611, 1, -0.440975, 0.277702, -1, 0.41572, 0.235611, 1, 0.440877, 0.31715, -1, -0.386551, 0.277702, 1, -0.415818, 0.31715, -1, 0.386453, 0.277702, 1, 0.41572, 0.353465, -1, -0.353563, 0.31715, 1, -0.386551, 0.353465, -1, 0.353465, 0.31715, 1, 0.386453, 0.386453, -1, -0.317247, 0.353465, 1, -0.353563, 0.386453, -1, 0.31715, 0.353465, 1, 0.353465, 0.41572, -1, -0.2778, 0.386453, 1, -0.317247, 0.41572, -1, 0.277702, 0.386453, 1, 0.31715, 0.440877, -1, -0.235709, 0.41572, 1, -0.2778, 0.440877, -1, 0.235611, 0.41572, 1, 0.277702, 0.461922, -1, -0.191366, 0.440877, 1, -0.235709, 0.461922, -1, 0.191269, 0.440877, 1, 0.235611, 0.478465, -1, -0.145164, 0.461922, 1, -0.191366, 0.478465, -1, 0.145067, 0.461922, 1, 0.191269, 0.490309, -1, -0.097592, 0.478465, 1, -0.145164, 0.490309, -1, 0.0974941, 0.478465, 1, 0.145067, 0.497553, -1, -0.0490407, 0.490309, 1, -0.097592, 0.497553, -1, 0.0489429, 0.490309, 1, 0.0974941, 0.5, -1, 0, 0.497553, 1, -0.0490407, 0.497553, 1, 0.0489429, 0.5, 1, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nfloi"]
-render_priority = 0
-shader = ExtResource("6_cmp7w")
-shader_parameter/shadows_enabled = true
-shader_parameter/highlights_enabled = true
-shader_parameter/shadow_strength = 1.0
-shader_parameter/highlight_strength = 0.1
-shader_parameter/highlight_color = Color(1, 1, 1, 1)
-shader_parameter/shadow_color = Color(0, 0.219608, 0.129412, 1)
+[sub_resource type="CylinderMesh" id="CylinderMesh_dymiy"]
+material = ExtResource("8_gufyq")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0nymt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vmgqj"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_nfloi")
+shader = ExtResource("8_g3wal")
+shader_parameter/albedo = Color(0.14902, 0.282353, 0.172549, 1)
+shader_parameter/outline_color = Color(0.478092, 0.835613, 0.410929, 1)
+shader_parameter/edge_color = Color(0.654232, 0.654232, 0.654232, 1)
+shader_parameter/depth_threshold = 0.25
+shader_parameter/depth_normal_threshold = 0.5
+shader_parameter/depth_normal_threshold_scale = 2.0
+shader_parameter/convex_threshold = 0.5
+shader_parameter/convex_normal_threshold = 0.5
+shader_parameter/convex_normal_threshold_scale = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rfprd"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_vmgqj")
 shader = ExtResource("7_00j36")
 shader_parameter/albedo = Color(0.299042, 0.493057, 0.326024, 1)
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
@@ -235,8 +214,8 @@ shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_dymiy"]
-material = SubResource("ShaderMaterial_0nymt")
+[sub_resource type="CylinderMesh" id="CylinderMesh_syeed"]
+material = SubResource("ShaderMaterial_rfprd")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_28gcx"]
 render_priority = 0
@@ -291,152 +270,186 @@ handle_input_locally = false
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="Rotating" type="Node3D" parent="SubViewport"]
+[node name="RotatingCube" type="Node3D" parent="SubViewport"]
 script = ExtResource("1_00j36")
 
-[node name="MovingCube" type="MeshInstance3D" parent="SubViewport/Rotating" groups=["snap"]]
+[node name="MovingCube" type="MeshInstance3D" parent="SubViewport/RotatingCube" groups=["snap"]]
 transform = Transform3D(0.76446, 0, -0.644671, 0, 1, 0, 0.644671, 0, 0.76446, 0, 1, 2.5)
 material_override = ExtResource("2_uabre")
 mesh = SubResource("BoxMesh_drxdm")
 skeleton = NodePath("")
 
+[node name="RotatingClouds" type="Node3D" parent="SubViewport"]
+script = ExtResource("1_00j36")
+Speed = 1.0
+
+[node name="CloudShadoe" type="MeshInstance3D" parent="SubViewport/RotatingClouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.1319, 21.8855, -0.674785)
+mesh = SubResource("CylinderMesh_gufyq")
+
+[node name="CloudShadoe2" type="MeshInstance3D" parent="SubViewport/RotatingClouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.8277, 21.8855, 1.46834)
+mesh = SubResource("CylinderMesh_gufyq")
+
+[node name="CloudShadoe3" type="MeshInstance3D" parent="SubViewport/RotatingClouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.1554, 21.8855, 3.4163)
+mesh = SubResource("CylinderMesh_gufyq")
+
+[node name="CloudShadoe5" type="MeshInstance3D" parent="SubViewport/RotatingClouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.3121, 21.8855, 1.2846)
+mesh = SubResource("CylinderMesh_gufyq")
+
+[node name="CloudShadoe4" type="MeshInstance3D" parent="SubViewport/RotatingClouds"]
+transform = Transform3D(0.999997, 0.00249582, 0, -0.00249582, 0.999997, 0, 0, 0, 1, -32.0545, 21.8855, 1.6456)
+mesh = SubResource("CylinderMesh_gufyq")
+
 [node name="World" parent="SubViewport" instance=ExtResource("4_o76b6")]
-transform = Transform3D(0.943737, 0, -0.330696, 0, 1, 0, 0.330696, 0, 0.943737, 0, 0, 0)
+transform = Transform3D(0.943737, 0, -0.330696, 0, 1, 0, 0.330696, 0, 0.943737, 0, 0, 0.0443907)
 
-[node name="LinearFilterObjects" type="Node3D" parent="SubViewport"]
+[node name="Objects" type="Node3D" parent="SubViewport"]
 
-[node name="BOX4" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
+[node name="BOX4" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
 transform = Transform3D(0.601272, -0.577648, -0.552083, 0.692798, 0.721132, 0, 0.398124, -0.382482, 0.833789, -2.3098, 0.585743, -3.27992)
 mesh = SubResource("BoxMesh_gufyq")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/BOX4"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOX4"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/BOX4/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOX4/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_xdma1")
 
-[node name="BOXEX" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
+[node name="BOXEX" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
 transform = Transform3D(0.989589, 0, -0.143924, -0.000165789, 0.999999, -0.00113992, 0.143924, 0.00115192, 0.989588, -4.4869, 0.622586, 0)
 mesh = SubResource("BoxMesh_0nymt")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/BOXEX"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/BOXEX/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_6gguv")
 
-[node name="BOX2" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects/BOXEX"]
+[node name="BOX2" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX"]
 transform = Transform3D(0.943616, 0, 0.331041, 0, 1, 0, -0.331041, 0, 0.943616, -0.460284, 1, -0.0321122)
 mesh = SubResource("BoxMesh_0nymt")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/BOXEX/BOX2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX/BOX2"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/BOXEX/BOX2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/BOX2/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_6gguv")
 
-[node name="BOX3" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects/BOXEX/BOX2"]
+[node name="BOX3" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX/BOX2"]
 transform = Transform3D(0.705921, 0, 0.708291, 0, 1, 0, -0.708291, 0, 0.705921, 0.0710177, 0.776454, 0.100634)
 mesh = SubResource("BoxMesh_vmgqj")
 skeleton = NodePath("../../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/BOXEX/BOX2/BOX3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX3"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/BOXEX/BOX2/BOX3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX3/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_rfprd")
 
-[node name="BOXEX2" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
+[node name="BOXEX2" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
 transform = Transform3D(0.989589, 0, -0.143924, -0.000165789, 0.999999, -0.00113992, 0.143924, 0.00115192, 0.989588, 4.05812, 0.622586, 5.2508)
 mesh = SubResource("BoxMesh_0nymt")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/BOXEX2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX2"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/BOXEX2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX2/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_6gguv")
 
-[node name="BOX2" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects/BOXEX2"]
+[node name="BOX2" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX2"]
 transform = Transform3D(0.943616, 0, 0.331041, 0, 1, 0, -0.331041, 0, 0.943616, -0.460284, 1, -0.0321122)
 mesh = SubResource("BoxMesh_0nymt")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/BOXEX2/BOX2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX2/BOX2"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/BOXEX2/BOX2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX2/BOX2/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_6gguv")
 
-[node name="BOX3" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects/BOXEX2/BOX2"]
+[node name="BOX3" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX2/BOX2"]
 transform = Transform3D(0.705921, 0, 0.708291, 0, 1, 0, -0.708291, 0, 0.705921, 0.0710177, 0.776454, 0.100634)
 mesh = SubResource("BoxMesh_vmgqj")
 skeleton = NodePath("../../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/BOXEX2/BOX2/BOX3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX2/BOX2/BOX3"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/BOXEX2/BOX2/BOX3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX2/BOX2/BOX3/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_rfprd")
 
-[node name="Cilinder" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
+[node name="Cilinder" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80516, 1.08574, -2.57127)
 mesh = SubResource("CylinderMesh_fhhyk")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/Cilinder"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/Cilinder/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_2b0gj")
 
-[node name="Cilinder2" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
+[node name="Cilinder2" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.04593, 3.08574, -2.88535)
 mesh = SubResource("CylinderMesh_fhhyk")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/Cilinder2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder2"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/Cilinder2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder2/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_2b0gj")
 
-[node name="Cilinder3" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.29566, 1.08574, 5.30061)
+[node name="Cilinder3" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.23336, 1, 5.40333)
 mesh = SubResource("CylinderMesh_fhhyk")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/Cilinder3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder3"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/Cilinder3/StaticBody3D"]
-visible = false
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder3/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_2b0gj")
 
-[node name="Cilinder5" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.40483, 1.08574, 2.55451)
+[node name="Cilinder5" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6582, 1, 6.06384)
 mesh = SubResource("CylinderMesh_dymiy")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/Cilinder5"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder5"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/Cilinder5/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder5/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_2b0gj")
 
-[node name="Cilinder4" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
+[node name="Cilinder6" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.91824, 1, 8.23871)
+mesh = SubResource("CylinderMesh_syeed")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder6"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder6/StaticBody3D"]
+visible = false
+shape = SubResource("ConvexPolygonShape3D_2b0gj")
+
+[node name="Cilinder4" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75639, 1.08574, 2.55451)
 mesh = SubResource("CylinderMesh_fhhyk")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/Cilinder4"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder4"]
 visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/Cilinder4/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder4/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_2b0gj")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
 transform = Transform3D(0.016542, 0.709292, -0.704721, -0.999728, 0.0233155, 0, 0.0164309, 0.704529, 0.709485, 3.89777, 1.0913, -0.6218)
 extra_cull_margin = 2.0
 mesh = SubResource("TorusMesh_hagf7")
@@ -453,7 +466,7 @@ script = ExtResource("8_cmp7w")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.53674e-07, 20)
 projection = 1
 current = true
-size = 15.0
+size = 12.0
 far = 100.0
 script = ExtResource("9_00j36")
 

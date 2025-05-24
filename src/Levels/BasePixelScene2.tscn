@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://q6krt7c51nuf"]
 
 [ext_resource type="PackedScene" uid="uid://cedw1iorowriy" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.tscn" id="2_foawk"]
-[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/flexible_toon_shader/flexible_toon_v2.gdshader" id="3_rvhlf"]
+[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/PixelShaders/flexible_toon_v2.gdshader" id="3_rvhlf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rwce8"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -150,8 +150,6 @@ environment = SubResource("Environment_tv8wu")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.478029, -0.500686, 0.721666, 0.817845, 0.0459268, 0.573602, -0.320339, 0.86441, 0.38753, 1.11495, 3.34223, 1.73992)
 shadow_enabled = true
-shadow_opacity = 0.9
-shadow_blur = 0.5
 directional_shadow_fade_start = 0.0
 
 [node name="TemplPlayer3dModel" parent="." instance=ExtResource("2_foawk")]
@@ -161,13 +159,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.134109, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.134109, 0)
 
 [node name="Camera3D" type="Camera3D" parent="TemplPlayer3dModel/CameraRig"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 16.1042, 25.7268)
+transform = Transform3D(1, 0, 0, 0, 0.866026, 0.5, 0, -0.5, 0.866026, 0.230505, 9.84814, 15.7586)
 projection = 1
 current = true
-size = 10.0
+size = 8.0
+far = 100.0
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0492468, 0.0357433, 0.0554807)
+cast_shadow = 0
 mesh = SubResource("BoxMesh_ijthh")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
