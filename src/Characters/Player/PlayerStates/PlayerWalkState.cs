@@ -91,7 +91,6 @@ public partial class PlayerWalkState : PlayerBaseState, ICharacterState
                 //Log.Debug($"Direction2D Angle: {direction2DAngle} Direction3D Angle: {direction3DAngle}");
 
                 float camRotation = GetViewport().GetCamera3D().Rotation.X;
-                Log.Debug($"camRotation X - {camRotation} X");
 
                 float radXRotation = direction2DAngle switch
                 {
@@ -124,7 +123,7 @@ public partial class PlayerWalkState : PlayerBaseState, ICharacterState
 
                 float radYRotation = Godot.Mathf.LerpAngle(_charSkin.Rotation.Y, lookAngle, 50f * (float)delta);
                 _charSkin.GlobalRotation = new Vector3(radXRotation, radYRotation, radZRotation);
-                Log.Debug($"RadRotation - X: {radXRotation} Y: {radYRotation}");
+
             }
 
             PlayWalkAnimation();

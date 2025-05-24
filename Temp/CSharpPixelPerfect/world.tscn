@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://c7kjke7mmdjoa"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_frppt"]
+sky_top_color = Color(0.101961, 0.0980392, 0.196078, 1)
+sky_horizon_color = Color(0.101961, 0.0980392, 0.196078, 1)
+sky_curve = 1.0
+ground_bottom_color = Color(0.396078, 0.45098, 0.572549, 1)
+ground_horizon_color = Color(0.101961, 0.0980392, 0.196078, 1)
+ground_curve = 1.0
+sun_curve = 1e-05
+use_debanding = false
+
+[sub_resource type="Sky" id="Sky_bqsht"]
+sky_material = SubResource("ProceduralSkyMaterial_frppt")
+
+[sub_resource type="Environment" id="Environment_01vtk"]
+background_mode = 2
+sky = SubResource("Sky_bqsht")
+ambient_light_source = 2
+ambient_light_color = Color(0.580392, 0.992157, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sebyb"]
+specular_mode = 1
+albedo_color = Color(0.2, 0.596078, 0.294118, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_o12ww"]
+size = Vector2(50, 50)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_sebyb"]
+points = PackedVector3Array(-25, 0, -25, -25, 0, 25, 25, 0, -25, 25, 0, 25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o12ww"]
+specular_mode = 1
+albedo_color = Color(1, 0, 0.25098, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_01vtk"]
+
+[node name="World" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_01vtk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.34202, 0.574648, -0.743507, 0, 0.791223, 0.611527, 0.939693, -0.209154, 0.270614, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Plane" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_sebyb")
+mesh = SubResource("PlaneMesh_o12ww")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Plane"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_sebyb")
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_o12ww")
+mesh = SubResource("BoxMesh_01vtk")
+skeleton = NodePath("../..")

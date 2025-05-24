@@ -1,39 +1,35 @@
-[gd_scene load_steps=37 format=3 uid="uid://cn2qk3nydgqp2"]
+[gd_scene load_steps=39 format=3 uid="uid://byv0qfl8uwfbl"]
 
-[ext_resource type="PackedScene" uid="uid://cedw1iorowriy" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.tscn" id="1_ijthh"]
-[ext_resource type="Shader" uid="uid://bqe6x0jbw5lpm" path="res://Assets/Shaders/SmoothPixel.gdshader" id="1_vcwgk"]
-[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/flexible_toon_shader/flexible_toon_v2.gdshader" id="2_rwce8"]
-[ext_resource type="Shader" uid="uid://cair4uoxj5lif" path="res://Assets/Shaders/Outline3D.gdshader" id="3_m6hif"]
-[ext_resource type="Shader" uid="uid://im2pcdmdj31a" path="res://Assets/Shaders/DepthInLineWithNormals.gdshader" id="4_ynhhl"]
-[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/3dOutlineHighlight.gdshader" id="6_ynhhl"]
+[ext_resource type="PackedScene" uid="uid://c7kjke7mmdjoa" path="res://Temp/CSharpPixelPerfect/world.tscn" id="1_1vvpi"]
+[ext_resource type="Material" uid="uid://c7xavcy54jyrx" path="res://Temp/GDSCriptPixelPerfect/mat_cube_moving.tres" id="2_80bph"]
+[ext_resource type="Script" uid="uid://f50omk8e25vb" path="res://PixelPerfectRender/camera_rig.gd" id="3_307vq"]
+[ext_resource type="Script" uid="uid://b6v1w6dtpsjd3" path="res://PixelPerfectRender/camera_3d_texel_snapped3.gd" id="4_ckly1"]
+[ext_resource type="Script" uid="uid://dswft6ume3dj6" path="res://PixelPerfectRender/display2.gd" id="5_ygtb4"]
+[ext_resource type="Shader" uid="uid://cair4uoxj5lif" path="res://Assets/Shaders/Outline3D.gdshader" id="6_d73mh"]
+[ext_resource type="PackedScene" uid="uid://cedw1iorowriy" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.tscn" id="7_nlx1u"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/3dOutlineHighlight.gdshader" id="7_xe583"]
+[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/flexible_toon_shader/flexible_toon_v2.gdshader" id="8_y10ts"]
+[ext_resource type="Shader" uid="uid://im2pcdmdj31a" path="res://Assets/Shaders/DepthInLineWithNormals.gdshader" id="9_0cao1"]
+[ext_resource type="Material" uid="uid://drdbgpjr3tnyp" path="res://PixelPerfectRender/PixelDisplayMaterial.tres" id="11_nb73b"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ynhhl"]
-shader = ExtResource("1_vcwgk")
+[sub_resource type="GDScript" id="GDScript_jtgt5"]
+script/source = "extends Node3D
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ijthh"]
-viewport_path = NodePath("SubViewport")
+@export var speed: float = 45.0
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rwce8"]
-sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 
-[sub_resource type="Sky" id="Sky_vcwgk"]
-sky_material = SubResource("ProceduralSkyMaterial_rwce8")
+func _process(delta: float) -> void:
+	var cube := (get_child(0) as Node3D)
+	var rot := cube.global_rotation
+	rotate_y(deg_to_rad(speed) * delta)
+	cube.global_rotation = rot
+"
 
-[sub_resource type="Environment" id="Environment_tv8wu"]
-background_mode = 1
-sky = SubResource("Sky_vcwgk")
-tonemap_mode = 2
-
-[sub_resource type="BoxMesh" id="BoxMesh_ijthh"]
-size = Vector3(100, 0.1, 100)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ijthh"]
-points = PackedVector3Array(-25, -0.05, -25, -25, 0.05, -25, 25, -0.05, -25, -25, -0.05, 25, -25, 0.05, 25, 25, 0.05, -25, 25, -0.05, 25, 25, 0.05, 25)
+[sub_resource type="BoxMesh" id="BoxMesh_drxdm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_24jmh"]
 render_priority = 0
-shader = ExtResource("3_m6hif")
+shader = ExtResource("6_d73mh")
 shader_parameter/outline_intensity = 1.0
 shader_parameter/outline_width = 5.0
 shader_parameter/normal_threshold = 0.1
@@ -43,10 +39,10 @@ shader_parameter/outline_fallback_color = Color(0, 0, 0, 1)
 shader_parameter/outline_depth_threshold = 0.05
 shader_parameter/outline_depth_artifact_correction_coef = 3.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3evjc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3hwsx"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_24jmh")
-shader = ExtResource("6_ynhhl")
+shader = ExtResource("7_xe583")
 shader_parameter/shadows_enabled = true
 shader_parameter/highlights_enabled = true
 shader_parameter/shadow_strength = 1.0
@@ -54,54 +50,10 @@ shader_parameter/highlight_strength = 0.1
 shader_parameter/highlight_color = Color(1, 1, 1, 1)
 shader_parameter/shadow_color = Color(0.215334, 0.219541, 0.190104, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q5i35"]
-render_priority = 0
-next_pass = SubResource("ShaderMaterial_3evjc")
-shader = ExtResource("2_rwce8")
-shader_parameter/albedo = Color(0.647365, 0.64008, 0.594119, 1)
-shader_parameter/albedo_uv_scale = Vector2(1, 1)
-shader_parameter/albedo_uv_offset = Vector2(0, 0)
-shader_parameter/clamp_diffuse_to_max = false
-shader_parameter/cuts = 3
-shader_parameter/wrap = 0.0
-shader_parameter/steepness = 1.0
-shader_parameter/use_attenuation = true
-shader_parameter/use_specular = false
-shader_parameter/specular_strength = 1.0
-shader_parameter/specular_shininess = 16.0
-shader_parameter/use_rim = false
-shader_parameter/rim_width = 8.0
-shader_parameter/rim_color = Color(1, 1, 1, 1)
-shader_parameter/use_ramp = false
-shader_parameter/use_borders = false
-shader_parameter/border_width = 0.05
-shader_parameter/normal_rotation_pitch = 0.0
-shader_parameter/normal_rotation_yaw = 0.0
-shader_parameter/normal_rotation_roll = 0.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_oce25"]
-material = SubResource("ShaderMaterial_q5i35")
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rwce8"]
-points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wlawu"]
-render_priority = 0
-next_pass = SubResource("ShaderMaterial_24jmh")
-shader = ExtResource("4_ynhhl")
-shader_parameter/depthline_color = Color(0, 0, 0, 1)
-shader_parameter/colorblend_factor = 0.75
-shader_parameter/depthline_thickness = 2.0
-shader_parameter/depth_sensitivity = 1.0
-shader_parameter/normal_sensitivity = 4.0
-shader_parameter/outline_threshold_min = 0.2
-shader_parameter/outline_threshold_max = 0.3
-shader_parameter/foreground_depth_bias = 0.01
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g2fjo"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_wlawu")
-shader = ExtResource("2_rwce8")
+next_pass = SubResource("ShaderMaterial_3hwsx")
+shader = ExtResource("8_y10ts")
 shader_parameter/albedo = Color(0.647365, 0.64008, 0.594119, 1)
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
@@ -123,15 +75,59 @@ shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_rwce8"]
+[sub_resource type="BoxMesh" id="BoxMesh_1udsp"]
 material = SubResource("ShaderMaterial_g2fjo")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vcwgk"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_76mge"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_c101j"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l5dsh"]
 render_priority = 0
-shader = ExtResource("4_ynhhl")
+next_pass = SubResource("ShaderMaterial_24jmh")
+shader = ExtResource("9_0cao1")
+shader_parameter/depthline_color = Color(0, 0, 0, 1)
+shader_parameter/colorblend_factor = 0.75
+shader_parameter/depthline_thickness = 1.0
+shader_parameter/depth_sensitivity = 1.0
+shader_parameter/normal_sensitivity = 4.5
+shader_parameter/outline_threshold_min = 0.1
+shader_parameter/outline_threshold_max = 0.2
+shader_parameter/foreground_depth_bias = 0.01
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rwce8"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_l5dsh")
+shader = ExtResource("8_y10ts")
+shader_parameter/albedo = Color(0.647365, 0.64008, 0.594119, 1)
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_ka23c"]
+material = SubResource("ShaderMaterial_rwce8")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_j1r2b"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tdla6"]
+render_priority = 0
+shader = ExtResource("9_0cao1")
 shader_parameter/depthline_color = Color(0, 0, 0, 1)
 shader_parameter/colorblend_factor = 0.75
 shader_parameter/depthline_thickness = 2.0
@@ -141,10 +137,10 @@ shader_parameter/outline_threshold_min = 0.2
 shader_parameter/outline_threshold_max = 0.3
 shader_parameter/foreground_depth_bias = 0.01
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oce25"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tv8wu"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_c101j")
-shader = ExtResource("2_rwce8")
+next_pass = SubResource("ShaderMaterial_tdla6")
+shader = ExtResource("8_y10ts")
 shader_parameter/albedo = Color(0.800555, 0.620563, 0.198156, 1)
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
@@ -166,29 +162,27 @@ shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_vcwgk"]
-material = SubResource("ShaderMaterial_oce25")
+[sub_resource type="BoxMesh" id="BoxMesh_3thq5"]
+material = SubResource("ShaderMaterial_tv8wu")
 size = Vector3(0.5, 0.5, 0.5)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_m6hif"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1erbr"]
 points = PackedVector3Array(0.25, 0.25, 0.25, 0.25, 0.25, -0.25, -0.25, 0.25, 0.25, 0.25, -0.25, 0.25, 0.25, -0.25, -0.25, -0.25, 0.25, -0.25, -0.25, -0.25, 0.25, -0.25, -0.25, -0.25)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sstk2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jydxv"]
 render_priority = 0
-shader = ExtResource("4_ynhhl")
-shader_parameter/depthline_color = Color(0, 0, 0, 1)
-shader_parameter/colorblend_factor = 0.7
-shader_parameter/depthline_thickness = 2.0
-shader_parameter/depth_sensitivity = 1.0
-shader_parameter/normal_sensitivity = 4.0
-shader_parameter/outline_threshold_min = 0.2
-shader_parameter/outline_threshold_max = 0.3
-shader_parameter/foreground_depth_bias = 0.01
+shader = ExtResource("7_xe583")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.6
+shader_parameter/highlight_strength = 0.1
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vhr60"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vcwgk"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_sstk2")
-shader = ExtResource("2_rwce8")
+next_pass = SubResource("ShaderMaterial_jydxv")
+shader = ExtResource("8_y10ts")
 shader_parameter/albedo = Color(0.299042, 0.493057, 0.326024, 1)
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
@@ -210,26 +204,26 @@ shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_vcwgk"]
-material = SubResource("ShaderMaterial_vhr60")
+[sub_resource type="CylinderMesh" id="CylinderMesh_riwd1"]
+material = SubResource("ShaderMaterial_vcwgk")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_tv8wu"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4rob7"]
 points = PackedVector3Array(-0.5, -1, 0, -0.497651, -1, -0.0490407, -0.497651, -1, 0.0489429, -0.5, 1, 0, -0.490407, -1, -0.097592, -0.497651, 1, -0.0490407, -0.490407, -1, 0.0974941, -0.497651, 1, 0.0489429, -0.478563, -1, -0.145164, -0.490407, 1, -0.097592, -0.478563, -1, 0.145067, -0.490407, 1, 0.0974941, -0.46202, -1, -0.191366, -0.478563, 1, -0.145164, -0.46202, -1, 0.191269, -0.478563, 1, 0.145067, -0.440975, -1, -0.235709, -0.46202, 1, -0.191366, -0.440975, -1, 0.235611, -0.46202, 1, 0.191269, -0.415818, -1, -0.2778, -0.440975, 1, -0.235709, -0.415818, -1, 0.277702, -0.440975, 1, 0.235611, -0.386551, -1, -0.317247, -0.415818, 1, -0.2778, -0.386551, -1, 0.31715, -0.415818, 1, 0.277702, -0.353563, -1, -0.353563, -0.386551, 1, -0.317247, -0.353563, -1, 0.353465, -0.386551, 1, 0.31715, -0.317247, -1, -0.386551, -0.353563, 1, -0.353563, -0.317247, -1, 0.386453, -0.353563, 1, 0.353465, -0.2778, -1, -0.415818, -0.317247, 1, -0.386551, -0.2778, -1, 0.41572, -0.317247, 1, 0.386453, -0.235709, -1, -0.440975, -0.2778, 1, -0.415818, -0.235709, -1, 0.440877, -0.2778, 1, 0.41572, -0.191366, -1, -0.46202, -0.235709, 1, -0.440975, -0.191366, -1, 0.461922, -0.235709, 1, 0.440877, -0.145164, -1, -0.478563, -0.191366, 1, -0.46202, -0.145164, -1, 0.478465, -0.191366, 1, 0.461922, -0.097592, -1, -0.490407, -0.145164, 1, -0.478563, -0.097592, -1, 0.490309, -0.145164, 1, 0.478465, -0.0490407, -1, -0.497651, -0.097592, 1, -0.490407, -0.0490407, -1, 0.497553, -0.097592, 1, 0.490309, 0, -1, -0.5, -0.0490407, 1, -0.497651, 0, -1, 0.5, -0.0490407, 1, 0.497553, 0.0489429, -1, -0.497651, 0, 1, -0.5, 0.0489429, -1, 0.497553, 0, 1, 0.5, 0.0974941, -1, -0.490407, 0.0489429, 1, -0.497651, 0.0974941, -1, 0.490309, 0.0489429, 1, 0.497553, 0.145067, -1, -0.478563, 0.0974941, 1, -0.490407, 0.145067, -1, 0.478465, 0.0974941, 1, 0.490309, 0.191269, -1, -0.46202, 0.145067, 1, -0.478563, 0.191269, -1, 0.461922, 0.145067, 1, 0.478465, 0.235611, -1, -0.440975, 0.191269, 1, -0.46202, 0.235611, -1, 0.440877, 0.191269, 1, 0.461922, 0.277702, -1, -0.415818, 0.235611, 1, -0.440975, 0.277702, -1, 0.41572, 0.235611, 1, 0.440877, 0.31715, -1, -0.386551, 0.277702, 1, -0.415818, 0.31715, -1, 0.386453, 0.277702, 1, 0.41572, 0.353465, -1, -0.353563, 0.31715, 1, -0.386551, 0.353465, -1, 0.353465, 0.31715, 1, 0.386453, 0.386453, -1, -0.317247, 0.353465, 1, -0.353563, 0.386453, -1, 0.31715, 0.353465, 1, 0.353465, 0.41572, -1, -0.2778, 0.386453, 1, -0.317247, 0.41572, -1, 0.277702, 0.386453, 1, 0.31715, 0.440877, -1, -0.235709, 0.41572, 1, -0.2778, 0.440877, -1, 0.235611, 0.41572, 1, 0.277702, 0.461922, -1, -0.191366, 0.440877, 1, -0.235709, 0.461922, -1, 0.191269, 0.440877, 1, 0.235611, 0.478465, -1, -0.145164, 0.461922, 1, -0.191366, 0.478465, -1, 0.145067, 0.461922, 1, 0.191269, 0.490309, -1, -0.097592, 0.478465, 1, -0.145164, 0.490309, -1, 0.0974941, 0.478465, 1, 0.145067, 0.497553, -1, -0.0490407, 0.490309, 1, -0.097592, 0.497553, -1, 0.0489429, 0.490309, 1, 0.0974941, 0.5, -1, 0, 0.497553, 1, -0.0490407, 0.497553, 1, 0.0489429, 0.5, 1, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhdrs"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6gpn7"]
 render_priority = 0
-shader = ExtResource("6_ynhhl")
+shader = ExtResource("7_xe583")
 shader_parameter/shadows_enabled = true
 shader_parameter/highlights_enabled = true
-shader_parameter/shadow_strength = 1.0
+shader_parameter/shadow_strength = 0.8
 shader_parameter/highlight_strength = 0.1
 shader_parameter/highlight_color = Color(1, 1, 1, 1)
 shader_parameter/shadow_color = Color(0, 0.219608, 0.129412, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6wpf3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q5i35"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_yhdrs")
-shader = ExtResource("2_rwce8")
+next_pass = SubResource("ShaderMaterial_6gpn7")
+shader = ExtResource("8_y10ts")
 shader_parameter/albedo = Color(0.299042, 0.493057, 0.326024, 1)
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
@@ -251,12 +245,12 @@ shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_3evjc"]
-material = SubResource("ShaderMaterial_6wpf3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_5gtb0"]
+material = SubResource("ShaderMaterial_q5i35")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_h8kal"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nxr4i"]
 render_priority = 0
-shader = ExtResource("4_ynhhl")
+shader = ExtResource("9_0cao1")
 shader_parameter/depthline_color = Color(0, 0, 0, 1)
 shader_parameter/colorblend_factor = 0.75
 shader_parameter/depthline_thickness = 2.0
@@ -266,10 +260,10 @@ shader_parameter/outline_threshold_min = 0.2
 shader_parameter/outline_threshold_max = 0.3
 shader_parameter/foreground_depth_bias = 0.01
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_00ydq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m6hif"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_h8kal")
-shader = ExtResource("2_rwce8")
+next_pass = SubResource("ShaderMaterial_nxr4i")
+shader = ExtResource("8_y10ts")
 shader_parameter/albedo = Color(0.890196, 0.321569, 0.113725, 1)
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
@@ -291,171 +285,180 @@ shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
-[sub_resource type="TorusMesh" id="TorusMesh_ynhhl"]
-material = SubResource("ShaderMaterial_00ydq")
+[sub_resource type="TorusMesh" id="TorusMesh_iceam"]
+material = SubResource("ShaderMaterial_m6hif")
 
-[node name="BasePixelScene" type="Node3D"]
-metadata/_edit_horizontal_guides_ = [-50.0]
+[sub_resource type="ViewportTexture" id="ViewportTexture_2gejb"]
+viewport_path = NodePath("SubViewport")
 
-[node name="Display" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="ViewportTexture" id="ViewportTexture_hha0c"]
+viewport_path = NodePath("SubViewport")
 
-[node name="SceneRenderTextureRect" type="TextureRect" parent="Display"]
-texture_filter = 4
-material = SubResource("ShaderMaterial_ynhhl")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("ViewportTexture_ijthh")
-expand_mode = 1
+[node name="FinaRenderpart03" type="Node3D"]
+
+[node name="World" parent="." instance=ExtResource("1_1vvpi")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0)
+
+[node name="Rotating" type="Node3D" parent="."]
+script = SubResource("GDScript_jtgt5")
+
+[node name="MovingCube" type="MeshInstance3D" parent="Rotating" groups=["snap"]]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 1, 2.5)
+material_override = ExtResource("2_80bph")
+mesh = SubResource("BoxMesh_drxdm")
+skeleton = NodePath("")
 
 [node name="SubViewport" type="SubViewport" parent="."]
-canvas_item_default_texture_filter = 2
-size = Vector2i(640, 360)
+handle_input_locally = false
+size = Vector2i(360, 180)
 render_target_update_mode = 4
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
-environment = SubResource("Environment_tv8wu")
+[node name="TemplPlayer3dModel" parent="SubViewport" instance=ExtResource("7_nlx1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36761, 0.383224, 1)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
-transform = Transform3D(-0.478029, -0.500686, 0.721666, 0.817845, 0.0459268, 0.573602, -0.320339, 0.86441, 0.38753, 1.11495, 3.34223, 1.73992)
-shadow_enabled = true
-shadow_opacity = 0.9
-shadow_blur = 0.5
-directional_shadow_fade_start = 0.0
+[node name="CameraRig" type="Node3D" parent="SubViewport/TemplPlayer3dModel"]
+transform = Transform3D(1, 0, 0, 0, 0.866026, 0.5, 0, -0.5, 0.866026, 0, 7, 12)
+script = ExtResource("3_307vq")
+circular_radius = 0.5
+circular_speed = 0.1
 
-[node name="CameraRig" type="Node3D" parent="SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.97545, 37.9261, 53.4739)
-
-[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRig"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.940168, 0, 0)
+[node name="Camera3D" type="Camera3D" parent="SubViewport/TemplPlayer3dModel/CameraRig"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.49012e-07, 0, 1.49012e-07, 0.999999, 0, 1.25985, 8.81536)
 projection = 1
 current = true
-size = 20.0
-
-[node name="TemplPlayer3dModel" parent="SubViewport" groups=["snap"] instance=ExtResource("1_ijthh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.134109, 0)
-
-[node name="Floor" type="MeshInstance3D" parent="SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0492468, 0.0357433, 0.0554807)
-mesh = SubResource("BoxMesh_ijthh")
-skeleton = NodePath("../..")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Floor"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Floor/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_ijthh")
+size = 10.0
+far = 100.0
+script = ExtResource("4_ckly1")
 
 [node name="Objects" type="Node3D" parent="SubViewport"]
 
 [node name="BOX4" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
-transform = Transform3D(0.601272, -0.577648, -0.552083, 0.692798, 0.721132, 0, 0.398124, -0.382482, 0.833789, -2.3098, 0.585743, -2.30492)
-mesh = SubResource("BoxMesh_oce25")
+transform = Transform3D(0.601272, -0.577648, -0.552083, 0.692798, 0.721132, 0, 0.398124, -0.382482, 0.833789, -0.895037, 0.585743, -4.63154)
+mesh = SubResource("BoxMesh_1udsp")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOX4"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOX4/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_rwce8")
+shape = SubResource("ConvexPolygonShape3D_76mge")
 
 [node name="BOXEX" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
 transform = Transform3D(0.989589, 0, -0.143924, 0, 1, 0, 0.143924, 0, 0.989589, -3.92628, 0.622586, 0)
-mesh = SubResource("BoxMesh_rwce8")
+mesh = SubResource("BoxMesh_ka23c")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/StaticBody3D"]
 visible = false
-shape = SubResource("ConvexPolygonShape3D_vcwgk")
+shape = SubResource("ConvexPolygonShape3D_j1r2b")
 
 [node name="BOX2" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX"]
-transform = Transform3D(0.943616, 0, 0.331041, 0, 1, 0, -0.331041, 0, 0.943616, 0.402432, 1, -0.157584)
-mesh = SubResource("BoxMesh_rwce8")
+transform = Transform3D(0.943616, 0, 0.331041, 0, 1, 0, -0.331041, 0, 0.943616, -0.394524, 1, -0.316791)
+mesh = SubResource("BoxMesh_ka23c")
 skeleton = NodePath("../../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX/BOX2"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/BOX2/StaticBody3D"]
 visible = false
-shape = SubResource("ConvexPolygonShape3D_vcwgk")
+shape = SubResource("ConvexPolygonShape3D_j1r2b")
 
 [node name="BOX3" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX/BOX2"]
 transform = Transform3D(0.705921, 0, 0.708291, 0, 1, 0, -0.708291, 0, 0.705921, 0.0710177, 0.776454, 0.100634)
-mesh = SubResource("BoxMesh_vcwgk")
+mesh = SubResource("BoxMesh_3thq5")
 skeleton = NodePath("../../../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX3"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX3/StaticBody3D"]
 visible = false
-shape = SubResource("ConvexPolygonShape3D_m6hif")
+shape = SubResource("ConvexPolygonShape3D_1erbr")
 
 [node name="Cilinder" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80516, 1.08574, -2.57127)
-mesh = SubResource("CylinderMesh_vcwgk")
+transform = Transform3D(0.999931, 0, -0.0117458, 0, 1, 0, 0.0117458, 0, 0.999931, 1.80516, 1.0963, -5.60216)
+mesh = SubResource("CylinderMesh_riwd1")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder/StaticBody3D"]
 visible = false
-shape = SubResource("ConvexPolygonShape3D_tv8wu")
+shape = SubResource("ConvexPolygonShape3D_4rob7")
 
 [node name="Cilinder2" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.04593, 3.08574, -2.88535)
-mesh = SubResource("CylinderMesh_vcwgk")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.04593, 3.08574, -5.69788)
+mesh = SubResource("CylinderMesh_riwd1")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder2"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder2/StaticBody3D"]
-visible = false
-shape = SubResource("ConvexPolygonShape3D_tv8wu")
+shape = SubResource("ConvexPolygonShape3D_4rob7")
 
 [node name="Cilinder3" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.26829, 1.08574, 2.55451)
-mesh = SubResource("CylinderMesh_vcwgk")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.26829, 1.08574, 5.55451)
+mesh = SubResource("CylinderMesh_riwd1")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder3"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder3/StaticBody3D"]
-visible = false
-shape = SubResource("ConvexPolygonShape3D_tv8wu")
+shape = SubResource("ConvexPolygonShape3D_4rob7")
 
 [node name="Cilinder5" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.70668, 1.08574, 2.55451)
-mesh = SubResource("CylinderMesh_3evjc")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.70668, 1.08574, 2.55451)
+mesh = SubResource("CylinderMesh_5gtb0")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder5"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder5/StaticBody3D"]
 visible = false
-shape = SubResource("ConvexPolygonShape3D_tv8wu")
+shape = SubResource("ConvexPolygonShape3D_4rob7")
 
 [node name="Cilinder4" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.46389, 1.08574, 2.55451)
-mesh = SubResource("CylinderMesh_vcwgk")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.46389, 1.08574, 4.55451)
+mesh = SubResource("CylinderMesh_riwd1")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder4"]
-visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder4/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_tv8wu")
+shape = SubResource("ConvexPolygonShape3D_4rob7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
-transform = Transform3D(0.016542, 0.709292, -0.704721, -0.999728, 0.0233155, 0, 0.0164309, 0.704529, 0.709485, 2.79306, 1.0913, 0.545808)
+transform = Transform3D(0.016542, 0.709292, -0.704721, -0.999728, 0.0233155, 0, 0.0164309, 0.704529, 0.709485, 4.79306, 1.0913, 1.54581)
 extra_cull_margin = 2.0
-mesh = SubResource("TorusMesh_ynhhl")
+mesh = SubResource("TorusMesh_iceam")
 skeleton = NodePath("../..")
+
+[node name="Display" type="Control" parent="." node_paths=PackedStringArray("viewport", "_mainDisplay")]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_ygtb4")
+viewport = NodePath("../SubViewport")
+_mainDisplay = NodePath("_mainDisplay")
+
+[node name="_mainDisplay" type="Sprite2D" parent="Display"]
+texture_filter = 2
+material = ExtResource("11_nb73b")
+scale = Vector2(0.883333, 1)
+texture = SubResource("ViewportTexture_2gejb")
+centered = false
+
+[node name="TextureRect" type="TextureRect" parent="Display"]
+visible = false
+material = ExtResource("11_nb73b")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_hha0c")

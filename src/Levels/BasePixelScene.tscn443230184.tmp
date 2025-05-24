@@ -1,9 +1,12 @@
-[gd_scene load_steps=37 format=3 uid="uid://cn2qk3nydgqp2"]
+[gd_scene load_steps=40 format=3 uid="uid://cn2qk3nydgqp2"]
 
 [ext_resource type="PackedScene" uid="uid://cedw1iorowriy" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.tscn" id="1_ijthh"]
+[ext_resource type="Script" uid="uid://cepl38eb87fxw" path="res://part03/display2.gd" id="1_sstk2"]
 [ext_resource type="Shader" uid="uid://bqe6x0jbw5lpm" path="res://Assets/Shaders/SmoothPixel.gdshader" id="1_vcwgk"]
 [ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/flexible_toon_shader/flexible_toon_v2.gdshader" id="2_rwce8"]
+[ext_resource type="Script" uid="uid://dkxvairpx3a5i" path="res://part03/camera_rig.gd" id="3_24jmh"]
 [ext_resource type="Shader" uid="uid://cair4uoxj5lif" path="res://Assets/Shaders/Outline3D.gdshader" id="3_m6hif"]
+[ext_resource type="Script" uid="uid://smqkj4rqouo0" path="res://part03/camera_3d_texel_snapped3.gd" id="4_sstk2"]
 [ext_resource type="Shader" uid="uid://im2pcdmdj31a" path="res://Assets/Shaders/DepthInLineWithNormals.gdshader" id="4_ynhhl"]
 [ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/3dOutlineHighlight.gdshader" id="6_ynhhl"]
 
@@ -54,7 +57,7 @@ shader_parameter/highlight_strength = 0.1
 shader_parameter/highlight_color = Color(1, 1, 1, 1)
 shader_parameter/shadow_color = Color(0.215334, 0.219541, 0.190104, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q5i35"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g2fjo"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_3evjc")
 shader = ExtResource("2_rwce8")
@@ -80,7 +83,7 @@ shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_oce25"]
-material = SubResource("ShaderMaterial_q5i35")
+material = SubResource("ShaderMaterial_g2fjo")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rwce8"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
@@ -98,7 +101,7 @@ shader_parameter/outline_threshold_min = 0.2
 shader_parameter/outline_threshold_max = 0.3
 shader_parameter/foreground_depth_bias = 0.01
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_g2fjo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rwce8"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_wlawu")
 shader = ExtResource("2_rwce8")
@@ -124,7 +127,7 @@ shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_rwce8"]
-material = SubResource("ShaderMaterial_g2fjo")
+material = SubResource("ShaderMaterial_rwce8")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vcwgk"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
@@ -141,7 +144,7 @@ shader_parameter/outline_threshold_min = 0.2
 shader_parameter/outline_threshold_max = 0.3
 shader_parameter/foreground_depth_bias = 0.01
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oce25"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tv8wu"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_c101j")
 shader = ExtResource("2_rwce8")
@@ -167,7 +170,7 @@ shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_vcwgk"]
-material = SubResource("ShaderMaterial_oce25")
+material = SubResource("ShaderMaterial_tv8wu")
 size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_m6hif"]
@@ -185,7 +188,7 @@ shader_parameter/outline_threshold_min = 0.2
 shader_parameter/outline_threshold_max = 0.3
 shader_parameter/foreground_depth_bias = 0.01
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vhr60"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vcwgk"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_sstk2")
 shader = ExtResource("2_rwce8")
@@ -211,7 +214,7 @@ shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_vcwgk"]
-material = SubResource("ShaderMaterial_vhr60")
+material = SubResource("ShaderMaterial_vcwgk")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_tv8wu"]
 points = PackedVector3Array(-0.5, -1, 0, -0.497651, -1, -0.0490407, -0.497651, -1, 0.0489429, -0.5, 1, 0, -0.490407, -1, -0.097592, -0.497651, 1, -0.0490407, -0.490407, -1, 0.0974941, -0.497651, 1, 0.0489429, -0.478563, -1, -0.145164, -0.490407, 1, -0.097592, -0.478563, -1, 0.145067, -0.490407, 1, 0.0974941, -0.46202, -1, -0.191366, -0.478563, 1, -0.145164, -0.46202, -1, 0.191269, -0.478563, 1, 0.145067, -0.440975, -1, -0.235709, -0.46202, 1, -0.191366, -0.440975, -1, 0.235611, -0.46202, 1, 0.191269, -0.415818, -1, -0.2778, -0.440975, 1, -0.235709, -0.415818, -1, 0.277702, -0.440975, 1, 0.235611, -0.386551, -1, -0.317247, -0.415818, 1, -0.2778, -0.386551, -1, 0.31715, -0.415818, 1, 0.277702, -0.353563, -1, -0.353563, -0.386551, 1, -0.317247, -0.353563, -1, 0.353465, -0.386551, 1, 0.31715, -0.317247, -1, -0.386551, -0.353563, 1, -0.353563, -0.317247, -1, 0.386453, -0.353563, 1, 0.353465, -0.2778, -1, -0.415818, -0.317247, 1, -0.386551, -0.2778, -1, 0.41572, -0.317247, 1, 0.386453, -0.235709, -1, -0.440975, -0.2778, 1, -0.415818, -0.235709, -1, 0.440877, -0.2778, 1, 0.41572, -0.191366, -1, -0.46202, -0.235709, 1, -0.440975, -0.191366, -1, 0.461922, -0.235709, 1, 0.440877, -0.145164, -1, -0.478563, -0.191366, 1, -0.46202, -0.145164, -1, 0.478465, -0.191366, 1, 0.461922, -0.097592, -1, -0.490407, -0.145164, 1, -0.478563, -0.097592, -1, 0.490309, -0.145164, 1, 0.478465, -0.0490407, -1, -0.497651, -0.097592, 1, -0.490407, -0.0490407, -1, 0.497553, -0.097592, 1, 0.490309, 0, -1, -0.5, -0.0490407, 1, -0.497651, 0, -1, 0.5, -0.0490407, 1, 0.497553, 0.0489429, -1, -0.497651, 0, 1, -0.5, 0.0489429, -1, 0.497553, 0, 1, 0.5, 0.0974941, -1, -0.490407, 0.0489429, 1, -0.497651, 0.0974941, -1, 0.490309, 0.0489429, 1, 0.497553, 0.145067, -1, -0.478563, 0.0974941, 1, -0.490407, 0.145067, -1, 0.478465, 0.0974941, 1, 0.490309, 0.191269, -1, -0.46202, 0.145067, 1, -0.478563, 0.191269, -1, 0.461922, 0.145067, 1, 0.478465, 0.235611, -1, -0.440975, 0.191269, 1, -0.46202, 0.235611, -1, 0.440877, 0.191269, 1, 0.461922, 0.277702, -1, -0.415818, 0.235611, 1, -0.440975, 0.277702, -1, 0.41572, 0.235611, 1, 0.440877, 0.31715, -1, -0.386551, 0.277702, 1, -0.415818, 0.31715, -1, 0.386453, 0.277702, 1, 0.41572, 0.353465, -1, -0.353563, 0.31715, 1, -0.386551, 0.353465, -1, 0.353465, 0.31715, 1, 0.386453, 0.386453, -1, -0.317247, 0.353465, 1, -0.353563, 0.386453, -1, 0.31715, 0.353465, 1, 0.353465, 0.41572, -1, -0.2778, 0.386453, 1, -0.317247, 0.41572, -1, 0.277702, 0.386453, 1, 0.31715, 0.440877, -1, -0.235709, 0.41572, 1, -0.2778, 0.440877, -1, 0.235611, 0.41572, 1, 0.277702, 0.461922, -1, -0.191366, 0.440877, 1, -0.235709, 0.461922, -1, 0.191269, 0.440877, 1, 0.235611, 0.478465, -1, -0.145164, 0.461922, 1, -0.191366, 0.478465, -1, 0.145067, 0.461922, 1, 0.191269, 0.490309, -1, -0.097592, 0.478465, 1, -0.145164, 0.490309, -1, 0.0974941, 0.478465, 1, 0.145067, 0.497553, -1, -0.0490407, 0.490309, 1, -0.097592, 0.497553, -1, 0.0489429, 0.490309, 1, 0.0974941, 0.5, -1, 0, 0.497553, 1, -0.0490407, 0.497553, 1, 0.0489429, 0.5, 1, 0)
@@ -226,7 +229,7 @@ shader_parameter/highlight_strength = 0.1
 shader_parameter/highlight_color = Color(1, 1, 1, 1)
 shader_parameter/shadow_color = Color(0, 0.219608, 0.129412, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6wpf3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q5i35"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_yhdrs")
 shader = ExtResource("2_rwce8")
@@ -252,7 +255,7 @@ shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_3evjc"]
-material = SubResource("ShaderMaterial_6wpf3")
+material = SubResource("ShaderMaterial_q5i35")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h8kal"]
 render_priority = 0
@@ -266,7 +269,7 @@ shader_parameter/outline_threshold_min = 0.2
 shader_parameter/outline_threshold_max = 0.3
 shader_parameter/foreground_depth_bias = 0.01
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_00ydq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m6hif"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_h8kal")
 shader = ExtResource("2_rwce8")
@@ -292,10 +295,9 @@ shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="TorusMesh" id="TorusMesh_ynhhl"]
-material = SubResource("ShaderMaterial_00ydq")
+material = SubResource("ShaderMaterial_m6hif")
 
 [node name="BasePixelScene" type="Node3D"]
-metadata/_edit_horizontal_guides_ = [-50.0]
 
 [node name="Display" type="Control" parent="."]
 layout_mode = 3
@@ -304,6 +306,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_sstk2")
 
 [node name="SceneRenderTextureRect" type="TextureRect" parent="Display"]
 texture_filter = 4
@@ -315,7 +318,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("ViewportTexture_ijthh")
-expand_mode = 1
 
 [node name="SubViewport" type="SubViewport" parent="."]
 canvas_item_default_texture_filter = 2
@@ -332,17 +334,23 @@ shadow_opacity = 0.9
 shadow_blur = 0.5
 directional_shadow_fade_start = 0.0
 
-[node name="CameraRig" type="Node3D" parent="SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.97545, 37.9261, 53.4739)
+[node name="TemplPlayer3dModel" parent="SubViewport" instance=ExtResource("1_ijthh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.134109, 0)
 
-[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRig"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.940168, 0, 0)
+[node name="CameraRig" type="Node3D" parent="SubViewport/TemplPlayer3dModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.63419, 14.0237)
+script = ExtResource("3_24jmh")
+move_speed = null
+orbit_speed = null
+circular_radius = null
+circular_speed = null
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/TemplPlayer3dModel/CameraRig"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 3.45642, 3.23895)
 projection = 1
 current = true
-size = 20.0
-
-[node name="TemplPlayer3dModel" parent="SubViewport" groups=["snap"] instance=ExtResource("1_ijthh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.134109, 0)
+size = 10.0
+script = ExtResource("4_sstk2")
 
 [node name="Floor" type="MeshInstance3D" parent="SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0492468, 0.0357433, 0.0554807)
@@ -356,7 +364,7 @@ shape = SubResource("ConvexPolygonShape3D_ijthh")
 
 [node name="Objects" type="Node3D" parent="SubViewport"]
 
-[node name="BOX4" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+[node name="BOX4" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(0.601272, -0.577648, -0.552083, 0.692798, 0.721132, 0, 0.398124, -0.382482, 0.833789, -2.3098, 0.585743, -2.30492)
 mesh = SubResource("BoxMesh_oce25")
 skeleton = NodePath("../..")
@@ -366,7 +374,7 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOX4/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_rwce8")
 
-[node name="BOXEX" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+[node name="BOXEX" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(0.989589, 0, -0.143924, 0, 1, 0, 0.143924, 0, 0.989589, -3.92628, 0.622586, 0)
 mesh = SubResource("BoxMesh_rwce8")
 skeleton = NodePath("../..")
@@ -399,7 +407,7 @@ skeleton = NodePath("../../../..")
 visible = false
 shape = SubResource("ConvexPolygonShape3D_m6hif")
 
-[node name="Cilinder" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+[node name="Cilinder" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80516, 1.08574, -2.57127)
 mesh = SubResource("CylinderMesh_vcwgk")
 skeleton = NodePath("../..")
@@ -410,7 +418,7 @@ skeleton = NodePath("../..")
 visible = false
 shape = SubResource("ConvexPolygonShape3D_tv8wu")
 
-[node name="Cilinder2" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+[node name="Cilinder2" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.04593, 3.08574, -2.88535)
 mesh = SubResource("CylinderMesh_vcwgk")
 skeleton = NodePath("../..")
@@ -421,7 +429,7 @@ skeleton = NodePath("../..")
 visible = false
 shape = SubResource("ConvexPolygonShape3D_tv8wu")
 
-[node name="Cilinder3" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+[node name="Cilinder3" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.26829, 1.08574, 2.55451)
 mesh = SubResource("CylinderMesh_vcwgk")
 skeleton = NodePath("../..")
@@ -432,7 +440,7 @@ skeleton = NodePath("../..")
 visible = false
 shape = SubResource("ConvexPolygonShape3D_tv8wu")
 
-[node name="Cilinder5" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+[node name="Cilinder5" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.70668, 1.08574, 2.55451)
 mesh = SubResource("CylinderMesh_3evjc")
 skeleton = NodePath("../..")
@@ -443,7 +451,7 @@ skeleton = NodePath("../..")
 visible = false
 shape = SubResource("ConvexPolygonShape3D_tv8wu")
 
-[node name="Cilinder4" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+[node name="Cilinder4" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.46389, 1.08574, 2.55451)
 mesh = SubResource("CylinderMesh_vcwgk")
 skeleton = NodePath("../..")
@@ -454,7 +462,7 @@ visible = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder4/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_tv8wu")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(0.016542, 0.709292, -0.704721, -0.999728, 0.0233155, 0, 0.0164309, 0.704529, 0.709485, 2.79306, 1.0913, 0.545808)
 extra_cull_margin = 2.0
 mesh = SubResource("TorusMesh_ynhhl")
