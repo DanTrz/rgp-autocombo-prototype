@@ -288,7 +288,7 @@ viewport_path = NodePath("SubViewport")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 handle_input_locally = false
-size = Vector2i(360, 180)
+size = Vector2i(640, 360)
 render_target_update_mode = 4
 
 [node name="Rotating" type="Node3D" parent="SubViewport"]
@@ -303,140 +303,140 @@ skeleton = NodePath("")
 [node name="World" parent="SubViewport" instance=ExtResource("4_o76b6")]
 transform = Transform3D(0.943737, 0, -0.330696, 0, 1, 0, 0.330696, 0, 0.943737, 0, 0, 0)
 
-[node name="Objects" type="Node3D" parent="SubViewport"]
+[node name="LinearFilterObjects" type="Node3D" parent="SubViewport"]
 
-[node name="BOX4" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+[node name="BOX4" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
 transform = Transform3D(0.601272, -0.577648, -0.552083, 0.692798, 0.721132, 0, 0.398124, -0.382482, 0.833789, -2.3098, 0.585743, -3.27992)
 mesh = SubResource("BoxMesh_gufyq")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOX4"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/BOX4"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOX4/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/BOX4/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_xdma1")
 
-[node name="BOXEX" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+[node name="BOXEX" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
 transform = Transform3D(0.989589, 0, -0.143924, -0.000165789, 0.999999, -0.00113992, 0.143924, 0.00115192, 0.989588, -4.4869, 0.622586, 0)
 mesh = SubResource("BoxMesh_0nymt")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/BOXEX"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/BOXEX/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_6gguv")
 
-[node name="BOX2" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX"]
+[node name="BOX2" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects/BOXEX"]
 transform = Transform3D(0.943616, 0, 0.331041, 0, 1, 0, -0.331041, 0, 0.943616, -0.460284, 1, -0.0321122)
 mesh = SubResource("BoxMesh_0nymt")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX/BOX2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/BOXEX/BOX2"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/BOX2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/BOXEX/BOX2/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_6gguv")
 
-[node name="BOX3" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX/BOX2"]
+[node name="BOX3" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects/BOXEX/BOX2"]
 transform = Transform3D(0.705921, 0, 0.708291, 0, 1, 0, -0.708291, 0, 0.705921, 0.0710177, 0.776454, 0.100634)
 mesh = SubResource("BoxMesh_vmgqj")
 skeleton = NodePath("../../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/BOXEX/BOX2/BOX3"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/BOXEX/BOX2/BOX3/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_rfprd")
 
-[node name="BOXEX2" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+[node name="BOXEX2" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
 transform = Transform3D(0.989589, 0, -0.143924, -0.000165789, 0.999999, -0.00113992, 0.143924, 0.00115192, 0.989588, 4.05812, 0.622586, 5.2508)
 mesh = SubResource("BoxMesh_0nymt")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/BOXEX2"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/BOXEX2/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_6gguv")
 
-[node name="BOX2" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX2"]
+[node name="BOX2" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects/BOXEX2"]
 transform = Transform3D(0.943616, 0, 0.331041, 0, 1, 0, -0.331041, 0, 0.943616, -0.460284, 1, -0.0321122)
 mesh = SubResource("BoxMesh_0nymt")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX2/BOX2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/BOXEX2/BOX2"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX2/BOX2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/BOXEX2/BOX2/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_6gguv")
 
-[node name="BOX3" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX2/BOX2"]
+[node name="BOX3" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects/BOXEX2/BOX2"]
 transform = Transform3D(0.705921, 0, 0.708291, 0, 1, 0, -0.708291, 0, 0.705921, 0.0710177, 0.776454, 0.100634)
 mesh = SubResource("BoxMesh_vmgqj")
 skeleton = NodePath("../../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX2/BOX2/BOX3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/BOXEX2/BOX2/BOX3"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX2/BOX2/BOX3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/BOXEX2/BOX2/BOX3/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_rfprd")
 
-[node name="Cilinder" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+[node name="Cilinder" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80516, 1.08574, -2.57127)
 mesh = SubResource("CylinderMesh_fhhyk")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/Cilinder"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/Cilinder/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_2b0gj")
 
-[node name="Cilinder2" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+[node name="Cilinder2" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.04593, 3.08574, -2.88535)
 mesh = SubResource("CylinderMesh_fhhyk")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/Cilinder2"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/Cilinder2/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_2b0gj")
 
-[node name="Cilinder3" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+[node name="Cilinder3" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.29566, 1.08574, 5.30061)
 mesh = SubResource("CylinderMesh_fhhyk")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/Cilinder3"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/Cilinder3/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_2b0gj")
 
-[node name="Cilinder5" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+[node name="Cilinder5" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.40483, 1.08574, 2.55451)
 mesh = SubResource("CylinderMesh_dymiy")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder5"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/Cilinder5"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder5/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/Cilinder5/StaticBody3D"]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_2b0gj")
 
-[node name="Cilinder4" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+[node name="Cilinder4" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75639, 1.08574, 2.55451)
 mesh = SubResource("CylinderMesh_fhhyk")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder4"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/LinearFilterObjects/Cilinder4"]
 visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder4/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/LinearFilterObjects/Cilinder4/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_2b0gj")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Objects" groups=["snap"]]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/LinearFilterObjects" groups=["snap"]]
 transform = Transform3D(0.016542, 0.709292, -0.704721, -0.999728, 0.0233155, 0, 0.0164309, 0.704529, 0.709485, 3.89777, 1.0913, -0.6218)
 extra_cull_margin = 2.0
 mesh = SubResource("TorusMesh_hagf7")
@@ -453,7 +453,7 @@ script = ExtResource("8_cmp7w")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.53674e-07, 20)
 projection = 1
 current = true
-size = 10.0
+size = 15.0
 far = 100.0
 script = ExtResource("9_00j36")
 

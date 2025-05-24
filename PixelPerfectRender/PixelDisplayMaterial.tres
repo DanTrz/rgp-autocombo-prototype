@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://drdbgpjr3tnyp"]
 
-[ext_resource type="Shader" path="res://PixelPerfectRender/pixel_art_upscale.gdshader" id="1_5v3ib"]
+[ext_resource type="Shader" uid="uid://cip0wstsk1nlo" path="res://PixelPerfectRender/pixel_art_upscale.gdshader" id="1_5v3ib"]
 
 [resource]
 shader = ExtResource("1_5v3ib")
