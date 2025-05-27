@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dithpcmu3b6vf" path="res://src/BattleComponents/ComboSystem/ComboManager.cs" id="1_cly13"]
 [ext_resource type="Script" uid="uid://v4tsdn47re4u" path="res://src/BattleComponents/ComboSystem/ComboKeysContainer.cs" id="2_2p4ey"]
 [ext_resource type="LabelSettings" uid="uid://bdvjw4j8s2g81" path="res://Assets/BasicLabel.tres" id="2_tsh05"]
-[ext_resource type="PackedScene" uid="uid://cej78u7rano31" path="res://src/UIControls/ComboKeyUI.tscn" id="3_5hbau"]
+[ext_resource type="PackedScene" uid="uid://cej78u7rano31" path="res://src/UIAndControls/ComboKeyUI.tscn" id="3_5hbau"]
 
 [node name="ComboManager" type="Node"]
 script = ExtResource("1_cly13")

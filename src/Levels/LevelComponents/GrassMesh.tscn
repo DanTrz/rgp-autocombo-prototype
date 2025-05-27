@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://uu41wp2c58on"]
+[gd_scene load_steps=6 format=3 uid="uid://uu41wp2c58on"]
 
 [ext_resource type="Shader" uid="uid://dwqjdvt4ltcoy" path="res://Assets/Shaders/PixelShaders/SpriteAnimationShader.gdshader" id="1_jbit7"]
 [ext_resource type="Texture2D" uid="uid://b1wq3xhiw4aog" path="res://Assets/Sprites/GrassAnimation_48PX_SpriteSheet.png" id="2_rln64"]
@@ -10,12 +10,21 @@ shader_parameter/animationDuration = 5.0
 shader_parameter/frameCount = 44
 shader_parameter/timeOffset = 1.0
 shader_parameter/timeScale = 1.0
-shader_parameter/tex = ExtResource("2_rln64")
+shader_parameter/albedor_tex = ExtResource("2_rln64")
+shader_parameter/albedor_color = Color(1, 1, 1, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_ms8ko"]
 material = SubResource("ShaderMaterial_g6oq6")
 size = Vector2(0.5, 0.5)
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hc4eh"]
+points = PackedVector3Array(0.25, 0.25, 0, 0.25, -0.25, 0, -0.25, 0.25, 0, -0.25, -0.25, 0)
+
 [node name="GrassMeshInstance3D" type="MeshInstance3D"]
 mesh = SubResource("QuadMesh_ms8ko")
 skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_hc4eh")

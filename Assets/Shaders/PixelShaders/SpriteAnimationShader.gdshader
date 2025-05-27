@@ -7,7 +7,8 @@ uniform float animationDuration = 1.0; //How long we want our animation to run
 uniform int frameCount = 1; //The amount of frames in your spritesheet
 uniform float timeOffset = 1.0;
 uniform float timeScale = 1.0;
-uniform sampler2D tex : filter_nearest, source_color; //"Filter Nearest" makes the pixels from your pixel-art spritesheet nice and crisp
+uniform sampler2D albedor_tex : filter_nearest, source_color; //"Filter Nearest" makes the pixels from your pixel-art spritesheet nice and crisp
+uniform vec3 albedor_color : source_color = vec3(1.0f);
 
 void vertex() {
 	//Billboard Logic
@@ -32,8 +33,8 @@ void fragment() {
 	frameUV.x += float(frame)/float(frameCount);
 	
 	//Assign the frame to the texture
-	vec4 textureColor = texture(tex, frameUV);
-	ALBEDO = textureColor.rgb;
+	vec4 textureColor = texture(albedor_tex, frameUV);
+	ALBEDO = textureColor.rgb * albedor_color;
 	ALPHA = textureColor.a;
 	
 	//Model Origin info is passed to LIGHT_VERTEX. This is DYLEARN's "VERTEX = MODEL_ORIGIN"
