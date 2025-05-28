@@ -26,7 +26,7 @@ material = SubResource("StandardMaterial3D_gufyq")
 top_radius = 3.865
 height = 0.001
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cmp7w"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xdma1"]
 render_priority = 0
 shader = ExtResource("5_0hk0o")
 shader_parameter/outline_intensity = 1.0
@@ -40,7 +40,7 @@ shader_parameter/outline_depth_artifact_correction_coef = 3.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g3wal"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_cmp7w")
+next_pass = SubResource("ShaderMaterial_xdma1")
 shader = ExtResource("6_cmp7w")
 shader_parameter/shadows_enabled = true
 shader_parameter/highlights_enabled = true
@@ -49,7 +49,7 @@ shader_parameter/highlight_strength = 0.1
 shader_parameter/highlight_color = Color(1, 1, 1, 1)
 shader_parameter/shadow_color = Color(0.215334, 0.219541, 0.190104, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_00j36"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0nymt"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_g3wal")
 shader = ExtResource("7_00j36")
@@ -75,14 +75,14 @@ shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_gufyq"]
-material = SubResource("ShaderMaterial_00j36")
+material = SubResource("ShaderMaterial_0nymt")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xdma1"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g47wk"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_cmp7w")
+next_pass = SubResource("ShaderMaterial_xdma1")
 shader = ExtResource("8_kg2n0")
 shader_parameter/depthline_color = Color(0, 0, 0, 1)
 shader_parameter/colorblend_factor = 0.75
@@ -93,7 +93,7 @@ shader_parameter/outline_threshold_min = 0.2
 shader_parameter/outline_threshold_max = 0.3
 shader_parameter/foreground_depth_bias = 0.01
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kg2n0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6gguv"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_g47wk")
 shader = ExtResource("7_00j36")
@@ -119,7 +119,7 @@ shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_0nymt"]
-material = SubResource("ShaderMaterial_kg2n0")
+material = SubResource("ShaderMaterial_6gguv")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6gguv"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
@@ -136,7 +136,7 @@ shader_parameter/outline_threshold_min = 0.2
 shader_parameter/outline_threshold_max = 0.3
 shader_parameter/foreground_depth_bias = 0.01
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gufyq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rfprd"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_ekqa5")
 shader = ExtResource("7_00j36")
@@ -162,14 +162,14 @@ shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_vmgqj"]
-material = SubResource("ShaderMaterial_gufyq")
+material = SubResource("ShaderMaterial_rfprd")
 size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rfprd"]
 points = PackedVector3Array(0.25, 0.25, 0.25, 0.25, 0.25, -0.25, -0.25, 0.25, 0.25, 0.25, -0.25, 0.25, 0.25, -0.25, -0.25, -0.25, 0.25, -0.25, -0.25, -0.25, 0.25, -0.25, -0.25, -0.25)
 
 [sub_resource type="BoxMesh" id="BoxMesh_g3wal"]
-material = SubResource("ShaderMaterial_kg2n0")
+material = SubResource("ShaderMaterial_6gguv")
 size = Vector3(2, 1, 2)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_g3wal"]
@@ -200,7 +200,7 @@ shader_parameter/convex_threshold = 0.5
 shader_parameter/convex_normal_threshold = 0.5
 shader_parameter/convex_normal_threshold_scale = 2.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rfprd"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_syeed"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_vmgqj")
 shader = ExtResource("7_00j36")
@@ -226,7 +226,7 @@ shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_syeed"]
-material = SubResource("ShaderMaterial_rfprd")
+material = SubResource("ShaderMaterial_syeed")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_28gcx"]
 render_priority = 0
@@ -240,7 +240,7 @@ shader_parameter/outline_threshold_min = 0.2
 shader_parameter/outline_threshold_max = 0.3
 shader_parameter/foreground_depth_bias = 0.01
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6gguv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fhhyk"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_28gcx")
 shader = ExtResource("7_00j36")
@@ -266,7 +266,7 @@ shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="TorusMesh" id="TorusMesh_hagf7"]
-material = SubResource("ShaderMaterial_6gguv")
+material = SubResource("ShaderMaterial_fhhyk")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oehph"]
 shader = ExtResource("6_lxoyt")

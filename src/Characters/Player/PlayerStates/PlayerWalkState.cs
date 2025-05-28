@@ -121,6 +121,11 @@ public partial class PlayerWalkState : PlayerBaseState, ICharacterState
                     _ => 0
                 };
 
+                float radYRotation = Godot.Mathf.LerpAngle(_charSkin.Rotation.Y, lookAngle, 50f * (float)delta);
+                _charSkin.GlobalRotation = new Vector3(_charSkin.Rotation.X, radYRotation, _charSkin.Rotation.Z);//Normal Rotation
+                // _charSkin.GlobalRotation = new Vector3(radXRotation, radYRotation, radZRotation); //Tilted to Cam Rotation
+
+
                 //TODO: Implement a Switch in a separate function that fixes all X, Y and Z rotations (Diagnonal use camera rotation / 2 for X and Z but adjust positve and negative for Y)
                 // switch (direction2DAngle)
                 // {
@@ -136,8 +141,7 @@ public partial class PlayerWalkState : PlayerBaseState, ICharacterState
                 //         break;
                 // }
 
-                float radYRotation = Godot.Mathf.LerpAngle(_charSkin.Rotation.Y, lookAngle, 50f * (float)delta);
-                _charSkin.GlobalRotation = new Vector3(radXRotation, radYRotation, radZRotation);
+
 
             }
 
