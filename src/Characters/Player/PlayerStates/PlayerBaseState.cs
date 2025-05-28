@@ -1,3 +1,5 @@
+using Godot;
+
 public abstract partial class PlayerBaseState : CharacterBaseState, ICharacterState
 {
 

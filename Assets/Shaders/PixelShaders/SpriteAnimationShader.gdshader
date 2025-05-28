@@ -31,12 +31,12 @@ void fragment() {
 	int frame = int(floor(progress * float(frameCount)));
 	vec2 frameUV = UV / (vec2(float(frameCount), 1.0));
 	frameUV.x += float(frame)/float(frameCount);
-	
+
 	//Assign the frame to the texture
 	vec4 textureColor = texture(albedor_tex, frameUV);
 	ALBEDO = textureColor.rgb * albedor_color;
 	ALPHA = textureColor.a;
-	
+
 	//Model Origin info is passed to LIGHT_VERTEX. This is DYLEARN's "VERTEX = MODEL_ORIGIN"
 	LIGHT_VERTEX = modelOrigin;
 }

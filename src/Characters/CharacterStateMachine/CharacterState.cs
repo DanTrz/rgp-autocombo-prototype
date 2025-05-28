@@ -45,5 +45,4 @@ public abstract partial class CharacterBaseState : Node, ICharacterState //TODO 
 
     }
 
-
 }

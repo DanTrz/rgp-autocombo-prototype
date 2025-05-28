@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 
 public partial class StateMachineManager : Node
@@ -32,7 +33,7 @@ public partial class StateMachineManager : Node
         if (_initialState != null)
         {
             CurrentState = _initialState;
-            _initialState.Enter();
+            CurrentState.Enter();
         }
 
         //GlobalEvents.OnBattleEnded += OnBattleEnded;
@@ -45,31 +46,31 @@ public partial class StateMachineManager : Node
     {
         CurrentState?.ProcessUpdate(delta);
 
-        if (_currentCharacter != null)
-        {
-            UpdatePlayerGlobals(_currentCharacter, delta);
-        }
+        // if (_currentCharacter != null)
+        // {
+        //     UpdatePlayerGlobals(_currentCharacter, delta);
+        // }
     }
-
 
     public override void _PhysicsProcess(double delta)
     {
         CurrentState?.PhysicsUpdate(delta);
     }
 
-    private void OnCharacterStateTransition(CharacterBaseState currentState, Const.CharactersEnums.States NewStateName, BaseCharacter character)
+    private void OnCharacterStateTransition(CharacterBaseState currentState, Const.CharactersEnums.States newStateName, BaseCharacter character)
     {
-        if (currentState != CurrentState) { return; } //No need to switch states
+        // if (currentState == CurrentState) { return; } //No need to switch states
+        if (newStateName == CurrentState.StateName) { return; } //No need to switch states
 
         // CharacterState _nextState = StatesList.Where((state) => state.Key == NewStateName.ToLower()).FirstOrDefault().Value;
         //CharacterBaseState _nextState = _statesList.Where((state) => state.Value.StateName == NewStateName).FirstOrDefault().Value;
-        CharacterBaseState _nextState = _statesList.FirstOrDefault((state) => state.Value.StateName == NewStateName).Value;
+        CharacterBaseState _nextState = _statesList.FirstOrDefault((state) => state.Value.StateName == newStateName).Value;
 
         if (CurrentState != null)
         {
-            CurrentState.Exit();
+            CurrentState?.Exit();
             CurrentState = _nextState;
-            CurrentState.Enter();
+            CurrentState?.Enter();
         }
 
         if (character != null)

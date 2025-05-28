@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b15x7xwni3gej"]
 
-[ext_resource type="Texture2D" uid="uid://dp5yqlxv71ab1" path="res://src/Levels/Assets/soil3Text48Px.png" id="1_lh1gn"]
+[ext_resource type="Texture2D" uid="uid://dp5yqlxv71ab1" path="res://Temp/TempTestTerrain3D/Assets/soil3Text48Px.png" id="1_lh1gn"]
 
 [resource]
 diffuse_mode = 3

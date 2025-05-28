@@ -1,20 +1,38 @@
+using System.Threading.Tasks;
 using Godot;
 
 public partial class PlayerJumpState : PlayerBaseState, ICharacterState
 {
     public override Const.CharactersEnums.States StateName { get; set; } = Const.CharactersEnums.States.PLAYER_JUMP_STATE;
 
-    [Export] public float JumpVelocity = 6.0f;
+    [Export] public float JumpVelocity = 7.0f;
+    [Export] private float airControlFactor = 0.2f;
+    [Export] private float jumpDuration = 0.1f;
 
-    // public Vector2 direction = Vector2.Zero;
-    // public float currentVelocity = 0;
-    // public bool isCharacterMoving = false;
-
-    [Export] private float jumpForwardSlowRate = 0.7f;
+    private Vector3 _initialHorizontalVelocity = Vector3.Zero;
 
     public override void Enter()
     {
-        Log.Info("CS Jump State Entered");
+
+        _initialHorizontalVelocity = new Vector3(_charMainNode.Velocity.X, 0, _charMainNode.Velocity.Z);
+
+        // Apply the jump impulse:
+
+        //         _charMainNode.Velocity = new Vector3( // WRONG VELOCITY CODE
+        //     _initialHorizontalVelocity.X * airControlFactor,
+        //     JumpVelocity,
+        //     _initialHorizontalVelocity.Z * airControlFactor
+        // );
+        _velocity = new Vector3(
+            _initialHorizontalVelocity.X * airControlFactor,
+            JumpVelocity,
+            _initialHorizontalVelocity.Z * airControlFactor
+        );
+
+        _charMainNode.SetCharacterVelocity(_charMainNode, _velocity, "PlayerJumpState Enter");
+        //_charMainNode.Velocity = _velocity; //WORKING VELOCIY CODE
+
+        GD.Print($"1 -Velocity AT VERY END of Enter: {_charMainNode.Velocity}");
     }
 
     public override void Exit()
@@ -30,35 +48,69 @@ public partial class PlayerJumpState : PlayerBaseState, ICharacterState
     public override void PhysicsUpdate(double delta)
     {
         ManageJumpState(delta);
-
     }
 
     private void ManageJumpState(double delta)
     {
+
         if (_charMainNode == null) return;
 
-        if (_charMainNode.IsOnFloor())//JUMP
+        GD.Print($"2 -Velocity AT ManageJumpState Enter: {_charMainNode.Velocity}");
+        // if (_charMainNode.IsOnFloor())//JUMP
+        // {
+        //     //WORKING VELOCITY CODE
+        //     // _charMainNode.Velocity = new Vector3(
+        //     //     _charMainNode.Velocity.X * airControlFactor,
+        //     //     JumpVelocity,
+        //     //     _charMainNode.Velocity.Z * airControlFactor);
+
+
+        //     _velocity = new Vector3(
+        //         _charMainNode.Velocity.X * airControlFactor,
+        //         JumpVelocity,
+        //         _charMainNode.Velocity.Z * airControlFactor);
+
+        //     _charMainNode.SetCharacterVelocity(_charMainNode, _velocity, "PlayerJumpState ManageJumpState - JUMP");
+        //     GD.Print($"3 - Velocity AT JUMP: {_charMainNode.Velocity}");
+        // }
+
+        //Apply Gravity
+        //_charMainNode.Velocity += _charMainNode.GetGravity() * (float)delta; //WORKING VELOCITY CODE
+
+        _velocity += _charMainNode.GetGravity() * (float)delta;
+        _charMainNode.SetCharacterVelocity(_charMainNode, _velocity, "PlayerJumpState ManageJumpState 2 - Apply Gravity");
+
+        _charMainNode.MoveAndSlide();
+
+        GD.Print($"4 -Velocity AFTER  _charMainNode.MoveAndSlide();: {_charMainNode.Velocity}");
+
+
+        if (_charMainNode.Velocity.Y < 0) //Means the player is starting to fall from the jump
         {
-            //characterNode.Velocity += characterNode.GetGravity() * JumpVelocity * (float)delta;
-            //velocity.Y = JumpVelocity;
-
-            // velocity.X = Mathf.MoveToward(characterNode.Velocity.X, (characterNode.Velocity.X) / 2, characterSpeed);
-            // velocity.Z = Mathf.MoveToward(characterNode.Velocity.X, (characterNode.Velocity.Z) / 2, characterSpeed);
-            // velocity.Y = JumpVelocity;
-            // characterNode.Velocity = velocity;
-
-            _charMainNode.Velocity = new Vector3(
-                _charMainNode.Velocity.X * jumpForwardSlowRate,
-                JumpVelocity,
-                _charMainNode.Velocity.Z * jumpForwardSlowRate);
-
-            _charMainNode.MoveAndSlide();
+            EmitStateTransition(this, Const.CharactersEnums.States.PLAYER_FALL_STATE, _charMainNode);
         }
 
-        if (!_charMainNode.IsOnFloor())//FALL
-        {
-            TransitionToFall(delta);
-        }
+
+
+
+
+        // if (_charMainNode == null) return;
+
+
+        // //If not on floor - Transitio to fall
+        // if (_charMainNode.Velocity.Y < 0) //Means the player is starting to fall from the jump
+        // {
+        //     await ToSignal(_charMainNode.GetTree().CreateTimer(jumpDuration), Godot.Timer.SignalName.Timeout);
+        //     EmitStateTransition(this, Const.CharactersEnums.States.PLAYER_FALL_STATE, _charMainNode);
+        // }
+
+        // GD.Print($" 3-Velocity just before gravity in ManageJumpState: {_charMainNode.Velocity}");
+        // //Apply Gravity
+        // _charMainNode.Velocity += _charMainNode.GetGravity() * (float)delta; //Deduct the gravity to the jump velocity
+        // // Move the character
+        // _charMainNode.MoveAndSlide();
+
+        // GD.Print($"4 - Velocity after gravity in ManageJumpState: {_charMainNode.Velocity}");
 
     }
 
@@ -96,13 +148,6 @@ public partial class PlayerJumpState : PlayerBaseState, ICharacterState
         // 	// 	GDPlayerAnimPlayerWorld.Play("run_north_east");
         // 	// 	break;
         // }
-    }
-
-    private void TransitionToFall(double delta)
-    {
-
-        EmitStateTransition(this, Const.CharactersEnums.States.PLAYER_FALL_STATE, _charMainNode);//Const.CharacterStates.States.PLAYER_FALL_STATE, _characterNode);
-
     }
 
     public override void _ExitTree()

@@ -10,9 +10,15 @@ public partial class TemplPlayer3dModel : BaseCharacter
 	public override bool IsModel3D { get; set; } = true;
 
 
+
 	public override void _Ready()
 	{
 		base._Ready();
 	}
+
+
+
+
+
 
 }

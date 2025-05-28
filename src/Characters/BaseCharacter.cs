@@ -30,6 +30,16 @@ public abstract partial class BaseCharacter : CharacterBody3D
         StateMachine = GlobalUtil.GetAllChildNodesByType<StateMachineManager>(this).FirstOrDefault();
     }
 
+    public void SetCharacterVelocity(BaseCharacter charMainNode, Vector3 newVelocity, string source)
+    {
+        if (charMainNode.Velocity != newVelocity) // Log only if there's an actual change
+        {
+            Log.Info($"VELOCITY CHANGE by '{source}': From {charMainNode.Velocity} To {newVelocity}");
+        }
+        charMainNode.Velocity = newVelocity; // Set the actual engine velocity
+        //_loggedVelocity = newVelocity; // Keep our shadow property in sync
+    }
+
 
 
 

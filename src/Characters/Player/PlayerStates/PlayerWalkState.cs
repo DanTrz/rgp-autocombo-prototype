@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Godot;
 
 public partial class PlayerWalkState : PlayerBaseState, ICharacterState
@@ -8,15 +9,20 @@ public partial class PlayerWalkState : PlayerBaseState, ICharacterState
     [Export] public float WalkRotationSpeed = 10;
     [Export] public float WalkAcceleration = 10;
 
+    bool _isCharWalking = false;
     public override void Enter()
     {
         _charSpeed = WalkSpeed;
         _charRotationSpeed = WalkRotationSpeed;
         _charAcceleration = WalkAcceleration;
+
+        _isCharWalking = true;
+
     }
 
     public override void Exit()
     {
+        _isCharWalking = false;
 
     }
 
@@ -28,16 +34,23 @@ public partial class PlayerWalkState : PlayerBaseState, ICharacterState
     public override void PhysicsUpdate(double delta)
     {
         ManageWalkState(delta);
-        // Log.Info($" {_characterNode.Name} - Walk velocity: {_velocity}, direction: {_direction2D}");
-
     }
 
     private void ManageWalkState(double delta)
     {
 
-        if (_charMainNode != null)
+        if (_charMainNode != null && _isCharWalking)
         {
-            _velocity = _charMainNode.Velocity;
+            _velocity = _charMainNode.Velocity; //WORKING VELOCIY CODE
+
+            if (!_charMainNode.IsOnFloor())
+            {
+                _velocity = Vector3.Zero;
+                _charMainNode.SetCharacterVelocity(_charMainNode, _velocity, "PlayerWalkState ManageWalkState 1");
+                _charMainNode.MoveAndSlide(); //Stop the character
+
+                EmitStateTransition(this, Const.CharactersEnums.States.PLAYER_FALL_STATE, _charMainNode);
+            }
 
             if (Input.IsActionJustPressed("jump") && _charMainNode.IsOnFloor())
             {
@@ -64,7 +77,7 @@ public partial class PlayerWalkState : PlayerBaseState, ICharacterState
         _direction2D = _direction2D.Normalized();
         _direction3D = (_charMainNode.Transform.Basis * new Vector3(_direction2D.X, 0, _direction2D.Y)).Normalized();
 
-        if (_direction3D != Vector3.Zero) //TODO: Refacot all of This. ADD IsModel3D CHECK AND ADD 3D ANIMATIONS CALLS.
+        if (_direction3D != Vector3.Zero && _isCharWalking) //TODO: Refacot all of This. ADD IsModel3D CHECK AND ADD 3D ANIMATIONS CALLS.
         {
             //IF THE CAMERA ROTATES, CHANGE THE DIRECTIONS 
             // Camera3D _camera = GetViewport().GetCamera3D();
@@ -77,7 +90,9 @@ public partial class PlayerWalkState : PlayerBaseState, ICharacterState
             //VELOCITY CALC 02 => Precise start and stop, responsive and more "2d" feeling of old topdown game
             _velocity.X = _direction3D.X * _charSpeed;
             _velocity.Z = _direction3D.Z * _charSpeed;
-            _charMainNode.Velocity = _velocity;
+
+            _charMainNode.SetCharacterVelocity(_charMainNode, _velocity, "PlayerWalkState MakeCharacterWalk 2");
+            //_charMainNode.Velocity = _velocity; //WORKING VELOCIY CODE
 
             _charMainNode.MoveAndSlide();
             _isCharMoving = true;

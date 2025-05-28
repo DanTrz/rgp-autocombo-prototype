@@ -10,10 +10,10 @@ class_name TerrainTextureBlendController
 # Hardness preferences by Texture ID. Edit in Inspector.
 #hard edges // smooth edges would be 0.0
 @export var texture_id_to_hardness_map: Dictionary = {
-	1: 1.0, 
-	3: 1.0, 
-	4: 1.0,
-	5: 1.0, 
+	1: 0.0, 
+	3: 0.0, 
+	4: 0.0,
+	5: 0.0, 
 }:
 	set(value):
 		texture_id_to_hardness_map = value

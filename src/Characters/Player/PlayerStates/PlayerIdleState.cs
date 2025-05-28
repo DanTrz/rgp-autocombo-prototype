@@ -6,11 +6,12 @@ public partial class PlayerIdleState : PlayerBaseState, ICharacterState
 
     public override void Enter()
     {
-        //Log.Info($" {_characterNode.Name} - Idle State Entered");
+
 
         if (_charMainNode.IsOnFloor())//landed
         {
-            _charMainNode.Velocity = Vector3.Zero;
+            //_charMainNode.Velocity = Vector3.Zero; WORKING VELOCITY CODE
+            _charMainNode.SetCharacterVelocity(_charMainNode, Vector3.Zero, "PlayerIdleState Enter");
         }
     }
 
@@ -43,7 +44,8 @@ public partial class PlayerIdleState : PlayerBaseState, ICharacterState
 
             if (_charMainNode.IsOnFloor())
             {
-                _charMainNode.Velocity = Vector3.Zero;
+                //_charMainNode.Velocity = Vector3.Zero; //WORKING VELOCITY CODE
+                _charMainNode.SetCharacterVelocity(_charMainNode, Vector3.Zero, "PlayerIdleState ManageIdleState");
             }
 
             Vector2 _inputDirection = Input.GetVector("left", "right", "up", "down");

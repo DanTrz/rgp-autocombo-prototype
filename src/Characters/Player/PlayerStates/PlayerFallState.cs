@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public partial class PlayerFallState : PlayerBaseState, ICharacterState
@@ -5,11 +6,11 @@ public partial class PlayerFallState : PlayerBaseState, ICharacterState
     public override Const.CharactersEnums.States StateName { get; set; } = Const.CharactersEnums.States.PLAYER_FALL_STATE;
 
 
-    [Export] public float fallSpeed = 10.0f;
+    [Export] public float fallSpeed = 5.0f;
     public override void Enter()
     {
 
-        Log.Info($" {_charMainNode.Name} - Fall State Entered");
+
     }
 
     public override void Exit()
@@ -32,22 +33,29 @@ public partial class PlayerFallState : PlayerBaseState, ICharacterState
     {
         if (_charMainNode == null) return;
 
-        if (!_charMainNode.IsOnFloor())//FALLing - Apply Gravity
-        {
-            _charMainNode.Velocity += _charMainNode.GetGravity() * fallSpeed * (float)delta;
-            // characterNode.Velocity = new Vector3((characterNode.Velocity.X / 2), (characterNode.Velocity.Y / 2), (characterNode.Velocity.Z / 2));
-
-            _charMainNode.MoveAndSlide();
-        }
+        ApplyGravity(fallSpeed, delta);
 
         if (_charMainNode.IsOnFloor())//landed
         {
             TransitionToIdle(delta);
-
         }
 
     }
 
+    private void ApplyGravity(float fallSpeed, double delta)
+    {
+
+        //NEW VELOCITY CODE
+        var _newVelocity = _charMainNode.Velocity;
+        _newVelocity += _charMainNode.GetGravity() * fallSpeed * (float)delta;
+        _charMainNode.SetCharacterVelocity(_charMainNode, _newVelocity, "PlayerFallState ApplyGravity");
+        //NEW VELOCITY CODE
+
+
+        // _charMainNode.Velocity += _charMainNode.GetGravity() * fallSpeed * (float)delta; //ORIGINAL WORKING
+
+        _charMainNode.MoveAndSlide();
+    }
 
     private void PlayFallAnimation()
     {

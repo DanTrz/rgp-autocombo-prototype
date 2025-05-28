@@ -1,11 +1,11 @@
 shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,skip_vertex_transform;
 
-/* The terrain depends on this shader to function. Don't change most things in vertex() or 
- * terrain normal calculations in fragment(). You probably only want to customize the 
+/* The terrain depends on this shader to function. Don't change most things in vertex() or
+ * terrain normal calculations in fragment(). You probably only want to customize the
  * material calculation and PBR application in fragment().
  *
- * Uniforms that begin with _ are private and will not display in the inspector. However, 
+ * Uniforms that begin with _ are private and will not display in the inspector. However,
  * you can set them via code. You are welcome to create more of your own hidden uniforms.
  *
  * This system only supports albedo, height, normal, roughness. Most textures don't need the other
@@ -72,7 +72,7 @@ uniform vec3 macro_variation1 : source_color = vec3(1.);
 uniform vec3 macro_variation2 : source_color = vec3(1.);
 uniform float macro_variation_slope : hint_range(0., 1.)  = 0.333;
 
-// Generic noise at 3 scales, which can be used for anything 
+// Generic noise at 3 scales, which can be used for anything
 uniform highp sampler2D noise_texture : source_color, filter_nearest_mipmap_anisotropic, repeat_enable;
 
 uniform float noise1_scale : hint_range(0.001, 1.) = 0.04; // Used for macro variation 1. Scaled up 10x
@@ -167,10 +167,10 @@ void vertex() {
 	bool hole = bool(control >>2u & 0x1u);
 
 	// Show holes to all cameras except mouse camera (on exactly 1 layer)
-	if ( !(CAMERA_VISIBLE_LAYERS == _mouse_layer) && 
+	if ( !(CAMERA_VISIBLE_LAYERS == _mouse_layer) &&
 			(hole || (_background_mode == 0u && v_region.z == -1))) {
 		v_vertex.x = 0. / 0.;
-	} else {		
+	} else {
 		// Set final vertex height & calculate vertex normals. 3 lookups
 		ivec3 coord_a = get_index_coord(start_pos, VERTEX_PASS);
 		ivec3 coord_b = get_index_coord(end_pos, VERTEX_PASS);
@@ -265,21 +265,21 @@ void get_material(vec3 i_normal, float i_height, vec4 ddxy, uint control, ivec3 
 	out_mat = Material(vec4(0.), vec4(0.), 0, 0, 0.0, 0.0, 0.0);
 	vec2 index_pos = vec2(index.xy);
 	int region = index.z;
-	
+
 	// Translate index position to world space.
 	index_pos += _region_locations[region] * _region_size;
 	index_pos *= _vertex_spacing;
-	
+
 	vec2 base_uv;
 	float p_angle = 0.0;
-	
+
 	if (i_normal.y >= projection_threshold || !enable_projection) {
 		base_uv = v_vertex.xz;
 	} else {
 		// Project UVs and determine surface normal angle
 		// Quantize the normal otherwise textures lose continuity across domains
 		// Avoid potential singularitys for unit length normal, usually worst case would be
-		// sqrt(3.0)/2.0, however as we are nullifying y component and renormalizing, 
+		// sqrt(3.0)/2.0, however as we are nullifying y component and renormalizing,
 		// we can use sqrt(2.0)/2.0, as a lower bound.
 		#define SQRT2_HALF 0.7071067811865476
 		vec3 p_normal = normalize(vec3(i_normal.x, 0., i_normal.z));
@@ -321,7 +321,7 @@ void get_material(vec3 i_normal, float i_height, vec4 ddxy, uint control, ivec3 
 	float mat_scale = _texture_uv_scale_array[out_mat.base];
 	float normal_angle = uv_rotation + p_angle;
 	vec4 dd1 = ddxy;
-	
+
 	if (out_mat.blend < 1.0) {
 		// 2 lookups
 		matUV = detiling(base_uv * mat_scale, index_pos * mat_scale, out_mat.base, normal_angle);
@@ -395,7 +395,7 @@ void fragment() {
 	// Recover UVs
 	vec2 uv = UV;
 	vec2 uv2 = UV2;
-	
+
 	// Lookup offsets, ID and blend weight
 	const vec3 offsets = vec3(0, 1, 2);
 	vec2 index_id = floor(uv);
@@ -407,7 +407,7 @@ void fragment() {
 		weight.x * invert.y, // 2
 		invert.x * invert.y  // 3
 	);
-	
+
 	vec3 base_ddx = dFdxCoarse(v_vertex);
 	vec3 base_ddy = dFdyCoarse(v_vertex);
 	vec4 base_derivatives = vec4(base_ddx.xz, base_ddy.xz);
@@ -422,14 +422,14 @@ void fragment() {
 	index[1] = get_index_coord(index_id + offsets.yy, FRAGMENT_PASS);
 	index[2] = get_index_coord(index_id + offsets.yx, FRAGMENT_PASS);
 	index[3] = get_index_coord(index_id + offsets.xx, FRAGMENT_PASS);
-	
+
 	// Terrain normals
 	vec3 index_normal[4];
 	float h[8];
 	// allows additional derivatives, eg world noise, brush previews etc
 	float u = 0.0;
 	float v = 0.0;
-	
+
 	// Re-use index[] for the first lookups, skipping some math. 3 lookups
 	h[3] = texelFetch(_height_maps, index[3], 0).r; // 0 (0,0)
 	h[2] = texelFetch(_height_maps, index[2], 0).r; // 1 (1,0)
@@ -447,7 +447,7 @@ void fragment() {
 		base_derivatives.xy = vec2(dot(base_ddx, p_tangent), dot(base_ddx, p_binormal));
 		base_derivatives.zw = vec2(dot(base_ddy, p_tangent), dot(base_ddy, p_binormal));
 	}
-	
+
 	// Adjust derivatives for mipmap bias and depth blur effect
 	base_derivatives *=  mix(mipmap_bias,
 		depth_blur + 1.,
@@ -468,8 +468,8 @@ void fragment() {
 		col_map[0] = index[0].z > -1 ? texelFetch(_color_maps, index[0], 0) : COLOR_MAP;
 		col_map[1] = index[1].z > -1 ? texelFetch(_color_maps, index[1], 0) : COLOR_MAP;
 		col_map[2] = index[2].z > -1 ? texelFetch(_color_maps, index[2], 0) : COLOR_MAP;
-		
-		color_map = 
+
+		color_map =
 			col_map[0] * weights[0] +
 			col_map[1] * weights[1] +
 			col_map[2] * weights[2] +
@@ -490,20 +490,20 @@ void fragment() {
 		index_normal[2] = normalize(vec3(h[2] - h[6] + u, _vertex_spacing, h[2] - h[1] + v));
 
 		// Set interpolated world normal
-		w_normal = 
+		w_normal =
 			index_normal[0] * weights[0] +
 			index_normal[1] * weights[1] +
 			index_normal[2] * weights[2] +
 			index_normal[3] * weights[3] ;
 	}
-		
+
 	// Apply terrain normals
 	vec3 w_tangent = normalize(cross(w_normal, vec3(0.0, 0.0, 1.0)));
 	vec3 w_binormal = normalize(cross(w_normal, w_tangent));
 	NORMAL = mat3(VIEW_MATRIX) * w_normal;
 	TANGENT = mat3(VIEW_MATRIX) * w_tangent;
 	BINORMAL = mat3(VIEW_MATRIX) * w_binormal;
-	
+
 	// Used for material world space normal map blending
 	mat3 TANGENT_WORLD_MATRIX = mat3(w_tangent, w_normal, w_binormal);
 
@@ -562,25 +562,25 @@ void fragment() {
 		pbr_weights *= 1.0 / (pbr_weights.x + pbr_weights.y + pbr_weights.z + pbr_weights.w);
 
 		// Calculate fully interpolated "smooth" PBR values
-		vec4 smooth_albedo_height = 
+		vec4 smooth_albedo_height =
 			mat[0].alb_ht * pbr_weights[0] +
 			mat[1].alb_ht * pbr_weights[1] +
 			mat[2].alb_ht * pbr_weights[2] +
 			mat[3].alb_ht * pbr_weights[3] ;
 
-		vec4 smooth_normal_rough = 
+		vec4 smooth_normal_rough =
 			mat[0].nrm_rg * pbr_weights[0] +
 			mat[1].nrm_rg * pbr_weights[1] +
 			mat[2].nrm_rg * pbr_weights[2] +
 			mat[3].nrm_rg * pbr_weights[3] ;
 
-		float smooth_normal_map_depth = 
+		float smooth_normal_map_depth =
 			mat[0].nrm_depth * pbr_weights[0] +
 			mat[1].nrm_depth * pbr_weights[1] +
 			mat[2].nrm_depth * pbr_weights[2] +
 			mat[3].nrm_depth * pbr_weights[3] ;
 
-		float smooth_ao_strength = 
+		float smooth_ao_strength =
 			mat[0].ao_str * pbr_weights[0] +
 			mat[1].ao_str * pbr_weights[1] +
 			mat[2].ao_str * pbr_weights[2] +
@@ -618,8 +618,8 @@ void fragment() {
 	float ao = (1. - (final_albedo_height.a * log(2.1 - final_ao_strength))) * (1. - final_normal_rough.y); // Use final_...
 	AO = clamp(1. - ao * final_ao_strength, final_albedo_height.a, 1.0); // Use final_...
 	AO_LIGHT_AFFECT = 1. - final_albedo_height.a; // Use final_albedo_height
-	
-	
+
+
 	//CHANGED TO THIS POINT HERE FOR FLEXIBLE BLEND -----///////////////////
 
 }

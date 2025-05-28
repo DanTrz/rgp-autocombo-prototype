@@ -11,13 +11,15 @@ config_version=5
 [application]
 
 config/name="RGP AutoCombo Prototype"
-run/main_scene="uid://cuuks54vcsmnv"
+run/main_scene="uid://burcn8vr40v5k"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
+run/max_fps=30
 config/icon="res://icon.svg"
 
 [autoload]
 
 GlobalEvents="*res://src/Globals/GlobalEvents.cs"
+Debugger="*res://Temp/GameDebugger.cs"
 
 [display]
 

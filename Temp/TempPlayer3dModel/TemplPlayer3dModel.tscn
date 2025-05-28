@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cedw1iorowriy"]
+[gd_scene load_steps=27 format=3 uid="uid://cedw1iorowriy"]
 
 [ext_resource type="Script" uid="uid://cyycitd6e0er0" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.cs" id="1_gsf8r"]
 [ext_resource type="ArrayMesh" uid="uid://bfshqh0tvekd" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_SHIRT_002.res" id="1_t7jms"]
@@ -16,10 +16,11 @@
 [ext_resource type="Texture2D" uid="uid://dxf260qm7ng63" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_HAIR BASE Layer.png" id="7_76yau"]
 [ext_resource type="Texture2D" uid="uid://cjf523gxarbu7" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_Ucupaint BOOTS Color.png" id="8_7dnui"]
 [ext_resource type="Texture2D" uid="uid://dplwrj1ksvyxh" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_Ucupaint BaseModel.png" id="9_0m67w"]
+[ext_resource type="PackedScene" uid="uid://bwyqseircxulb" path="res://Temp/GameDebuggerUI.tscn" id="17_u2d7s"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sug53"]
 radius = 0.450531
-height = 1.34486
+height = 2.55198
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fba3b"]
 render_priority = 0
@@ -279,10 +280,11 @@ shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
 [node name="TemplPlayer3dModel" type="CharacterBody3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 script = ExtResource("1_gsf8r")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00348473, 0.684426, 1.90735e-06)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.109437, 1.43597, 1.90735e-06)
 shape = SubResource("CapsuleShape3D_sug53")
 
 [node name="Skin" type="Node3D" parent="."]
@@ -533,6 +535,7 @@ _initialState = NodePath("PlayerIdleState")
 
 [node name="PlayerWalkState" type="Node" parent="StateMachineManager"]
 script = ExtResource("4_gsf8r")
+WalkSpeed = 20.0
 WalkRotationSpeed = 200.0
 WalkAcceleration = 1.0
 
@@ -541,8 +544,9 @@ script = ExtResource("5_8ula1")
 
 [node name="PlayerJumpState" type="Node" parent="StateMachineManager"]
 script = ExtResource("6_utqhd")
-JumpVelocity = 7.0
 
 [node name="PlayerFallState" type="Node" parent="StateMachineManager"]
 script = ExtResource("7_23k1y")
-fallSpeed = 1.5
+
+[node name="DebuggerUI" parent="." node_paths=PackedStringArray("character") instance=ExtResource("17_u2d7s")]
+character = NodePath("..")
