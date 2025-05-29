@@ -1,7 +1,7 @@
 [gd_resource type="Terrain3DAssets" load_steps=28 format=3 uid="uid://cll1eq7xg6y3i"]
 
 [ext_resource type="Texture2D" uid="uid://dp5yqlxv71ab1" path="res://Temp/TempTestTerrain3D/48px/soil3Text48Px.png" id="1_48xvh"]
-[ext_resource type="PackedScene" uid="uid://uu41wp2c58on" path="res://src/Levels/LevelComponents/GrassMesh.tscn" id="1_hyqty"]
+[ext_resource type="PackedScene" uid="uid://uu41wp2c58on" path="res://src/Levels/LevelComponents/GrassSpriteSheetShaderMesh.tscn" id="1_hyqty"]
 [ext_resource type="Texture2D" uid="uid://35xgybooyas8" path="res://Temp/TempTestTerrain3D/48px/normalText48Px.png" id="2_hyqty"]
 [ext_resource type="Texture2D" uid="uid://b3vcymg0v1eg8" path="res://Temp/TempTestTerrain3D/48px/waterText48Px.png" id="3_ncmbs"]
 [ext_resource type="Texture2D" uid="uid://w4pspq4seu3h" path="res://Temp/TempTestTerrain3D/48px/grassText48Px.png" id="4_dw437"]

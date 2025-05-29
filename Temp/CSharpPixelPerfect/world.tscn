@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://c7kjke7mmdjoa"]
 
 [ext_resource type="PackedScene" uid="uid://c7ea5wxf3exug" path="res://src/Levels/LevelComponents/GrassAnimSprite3D.tscn" id="1_4rnpv"]
-[ext_resource type="PackedScene" uid="uid://uu41wp2c58on" path="res://src/Levels/LevelComponents/GrassMesh.tscn" id="1_lieeq"]
+[ext_resource type="PackedScene" uid="uid://uu41wp2c58on" path="res://src/Levels/LevelComponents/GrassSpriteSheetShaderMesh.tscn" id="1_lieeq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_frppt"]
 sky_top_color = Color(0.101961, 0.0980392, 0.196078, 1)

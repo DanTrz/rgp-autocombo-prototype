@@ -13,7 +13,7 @@ uniform vec2 albedo_uv_offset = vec2(0.0, 0.0);
 uniform bool clamp_diffuse_to_max = true;
 
 //The number of cuts used for toon shading. Set to 1 for "classical" toon shading with a single hard border.
-uniform int cuts : hint_range(1, 20) = 2;
+uniform int cuts : hint_range(1, 20) = 1;
 //Adds a bias to the calculation for diffuse shading, essentially moving the halfway point between the lit and dark sides of an object.
 uniform float wrap : hint_range(-2.0f, 2.0f) = 0.0f;
 //Controls how steep the transition from lit to dark areas should be, essentially shrinking the widths of all bands. (Has no effect when cuts is set to 1).

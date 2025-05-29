@@ -1,7 +1,6 @@
-[gd_scene load_steps=52 format=3 uid="uid://burcn8vr40v5k"]
+[gd_scene load_steps=50 format=3 uid="uid://bvo1eggwbdo8u"]
 
 [ext_resource type="Script" uid="uid://b7o5064b45yqm" path="res://Temp/CSharpPixelPerfect/RotatingCube.cs" id="5_fr5cx"]
-[ext_resource type="Material" uid="uid://c7xavcy54jyrx" path="res://Temp/GDSCriptPixelPerfect/mat_cube_moving.tres" id="6_p6ao0"]
 [ext_resource type="Shader" uid="uid://cair4uoxj5lif" path="res://Assets/Shaders/OtherShadersRepo/Outline3D.gdshader" id="7_uxmec"]
 [ext_resource type="PackedScene" uid="uid://cedw1iorowriy" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.tscn" id="8_35hy6"]
 [ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="8_y14fl"]
@@ -9,6 +8,7 @@
 [ext_resource type="Shader" uid="uid://im2pcdmdj31a" path="res://Assets/Shaders/OtherShadersRepo/DepthInLineWithNormals.gdshader" id="10_rur1f"]
 [ext_resource type="Material" uid="uid://bhs5wo5aw14xm" path="res://Assets/Materials/PixelToonAndHighlightShader.tres" id="11_mjapo"]
 [ext_resource type="Shader" uid="uid://c3j14atbm7u6e" path="res://Temp/CSharpPixelPerfect/Assets/fixed_colors_outline_and_edge.gdshader" id="12_gbt38"]
+[ext_resource type="Terrain3DMaterial" uid="uid://rrojnnulormj" path="res://Temp/TempTestTerrain3D/TestTerrain3DFlexibleBlendMaterial.tres" id="12_ul7ag"]
 [ext_resource type="Terrain3DAssets" uid="uid://ba70e4aca171v" path="res://Temp/TempTestTerrain3D/48px/48pxTerrain3dTest.tres" id="12_vxcqp"]
 [ext_resource type="Script" uid="uid://yyk7v6dy4cgt" path="res://src/DisplayAndCamera/CameraRig.cs" id="14_7jgnk"]
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="15_axyva"]
@@ -69,6 +69,79 @@ material = SubResource("ShaderMaterial_00j36")
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_516lm"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nfloi"]
+render_priority = 0
+shader = ExtResource("8_y14fl")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.7
+shader_parameter/highlight_strength = 0.2
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_75jv5"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_nfloi")
+shader = ExtResource("9_3bxx4")
+shader_parameter/albedo = Color(0.691899, 0.706194, 0.674123, 1)
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 3
+shader_parameter/wrap = -0.362
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = true
+shader_parameter/border_width = 2.0
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_qj4bg"]
+material = SubResource("ShaderMaterial_75jv5")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_v1lyv"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fr5cx"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_nfloi")
+shader = ExtResource("9_3bxx4")
+shader_parameter/albedo = Color(0.956659, 0.69314, 0.0855879, 1)
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 2
+shader_parameter/wrap = -0.543
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = true
+shader_parameter/border_width = 2.0
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_bc8qb"]
+material = SubResource("ShaderMaterial_fr5cx")
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_37gmq"]
+points = PackedVector3Array(0.25, 0.25, 0.25, 0.25, 0.25, -0.25, -0.25, 0.25, 0.25, 0.25, -0.25, 0.25, 0.25, -0.25, -0.25, -0.25, 0.25, -0.25, -0.25, -0.25, 0.25, -0.25, -0.25, -0.25)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bahgv"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_cmp7w")
@@ -106,56 +179,6 @@ shader_parameter/border_width = 0.05
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_qj4bg"]
-material = SubResource("ShaderMaterial_kg2n0")
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_v1lyv"]
-points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eawdt"]
-render_priority = 0
-shader = ExtResource("10_rur1f")
-shader_parameter/depthline_color = Color(0, 0, 0, 1)
-shader_parameter/colorblend_factor = 0.75
-shader_parameter/depthline_thickness = 2.0
-shader_parameter/depth_sensitivity = 1.0
-shader_parameter/normal_sensitivity = 4.0
-shader_parameter/outline_threshold_min = 0.2
-shader_parameter/outline_threshold_max = 0.3
-shader_parameter/foreground_depth_bias = 0.01
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gufyq"]
-render_priority = 0
-next_pass = SubResource("ShaderMaterial_eawdt")
-shader = ExtResource("9_3bxx4")
-shader_parameter/albedo = Color(0.800555, 0.620563, 0.198156, 1)
-shader_parameter/albedo_uv_scale = Vector2(1, 1)
-shader_parameter/albedo_uv_offset = Vector2(0, 0)
-shader_parameter/clamp_diffuse_to_max = false
-shader_parameter/cuts = 3
-shader_parameter/wrap = 0.0
-shader_parameter/steepness = 1.0
-shader_parameter/use_attenuation = true
-shader_parameter/use_specular = false
-shader_parameter/specular_strength = 1.0
-shader_parameter/specular_shininess = 16.0
-shader_parameter/use_rim = false
-shader_parameter/rim_width = 8.0
-shader_parameter/rim_color = Color(1, 1, 1, 1)
-shader_parameter/use_ramp = false
-shader_parameter/use_borders = false
-shader_parameter/border_width = 0.05
-shader_parameter/normal_rotation_pitch = 0.0
-shader_parameter/normal_rotation_yaw = 0.0
-shader_parameter/normal_rotation_roll = 0.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_bc8qb"]
-material = SubResource("ShaderMaterial_gufyq")
-size = Vector3(0.5, 0.5, 0.5)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_37gmq"]
-points = PackedVector3Array(0.25, 0.25, 0.25, 0.25, 0.25, -0.25, -0.25, 0.25, 0.25, 0.25, -0.25, 0.25, 0.25, -0.25, -0.25, -0.25, 0.25, -0.25, -0.25, -0.25, 0.25, -0.25, -0.25, -0.25)
 
 [sub_resource type="BoxMesh" id="BoxMesh_vbmmd"]
 material = SubResource("ShaderMaterial_kg2n0")
@@ -229,7 +252,7 @@ shader_parameter/outline_threshold_min = 0.2
 shader_parameter/outline_threshold_max = 0.3
 shader_parameter/foreground_depth_bias = 0.01
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6gguv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ul7ag"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_6d8tq")
 shader = ExtResource("9_3bxx4")
@@ -237,8 +260,8 @@ shader_parameter/albedo = Color(0.890196, 0.321569, 0.113725, 1)
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = false
-shader_parameter/cuts = 3
-shader_parameter/wrap = 0.0
+shader_parameter/cuts = 1
+shader_parameter/wrap = -0.7
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true
 shader_parameter/use_specular = false
@@ -255,7 +278,32 @@ shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="TorusMesh" id="TorusMesh_5io52"]
-material = SubResource("ShaderMaterial_6gguv")
+material = SubResource("ShaderMaterial_ul7ag")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vxcqp"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_nfloi")
+shader = ExtResource("9_3bxx4")
+shader_parameter/albedo = Color(0, 0.604522, 0.901559, 1)
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 2
+shader_parameter/wrap = -0.5
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = true
+shader_parameter/border_width = 2.0
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_auivj"]
 
@@ -266,50 +314,6 @@ albedo_color = Color(0.521569, 1, 1, 1)
 material = SubResource("StandardMaterial3D_gufyq")
 top_radius = 3.865
 height = 0.001
-
-[sub_resource type="Gradient" id="Gradient_vxcqp"]
-offsets = PackedFloat32Array(0.2, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ul7ag"]
-noise_type = 2
-frequency = 0.03
-cellular_jitter = 3.0
-cellular_return_type = 0
-domain_warp_enabled = true
-domain_warp_type = 1
-domain_warp_amplitude = 50.0
-domain_warp_fractal_type = 2
-domain_warp_fractal_lacunarity = 1.5
-domain_warp_fractal_gain = 1.0
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_75jv5"]
-seamless = true
-color_ramp = SubResource("Gradient_vxcqp")
-noise = SubResource("FastNoiseLite_ul7ag")
-
-[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_fr5cx"]
-_shader_parameters = {
-&"bias_distance": 512.0,
-&"blend_sharpness": 0.87,
-&"depth_blur": 0.0,
-&"enable_macro_variation": true,
-&"enable_projection": true,
-&"height_blending": true,
-&"macro_variation1": Color(1, 1, 1, 1),
-&"macro_variation2": Color(1, 1, 1, 1),
-&"macro_variation_slope": 0.333,
-&"mipmap_bias": 1.0,
-&"noise1_angle": 0.0,
-&"noise1_offset": Vector2(0.5, 0.5),
-&"noise1_scale": 0.04,
-&"noise2_scale": 0.076,
-&"noise3_scale": 0.225,
-&"noise_texture": SubResource("NoiseTexture2D_75jv5"),
-&"projection_angular_division": 2.0,
-&"projection_threshold": 0.8,
-&"world_space_normal_blend": true
-}
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l27be"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -558,7 +562,7 @@ script = ExtResource("5_fr5cx")
 
 [node name="MovingCube" type="MeshInstance3D" parent="SubViewport/AllObjects/RotatingCube" groups=["snap"]]
 transform = Transform3D(0.76446, 0, -0.644671, 0, 1, 0, 0.644671, 0, 0.76446, 0, 1, 2.5)
-material_override = ExtResource("6_p6ao0")
+material_override = SubResource("ShaderMaterial_vxcqp")
 mesh = SubResource("BoxMesh_auivj")
 skeleton = NodePath("")
 
@@ -606,7 +610,7 @@ script = ExtResource("15_axyva")
 
 [node name="Terrain3D" type="Terrain3D" parent="SubViewport"]
 data_directory = "res://Temp/TempTestTerrain3D/TerrainData"
-material = SubResource("Terrain3DMaterial_fr5cx")
+material = ExtResource("12_ul7ag")
 assets = ExtResource("12_vxcqp")
 save_16_bit = true
 collision_mode = 3
@@ -617,7 +621,7 @@ metadata/_edit_lock_ = true
 environment = SubResource("Environment_dquqp")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
-transform = Transform3D(-0.886392, -0.259682, 0.383241, 0.462912, -0.505378, 0.728221, 0.00457552, 0.822896, 0.568173, 0, 6.11667, 0)
+transform = Transform3D(-0.504636, -0.488626, 0.71175, 0.861663, -0.336303, 0.380048, 0.0536626, 0.805074, 0.590742, 0, 6.11667, 0.443011)
 shadow_enabled = true
 
 [node name="Display" type="Control" parent="." node_paths=PackedStringArray("_viewPort", "_mainRendereSprite")]

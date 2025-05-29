@@ -1,0 +1,114 @@
+[gd_resource type="Terrain3DAssets" load_steps=29 format=3 uid="uid://vjyk3bb4hqui"]
+
+[ext_resource type="Texture2D" uid="uid://cyx6c5qjx0mwd" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/darksand1_packed_albedo_height.png" id="1_ocm65"]
+[ext_resource type="PackedScene" uid="uid://cnhr158fl1b4f" path="res://src/Levels/LevelComponents/GrassSingleSpriteShaderMesh.tscn" id="1_t8n78"]
+[ext_resource type="Texture2D" uid="uid://dqfy4abe02vsv" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/darksand1_packed_normal_roughness.png" id="2_t8n78"]
+[ext_resource type="Texture2D" uid="uid://cakl4do7tlmfi" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/soil1_packed_albedo_height.png" id="3_itovh"]
+[ext_resource type="Texture2D" uid="uid://bgm7l6ra40w1a" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/soil1_packed_normal_roughness.png" id="4_srmo4"]
+[ext_resource type="Texture2D" uid="uid://cm32mu2hv0eht" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/grass3_packed_albedo_height.png" id="5_x0d86"]
+[ext_resource type="Texture2D" uid="uid://tu15smx5714" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/grass3_packed_normal_roughness.png" id="6_83ne2"]
+[ext_resource type="Texture2D" uid="uid://b0ac3jdf2wenv" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/grass4_packed_albedo_height.png" id="7_a4ikv"]
+[ext_resource type="Texture2D" uid="uid://bvg2mnbsvy1si" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/grass4_packed_normal_roughness.png" id="8_5o0mk"]
+[ext_resource type="Texture2D" uid="uid://bwq8c2dqjedtp" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/rocks1_packed_albedo_height.png" id="9_n3l1j"]
+[ext_resource type="Texture2D" uid="uid://blh6sdcojl5bn" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/rocks1_packed_normal_roughness.png" id="10_63sco"]
+[ext_resource type="Texture2D" uid="uid://cleybtej2x421" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/rocks4_packed_albedo_height.png" id="11_cmmun"]
+[ext_resource type="Texture2D" uid="uid://cnx1spuhkmww" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/rocks4_packed_normal_roughness.png" id="12_g3lvd"]
+[ext_resource type="Texture2D" uid="uid://b8frnqks8sjul" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/rocks5_packed_albedo_height.png" id="13_6a8sx"]
+[ext_resource type="Texture2D" uid="uid://bqsejgn4b7d36" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/rocks5_packed_normal_roughness.png" id="14_kbcyy"]
+[ext_resource type="Texture2D" uid="uid://b3d2pgwrld3ig" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/terrainWhite1_packed_albedo_height.png" id="17_x0d86"]
+[ext_resource type="Texture2D" uid="uid://dgtteb5j7lt5n" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/terrainWhite1_packed_normal_roughness.png" id="18_83ne2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3m67x"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+backlight_enabled = true
+backlight = Color(0.5, 0.5, 0.5, 1)
+distance_fade_mode = 1
+distance_fade_min_distance = 128.0
+distance_fade_max_distance = 96.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_qrd22"]
+generated_type = 1
+height_offset = 0.5
+material_override = SubResource("StandardMaterial3D_3m67x")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_itovh"]
+name = "GrassSingleSpriteShaderMesh"
+id = 1
+scene_file = ExtResource("1_t8n78")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_seb0h"]
+name = "grass1_packed_albedo_height"
+albedo_color = Color(0.790975, 0.862958, 0.621382, 1)
+albedo_texture = ExtResource("5_x0d86")
+normal_texture = ExtResource("6_83ne2")
+roughness = 1.0
+uv_scale = 1.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_wjktu"]
+name = "soil1_packed_albedo_height"
+id = 1
+albedo_texture = ExtResource("3_itovh")
+normal_texture = ExtResource("4_srmo4")
+roughness = 1.0
+uv_scale = 1.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_a4ikv"]
+name = "terrainWhite1_packed_albedo_height"
+id = 2
+albedo_color = Color(0.635724, 0.760787, 0.350951, 1)
+albedo_texture = ExtResource("17_x0d86")
+normal_texture = ExtResource("18_83ne2")
+roughness = 1.0
+uv_scale = 1.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_rxh2c"]
+name = "darksand1_packed_albedo_height"
+id = 3
+albedo_texture = ExtResource("1_ocm65")
+normal_texture = ExtResource("2_t8n78")
+roughness = 1.0
+uv_scale = 1.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_lyr6j"]
+name = "rocks1_packed_albedo_height"
+id = 4
+albedo_texture = ExtResource("9_n3l1j")
+normal_texture = ExtResource("10_63sco")
+roughness = 1.0
+uv_scale = 1.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_43w36"]
+name = "rocks4_packed_albedo_height"
+id = 5
+albedo_texture = ExtResource("11_cmmun")
+normal_texture = ExtResource("12_g3lvd")
+roughness = 1.0
+uv_scale = 1.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_7p7qj"]
+name = "rocks5_packed_albedo_height"
+id = 6
+albedo_texture = ExtResource("13_6a8sx")
+normal_texture = ExtResource("14_kbcyy")
+roughness = 1.0
+uv_scale = 1.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_bkwni"]
+name = "grass4_packed_albedo_height"
+id = 7
+albedo_texture = ExtResource("7_a4ikv")
+normal_texture = ExtResource("8_5o0mk")
+roughness = 1.0
+uv_scale = 1.0
+
+[resource]
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_qrd22"), SubResource("Terrain3DMeshAsset_itovh")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_seb0h"), SubResource("Terrain3DTextureAsset_wjktu"), SubResource("Terrain3DTextureAsset_a4ikv"), SubResource("Terrain3DTextureAsset_rxh2c"), SubResource("Terrain3DTextureAsset_lyr6j"), SubResource("Terrain3DTextureAsset_43w36"), SubResource("Terrain3DTextureAsset_7p7qj"), SubResource("Terrain3DTextureAsset_bkwni")])

@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode blend_mix, cull_back;
+render_mode unshaded, cull_back; //blend_mix, cull_back; // unshaded, cull_back;
 
 //The varying that holds the object center-position data
 varying vec3 modelOrigin;

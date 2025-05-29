@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnhr158fl1b4f"]
+
+[ext_resource type="Shader" uid="uid://bjskios6xae2y" path="res://Assets/Shaders/PixelShaders/GrassSpriteAnimShader.gdshader" id="1_4elv1"]
+[ext_resource type="Texture2D" uid="uid://ddf2o4kfmfltb" path="res://Temp/PixelProject/Assets/2D/Grass_3.png" id="2_k4f17"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g6oq6"]
+render_priority = 0
+shader = ExtResource("1_4elv1")
+shader_parameter/albedo_tex = ExtResource("2_k4f17")
+shader_parameter/albedo_color = Color(0.588995, 0.664717, 0.376281, 1)
+shader_parameter/wind_sway_strength = 0.1
+shader_parameter/wind_sway_speed = 0.5
+shader_parameter/wind_time_scale = 1.0
+shader_parameter/wind_time_offset = 0.0
+shader_parameter/sway_from_bottom = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_ms8ko"]
+material = SubResource("ShaderMaterial_g6oq6")
+size = Vector2(0.25, 0.25)
+
+[node name="GrassSingleSpriteShaderMesh" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0722795, 0)
+mesh = SubResource("QuadMesh_ms8ko")
+skeleton = NodePath("../..")
