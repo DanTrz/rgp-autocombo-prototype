@@ -11,6 +11,7 @@ uniform float wind_time_scale : hint_range(0.0, 5.0) = 1.0;
 uniform float wind_time_offset = 0.0;
 uniform bool sway_from_bottom = false; // 
 
+varying vec3 modelOrigin;
 varying vec3 world_billboard_normal;
 
 void vertex() {
@@ -18,7 +19,7 @@ void vertex() {
 
     float time = TIME * wind_time_scale + wind_time_offset;
 
-    // ✅ Control sway influence origin (top or bottom)
+    //Control sway influence origin (top or bottom)
     float sway_influence = sway_from_bottom ? UV.y : (1.0 - UV.y);
     float sway = sin((time + VERTEX.x * 0.5) * wind_sway_speed) * wind_sway_strength * sway_influence;
     mod_vertex.x += sway;
@@ -35,6 +36,8 @@ void vertex() {
     VERTEX = mod_vertex;
 
     world_billboard_normal = transpose(mat3(MODELVIEW_MATRIX)) * vec3(0.0, 0.0, 1.0);
+		//Model Origin info for consistent lighting across the entire mesh (passed to LIGHT_VERTEX in the Fragment function)
+	modelOrigin = (MODELVIEW_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
 }
 
 void fragment() {
@@ -45,6 +48,8 @@ void fragment() {
     if (ALPHA < 0.1) {
         discard;
     }
+		//Model Origin info is passed to LIGHT_VERTEX. This is DYLEARN's "VERTEX = MODEL_ORIGIN"
+	LIGHT_VERTEX = modelOrigin;
 }
 
 void light() {

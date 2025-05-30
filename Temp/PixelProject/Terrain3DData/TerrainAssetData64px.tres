@@ -1,7 +1,7 @@
 [gd_resource type="Terrain3DAssets" load_steps=29 format=3 uid="uid://vjyk3bb4hqui"]
 
 [ext_resource type="Texture2D" uid="uid://cyx6c5qjx0mwd" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/darksand1_packed_albedo_height.png" id="1_ocm65"]
-[ext_resource type="PackedScene" uid="uid://cnhr158fl1b4f" path="res://src/Levels/LevelComponents/GrassSingleSpriteShaderMesh.tscn" id="1_t8n78"]
+[ext_resource type="PackedScene" uid="uid://bok06l3ildw4l" path="res://src/Levels/LevelComponents/GrassMeshAnimated.tscn" id="1_srmo4"]
 [ext_resource type="Texture2D" uid="uid://dqfy4abe02vsv" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/darksand1_packed_normal_roughness.png" id="2_t8n78"]
 [ext_resource type="Texture2D" uid="uid://cakl4do7tlmfi" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/soil1_packed_albedo_height.png" id="3_itovh"]
 [ext_resource type="Texture2D" uid="uid://bgm7l6ra40w1a" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/soil1_packed_normal_roughness.png" id="4_srmo4"]
@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://b3d2pgwrld3ig" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/terrainWhite1_packed_albedo_height.png" id="17_x0d86"]
 [ext_resource type="Texture2D" uid="uid://dgtteb5j7lt5n" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/terrainWhite1_packed_normal_roughness.png" id="18_83ne2"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3m67x"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x0d86"]
 transparency = 4
 cull_mode = 2
 vertex_color_use_as_albedo = true
@@ -28,18 +28,18 @@ distance_fade_mode = 1
 distance_fade_min_distance = 128.0
 distance_fade_max_distance = 96.0
 
-[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_qrd22"]
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_83ne2"]
 generated_type = 1
 height_offset = 0.5
-material_override = SubResource("StandardMaterial3D_3m67x")
+material_override = SubResource("StandardMaterial3D_x0d86")
 last_lod = 0
 last_shadow_lod = 0
 lod0_range = 128.0
 
-[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_itovh"]
-name = "GrassSingleSpriteShaderMesh"
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_srmo4"]
+name = "GrassMeshAnimated"
 id = 1
-scene_file = ExtResource("1_t8n78")
+scene_file = ExtResource("1_srmo4")
 last_lod = 0
 last_shadow_lod = 0
 lod0_range = 128.0
@@ -110,5 +110,5 @@ roughness = 1.0
 uv_scale = 1.0
 
 [resource]
-mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_qrd22"), SubResource("Terrain3DMeshAsset_itovh")])
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_83ne2"), SubResource("Terrain3DMeshAsset_srmo4")])
 texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_seb0h"), SubResource("Terrain3DTextureAsset_wjktu"), SubResource("Terrain3DTextureAsset_a4ikv"), SubResource("Terrain3DTextureAsset_rxh2c"), SubResource("Terrain3DTextureAsset_lyr6j"), SubResource("Terrain3DTextureAsset_43w36"), SubResource("Terrain3DTextureAsset_7p7qj"), SubResource("Terrain3DTextureAsset_bkwni")])

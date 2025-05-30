@@ -9,16 +9,15 @@ shader = ExtResource("1_4elv1")
 shader_parameter/albedo_tex = ExtResource("2_k4f17")
 shader_parameter/albedo_color = Color(0.588995, 0.664717, 0.376281, 1)
 shader_parameter/wind_sway_strength = 0.1
-shader_parameter/wind_sway_speed = 0.5
+shader_parameter/wind_sway_speed = 1.0
 shader_parameter/wind_time_scale = 1.0
 shader_parameter/wind_time_offset = 0.0
 shader_parameter/sway_from_bottom = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_ms8ko"]
 material = SubResource("ShaderMaterial_g6oq6")
-size = Vector2(0.25, 0.25)
+size = Vector2(0.5, 0.25)
 
 [node name="GrassSingleSpriteShaderMesh" type="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0722795, 0)
 mesh = SubResource("QuadMesh_ms8ko")
 skeleton = NodePath("../..")

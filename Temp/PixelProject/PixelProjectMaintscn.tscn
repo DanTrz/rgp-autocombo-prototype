@@ -1,12 +1,18 @@
-[gd_scene load_steps=57 format=4 uid="uid://ba88u8pe8y7w6"]
+[gd_scene load_steps=74 format=4 uid="uid://gxgvf2hwie84"]
 
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="1_3re8p"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="1_28obu"]
+[ext_resource type="Script" uid="uid://yyk7v6dy4cgt" path="res://src/DisplayAndCamera/CameraRig.cs" id="1_wjktu"]
 [ext_resource type="Shader" uid="uid://d4q5ai1l6seh" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale.gdshader" id="2_3re8p"]
 [ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="3_sn2ok"]
-[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/PixelShaders/flexible_toon_v2.gdshader" id="4_3m67x"]
+[ext_resource type="Gradient" uid="uid://cul0xese4g3dd" path="res://Assets/Shaders/PixelShaders/ShaderSupportingAssets/GradientBaseColors.tres" id="4_qrd22"]
 [ext_resource type="Terrain3DAssets" uid="uid://vjyk3bb4hqui" path="res://Temp/PixelProject/Terrain3DData/TerrainAssetData64px.tres" id="4_sn2ok"]
+[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="4_xs314"]
+[ext_resource type="Material" uid="uid://bhs5wo5aw14xm" path="res://Assets/Materials/PixelToonAndHighlightShader.tres" id="6_seb0h"]
+[ext_resource type="Texture2D" uid="uid://bn68wamoyf7f7" path="res://Temp/PixelProject/Assets/2D/Textures/whiteTerrain_1_Height.png" id="6_xs314"]
 [ext_resource type="Texture2D" uid="uid://c84ir4n47xsow" path="res://Temp/PixelProject/Assets/2D/Ref Image.png" id="7_3m67x"]
+[ext_resource type="Texture2D" uid="uid://f0rsdt8m8cru" path="res://Temp/PixelProject/Assets/2D/Textures/Rocks_4.png" id="7_seb0h"]
+[ext_resource type="Texture2D" uid="uid://6ijkjwqeiua5" path="res://Temp/PixelProject/Assets/2D/Textures/rocks_5.png" id="7_xs314"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_28obu"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -67,18 +73,21 @@ shader_parameter/shadows_enabled = true
 shader_parameter/highlights_enabled = true
 shader_parameter/shadow_strength = 0.7
 shader_parameter/highlight_strength = 0.2
-shader_parameter/highlight_color = Color(0.852516, 0.748381, 0.680666, 1)
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
 shader_parameter/shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pfqju"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k125l"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_nfloi")
-shader = ExtResource("4_3m67x")
-shader_parameter/albedo = Color(0.523335, 0.511879, 0.49439, 1)
+shader = ExtResource("4_xs314")
+shader_parameter/albedo = Color(0.687215, 0.687215, 0.687215, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 1
+shader_parameter/cuts = 2
 shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true
@@ -89,8 +98,36 @@ shader_parameter/use_rim = false
 shader_parameter/rim_width = 8.0
 shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
-shader_parameter/use_borders = true
-shader_parameter/border_width = 2.0
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5qlt3"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_nfloi")
+shader = ExtResource("4_xs314")
+shader_parameter/albedo = Color(0.687215, 0.687215, 0.687215, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 2
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
@@ -169,15 +206,23 @@ shader_parameter/highlight_strength = 0.2
 shader_parameter/highlight_color = Color(1, 1, 1, 1)
 shader_parameter/shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qrd22"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qrd22"]
+gradient = ExtResource("4_qrd22")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wjrta"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_cjd6h")
-shader = ExtResource("4_3m67x")
-shader_parameter/albedo = Color(0.176027, 0.431334, 0.399954, 1)
-shader_parameter/albedo_uv_scale = Vector2(1, 1)
-shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader = ExtResource("4_xs314")
+shader_parameter/albedo = Color(0.588995, 0.664717, 0.376281, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_texture_repeat_nearest = ExtResource("6_xs314")
+shader_parameter/albedo_texture_clamp_linear = ExtResource("6_xs314")
+shader_parameter/albedo_uv_scale = Vector2(0.05, 0.05)
+shader_parameter/albedo_uv_offset = Vector2(0.5, 0)
 shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 1
+shader_parameter/cuts = 2
 shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true
@@ -188,8 +233,9 @@ shader_parameter/use_rim = false
 shader_parameter/rim_width = 8.0
 shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
-shader_parameter/use_borders = true
-shader_parameter/border_width = 2.0
+shader_parameter/ramp = SubResource("GradientTexture2D_qrd22")
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
@@ -197,12 +243,74 @@ shader_parameter/normal_rotation_roll = 0.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rxh2c"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_cjd6h")
-shader = ExtResource("4_3m67x")
-shader_parameter/albedo = Color(0.572549, 0.443137, 0.356863, 1)
+shader = ExtResource("4_xs314")
+shader_parameter/albedo = Color(0.532045, 0.3219, 0.210354, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 1
+shader_parameter/cuts = 2
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_40g6u"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_cjd6h")
+shader = ExtResource("4_xs314")
+shader_parameter/albedo = Color(0.628959, 0.706899, 0.412783, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_texture_repeat_nearest = ExtResource("6_xs314")
+shader_parameter/albedo_texture_clamp_linear = ExtResource("6_xs314")
+shader_parameter/albedo_uv_scale = Vector2(0.02, 0.02)
+shader_parameter/albedo_uv_offset = Vector2(0.1, 0.1)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 2
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/ramp = SubResource("GradientTexture2D_qrd22")
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_758kt"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_cjd6h")
+shader = ExtResource("4_xs314")
+shader_parameter/albedo = Color(0.532045, 0.3219, 0.210354, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 2
 shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true
@@ -291,11 +399,24 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ftdnu")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3m67x"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mj2jh"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_nfloi")
-shader = ExtResource("4_3m67x")
+shader = ExtResource("3_sn2ok")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.7
+shader_parameter/highlight_strength = 0.2
+shader_parameter/highlight_color = Color(0.852516, 0.748381, 0.680666, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d0pvf"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_mj2jh")
+shader = ExtResource("4_xs314")
 shader_parameter/albedo = Color(0.523335, 0.511879, 0.49439, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
@@ -316,15 +437,18 @@ shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wjktu"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vbamh"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_nfloi")
-shader = ExtResource("4_3m67x")
-shader_parameter/albedo = Color(0.432975, 0.422394, 0.406239, 1)
-shader_parameter/albedo_uv_scale = Vector2(1, 1)
+next_pass = SubResource("ShaderMaterial_mj2jh")
+shader = ExtResource("4_xs314")
+shader_parameter/albedo = Color(0.646029, 0.646029, 0.646029, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_uv_scale = Vector2(0.05, 0.05)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 1
+shader_parameter/cuts = 3
 shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true
@@ -407,10 +531,13 @@ shadow_mesh = SubResource("ArrayMesh_jmwba")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vqh6h"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_nfloi")
-shader = ExtResource("4_3m67x")
-shader_parameter/albedo = Color(0.572549, 0.443137, 0.356863, 1)
-shader_parameter/albedo_uv_scale = Vector2(1, 1)
+next_pass = SubResource("ShaderMaterial_mj2jh")
+shader = ExtResource("4_xs314")
+shader_parameter/albedo = Color(0.533333, 0.321569, 0.211765, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_uv_scale = Vector2(0.05, 0.05)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
 shader_parameter/cuts = 1
@@ -424,21 +551,24 @@ shader_parameter/use_rim = false
 shader_parameter/rim_width = 8.0
 shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
-shader_parameter/use_borders = true
-shader_parameter/border_width = 2.0
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lyr6j"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_nfloi")
-shader = ExtResource("4_3m67x")
-shader_parameter/albedo = Color(0.740217, 0.604124, 0.551321, 1)
+next_pass = SubResource("ShaderMaterial_mj2jh")
+shader = ExtResource("4_xs314")
+shader_parameter/albedo = Color(0.666656, 0.529862, 0.282018, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 1
+shader_parameter/cuts = 2
 shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true
@@ -520,9 +650,12 @@ shadow_mesh = SubResource("ArrayMesh_kj0n5")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k3s4d"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_nfloi")
-shader = ExtResource("4_3m67x")
+next_pass = SubResource("ShaderMaterial_mj2jh")
+shader = ExtResource("4_xs314")
 shader_parameter/albedo = Color(0.486275, 0.486275, 0.486275, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
+shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
@@ -545,9 +678,12 @@ shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_43w36"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_nfloi")
-shader = ExtResource("4_3m67x")
+next_pass = SubResource("ShaderMaterial_mj2jh")
+shader = ExtResource("4_xs314")
 shader_parameter/albedo = Color(0.536943, 0.305326, 0.32002, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
+shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
@@ -660,13 +796,18 @@ shadow_mesh = SubResource("ArrayMesh_uvikk")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xs314"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_nfloi")
-shader = ExtResource("4_3m67x")
-shader_parameter/albedo = Color(0.439734, 0.462964, 0.433882, 1)
-shader_parameter/albedo_uv_scale = Vector2(1, 1)
+next_pass = SubResource("ShaderMaterial_mj2jh")
+shader = ExtResource("4_xs314")
+shader_parameter/albedo = Color(0.91664, 0.91664, 0.91664, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_texture_repeat_nearest = ExtResource("7_xs314")
+shader_parameter/albedo_texture_clamp_linear = ExtResource("7_xs314")
+shader_parameter/albedo_uv_scale = Vector2(0.05, 0.05)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 1
+shader_parameter/cuts = 2
 shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true
@@ -685,9 +826,12 @@ shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_seb0h"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_nfloi")
-shader = ExtResource("4_3m67x")
-shader_parameter/albedo = Color(0.580392, 0.447059, 0.360784, 1)
+next_pass = SubResource("ShaderMaterial_mj2jh")
+shader = ExtResource("4_xs314")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
@@ -710,9 +854,12 @@ shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bkwni"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_nfloi")
-shader = ExtResource("4_3m67x")
-shader_parameter/albedo = Color(0.523335, 0.511879, 0.49439, 1)
+next_pass = SubResource("ShaderMaterial_mj2jh")
+shader = ExtResource("4_xs314")
+shader_parameter/albedo = Color(0.77084, 0.770839, 0.770839, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
@@ -729,6 +876,107 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = true
 shader_parameter/border_width = 2.0
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7p7qj"]
+render_priority = 0
+shader = ExtResource("4_xs314")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_texture_repeat_nearest = ExtResource("7_seb0h")
+shader_parameter/albedo_texture_clamp_linear = ExtResource("7_seb0h")
+shader_parameter/albedo_uv_scale = Vector2(1.5, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 1
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_xs314"]
+material = SubResource("ShaderMaterial_7p7qj")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ddy80"]
+resource_name = "BolderRockMaterial"
+cull_mode = 2
+albedo_color = Color(0.906332, 0.906332, 0.906332, 1)
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ur0fw"]
+_surfaces = [{
+"aabb": AABB(-1.99121, 0.184452, -2.17093, 3.85922, 4.98199, 4.35772),
+"format": 34896613377,
+"index_count": 918,
+"index_data": PackedByteArray("LgBaAAQABAAvAC4AWwBaAC4ALwBbAC4ABABaADIAMAAvAAQAMgAwAAQAMgAZADAAGQACADAAMgBcABkAXAACABkAXAAyAF0AMAACABoAGgAvADAAXQBeAFwAXQAyADYAXgBdADYAOAA2ADIAMgBaADgANgAYAF4AXABeADQANABeABgAAgBcADQABQA2ADgABQAYADYAOABaADkAOQAFADgANAAYADUANQACADQAXwAYAAUALAA5AFoAWgBbACwABQA5AGAABQBgAF8AGABfACEAIQA1ABgAXwBgAGEAYQBgAD0AYAA5AD0APwBfAGEAIQBfAD8APQAIAGEACAA/AGEAOQBiAD0APQBiAAgACABiAD4AYwBiADkAPgBiAGQAYwA5AGUALABlADkAYgBjACsAKwBkAGIAYwBlAGYAKwBjACoAZgAqAGMAKQBmAGUAZQAsACkAKgBmAAYAKQAGAGYABwApACwAKQAHAAYALABbAAcAKgAJACsAKwAJAGQAJwAJACoABgAnACoABwBbAGcAZwBoAAcAWwAcAGcAZwAcAGgAaQAHAGgABgAHAGkAaAAcAGkAOgAGAGkAaQAcADoAJQAnAAYABgA6ACUAJwAlAGoAJwBqAAkAJQA6ACQAJAA6AGsAOwAlACQAOwBqACUAawBZACQAWQA7ACQAOgAdAGsAHQBZAGsAHQA6ABwACQBqADwACQA8AGQAPABqAGwAagAMAGwADABqADsAKAA8AGwACwBkADwAKAALADwAKABsAG0AbQBsAAwAKABtAEQADABEAG0ADAA7AG4ARABvACgAbgAmAAwADABWAEQAJgBWAAwAbgBYACYAOwBYAG4AVgAmAFcAWABXACYADwBEAFYAbwBEAA8AVwAOAFYADgAPAFYAWABVAFcAVQAOAFcAOwBUAFgAVAA7AFkAVQBYAHAAcABYAFQAcQBwAFQAWQAjAFQAVAAjAHEAIwBZAB0AcgBxACMAcgBwAHEAcgAjAB0AcwBVAHAAcAByAHMAdABVAHMAVQB0AA4AUABzAHIAHQBQAHIAcwBQAHQADgB0AHUAdABQAHUAdgAOAHUADgB2ABIADgASAA8AdQB3AHYAdgB3AFMAEgB2AFMAdwB1AB8AUAAfAHUAeABTAHcAUwB4ABIAHwANAHcAeAB3AA0AUABRAB8AUQANAB8AeAANAFIADQBRAFIAUgASAHgAUgBRABEAeQASAFIAeQBSABEAeQAiABIAUAB6AFEAEQB7AHkAIgB5AHsAHgARAFEAUQB6AB4AUAAbAHoAHQAbAFAAHgB6AE4AHAAbAB0ATAARAB4ATAAeAE4ATAAVABEAEQAVAHsAIAAVAEwATwBOAHoAegAbAE8ATABOAE0ATwBNAE4ATQAgAEwAFQB8AHsAIgB7AHwAfQB8ABUAFQAgAH0AfAB9AEsAfQAgAEsASwBKAHwASgAiAHwAIABIAEsASwBIAEoAIABNADcANwBIACAATQBPAH4ATQB+ADcAAwB+AE8AGwADAE8AfgADAH8AfwA3AH4AfwADAIAAGwCAAAMAgQB/AIAAgQCAABsAgQA3AH8ANwCBAIIAggA1ADcAgQABAIIAggABADUANQABAAIANwA1ACEASAA3ACEAgwABAIEAAQCDAAIAgQAbAIMAAgCDADMAGgACADMAgwAaADMAGwAaAIMAGgAbAIQAhAAbABwAhAAvABoAHABbAC8AhQAvAIQAhAAcAIUALwAxABwAMQCFABwALwCFADEAIQCGAEgAhwBIAIYASgBIAIcAhgAhAC0ALQAhAD8ALQAAAIYALQA/AIgALQAKAAAAiAAKAC0AiAA/AAgAAABFAIYAAAAKAEUACgCIAIkAiAAIAEEAiQCIAEEACgCJAIoAQQBDAIkAiQBDAIoAQQAIAEAAQwBBAEAACACLAEAAiwAIAD4AZACLAD4AiwBkAAsAiwCMAEAACwCMAIsAQACMAI0AQwBAAI0ACwCOAIwAjgCNAIwACwBCAI4AjgBCAI0AQgBDAI0AKABCAAsAQgAoAG8AjwBDAEIAQgBvAI8AQwCPAJAAQwCQAIoAjwBvABAAEABvAJEAkACPAJIAjwAQAEcAEACRAEcAjwBHAJIAEwCRAG8AEwBHAJEADwATAG8ARwBGAJIARgCQAJIARwATAEYAigCQAJMARgCTAJAAkwAKAIoARQAKAJMARgBFAJMAEwBFAEYADwAUABMAFAAPABIAlABFABMAlACGAEUAlACHAIYAEgCVABQAlQASACIAEwAUABYAlQCWABQAFgAUAJYAlQAiAEkASQCWAJUASQAiAEoASgCHAEkAhwCWAEkAlgCHABcAFwCHAJQAEwCXAJQAlwAXAJQAEwAWAJcAFwCYAJYAFgCWAJgAmQCYABcAmQAWAJgAFwCXAJoAFwCaAJkAlwAWAJoAmgAWAJkA"),
+"lods": [0.308818, PackedByteArray("LgAsAAQABAAvAC4AHAAuAC8AMAAvAAQALwAxABwAMQAvABoAGgAvADAAGgAbADEAMQAbABwAMAACABoAMgAwAAQABAAsADIAMgAZADAAGQACADAAGwAaADMAGgACADMAAQAzAAIAAQAbADMAAgAZADQANQABAAIANQACADQAGQA2ADQAGQAyADYANAAYADUANAA2ABgAAQA1ADcAOAA2ADIAMgAsADgABQAYADYABQA2ADgAIQA1ABgAGAAFACEANwA1ACEAOAAsADkAOQAFADgALAApADkABwApACwALAAuAAcALgAcAAcAKQAHAAYABwAcADoAOgAGAAcAHQA6ABwAKgApAAYAKgA5ACkABgA6ACUABgAnACoAJQAnAAYAJQA6ACQAJAA6AB0AOwAlACQAOwAnACUAJwAJACoAKgArADkAKgAJACsACQAnADwACQA8ACsAJwAMADwADAAnADsACwArADwAOQArAD0ABQA5AD0AKwALAD4ACAArAD4APQArAAgACwAIAD4APwAFAD0ACAA/AD0AIQAFAD8ALQA/AAgALQAhAD8ACAALAEAAQQAIAEAALQAIAEEACwBCAEAAKAALADwAKABCAAsAKAA8AAwAQABCAEMAQwBBAEAADABEACgAQQBDAAoACgAtAEEAQgAoAA8ARAAPACgAEABDAEIAQgAPABAALQAKAAAALQAAAEUAAAAKAEUARQAhAC0AQwBGAAoAQwAQAEYARQAKAEYAEABHAEYAEAAPAEcARwATAEYAEwBFAEYAEwBHAA8AIQBFAEgAFwBFABMASAA3ACEAFwBJAEUASQBIAEUAEwAWABcAFgBJABcAEwAUABYADwAUABMASQAWACIAIgAWABQASgBIAEkASQAiAEoASwBIAEoAFAAPABIAEgAiABQASwBKABUASgAiABUAIABIAEsAFQAgAEsANwBIACAAIgARABUAEQAiABIAIAAVAEwATAAVABEAIABNADcATQAgAEwATABOAE0AAwA3AE0AAQA3AAMATwBNAE4AAwBNAE8AAQADABsAGwADAE8ATAAeAE4ATwBOAB4AHgAbAE8ATAARAB4AUAAbAB4AHgARAFEAUAAeAFEAUgBRABEAEQASAFIADQBRAFIAUgASAA0AUQANAB8AUABRAB8ADQBTAB8AUwANABIAUAAfAFMADgBTABIADgASAA8AVABQAFMAVQBTAA4AUwBVAFQADgAPAFYADwBEAFYADABWAEQAVwAOAFYAVQAOAFcAJgBWAAwAVgAmAFcADAA7ACYAWABVAFcAWABXACYAOwBYACYAVQBYAFQAOwBUAFgAVAA7AFkAWQA7ACQAWQAjAFQAUABUACMAHQBZACQAIwBZAB0AHQBQACMAHQAbAFAAHAAbAB0A"), 0.572713, PackedByteArray("AgAYAAEAGQAYAAIAGgACAAEAGQACABoAGwAaAAEAGgAbABwAHAAHABoAGgAHABkAHAAbAB0ABwAcAB0AAQADABsAGwADAB4AAwABAB4AHwAbAB4AHQAbAB8AIAAeAAEAIAARAB4AHgARAB8AAQAhACAAIQABABgAIAAVABEAIAAhABUADQAfABEAEQASAA0ADQASAB8AFQAiABEAFQAhACIAEQAiABIAGAAFACEABQAYABkAIwAfABIAHQAfACMAEgAOACMAIwAkAB0AJQAdACQAIwAlACQADgAmACMAJQAjACYADgASAA8AJgAOAA8ADAAlACYAJgAPAAwABgAdACUADAAnACUAJQAnAAYAHQAGAAcAJwAMACgADAAPACgACQAnACgAKQAHAAYABgAnACoAJwAJACoAKgApAAYACQAoACsAKgAJACsAKgAsACkABwApACwAKgArACwABwAsAAQAGQAHAAQABAAsABkAGQAsAAUACwArACgACwAoAA8ALAArAAgABQAsAAgAKwALAAgALQAFAAgALQAIAAsAIQAFAC0ACgAtAAsAAAAhAC0ALQAKAAAACwAQAAoACwAPABAAAAAKABAAIgAhAAAAEwAQAA8AEwAAABAAFwAiAAAAFwAAABMAFgAiABcAEwAWABcAIgAWABQAEwAUABYADwAUABMAEgAiABQAFAAPABIA"), 1.18629, PackedByteArray("AAABAAIAAwACAAEAAQAAAAMAAwAEAAIABQACAAQAAgAFAAAABAADAAYABAAHAAUABwAEAAYABQAHAAgACQAHAAYABwAJAAgACgAFAAgAAAAFAAoACQALAAgACAALAAoACQAGAAwACwAJAAwABgANAAwABgADAA0ADgAMAA0ACwAMAA8ADAAOAA8AEAAKAAsACwAPABAAAAAKABAADQADABEAAwAAABEAEgAOAA0ADgASAA8AEQASAA0AEwAQAA8AEwAAABAAFAAPABIADwAUABMAEQAVABIAEgAVABQAEQAAABUAEwAUABYAFQAWABQAFwAAABMAFwAVAAAAEwAWABcAFgAVABcA")],
+"name": "BolderRockMaterial",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 155,
+"vertex_data": PackedByteArray("/JVVi6kOAAAH5qGaj5IAAHDcOtbrngAAyuQEgJeQAAARksfue9IAAHqtQe2eWgAAIzW2p8DvAACZYi/VtegAAKk4DLgfKQAA8RuKtjtuAADzgMGWdBMAAKYrNpyPKAAA2xEVV2mBAADAx20MDI0AAM118AQfhAAACjANRHJbAAB+VXpnAQgAAEnx3yjRegAAjK1wDCJsAADGmr1aIiIAAM6uS0APKAAAR/crP0VlAACJtSZXXR8AAJi84l6sIgAASONn2S+DAABVzL/0cKAAAOvYSr+qzwAAnM1Te5W4AABJkeiusfsAAKZ1DUmt+AAAL/SmSSeXAABhwgobna4AAID/jlChcwAA7ujSlQ1HAACX5TFDWUcAACxjnCj95AAAf0JIU3f0AACKHqtl9NwAAIwgVzB/ggAApR2sn/O1AABoFPJ0hEwAAExQKuZJpQAAXiEv0w6DAACjHzW8ZmYAAKBZ3unhpQAAKp4gu38fAADlf1niXd4AAN2RMOAM3AAAwMkA8qqqAADcnBPBrPMAAHGpw/5roQAACuqkuY60AAAP4kTYfJIAAJ3oGJ2fjQAABco18iV7AAAH6eOaB4wAANt///8VhQAAFHU8/MCEAABqZCpy//8AABMQFFfmvQAAjQURolltAAAMm47nDj8AAGwxGrSRLQAAPpmY0ysoAAALTfyvbhgAADVga7HiEwAA/DVJi+cpAAA8SGiWKB8AAFgcCFfsWgAAkpUre8gWAABgZiNthwAAAF5efmbpAwAAkex+hYlEAAC07UhaIjcAAP7yc1rtPQAA//+HUEFtAABC9v1MGYIAAP/uVWWugAAAffbETaCWAADA9JhbL54AAA63xiALwAAAHtYrI5aaAADn2Q8X3noAAEykAAAHiQAAV0w6IufSAACkYhEJKqgAADkoUDYkZgAAzCWbK5CCAACbI+kyx48AAJhOhEFB7QAAGmSL7BimAAD+dEbc4OMAAPnIxPLWlQAAfcpT88SEAAAp24LmEoQAAHatDerMUgAAZKPy6eFJAADfm6Pk3jYAALsf9MGEVgAARC7a3NCKAABHG2q7CU4AAO9EPeWDmwAADz9m4TiaAACOalPWyukAAJ5hDNE97wAAE1div/32AAD8E8icDqwAAHZhcFvP/wAAAACvmodzAACnEH9uCVEAAIERfkjSlwAAClaKYKULAAB+YogPrbwAAKVYZSH20wAAIYDQKZ7iAAA4bKsKea4AAN9/bwDCnwAAaYnFAM2YAAABnCcApIwAAEu8WQa2lQAAn8NhC/V6AADG5AogdWwAAJz16E60mwAAA/LvMUJdAABT8/dJ+lcAAGD6BUTHZAAAZOiDcSCFAADd4/d/IowAANLiRoQ0kAAAbOTcjtOQAAD45BKYt48AALnqnrDvsQAAqLZYvG7gAADVrMy+wuEAAI6cYIBhEgAAz+bAbvEwAADFgLy3xxkAAKlxgp1RFgAAHnEfl24SAAAaL0anLSwAACE7LJokJAAA/z8sl54iAACNM+eXdyYAAI9UKm3YBgAAgl66eg4DAAC1WMhi3wgAAGtdVmwAAAAA1mTAerYCAAC+q69qxBkAANnZskR9NgAAA8MjVGEjAABKrYtjuhcAALW/b1YHIQAAdrhfW1UcAADXtWRddRoAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_so3am"]
+resource_name = "BolderRock_BolderRock"
+_surfaces = [{
+"aabb": AABB(-1.99121, 0.184452, -2.17093, 3.85922, 4.98199, 4.35772),
+"format": 34896613383,
+"index_count": 918,
+"index_data": PackedByteArray("MQBkAGUAZQBkAGYAZgBkAGcAZwBkADMAaABkADEAZABoAC8ALwBoAGkAaQBoAGoAawBsABEAbQBuAG8AbQBvAHAAJwBxAFgAcgBzAHQASAB1AHYAdwB1AEgAeAB1AHcAeQB6AHsAfAB7AHoAfQB7AHwAfgB9AHwAfQB+AH8AfwB+AIAAgAB+AIEAgACBAIIAgwCEAAgACACEAIUAgwAIAIYAhgAIAFEAhwCIAIkAhwCJAIoAiwCMAAcAjQCOAI8AjQCPAJAAjwCOAJEAjgCNAJIAkwCSAI0AKQCSAJMAlACRAI4AkQCUAJUAlQCUACoAlACWACoAKgCWACsAKwCWAJcAKwCXAJgAVgCZAJoACQCZAFYAKACZAAkAmwCcAJ0AXACcAJsAnABcAJ4AnwCcAJ4AngBcAKAAoABcACQAoQCiAKMApACiAKEAGgCiAKQApQCiABoApgCiAKUAogCmAD4ApwCoAKkAqQCoAKoApwCpAF8AXwCpAKsArACtAK4ArwCtAKwArQCvALAAsACvALEAsgCzALQAtQAOALYATAC3ALgATAC4ALkAugC7ALwAugC8AL0AEAC+AL8AXgDAAMEAXgDBACYAwABeAMIAwwDAAMIAwgBeAMQAxQDEAF4AxQBeAMYAxADFAMcAxwDFAMgAyQDKAMsAzADKAMkAygDMAM0AzQDMAD8AzgDPANAAzwDOANEAzgDSANEA0QDSANMA1ADVANYA1QDUANcA1ADWANgA2QDaANsA3ADaANkA2gDcAGMAYwDcAN0A3gDfAOAA3gDgAOEA4gDjAOQATgDlAOYA5QBOAOcATgDmAOgA6QDqAOsA7ADtAFIA7ABSAO4A7wDwAFUAVQDwAPEANwDwAO8ANwDvAPIA8wDwADcA9ADzADcA9QD0APYA9QDzAPQA8wD1APcA+ADwAPMA8AD4ACwALAD4AC4A+ADzAPkA+AD5APoA+wD5APMA+QD7AC0A+wDzAPwA/QAYAP4A/wAYAP0AAAEYAP8AGAAAAQEBAQEAAQIBAgEAAQMBAAEEAQMBAwEEAVQABQEGAUMACwAHAQgBCwAIAQkBCgFPAAsBCgELAQwBSQANAQ4BDgENAQ8BEAENAUkADQEQARcAFwAQAREBEQEQARIBEAFFABIBIQASAUUAEgEhABMBEwEhAFMAEwFTABQBEQESAUoAEQFKABUBFQFKABYBFgFKABcBSgAYARcBFwEYARkBGgEbARwBGwEaARIAGgEcAQ0AHQEeAR8BHwEeAV0AHQEfASMAHgEdASABRgAgAR0BIAFGACEBIQFGACIBRgAfACIBIwEiAR8AIgEjASQBJAEjAWEAJQEbACYBJgEbAEEAJQEmAWIAYgAmAR4AJQFiACcBKAElASkBKAEbACUBKgEbACgBKwEsASoBLQEqASwBLQEbACoBLgEbAC0BGwAuAS8BLwEuAT0AMAExAToAMAE6AAQAMgEyADYAMwEyADIBMgAzARkANQA2ADIABQA2ADUAIgA0ATUBNAEiADYBNwE2ASIANgE3ARQANAE2AUsASwA2ATgBOQE6ATsBPAEBADkAPAE5AD0BPgE/AUABQAE/AUEBQgE+AUABTQATAEMBTQBDAUQBEwBNAEUBEwBFAUYBRwFIAQMARwEDAEkBSgFLAUwBSgFMAU0BTgEWAE8BUAFRAVIBUgFRAVMBUgFTAVQBUAFSAVUBVQFSAVYBUAFVAVcBDwBRAVABDwBQAVgBUQEPAFkBWgFZAQ8AWgEPAFkAWgFbAVkBWQFbAVoAXAFgAF0BXgFfAWABXgFgAWEBYgFgAV8BYAFiAWMBXgFkAV8BZAFeAWUBXwFkAWYBZgFkAWcBFQBoAWkBagFpAWgBawFoARUAaAFrAUcAbAEGAG0BBgBsASUAJQBsAW4BbgFsAW8BcAFxAXIBcgFxAXMBcgFzAXQBdQFxAXABcQF1AXYBdgF1AXcBcAFyAXgBeAFyAXkBcAF4AXoBewF8AX0BfgF9AXwBewF9AX8BfAF7AYABgQGAAXsBgAGBAYIBWwCDAYQBNAAdAIUBHQA0ABwAhgEcADQAhwEcAIYBiAEcAIcBiQEcAIgBHACJATsAOwCJATwAigGLAYwBjQGMAYsBjgGLAYoBiwGOAY8BkAGRAZIBkwGUAZUBlAFXAJYBlAGXAVcAlAGTAZcBlwGTAZgBkwGVAZkBmQGVAZoBmgGVAZsBnAGVAZQBlQGcAZ0BnQGcAZ4BDACeAZwBDACcAZ8BoAGeAQwAngGgAaEBogGgAQwAogGjAaABCgCkAaUBpQGkAVAACgClAaYBpAEKADAAMAAKAAAApwGoATgAOACoAakBqgGoAacBAgCnATgApwECAKsBqwECAKwBrAECAK0BrQECAK4BQgAgAEQAIABCAEAAQgCvAUAAsAFAAK8BsQFAALABQACxAbIBsQGwAbMB"),
+"lods": [0.308818, PackedByteArray("MQAvAAQALwAxAAcABAAvADIABwAtAC8ALwAtADMALQAHAAYALgAtAAYALgAzAC0ANAAGAAcALgAsADMANQAvADMAMgAvADUAMwAFADUANQA2ADIABQA2ADUABQAzADcAMwAsADcABQAYADYANwAsAAgAGAAFACEAGQAyADYAOAA2ABgAGQA2ADgAOAAYADkAIQA5ABgAAgAZADgAOQACADgAMgAZADoAGQACADoAMgA6AAQAOgA7AAQABAA7ADwAOgACABoAGgA7ADoAGgACAD0AHAA8ADsAPgA7ABoAOwA+ABwAPAAcAAcAGgAbAD4AGwAaAD0APgAbABwABwAcADQAHQA0ABwAHAAbAB0AAQAbAD0AAQA/AAIAOQABAAIAAQA5AEAAQAA5ACEAAQADABsAAQBAAAMAGwADAEEAAwBAAEIAAwBCAEEAQQBCAEMAHgAbAEEAQQBDAB4ARABDAEIARAAeAEMAIABCAEAAQgAgAEQAQABFACAARQBAACEARgAbAB4AIABFAEcAHQAbAEYAIAAVAEQAFQAgAEcARAARAB4ARAAVABEARwBIABUARwBFAEgASAAiABUAIgARABUASABFAEkASQAiAEgASQBFAEoAIQBKAEUASQAWACIAFgBJABcAFwBJAEoAEwAWABcAFwBKABMAIgAWABQAEwAUABYAEgAiABQAEQAiABIADwAUABMAFAAPABIAEQASAEsASwASAA0AEwBKAEwAEwBNAA8ATQATAEwAEABNAEwAEAAPAE0ATgAQAEwASgAKAEwATgBMAAoAEABOAE8ATwAPABAAUABOAAoAUQBPAE4ATgBQAFEACwBPAFEAUAAIAFEACAALAFEACgAwAFAAMAAIAFAAAAAKAFIAMAAKAAAAMAAAAEoASgAhADAAMAAhAFMAMABTAAgAIQAFAFMAUwAFAFQACABTAFQACwAIAFUACAAsAFUALAALAFUACwAsAFYACQBWACwAJwALAFcAJwBPAAsATwAnAA8AWAAPACcADABYACcAKQBWAAwADwBYAFkADABZAFgADgAPAFkAKAAMAFYACQAoAFYADgASAA8ADgBaABIAKgAJACsAKAAJACoABgAoACoAJQAoAAYABgA0ACUAWwAoACUADAAoAFsAJQA0ACQAWwAlACQAJAA0AB0AHQBcACQAXABbACQAIwBcAB0ADABbACYAJgBZAAwAHQBGACMAXAAjAF0AXQBbAFwARgBdACMAWwBeACYAWwBdAF4AWQAmAF8AXgBfACYAXwAOAFkAXgBgAF8AYAAOAF8AYABeAF0AYABhAA4AYQBgAF0AXQBGAGEARgAfAGEADQBhAB8AYQANABIARgBiAB8AYgANAB8ARgAeAGIADQBiAGMAHgARAGIAYwBiABEA"), 0.572713, PackedByteArray("AgAYAAEAGQAYAAIAGgACAAEAGQACABoAGwAaAAEAGgAbABwAHAAHABoAGgAHABkAHAAbAB0ABwAcAB0AAQADABsAGwADAB4AAwABAB4AHwAbAB4AHQAbAB8AIAAeAAEAIAARAB4AHgARAB8AAQAhACAAIQABABgAIAAVABEAIAAhABUADQAfABEAEQASAA0ADQASAB8AFQAiABEAFQAhACIAEQAiABIAGAAFACEABQAYABkAIwAfABIAHQAfACMAEgAOACMAIwAkAB0AJQAdACQAIwAlACQADgAmACMAJQAjACYADgASAA8AJgAOAA8ADAAlACYAJgAPAAwABgAdACUADAAPACcADAAoACUAJQAoAAYAKAAMACkAHQAGAAcABgAoACoAKAAJACoACQAoACkAKgAJACsACQApACwALQAHAAYALgAtAAYACwAsACkALgAvAC0ABwAtAC8ALgAsAC8ABwAvAAQAGQAHAAQABAAvABkAGQAvAAUALwAsAAgABQAvAAgALAALAAgAMAAFAAgAMAAIAAsAIQAFADAACgAwAAsAAAAhADAAMAAKAAAAIgAhAAAACwAQAAoAAAAKABAAFwAiAAAACwAPABAACwAnAA8AEwAAABAAFwAAABMAEwAQAA8AFgAiABcAEwAWABcAIgAWABQAEwAUABYADwAUABMAEgAiABQAFAAPABIA"), 1.18629, PackedByteArray("AAABAAIAAwACAAEAAQAAAAMAAwAEAAIABQACAAQAAgAFAAAABAADAAYABAAHAAUABwAEAAYABQAHAAgACQAHAAYABwAJAAgACgAFAAgAAAAFAAoACQALAAgACAALAAoACQAGAAwACwAJAAwABgANAAwABgADAA0ADgAMAA0ACwAMAA8ADAAOAA8AEAAKAAsACwAPABAAAAAKABAADQADABEAAwAAABEAEgAOAA0ADgASAA8AEQASAA0AEwAQAA8AEwAAABAAFAAPABIADwAUABMAEQAVABIAEgAVABQAEQAAABUAEwAUABYAFQAWABQAFwAAABMAFwAVAAAAEwAWABcAFgAVABcA")],
+"material": SubResource("StandardMaterial3D_ddy80"),
+"name": "BolderRockMaterial",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 436,
+"vertex_data": PackedByteArray("/JVVi6kOZPgH5qGaj5IH9nDcOtbrni//yuQEgJeQ2PsRksfue9ID+XqtQe2eWjL1IzW2p8Dvla+ZYi/Vteg526k4DLgfKQr68RuKtjtu/MvzgMGWdBNk+KYrNpyPKID92xEVV2mBydXAx20MDI2e/8118AQfhNX4CjANRHJb0Ox+VXpnAQgE50nx3yjRejf8jK1wDCJsnf/Gmr1aIiIt9c6uS0APKBr4R/crP0VlA/2JtSZXXR9V9Ji84l6sIsfySONn2S+DjPBVzL/0cKAx9evYSr+qz+PrnM1Te5W4FONJkeiusfu0xqZ1DUmt+LXGL/SmSSeXFONhwgobna6M5YD/jlChc2nl7ujSlQ1HxvKX5TFDWUca+CxjnCj95Izlf0JIU3f0hciKHqtl9NyVr4wgVzB/gvPKaBTydIRM1u2lHayf87X7y2gU8nSETI+5XiEv0w6DkLmjHzW8ZmaQuaMfNbxmZi34TFAq5kmlLfheIS/TDoMt+KBZ3unhpRTkKp4gu38fY/jlf1niXd4U5HGpw/5roTL1FHU8/MCEFORqZCpy//+1xtt///8VhTL1Bco18iV7MvUMm47nDj8t+A/iRNh8ki//negYnZ+NB/bAyQDyqqoD+d2RMOAM3LXG5X9Z4l3etMYK6qS5jrQU49ycE8Gs8+TrCuqkuY60vP0H6eOaB4xp5cD0mFsvnhTj/+5VZa6AaOV99sRNoJb4+UL2/UwZgmnlkex+hYlExvIOt8YgC8CM5f//h1BBbQP9/vJzWu09Rv207UhaIjfH8pKVK3vIFsfy59kPF956GvhgZiNthwBO+15efmbpAy31PEholigfOPP8NUmL5yko7zVga7HiE2T4C038r24YCvqSlSt7yBZz6T6ZmNMrKMbyDJuO5w4/jPBsMRq0kS0s+I0FEaJZbfzLjQURolltytVYHAhX7FrW7TkoUDYkZtDsTKQAAAeJ0OwTEBRX5r1Xq5hOhEFB7YXIV0w6IufSjOWbI+kyx4/0yswlmyuQglropGIRCSqom/FMpAAAB4mM5R7WKyOWmhTj59kPF956K+8aZIvsGKYU5BGSx+570hXkcanD/muhFuTbf///FYUV5P50Rtzg4xTkmWIv1bXoFOSOalPWyukV5MbkCiB1bDf859kPF956N/z+8nNa7T2A+JHsfoWJRID4z+bAbvEwgPi07UhaIjeA+KcQf24JUdbt3ZEw4AzcOr/cnBPBrPM6v0mR6K6x+zq/l+UxQ1lHRv1T8/dJ+ldG/bTtSFoiN0X92dmyRH02Rv0P4kTYfJLG/0jjZ9kvg8b/negYnZ+Nxv/u6NKVDUfG/wfp45oHjMb/kex+hYlExv+A/45QoXPG////h1BBbcb//vJzWu09xv9T8/dJ+lfG/8WAvLfHGQr6PpmY0ysoCvrfm6Pk3jYK+jVga7HiEwr6negYnZ+NxvoH5qGaj5LG+nDcOtbrnsb6D+JE2HySxvqOalPWyuk5255hDNE97znb2xEVV2mBkLn8E8icDqyPuRMQFFfmvZC5gRF+SNKXgbmKHqtl9NyQuQAAr5qHc5C5pxB/bglRkLmlHayf87WQuSM1tqfA75C58RuKtjtukLlHG2q7CU6Qubsf9MGEVpC5/BPInA6s/MsAAK+ah3P8y1dMOiLn0oXILGOcKP3khcilWGUh9tOFyKZ1DUmt+IXIIYDQKZ7ihch2YXBbz/+FyBGSx+570uPr3ZEw4Azc4+vlf1niXd7i68DJAPKqquPrqLZYvG7g4uvVrMy+wuHj66RiEQkqqFro339vAMKfW+jNdfAEH4Rb6GmJxQDNmFvoOShQNiRmWuiCXrp6DgOb6I9UKm3YBpvoa11WbAAAm+g8SGiWKB+b6Pw1SYvnKZvo/z8sl54im+gqniC7fx/B8vyVVYupDsHyjpxggGESwfIBnCcApIzV+GmJxQDNmNX41mTAerYCT/uCXrp6DgNP+2tdVmwAAE/7j1QqbdgGXuN+VXpnAQhf415efmbpA17ja11WbAAAXuO1WMhi3wgE515efmbpAwTnpGIRCSqo9MrMJZsrkIL0yn5iiA+tvPjKOGyrCnmu9MpXTDoi59L0yhMQFFfmvfPKgRF+SNKX9MqYToRBQe3zyn9CSFN39PPKbOTcjtOQvP0H5qGaj5K8/fjkEpi3j7z9ueqesO+xvP1w3DrW6568/RovRqctLFzpqTgMuB8pXOlsMRq0kS1c6QtN/K9uGF/pITssmiQkXen/PyyXniJd6Zi84l6sIn7rSq2LY7oXfevXtWRddRp+676rr2rEGX7rdrhfW1Ucfuthwgobna4s78DHbQwMjSzvS7xZBraVLO8e1isjlpos70nx3yjReizvbOTcjtOQIvnS4kaENJAi+ZzNU3uVuCL5ueqesO+xIvkp24LmEoRM+n3KU/PEhEz6Bco18iV7TPo1YGux4hM48wtN/K9uGDjzqXGCnVEWOPP/PyyXniI485/DYQv1ej37wMdtDAyNPfvn2Q8X3no9+/yVVYupDnPp84DBlnQTc+mOnGCAYRJ06ak4DLgfKSv4ux/0wYRWK/hHG2q7CU4s+N+bo+TeNiz4FHU8/MCELfhko/Lp4Ukt+HqtQe2eWiv4dq0N6sxSLPjbf///FYUs+EQu2tzQiiz470Q95YObLPgPP2bhOJot+KBZ3unhpSz4GmSL7BimK/gFyjXyJXuM8CnbguYShIzweq1B7Z5ajfB2rQ3qzFKN8O7o0pUNR43wPpmY0ysojPDfm6Pk3jaN8GSj8unhSY3wL/SmSSeX+Pmc9ehOtJv4+Y0z55d3Jn79ITssmiQkf/0aL0anLSx//Y0z55d3Jijv/z8sl54iKO8hOyyaJCQp7wPDI1RhI8fy2dmyRH02x/LOrktADyjG8s/mwG7xMMbyvquvasQZxvKOnGCAYRLH8iqeILt/H8byxYC8t8cZx/LGmr1aIiLH8mBmI22HAMfy1mTAerYCxvLzgMGWdBPG8h5xH5duEsfyn8NhC/V6nv9MpAAAB4me/0u8WQa2lZ7/IYDQKZ7ijOV+YogPrbyM5aVYZSH204vlOGyrCnmujOXff28Awp+M5WmJxQDNmIzlS7xZBraVi+UBnCcApIyM5Q63xiALwBTjnPXoTrSbFONhwgobna4U46Z1DUmt+BTjIYDQKZ7iFONJkeiusfsU49ycE8Gs8xTj1azMvsLhFOOotli8buAU4+vYSr+qzxTjueqesO+xFONxqcP+a6ED+VXMv/RwoAP5fcpT88SEMvX5yMTy1pUx9cbkCiB1bBr4A/LvMUJdGviMrXAMImwa+NnZskR9Nhv4n8NhC/V6Gvjd4/d/IoyM/srkBICXkIz+0uJGhDSQjP745BKYt48H9gfp45oHjAf2PEholigfJv6CXrp6DgMm/h5xH5duEib+1mTAerYCJv6pcYKdURYm/mBmI22HAC31a11WbAAALfW1WMhi3wgt9QpWimClCy31nM1Te5W42PvS4kaENJDY+8D0mFsvntj7drhfW1UcWfiJtSZXXR9Z+LW/b1YHIVn4mLziXqwiWfjXtWRddRpV9Ha4X1tVHFX0xpq9WiIi0OzOrktADyjQ7Im1JlddH9DsA8MjVGEj0Oy1v29WByHQ7Eqti2O6F9Ds17VkXXUa2+y+q69qxBnz7ApWimClC9DsjK1wDCJs0OzNdfAEH4TQ7AGcJwCkjNDs339vAMKfm/E4bKsKea6b8UxQKuZJpVDFIzW2p8DvUMUPP2bhOJpQxe9EPeWDm1DFXiEv0w6DTsVELtrc0IpOxZliL9W16E/FoFne6eGlUcUTV2K//fZPxZ5hDNE971DFU/P3SfpXA/0D8u8xQl0D/ZflMUNZRwP9YPoFRMdkA/1qZCpy//+VrxNXYr/99pWvf0JIU3f0la92YXBbz/+Vr0L2/UwZgnX7R/crP0VldftJ8d8o0Xp1+wPy7zFCXXX7xuQKIHVsdfuA/45QoXN0+2D6BUTHZHX7//+HUEFtdfsv9KZJJ5d1+x7WKyOWmnH7ffbETaCWdfvA9JhbL56x///uVWWugLH/ffbETaCWsf9C9v1MGYKx/5z16E60m7H/ZOiDcSCFsf/K5ASAl5Cx/93j938ijLH/ih6rZfTcV6t/QkhTd/RXq3ZhcFvP/7XGE1div/32tMaeYQzRPe+0xo5qU9bK6bbG/nRG3ODjtcamKzacjyio1EcbarsJTqfUjQURolltqNTxG4q2O26o1BovRqctLKjUbDEatJEtqNSYvOJerCKN8LW/b1YHIY3wA8MjVGEjjfD8NUmL5ynK1WgU8nSETMrVClaKYKULytUAAK+ah3PK1aYrNpyPKMrVjTPnl3cmytWPVCpt2AbK1X5VemcBCMnVtVjIYt8IytVYHAhX7FrK1QowDURyW8rVOShQNiRmytWnEH9uCVHJ1YwgVzB/gsrVzCWbK5CCytWBEX5I0pfJ1Zsj6TLHj8vVxYC8t8cZY/ipcYKdURZk+B5xH5duEmT4+cjE8taVL/8p24LmEoQv/0jjZ9kvgy//fcpT88SEL/9VzL/0cKAv/8DJAPKqqi//69hKv6rPL/8K6qS5jrQv/2Tog3EghWfl3eP3fyKMaOVs5NyO05Bn5fjkEpi3j2fl0uJGhDSQZ+Wswgk/VKf+Z6YXeyqHp4SRvpILqD9HgQGGbg6emoosrO+//yTEgT7FrMIJP39PxcDRaaX2PTkm6gJE3f8nS/3nGVbE3zajBVc+OSbqYjqq140zidToxUZw4TsR0fPHllhDzP+MPkeCAUOdWpGXm55rdI7NhHSOyoSXm55rC3hxVGufOXLzx5dYjTOJ1At4cVRKZDxxhm4Onri/mv3jSvHVxIE+xTB/fPQwf330MH999JZsW7+VbFu/lWxbv66Dsraswgo/roOytj9HgQGug7K2dI7KhD9HgQE/R4EBlmxbv6YXeypUp/9nvpILqHWOzIR0js2El5uea0OdW5GLxI+Fa585cpebnmtqnzlyiatkaWufOXLzx5ZYC3hxVOjFRnCsHwPI88eWWPPHlliNM4rUv8HEPGI6qteeSePKHU+0z6zCCz/vv/8kGFMN2/PHllhDzP+Mlmxbv8SBPsXSaaP240rx1SdL/ecnS/3nskcm4kpkPHELeHFUuL+Z/ae2fP0Rb0dYC3hxVJebnmvjmkJbroOytq2Dsratg7K2rYOytq6Dsraug7K2roOxtjajBVc2owVXl8/SfpfP0n6Xz9J+l8/SfuNK8dUMihKkDIoSpAyKEqSsHwPIrB8DyLIfCcirHwLIUL0HiFC9B4hQvQeIUL0HiFC9B4hQvQeIT70JiFC9B4hRvQeIT70JiPC/ASXwvwEl778AJe+/ACVNsqx+TbKsfk2yrH5Nsqx+moosrJqKLKwwf330MH989DB/ffQlf7P0MH999DB/ffQwf330MH999DB/e/Qvf4f0MH979DB/e/TEgT7FxIE+xUpkPHFKZDxxSmQ8cUpkPHFLZDtxSmQ8cUOdWpFDnVqRQp1akUOdWpFCnVqRQ51akae2fP2ntnz9p7Z8/ae2fP2mtn39RWDRy0Vg0ctFYNHLRWDRy0Vg0ctFYNHL/syaa/7Mmmv+zJprAkTd/wJE3f+/wcM8v8HDPL/BwzxDW1zlQltb5UNbXOVDW1zlGVbE3xlWxN+4v5n9uL+Z/bu/l/24v5n9uL+Z/bi/mv24v5n9uL+a/bi/mv2KxJCFi8SPhYvEj4WLxI+Fi8SPhYJcXs6CXF7OglxezoBcXM6CXF7OglxezovTL3OL0y1zi9Mvc4vTL3OL0y9z45pCW+OaQlvjmkJb45pCW+OaQluHq5FriKuSa4erkWuHq5Fr5CviIuQr4iLkK+Iinknjyp9J48qeSePKn0njyiObbU8jm21PI5ttTxhTDdsYUw3bF1MM25ZsW7+WbFu/lmxbv5ZsW7+WbFu/lmxbv5ZsW7+WbFu/lmxbv5ZsW7+WbFu/lmxbv5ZsW7+WbFu/Q8z/jEPM/4xAzAKNQMwCjUDMAo1DzP+MQMwCjUDMAo2Jq2RpiatkaX5PxcB+T8XAfk/FwB1PtM8cT7TPHU+zz/PHmFjzx5hY88eWWPPHlljzx5ZY88eWWPPHlljzx5ZY88eWWPPHlljzx5ZY88eWWPPHllg+OSfqPjkn6j05JuoLeHFUC3hxVAt4cVQLeHFUC3hxVAt4cVQLeHFUC3hxVJebnmuXm51rl5uea5ebnmuXm51rl5uea5ebnmuXm55rl5uea5ebnmuXm55rvpILqL2SC6g/R4EBPkeCAY0zidSNM4nUjTOK1IwzidSNM4rUdbo9knW6PZJ1uj2SVKf+Z1Sn/2cswD0oLMA9KCzAPSgswD0oLMA9KGI6qtdiOqrXYjqq12I6qteHp4SRh6eEkYenhJFHxptcR8acXEfGm1xHxptc4TsR0eE7EdEnS/3nJ0v95ydL/ecnS/3nJ0v95ydL/ecXS+vn50p95ydL/ecnS/3nJ0v95ydL/ucRb0dYEW9HWBiFbb8YhW2/GIVtvxiFbb8YhW+/GIVvvxiFbr8YhW6/GIVuvxiFb7/pxUdw6MVGcOjFRXDoxUZwhm4OnoZuDp6Gbg6ehm4OnuGtNGvhrTRr4K00a+GtNGvgrTRr4K0za+CtNGvhrTRr4K00a8it/2rirTRrt7nojre56I64ueaOt7nojri55o63ueiOt7nojre56I6yRybiskcm4nWOzIR0js2EdI7NhHaOzYR1jsyEYHNZ2WFzWdlgc1jZYHNZ2WBzWdlgc1nZfdVxfX3VcX191XF90Wmi9tJpo/bRaaT20mmj9tFpovbSaaP20mmj9tFppfbRaaT20Wmk9tFppPbRaaT20Wml9tFppPbRaaT20mmk9tBpo/aswgs/rMIJP6zCCT+nF3sqpxd7KqcXeyqnF3sqpxd7KqcXeyqmF3sqphd7KmmfOXJqnzhyaZ84cmmfOXJpnzhy")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_ur0fw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ehk3l"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_nfloi")
+shader = ExtResource("4_xs314")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_texture_repeat_nearest = ExtResource("7_xs314")
+shader_parameter/albedo_texture_clamp_linear = ExtResource("7_xs314")
+shader_parameter/albedo_uv_scale = Vector2(0.01, 0.01)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 2
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
@@ -788,45 +1036,50 @@ viewport_path = NodePath("SubViewport")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 handle_input_locally = false
-size = Vector2i(480, 270)
+size = Vector2i(640, 360)
 render_target_update_mode = 4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
 environment = SubResource("Environment_642rp")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
-transform = Transform3D(0.507104, -0.525504, -0.683148, 0.67202, -0.255215, 0.695165, -0.539662, -0.81161, 0.223729, 0, 5.638, 0)
+transform = Transform3D(0.279333, -0.641589, -0.714378, 0.73986, -0.330406, 0.586037, -0.61203, -0.692239, 0.382393, 0, 6.51059, 2.48719)
 shadow_enabled = true
 
-[node name="Camera3D" type="Camera3D" parent="SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, 0, 20.6665, 31.9112)
-projection = 1
-current = true
-size = 8.0
-far = 100.0
-script = ExtResource("1_3re8p")
+[node name="CameraRig" type="Node3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30, 46.5)
+script = ExtResource("1_wjktu")
+OrbitSpeed = 0.1
+CircularSpeed = 0.7
 
 [node name="Objects" type="Node3D" parent="SubViewport"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="column" type="MeshInstance3D" parent="SubViewport/Objects"]
-transform = Transform3D(1.28229, 0, -0.778295, 0, 2.5, 0, 0.778295, 0, 1.28229, -2.12054, 0, 0)
+transform = Transform3D(1.28229, 0, -0.778295, 0, 2.5, 0, 0.778295, 0, 1.28229, -2.12054, 0, -0.561808)
 mesh = SubResource("ArrayMesh_pfqju")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_pfqju")
+surface_material_override/0 = SubResource("ShaderMaterial_k125l")
 
 [node name="column2" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(0.786067, 0, -1.27754, 0, 2.5, 0, 1.27754, 0, 0.786067, -2.56927, 0, 0.975545)
 mesh = SubResource("ArrayMesh_pfqju")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_pfqju")
+surface_material_override/0 = SubResource("ShaderMaterial_5qlt3")
 
 [node name="tree_oak_dark" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(2.41333, 0, 0.652568, 0, 2.5, 0, -0.652568, 0, 2.41333, 2.05229, -0.0170122, 0)
 mesh = SubResource("ArrayMesh_evxjx")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_qrd22")
+surface_material_override/0 = SubResource("ShaderMaterial_wjrta")
 surface_material_override/1 = SubResource("ShaderMaterial_rxh2c")
+
+[node name="tree_oak_dark2" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(2.41333, 0, 0.652568, 0, 2.5, 0, -0.652568, 0, 2.41333, 3.75641, -0.0170122, 2.67663)
+mesh = SubResource("ArrayMesh_evxjx")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
+surface_material_override/1 = SubResource("ShaderMaterial_758kt")
 
 [node name="Floor" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.554695, 0)
@@ -836,14 +1089,28 @@ surface_material_override/0 = SubResource("StandardMaterial3D_pfqju")
 metadata/_edit_lock_ = true
 
 [node name="rock_smallB" type="MeshInstance3D" parent="SubViewport/Objects"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.285514, -0.05, 1.72614)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.637142, -0.05, 3.35539)
 mesh = SubResource("ArrayMesh_3gunc")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_3m67x")
-surface_material_override/1 = SubResource("ShaderMaterial_wjktu")
+surface_material_override/0 = SubResource("ShaderMaterial_d0pvf")
+surface_material_override/1 = SubResource("ShaderMaterial_vbamh")
+
+[node name="rock_smallB2" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -1.19386, -0.05, 1.92677)
+mesh = SubResource("ArrayMesh_3gunc")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_d0pvf")
+surface_material_override/1 = SubResource("ShaderMaterial_vbamh")
 
 [node name="log_stack" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(0.697611, 0, -1.32791, 0, 1.5, 0, 1.32791, 0, 0.697611, 1.6032, -0.0817383, 2.03994)
+mesh = SubResource("ArrayMesh_x3ngp")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_vqh6h")
+surface_material_override/1 = SubResource("ShaderMaterial_lyr6j")
+
+[node name="log_stack2" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.697611, 0, -1.32791, 0, 1.5, 0, 1.32791, 0, 0.697611, 2.22662, -0.0482249, 2.57446)
 mesh = SubResource("ArrayMesh_x3ngp")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_vqh6h")
@@ -871,12 +1138,37 @@ surface_material_override/0 = SubResource("ShaderMaterial_k3s4d")
 surface_material_override/1 = SubResource("ShaderMaterial_43w36")
 
 [node name="rock_tallG" type="MeshInstance3D" parent="SubViewport/Objects"]
-transform = Transform3D(-1.04329, 0, 1.07775, 0, 1.5, 0, -1.07775, 0, -1.04329, 0.577787, -0.05, 1.30407)
+transform = Transform3D(-1.39105, 0, 1.437, 0, 2, 0, -1.437, 0, -1.39105, -0.112814, -0.05, 1.34949)
 mesh = SubResource("ArrayMesh_655su")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_xs314")
 surface_material_override/1 = SubResource("ShaderMaterial_seb0h")
 surface_material_override/2 = SubResource("ShaderMaterial_bkwni")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.03779, 1.04821, -1.58008)
+mesh = SubResource("BoxMesh_xs314")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/Objects"]
+unique_name_in_owner = true
+transform = Transform3D(0.666667, 0, 0, 0, 0.565365, 0.353279, 0, -0.353279, 0.565365, 0, 20, 31)
+projection = 1
+current = true
+size = 10.0
+far = 100.0
+script = ExtResource("1_3re8p")
+
+[node name="BolderRock" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.498637, 0.0368889, 0, -0.0368889, 0.498637, 0, 0, 0, 0.5, -0.199997, -0.541201, -3.26669)
+mesh = SubResource("ArrayMesh_so3am")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("6_seb0h")
+
+[node name="BolderRock2" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(-0.45587, 0.205383, 0, -0.205383, -0.45587, 0, 0, 0, 0.5, -3.94987, 1.85659, 2.8767)
+mesh = SubResource("ArrayMesh_so3am")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_ehk3l")
 
 [node name="Terrain3D" type="Terrain3D" parent="SubViewport"]
 data_directory = "res://Temp/PixelProject/Terrain3DData"
@@ -892,6 +1184,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -37.0
+offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.01507, 1.01103)
@@ -903,7 +1197,7 @@ _mainRendereSprite = NodePath("Sprite2D")
 texture_filter = 2
 material = SubResource("ShaderMaterial_642rp")
 position = Vector2(11.8219, 12.8582)
-scale = Vector2(2.92931, 2.89585)
+scale = Vector2(2.92929, 2.91507)
 texture = SubResource("ViewportTexture_28obu")
 centered = false
 

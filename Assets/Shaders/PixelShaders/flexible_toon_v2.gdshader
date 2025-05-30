@@ -1,11 +1,14 @@
 shader_type spatial;
 //uncomment line below to remove ambient light effect on object (Optional)
 //render_mode ambient_light_disabled;
+//render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_toon;
+
+//uniform sampler2D texture_albedo : source_color, filter_nearest_mipmap, repeat_enable;
 
 //Base color of the mesh.
 uniform vec4 albedo : source_color = vec4(1.0f);
 //Use a texture for the base color (will be multiplied with albedo).
-uniform sampler2D albedo_texture : source_color;
+uniform sampler2D albedo_texture : source_color, filter_nearest_mipmap, repeat_enable;
 uniform vec2 albedo_uv_scale = vec2(1.0, 1.0);
 uniform vec2 albedo_uv_offset = vec2(0.0, 0.0);
 
