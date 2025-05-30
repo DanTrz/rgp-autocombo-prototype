@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=4 uid="uid://gxgvf2hwie84"]
+[gd_scene load_steps=78 format=4 uid="uid://gxgvf2hwie84"]
 
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="1_3re8p"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="1_28obu"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bn68wamoyf7f7" path="res://Temp/PixelProject/Assets/2D/Textures/whiteTerrain_1_Height.png" id="6_xs314"]
 [ext_resource type="Texture2D" uid="uid://c84ir4n47xsow" path="res://Temp/PixelProject/Assets/2D/Ref Image.png" id="7_3m67x"]
 [ext_resource type="Texture2D" uid="uid://f0rsdt8m8cru" path="res://Temp/PixelProject/Assets/2D/Textures/Rocks_4.png" id="7_seb0h"]
+[ext_resource type="Texture2D" uid="uid://duqliy4w8k0m5" path="res://Temp/PixelProject/Assets/2D/Textures/rocks_5_moss.png" id="7_vqh6h"]
 [ext_resource type="Texture2D" uid="uid://6ijkjwqeiua5" path="res://Temp/PixelProject/Assets/2D/Textures/rocks_5.png" id="7_xs314"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_28obu"]
@@ -880,6 +881,92 @@ shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kdpg5"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_mj2jh")
+shader = ExtResource("4_xs314")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_texture_repeat_nearest = ExtResource("7_vqh6h")
+shader_parameter/albedo_texture_clamp_linear = ExtResource("7_vqh6h")
+shader_parameter/albedo_uv_scale = Vector2(0.05, 0.05)
+shader_parameter/albedo_uv_offset = Vector2(0.1, 0.1)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 3
+shader_parameter/wrap = -0.0619999
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = true
+shader_parameter/border_width = 2.0
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g2sps"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_mj2jh")
+shader = ExtResource("4_xs314")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 1
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = true
+shader_parameter/border_width = 2.0
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u2oii"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_mj2jh")
+shader = ExtResource("4_xs314")
+shader_parameter/albedo = Color(0.77084, 0.770839, 0.770839, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 1
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = true
+shader_parameter/border_width = 2.0
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7p7qj"]
 render_priority = 0
 shader = ExtResource("4_xs314")
@@ -1052,6 +1139,15 @@ script = ExtResource("1_wjktu")
 OrbitSpeed = 0.1
 CircularSpeed = 0.7
 
+[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRig"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, 0, 0, 0)
+projection = 1
+current = true
+size = 10.0
+far = 100.0
+script = ExtResource("1_3re8p")
+
 [node name="Objects" type="Node3D" parent="SubViewport"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
@@ -1138,25 +1234,24 @@ surface_material_override/0 = SubResource("ShaderMaterial_k3s4d")
 surface_material_override/1 = SubResource("ShaderMaterial_43w36")
 
 [node name="rock_tallG" type="MeshInstance3D" parent="SubViewport/Objects"]
-transform = Transform3D(-1.39105, 0, 1.437, 0, 2, 0, -1.437, 0, -1.39105, -0.112814, -0.05, 1.34949)
+transform = Transform3D(-1.39105, 0, 1.437, 0, 2, 0, -1.437, 0, -1.39105, -0.246495, -0.05, 1.34949)
 mesh = SubResource("ArrayMesh_655su")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_xs314")
 surface_material_override/1 = SubResource("ShaderMaterial_seb0h")
 surface_material_override/2 = SubResource("ShaderMaterial_bkwni")
 
+[node name="rock_tallG2" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(-1.93016, -0.491441, 0.181524, -0.511955, 1.91644, -0.255291, -0.11121, -0.292843, -1.97531, 0.680198, -0.05, 1.75562)
+mesh = SubResource("ArrayMesh_655su")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_kdpg5")
+surface_material_override/1 = SubResource("ShaderMaterial_g2sps")
+surface_material_override/2 = SubResource("ShaderMaterial_u2oii")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.03779, 1.04821, -1.58008)
 mesh = SubResource("BoxMesh_xs314")
-
-[node name="Camera3D" type="Camera3D" parent="SubViewport/Objects"]
-unique_name_in_owner = true
-transform = Transform3D(0.666667, 0, 0, 0, 0.565365, 0.353279, 0, -0.353279, 0.565365, 0, 20, 31)
-projection = 1
-current = true
-size = 10.0
-far = 100.0
-script = ExtResource("1_3re8p")
 
 [node name="BolderRock" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(0.498637, 0.0368889, 0, -0.0368889, 0.498637, 0, 0, 0, 0.5, -0.199997, -0.541201, -3.26669)
@@ -1202,6 +1297,7 @@ texture = SubResource("ViewportTexture_28obu")
 centered = false
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.95611, -2.1655)
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 1.95611, -2.1655)
 visible = false
+texture_filter = 2
 texture = ExtResource("7_3m67x")

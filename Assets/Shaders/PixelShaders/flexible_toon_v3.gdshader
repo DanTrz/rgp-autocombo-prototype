@@ -183,5 +183,3 @@ void light() {
 		SPECULAR_LIGHT += rim_light * rim_color.rgb * rim_color.a * LIGHT_COLOR / PI;
 	}
 }
-
-
