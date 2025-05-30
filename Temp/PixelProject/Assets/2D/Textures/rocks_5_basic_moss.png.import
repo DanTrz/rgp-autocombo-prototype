@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b07oqa4qkiauy"
-path.s3tc="res://.godot/imported/rocks_5_Roughness.png-a98aed00661f28ce8d650a66cbed6f1d.s3tc.ctex"
+uid="uid://bg8qhgkst1bfq"
+path.s3tc="res://.godot/imported/rocks_5_basic_moss.png-88a30a58dbe6b5ec40b54014a4c050d6.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Temp/PixelProject/Assets/2D/Textures/rocks_5_Roughness.png"
-dest_files=["res://.godot/imported/rocks_5_Roughness.png-a98aed00661f28ce8d650a66cbed6f1d.s3tc.ctex"]
+source_file="res://Temp/PixelProject/Assets/2D/Textures/rocks_5_basic_moss.png"
+dest_files=["res://.godot/imported/rocks_5_basic_moss.png-88a30a58dbe6b5ec40b54014a4c050d6.s3tc.ctex"]
 
 [params]
 

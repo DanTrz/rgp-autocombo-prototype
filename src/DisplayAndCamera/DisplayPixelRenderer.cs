@@ -23,7 +23,9 @@ public partial class DisplayPixelRenderer : Control
 		// Calculate the display scale
 		Vector2 displayScale = screenSize / gameSize;
 		// Maintain aspect ratio by using the minimum display scale
-		float displayScaleMin = Math.Min(displayScale.X, displayScale.Y);
+		// float displayScaleMin = Math.Min(displayScale.X, displayScale.Y); //Original
+		float displayScaleMin = Mathf.Floor(Math.Min(displayScale.X, displayScale.Y)); //Added DT: Attempt to clamp the scale down to the lower integer:
+
 		// Set the scale of the main sprite
 		_mainRendereSprite.Scale = new Vector2(displayScaleMin, displayScaleMin);
 		// Scale and center the control node

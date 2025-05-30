@@ -3,10 +3,15 @@ render_mode blend_mix, cull_back; //blend_mix, cull_back; // unshaded, cull_back
 
 uniform sampler2D albedo_tex : filter_nearest, source_color;
 uniform vec4 albedo_color : source_color = vec4(1.0);
+uniform bool use_vertex_color = true;
+uniform bool use_emission = false;
+uniform vec3 emission_color : source_color = vec3(1.0);
+
+uniform bool billboard = true;
 
 // Wind Animation
 uniform float wind_sway_strength : hint_range(0.0, 1.0) = 0.1;
-uniform float wind_sway_speed : hint_range(0.1, 10.0) = 2.0;
+uniform float wind_sway_speed : hint_range(0.1, 10.0) = 1.0;
 uniform float wind_time_scale : hint_range(0.0, 5.0) = 1.0;
 uniform float wind_time_offset = 0.0;
 uniform bool sway_from_bottom = false; // 
@@ -25,14 +30,18 @@ void vertex() {
     mod_vertex.x += sway;
 
     // Billboard facing the camera
-    mat4 billboard_modelview = VIEW_MATRIX * mat4(
+	if(billboard)
+	{
+		mat4 billboard_modelview = VIEW_MATRIX * mat4(
         INV_VIEW_MATRIX[0],
         INV_VIEW_MATRIX[1],
         INV_VIEW_MATRIX[2],
         MODEL_MATRIX[3]
-    );
-
-    MODELVIEW_MATRIX = billboard_modelview;
+	    );
+		
+		MODELVIEW_MATRIX = billboard_modelview;
+	}
+	
     VERTEX = mod_vertex;
 
     world_billboard_normal = transpose(mat3(MODELVIEW_MATRIX)) * vec3(0.0, 0.0, 1.0);
@@ -42,6 +51,11 @@ void vertex() {
 
 void fragment() {
     vec4 tex = texture(albedo_tex, UV);
+	
+	if(use_vertex_color)
+	{
+		tex *= COLOR;
+	}
     ALBEDO = tex.rgb * albedo_color.rgb;
     ALPHA = tex.a * albedo_color.a;
 
@@ -55,5 +69,13 @@ void fragment() {
 void light() {
     vec3 normal = normalize(world_billboard_normal);
     float NdotL = max(dot(normal, LIGHT), 0.0);
-    DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION;
+	if(use_emission)
+	{
+		DIFFUSE_LIGHT += NdotL * ALBEDO * emission_color * LIGHT_COLOR * ATTENUATION; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION;
+	}
+	else
+	{
+		DIFFUSE_LIGHT += NdotL * ALBEDO  * ATTENUATION; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION; 
+	}
+
 }

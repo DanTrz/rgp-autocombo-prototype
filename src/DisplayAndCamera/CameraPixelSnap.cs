@@ -47,8 +47,12 @@ public partial class CameraPixelSnap : Camera3D
 		_texelSize = this.Size / (float)((SubViewport)GetViewport()).Size.Y;
 		// Calculate the camera's position in the snapping space.
 		Vector3 snapSpacePosition = this.GlobalPosition * _snapSpace;
+
 		// Snap the position to the nearest texel.
-		Vector3 snappedSnapSpacePosition = snapSpacePosition.Snapped(Vector3.One * _texelSize);
+		Vector3 snappedSnapSpacePosition = snapSpacePosition.Snapped(Vector3.One * _texelSize); //Original (X and Y)
+
+		//Vector3 snappedSnapSpacePosition = snapSpacePosition.Snapped(new Vector3(_texelSize, _texelSize, _texelSize)); //Added DT:try and snap Z also
+
 		// Calculate the error introduced by snapping.
 		Vector3 snapError = snappedSnapSpacePosition - snapSpacePosition;
 		if (SnapWorld)
@@ -78,6 +82,9 @@ public partial class CameraPixelSnap : Camera3D
 	{
 		// Retrieve nodes in the "snap" group.
 		_snapNodes = GetTree().GetNodesInGroup("snap");
+
+		if (_snapNodes.Count == 0 && _prevRotation == this.GlobalRotation) return; //Added DT: Tries to avoid snaping when no changes
+
 		_preSnappedPositions.Resize(_snapNodes.Count);
 		for (int i = 0; i < _snapNodes.Count; i++)
 		{

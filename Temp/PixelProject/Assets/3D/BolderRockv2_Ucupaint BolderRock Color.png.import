@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b07oqa4qkiauy"
-path.s3tc="res://.godot/imported/rocks_5_Roughness.png-a98aed00661f28ce8d650a66cbed6f1d.s3tc.ctex"
+uid="uid://cgevqdb47vav6"
+path.s3tc="res://.godot/imported/BolderRockv2_Ucupaint BolderRock Color.png-ad829c659c2f1eea15d97566ff897624.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "9582bacff2666dc5ac797abb94959860"
+}
 
 [deps]
 
-source_file="res://Temp/PixelProject/Assets/2D/Textures/rocks_5_Roughness.png"
-dest_files=["res://.godot/imported/rocks_5_Roughness.png-a98aed00661f28ce8d650a66cbed6f1d.s3tc.ctex"]
+source_file="res://Temp/PixelProject/Assets/3D/BolderRockv2_Ucupaint BolderRock Color.png"
+dest_files=["res://.godot/imported/BolderRockv2_Ucupaint BolderRock Color.png-ad829c659c2f1eea15d97566ff897624.s3tc.ctex"]
 
 [params]
 

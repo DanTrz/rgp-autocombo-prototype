@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b07oqa4qkiauy"
-path.s3tc="res://.godot/imported/rocks_5_Roughness.png-a98aed00661f28ce8d650a66cbed6f1d.s3tc.ctex"
+uid="uid://1cxqaqhdus32"
+path.s3tc="res://.godot/imported/tree_bark_1.png-951c863c985668aed28a0c9dba76f346.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Temp/PixelProject/Assets/2D/Textures/rocks_5_Roughness.png"
-dest_files=["res://.godot/imported/rocks_5_Roughness.png-a98aed00661f28ce8d650a66cbed6f1d.s3tc.ctex"]
+source_file="res://Temp/PixelProject/Assets/2D/Textures/tree_bark_1.png"
+dest_files=["res://.godot/imported/tree_bark_1.png-951c863c985668aed28a0c9dba76f346.s3tc.ctex"]
 
 [params]
 
