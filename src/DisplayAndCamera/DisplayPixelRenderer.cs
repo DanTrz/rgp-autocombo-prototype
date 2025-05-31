@@ -6,11 +6,13 @@ using Godot;
 /// </summary>
 public partial class DisplayPixelRenderer : Control
 {
-	[Export] SubViewport _viewPort;
+	[Export] SubViewport _viewport;
 	// Whether to apply the basic smooth "stabilization" logic
 	[Export] bool _pixelMovement = true;
 	// Whether to use sub-pixel movement at integer scale for the smooth "stabilization" logic
 	[Export] bool _subPixelMovementAtIntegerScale = true;
+	//rendered game resolution is always scaled up in whole pixels (Not always helpful or needed)
+	[Export] bool _forceIntegerScale = false;
 	// The main sprite to render the screen
 	[Export] Sprite2D _mainRendereSprite;
 
@@ -19,12 +21,14 @@ public partial class DisplayPixelRenderer : Control
 		// Get the size of the screen
 		Vector2 screenSize = GetWindow().Size;
 		// Get the size of the viewport, minus any padding
-		Vector2 gameSize = new Vector2(_viewPort.Size.X - 2, _viewPort.Size.Y - 2);
+		Vector2 gameSize = new Vector2(_viewport.Size.X - 2, _viewport.Size.Y - 2);
 		// Calculate the display scale
 		Vector2 displayScale = screenSize / gameSize;
+
 		// Maintain aspect ratio by using the minimum display scale
-		// float displayScaleMin = Math.Min(displayScale.X, displayScale.Y); //Original
-		float displayScaleMin = Mathf.Floor(Math.Min(displayScale.X, displayScale.Y)); //Added DT: Attempt to clamp the scale down to the lower integer:
+		//float displayScaleMin = Math.Min(displayScale.X, displayScale.Y); //Original
+		float scaleRaw = Math.Min(displayScale.X, displayScale.Y);
+		float displayScaleMin = _forceIntegerScale ? Mathf.Floor(scaleRaw) : scaleRaw;
 
 		// Set the scale of the main sprite
 		_mainRendereSprite.Scale = new Vector2(displayScaleMin, displayScaleMin);
@@ -35,7 +39,7 @@ public partial class DisplayPixelRenderer : Control
 		if (_pixelMovement)
 		{
 			// Get the camera
-			var cam = _viewPort.GetCamera3D() as CameraPixelSnap;
+			var cam = _viewport.GetCamera3D() as CameraPixelSnap;
 			if (cam != null)
 			{
 				// Get the texel error

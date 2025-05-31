@@ -10,11 +10,14 @@ load_path = "res://.godot/imported/Grass_3.png-6711f90f42818dba951396c8414e2150.
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jfcxj"]
 render_priority = 0
 shader = ExtResource("2_xngug")
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_wlmg1")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
 shader_parameter/use_vertex_color = true
 shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/billboard = true
 shader_parameter/wind_sway_strength = 0.1
 shader_parameter/wind_sway_speed = 1.0
 shader_parameter/wind_time_scale = 1.0

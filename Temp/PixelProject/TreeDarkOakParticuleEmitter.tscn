@@ -1,21 +1,76 @@
-[gd_scene load_steps=13 format=4 uid="uid://cje6soji7qi4k"]
+[gd_scene load_steps=14 format=4 uid="uid://dsd2i81dew6dq"]
 
-[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="1_pf148"]
-[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_hil3m"]
-[ext_resource type="Texture2D" uid="uid://bn68wamoyf7f7" path="res://Temp/PixelProject/Assets/2D/Textures/whiteTerrain_1_Height.png" id="3_6lm74"]
-[ext_resource type="Gradient" uid="uid://cul0xese4g3dd" path="res://Assets/Shaders/PixelShaders/ShaderSupportingAssets/GradientBaseColors.tres" id="4_igo0p"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="1_a38gw"]
+[ext_resource type="Script" uid="uid://dofp8cf2j0tol" path="res://Temp/PixelProject/TreeLeafParticuleEmitter.cs" id="1_rqk0u"]
+[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_rqk0u"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vgwty"]
-resource_name = "leafsDark"
-albedo_color = Color(0.447504, 0.827211, 0.836007, 1)
-metallic = 1.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a38gw"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_rqk0u")
+shader_parameter/albedo_color = Color(1.73271e-06, 0.606481, 0.304432, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 1
+shader_parameter/wrap = -2.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f1d7p"]
-resource_name = "woodBarkDark"
-albedo_color = Color(0.906332, 0.710264, 0.641088, 1)
-metallic = 1.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ehk3l"]
+render_priority = 0
+shader = ExtResource("1_a38gw")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.7
+shader_parameter/highlight_strength = 0.2
+shader_parameter/highlight_color = Color(0.629675, 0.629675, 0.629675, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_sn2ok"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1eq53"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_ehk3l")
+shader = ExtResource("2_rqk0u")
+shader_parameter/albedo_color = Color(0.653569, 0.392022, 0.225966, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_fjmk2"]
 _surfaces = [{
 "aabb": AABB(-0.320277, 0.5004, -0.369824, 0.640554, 0.72584, 0.739648),
 "format": 34896613377,
@@ -39,7 +94,8 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_evxjx"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_a38gw"]
+resource_local_to_scene = true
 resource_name = "tree_oak_dark_Mesh tree_oak_dark"
 _surfaces = [{
 "aabb": AABB(-0.320277, 0.5004, -0.369824, 0.640554, 0.72584, 0.739648),
@@ -47,7 +103,7 @@ _surfaces = [{
 "format": 34896613399,
 "index_count": 192,
 "index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAEwAUABAAEwAVABQAFgAXABgAGAAZABYAGgAbABwAHAAdABoAHgAfACAAIAAhAB4AIgAjACQAJAAlACIAJgAnACgAKAApACYAKgArACwALAAtACoALgAvADAAMAAxAC4AMgAzADQANAA1ADIANgA3ADgAOAA5ADYAOgA7ADwAPAA9ADoAPgA/AEAAQABBAD4AQgBDAEQARABFAEIARgBHAEgASABJAEYASgBLAEwATABNAEoATgBPAFAAUABRAE4AUgBTAFQAVABVAFIAVgBXAFgAWABZAFYAWgBbAFwAXABdAFoAXgBfAGAAYABhAF4AYgBjAGQAZABlAGIAZgBnAGgAaABpAGYAaQBqAGYAawBpAGgAagBsAGYAaABtAGsAagBuAGwAbQBvAGsAbgBwAGwAbQBwAG8AcQBsAHAAbQBxAHAA"),
-"material": SubResource("StandardMaterial3D_vgwty"),
+"material": SubResource("ShaderMaterial_a38gw"),
 "name": "leafsDark",
 "primitive": 3,
 "uv_scale": Vector4(14.56, 82.3228, 0, 0),
@@ -59,7 +115,7 @@ _surfaces = [{
 "format": 34896613399,
 "index_count": 396,
 "index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAASABEAEgAVABMAEQAWABQAFQAXABMAFgAXABQAFgATABcAGAAZABoAGgAbABgAHAAdAB4AHgAfABwAIAAhACIAIgAjACAAJAAlACYAJgAnACQAKAApACoAKgArACgALAAtAC4ALgAvACwAMAAxADIAMgAzADAANAA1ADYANgA3ADQAOAA5ADoAOgA7ADgAPAA9AD4APgA/ADwAQAA+AD0APgBBAD8APQBCAEAAQQBDAD8AQgBDAEAAQgA/AEMARABFAEYARgBHAEQASABJAEoASgBLAEgATABIAEsASwBNAEwATgBMAE0ATQBPAE4AUABRAFIAUwBUAFUAVQBWAFMAVwBYAFkAWgBbAFwAXQBeAF8AXwBgAF0AYQBiAGMAZABlAGYAZwBoAGkAaQBqAGcAawBsAG0AbgBvAHAAcQByAHMAcwB0AHUAdQB2AHMAcwB2AHEAdgB3AHEAdwB4AHEAeAB5AHoAegB7AHgAewBxAHgAcQB7AHwAcQB8AH0AfQB+AHEAewB/AHwAfwCAAHwAfwCBAIAAfwCCAIEAggCDAIEAggCEAIMAhACFAIMAhgCEAIIAggCHAIYAhwCIAIYAiQCEAIYAhgCKAIkAigCLAIkAigCMAIsAjQCLAIwAjACOAI0AjwCQAJEAkQCSAI8AkwCUAJUAlQCWAJMAlwCYAJkAmgCbAJwAnQCeAJ8AnwCgAJ0AnwChAKAAogCgAKEAowCiAKEAoQCkAKMApQCmAKcApwCoAKUAqACnAKkAqQCqAKgAqgCpAKsAqwCsAKoArQCuAK8ArwCwAK0AsQCwAK8AsQCvALIAswCxALIAsgC0ALMAtQC2ALcAtwC4ALUAuQC1ALgAuQC4ALoAuwC5ALoAugC8ALsAvQC+AL8AvwDAAL0AwADBAL0AwgC9AMEAwwDCAMEAwQDEAMMAxQDGAMcAyADJAMoAygDLAMgAzADNAM4AzwDQANEA"),
-"material": SubResource("StandardMaterial3D_f1d7p"),
+"material": SubResource("ShaderMaterial_1eq53"),
 "name": "woodBarkDark",
 "primitive": 3,
 "uv_scale": Vector4(16.2256, 37.1523, 0, 0),
@@ -67,82 +123,155 @@ _surfaces = [{
 "vertex_data": PackedByteArray("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aI8nDGiPJwz0gHf79IB3+/SAd/v0gHf7q4A5AKuAOQCrgDkAq4A5ALCOe7qwjnu6sI57urCOe7pLgD//S4A//0uAP/9LgD//V4HlAFeB5QBXgeUAV4HlAKyA3/6sgN/+rIDf/qyA3/5g0ouXYNKLl2DSi5dg0ouXJoyW8CaMlvAmjJXwJoyW8CaMlvAmjJbwJoyW8CeMlvDeGXOv3hlzr94Zc6/eGXOvt4eO8LeHjvC3h47wt4eO8LeHjvC3h47wt4eO8LeHjvD/fwAA/38AAP9/AABgiuLOYIrizmCK4s5giuLO/3////9/////f////38AAP9/AAD/fwAAfeN3Tn3jd05943dOfeN3Tv9/////f////3////9/AAD/fwAA/38AANq9Eg3avRIN2r0SDdq9Eg3/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z8jprazI6a2syOmtrMjprazksaDppLGg6aSxoOmksaDpv9/AAD/fwAA/38AAP9/////f////3///1yfuxhcn7sYXJ+7GFyfuxhcn7sYXJ+7GFyfuxhcn7sYb4+4B2+PuAdvj7gHb4+4B2+PuAdvj7gHb4+4B2+PuAc8iikCPIopAjyKKQI8iikCPIopAjyKKQI8iikCPIopAruYouC7mKLgu5ii4LuYouC7mKLgu5ii4LuYouC7mKLgKYLB9SmCwfUpgsH1KYLB9SmCwfUpgsH1KYLB9SmCwfX/f////3////9///9qv7Ufar+1H2q/tR9qv7Uf/3////9/////f////3////9/////f///")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_sn2ok")
+shadow_mesh = SubResource("ArrayMesh_fjmk2")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cjd6h"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c4c7o"]
+emission_shape = 2
+emission_sphere_radius = 1.05
+angle_min = 1.07288e-05
+angle_max = 1.07288e-05
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+scale_max = 1.45
+
+[sub_resource type="Shader" id="Shader_8ytgf"]
+code = "shader_type spatial;
+render_mode blend_mix, cull_back; //blend_mix, cull_back; // unshaded, cull_back;
+
+// Toggle simulated ambient manually
+uniform bool disable_ambient_light = false;
+// Allows to compensate adding fake ambient like - I use to add contrast to shadows
+uniform vec3 fake_ambient_light: source_color = vec3(0.3f);
+
+uniform sampler2D albedo_tex : filter_nearest, source_color;
+uniform vec4 albedo_color : source_color = vec4(1.0);
+uniform bool use_vertex_color = true;
+uniform bool use_emission = false;
+uniform vec3 emission_color : source_color = vec3(1.0);
+
+uniform bool billboard = true;
+
+// Wind Animation
+uniform float wind_sway_strength : hint_range(0.0, 1.0) = 0.1;
+uniform float wind_sway_speed : hint_range(0.1, 10.0) = 1.0;
+uniform float wind_time_scale : hint_range(0.0, 5.0) = 1.0;
+uniform float wind_time_offset = 0.0;
+uniform bool sway_from_bottom = false; //
+
+varying vec3 modelOrigin;
+varying vec3 world_billboard_normal;
+
+void vertex() {
+    vec3 mod_vertex = VERTEX;
+
+    float time = TIME * wind_time_scale + wind_time_offset;
+
+    //Control sway influence origin (top or bottom)
+    float sway_influence = sway_from_bottom ? UV.y : (1.0 - UV.y);
+    float sway = sin((time + VERTEX.x * 0.5) * wind_sway_speed) * wind_sway_strength * sway_influence;
+    mod_vertex.x += sway;
+
+    // Billboard facing the camera
+	if(billboard)
+	{
+		mat4 billboard_modelview = VIEW_MATRIX * mat4(
+        INV_VIEW_MATRIX[0],
+        INV_VIEW_MATRIX[1],
+        INV_VIEW_MATRIX[2],
+        MODEL_MATRIX[3]
+	    );
+
+		MODELVIEW_MATRIX = billboard_modelview;
+	}
+
+    VERTEX = mod_vertex;
+
+    world_billboard_normal = transpose(mat3(MODELVIEW_MATRIX)) * vec3(0.0, 0.0, 1.0);
+		//Model Origin info for consistent lighting across the entire mesh (passed to LIGHT_VERTEX in the Fragment function)
+	modelOrigin = (MODELVIEW_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+}
+
+void fragment() {
+    vec4 tex = texture(albedo_tex, UV);
+
+	if(use_vertex_color)
+	{
+		tex *= COLOR;
+	}
+    ALBEDO = tex.rgb * albedo_color.rgb;
+    ALPHA = tex.a * albedo_color.a;
+
+    if (ALPHA < 0.1) {
+        discard;
+    }
+		//Model Origin info is passed to LIGHT_VERTEX. This is DYLEARN's \"VERTEX = MODEL_ORIGIN\"
+	LIGHT_VERTEX = modelOrigin;
+}
+
+void light() {
+    vec3 normal = normalize(world_billboard_normal);
+    float NdotL = max(dot(normal, LIGHT), 0.0);
+			// Apply diffuse
+	vec3 diffuse = ALBEDO.rgb * LIGHT_COLOR / PI;
+		// Add ambient manually if render_mode ambient_light_disabled is used
+	vec3 ambient = disable_ambient_light ? vec3(0.0) : vec3(fake_ambient_light); // Replace with desired ambient color
+	diffuse += ambient;
+
+	if(use_emission)
+	{
+		DIFFUSE_LIGHT += NdotL * ALBEDO * emission_color * LIGHT_COLOR * ATTENUATION * diffuse; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION;
+	}
+	else
+	{
+		DIFFUSE_LIGHT += NdotL * ALBEDO  * ATTENUATION *diffuse; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION;
+	}
+
+
+}"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fjmk2"]
+load_path = "res://.godot/imported/Leafd.png-5242864aff212dc7c789c89694e87f11.s3tc.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rqk0u"]
+resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("1_pf148")
-shader_parameter/shadows_enabled = true
-shader_parameter/highlights_enabled = true
-shader_parameter/shadow_strength = 0.7
-shader_parameter/highlight_strength = 0.2
-shader_parameter/highlight_color = Color(1, 1, 1, 1)
-shader_parameter/shadow_color = Color(0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_qrd22"]
-gradient = ExtResource("4_igo0p")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wjrta"]
-render_priority = 0
-next_pass = SubResource("ShaderMaterial_cjd6h")
-shader = ExtResource("2_hil3m")
-shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader = SubResource("Shader_8ytgf")
 shader_parameter/disable_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
-shader_parameter/use_repeat_nearest_texture = true
-shader_parameter/albedo_texture_repeat_nearest = ExtResource("3_6lm74")
-shader_parameter/albedo_texture_clamp_linear = ExtResource("3_6lm74")
-shader_parameter/albedo_uv_scale = Vector2(0.05, 0.05)
-shader_parameter/albedo_uv_offset = Vector2(0.5, 0)
-shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 2
-shader_parameter/wrap = 0.0
-shader_parameter/steepness = 1.0
-shader_parameter/use_attenuation = true
-shader_parameter/use_specular = false
-shader_parameter/specular_strength = 1.0
-shader_parameter/specular_shininess = 16.0
-shader_parameter/use_rim = false
-shader_parameter/rim_width = 8.0
-shader_parameter/rim_color = Color(1, 1, 1, 1)
-shader_parameter/use_ramp = false
-shader_parameter/ramp = SubResource("GradientTexture2D_qrd22")
-shader_parameter/use_borders = false
-shader_parameter/border_width = 0.05
-shader_parameter/normal_rotation_pitch = 0.0
-shader_parameter/normal_rotation_yaw = 0.0
-shader_parameter/normal_rotation_roll = 0.0
+shader_parameter/albedo_tex = SubResource("CompressedTexture2D_fjmk2")
+shader_parameter/albedo_color = Color(1.73271e-06, 0.606481, 0.304432, 1)
+shader_parameter/use_vertex_color = true
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/billboard = true
+shader_parameter/wind_sway_strength = 0.1
+shader_parameter/wind_sway_speed = 1.0
+shader_parameter/wind_time_scale = 1.0
+shader_parameter/wind_time_offset = 2.0
+shader_parameter/sway_from_bottom = false
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rxh2c"]
-render_priority = 0
-next_pass = SubResource("ShaderMaterial_cjd6h")
-shader = ExtResource("2_hil3m")
-shader_parameter/albedo_color = Color(1, 1, 1, 1)
-shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
-shader_parameter/use_repeat_nearest_texture = true
-shader_parameter/albedo_uv_scale = Vector2(1, 1)
-shader_parameter/albedo_uv_offset = Vector2(0, 0)
-shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 2
-shader_parameter/wrap = 0.0
-shader_parameter/steepness = 1.0
-shader_parameter/use_attenuation = true
-shader_parameter/use_specular = false
-shader_parameter/specular_strength = 1.0
-shader_parameter/specular_shininess = 16.0
-shader_parameter/use_rim = false
-shader_parameter/rim_width = 8.0
-shader_parameter/rim_color = Color(1, 1, 1, 1)
-shader_parameter/use_ramp = false
-shader_parameter/use_borders = false
-shader_parameter/border_width = 0.05
-shader_parameter/normal_rotation_pitch = 0.0
-shader_parameter/normal_rotation_yaw = 0.0
-shader_parameter/normal_rotation_roll = 0.0
+[sub_resource type="QuadMesh" id="QuadMesh_rqk0u"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_rqk0u")
+size = Vector2(0.5, 0.5)
 
-[node name="tree_oak_dark" type="MeshInstance3D"]
-mesh = SubResource("ArrayMesh_evxjx")
+[node name="TreeGPUParticle" type="Node3D" node_paths=PackedStringArray("_particleEmitter", "_treeMesh")]
+script = ExtResource("1_rqk0u")
+_particleEmitter = NodePath("tree_oak_dark/GPUParticles3D")
+_treeMesh = NodePath("tree_oak_dark")
+_totalParticulesCount = 500
+_particuleColor = Color(1.73271e-06, 0.606481, 0.304432, 1)
+
+[node name="tree_oak_dark" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
+mesh = SubResource("ArrayMesh_a38gw")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_wjrta")
-surface_material_override/1 = SubResource("ShaderMaterial_rxh2c")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="tree_oak_dark"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.951338, 0)
+amount = 500
+lifetime = 100000.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_c4c7o")
+draw_pass_1 = SubResource("QuadMesh_rqk0u")

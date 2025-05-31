@@ -5,7 +5,7 @@ render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_toon
 render_mode ambient_light_disabled;
 
 // Base color of the mesh.
-uniform vec4 albedo : source_color = vec4(1.0f);
+uniform vec4 albedo_color : source_color = vec4(1.0f);
 
 // Toggle simulated ambient manually
 uniform bool disable_ambient_light = false;
@@ -112,7 +112,7 @@ void fragment() {
 		? texture(albedo_texture_clamp_linear, transformed_uv)
 		: texture(albedo_texture_repeat_nearest, transformed_uv);
 
-	ALBEDO = albedo.rgb * tex_color.rgb;
+	ALBEDO = albedo_color.rgb * tex_color.rgb;
 }
 
 void light() {

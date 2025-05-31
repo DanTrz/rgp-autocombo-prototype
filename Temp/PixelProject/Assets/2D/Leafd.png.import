@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqfh443s1tfx6"
-path.s3tc="res://.godot/imported/leaf 2.png-d70a02bf729305a4cfd727ede34eeb0a.s3tc.ctex"
+uid="uid://b6uh205nebu5h"
+path.s3tc="res://.godot/imported/Leafd.png-5242864aff212dc7c789c89694e87f11.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Temp/PixelProject/Assets/2D/leaf 2.png"
-dest_files=["res://.godot/imported/leaf 2.png-d70a02bf729305a4cfd727ede34eeb0a.s3tc.ctex"]
+source_file="res://Temp/PixelProject/Assets/2D/Leafd.png"
+dest_files=["res://.godot/imported/Leafd.png-5242864aff212dc7c789c89694e87f11.s3tc.ctex"]
 
 [params]
 

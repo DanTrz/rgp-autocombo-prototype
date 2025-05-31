@@ -83,7 +83,7 @@ public partial class CameraPixelSnap : Camera3D
 		// Retrieve nodes in the "snap" group.
 		_snapNodes = GetTree().GetNodesInGroup("snap");
 
-		if (_snapNodes.Count == 0 && _prevRotation == this.GlobalRotation) return; //Added DT: Tries to avoid snaping when no changes
+		//if (_snapNodes.Count == 0 && _prevRotation == this.GlobalRotation) return; //Added DT: Tries to avoid snaping when no changes
 
 		_preSnappedPositions.Resize(_snapNodes.Count);
 		for (int i = 0; i < _snapNodes.Count; i++)

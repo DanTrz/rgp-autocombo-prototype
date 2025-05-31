@@ -1,6 +1,11 @@
 shader_type spatial;
 render_mode blend_mix, cull_back; //blend_mix, cull_back; // unshaded, cull_back;
 
+// Toggle simulated ambient manually
+uniform bool disable_ambient_light = false;
+// Allows to compensate adding fake ambient like - I use to add contrast to shadows
+uniform vec3 fake_ambient_light: source_color = vec3(0.3f);
+
 uniform sampler2D albedo_tex : filter_nearest, source_color;
 uniform vec4 albedo_color : source_color = vec4(1.0);
 uniform bool use_vertex_color = true;
@@ -14,7 +19,7 @@ uniform float wind_sway_strength : hint_range(0.0, 1.0) = 0.1;
 uniform float wind_sway_speed : hint_range(0.1, 10.0) = 1.0;
 uniform float wind_time_scale : hint_range(0.0, 5.0) = 1.0;
 uniform float wind_time_offset = 0.0;
-uniform bool sway_from_bottom = false; // 
+uniform bool sway_from_bottom = false; //
 
 varying vec3 modelOrigin;
 varying vec3 world_billboard_normal;
@@ -38,10 +43,10 @@ void vertex() {
         INV_VIEW_MATRIX[2],
         MODEL_MATRIX[3]
 	    );
-		
+
 		MODELVIEW_MATRIX = billboard_modelview;
 	}
-	
+
     VERTEX = mod_vertex;
 
     world_billboard_normal = transpose(mat3(MODELVIEW_MATRIX)) * vec3(0.0, 0.0, 1.0);
@@ -51,7 +56,7 @@ void vertex() {
 
 void fragment() {
     vec4 tex = texture(albedo_tex, UV);
-	
+
 	if(use_vertex_color)
 	{
 		tex *= COLOR;
@@ -69,13 +74,20 @@ void fragment() {
 void light() {
     vec3 normal = normalize(world_billboard_normal);
     float NdotL = max(dot(normal, LIGHT), 0.0);
+			// Apply diffuse
+	vec3 diffuse = ALBEDO.rgb * LIGHT_COLOR / PI;
+		// Add ambient manually if render_mode ambient_light_disabled is used
+	vec3 ambient = disable_ambient_light ? vec3(0.0) : vec3(fake_ambient_light); // Replace with desired ambient color
+	diffuse += ambient;
+
 	if(use_emission)
 	{
-		DIFFUSE_LIGHT += NdotL * ALBEDO * emission_color * LIGHT_COLOR * ATTENUATION; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION;
+		DIFFUSE_LIGHT += NdotL * ALBEDO * emission_color * LIGHT_COLOR * ATTENUATION * diffuse; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION;
 	}
 	else
 	{
-		DIFFUSE_LIGHT += NdotL * ALBEDO  * ATTENUATION; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION; 
+		DIFFUSE_LIGHT += NdotL * ALBEDO  * ATTENUATION *diffuse; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION;
 	}
+
 
 }
