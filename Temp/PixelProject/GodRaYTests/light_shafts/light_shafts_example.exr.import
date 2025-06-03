@@ -1,0 +1,27 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://bd7qu2ra2hl0m"
+path.bptc="res://.godot/imported/light_shafts_example.exr-bb9bbf03ac5f61dd40bd7a5bc17391b7.bptc.ctexarray"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://Temp/PixelProject/GodRaYTests/light_shafts/light_shafts_example.exr"
+dest_files=["res://.godot/imported/light_shafts_example.exr-bb9bbf03ac5f61dd40bd7a5bc17391b7.bptc.ctexarray"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=1
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=1
+slices/vertical=1

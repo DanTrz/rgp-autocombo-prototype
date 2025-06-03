@@ -34,7 +34,7 @@ public abstract partial class BaseCharacter : CharacterBody3D
     {
         if (charMainNode.Velocity != newVelocity) // Log only if there's an actual change
         {
-            Log.Info($"VELOCITY CHANGE by '{source}': From {charMainNode.Velocity} To {newVelocity}");
+            // Log.Info($"VELOCITY CHANGE by '{source}': From {charMainNode.Velocity} To {newVelocity}");
         }
         charMainNode.Velocity = newVelocity; // Set the actual engine velocity
         //_loggedVelocity = newVelocity; // Keep our shadow property in sync

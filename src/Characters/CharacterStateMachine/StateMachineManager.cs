@@ -14,12 +14,12 @@ public partial class StateMachineManager : Node
 
     public StateMachineManager()
     {
-        Log.Info("State Machine Manager Created");
+        // Log.Info("State Machine Manager Created");
     }
 
     public override void _Ready()
     {
-        Log.Info($"{GetOwner().Name} : State Machine Manager READY");
+        // Log.Info($"{GetOwner().Name} : State Machine Manager READY");
 
         foreach (Node node in GetChildren())
         {

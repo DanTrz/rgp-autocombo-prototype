@@ -1,0 +1,37 @@
+[gd_resource type="QuadMesh" load_steps=9 format=3 uid="uid://djnpg8ltllh1a"]
+
+[ext_resource type="Shader" uid="uid://bqiyg2awc4j13" path="res://Temp/PixelProject/godray_singlemesh.gdshader" id="1_62lax"]
+
+[sub_resource type="Gradient" id="Gradient_62lax"]
+offsets = PackedFloat32Array(0, 0.0264317, 0.0545852, 0.080786, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.0556069, 0.0556069, 0.0556069, 1, 0.606311, 0.606311, 0.606311, 1, 0.95815, 0.95815, 0.95815, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nolev"]
+gradient = SubResource("Gradient_62lax")
+
+[sub_resource type="Gradient" id="Gradient_cqixb"]
+offsets = PackedFloat32Array(0, 0.851528, 0.895196, 0.940529, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.97199, 0.97199, 0.97199, 1, 0.610892, 0.610892, 0.610892, 1, 0.14607, 0.14607, 0.14607, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_13cpp"]
+gradient = SubResource("Gradient_cqixb")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_62lax"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_62lax"]
+noise = SubResource("FastNoiseLite_62lax")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_62lax"]
+render_priority = 0
+shader = ExtResource("1_62lax")
+shader_parameter/speed = 2.0
+shader_parameter/windNoise = SubResource("NoiseTexture2D_62lax")
+shader_parameter/tint_color = Color(0.113725, 0.913725, 0.721569, 1)
+shader_parameter/alpha_factor = 1.0
+shader_parameter/hGradient = SubResource("GradientTexture2D_nolev")
+shader_parameter/vGradient = SubResource("GradientTexture2D_13cpp")
+
+[resource]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_62lax")
+size = Vector2(3, 30)

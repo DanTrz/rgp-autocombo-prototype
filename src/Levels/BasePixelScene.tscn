@@ -1,8 +1,208 @@
-[gd_scene load_steps=6 format=3 uid="uid://cn2qk3nydgqp2"]
+[gd_scene load_steps=63 format=4 uid="uid://cn2qk3nydgqp2"]
 
+[ext_resource type="Script" uid="uid://dn18a71b8kfu3" path="res://Temp/PixelProject/GodRayManager.cs" id="1_24jmh"]
+[ext_resource type="Shader" uid="uid://yj6f3wexteuo" path="res://Temp/PixelProject/godraytestingv2.gdshader" id="1_c101j"]
 [ext_resource type="PackedScene" uid="uid://c7kjke7mmdjoa" path="res://Temp/CSharpPixelPerfect/world.tscn" id="1_ijthh"]
+[ext_resource type="Shader" uid="uid://dbbtefdburb7w" path="res://Temp/PixelProject/godray_singlemeshv3.gdshader" id="1_yhdrs"]
+[ext_resource type="Texture2D" uid="uid://bc6w8id6oj8m0" path="res://Assets/Shaders/PixelShaders/ShaderGradient1.tres" id="2_oce25"]
 [ext_resource type="Shader" uid="uid://d4q5ai1l6seh" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale.gdshader" id="2_rwce8"]
+[ext_resource type="QuadMesh" uid="uid://djnpg8ltllh1a" path="res://Temp/PixelProject/RayQuadMesh.tres" id="2_sstk2"]
+[ext_resource type="Shader" uid="uid://ypw4081hx6nq" path="res://Temp/PixelProject/godraytestingv1.gdshader" id="2_yhdrs"]
+[ext_resource type="Shader" uid="uid://ojb0vvgoy4o5" path="res://Temp/PixelProject/godray_singlemeshv4.gdshader" id="3_3evjc"]
+[ext_resource type="Material" uid="uid://cvrump33emesi" path="res://Temp/PixelProject/GodRayMaterialV1.tres" id="4_h8kal"]
+[ext_resource type="Material" uid="uid://dqgh45ow7ygkh" path="res://Temp/PixelProject/GodRaYTests/light_shafts/default_light_shaft.material" id="4_ynhhl"]
+[ext_resource type="Shader" uid="uid://okqdee0c05in" path="res://Temp/PixelProject/godraytestingv1_Variation.gdshader" id="5_g2fjo"]
+[ext_resource type="Shader" uid="uid://dwe75ee7poeyf" path="res://Temp/PixelProject/godraytestingv11.gdshader" id="5_vhr60"]
+[ext_resource type="Script" uid="uid://dlmmwimo0htcj" path="res://Temp/PixelProject/GodRaYTests/LightShaft3DUpdated.gd" id="5_wlawu"]
+[ext_resource type="Script" uid="uid://c1u7eyhigk821" path="res://Temp/PixelProject/GodRaYTests/light_shafts/local_transform_listener.gd" id="6_24jmh"]
+[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/PixelShaders/flexible_toon_v2.gdshader" id="7_wlawu"]
 [ext_resource type="PackedScene" uid="uid://cedw1iorowriy" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.tscn" id="8_yhdrs"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yhdrs"]
+top_radius = 0.01
+bottom_radius = 1.0
+height = 20.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_q5i35"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g2fjo"]
+render_priority = 0
+shader = ExtResource("3_3evjc")
+shader_parameter/ray_color = Color(1, 0.972549, 0.913725, 1)
+shader_parameter/opacity = 0.03
+shader_parameter/base_intensity = 1.5
+shader_parameter/cross_section_gradient = ExtResource("2_oce25")
+shader_parameter/length_falloff_gradient = ExtResource("2_oce25")
+shader_parameter/density = 0.5
+shader_parameter/ray_length_factor = 1.0
+shader_parameter/noise_speed = 1.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_q5i35")
+shader_parameter/noise_influence = 0.8
+shader_parameter/noise_scale = 5.0
+shader_parameter/noise_pan_speed = Vector2(0.02, 0.03)
+shader_parameter/min_intensity_threshold = 0.01
+shader_parameter/falloff_sharpness = 2.0
+shader_parameter/pulse_frequency = 0.0
+shader_parameter/pulse_min_intensity = 0.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g2fjo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3evjc"]
+render_priority = 0
+shader = ExtResource("1_yhdrs")
+shader_parameter/ray_intensity = 0.2
+shader_parameter/ray_color = Color(1, 0.93178, 0.796241, 1)
+shader_parameter/ray_opacity = 1.0
+shader_parameter/ray_length = 2.0
+shader_parameter/ray_steps = 32
+shader_parameter/ray_density = 1.0
+shader_parameter/step_base_intensity = 1.0
+shader_parameter/min_light_threshold = 0.1
+shader_parameter/decay_step = 0.1
+shader_parameter/occlusion_contrast = 1.5
+shader_parameter/fade_power = 2.0
+shader_parameter/animation_speed = 0.3
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_g2fjo")
+shader_parameter/noise_scale = 1.0
+shader_parameter/noise_strength = 0.3
+shader_parameter/ray_width = 2.0
+shader_parameter/ray_falloff = 2.0
+shader_parameter/ray_direction = Vector2(0, -1)
+
+[sub_resource type="Gradient" id="Gradient_3evjc"]
+offsets = PackedFloat32Array(0, 0.227074, 0.814411, 1)
+colors = PackedColorArray(0.95815, 0.95815, 0.95815, 1, 0.992157, 0.937255, 0.776471, 1, 0.99128, 0.937532, 0.778123, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g2fjo"]
+gradient = SubResource("Gradient_3evjc")
+
+[sub_resource type="Gradient" id="Gradient_oce25"]
+offsets = PackedFloat32Array(0, 0.080786, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.960699, 0.960699, 0.960699, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vhr60"]
+gradient = SubResource("Gradient_oce25")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3evjc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhdrs"]
+render_priority = 0
+shader = ExtResource("1_c101j")
+shader_parameter/windNoise = SubResource("NoiseTexture2D_3evjc")
+shader_parameter/hGradient = SubResource("GradientTexture2D_g2fjo")
+shader_parameter/vGradient = SubResource("GradientTexture2D_vhr60")
+shader_parameter/use_occlusion = false
+shader_parameter/tint_color = Color(1, 0.972549, 0.913725, 1)
+shader_parameter/alpha_factor = 0.05
+shader_parameter/speed = 1.0
+shader_parameter/flicker_scale = 1.5
+shader_parameter/pulse_speed = 1.0
+shader_parameter/pulse_strength = 0.2
+shader_parameter/growth_speed = 0.5
+shader_parameter/growth_scale = 1.0
+shader_parameter/sway_amplitude = 0.05
+shader_parameter/sway_speed = 0.5
+shader_parameter/scroll_vertical = false
+shader_parameter/step_base_intensity = 0.4
+shader_parameter/min_light_threshold = 0.05
+shader_parameter/contrast_power = 0.1
+
+[sub_resource type="Gradient" id="Gradient_v835x"]
+offsets = PackedFloat32Array(0, 0.00218341, 0.0895196, 0.0917031, 0.128821, 0.139738, 0.248908, 0.262009, 0.312227, 0.331878, 0.517467, 0.521834, 0.624454, 0.639738, 0.757642, 0.770742, 0.879913, 0.886463, 1)
+colors = PackedColorArray(0.967249, 0.967249, 0.967249, 1, 0.0652174, 0.0652174, 0.0652174, 1, 0.0615942, 0.0615942, 0.0615942, 1, 0.962836, 0.962836, 0.962836, 1, 0.90022, 0.90022, 0.90022, 1, 0.0575743, 0.0575743, 0.0575743, 1, 0, 0, 0, 1, 0.860597, 0.860597, 0.860597, 1, 0.860665, 0.860665, 0.860665, 1, 0, 0, 0, 1, 0.108696, 0.108696, 0.108696, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.0666665, 0.0666665, 0.0666665, 1, 0, 0, 0, 1, 0.958676, 0.958676, 0.958676, 1, 0.925, 0.925, 0.925, 1, 0.0296295, 0.0296295, 0.0296295, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x365h"]
+gradient = SubResource("Gradient_v835x")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pibme"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r51qw"]
+noise = SubResource("FastNoiseLite_pibme")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mkkhn"]
+render_priority = 0
+shader = ExtResource("5_vhr60")
+shader_parameter/speed = 2.0
+shader_parameter/windNoise = SubResource("NoiseTexture2D_r51qw")
+shader_parameter/tint_color = Color(1, 0.972549, 0.913725, 1)
+shader_parameter/alpha_factor = 0.4
+shader_parameter/vGradient = SubResource("GradientTexture2D_x365h")
+
+[sub_resource type="Gradient" id="Gradient_00ydq"]
+offsets = PackedFloat32Array(0, 0.0545852, 0.818777, 0.921397)
+colors = PackedColorArray(0.0766734, 0.0766734, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.0766734, 0.0766734, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_v835x"]
+gradient = SubResource("Gradient_00ydq")
+
+[sub_resource type="Gradient" id="Gradient_x365h"]
+offsets = PackedFloat32Array(0, 0.170306, 0.906114, 0.995633)
+colors = PackedColorArray(0, 0, 0, 1, 0.936681, 0.936681, 0.936681, 1, 0.996667, 0.996667, 0.996667, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pibme"]
+gradient = SubResource("Gradient_x365h")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_r51qw"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mkkhn"]
+noise = SubResource("FastNoiseLite_r51qw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7mag8"]
+render_priority = 0
+shader = ExtResource("2_yhdrs")
+shader_parameter/speed = 2.0
+shader_parameter/windNoise = SubResource("NoiseTexture2D_mkkhn")
+shader_parameter/tint_color = Color(1, 0.972549, 0.913725, 1)
+shader_parameter/alpha_factor = 0.4
+shader_parameter/hGradient = SubResource("GradientTexture2D_v835x")
+shader_parameter/vGradient = SubResource("GradientTexture2D_pibme")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_oce25"]
+top_radius = 0.01
+bottom_radius = 1.0
+height = 20.0
+radial_segments = 8
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="Gradient" id="Gradient_vhr60"]
+offsets = PackedFloat32Array(0, 0.0545852, 0.818777, 0.921397)
+colors = PackedColorArray(0.0766734, 0.0766734, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.0766734, 0.0766734, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6wpf3"]
+gradient = SubResource("Gradient_vhr60")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_oce25"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vhr60"]
+render_priority = 0
+shader = ExtResource("5_g2fjo")
+shader_parameter/alpha = 0.2
+shader_parameter/rim_power = 0.763
+shader_parameter/speed = 0.5
+shader_parameter/noise_movement = 0.5
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_oce25")
+shader_parameter/gradient = SubResource("GradientTexture2D_6wpf3")
+shader_parameter/emission = Color(1, 0.952324, 0.850257, 1)
+shader_parameter/emission_energy = 1.0
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_h8kal"]
+top_radius = 0.01
+bottom_radius = 1.0
+height = 30.0
+radial_segments = 8
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="MultiMesh" id="MultiMesh_h8kal"]
+transform_format = 1
+use_custom_data = true
+mesh = SubResource("CylinderMesh_h8kal")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vcwgk"]
 shader = ExtResource("2_rwce8")
@@ -10,8 +210,185 @@ shader = ExtResource("2_rwce8")
 [sub_resource type="ViewportTexture" id="ViewportTexture_rwce8"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rwce8"]
+render_priority = 0
+shader = ExtResource("7_wlawu")
+shader_parameter/albedo = Color(0.647365, 0.64008, 0.594119, 1)
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_24jmh"]
+material = SubResource("ShaderMaterial_rwce8")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_sstk2"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_h8kal"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tv8wu"]
+render_priority = 0
+shader = ExtResource("7_wlawu")
+shader_parameter/albedo = Color(0.800555, 0.620563, 0.198156, 1)
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_c101j"]
+material = SubResource("ShaderMaterial_tv8wu")
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_yhdrs"]
+points = PackedVector3Array(0.25, 0.25, 0.25, 0.25, 0.25, -0.25, -0.25, 0.25, 0.25, 0.25, -0.25, 0.25, 0.25, -0.25, -0.25, -0.25, 0.25, -0.25, -0.25, -0.25, 0.25, -0.25, -0.25, -0.25)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q5i35"]
+render_priority = 0
+shader = ExtResource("7_wlawu")
+shader_parameter/albedo = Color(0.299042, 0.493057, 0.326024, 1)
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3evjc"]
+material = SubResource("ShaderMaterial_q5i35")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_g2fjo"]
+points = PackedVector3Array(-0.5, -1, 0, -0.497651, -1, -0.0490407, -0.497651, -1, 0.0489429, -0.5, 1, 0, -0.490407, -1, -0.097592, -0.497651, 1, -0.0490407, -0.490407, -1, 0.0974941, -0.497651, 1, 0.0489429, -0.478563, -1, -0.145164, -0.490407, 1, -0.097592, -0.478563, -1, 0.145067, -0.490407, 1, 0.0974941, -0.46202, -1, -0.191366, -0.478563, 1, -0.145164, -0.46202, -1, 0.191269, -0.478563, 1, 0.145067, -0.440975, -1, -0.235709, -0.46202, 1, -0.191366, -0.440975, -1, 0.235611, -0.46202, 1, 0.191269, -0.415818, -1, -0.2778, -0.440975, 1, -0.235709, -0.415818, -1, 0.277702, -0.440975, 1, 0.235611, -0.386551, -1, -0.317247, -0.415818, 1, -0.2778, -0.386551, -1, 0.31715, -0.415818, 1, 0.277702, -0.353563, -1, -0.353563, -0.386551, 1, -0.317247, -0.353563, -1, 0.353465, -0.386551, 1, 0.31715, -0.317247, -1, -0.386551, -0.353563, 1, -0.353563, -0.317247, -1, 0.386453, -0.353563, 1, 0.353465, -0.2778, -1, -0.415818, -0.317247, 1, -0.386551, -0.2778, -1, 0.41572, -0.317247, 1, 0.386453, -0.235709, -1, -0.440975, -0.2778, 1, -0.415818, -0.235709, -1, 0.440877, -0.2778, 1, 0.41572, -0.191366, -1, -0.46202, -0.235709, 1, -0.440975, -0.191366, -1, 0.461922, -0.235709, 1, 0.440877, -0.145164, -1, -0.478563, -0.191366, 1, -0.46202, -0.145164, -1, 0.478465, -0.191366, 1, 0.461922, -0.097592, -1, -0.490407, -0.145164, 1, -0.478563, -0.097592, -1, 0.490309, -0.145164, 1, 0.478465, -0.0490407, -1, -0.497651, -0.097592, 1, -0.490407, -0.0490407, -1, 0.497553, -0.097592, 1, 0.490309, 0, -1, -0.5, -0.0490407, 1, -0.497651, 0, -1, 0.5, -0.0490407, 1, 0.497553, 0.0489429, -1, -0.497651, 0, 1, -0.5, 0.0489429, -1, 0.497553, 0, 1, 0.5, 0.0974941, -1, -0.490407, 0.0489429, 1, -0.497651, 0.0974941, -1, 0.490309, 0.0489429, 1, 0.497553, 0.145067, -1, -0.478563, 0.0974941, 1, -0.490407, 0.145067, -1, 0.478465, 0.0974941, 1, 0.490309, 0.191269, -1, -0.46202, 0.145067, 1, -0.478563, 0.191269, -1, 0.461922, 0.145067, 1, 0.478465, 0.235611, -1, -0.440975, 0.191269, 1, -0.46202, 0.235611, -1, 0.440877, 0.191269, 1, 0.461922, 0.277702, -1, -0.415818, 0.235611, 1, -0.440975, 0.277702, -1, 0.41572, 0.235611, 1, 0.440877, 0.31715, -1, -0.386551, 0.277702, 1, -0.415818, 0.31715, -1, 0.386453, 0.277702, 1, 0.41572, 0.353465, -1, -0.353563, 0.31715, 1, -0.386551, 0.353465, -1, 0.353465, 0.31715, 1, 0.386453, 0.386453, -1, -0.317247, 0.353465, 1, -0.353563, 0.386453, -1, 0.31715, 0.353465, 1, 0.353465, 0.41572, -1, -0.2778, 0.386453, 1, -0.317247, 0.41572, -1, 0.277702, 0.386453, 1, 0.31715, 0.440877, -1, -0.235709, 0.41572, 1, -0.2778, 0.440877, -1, 0.235611, 0.41572, 1, 0.277702, 0.461922, -1, -0.191366, 0.440877, 1, -0.235709, 0.461922, -1, 0.191269, 0.440877, 1, 0.235611, 0.478465, -1, -0.145164, 0.461922, 1, -0.191366, 0.478465, -1, 0.145067, 0.461922, 1, 0.191269, 0.490309, -1, -0.097592, 0.478465, 1, -0.145164, 0.490309, -1, 0.0974941, 0.478465, 1, 0.145067, 0.497553, -1, -0.0490407, 0.490309, 1, -0.097592, 0.497553, -1, 0.0489429, 0.490309, 1, 0.0974941, 0.5, -1, 0, 0.497553, 1, -0.0490407, 0.497553, 1, 0.0489429, 0.5, 1, 0)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ynhhl"]
+_surfaces = [{
+"aabb": AABB(0.130096, -55.5843, -19.837, 7.93429, 57.0005, 19.9447),
+"attribute_data": PackedByteArray("/tlhTAAAAAAAAIA//tlhTAAAAAAAAAAA/tlhTAyklUAAAIA//tlhTAyklUAAAAAA/tlhTJGMR0EAAIA//tlhTJGMR0EAAAAA"),
+"format": 34359742495,
+"index_count": 18,
+"index_data": PackedByteArray("AAABAAIAAQADAAIAAgADAAQAAwAFAAQABAAFAAAABQABAAAA"),
+"material": ExtResource("4_ynhhl"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 6,
+"vertex_data": PackedByteArray("ADgFPjD8oD8Adtw9bjmfQFBWXsLR1pPBAJUOPpBHtT8A1oI8Um6lQJDrW8I0sp7B+JTWPiCypz8A+p89vwcBQXh5XMLymZbBxvF6iYJ6msTG8XqJgnqaxPfmJIJNaYq+9+Ykgk1pir6F3ueFsGPqvoXe54WwY+q+")
+}]
+
+[sub_resource type="Curve3D" id="Curve3D_h8kal"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0.127464, -0.069325, -0.523306, 0, 0, 0, 0, 0, 0, 0.136608, 0.0892274, -0.614981, 0, 0, 0, 0, 0, 0, 0.416473, -0.016897, -0.552839),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_wlawu"]
+_surfaces = [{
+"aabb": AABB(0.127464, -42.7134, -42.299, 24.615, 42.8026, 41.7757),
+"attribute_data": PackedByteArray("/tlhTAAAAAAAAIA//tlhTAAAAAAAAAAA/tlhTEqkFUAAAIA//tlhTEqkFUAAAAAA/tlhTJqMx0AAAIA//tlhTJqMx0AAAAAA"),
+"format": 34359742495,
+"index_count": 18,
+"index_data": PackedByteArray("AAABAAIAAQADAAIAAgADAAQAAwAFAAQABAAFAAAABQABAAAA"),
+"material": ExtResource("4_ynhhl"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 6,
+"vertex_data": PackedByteArray("6IUCPgD7jb1g9wW/ywiNQYbaKsKMuRvC6OILPgC8tj1gbx2/uuyRQeJXHMI4MinC1DvVPgBsirzghg2/gPDFQawWH8LEWhnCnbu1bGRT7aedu7VsZFPtp5jIiXTRWLOvmMiJdNFYs6/neQtDSimklOd5C0NKKaSU")
+}]
+
 [node name="BasePixelScene" type="Node3D"]
 metadata/_edit_horizontal_guides_ = [-50.0]
+
+[node name="ShaderV4_Gemini" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, 11.2017, 8.50664, 8.59355)
+mesh = SubResource("CylinderMesh_yhdrs")
+surface_material_override/0 = SubResource("ShaderMaterial_g2fjo")
+
+[node name="ShaderV3_Claude" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, 7.83256, 8.50664, 8.59355)
+mesh = SubResource("CylinderMesh_yhdrs")
+surface_material_override/0 = SubResource("ShaderMaterial_3evjc")
+
+[node name="ShaderV2_ChatGpt" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, 6.02805, 8.50664, 8.59355)
+mesh = SubResource("CylinderMesh_yhdrs")
+surface_material_override/0 = SubResource("ShaderMaterial_yhdrs")
+
+[node name="ShaderV1_MyVersion" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, -0.869864, 8.50664, 8.59355)
+mesh = SubResource("CylinderMesh_yhdrs")
+surface_material_override/0 = SubResource("ShaderMaterial_mkkhn")
+
+[node name="ShaderV1_MyVersionOriginal" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, 2.01451, 8.50664, 8.59355)
+mesh = SubResource("CylinderMesh_yhdrs")
+surface_material_override/0 = SubResource("ShaderMaterial_7mag8")
+
+[node name="ShaderV1_MyVersion2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, -4.24619, 8.50664, 8.59355)
+mesh = SubResource("CylinderMesh_oce25")
+surface_material_override/0 = SubResource("ShaderMaterial_vhr60")
+
+[node name="GodRayManager" type="Node3D" parent="." node_paths=PackedStringArray("_mainDirectionalLight", "_mainCamera", "_rayMultiMeshInstance")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.08657, -8.90515)
+script = ExtResource("1_24jmh")
+_meshResource = ExtResource("2_sstk2")
+_mainDirectionalLight = NodePath("../SubViewport/directionalLight")
+_mainCamera = NodePath("../SubViewport/TemplPlayer3dModel/Camera3D2")
+_rayMultiMeshInstance = NodePath("MultiMeshInstance3D")
+NumberOfRays = 80
+InitialRayColor = Color(0.764706, 0.615686, 0, 0.458824)
+RayIntensity = 1.0
+RayDecay = 1.0
+
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="GodRayManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.28688, 1.32828, 7.16241)
+material_override = ExtResource("4_h8kal")
+multimesh = SubResource("MultiMesh_h8kal")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -36,14 +413,235 @@ handle_input_locally = false
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="World" parent="SubViewport" instance=ExtResource("1_ijthh")]
+[node name="directionalLight" type="DirectionalLight3D" parent="SubViewport"]
+transform = Transform3D(0.797142, -2.63926e-08, 0.603792, -0.603792, -3.48442e-08, 0.797142, 0, -1, -4.37114e-08, 0.141691, 8.2153, 0.484218)
+light_bake_mode = 0
+shadow_enabled = true
 
 [node name="TemplPlayer3dModel" parent="SubViewport" groups=["snap"] instance=ExtResource("8_yhdrs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.03993, 0.151859, 1.56188)
+collision_layer = 524289
+collision_mask = 524289
 
 [node name="Camera3D2" type="Camera3D" parent="SubViewport/TemplPlayer3dModel"]
-transform = Transform3D(1, 0, 0, 0, 0.866026, 0.5, 0, -0.5, 0.866026, 0.230505, 11.9596, 20.6874)
+transform = Transform3D(1, 0, 0, 0, 0.866026, 0.5, 0, -0.5, 0.866026, 0.230505, 13.5293, 20.6874)
 projection = 1
 current = true
-size = 8.0
+size = 13.6625
 far = 100.0
+
+[node name="World" parent="SubViewport" instance=ExtResource("1_ijthh")]
+
+[node name="Objects" type="Node3D" parent="SubViewport"]
+
+[node name="BOX4" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.601272, -0.577648, -0.552083, 0.692798, 0.721132, 0, 0.398124, -0.382482, 0.833789, -2.3098, 0.585743, -2.30492)
+mesh = SubResource("BoxMesh_24jmh")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOX4"]
+collision_layer = 524289
+collision_mask = 524289
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOX4/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_sstk2")
+
+[node name="BOXEX" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.989589, 0, -0.143924, 0, 1, 0, 0.143924, 0, 0.989589, -3.92628, 0.622586, 0)
+mesh = SubResource("BoxMesh_24jmh")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX"]
+collision_layer = 524289
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_h8kal")
+
+[node name="BOX2" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX"]
+transform = Transform3D(0.943616, 0, 0.331041, 0, 1, 0, -0.331041, 0, 0.943616, 0.402432, 1, -0.157584)
+mesh = SubResource("BoxMesh_24jmh")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX/BOX2"]
+collision_layer = 524289
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/BOX2/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_h8kal")
+
+[node name="BOX3" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX/BOX2"]
+transform = Transform3D(0.705921, 0, 0.708291, 0, 1, 0, -0.708291, 0, 0.705921, 0.0710177, 0.776454, 0.100634)
+mesh = SubResource("BoxMesh_c101j")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX3/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_yhdrs")
+
+[node name="BOX4" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX/BOX2"]
+transform = Transform3D(0.705921, 0, 0.708292, 0, 1, 0, -0.708292, 0, 0.705921, 2.08946, -1.0536, 6.27616)
+mesh = SubResource("BoxMesh_c101j")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX4/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_yhdrs")
+
+[node name="BOXEX2" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(1.97918, 0, -0.287848, 0, 2, 0, 0.287848, 0, 1.97918, -2.64736, 0.622586, 4.89439)
+mesh = SubResource("BoxMesh_24jmh")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX2"]
+collision_layer = 524289
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX2/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_h8kal")
+
+[node name="BOX2" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX2"]
+transform = Transform3D(0.943616, 0, 0.331041, 0, 1, 0, -0.331041, 0, 0.943616, 0.402432, 1, -0.157584)
+mesh = SubResource("BoxMesh_24jmh")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX2/BOX2"]
+collision_layer = 524289
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX2/BOX2/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_h8kal")
+
+[node name="BOX3" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX2/BOX2"]
+transform = Transform3D(0.705921, 0, 0.708291, 0, 1, 0, -0.708291, 0, 0.705921, 0.0710177, 0.776454, 0.100634)
+mesh = SubResource("BoxMesh_c101j")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX2/BOX2/BOX3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX2/BOX2/BOX3/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_yhdrs")
+
+[node name="Cilinder" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31126, 1.08574, -5.43965)
+mesh = SubResource("CylinderMesh_3evjc")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder"]
+collision_layer = 524289
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_g2fjo")
+
+[node name="Cilinder2" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.04593, 3.08574, -5.75373)
+mesh = SubResource("CylinderMesh_3evjc")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder2"]
+collision_layer = 524289
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder2/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_g2fjo")
+
+[node name="Cilinder3" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.05534, 4.21766, 3.18981)
+mesh = SubResource("CylinderMesh_3evjc")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder3"]
+collision_layer = 524289
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder3/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_g2fjo")
+
+[node name="Cilinder7" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 5)
+mesh = SubResource("CylinderMesh_3evjc")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder7"]
+collision_layer = 524289
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder7/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_g2fjo")
+
+[node name="Cilinder5" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(1.5, 0, 0, 0, 3, 0, 0, 0, 2, -0.0441983, 1.08574, -3.85725)
+mesh = SubResource("CylinderMesh_3evjc")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder5"]
+collision_layer = 524289
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder5/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_g2fjo")
+
+[node name="Cilinder6" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(1.5, 0, 0, 0, 3, 0, 0, 0, 2, -0.0441983, 1.08574, -3.85725)
+mesh = SubResource("CylinderMesh_3evjc")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder6"]
+collision_layer = 524289
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder6/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_g2fjo")
+
+[node name="Cilinder4" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 8.71161, 1.08574, -0.213041)
+mesh = SubResource("CylinderMesh_3evjc")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder4"]
+collision_layer = 524289
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder4/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_g2fjo")
+
+[node name="SunRayLightsPivot" type="Node3D" parent="."]
+transform = Transform3D(-0.860384, 0.155022, -0.485498, -0.402283, 0.378294, 0.833704, 0.312904, 0.912612, -0.263116, -7.25753, 25.8741, -2.54778)
+visible = false
+
+[node name="InnerRayLights" type="MeshInstance3D" parent="SunRayLightsPivot" node_paths=PackedStringArray("outline", "origin")]
+transform = Transform3D(-0.971144, -0.234179, -0.0451589, -0.0235588, -0.0942282, 0.995271, -0.237326, 0.967618, 0.0859925, -3.68317, -0.718194, -1.33424)
+mesh = SubResource("ArrayMesh_ynhhl")
+skeleton = NodePath("../..")
+script = ExtResource("5_wlawu")
+outline = NodePath("outline")
+origin = NodePath("origin")
+length = 60.0
+color = Color(0.999998, 0.852129, 0.382459, 0.3)
+uv_tile_count = 20
+metadata/_custom_type_script = "uid://bslqtjuwuelro"
+
+[node name="outline" type="Path3D" parent="SunRayLightsPivot/InnerRayLights" node_paths=PackedStringArray("parent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00263214, 1.32702, 0.630953)
+curve = SubResource("Curve3D_h8kal")
+script = ExtResource("6_24jmh")
+parent = NodePath("..")
+
+[node name="origin" type="Marker3D" parent="SunRayLightsPivot/InnerRayLights" node_paths=PackedStringArray("parent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.372375, 7.15192, 2.03508)
+script = ExtResource("6_24jmh")
+parent = NodePath("..")
+
+[node name="OuterRayLights" type="MeshInstance3D" parent="SunRayLightsPivot" node_paths=PackedStringArray("outline", "origin")]
+transform = Transform3D(-0.971144, -0.234179, -0.0451589, -0.0235588, -0.0942282, 0.995271, -0.237326, 0.967618, 0.0859925, 0.661284, 2.36414, -1.09528)
+mesh = SubResource("ArrayMesh_wlawu")
+skeleton = NodePath("../..")
+script = ExtResource("5_wlawu")
+outline = NodePath("outlineOuter")
+origin = NodePath("originOuter")
+length = 60.0
+color = Color(0.999998, 0.852129, 0.382459, 0.3)
+uv_tile_count = 10
+metadata/_custom_type_script = "uid://bslqtjuwuelro"
+
+[node name="outlineOuter" type="Path3D" parent="SunRayLightsPivot/OuterRayLights" node_paths=PackedStringArray("parent")]
+curve = SubResource("Curve3D_h8kal")
+script = ExtResource("6_24jmh")
+parent = NodePath("..")
+
+[node name="originOuter" type="Marker3D" parent="SunRayLightsPivot/OuterRayLights" node_paths=PackedStringArray("parent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.526606, 1.52435, 0.912056)
+script = ExtResource("6_24jmh")
+parent = NodePath("..")

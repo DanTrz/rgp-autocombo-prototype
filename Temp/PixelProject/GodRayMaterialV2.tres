@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://k18sr2wv7xcd"]
+
+[ext_resource type="Shader" uid="uid://c7rtgebul6rxm" path="res://Temp/PixelProject/godray_singlemeshv2.gdshader" id="1_nbtww"]
+
+[sub_resource type="Gradient" id="Gradient_h8kal"]
+offsets = PackedFloat32Array(0, 0.358079, 0.831878, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 0.560784, 1, 0.96529, 0.961067, 0.541357, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_c101j"]
+gradient = SubResource("Gradient_h8kal")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yhdrs"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_nbtww")
+shader_parameter/alpha = 0.5
+shader_parameter/rim_power = 1.0
+shader_parameter/texture_emission = SubResource("NoiseTexture2D_yhdrs")
+shader_parameter/gradient = SubResource("GradientTexture2D_c101j")
+shader_parameter/emission = Color(0, 0, 0, 1)
+shader_parameter/emission_energy = 0.5
+shader_parameter/uv1_scale = Vector3(5, 0.1, 0)
+shader_parameter/uv1_offset = Vector3(0, 0.85, 0)
