@@ -88,7 +88,12 @@ void light() {
 		// Add ambient manually if render_mode ambient_light_disabled is used
 	vec3 diffuse = disable_ambient_light ? vec3(0.0) : vec3(fake_ambient_light); // Replace with desired ambient color
 	//diffuse += ambient;
-	DIFFUSE_LIGHT += diffuse;// * vec3(1.0);//vec3(0.0) ;//diffuse;	
+	DIFFUSE_LIGHT += NdotL * (diffuse * 5.0);// * vec3(1.0);//vec3(0.0) ;//diffuse;	
+	
+	if(use_emission)
+	{
+		DIFFUSE_LIGHT += NdotL * ALBEDO * emission_color * LIGHT_COLOR * ATTENUATION * diffuse; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION;
+	}
 	
 	/////=ORIGINAL
 	

@@ -18,10 +18,20 @@ public partial class TreeLeafParticuleEmitter : Node3D
 
 	[Export] Color _internalMeshColorAdjust = Colors.White;
 
+	[Export] Timer _restartParticulesTime;
+
 
 	public override void _Ready()
 	{
+		_restartParticulesTime.Timeout += StartEmittingParticles;
 		StartEmittingParticles();
+		StartTimer();
+	}
+
+	private void StartTimer()
+	{
+		_restartParticulesTime.Start(100.0f);
+
 	}
 
 	private void ResetParticles()

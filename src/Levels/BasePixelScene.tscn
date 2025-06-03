@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://cn2qk3nydgqp2"]
+[gd_scene load_steps=90 format=4 uid="uid://cn2qk3nydgqp2"]
 
 [ext_resource type="Script" uid="uid://dn18a71b8kfu3" path="res://Temp/PixelProject/GodRayManager.cs" id="1_24jmh"]
 [ext_resource type="Shader" uid="uid://yj6f3wexteuo" path="res://Temp/PixelProject/godraytestingv2.gdshader" id="1_c101j"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://c1u7eyhigk821" path="res://Temp/PixelProject/GodRaYTests/light_shafts/local_transform_listener.gd" id="6_24jmh"]
 [ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/PixelShaders/flexible_toon_v2.gdshader" id="7_wlawu"]
 [ext_resource type="PackedScene" uid="uid://cedw1iorowriy" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.tscn" id="8_yhdrs"]
+[ext_resource type="Shader" uid="uid://bmht2u8lxtb0j" path="res://Temp/PixelProject/godraytestingv11_Oclusion.gdshader" id="18_6wpf3"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_yhdrs"]
 top_radius = 0.01
@@ -110,57 +111,73 @@ shader_parameter/step_base_intensity = 0.4
 shader_parameter/min_light_threshold = 0.05
 shader_parameter/contrast_power = 0.1
 
-[sub_resource type="Gradient" id="Gradient_v835x"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_vhr60"]
+top_radius = 0.01
+bottom_radius = 1.0
+height = 20.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="Gradient" id="Gradient_6wpf3"]
 offsets = PackedFloat32Array(0, 0.00218341, 0.0895196, 0.0917031, 0.128821, 0.139738, 0.248908, 0.262009, 0.312227, 0.331878, 0.517467, 0.521834, 0.624454, 0.639738, 0.757642, 0.770742, 0.879913, 0.886463, 1)
 colors = PackedColorArray(0.967249, 0.967249, 0.967249, 1, 0.0652174, 0.0652174, 0.0652174, 1, 0.0615942, 0.0615942, 0.0615942, 1, 0.962836, 0.962836, 0.962836, 1, 0.90022, 0.90022, 0.90022, 1, 0.0575743, 0.0575743, 0.0575743, 1, 0, 0, 0, 1, 0.860597, 0.860597, 0.860597, 1, 0.860665, 0.860665, 0.860665, 1, 0, 0, 0, 1, 0.108696, 0.108696, 0.108696, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.0666665, 0.0666665, 0.0666665, 1, 0, 0, 0, 1, 0.958676, 0.958676, 0.958676, 1, 0.925, 0.925, 0.925, 1, 0.0296295, 0.0296295, 0.0296295, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_x365h"]
-gradient = SubResource("Gradient_v835x")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6wpf3"]
+gradient = SubResource("Gradient_6wpf3")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_pibme"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_v835x"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r51qw"]
-noise = SubResource("FastNoiseLite_pibme")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_00ydq"]
+noise = SubResource("FastNoiseLite_v835x")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mkkhn"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pibme"]
 render_priority = 0
 shader = ExtResource("5_vhr60")
 shader_parameter/speed = 2.0
-shader_parameter/windNoise = SubResource("NoiseTexture2D_r51qw")
+shader_parameter/windNoise = SubResource("NoiseTexture2D_00ydq")
 shader_parameter/tint_color = Color(1, 0.972549, 0.913725, 1)
 shader_parameter/alpha_factor = 0.4
-shader_parameter/vGradient = SubResource("GradientTexture2D_x365h")
+shader_parameter/vGradient = SubResource("GradientTexture2D_6wpf3")
 
-[sub_resource type="Gradient" id="Gradient_00ydq"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_r51qw"]
+top_radius = 0.01
+bottom_radius = 1.0
+height = 20.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="Gradient" id="Gradient_mkkhn"]
 offsets = PackedFloat32Array(0, 0.0545852, 0.818777, 0.921397)
 colors = PackedColorArray(0.0766734, 0.0766734, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.0766734, 0.0766734, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_v835x"]
-gradient = SubResource("Gradient_00ydq")
+gradient = SubResource("Gradient_mkkhn")
 
-[sub_resource type="Gradient" id="Gradient_x365h"]
+[sub_resource type="Gradient" id="Gradient_adand"]
 offsets = PackedFloat32Array(0, 0.170306, 0.906114, 0.995633)
 colors = PackedColorArray(0, 0, 0, 1, 0.936681, 0.936681, 0.936681, 1, 0.996667, 0.996667, 0.996667, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_pibme"]
-gradient = SubResource("Gradient_x365h")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x365h"]
+gradient = SubResource("Gradient_adand")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_r51qw"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ivj5s"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mkkhn"]
-noise = SubResource("FastNoiseLite_r51qw")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pibme"]
+noise = SubResource("FastNoiseLite_ivj5s")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7mag8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jvtjn"]
 render_priority = 0
 shader = ExtResource("2_yhdrs")
 shader_parameter/speed = 2.0
-shader_parameter/windNoise = SubResource("NoiseTexture2D_mkkhn")
+shader_parameter/windNoise = SubResource("NoiseTexture2D_pibme")
 shader_parameter/tint_color = Color(1, 0.972549, 0.913725, 1)
 shader_parameter/alpha_factor = 0.4
 shader_parameter/hGradient = SubResource("GradientTexture2D_v835x")
-shader_parameter/vGradient = SubResource("GradientTexture2D_pibme")
+shader_parameter/vGradient = SubResource("GradientTexture2D_x365h")
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_oce25"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_ugax2"]
 top_radius = 0.01
 bottom_radius = 1.0
 height = 20.0
@@ -168,24 +185,24 @@ radial_segments = 8
 cap_top = false
 cap_bottom = false
 
-[sub_resource type="Gradient" id="Gradient_vhr60"]
+[sub_resource type="Gradient" id="Gradient_0gmif"]
 offsets = PackedFloat32Array(0, 0.0545852, 0.818777, 0.921397)
 colors = PackedColorArray(0.0766734, 0.0766734, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.0766734, 0.0766734, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_6wpf3"]
-gradient = SubResource("Gradient_vhr60")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_r51qw"]
+gradient = SubResource("Gradient_0gmif")
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_oce25"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mkkhn"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vhr60"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vqddq"]
 render_priority = 0
 shader = ExtResource("5_g2fjo")
 shader_parameter/alpha = 0.2
 shader_parameter/rim_power = 0.763
 shader_parameter/speed = 0.5
 shader_parameter/noise_movement = 0.5
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_oce25")
-shader_parameter/gradient = SubResource("GradientTexture2D_6wpf3")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_mkkhn")
+shader_parameter/gradient = SubResource("GradientTexture2D_r51qw")
 shader_parameter/emission = Color(1, 0.952324, 0.850257, 1)
 shader_parameter/emission_energy = 1.0
 shader_parameter/uv1_scale = Vector2(4, 0.1)
@@ -340,38 +357,172 @@ _surfaces = [{
 "vertex_data": PackedByteArray("6IUCPgD7jb1g9wW/ywiNQYbaKsKMuRvC6OILPgC8tj1gbx2/uuyRQeJXHMI4MinC1DvVPgBsirzghg2/gPDFQawWH8LEWhnCnbu1bGRT7aedu7VsZFPtp5jIiXTRWLOvmMiJdNFYs6/neQtDSimklOd5C0NKKaSU")
 }]
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_00ydq"]
+top_radius = 0.6
+bottom_radius = 1.0
+height = 30.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="Gradient" id="Gradient_v835x"]
+offsets = PackedFloat32Array(0, 0.00218341, 0.0895196, 0.0917031, 0.128821, 0.139738, 0.248908, 0.262009, 0.312227, 0.331878, 0.517467, 0.521834, 0.624454, 0.639738, 0.757642, 0.770742, 0.879913, 0.886463, 1)
+colors = PackedColorArray(0.967249, 0.967249, 0.967249, 1, 0.0652174, 0.0652174, 0.0652174, 1, 0.0615942, 0.0615942, 0.0615942, 1, 0.962836, 0.962836, 0.962836, 1, 0.90022, 0.90022, 0.90022, 1, 0.0575743, 0.0575743, 0.0575743, 1, 0, 0, 0, 1, 0.860597, 0.860597, 0.860597, 1, 0.860665, 0.860665, 0.860665, 1, 0, 0, 0, 1, 0.108696, 0.108696, 0.108696, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.0666665, 0.0666665, 0.0666665, 1, 0, 0, 0, 1, 0.958676, 0.958676, 0.958676, 1, 0.925, 0.925, 0.925, 1, 0.0296295, 0.0296295, 0.0296295, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_00ydq"]
+gradient = SubResource("Gradient_v835x")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_x365h"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_x365h"]
+noise = SubResource("FastNoiseLite_x365h")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r51qw"]
+render_priority = -10
+shader = ExtResource("5_vhr60")
+shader_parameter/speed = 2.0
+shader_parameter/windNoise = SubResource("NoiseTexture2D_x365h")
+shader_parameter/tint_color = Color(1, 1, 1, 1)
+shader_parameter/alpha_factor = 0.6
+shader_parameter/vGradient = SubResource("GradientTexture2D_00ydq")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mkkhn"]
+top_radius = 0.6
+bottom_radius = 1.0
+height = 30.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_k125l"]
+viewport_path = NodePath("OccluderViewport2")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7mag8"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ehk3l"]
+noise = SubResource("FastNoiseLite_7mag8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_adand"]
+resource_local_to_scene = true
+render_priority = -10
+shader = ExtResource("18_6wpf3")
+shader_parameter/speed = 2.0
+shader_parameter/windNoise = SubResource("NoiseTexture2D_ehk3l")
+shader_parameter/vGradient = SubResource("GradientTexture2D_00ydq")
+shader_parameter/tint_color = Color(1, 1, 0.980392, 1)
+shader_parameter/alpha_factor = 0.5
+shader_parameter/occlusion_mask = SubResource("ViewportTexture_k125l")
+shader_parameter/occlusion_uv_scale = Vector2(1, 1)
+shader_parameter/occlusion_uv_offset = Vector2(0, 0)
+shader_parameter/occlusion_strength = 1.0
+shader_parameter/use_occlusion = false
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3qwvp"]
+top_radius = 0.6
+bottom_radius = 1.0
+height = 30.0
+radial_segments = 8
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="Gradient" id="Gradient_ivj5s"]
+offsets = PackedFloat32Array(0, 0.0545852, 0.818777, 0.921397)
+colors = PackedColorArray(0.0766734, 0.0766734, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.0766734, 0.0766734, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qo2go"]
+gradient = SubResource("Gradient_ivj5s")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lffic"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y41l6"]
+render_priority = -10
+shader = ExtResource("5_g2fjo")
+shader_parameter/alpha = 0.6
+shader_parameter/rim_power = 0.763
+shader_parameter/speed = 0.5
+shader_parameter/noise_movement = 0.5
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_lffic")
+shader_parameter/gradient = SubResource("GradientTexture2D_qo2go")
+shader_parameter/emission = Color(1, 0.901961, 0.690196, 1)
+shader_parameter/emission_energy = 1.0
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_jvtjn"]
+top_radius = 0.6
+bottom_radius = 1.0
+height = 30.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="Gradient" id="Gradient_ugax2"]
+offsets = PackedFloat32Array(0, 0.0545852, 0.818777, 0.921397)
+colors = PackedColorArray(0.0766734, 0.0766734, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.0766734, 0.0766734, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7mag8"]
+gradient = SubResource("Gradient_ugax2")
+
+[sub_resource type="Gradient" id="Gradient_qo2go"]
+offsets = PackedFloat32Array(0, 0.170306, 0.906114, 0.995633)
+colors = PackedColorArray(0, 0, 0, 1, 0.936681, 0.936681, 0.936681, 1, 0.996667, 0.996667, 0.996667, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3qwvp"]
+gradient = SubResource("Gradient_qo2go")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lffic"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_y41l6"]
+noise = SubResource("FastNoiseLite_lffic")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aiy6t"]
+render_priority = -10
+shader = ExtResource("2_yhdrs")
+shader_parameter/speed = 2.0
+shader_parameter/windNoise = SubResource("NoiseTexture2D_y41l6")
+shader_parameter/tint_color = Color(1, 0.901961, 0.690196, 1)
+shader_parameter/alpha_factor = 0.4
+shader_parameter/hGradient = SubResource("GradientTexture2D_7mag8")
+shader_parameter/vGradient = SubResource("GradientTexture2D_3qwvp")
+
 [node name="BasePixelScene" type="Node3D"]
 metadata/_edit_horizontal_guides_ = [-50.0]
 
 [node name="ShaderV4_Gemini" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, 11.2017, 8.50664, 8.59355)
+visible = false
 mesh = SubResource("CylinderMesh_yhdrs")
 surface_material_override/0 = SubResource("ShaderMaterial_g2fjo")
 
 [node name="ShaderV3_Claude" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, 7.83256, 8.50664, 8.59355)
+visible = false
 mesh = SubResource("CylinderMesh_yhdrs")
 surface_material_override/0 = SubResource("ShaderMaterial_3evjc")
 
 [node name="ShaderV2_ChatGpt" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, 6.02805, 8.50664, 8.59355)
+visible = false
 mesh = SubResource("CylinderMesh_yhdrs")
 surface_material_override/0 = SubResource("ShaderMaterial_yhdrs")
 
 [node name="ShaderV1_MyVersion" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, -0.869864, 8.50664, 8.59355)
-mesh = SubResource("CylinderMesh_yhdrs")
-surface_material_override/0 = SubResource("ShaderMaterial_mkkhn")
+visible = false
+mesh = SubResource("CylinderMesh_vhr60")
+surface_material_override/0 = SubResource("ShaderMaterial_pibme")
 
 [node name="ShaderV1_MyVersionOriginal" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, 2.01451, 8.50664, 8.59355)
-mesh = SubResource("CylinderMesh_yhdrs")
-surface_material_override/0 = SubResource("ShaderMaterial_7mag8")
+visible = false
+mesh = SubResource("CylinderMesh_r51qw")
+surface_material_override/0 = SubResource("ShaderMaterial_jvtjn")
 
 [node name="ShaderV1_MyVersion2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, -4.24619, 8.50664, 8.59355)
-mesh = SubResource("CylinderMesh_oce25")
-surface_material_override/0 = SubResource("ShaderMaterial_vhr60")
+visible = false
+mesh = SubResource("CylinderMesh_ugax2")
+surface_material_override/0 = SubResource("ShaderMaterial_vqddq")
 
 [node name="GodRayManager" type="Node3D" parent="." node_paths=PackedStringArray("_mainDirectionalLight", "_mainCamera", "_rayMultiMeshInstance")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.08657, -8.90515)
@@ -645,3 +796,34 @@ parent = NodePath("..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.526606, 1.52435, 0.912056)
 script = ExtResource("6_24jmh")
 parent = NodePath("..")
+
+[node name="ShaderV1_MyVersion3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.894669, -0.445779, 0.0291163, 0.446729, 0.892767, -0.0583116, -5.88545e-09, 0.0651767, 0.997874, -7.50983, 4.01772, -8.38815)
+mesh = SubResource("CylinderMesh_00ydq")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_r51qw")
+
+[node name="ShaderV1_MyVersion_Oclusion" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.902065, -0.430616, 0.0291163, 0.431598, 0.900179, -0.0583117, -0.00109999, 0.0651674, 0.997874, -1.52438, 0.290924, -8.41462)
+visible = false
+mesh = SubResource("CylinderMesh_mkkhn")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_adand")
+
+[node name="ShaderV1_MyVersion4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.894669, -0.445779, 0.0291163, 0.446729, 0.892767, -0.0583116, -5.88546e-09, 0.0651767, 0.997874, -0.297982, 2.54573, -9.48262)
+mesh = SubResource("CylinderMesh_3qwvp")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_y41l6")
+
+[node name="ShaderV1_MyVersion5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.894669, -0.445779, 0.0291163, 0.446729, 0.892767, -0.0583116, -7.84208e-09, 0.0651767, 0.997874, -2.3853, 2.83922, -6.62905)
+mesh = SubResource("CylinderMesh_3qwvp")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_y41l6")
+
+[node name="ShaderV1_MyVersionOriginal2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.894669, -0.445779, 0.0291163, 0.446729, 0.892767, -0.0583116, -5.88546e-09, 0.0651767, 0.997874, 5.37325, 1.20179, -6.77583)
+mesh = SubResource("CylinderMesh_jvtjn")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_aiy6t")

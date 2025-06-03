@@ -2,16 +2,16 @@
 
 [ext_resource type="PackedScene" uid="uid://cnhr158fl1b4f" path="res://src/Levels/LevelComponents/GrassSingleSpriteShaderMesh.tscn" id="1_e8dsl"]
 [ext_resource type="Script" uid="uid://bho2n2ejru0fu" path="res://src/Levels/LevelComponents/GrassMeshAnimated.cs" id="1_wlmg1"]
-[ext_resource type="Shader" uid="uid://bjskios6xae2y" path="res://Assets/Shaders/PixelShaders/GrassSpriteAnimShader.gdshader" id="2_xngug"]
+[ext_resource type="Shader" uid="uid://110tg26lml2i" path="res://Temp/PixelProject/FoliageAnimation_v1.gdshader" id="3_wlmg1"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wlmg1"]
 load_path = "res://.godot/imported/Grass_3.png-6711f90f42818dba951396c8414e2150.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jfcxj"]
 render_priority = 0
-shader = ExtResource("2_xngug")
+shader = ExtResource("3_wlmg1")
 shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_wlmg1")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
 shader_parameter/use_vertex_color = true

@@ -1,8 +1,7 @@
 shader_type spatial;
 
 // Conditional ambient light disable (set via uniform)
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_toon;
-render_mode ambient_light_disabled;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_toon, ambient_light_disabled;
 
 // Base color of the mesh.
 uniform vec4 albedo_color : source_color = vec4(1.0f);
@@ -11,7 +10,7 @@ uniform vec4 albedo_color : source_color = vec4(1.0f);
 uniform bool disable_ambient_light = false;
 
 // Allows to compensate adding fake ambient like - I use to add contrast to shadows
-uniform vec3 fake_ambient_light: source_color = vec3(0.3f);
+uniform vec3 fake_ambient_light: source_color = vec3(0.4f);
 
 // Toggle between texture repeat/linear types at runtime
 uniform bool use_repeat_nearest_texture = true;

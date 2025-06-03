@@ -3,7 +3,7 @@
 [ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="1_bha7r"]
 [ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_ij6ps"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vbamh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k125l"]
 render_priority = 0
 shader = ExtResource("1_bha7r")
 shader_parameter/shadows_enabled = true
@@ -15,11 +15,11 @@ shader_parameter/shadow_color = Color(0, 0, 0, 1)
 
 [resource]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_vbamh")
+next_pass = SubResource("ShaderMaterial_k125l")
 shader = ExtResource("2_ij6ps")
-shader_parameter/albedo_color = Color(0.762404, 0.762404, 0.762404, 1)
+shader_parameter/albedo_color = Color(0.660397, 0.121443, 0.339702, 1)
 shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
 shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)

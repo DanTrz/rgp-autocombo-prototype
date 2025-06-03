@@ -3,20 +3,21 @@
 [ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="1_a38gw"]
 [ext_resource type="Script" uid="uid://dofp8cf2j0tol" path="res://Temp/PixelProject/TreeLeafParticuleEmitter.cs" id="1_rqk0u"]
 [ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_rqk0u"]
+[ext_resource type="Shader" uid="uid://110tg26lml2i" path="res://Temp/PixelProject/FoliageAnimation_v1.gdshader" id="4_fjmk2"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a38gw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ytgf"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_rqk0u")
-shader_parameter/albedo_color = Color(1.73271e-06, 0.606481, 0.304432, 1)
+shader_parameter/albedo_color = Color(0.607313, 0.742107, 0.42255, 1)
 shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
+shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
 shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
 shader_parameter/cuts = 1
-shader_parameter/wrap = -2.0
+shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true
 shader_parameter/use_specular = false
@@ -32,19 +33,19 @@ shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ehk3l"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7ty4u"]
 render_priority = 0
 shader = ExtResource("1_a38gw")
 shader_parameter/shadows_enabled = true
 shader_parameter/highlights_enabled = true
 shader_parameter/shadow_strength = 0.7
-shader_parameter/highlight_strength = 0.2
-shader_parameter/highlight_color = Color(0.629675, 0.629675, 0.629675, 1)
+shader_parameter/highlight_strength = 0.5
+shader_parameter/highlight_color = Color(0.847703, 0.640601, 0.574885, 1)
 shader_parameter/shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1eq53"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_ehk3l")
+next_pass = SubResource("ShaderMaterial_7ty4u")
 shader = ExtResource("2_rqk0u")
 shader_parameter/albedo_color = Color(0.653569, 0.392022, 0.225966, 1)
 shader_parameter/disable_ambient_light = false
@@ -103,7 +104,7 @@ _surfaces = [{
 "format": 34896613399,
 "index_count": 192,
 "index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAEwAUABAAEwAVABQAFgAXABgAGAAZABYAGgAbABwAHAAdABoAHgAfACAAIAAhAB4AIgAjACQAJAAlACIAJgAnACgAKAApACYAKgArACwALAAtACoALgAvADAAMAAxAC4AMgAzADQANAA1ADIANgA3ADgAOAA5ADYAOgA7ADwAPAA9ADoAPgA/AEAAQABBAD4AQgBDAEQARABFAEIARgBHAEgASABJAEYASgBLAEwATABNAEoATgBPAFAAUABRAE4AUgBTAFQAVABVAFIAVgBXAFgAWABZAFYAWgBbAFwAXABdAFoAXgBfAGAAYABhAF4AYgBjAGQAZABlAGIAZgBnAGgAaABpAGYAaQBqAGYAawBpAGgAagBsAGYAaABtAGsAagBuAGwAbQBvAGsAbgBwAGwAbQBwAG8AcQBsAHAAbQBxAHAA"),
-"material": SubResource("ShaderMaterial_a38gw"),
+"material": SubResource("ShaderMaterial_8ytgf"),
 "name": "leafsDark",
 "primitive": 3,
 "uv_scale": Vector4(14.56, 82.3228, 0, 0),
@@ -126,6 +127,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_fjmk2")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c4c7o"]
+resource_local_to_scene = true
 emission_shape = 2
 emission_sphere_radius = 1.05
 angle_min = 1.07288e-05
@@ -134,113 +136,19 @@ spread = 180.0
 gravity = Vector3(0, 0, 0)
 scale_max = 1.45
 
-[sub_resource type="Shader" id="Shader_8ytgf"]
-code = "shader_type spatial;
-render_mode blend_mix, cull_back; //blend_mix, cull_back; // unshaded, cull_back;
-
-// Toggle simulated ambient manually
-uniform bool disable_ambient_light = false;
-// Allows to compensate adding fake ambient like - I use to add contrast to shadows
-uniform vec3 fake_ambient_light: source_color = vec3(0.3f);
-
-uniform sampler2D albedo_tex : filter_nearest, source_color;
-uniform vec4 albedo_color : source_color = vec4(1.0);
-uniform bool use_vertex_color = true;
-uniform bool use_emission = false;
-uniform vec3 emission_color : source_color = vec3(1.0);
-
-uniform bool billboard = true;
-
-// Wind Animation
-uniform float wind_sway_strength : hint_range(0.0, 1.0) = 0.1;
-uniform float wind_sway_speed : hint_range(0.1, 10.0) = 1.0;
-uniform float wind_time_scale : hint_range(0.0, 5.0) = 1.0;
-uniform float wind_time_offset = 0.0;
-uniform bool sway_from_bottom = false; //
-
-varying vec3 modelOrigin;
-varying vec3 world_billboard_normal;
-
-void vertex() {
-    vec3 mod_vertex = VERTEX;
-
-    float time = TIME * wind_time_scale + wind_time_offset;
-
-    //Control sway influence origin (top or bottom)
-    float sway_influence = sway_from_bottom ? UV.y : (1.0 - UV.y);
-    float sway = sin((time + VERTEX.x * 0.5) * wind_sway_speed) * wind_sway_strength * sway_influence;
-    mod_vertex.x += sway;
-
-    // Billboard facing the camera
-	if(billboard)
-	{
-		mat4 billboard_modelview = VIEW_MATRIX * mat4(
-        INV_VIEW_MATRIX[0],
-        INV_VIEW_MATRIX[1],
-        INV_VIEW_MATRIX[2],
-        MODEL_MATRIX[3]
-	    );
-
-		MODELVIEW_MATRIX = billboard_modelview;
-	}
-
-    VERTEX = mod_vertex;
-
-    world_billboard_normal = transpose(mat3(MODELVIEW_MATRIX)) * vec3(0.0, 0.0, 1.0);
-		//Model Origin info for consistent lighting across the entire mesh (passed to LIGHT_VERTEX in the Fragment function)
-	modelOrigin = (MODELVIEW_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
-}
-
-void fragment() {
-    vec4 tex = texture(albedo_tex, UV);
-
-	if(use_vertex_color)
-	{
-		tex *= COLOR;
-	}
-    ALBEDO = tex.rgb * albedo_color.rgb;
-    ALPHA = tex.a * albedo_color.a;
-
-    if (ALPHA < 0.1) {
-        discard;
-    }
-		//Model Origin info is passed to LIGHT_VERTEX. This is DYLEARN's \"VERTEX = MODEL_ORIGIN\"
-	LIGHT_VERTEX = modelOrigin;
-}
-
-void light() {
-    vec3 normal = normalize(world_billboard_normal);
-    float NdotL = max(dot(normal, LIGHT), 0.0);
-			// Apply diffuse
-	vec3 diffuse = ALBEDO.rgb * LIGHT_COLOR / PI;
-		// Add ambient manually if render_mode ambient_light_disabled is used
-	vec3 ambient = disable_ambient_light ? vec3(0.0) : vec3(fake_ambient_light); // Replace with desired ambient color
-	diffuse += ambient;
-
-	if(use_emission)
-	{
-		DIFFUSE_LIGHT += NdotL * ALBEDO * emission_color * LIGHT_COLOR * ATTENUATION * diffuse; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION;
-	}
-	else
-	{
-		DIFFUSE_LIGHT += NdotL * ALBEDO  * ATTENUATION *diffuse; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION;
-	}
-
-
-}"
-
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fjmk2"]
 load_path = "res://.godot/imported/Leafd.png-5242864aff212dc7c789c89694e87f11.s3tc.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rqk0u"]
 resource_local_to_scene = true
 render_priority = 0
-shader = SubResource("Shader_8ytgf")
+shader = ExtResource("4_fjmk2")
 shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_fjmk2")
-shader_parameter/albedo_color = Color(1.73271e-06, 0.606481, 0.304432, 1)
-shader_parameter/use_vertex_color = true
+shader_parameter/albedo_color = Color(0.607313, 0.742107, 0.42255, 1)
+shader_parameter/darkness_variation = 0.0
+shader_parameter/use_vertex_color = false
 shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/billboard = true
@@ -255,12 +163,13 @@ resource_local_to_scene = true
 material = SubResource("ShaderMaterial_rqk0u")
 size = Vector2(0.5, 0.5)
 
-[node name="TreeGPUParticle" type="Node3D" node_paths=PackedStringArray("_particleEmitter", "_treeMesh")]
+[node name="TreeGPUParticle" type="Node3D" node_paths=PackedStringArray("_particleEmitter", "_treeMesh", "_restartParticulesTime")]
 script = ExtResource("1_rqk0u")
 _particleEmitter = NodePath("tree_oak_dark/GPUParticles3D")
 _treeMesh = NodePath("tree_oak_dark")
 _totalParticulesCount = 500
-_particuleColor = Color(1.73271e-06, 0.606481, 0.304432, 1)
+_particuleColor = Color(0.607313, 0.742107, 0.42255, 1)
+_restartParticulesTime = NodePath("RestartParticulesTime")
 
 [node name="tree_oak_dark" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
@@ -269,9 +178,15 @@ skeleton = NodePath("")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="tree_oak_dark"]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.951338, 0)
+cast_shadow = 0
 amount = 500
 lifetime = 100000.0
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_c4c7o")
 draw_pass_1 = SubResource("QuadMesh_rqk0u")
+
+[node name="RestartParticulesTime" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 100.0
+autostart = true

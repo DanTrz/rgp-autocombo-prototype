@@ -94,6 +94,7 @@ name = "GrassMeshAnimated"
 id = 1
 scene_file = ExtResource("1_srmo4")
 height_offset = 0.1
+cast_shadows = 0
 last_lod = 0
 last_shadow_lod = 0
 lod0_range = 128.0
@@ -103,6 +104,7 @@ name = "grass1_packed_albedo_height"
 albedo_color = Color(0.790975, 0.862958, 0.621382, 1)
 albedo_texture = ExtResource("5_x0d86")
 normal_texture = ExtResource("6_83ne2")
+ao_strength = 2.0
 roughness = 1.0
 uv_scale = 1.0
 
