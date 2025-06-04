@@ -1,15 +1,15 @@
-[gd_scene load_steps=14 format=4 uid="uid://dsd2i81dew6dq"]
+[gd_scene load_steps=14 format=4 uid="uid://dyklcvnx3gyl5"]
 
-[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="1_a38gw"]
-[ext_resource type="Script" uid="uid://dofp8cf2j0tol" path="res://Temp/PixelProject/TreeLeafParticuleEmitter.cs" id="1_rqk0u"]
-[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_rqk0u"]
-[ext_resource type="Material" uid="uid://cvs3pnsy48y3i" path="res://Temp/PixelProject/TreeParticleProcessMaterialBKUP.tres" id="4_a38gw"]
-[ext_resource type="Shader" uid="uid://110tg26lml2i" path="res://Temp/PixelProject/FoliageAnimation_v1.gdshader" id="4_fjmk2"]
+[ext_resource type="Script" uid="uid://dofp8cf2j0tol" path="res://Temp/PixelProject/TreeLeafParticuleEmitter.cs" id="1_v1eim"]
+[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_onnrw"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="3_n1y25"]
+[ext_resource type="Material" uid="uid://cvs3pnsy48y3i" path="res://Temp/PixelProject/TreeParticleProcessMaterialBKUP.tres" id="4_0maje"]
+[ext_resource type="Shader" uid="uid://110tg26lml2i" path="res://Temp/PixelProject/FoliageAnimation_v1.gdshader" id="5_u6mku"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ytgf"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("2_rqk0u")
+shader = ExtResource("2_onnrw")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
 shader_parameter/disable_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
@@ -36,7 +36,7 @@ shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7ty4u"]
 render_priority = 0
-shader = ExtResource("1_a38gw")
+shader = ExtResource("3_n1y25")
 shader_parameter/shadows_enabled = true
 shader_parameter/highlights_enabled = true
 shader_parameter/shadow_strength = 0.7
@@ -47,7 +47,7 @@ shader_parameter/shadow_color = Color(0, 0, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1eq53"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_7ty4u")
-shader = ExtResource("2_rqk0u")
+shader = ExtResource("2_onnrw")
 shader_parameter/albedo_color = Color(0.653569, 0.392022, 0.225966, 1)
 shader_parameter/disable_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
@@ -133,7 +133,7 @@ load_path = "res://.godot/imported/Leafd.png-5242864aff212dc7c789c89694e87f11.s3
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rqk0u"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("4_fjmk2")
+shader = ExtResource("5_u6mku")
 shader_parameter/disable_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_a38gw")
@@ -154,8 +154,8 @@ resource_local_to_scene = true
 material = SubResource("ShaderMaterial_rqk0u")
 size = Vector2(0.5, 0.5)
 
-[node name="TreeGPUParticle" type="Node3D" node_paths=PackedStringArray("_particleEmitter", "_treeMesh", "_restartParticulesTime")]
-script = ExtResource("1_rqk0u")
+[node name="TreeSingleLeafGPUParticule" type="Node3D" node_paths=PackedStringArray("_particleEmitter", "_treeMesh", "_restartParticulesTime")]
+script = ExtResource("1_v1eim")
 _particleEmitter = NodePath("tree_oak_dark/GPUParticles3D")
 _treeMesh = NodePath("tree_oak_dark")
 _totalParticulesCount = 500
@@ -173,7 +173,7 @@ amount = 500
 lifetime = 1e+07
 one_shot = true
 explosiveness = 1.0
-process_material = ExtResource("4_a38gw")
+process_material = ExtResource("4_0maje")
 draw_pass_1 = SubResource("QuadMesh_2akgg")
 
 [node name="RestartParticulesTime" type="Timer" parent="."]

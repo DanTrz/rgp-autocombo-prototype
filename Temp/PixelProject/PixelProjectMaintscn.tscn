@@ -1,4 +1,4 @@
-[gd_scene load_steps=116 format=4 uid="uid://bch430y8ur3gc"]
+[gd_scene load_steps=124 format=4 uid="uid://bch430y8ur3gc"]
 
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="1_3re8p"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="1_28obu"]
@@ -9,6 +9,7 @@
 [ext_resource type="Gradient" uid="uid://cul0xese4g3dd" path="res://Assets/Shaders/PixelShaders/ShaderSupportingAssets/GradientBaseColors.tres" id="4_qrd22"]
 [ext_resource type="Terrain3DAssets" uid="uid://vjyk3bb4hqui" path="res://Temp/PixelProject/Terrain3DData/TerrainAssetData64px.tres" id="4_sn2ok"]
 [ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="4_xs314"]
+[ext_resource type="Shader" uid="uid://cco2sdkamag4i" path="res://Temp/PixelProject/DissolveShader.gdshader" id="5_mj2jh"]
 [ext_resource type="Material" uid="uid://bhs5wo5aw14xm" path="res://Assets/Materials/PixelToonAndHighlightShader.tres" id="6_seb0h"]
 [ext_resource type="Texture2D" uid="uid://bn68wamoyf7f7" path="res://Temp/PixelProject/Assets/2D/Textures/whiteTerrain_1_Height.png" id="6_xs314"]
 [ext_resource type="Texture2D" uid="uid://c84ir4n47xsow" path="res://Temp/PixelProject/Assets/2D/Ref Image.png" id="7_3m67x"]
@@ -18,12 +19,12 @@
 [ext_resource type="Texture2D" uid="uid://dmrxqcwpk5vx8" path="res://Temp/PixelProject/Assets/2D/Textures/rocks_5_basic.png" id="12_k3s4d"]
 [ext_resource type="Texture2D" uid="uid://b54umpqy7cii8" path="res://Temp/PixelProject/Assets/2D/Textures/rocks_5_basic_1.png" id="13_43w36"]
 [ext_resource type="Texture2D" uid="uid://h12x2inlbk5t" path="res://Temp/PixelProject/Assets/2D/Textures/Rocks_LIGHT_1.png" id="13_cjd6h"]
-[ext_resource type="PackedScene" uid="uid://dsd2i81dew6dq" path="res://Temp/PixelProject/TreeDarkOakParticuleEmitter.tscn" id="14_7p7qj"]
 [ext_resource type="Script" uid="uid://csey7rg7mjki6" path="res://Temp/PixelProject/terrain_3d_main.gd" id="15_cjd6h"]
 [ext_resource type="Shader" uid="uid://dwe75ee7poeyf" path="res://Temp/PixelProject/godraytestingv11.gdshader" id="19_vbamh"]
 [ext_resource type="Shader" uid="uid://ypw4081hx6nq" path="res://Temp/PixelProject/godraytestingv1.gdshader" id="20_wjrta"]
 [ext_resource type="Shader" uid="uid://okqdee0c05in" path="res://Temp/PixelProject/godraytestingv1_Variation.gdshader" id="21_k125l"]
-[ext_resource type="PackedScene" uid="uid://ceuqgja4ownk6" path="res://Temp/PixelProject/MultiLeafTree.tscn" id="24_5qlt3"]
+[ext_resource type="PackedScene" uid="uid://ceuqgja4ownk6" path="res://Temp/PixelProject/TreeMultiLeafGPUParticule.tscn" id="24_5qlt3"]
+[ext_resource type="PackedScene" uid="uid://dyklcvnx3gyl5" path="res://Temp/PixelProject/TreeSingleLeafGPUParticule.tscn" id="24_mj2jh"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_5qlt3"]
 top_radius = 0.6
@@ -153,7 +154,22 @@ shader_parameter/alpha_factor = 0.4
 shader_parameter/hGradient = SubResource("GradientTexture2D_kdpg5")
 shader_parameter/vGradient = SubResource("GradientTexture2D_g2sps")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tvlrs"]
+render_priority = 0
+shader = ExtResource("5_mj2jh")
+shader_parameter/baseColor = Color(1, 1, 1, 1)
+shader_parameter/dissolveSlider = 1.5
+shader_parameter/dissolveNoiseScale = 0.5
+shader_parameter/edgeNoiseScale = 0.0
+shader_parameter/edgesThickness = 0.01
+shader_parameter/edgeColor = Color(0, 0, 1, 1)
+shader_parameter/edgeEmissionSlider = 1.0
+shader_parameter/enable_dissolve_animation = false
+shader_parameter/animation_speed = 1.0
+shader_parameter/animation_intensity = 0.2
+
 [sub_resource type="QuadMesh" id="QuadMesh_k125l"]
+material = SubResource("ShaderMaterial_tvlrs")
 size = Vector2(100, 100)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_28obu"]
@@ -225,12 +241,39 @@ shader_override = ExtResource("7_k125l")
 
 [sub_resource type="Gradient" id="Gradient_5qlt3"]
 resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.382294, 0.545272, 0.957747, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0.786667, 0.786667, 0.786667, 1, 0.815374, 0.815374, 0.815374, 1, 0.537011, 0.537011, 0.537011, 1)
+offsets = PackedFloat32Array(0, 0.138833, 0.269618, 0.511066, 0.861167, 0.991952)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.82179, 0.821788, 0.821788, 1, 0.786667, 0.786667, 0.786667, 1, 0.597176, 0.597176, 0.597176, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_mj2jh"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_5qlt3")
+
+[sub_resource type="Gradient" id="Gradient_758kt"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.138833, 0.269618, 0.511066, 0.861167, 0.991952)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.82179, 0.821788, 0.821788, 1, 0.786667, 0.786667, 0.786667, 1, 0.597176, 0.597176, 0.597176, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ehk3l"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_758kt")
+
+[sub_resource type="Gradient" id="Gradient_40g6u"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.264798, 0.457944, 0.641745, 0.861167, 0.991952)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.82179, 0.821788, 0.821788, 1, 0.786667, 0.786667, 0.786667, 1, 0.597176, 0.597176, 0.597176, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_758kt"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_40g6u")
+
+[sub_resource type="Gradient" id="Gradient_kdpg5"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.264798, 0.457944, 0.641745, 0.861167, 0.991952)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.82179, 0.821788, 0.821788, 1, 0.786667, 0.786667, 0.786667, 1, 0.597176, 0.597176, 0.597176, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g2sps"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_kdpg5")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ide7"]
 resource_name = "colormap"
@@ -1596,7 +1639,6 @@ directional_shadow_split_1 = 0.9
 directional_shadow_split_2 = 1.0
 
 [node name="SunLightShafts" type="Node3D" parent="SubViewport/SunDirectionalLight3D"]
-visible = false
 
 [node name="ShaderV1_MyVersion" type="MeshInstance3D" parent="SubViewport/SunDirectionalLight3D/SunLightShafts"]
 transform = Transform3D(1, 8.9407e-08, 5.73471e-16, -4.73832e-15, -4.37114e-08, -1, -8.9407e-08, 1, -4.37114e-08, -6.03109, -0.796322, -3.54381)
@@ -1650,8 +1692,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_6kfxr")
 metadata/_edit_lock_ = true
 
 [node name="SkyCLOUDS" type="MeshInstance3D" parent="SubViewport/SunDirectionalLight3D"]
-transform = Transform3D(0.764134, -2.47734e-08, 0.645058, 3.76732e-08, 1, -6.22259e-09, -0.645058, 2.90563e-08, 0.764134, 11.0293, -1.19209e-06, 55.8907)
-visible = false
+transform = Transform3D(0.997057, -0.0123943, 0.0756589, 0.00734711, 0.997751, 0.0666265, -0.0763144, -0.0658747, 0.994905, 0.767081, 0.180106, 65.3097)
 mesh = SubResource("QuadMesh_k125l")
 skeleton = NodePath("../../NightLight")
 
@@ -1684,14 +1725,35 @@ metadata/_edit_lock_ = true
 
 [node name="Trees" type="Node3D" parent="SubViewport"]
 
-[node name="MultiLeafTreeGPUParticle" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.65401, 0, 5.46798)
-_colorShadingRamp = SubResource("GradientTexture1D_mj2jh")
-_colorShadingDirection = Vector3(1, -0.5, 0)
+[node name="TreeSingleLeafGPUParticule" parent="SubViewport/Trees" instance=ExtResource("24_mj2jh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.10217, 0, -1.61703)
+_mainParticuleColor = Color(0.479593, 0.5833, 0.251906, 1)
+_colorNoise = 0.1
 
-[node name="TreeGPUParticle" parent="SubViewport/Trees" instance=ExtResource("14_7p7qj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.86266, 0, 5.39563)
-_mainParticuleColor = Color(0.913725, 0.792157, 0.388235, 1)
+[node name="TreeMultiLeafGPUParticule" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.06661, 0, 5.43576)
+_colorShadingRamp = SubResource("GradientTexture1D_mj2jh")
+_colorShadingDirection = Vector3(1, 0, 0)
+
+[node name="TreeMultiLeafGPUParticule4" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.828, 0, -3.02557)
+_colorShadingRamp = SubResource("GradientTexture1D_ehk3l")
+_colorShadingDirection = Vector3(1, 0, 0)
+_colorNoise = 0.1
+
+[node name="TreeMultiLeafGPUParticule2" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.43517, 0, 2.68963)
+_mainParticuleColor = Color(0.560809, 0.746622, 0.383887, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_758kt")
+_colorShadingDirection = Vector3(1, 0, 0)
+_colorNoise = 0.1
+
+[node name="TreeMultiLeafGPUParticule3" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.12943, 0, 3.30543)
+_mainParticuleColor = Color(0.560809, 0.746622, 0.383887, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_g2sps")
+_colorShadingDirection = Vector3(1, 0, 0)
+_colorNoise = 0.1
 
 [node name="Objects" type="Node3D" parent="SubViewport"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
