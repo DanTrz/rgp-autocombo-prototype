@@ -8,12 +8,13 @@
 load_path = "res://.godot/imported/Grass_3.png-6711f90f42818dba951396c8414e2150.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jfcxj"]
-render_priority = 0
+render_priority = -1
 shader = ExtResource("3_wlmg1")
 shader_parameter/disable_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_wlmg1")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/darkness_variation = 0.0
 shader_parameter/use_vertex_color = true
 shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)

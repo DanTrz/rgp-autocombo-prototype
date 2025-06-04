@@ -13,8 +13,15 @@ public partial class TreeLeafParticuleEmitter : Node3D
 	[Export] GpuParticles3D _particleEmitter;
 	[Export] MeshInstance3D _treeMesh;
 
-	[Export] int _totalParticulesCount = 300;
-	[Export] Color _particuleColor = Colors.White;
+	[Export] int _totalParticulesCount = 700;
+	[Export] Color _mainParticuleColor = Colors.White;
+
+	[Export] GradientTexture1D _colorShadingRamp;
+	[Export] Vector3 _colorShadingDirection = new Vector3(0, 1, 0);
+	[Export] float _colorSpread = 0.5f;
+	[Export] float _particuleSphereRadius = 1.0f;
+
+
 
 	[Export] Color _internalMeshColorAdjust = Colors.White;
 
@@ -30,7 +37,7 @@ public partial class TreeLeafParticuleEmitter : Node3D
 
 	private void StartTimer()
 	{
-		_restartParticulesTime.Start(100.0f);
+		_restartParticulesTime.Start(_restartParticulesTime.WaitTime);
 
 	}
 
@@ -46,7 +53,7 @@ public partial class TreeLeafParticuleEmitter : Node3D
 	{
 		ResetParticles();
 
-		_particleEmitter.Lifetime = 100000.0f;
+		_particleEmitter.Lifetime = 10000000.0f;
 		_particleEmitter.OneShot = true;
 		_particleEmitter.Emitting = true;
 
@@ -58,14 +65,25 @@ public partial class TreeLeafParticuleEmitter : Node3D
 
 		if (_treeMesh.Mesh.SurfaceGetMaterial(0) is ShaderMaterial meshShaderMaterial)
 		{
-			meshShaderMaterial.SetShaderParameter("albedo_color", _particuleColor * _internalMeshColorAdjust);
+			meshShaderMaterial.SetShaderParameter("albedo_color", _mainParticuleColor * _internalMeshColorAdjust);
 		}
 
 		if (_particleEmitter.DrawPass1.SurfaceGetMaterial(0) is ShaderMaterial particuleShaderMaterial)
 		{
-			particuleShaderMaterial.SetShaderParameter("albedo_color", _particuleColor);
+			particuleShaderMaterial.SetShaderParameter("albedo_color", _mainParticuleColor);
 		}
 		// _particleEmitter.DrawPass1.Material.SetShaderParameter("albedo_color", _particuleColor);
+
+		if (_particleEmitter.ProcessMaterial is ShaderMaterial processShaderMaterial)
+		{
+
+			if (_colorShadingRamp != null)
+				processShaderMaterial.SetShaderParameter("color_ramp_texture", _colorShadingRamp);
+
+			processShaderMaterial.SetShaderParameter("target_color_direction", _colorShadingDirection);
+			processShaderMaterial.SetShaderParameter("color_spread", _colorSpread);
+			processShaderMaterial.SetShaderParameter("emission_sphere_radius", _particuleSphereRadius);
+		}
 
 	}
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=113 format=4 uid="uid://bch430y8ur3gc"]
+[gd_scene load_steps=116 format=4 uid="uid://bch430y8ur3gc"]
 
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="1_3re8p"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="1_28obu"]
@@ -23,6 +23,7 @@
 [ext_resource type="Shader" uid="uid://dwe75ee7poeyf" path="res://Temp/PixelProject/godraytestingv11.gdshader" id="19_vbamh"]
 [ext_resource type="Shader" uid="uid://ypw4081hx6nq" path="res://Temp/PixelProject/godraytestingv1.gdshader" id="20_wjrta"]
 [ext_resource type="Shader" uid="uid://okqdee0c05in" path="res://Temp/PixelProject/godraytestingv1_Variation.gdshader" id="21_k125l"]
+[ext_resource type="PackedScene" uid="uid://ceuqgja4ownk6" path="res://Temp/PixelProject/MultiLeafTree.tscn" id="24_5qlt3"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_5qlt3"]
 top_radius = 0.6
@@ -222,6 +223,15 @@ texture_filtering = 1
 shader_override_enabled = true
 shader_override = ExtResource("7_k125l")
 
+[sub_resource type="Gradient" id="Gradient_5qlt3"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.382294, 0.545272, 0.957747, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0.786667, 0.786667, 0.786667, 1, 0.815374, 0.815374, 0.815374, 1, 0.537011, 0.537011, 0.537011, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mj2jh"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_5qlt3")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ide7"]
 resource_name = "colormap"
 cull_mode = 2
@@ -383,7 +393,7 @@ shader_parameter/shadow_color = Color(0, 0, 0, 1)
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_vbamh")
 shader = ExtResource("4_xs314")
-shader_parameter/albedo_color = Color(0.650128, 0.650128, 0.650128, 1)
+shader_parameter/albedo_color = Color(0.733005, 0.733005, 0.733005, 1)
 shader_parameter/disable_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
 shader_parameter/use_repeat_nearest_texture = true
@@ -1578,7 +1588,7 @@ directional_shadow_mode = 0
 sky_mode = 1
 
 [node name="SunDirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
-transform = Transform3D(0.783195, 2.71787e-08, -0.621777, 0.621777, -3.42345e-08, 0.783195, 0, -1, -4.37114e-08, -6.9403, 12.1542, 2.48719)
+transform = Transform3D(0.622248, -0.0377232, -0.781911, 0.776676, 0.154646, 0.610621, 0.0978852, -0.987249, 0.125527, -9.909, 12.1542, 2.48719)
 shadow_enabled = true
 shadow_blur = 0.2
 directional_shadow_mode = 0
@@ -1586,6 +1596,7 @@ directional_shadow_split_1 = 0.9
 directional_shadow_split_2 = 1.0
 
 [node name="SunLightShafts" type="Node3D" parent="SubViewport/SunDirectionalLight3D"]
+visible = false
 
 [node name="ShaderV1_MyVersion" type="MeshInstance3D" parent="SubViewport/SunDirectionalLight3D/SunLightShafts"]
 transform = Transform3D(1, 8.9407e-08, 5.73471e-16, -4.73832e-15, -4.37114e-08, -1, -8.9407e-08, 1, -4.37114e-08, -6.03109, -0.796322, -3.54381)
@@ -1670,6 +1681,17 @@ save_16_bit = true
 top_level = true
 script = ExtResource("15_cjd6h")
 metadata/_edit_lock_ = true
+
+[node name="Trees" type="Node3D" parent="SubViewport"]
+
+[node name="MultiLeafTreeGPUParticle" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.65401, 0, 5.46798)
+_colorShadingRamp = SubResource("GradientTexture1D_mj2jh")
+_colorShadingDirection = Vector3(1, -0.5, 0)
+
+[node name="TreeGPUParticle" parent="SubViewport/Trees" instance=ExtResource("14_7p7qj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.86266, 0, 5.39563)
+_mainParticuleColor = Color(0.913725, 0.792157, 0.388235, 1)
 
 [node name="Objects" type="Node3D" parent="SubViewport"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
@@ -1868,39 +1890,12 @@ mesh = SubResource("ArrayMesh_2a7r4")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("6_seb0h")
 
-[node name="Node3D3" parent="SubViewport/Objects" instance=ExtResource("14_7p7qj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.795916, 0, -4.28764)
-_particuleColor = Color(0.47451, 0.592157, 0.243137, 1)
-_internalMeshColorAdjust = Color(0.678944, 0.678944, 0.678944, 1)
-
-[node name="Node3D4" parent="SubViewport/Objects" instance=ExtResource("14_7p7qj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.51963, 0, -3.18318)
-_particuleColor = Color(0.47451, 0.592157, 0.243137, 1)
-_internalMeshColorAdjust = Color(0.678944, 0.678944, 0.678944, 1)
-
-[node name="Node3D2" parent="SubViewport/Objects" instance=ExtResource("14_7p7qj")]
-transform = Transform3D(0.905934, 0.0974066, -0.412063, -0.101626, 0.994753, 0.0117187, 0.411043, 0.03126, 0.91108, 1.90734, -0.026083, -2.36496)
-_particuleColor = Color(0.858696, 0.398284, 0.584981, 1)
-_internalMeshColorAdjust = Color(0.886262, 0.886261, 0.886262, 1)
-
-[node name="Node3D5" parent="SubViewport/Objects" instance=ExtResource("14_7p7qj")]
-transform = Transform3D(0.905104, 0.105251, -0.411958, -0.10877, 0.993954, 0.014969, 0.411043, 0.03126, 0.91108, 3.24124, -0.026083, 3.49465)
-_particuleColor = Color(0.549343, 0.676129, 0.301202, 1)
-_internalMeshColorAdjust = Color(0.678944, 0.678944, 0.678944, 1)
-
-[node name="Node3D6" parent="SubViewport/Objects" instance=ExtResource("14_7p7qj")]
-transform = Transform3D(0.905104, 0.105251, -0.411958, -0.10877, 0.993954, 0.014969, 0.411043, 0.03126, 0.91108, 5.27224, -0.026083, 2.59816)
-_particuleColor = Color(0.858824, 0.792157, 0.584314, 1)
-_internalMeshColorAdjust = Color(0.678944, 0.678944, 0.678944, 1)
-
 [node name="Display" type="Control" parent="." node_paths=PackedStringArray("_viewport", "_mainRendereSprite")]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -37.0
-offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.01507, 1.01103)
@@ -1912,7 +1907,7 @@ _mainRendereSprite = NodePath("Sprite2D")
 texture_filter = 2
 material = SubResource("ShaderMaterial_642rp")
 position = Vector2(11.8219, 12.8582)
-scale = Vector2(2.92929, 2.91507)
+scale = Vector2(1.9385, 1.91774)
 texture = SubResource("ViewportTexture_28obu")
 centered = false
 
