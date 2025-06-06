@@ -27,15 +27,15 @@ void vertex() {
 
 void fragment() {
 	vec3 fallof = texture(gradient, base_uv).rgb;
-	
+
 	float fresnel = pow(1.0 - dot(normalize(NORMAL), normalize(VIEW)), rim_power);
 	float fade = mix(1.0, -1.0, fresnel);
 
-	ROUGHNESS = 0.0; 
+	ROUGHNESS = 0.0;
 	SPECULAR = 0.0;
-	
+
 	vec3 emission_tex = texture(texture_emission, UV).rgb;
 	EMISSION = (emission.rgb + emission_tex) * emission_energy * fallof;
-	
-	ALPHA = clamp(fade, 0.0, 1.0) * EMISSION.r * alpha; 
+
+	ALPHA = clamp(fade, 0.0, 1.0) * EMISSION.r * alpha;
 }

@@ -13,7 +13,7 @@ uniform float alpha_factor : hint_range(0.0, 1.0) = 0.1;
 uniform sampler2D occlusion_mask; // Using a hint for clarity
 uniform vec2 occlusion_uv_scale = vec2(1.0, 1.0);     // Adjust if mask Viewport size/aspect differs
 uniform vec2 occlusion_uv_offset = vec2(0.0, 0.0);    // Adjust if mask Viewport position differs
-uniform float occlusion_strength : hint_range(0.0, 1.0) = 1.0;
+uniform float occlusion_strength : hint_range(0.0, 5.0) = 2.0;
 uniform bool use_occlusion = false;
 
 void fragment() {

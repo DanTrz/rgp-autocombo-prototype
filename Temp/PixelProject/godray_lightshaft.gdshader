@@ -3,7 +3,7 @@ render_mode blend_add, depth_draw_opaque, cull_back, diffuse_burley, shadows_dis
 
 uniform float alpha : hint_range(0.0, 1.0) = 0.5;
 uniform float rim_power : hint_range(0.0, 5.0) = 0.5;
-uniform float speed : hint_range(0.5, 10.0) = 1.0;
+uniform float speed : hint_range(0.1, 10.0) = 1.0;
 uniform float noise_movement : hint_range(0.0, 0.5) = 0.5;
 
 uniform sampler2D noise_texture : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;

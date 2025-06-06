@@ -41,7 +41,6 @@ uint hash(uint x) {
 vec3 calculate_initial_position(inout float ramp_uv, inout uint alt_seed) {
     float pi = 3.14159;
     
-    // Use the method from the provided shader for uniform spherical distribution
     float s = rand_from_seed(alt_seed) * 2.0 - 1.0; // Z-coordinate factor (-1 to 1)
     float t = rand_from_seed(alt_seed) * 2.0 * pi; // Azimuthal angle (0 to 2pi)
     float radius = emission_sphere_radius * sqrt(max(0.0, 1.0 - s * s)); // XY-plane radius

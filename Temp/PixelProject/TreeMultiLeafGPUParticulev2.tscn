@@ -1,18 +1,27 @@
-[gd_scene load_steps=14 format=4 uid="uid://dyklcvnx3gyl5"]
+[gd_scene load_steps=17 format=4 uid="uid://bcadmegjo5woy"]
 
-[ext_resource type="Script" uid="uid://dofp8cf2j0tol" path="res://Temp/PixelProject/TreeLeafParticuleEmitter.cs" id="1_v1eim"]
-[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_onnrw"]
-[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="3_n1y25"]
-[ext_resource type="Material" uid="uid://cvs3pnsy48y3i" path="res://Temp/PixelProject/TreeParticleProcessMaterialBKUP.tres" id="4_0maje"]
-[ext_resource type="Shader" uid="uid://110tg26lml2i" path="res://Temp/PixelProject/FoliageAnimation_v1.gdshader" id="5_u6mku"]
+[ext_resource type="Script" uid="uid://dofp8cf2j0tol" path="res://Temp/PixelProject/TreeLeafParticuleEmitter.cs" id="1_avpyw"]
+[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_ecj1i"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="3_u8mc7"]
+[ext_resource type="Shader" uid="uid://m2g68edta6kc" path="res://Temp/PixelProject/RingParticulerShader.gdshader" id="4_avpyw"]
+[ext_resource type="Shader" uid="uid://110tg26lml2i" path="res://Temp/PixelProject/FoliageAnimation_v1.gdshader" id="5_7caju"]
+
+[sub_resource type="Gradient" id="Gradient_ot7g1"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.127726, 0.146417, 0.784946, 0.995976)
+colors = PackedColorArray(0.786667, 0.786667, 0.786667, 1, 0.817956, 0.817956, 0.817956, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_877qk"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_ot7g1")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ytgf"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("2_onnrw")
-shader_parameter/albedo_color = Color(1, 1, 1, 1)
-shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader = ExtResource("2_ecj1i")
+shader_parameter/albedo_color = Color(1, 0.678431, 1, 1)
+shader_parameter/disable_ambient_light = true
+shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
 shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
@@ -36,7 +45,7 @@ shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7ty4u"]
 render_priority = 0
-shader = ExtResource("3_n1y25")
+shader = ExtResource("3_u8mc7")
 shader_parameter/shadows_enabled = true
 shader_parameter/highlights_enabled = true
 shader_parameter/shadow_strength = 0.7
@@ -47,7 +56,7 @@ shader_parameter/shadow_color = Color(0, 0, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1eq53"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_7ty4u")
-shader = ExtResource("2_onnrw")
+shader = ExtResource("2_ecj1i")
 shader_parameter/albedo_color = Color(0.653569, 0.392022, 0.225966, 1)
 shader_parameter/disable_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
@@ -127,17 +136,64 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_fjmk2")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a38gw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_avpyw"]
+resource_local_to_scene = true
+shader = ExtResource("4_avpyw")
+shader_parameter/direction = Vector3(1, 0, 0)
+shader_parameter/spread = 0.0
+shader_parameter/flatness = 0.0
+shader_parameter/inherit_emitter_velocity_ratio = 0.0
+shader_parameter/initial_linear_velocity_min = 0.0
+shader_parameter/initial_linear_velocity_max = 0.0
+shader_parameter/directional_velocity_min = 1.0
+shader_parameter/directional_velocity_max = 1.0
+shader_parameter/angular_velocity_min = 0.0
+shader_parameter/angular_velocity_max = 0.0
+shader_parameter/orbit_velocity_min = 0.0
+shader_parameter/orbit_velocity_max = 0.0
+shader_parameter/radial_velocity_min = 0.0
+shader_parameter/radial_velocity_max = 0.0
+shader_parameter/linear_accel_min = 0.0
+shader_parameter/linear_accel_max = 0.0
+shader_parameter/radial_accel_min = 0.0
+shader_parameter/radial_accel_max = 0.0
+shader_parameter/tangent_accel_min = 0.0
+shader_parameter/tangent_accel_max = 0.0
+shader_parameter/damping_min = 0.0
+shader_parameter/damping_max = 0.0
+shader_parameter/initial_angle_min = 0.0
+shader_parameter/initial_angle_max = 0.0
+shader_parameter/scale_min = 1.0
+shader_parameter/scale_max = 1.0
+shader_parameter/hue_variation_min = 0.0
+shader_parameter/hue_variation_max = 0.0
+shader_parameter/anim_speed_min = 0.0
+shader_parameter/anim_speed_max = 0.0
+shader_parameter/anim_offset_min = 0.0
+shader_parameter/anim_offset_max = 0.0
+shader_parameter/lifetime_randomness = 0.0
+shader_parameter/emission_shape_offset = Vector3(0, 0, 0)
+shader_parameter/emission_shape_scale = Vector3(1, 1, 1)
+shader_parameter/velocity_pivot = Vector3(0, 0, 0)
+shader_parameter/emission_ring_axis = Vector3(0, 0, 1)
+shader_parameter/emission_ring_height = 2.5
+shader_parameter/emission_ring_radius = 1.2
+shader_parameter/emission_ring_inner_radius = 1.2
+shader_parameter/emission_ring_cone_angle = 0.0
+shader_parameter/color_value = Color(1, 1, 1, 1)
+shader_parameter/gravity = Vector3(0, -1e-06, 0)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fjmk2"]
 load_path = "res://.godot/imported/Leafd.png-5242864aff212dc7c789c89694e87f11.s3tc.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rqk0u"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("5_u6mku")
+shader = ExtResource("5_7caju")
 shader_parameter/disable_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
-shader_parameter/albedo_tex = SubResource("CompressedTexture2D_a38gw")
-shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/albedo_tex = SubResource("CompressedTexture2D_fjmk2")
+shader_parameter/albedo_color = Color(1, 0.678431, 1, 1)
 shader_parameter/darkness_variation = 0.0
 shader_parameter/use_vertex_color = true
 shader_parameter/use_emission = false
@@ -149,16 +205,18 @@ shader_parameter/wind_time_scale = 1.0
 shader_parameter/wind_time_offset = 2.0
 shader_parameter/sway_from_bottom = false
 
-[sub_resource type="QuadMesh" id="QuadMesh_2akgg"]
+[sub_resource type="QuadMesh" id="QuadMesh_ot7g1"]
 resource_local_to_scene = true
 material = SubResource("ShaderMaterial_rqk0u")
 size = Vector2(0.5, 0.5)
 
-[node name="TreeSingleLeafGPUParticule" type="Node3D" node_paths=PackedStringArray("_particleEmitter", "_treeMesh", "_restartParticulesTime")]
-script = ExtResource("1_v1eim")
+[node name="TreeMultiLeafGPUParticulev2" type="Node3D" node_paths=PackedStringArray("_particleEmitter", "_treeMesh", "_restartParticulesTime")]
+script = ExtResource("1_avpyw")
 _particleEmitter = NodePath("tree_oak_dark/GPUParticles3D")
 _treeMesh = NodePath("tree_oak_dark")
-_totalParticulesCount = 500
+_totalParticulesCount = 450
+_mainParticuleColor = Color(1, 0.678431, 1, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_877qk")
 _colorNoise = 0.1
 _restartParticulesTime = NodePath("RestartParticulesTime")
 
@@ -168,14 +226,14 @@ mesh = SubResource("ArrayMesh_a38gw")
 skeleton = NodePath("")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="tree_oak_dark"]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.951338, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.0525566, 0.396533, 0, -0.396533, 0.0525566, -0.0165017, 1.24554, -0.00240507)
 cast_shadow = 0
-amount = 500
+amount = 450
 lifetime = 1e+07
 one_shot = true
 explosiveness = 1.0
-process_material = ExtResource("4_0maje")
-draw_pass_1 = SubResource("QuadMesh_2akgg")
+process_material = SubResource("ShaderMaterial_avpyw")
+draw_pass_1 = SubResource("QuadMesh_ot7g1")
 
 [node name="RestartParticulesTime" type="Timer" parent="."]
 unique_name_in_owner = true

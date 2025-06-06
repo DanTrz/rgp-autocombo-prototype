@@ -16,12 +16,14 @@ public partial class DisplayPixelRenderer : Control
 	// The main sprite to render the screen
 	[Export] Sprite2D _mainRendereSprite;
 
+	[Export] int _screenPadding = 2;
+
 	public override void _Process(double delta)
 	{
 		// Get the size of the screen
 		Vector2 screenSize = GetWindow().Size;
 		// Get the size of the viewport, minus any padding
-		Vector2 gameSize = new Vector2(_viewport.Size.X - 2, _viewport.Size.Y - 2);
+		Vector2 gameSize = new Vector2(_viewport.Size.X - _screenPadding, _viewport.Size.Y - _screenPadding);
 		// Calculate the display scale
 		Vector2 displayScale = screenSize / gameSize;
 
@@ -54,5 +56,8 @@ public partial class DisplayPixelRenderer : Control
 			}
 		}
 	}
+
+
+
 }
 

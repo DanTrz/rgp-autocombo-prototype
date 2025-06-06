@@ -8,7 +8,7 @@
 
 [sub_resource type="Gradient" id="Gradient_ot7g1"]
 resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.593561, 0.61167, 0.784946, 0.995976)
+offsets = PackedFloat32Array(0, 0.127726, 0.146417, 0.784946, 0.995976)
 colors = PackedColorArray(0.786667, 0.786667, 0.786667, 1, 0.817956, 0.817956, 0.817956, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_877qk"]
@@ -186,6 +186,7 @@ _particleEmitter = NodePath("tree_oak_dark/GPUParticles3D")
 _treeMesh = NodePath("tree_oak_dark")
 _mainParticuleColor = Color(1, 0.678431, 1, 1)
 _colorShadingRamp = SubResource("GradientTexture1D_877qk")
+_colorNoise = 0.1
 _restartParticulesTime = NodePath("RestartParticulesTime")
 
 [node name="tree_oak_dark" type="MeshInstance3D" parent="."]

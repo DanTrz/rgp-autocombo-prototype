@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://c0vp8bbpb2ceg"]
+
+[ext_resource type="Script" uid="uid://d225n8raais2e" path="res://Temp/PixelProject/LightShaft.cs" id="2_0ef8x"]
+[ext_resource type="Shader" uid="uid://becuk8cg3rnlv" path="res://Temp/PixelProject/godray_lightshaft.gdshader" id="2_q8dxd"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_q8dxd"]
+resource_local_to_scene = true
+top_radius = 1.5
+bottom_radius = 1.0
+height = 45.0
+radial_segments = 8
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="Gradient" id="Gradient_yif83"]
+offsets = PackedFloat32Array(0, 0.0545852, 0.113208, 0.122642, 0.710692, 0.735849, 0.818777, 0.921397)
+colors = PackedColorArray(0.0766734, 0.0766734, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.454524, 0.454524, 0.454524, 1, 0.521141, 0.521141, 0.521141, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.0766734, 0.0766734, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_758kt"]
+gradient = SubResource("Gradient_yif83")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ehk3l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ef8x"]
+render_priority = -2
+shader = ExtResource("2_q8dxd")
+shader_parameter/alpha = 0.6
+shader_parameter/rim_power = 0.1
+shader_parameter/speed = 0.2
+shader_parameter/noise_movement = 0.1
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_ehk3l")
+shader_parameter/gradient = SubResource("GradientTexture2D_758kt")
+shader_parameter/emission = Color(1, 0.912717, 0.724713, 1)
+shader_parameter/emission_energy = 0.5
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_758kt"]
+
+[node name="LightShaft" type="Node3D" node_paths=PackedStringArray("_detectionArea", "_lightShaftSkin")]
+script = ExtResource("2_0ef8x")
+_detectionArea = NodePath("LightShaftSkin/Area3D")
+_lightShaftSkin = NodePath("LightShaftSkin")
+
+[node name="LightShaftSkin" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_q8dxd")
+skeleton = NodePath("../../../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_0ef8x")
+
+[node name="Area3D" type="Area3D" parent="LightShaftSkin"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LightShaftSkin/Area3D"]
+shape = SubResource("SphereShape3D_758kt")
