@@ -4,13 +4,25 @@ using Godot;
 public partial class GlobalEvents : Node
 {
     public static GlobalEvents Instance { get; private set; }
-    public override void _Ready() { Instance = this; }
+    public static Weather WeatherEvents { get; private set; }
+    public override void _Ready()
+    {
+        Instance = this;
+        WeatherEvents = new Weather();
 
-    public static Action<Node, Node[], Node[]> OnBattleLoading;
-    public static Action<Node, Node[], Node[]> OnBattleStarted;
-    public static Action<Node, Node[], Node[]> OnBattleEnded;
-    public static Action<Node, Node[], Node[]> OnBattleEnding;
-    public static Action<Node[]> OnBattleLootDropped; //TODO replace with  //Array[InventorySlotData]
+    }
+
+
+    public class Weather
+    {
+        public Action<float, float> ShaftValueChanged { get; set; }
+    }
+
+    // public static Action<Node, Node[], Node[]> OnBattleLoading;
+    // public static Action<Node, Node[], Node[]> OnBattleStarted;
+    // public static Action<Node, Node[], Node[]> OnBattleEnded;
+    // public static Action<Node, Node[], Node[]> OnBattleEnding;
+    // public static Action<Node[]> OnBattleLootDropped; //TODO replace with  //Array[InventorySlotData]
 
     public string GetLookDirection2DCardinal(Vector2 direction)
     {

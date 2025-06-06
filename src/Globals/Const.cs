@@ -16,6 +16,7 @@ public static class Const
 
 
     }
+
     // public class PlayerStates
     // {
     //     public const string PLAYER_WALK_STATE = "PlayerWalkState";

@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=4 uid="uid://css4c3idq4yje"]
+[gd_scene load_steps=101 format=4 uid="uid://css4c3idq4yje"]
 
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="1_3re8p"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="1_28obu"]
@@ -24,11 +24,14 @@
 [ext_resource type="PackedScene" uid="uid://ceuqgja4ownk6" path="res://Temp/PixelProject/TreeMultiLeafGPUParticule.tscn" id="24_5qlt3"]
 [ext_resource type="PackedScene" uid="uid://dyklcvnx3gyl5" path="res://Temp/PixelProject/TreeSingleLeafGPUParticule.tscn" id="24_mj2jh"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_k125l"]
+font_size = 32
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tvlrs"]
 render_priority = 0
 shader = ExtResource("5_mj2jh")
 shader_parameter/baseColor = Color(1, 1, 1, 1)
-shader_parameter/dissolveSlider = 0.7
+shader_parameter/dissolveSlider = 1.0
 shader_parameter/dissolveNoiseScale = 0.2
 shader_parameter/edgeNoiseScale = 0.0
 shader_parameter/edgesThickness = 0.3
@@ -1496,29 +1499,44 @@ viewport_path = NodePath("SubViewport")
 
 [node name="PixelProject" type="Node3D"]
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+texture_filter = 2
+custom_minimum_size = Vector2(300, 0)
+offset_right = 72.0
+offset_bottom = 45.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="cycleStateLabel" type="Label" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+text = "DAY"
+label_settings = SubResource("LabelSettings_k125l")
+
+[node name="DayCyleProgressBar" type="ProgressBar" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 1.0
+
 [node name="SubViewport" type="SubViewport" parent="."]
 handle_input_locally = false
-size = Vector2i(470, 280)
+size = Vector2i(480, 270)
 render_target_update_mode = 4
 
-[node name="WeatherController" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("_lightDirectionNode", "_dayLight", "_nightLight", "_cloudsMesh", "_lightShafts", "_dayNightCycleTimer")]
+[node name="WeatherController" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("_lightDirectionNode", "_dayLight", "_cloudsMesh", "_lightShafts", "_cycleDurationTimer", "_cycleState", "_cycleProgress")]
 script = ExtResource("1_40g6u")
 _lightDirectionNode = NodePath("LightDirection")
 _dayLight = NodePath("LightDirection/DayLight")
-_nightLight = NodePath("LightDirection/NightLight")
 _cloudsMesh = NodePath("LightDirection/Clouds")
 _lightShafts = NodePath("LightDirection/SunLightShafts")
-_dayNightCycleTimer = NodePath("LightDirection/DayNighCycleTimer")
+_cycleDurationTimer = NodePath("LightDirection/CycleDurationTimer")
+_cycleState = NodePath("../../CanvasLayer/HBoxContainer/cycleStateLabel")
+_cycleProgress = NodePath("../../CanvasLayer/HBoxContainer/DayCyleProgressBar")
 
 [node name="LightDirection" type="Node3D" parent="SubViewport/WeatherController"]
-
-[node name="NightLight" type="DirectionalLight3D" parent="SubViewport/WeatherController/LightDirection"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-visible = false
-light_color = Color(0, 0, 0, 1)
-shadow_blur = 0.2
-directional_shadow_mode = 0
-sky_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="DayLight" type="DirectionalLight3D" parent="SubViewport/WeatherController/LightDirection"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
@@ -1529,33 +1547,40 @@ directional_shadow_split_1 = 0.9
 directional_shadow_split_2 = 1.0
 
 [node name="Clouds" type="MeshInstance3D" parent="SubViewport/WeatherController/LightDirection"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-visible = false
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 43.3953, 0)
 mesh = SubResource("QuadMesh_k125l")
-skeleton = NodePath("../NightLight")
+skeleton = NodePath("")
 
 [node name="SunLightShafts" type="Node3D" parent="SubViewport/WeatherController/LightDirection"]
 transform = Transform3D(0.999567, 0.0294394, 0, -0.0294394, 0.999567, 0, 0, 0, 1, 0, 0.10347, 3.32289)
-visible = false
 
 [node name="LightShaft1" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
-transform = Transform3D(1, -2.79397e-09, 0, 2.79397e-09, 1, 0, 0, 0, 1, -7.59076, 7.77893, -1.2783)
+transform = Transform3D(0.438639, -0.0165333, -0.898512, -0.0165333, 0.999513, -0.0264631, 0.898512, 0.0264631, 0.438151, -7.60134, 7.77862, 6.52081)
 _maxRadius = 2.0
 
-[node name="LightShaft2" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
-transform = Transform3D(1, -2.79397e-09, 0, 2.79397e-09, 1, 0, 0, 0, 1, -4.07258, 7.77893, 6.98418)
+[node name="LightShaft6" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
+transform = Transform3D(1, 5.58794e-09, 0, -5.58794e-09, 1, 0, 0, 0, 1, -13.6769, 7.59968, -1.64853)
 _maxRadius = 2.0
 
 [node name="LightShaft3" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
-transform = Transform3D(1, -2.79397e-09, 0, 2.79397e-09, 1, 0, 0, 0, 1, 1.13863, 7.77893, -1.2783)
+transform = Transform3D(0.744265, -0.00753193, 0.667842, -0.00753195, 0.999778, 0.0196694, -0.667842, -0.0196694, 0.744043, -2.0448, 7.68517, 5.71953)
 _maxRadius = 2.0
 
-[node name="LightShaft4" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
-transform = Transform3D(1, -2.79397e-09, 0, 2.79397e-09, 1, 0, 0, 0, 1, 3.79113, 7.77893, 6.98418)
+[node name="LightShaft5" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
+transform = Transform3D(0.897832, -0.00300906, -0.440328, -0.00300908, 0.999911, -0.0129686, 0.440328, 0.0129686, 0.897743, 4.6682, 7.80476, 6.98418)
 _maxRadius = 2.0
 
-[node name="DayNighCycleTimer" type="Timer" parent="SubViewport/WeatherController/LightDirection"]
-wait_time = 3.0
+[node name="LightShaft7" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
+transform = Transform3D(0.500433, -0.0147133, -0.86565, -0.0147133, 0.999567, -0.0254953, 0.86565, 0.0254953, 0.5, 2.51446, 7.74133, -3.54155)
+_maxRadius = 2.0
+
+[node name="LightShaft8" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
+transform = Transform3D(1, 9.31323e-09, 0, -9.31323e-09, 1, 0, 0, 0, 1, 14.6374, 8.09838, 6.98418)
+_maxRadius = 2.0
+
+[node name="CycleDurationTimer" type="Timer" parent="SubViewport/WeatherController/LightDirection"]
+wait_time = 4.0
+one_shot = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
 environment = SubResource("Environment_642rp")
@@ -1619,7 +1644,7 @@ _colorShadingRamp = SubResource("GradientTexture1D_758kt")
 _colorShadingDirection = Vector3(1, 0, 0)
 
 [node name="TreeMultiLeafGPUParticule3" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.12943, 0, 2.34746)
+transform = Transform3D(0.999703, 0, 0.0243624, 0, 1, 0, -0.0243624, 0, 0.999703, 5.12943, 0, 2.34746)
 _mainParticuleColor = Color(0.560809, 0.746622, 0.383887, 1)
 _colorShadingRamp = SubResource("GradientTexture1D_g2sps")
 _colorShadingDirection = Vector3(1, 0, 0)
@@ -1840,8 +1865,8 @@ _mainRendereSprite = NodePath("Sprite2D")
 [node name="Sprite2D" type="Sprite2D" parent="Display"]
 texture_filter = 2
 material = SubResource("ShaderMaterial_642rp")
-position = Vector2(170.432, -50.4436)
-scale = Vector2(4.48979, 4.29195)
+position = Vector2(0.985153, 3.95636)
+scale = Vector2(3.91804, 3.90508)
 texture = SubResource("ViewportTexture_28obu")
 centered = false
 

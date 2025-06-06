@@ -38,9 +38,24 @@ public partial class LightShaft : Node3D
 	public override void _Ready()
 	{
 		if (Engine.IsEditorHint()) return;
+		GlobalEvents.WeatherEvents.ShaftValueChanged += ShaftValueChanged;
 
 		// _detectionArea.BodyEntered += OnBodyEntered;
 		// if (_runOnReady) StartShaftGrowth();
+	}
+
+	private void ShaftValueChanged(float alphaValue, float radiusValue)
+	{
+		if (_lightShaftSkin.GetSurfaceOverrideMaterial(0) is ShaderMaterial shaderMaterial)
+		{
+			shaderMaterial.SetShaderParameter("alpha", alphaValue);
+		}
+
+		if (_lightShaftSkin.Mesh is CylinderMesh cylinderMesh)
+		{
+			cylinderMesh.TopRadius = radiusValue * 0.8f;
+			cylinderMesh.BottomRadius = radiusValue;
+		}
 	}
 
 	// private void OnBodyEntered(Node3D body)
