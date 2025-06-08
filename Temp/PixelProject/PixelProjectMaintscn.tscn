@@ -1,9 +1,12 @@
-[gd_scene load_steps=101 format=4 uid="uid://css4c3idq4yje"]
+[gd_scene load_steps=124 format=4 uid="uid://css4c3idq4yje"]
 
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="1_3re8p"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="1_28obu"]
 [ext_resource type="Script" uid="uid://buk1mdie3b2om" path="res://Temp/PixelProject/WeatherController.cs" id="1_40g6u"]
+[ext_resource type="PackedScene" uid="uid://ctxbydiyp1okd" path="res://Temp/PixelProject/Assets/3D/lily_large_2.tscn" id="1_ehk3l"]
+[ext_resource type="Shader" uid="uid://md0oksqn1iqg" path="res://Temp/PixelProject/WaterShader.gdshader" id="1_kdpg5"]
 [ext_resource type="Shader" uid="uid://d4q5ai1l6seh" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale.gdshader" id="2_3re8p"]
+[ext_resource type="Texture2D" uid="uid://dwju7eckq0ngo" path="res://Temp/PixelProject/WaterNoiseText.tres" id="3_0tgxd"]
 [ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="3_sn2ok"]
 [ext_resource type="Gradient" uid="uid://cul0xese4g3dd" path="res://Assets/Shaders/PixelShaders/ShaderSupportingAssets/GradientBaseColors.tres" id="4_qrd22"]
 [ext_resource type="Terrain3DAssets" uid="uid://vjyk3bb4hqui" path="res://Temp/PixelProject/Terrain3DData/TerrainAssetData64px.tres" id="4_sn2ok"]
@@ -21,48 +24,77 @@
 [ext_resource type="Texture2D" uid="uid://b54umpqy7cii8" path="res://Temp/PixelProject/Assets/2D/Textures/rocks_5_basic_1.png" id="13_43w36"]
 [ext_resource type="Texture2D" uid="uid://h12x2inlbk5t" path="res://Temp/PixelProject/Assets/2D/Textures/Rocks_LIGHT_1.png" id="13_cjd6h"]
 [ext_resource type="Script" uid="uid://csey7rg7mjki6" path="res://Temp/PixelProject/terrain_3d_main.gd" id="15_cjd6h"]
+[ext_resource type="PackedScene" uid="uid://b8j415thw0glv" path="res://Temp/PixelProject/Assets/3D/column_damaged_2.tscn" id="21_758kt"]
+[ext_resource type="PackedScene" uid="uid://dnrrflryabhox" path="res://Temp/PixelProject/Assets/3D/overworldRocksBlend.blend" id="23_kdpg5"]
 [ext_resource type="PackedScene" uid="uid://ceuqgja4ownk6" path="res://Temp/PixelProject/TreeMultiLeafGPUParticule.tscn" id="24_5qlt3"]
-[ext_resource type="PackedScene" uid="uid://dyklcvnx3gyl5" path="res://Temp/PixelProject/TreeSingleLeafGPUParticule.tscn" id="24_mj2jh"]
+[ext_resource type="PackedScene" uid="uid://c3h70ofd8ip63" path="res://Temp/PixelProject/Assets/3D/bridge.tscn" id="25_ehk3l"]
+[ext_resource type="PackedScene" uid="uid://cr7chpr2pn7kq" path="res://Temp/PixelProject/Assets/3D/tower-square-arch.glb" id="26_ehk3l"]
+[ext_resource type="PackedScene" uid="uid://br1ibv6dd3gff" path="res://Temp/PixelProject/Assets/3D/tower-hexagon-base.glb" id="27_kdpg5"]
+[ext_resource type="Texture2D" uid="uid://caojhe1die2he" path="res://Temp/PixelProject/Assets/2D/Referece.png" id="31_u2oii"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_k125l"]
 font_size = 32
+
+[sub_resource type="QuadMesh" id="QuadMesh_5qlt3"]
+size = Vector2(50, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mj2jh"]
+transparency = 1
+blend_mode = 3
+shading_mode = 0
+albedo_color = Color(0.418428, 0.763325, 1, 0)
+disable_receive_shadows = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_mj2jh"]
+size = Vector2(50, 50)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6kfxr"]
+render_priority = 0
+shader = ExtResource("1_kdpg5")
+shader_parameter/noise_texture = ExtResource("3_0tgxd")
+shader_parameter/water_color = Color(0.120643, 0.255318, 0.44142, 1)
+shader_parameter/ripple_color = Color(0.60758, 0.74233, 0.935828, 1)
+shader_parameter/wave_strength = 0.3
+shader_parameter/wave_speed = 0.002
+shader_parameter/water_transparency = 0.5
+shader_parameter/water_roughness = 1.0
+shader_parameter/water_depth_fade = 1.5
+shader_parameter/edge_size = 2.0
+shader_parameter/edge_intensity = 1.0
+shader_parameter/ripple_intensity = 2.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tvlrs"]
 render_priority = 0
 shader = ExtResource("5_mj2jh")
 shader_parameter/baseColor = Color(1, 1, 1, 1)
-shader_parameter/dissolveSlider = 1.0
+shader_parameter/dissolveSlider = 1.5
 shader_parameter/dissolveNoiseScale = 0.2
 shader_parameter/edgeNoiseScale = 0.0
 shader_parameter/edgesThickness = 0.3
 shader_parameter/edgeColor = Color(0, 1, 1, 1)
 shader_parameter/edgeEmissionSlider = 1.0
 shader_parameter/enable_dissolve_animation = true
-shader_parameter/animation_speed = 0.4
+shader_parameter/animation_speed = 0.2
 shader_parameter/animation_intensity = 0.2
 
 [sub_resource type="QuadMesh" id="QuadMesh_k125l"]
 material = SubResource("ShaderMaterial_tvlrs")
 size = Vector2(150, 150)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_28obu"]
-sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-
-[sub_resource type="Sky" id="Sky_3re8p"]
-sky_material = SubResource("ProceduralSkyMaterial_28obu")
-
-[sub_resource type="Environment" id="Environment_642rp"]
-background_mode = 1
-background_color = Color(0.749381, 0.835959, 0.903011, 1)
-sky = SubResource("Sky_3re8p")
+[sub_resource type="Environment" id="Environment_g2sps"]
 ambient_light_source = 2
-ambient_light_color = Color(0.864876, 0.946183, 0.980582, 1)
-ambient_light_energy = 0.8
-reflected_light_source = 1
+ambient_light_color = Color(0.578648, 0.678315, 0.714314, 1)
+ambient_light_energy = 0.95
 tonemap_mode = 2
-tonemap_exposure = 0.7
+ssao_enabled = true
+ssao_radius = 2.0
+ssao_intensity = 3.0
+ssil_enabled = true
+glow_enabled = true
 adjustment_enabled = true
+adjustment_brightness = 1.15
+adjustment_contrast = 0.8
+adjustment_saturation = 0.9
 
 [sub_resource type="Gradient" id="Gradient_k125l"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -88,7 +120,7 @@ noise = SubResource("FastNoiseLite_5qlt3")
 [sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_qrd22"]
 _shader_parameters = {
 &"bias_distance": 512.0,
-&"blend_sharpness": 0.87,
+&"blend_sharpness": 1.0,
 &"depth_blur": 0.0,
 &"enable_macro_variation": true,
 &"enable_projection": true,
@@ -105,7 +137,7 @@ _shader_parameters = {
 &"noise_texture": SubResource("NoiseTexture2D_mj2jh"),
 &"projection_angular_division": 2.0,
 &"projection_threshold": 0.8,
-&"world_space_normal_blend": true
+&"world_space_normal_blend": false
 }
 world_background = 0
 texture_filtering = 1
@@ -124,11 +156,56 @@ gradient = SubResource("Gradient_ehk3l")
 [sub_resource type="Gradient" id="Gradient_g2sps"]
 resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.168224, 0.180685, 0.632399, 0.641745, 0.94081, 0.956386, 1)
-colors = PackedColorArray(0.717647, 0.741176, 0.258824, 1, 0.717647, 0.741176, 0.258824, 1, 0.478197, 0.660584, 0.188884, 1, 0.475156, 0.657809, 0.187325, 1, 0.413048, 0.601117, 0.155473, 1, 0.370599, 0.541182, 0.137555, 1, 0.222029, 0.33141, 0.0748434, 1, 0.222029, 0.33141, 0.0748434, 1)
+colors = PackedColorArray(0.658824, 0.792157, 0.345098, 1, 0.658824, 0.792157, 0.345098, 1, 0.458824, 0.654902, 0.262745, 1, 0.458824, 0.654902, 0.262745, 1, 0.27451, 0.509804, 0.196078, 1, 0.27451, 0.509804, 0.196078, 1, 0.145098, 0.337255, 0.180392, 1, 0.145098, 0.337255, 0.180392, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_u2oii"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_g2sps")
+
+[sub_resource type="Gradient" id="Gradient_7ty4u"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.180685, 0.632399, 0.641745, 0.94081, 0.956386, 1)
+colors = PackedColorArray(0.658824, 0.792157, 0.345098, 1, 0.658824, 0.792157, 0.345098, 1, 0.458824, 0.654902, 0.262745, 1, 0.458824, 0.654902, 0.262745, 1, 0.27451, 0.509804, 0.196078, 1, 0.27451, 0.509804, 0.196078, 1, 0.145098, 0.337255, 0.180392, 1, 0.145098, 0.337255, 0.180392, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6kfxr"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_7ty4u")
+
+[sub_resource type="Gradient" id="Gradient_vhx68"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.180685, 0.632399, 0.641745, 0.94081, 0.956386, 1)
+colors = PackedColorArray(0.658824, 0.792157, 0.345098, 1, 0.658824, 0.792157, 0.345098, 1, 0.458824, 0.654902, 0.262745, 1, 0.458824, 0.654902, 0.262745, 1, 0.27451, 0.509804, 0.196078, 1, 0.27451, 0.509804, 0.196078, 1, 0.145098, 0.337255, 0.180392, 1, 0.145098, 0.337255, 0.180392, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tvlrs"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_vhx68")
+
+[sub_resource type="Gradient" id="Gradient_u2oii"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.180685, 0.632399, 0.641745, 0.94081, 0.956386, 1)
+colors = PackedColorArray(0.717647, 0.741176, 0.258824, 1, 0.717647, 0.741176, 0.258824, 1, 0.478197, 0.660584, 0.188884, 1, 0.475156, 0.657809, 0.187325, 1, 0.413048, 0.601117, 0.155473, 1, 0.370599, 0.541182, 0.137555, 1, 0.222029, 0.33141, 0.0748434, 1, 0.222029, 0.33141, 0.0748434, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0tgxd"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_u2oii")
+
+[sub_resource type="Gradient" id="Gradient_4lbhs"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.180685, 0.632399, 0.641745, 0.94081, 0.956386, 1)
+colors = PackedColorArray(0.658824, 0.792157, 0.345098, 1, 0.658824, 0.792157, 0.345098, 1, 0.458824, 0.654902, 0.262745, 1, 0.458824, 0.654902, 0.262745, 1, 0.27451, 0.509804, 0.196078, 1, 0.27451, 0.509804, 0.196078, 1, 0.145098, 0.337255, 0.180392, 1, 0.145098, 0.337255, 0.180392, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hamar"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_4lbhs")
+
+[sub_resource type="Gradient" id="Gradient_0heij"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.180685, 0.632399, 0.641745, 0.94081, 0.956386, 1)
+colors = PackedColorArray(0.658824, 0.792157, 0.345098, 1, 0.658824, 0.792157, 0.345098, 1, 0.458824, 0.654902, 0.262745, 1, 0.458824, 0.654902, 0.262745, 1, 0.27451, 0.509804, 0.196078, 1, 0.27451, 0.509804, 0.196078, 1, 0.145098, 0.337255, 0.180392, 1, 0.145098, 0.337255, 0.180392, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_miw07"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_0heij")
 
 [sub_resource type="Gradient" id="Gradient_758kt"]
 resource_local_to_scene = true
@@ -139,6 +216,24 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.82179, 0.821788,
 resource_local_to_scene = true
 gradient = SubResource("Gradient_758kt")
 
+[sub_resource type="Gradient" id="Gradient_e6aum"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.138833, 0.269618, 0.511066, 0.861167, 0.991952)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.82179, 0.821788, 0.821788, 1, 0.786667, 0.786667, 0.786667, 1, 0.597176, 0.597176, 0.597176, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_v2cpx"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_e6aum")
+
+[sub_resource type="Gradient" id="Gradient_v2cpx"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.138833, 0.269618, 0.511066, 0.861167, 0.991952)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.82179, 0.821788, 0.821788, 1, 0.786667, 0.786667, 0.786667, 1, 0.597176, 0.597176, 0.597176, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ae06m"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_v2cpx")
+
 [sub_resource type="Gradient" id="Gradient_40g6u"]
 resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.264798, 0.457944, 0.641745, 0.861167, 0.991952)
@@ -148,14 +243,23 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.82179, 0.821788,
 resource_local_to_scene = true
 gradient = SubResource("Gradient_40g6u")
 
-[sub_resource type="Gradient" id="Gradient_kdpg5"]
+[sub_resource type="Gradient" id="Gradient_f4kyh"]
 resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.264798, 0.457944, 0.641745, 0.861167, 0.991952)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.82179, 0.821788, 0.821788, 1, 0.786667, 0.786667, 0.786667, 1, 0.597176, 0.597176, 0.597176, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_g2sps"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7ty4u"]
 resource_local_to_scene = true
-gradient = SubResource("Gradient_kdpg5")
+gradient = SubResource("Gradient_f4kyh")
+
+[sub_resource type="Gradient" id="Gradient_ae06m"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.127726, 0.146417, 0.784946, 0.995976)
+colors = PackedColorArray(0.786667, 0.786667, 0.786667, 1, 0.817956, 0.817956, 0.817956, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f4kyh"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_ae06m")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ide7"]
 resource_name = "colormap"
@@ -304,7 +408,7 @@ void fragment() {
 	ALPHA = clamp((alpha_mask) * 5., 0., 1.);
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vbamh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e6aum"]
 render_priority = 0
 shader = SubResource("Shader_k125l")
 shader_parameter/shadows_enabled = true
@@ -314,18 +418,21 @@ shader_parameter/highlight_strength = 0.5
 shader_parameter/highlight_color = Color(1, 1, 1, 1)
 shader_parameter/shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5qlt3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_40g6u"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_vbamh")
+next_pass = SubResource("ShaderMaterial_e6aum")
 shader = ExtResource("4_xs314")
-shader_parameter/albedo_color = Color(0.733005, 0.733005, 0.733005, 1)
+shader_parameter/albedo_color = Color(0.631373, 0.6, 0.54902, 1)
 shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/Use_fake_ambient_light = true
+shader_parameter/fake_ambient_light = Color(0.500208, 0.470353, 0.421781, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/use_repeat_nearest_texture = true
-shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_scale = Vector2(0.1, 0.1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 3
+shader_parameter/cuts = 1
 shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true
@@ -338,6 +445,7 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.05
+shader_parameter/billboard = false
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
@@ -425,7 +533,10 @@ next_pass = SubResource("ShaderMaterial_cjd6h")
 shader = ExtResource("4_xs314")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
 shader_parameter/disable_ambient_light = false
+shader_parameter/Use_fake_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.505344, 0.505344, 0.505344, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_texture_repeat_nearest = ExtResource("6_xs314")
 shader_parameter/albedo_texture_clamp_linear = ExtResource("6_xs314")
@@ -446,6 +557,7 @@ shader_parameter/use_ramp = false
 shader_parameter/ramp = SubResource("GradientTexture2D_qrd22")
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.05
+shader_parameter/billboard = false
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
@@ -456,7 +568,10 @@ next_pass = SubResource("ShaderMaterial_cjd6h")
 shader = ExtResource("4_xs314")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
 shader_parameter/disable_ambient_light = false
+shader_parameter/Use_fake_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
@@ -474,6 +589,7 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.05
+shader_parameter/billboard = false
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
@@ -485,110 +601,6 @@ size = Vector3(100, 1, 100)
 diffuse_mode = 3
 specular_mode = 1
 albedo_color = Color(0.227127, 0.405168, 0.28881, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h33xh"]
-resource_name = "grass"
-albedo_color = Color(0.45234, 0.929502, 0.865877, 1)
-metallic = 1.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k3ggl"]
-resource_name = "dirt"
-albedo_color = Color(0.948242, 0.744326, 0.619001, 1)
-metallic = 1.0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_ftdnu"]
-_surfaces = [{
-"aabb": AABB(-0.0848892, 0.176792, -0.0848892, 0.169778, 1e-05, 0.169778),
-"format": 34896613377,
-"index_count": 15,
-"index_data": PackedByteArray("AAABAAIAAgADAAAAAwAEAAAABAAFAAAABAAGAAUA"),
-"name": "grass",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 7,
-"vertex_data": PackedByteArray("WYUAAP//AAAAAAAArE8AAAAAAAAAAAAAUCkAAAAAAAD//wAABD4AAGexAAD//wAA//8AAMReAAA=")
-}, {
-"aabb": AABB(-0.1804, 1.12799e-17, -0.1804, 0.3608, 0.176792, 0.3608),
-"format": 34896613377,
-"index_count": 57,
-"index_data": PackedByteArray("AAABAAIAAgADAAAAAQAAAAQAAwACAAUABQACAAEABQAGAAMABAAHAAEAAQAHAAUABwAEAAgABgAFAAkABwAJAAUACQAKAAYACwAKAAkABwAMAAkACAAMAAcACQANAAsACAALAA0ADAANAAkADQAMAAgA"),
-"name": "dirt",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 14,
-"vertex_data": PackedByteArray("xEP//0JpAAAAAAAA/38AAAAAAAAAAAAAxEP//8RDAACDgv//OrwAAM1gAAAAAAAANVf//8RDAADNYAAA//8AAD+X//86vAAA//8AAP0tAAA6vP//82AAADq8//9ccAAAmsEAAP//AAD//wAA/38AAA==")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_3gunc"]
-resource_name = "rock_smallB_Mesh rock_smallB"
-_surfaces = [{
-"aabb": AABB(-0.0848892, 0.176792, -0.0848892, 0.169778, 1e-05, 0.169778),
-"attribute_data": PackedByteArray("WYX//wAAR3gAAPQ6UCn0Ov//sWpnsf/////mgw=="),
-"format": 34896613399,
-"index_count": 15,
-"index_data": PackedByteArray("AAABAAIAAgADAAAAAwAEAAAABAAFAAAABAAGAAUA"),
-"material": SubResource("StandardMaterial3D_h33xh"),
-"name": "grass",
-"primitive": 3,
-"uv_scale": Vector4(6.68419, 8.68419, 0, 0),
-"vertex_count": 7,
-"vertex_data": PackedByteArray("WYUAAP///78AAAAArE//vwAAAAAAAP+/UCkAAAAA/7///wAABD7/v2exAAD///+///8AAMRe/7////9//v//f////3////9/////f////3////9/")
-}, {
-"aabb": AABB(-0.1804, 1.12799e-17, -0.1804, 0.3608, 0.176792, 0.3608),
-"attribute_data": PackedByteArray("QmkmSP9/IMUAACDFxEMmSI6xWj1F01S6yjJUuodJWj06vCZI//8gxTGfIMXJqCZIP5cmSJrBIMXNYCDFhIImSDGfmB///5gf///LjzGf//8AAOhHZD7//wAAy48VuLu/sCm7vwtUwUJyqMFCAdIgxf9/IMWijyZIC58mSOa3ckJ+wWy/yhtsv8BOckI="),
-"format": 34896613399,
-"index_count": 57,
-"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAEwAUABAAEwAVABQAFQAWABQAFwAYABkAGQAaABcAGwAcAB0AHQAeABsAHwAgACEAIQAiAB8A"),
-"material": SubResource("StandardMaterial3D_k3ggl"),
-"name": "dirt",
-"primitive": 3,
-"uv_scale": Vector4(14.2047, 16.2047, 0, 0),
-"vertex_count": 35,
-"vertex_data": PackedByteArray("xEP//0JpcsIAAAAA/39ywgAAAAAAAHLCxEP//8RDcsKDgv//OrxXqs1gAAD//1eqAAAAAP9/V6rEQ///QmlXqsRD///EQ///AAAAAAAA///NYAAAAAD//zVX///EQ///P5f//zq8LZSawQAA//8tlM1gAAD//y2Ug4L//zq8LZTNYAAAAAD//wAAAAAAAP//AAAAAP9////NYAAA////////AAD9Lf//msEAAP///////wAA/3//////AAD/f1qxmsEAAP//WrE/l///OrxasTq8//9ccFqx//8AAP0tcsL//wAA/39ywjq8//9ccHLCOrz///NgcsI1V///xEPj9M1gAAAAAOP0//8AAP0t4/Q6vP//82Dj9H6VAdV+lQHVfpUB1X6VAdXwpK3I8KStyPCkrcjwpK3I/38p5v9/Keb/fynm/38p5v///3////9/////f////3//f/8//3//P/9//z//f/8//3//P/9//z//f/8/xLI+H8SyPh/Esj4fxLI+H/yqfhX8qn4V/Kp+FfyqfhWrnI4Dq5yOA6ucjgOrnI4D")
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_ftdnu")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ehk3l"]
-render_priority = 0
-shader = ExtResource("3_sn2ok")
-shader_parameter/shadows_enabled = true
-shader_parameter/highlights_enabled = true
-shader_parameter/shadow_strength = 0.7
-shader_parameter/highlight_strength = 0.5
-shader_parameter/highlight_color = Color(1, 1, 1, 1)
-shader_parameter/shadow_color = Color(0, 0, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v2cpx"]
-render_priority = 0
-next_pass = SubResource("ShaderMaterial_ehk3l")
-shader = ExtResource("4_xs314")
-shader_parameter/albedo_color = Color(1, 1, 1, 1)
-shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
-shader_parameter/use_repeat_nearest_texture = true
-shader_parameter/albedo_texture_repeat_nearest = ExtResource("13_cjd6h")
-shader_parameter/albedo_texture_clamp_linear = ExtResource("13_cjd6h")
-shader_parameter/albedo_uv_scale = Vector2(0.03, 0.03)
-shader_parameter/albedo_uv_offset = Vector2(0, 0)
-shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 3
-shader_parameter/wrap = 0.0
-shader_parameter/steepness = 1.0
-shader_parameter/use_attenuation = true
-shader_parameter/use_specular = false
-shader_parameter/specular_strength = 1.0
-shader_parameter/specular_shininess = 16.0
-shader_parameter/use_rim = false
-shader_parameter/rim_width = 8.0
-shader_parameter/rim_color = Color(1, 1, 1, 1)
-shader_parameter/use_ramp = false
-shader_parameter/use_borders = false
-shader_parameter/border_width = 0.05
-shader_parameter/normal_rotation_pitch = 0.0
-shader_parameter/normal_rotation_yaw = 0.0
-shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tssln"]
 resource_name = "woodBark"
@@ -653,6 +665,51 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_jmwba")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r56na"]
+render_priority = 0
+shader = ExtResource("3_sn2ok")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.8
+shader_parameter/highlight_strength = 0.4
+shader_parameter/highlight_color = Color(0.764221, 0.573364, 0.327441, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ae06m"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_r56na")
+shader = ExtResource("4_xs314")
+shader_parameter/albedo_color = Color(0.654902, 0.482353, 0.356863, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/Use_fake_ambient_light = true
+shader_parameter/fake_ambient_light = Color(0.38716, 0.270891, 0.185457, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 1
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/billboard = false
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvlrs"]
+albedo_color = Color(0.752941, 0.580392, 0.45098, 1)
 
 [sub_resource type="Shader" id="Shader_mj2jh"]
 code = "shader_type spatial;
@@ -964,14 +1021,14 @@ void light() {
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_vhx68")
 shader = SubResource("Shader_tvlrs")
-shader_parameter/albedo_color = Color(0.654597, 0.448161, 0.219257, 1)
+shader_parameter/albedo_color = Color(0.683875, 0.470223, 0.233984, 1)
 shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
 shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 3
+shader_parameter/cuts = 1
 shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true
@@ -987,9 +1044,6 @@ shader_parameter/border_width = 0.05
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvlrs"]
-albedo_color = Color(0.422408, 0.338827, 0.169411, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_euoj6"]
 resource_name = "_defaultMat"
@@ -1068,14 +1122,17 @@ shader_parameter/shadow_color = Color(0, 0, 0, 1)
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_k125l")
 shader = ExtResource("4_xs314")
-shader_parameter/albedo_color = Color(0.825417, 0.726694, 0.506327, 1)
+shader_parameter/albedo_color = Color(0.752941, 0.580392, 0.45098, 1)
 shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/Use_fake_ambient_light = true
+shader_parameter/fake_ambient_light = Color(0.905882, 0.835294, 0.701961, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 3
+shader_parameter/cuts = 1
 shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true
@@ -1088,6 +1145,7 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.05
+shader_parameter/billboard = false
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
@@ -1096,14 +1154,17 @@ shader_parameter/normal_rotation_roll = 0.0
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_k125l")
 shader = ExtResource("4_xs314")
-shader_parameter/albedo_color = Color(0.660397, 0.121443, 0.339702, 1)
+shader_parameter/albedo_color = Color(0.647059, 0.188235, 0.188235, 1)
 shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/Use_fake_ambient_light = true
+shader_parameter/fake_ambient_light = Color(0.843137, 0.709804, 0.580392, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 3
+shader_parameter/cuts = 1
 shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true
@@ -1116,6 +1177,7 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.05
+shader_parameter/billboard = false
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
@@ -1210,36 +1272,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_uvikk")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_r56na"]
-render_priority = 0
-next_pass = SubResource("ShaderMaterial_ehk3l")
-shader = ExtResource("4_xs314")
-shader_parameter/albedo_color = Color(1, 1, 1, 1)
-shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
-shader_parameter/use_repeat_nearest_texture = true
-shader_parameter/albedo_texture_repeat_nearest = ExtResource("13_43w36")
-shader_parameter/albedo_texture_clamp_linear = ExtResource("13_43w36")
-shader_parameter/albedo_uv_scale = Vector2(0.03, 0.03)
-shader_parameter/albedo_uv_offset = Vector2(0, 0)
-shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 3
-shader_parameter/wrap = 0.0
-shader_parameter/steepness = 1.0
-shader_parameter/use_attenuation = true
-shader_parameter/use_specular = false
-shader_parameter/specular_strength = 1.0
-shader_parameter/specular_shininess = 16.0
-shader_parameter/use_rim = false
-shader_parameter/rim_width = 8.0
-shader_parameter/rim_color = Color(1, 1, 1, 1)
-shader_parameter/use_ramp = false
-shader_parameter/use_borders = false
-shader_parameter/border_width = 0.05
-shader_parameter/normal_rotation_pitch = 0.0
-shader_parameter/normal_rotation_yaw = 0.0
-shader_parameter/normal_rotation_roll = 0.0
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mj2jh"]
 render_priority = 0
 shader = ExtResource("3_sn2ok")
@@ -1254,11 +1286,15 @@ shader_parameter/shadow_color = Color(0, 0, 0, 1)
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_mj2jh")
 shader = ExtResource("4_xs314")
-shader_parameter/albedo_color = Color(0.516496, 0.625305, 0.289334, 1)
+shader_parameter/albedo_color = Color(0.698039, 0.705882, 0.494118, 1)
 shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/Use_fake_ambient_light = false
+shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/use_repeat_nearest_texture = true
-shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_texture_repeat_nearest = ExtResource("13_cjd6h")
+shader_parameter/albedo_uv_scale = Vector2(0.1, 0.1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
 shader_parameter/cuts = 1
@@ -1274,6 +1310,7 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = true
 shader_parameter/border_width = 2.0
+shader_parameter/billboard = false
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
@@ -1284,7 +1321,10 @@ next_pass = SubResource("ShaderMaterial_mj2jh")
 shader = ExtResource("4_xs314")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
 shader_parameter/disable_ambient_light = false
+shader_parameter/Use_fake_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_texture_repeat_nearest = ExtResource("7_vqh6h")
 shader_parameter/albedo_texture_clamp_linear = ExtResource("7_vqh6h")
@@ -1304,6 +1344,7 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = true
 shader_parameter/border_width = 2.0
+shader_parameter/billboard = false
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
@@ -1314,7 +1355,10 @@ next_pass = SubResource("ShaderMaterial_mj2jh")
 shader = ExtResource("4_xs314")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
 shader_parameter/disable_ambient_light = false
+shader_parameter/Use_fake_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
@@ -1332,6 +1376,7 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = true
 shader_parameter/border_width = 2.0
+shader_parameter/billboard = false
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
@@ -1342,7 +1387,10 @@ next_pass = SubResource("ShaderMaterial_mj2jh")
 shader = ExtResource("4_xs314")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
 shader_parameter/disable_ambient_light = false
+shader_parameter/Use_fake_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
@@ -1360,6 +1408,7 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = true
 shader_parameter/border_width = 2.0
+shader_parameter/billboard = false
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
@@ -1401,13 +1450,26 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_enrhj")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ehk3l"]
+render_priority = 0
+shader = ExtResource("3_sn2ok")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.7
+shader_parameter/highlight_strength = 0.5
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7p7qj"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_ehk3l")
 shader = ExtResource("4_xs314")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
 shader_parameter/disable_ambient_light = false
+shader_parameter/Use_fake_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.172833, 0.172833, 0.172833, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_texture_repeat_nearest = ExtResource("12_k3s4d")
 shader_parameter/albedo_texture_clamp_linear = ExtResource("12_k3s4d")
@@ -1427,6 +1489,7 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.05
+shader_parameter/billboard = false
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
@@ -1437,7 +1500,10 @@ next_pass = SubResource("ShaderMaterial_ehk3l")
 shader = ExtResource("4_xs314")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
 shader_parameter/disable_ambient_light = false
+shader_parameter/Use_fake_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_texture_repeat_nearest = ExtResource("13_43w36")
 shader_parameter/albedo_texture_clamp_linear = ExtResource("13_43w36")
@@ -1457,24 +1523,36 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.05
+shader_parameter/billboard = false
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_40g6u"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v2cpx"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_vbamh")
+shader = SubResource("Shader_k125l")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.7
+shader_parameter/highlight_strength = 0.5
+shader_parameter/highlight_color = Color(0.76, 0.76, 0.76, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4lbhs"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_v2cpx")
 shader = ExtResource("4_xs314")
-shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/albedo_color = Color(0.552394, 0.521364, 0.470905, 1)
 shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/Use_fake_ambient_light = true
+shader_parameter/fake_ambient_light = Color(0.361692, 0.337345, 0.297706, 1)
+shader_parameter/use_emission = true
+shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/use_repeat_nearest_texture = true
-shader_parameter/albedo_texture_repeat_nearest = ExtResource("13_43w36")
-shader_parameter/albedo_texture_clamp_linear = ExtResource("13_43w36")
-shader_parameter/albedo_uv_scale = Vector2(1.5, 1.5)
+shader_parameter/albedo_uv_scale = Vector2(0.1, 0.1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 3
+shader_parameter/cuts = 1
 shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true
@@ -1487,6 +1565,7 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.05
+shader_parameter/billboard = false
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
@@ -1522,8 +1601,23 @@ step = 1.0
 
 [node name="SubViewport" type="SubViewport" parent="."]
 handle_input_locally = false
-size = Vector2i(480, 270)
+size = Vector2i(990, 540)
 render_target_update_mode = 4
+
+[node name="Water" type="Node3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.172949, 0)
+
+[node name="WaterFloor" type="MeshInstance3D" parent="SubViewport/Water"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 21.7495, -0.867263, -15.8074)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_5qlt3")
+surface_material_override/0 = SubResource("StandardMaterial3D_mj2jh")
+
+[node name="Water" type="MeshInstance3D" parent="SubViewport/Water"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 21.7252, -0.693817, -15.8262)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_mj2jh")
+surface_material_override/0 = SubResource("ShaderMaterial_6kfxr")
 
 [node name="WeatherController" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("_lightDirectionNode", "_dayLight", "_cloudsMesh", "_lightShafts", "_cycleDurationTimer", "_cycleState", "_cycleProgress")]
 script = ExtResource("1_40g6u")
@@ -1536,7 +1630,7 @@ _cycleState = NodePath("../../CanvasLayer/HBoxContainer/cycleStateLabel")
 _cycleProgress = NodePath("../../CanvasLayer/HBoxContainer/DayCyleProgressBar")
 
 [node name="LightDirection" type="Node3D" parent="SubViewport/WeatherController"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.817283, -0.497722, 0.290381, 0.397131, 0.851651, 0.34202, -0.417534, -0.164208, 0.893701, 0, 11.1071, 0)
 
 [node name="DayLight" type="DirectionalLight3D" parent="SubViewport/WeatherController/LightDirection"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
@@ -1547,43 +1641,32 @@ directional_shadow_split_1 = 0.9
 directional_shadow_split_2 = 1.0
 
 [node name="Clouds" type="MeshInstance3D" parent="SubViewport/WeatherController/LightDirection"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 43.3953, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 29.0076, 0)
 mesh = SubResource("QuadMesh_k125l")
 skeleton = NodePath("")
 
 [node name="SunLightShafts" type="Node3D" parent="SubViewport/WeatherController/LightDirection"]
-transform = Transform3D(0.999567, 0.0294394, 0, -0.0294394, 0.999567, 0, 0, 0, 1, 0, 0.10347, 3.32289)
+transform = Transform3D(0.999567, 0.0294394, 0, -0.0294394, 0.999567, 0, 0, 0, 1, 0, -4.14621, 3.32289)
+visible = false
 
 [node name="LightShaft1" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
 transform = Transform3D(0.438639, -0.0165333, -0.898512, -0.0165333, 0.999513, -0.0264631, 0.898512, 0.0264631, 0.438151, -7.60134, 7.77862, 6.52081)
 _maxRadius = 2.0
 
-[node name="LightShaft6" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
-transform = Transform3D(1, 5.58794e-09, 0, -5.58794e-09, 1, 0, 0, 0, 1, -13.6769, 7.59968, -1.64853)
+[node name="LightShaft2" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
+transform = Transform3D(0.438639, -0.0165333, -0.898512, -0.0165333, 0.999513, -0.0264631, 0.898512, 0.0264631, 0.438151, 7.96388, 8.23705, 6.52081)
 _maxRadius = 2.0
 
 [node name="LightShaft3" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
-transform = Transform3D(0.744265, -0.00753193, 0.667842, -0.00753195, 0.999778, 0.0196694, -0.667842, -0.0196694, 0.744043, -2.0448, 7.68517, 5.71953)
-_maxRadius = 2.0
-
-[node name="LightShaft5" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
-transform = Transform3D(0.897832, -0.00300906, -0.440328, -0.00300908, 0.999911, -0.0129686, 0.440328, 0.0129686, 0.897743, 4.6682, 7.80476, 6.98418)
-_maxRadius = 2.0
-
-[node name="LightShaft7" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
-transform = Transform3D(0.500433, -0.0147133, -0.86565, -0.0147133, 0.999567, -0.0254953, 0.86565, 0.0254953, 0.5, 2.51446, 7.74133, -3.54155)
-_maxRadius = 2.0
-
-[node name="LightShaft8" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
-transform = Transform3D(1, 9.31323e-09, 0, -9.31323e-09, 1, 0, 0, 0, 1, 14.6374, 8.09838, 6.98418)
+transform = Transform3D(0.438639, -0.0165333, -0.898512, -0.0165333, 0.999513, -0.0264631, 0.898512, 0.0264631, 0.438151, -0.202107, 7.99654, 6.52081)
 _maxRadius = 2.0
 
 [node name="CycleDurationTimer" type="Timer" parent="SubViewport/WeatherController/LightDirection"]
 wait_time = 4.0
 one_shot = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
-environment = SubResource("Environment_642rp")
+[node name="WorldEnvironmentBKUP" type="WorldEnvironment" parent="SubViewport"]
+environment = SubResource("Environment_g2sps")
 
 [node name="CameraRigYaw" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.285, 55.2597)
@@ -1596,7 +1679,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0, -32.0503)
 projection = 1
 current = true
-size = 10.0
+size = 15.0
 far = 100.0
 script = ExtResource("1_3re8p")
 
@@ -1614,40 +1697,97 @@ metadata/_edit_lock_ = true
 
 [node name="Trees" type="Node3D" parent="SubViewport"]
 
-[node name="TreeSingleLeafGPUParticule" parent="SubViewport/Trees" instance=ExtResource("24_mj2jh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.10217, 0, -1.61703)
-_mainParticuleColor = Color(0.479593, 0.5833, 0.251906, 1)
-
 [node name="TreeMultiLeafGPUParticule" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.56689, 0, 5.7899)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.56689, 0, 6.87558)
+_totalParticulesCount = 300
 _colorShadingRamp = SubResource("GradientTexture1D_kdpg5")
 _colorShadingDirection = Vector3(-1, 0, 0)
 
 [node name="TreeMultiLeafGPUParticule5" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.22415, 0, 3.63185)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_internalMeshColorAdjust = Color(0.415146, 0.639314, 0.220815, 1)
+_totalParticulesCount = 300
+_internalMeshColorAdjust = Color(0.737193, 0.737193, 0.737193, 1)
 _colorShadingRamp = SubResource("GradientTexture1D_u2oii")
 _colorShadingDirection = Vector3(1, 0, 0)
 _colorSpread = 0.85
 _colorNoise = 0.48
 
+[node name="TreeMultiLeafGPUParticule14" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.61736, 0, -2.32522)
+_totalParticulesCount = 300
+_internalMeshColorAdjust = Color(0.695503, 0.695503, 0.695503, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_6kfxr")
+_colorShadingDirection = Vector3(1, 0, 0)
+_colorSpread = 0.85
+_colorNoise = 0.48
+
+[node name="TreeMultiLeafGPUParticule12" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+transform = Transform3D(0.999813, 0, -0.019337, 0, 1, 0, 0.019337, 0, 0.999813, 25.6573, 0, -20.8457)
+_totalParticulesCount = 300
+_internalMeshColorAdjust = Color(0.415146, 0.639314, 0.220815, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_tvlrs")
+_colorShadingDirection = Vector3(1, 0, 0)
+_colorSpread = 0.85
+_colorNoise = 0.48
+
+[node name="TreeMultiLeafGPUParticule7" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4805, 0, 0.734221)
+_totalParticulesCount = 300
+_colorShadingRamp = SubResource("GradientTexture1D_0tgxd")
+_colorShadingDirection = Vector3(1, 0, 0)
+_colorSpread = 0.85
+_colorNoise = 0.48
+
+[node name="TreeMultiLeafGPUParticule13" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4805, 0, -3.76369)
+_totalParticulesCount = 300
+_colorShadingRamp = SubResource("GradientTexture1D_hamar")
+_colorShadingDirection = Vector3(1, 0, 0)
+_colorSpread = 0.85
+_colorNoise = 0.48
+
+[node name="TreeMultiLeafGPUParticule8" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.43145, 0, -9.61499)
+_totalParticulesCount = 350
+_internalMeshColorAdjust = Color(0.415146, 0.639314, 0.220815, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_miw07")
+_colorShadingDirection = Vector3(1, 0, 0)
+_colorSpread = 0.85
+_colorNoise = 0.48
+
 [node name="TreeMultiLeafGPUParticule4" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.828, 0, -3.02557)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.828, 0, -1.19443)
+_totalParticulesCount = 300
 _colorShadingRamp = SubResource("GradientTexture1D_ehk3l")
 _colorShadingDirection = Vector3(1, 0, 0)
 
+[node name="TreeMultiLeafGPUParticule11" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.62122, 0, -4.81029)
+_totalParticulesCount = 300
+_colorShadingRamp = SubResource("GradientTexture1D_v2cpx")
+_colorShadingDirection = Vector3(1, 0, 0)
+
+[node name="TreeMultiLeafGPUParticule9" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+transform = Transform3D(0.999967, 0.00816805, 0, -0.00816805, 0.999967, 0, 0, 0, 1, 6.20814, 0, -7.73865)
+_totalParticulesCount = 350
+_colorShadingRamp = SubResource("GradientTexture1D_ae06m")
+_colorShadingDirection = Vector3(1, 0, 0)
+
 [node name="TreeMultiLeafGPUParticule2" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.43517, 0, 0.680903)
-_mainParticuleColor = Color(0.560809, 0.746622, 0.383887, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4171, 0, 0.680903)
+_totalParticulesCount = 300
 _colorShadingRamp = SubResource("GradientTexture1D_758kt")
 _colorShadingDirection = Vector3(1, 0, 0)
 
-[node name="TreeMultiLeafGPUParticule3" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
-transform = Transform3D(0.999703, 0, 0.0243624, 0, 1, 0, -0.0243624, 0, 0.999703, 5.12943, 0, 2.34746)
-_mainParticuleColor = Color(0.560809, 0.746622, 0.383887, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_g2sps")
+[node name="TreeMultiLeafGPUParticule10" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8289, 0, -20.5988)
+_totalParticulesCount = 300
+_colorShadingRamp = SubResource("GradientTexture1D_7ty4u")
 _colorShadingDirection = Vector3(1, 0, 0)
+
+[node name="TreeMultiLeafGPUParticule3" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.1974, 0, 5.02947)
+_colorShadingRamp = SubResource("GradientTexture1D_f4kyh")
 
 [node name="Objects" type="Node3D" parent="SubViewport"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
@@ -1656,31 +1796,37 @@ transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 transform = Transform3D(1.28229, 0, -0.778295, 0, 2.5, 0, 0.778295, 0, 1.28229, -2.86279, 0, -1.14953)
 mesh = SubResource("ArrayMesh_pfqju")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_5qlt3")
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="column3" type="MeshInstance3D" parent="SubViewport/Objects"]
-transform = Transform3D(1.28229, 0, -0.778295, 0, 2.5, 0, 0.778295, 0, 1.28229, 4.5803, 0, -0.739291)
+[node name="column6" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(1.28953, -0.124099, -0.76261, -0.109291, 2.43294, -0.327334, 0.758402, 0.561612, 1.24952, 18.4382, -0.774697, -8.37799)
 mesh = SubResource("ArrayMesh_pfqju")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_5qlt3")
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
+
+[node name="column7" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(-1.34292, -0.122019, -0.664244, -0.11716, 2.48945, 0.0722341, 0.657916, 0.194252, -1.34297, 12.669, -1.91455, -5.40182)
+mesh = SubResource("ArrayMesh_pfqju")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
 [node name="column4" type="MeshInstance3D" parent="SubViewport/Objects"]
-transform = Transform3D(0.261252, -2.4617, -0.012793, 1.41603, 0.423567, -0.424616, 0.420278, 0.103129, 1.43859, 2.91902, 0.0774911, 5.17429)
+transform = Transform3D(0.545642, -2.25785, -0.342119, 1.39471, 0.917014, 0.0456894, 0.0842252, -0.55787, 1.45975, 0.145774, -0.517706, 6.14948)
 mesh = SubResource("ArrayMesh_pfqju")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_5qlt3")
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
 [node name="column5" type="MeshInstance3D" parent="SubViewport/Objects"]
-transform = Transform3D(1.47951, 0.162505, -0.227065, -0.130438, 2.46464, -0.214905, 0.209884, 0.386189, 1.46706, -5.14799, -0.28354, 4.51027)
+transform = Transform3D(1.49119, 0.191439, -0.114698, -0.130438, 2.46464, -0.214905, 0.0966169, 0.372694, 1.48009, -5.14799, 0.147034, 4.51027)
 mesh = SubResource("ArrayMesh_pfqju")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_5qlt3")
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
 [node name="column2" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(0.786067, 4.09652e-08, -1.27754, 0.430569, 2.35373, 0.264928, 1.2028, -0.842574, 0.740077, -3.06114, -1.26268, 0.460001)
 mesh = SubResource("ArrayMesh_pfqju")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_5qlt3")
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
 [node name="tree_oak_dark2" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(2.41255, 0.0635232, 0.652358, -0.0613209, 2.49919, -0.0165813, -0.652568, 4.38434e-09, 2.41333, 3.74185, -0.0170122, 2.67663)
@@ -1697,19 +1843,12 @@ mesh = SubResource("BoxMesh_sn2ok")
 surface_material_override/0 = SubResource("StandardMaterial3D_pfqju")
 metadata/_edit_lock_ = true
 
-[node name="rock_smallB2" type="MeshInstance3D" parent="SubViewport/Objects"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -3.94076, -0.05, 1.96258)
-mesh = SubResource("ArrayMesh_3gunc")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_v2cpx")
-surface_material_override/1 = SubResource("ShaderMaterial_v2cpx")
-
 [node name="log_stack2" type="MeshInstance3D" parent="SubViewport/Objects"]
-transform = Transform3D(1.05185, 0, -1.0694, 0, 1.5, 0, 1.0694, 0, 1.05185, 1.98862, -0.0128242, 2.37321)
+transform = Transform3D(1.13138, 0, -0.98488, 0, 1.5, 0, 0.98488, 0, 1.13138, 1.98862, -0.0128242, 2.4818)
 layers = 524289
 mesh = SubResource("ArrayMesh_x3ngp")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_hamar")
+surface_material_override/0 = SubResource("ShaderMaterial_ae06m")
 surface_material_override/1 = SubResource("StandardMaterial3D_tvlrs")
 
 [node name="log_stack3" type="MeshInstance3D" parent="SubViewport/Objects"]
@@ -1721,11 +1860,11 @@ surface_material_override/0 = SubResource("ShaderMaterial_hamar")
 surface_material_override/1 = SubResource("StandardMaterial3D_tvlrs")
 
 [node name="log_stack4" type="MeshInstance3D" parent="SubViewport/Objects"]
-transform = Transform3D(1.05185, 0, -1.0694, 0, 1.5, 0, 1.0694, 0, 1.05185, 1.88976, 0.438791, 2.20169)
+transform = Transform3D(0.744825, 0, -1.30201, 0, 1.5, 0, 1.30201, 0, 0.744825, 1.88976, 0.438791, 2.20169)
 layers = 524289
 mesh = SubResource("ArrayMesh_x3ngp")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_hamar")
+surface_material_override/0 = SubResource("ShaderMaterial_ae06m")
 surface_material_override/1 = SubResource("StandardMaterial3D_tvlrs")
 
 [node name="log_stack5" type="MeshInstance3D" parent="SubViewport/Objects"]
@@ -1733,7 +1872,7 @@ transform = Transform3D(0.378079, 0, -1.45157, 0, 1.5, 0, 1.45157, 0, 0.378079, 
 layers = 524289
 mesh = SubResource("ArrayMesh_x3ngp")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_hamar")
+surface_material_override/0 = SubResource("ShaderMaterial_ae06m")
 surface_material_override/1 = SubResource("StandardMaterial3D_tvlrs")
 
 [node name="mushroom_redGroup8" type="MeshInstance3D" parent="SubViewport/Objects"]
@@ -1759,6 +1898,20 @@ surface_material_override/1 = SubResource("ShaderMaterial_7ty4u")
 
 [node name="mushroom_redGroup12" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(1.43363, 0.334812, 0.287442, -0.223046, 1.3929, -0.509996, -0.380752, 0.444687, 1.38105, -0.143542, 0.0261589, 2.32573)
+mesh = SubResource("ArrayMesh_ldpem")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_f4kyh")
+surface_material_override/1 = SubResource("ShaderMaterial_7ty4u")
+
+[node name="mushroom_redGroup15" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(1.43363, 0.334812, 0.287442, -0.223046, 1.3929, -0.509996, -0.380752, 0.444687, 1.38105, 7.68691, 0.0261589, -3.54887)
+mesh = SubResource("ArrayMesh_ldpem")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_f4kyh")
+surface_material_override/1 = SubResource("ShaderMaterial_7ty4u")
+
+[node name="mushroom_redGroup16" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.776802, -0.0748336, -1.28101, -0.357819, 1.42542, -0.30025, 1.2323, 0.461069, 0.720328, 8.07753, 0.0261589, -3.54887)
 mesh = SubResource("ArrayMesh_ldpem")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_f4kyh")
@@ -1790,15 +1943,23 @@ transform = Transform3D(-1.06539, -0.403894, 1.64372, -0.230121, 1.95876, 0.3321
 layers = 524289
 mesh = SubResource("ArrayMesh_655su")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_r56na")
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 surface_material_override/2 = SubResource("ShaderMaterial_bkwni")
 
-[node name="rock_tallG4" type="MeshInstance3D" parent="SubViewport/Objects"]
-transform = Transform3D(0.925623, -0.190156, 1.76269, -0.230121, 1.95876, 0.332149, -1.75792, -0.356539, 0.884655, -1.0937, -0.05, 1.79259)
+[node name="rock_tallG5" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(-1.06539, -0.403894, 1.64372, -0.230121, 1.95876, 0.332149, -1.6769, -0.0121935, -1.08989, -0.201293, -0.174626, 1.76223)
 layers = 524289
 mesh = SubResource("ArrayMesh_655su")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_r56na")
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
+surface_material_override/2 = SubResource("ShaderMaterial_bkwni")
+
+[node name="rock_tallG4" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.925623, -0.190156, 1.76269, -0.230121, 1.95876, 0.332149, -1.75792, -0.356539, 0.884655, -1.0937, -0.174626, 1.79259)
+layers = 524289
+mesh = SubResource("ArrayMesh_655su")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 surface_material_override/2 = SubResource("ShaderMaterial_bkwni")
 
 [node name="rock_tallG3" type="MeshInstance3D" parent="SubViewport/Objects"]
@@ -1827,6 +1988,18 @@ mesh = SubResource("ArrayMesh_2a7r4")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
+[node name="BolderRockv13" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(-0.0374072, 0.398247, 0, -0.398247, -0.0374072, 0, 0, 0, 0.4, 8.60689, -0.379058, -18.4058)
+mesh = SubResource("ArrayMesh_2a7r4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
+
+[node name="BolderRockv14" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(-0.00568406, 0.060514, -0.395355, -0.398247, -0.0374072, 0, -0.0369728, 0.393623, 0.0607804, 10.6029, -0.379058, -21.233)
+mesh = SubResource("ArrayMesh_2a7r4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
+
 [node name="BolderRockv10" type="MeshInstance3D" parent="SubViewport/Objects"]
 transform = Transform3D(-0.0443691, 0.339076, -0.364773, -0.0211613, -0.367171, -0.33873, -0.497578, -0.0146202, 0.0469325, -5.83393, 1.83686, 2.05941)
 mesh = SubResource("ArrayMesh_2a7r4")
@@ -1834,7 +2007,21 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
 [node name="BolderRockv11" type="MeshInstance3D" parent="SubViewport/Objects"]
-transform = Transform3D(-0.0109586, 0.981789, 0.189659, -0.0977015, 0.187711, -0.977353, -0.995156, -0.0292404, 0.0938651, -7.91817, 1.31537, -6.56126)
+transform = Transform3D(-0.0109586, 0.981789, 0.189659, -0.0977015, 0.187711, -0.977353, -0.995156, -0.0292404, 0.0938651, -7.27069, 1.31537, -6.56126)
+layers = 524289
+mesh = SubResource("ArrayMesh_2a7r4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
+
+[node name="BolderRockv15" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(-0.751292, 0.630154, 0.196131, 0.0848608, 0.386953, -0.918186, -0.654492, -0.673182, -0.34419, -2.47807, 0.69037, -7.2924)
+layers = 524289
+mesh = SubResource("ArrayMesh_2a7r4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
+
+[node name="BolderRockv12" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.0858894, 0.206015, 0.974772, -0.0478403, 0.978112, -0.202505, -0.995156, -0.0292404, 0.0938651, 5.95396, -3.7724, -16.151)
 layers = 524289
 mesh = SubResource("ArrayMesh_2a7r4")
 skeleton = NodePath("")
@@ -1846,12 +2033,51 @@ mesh = SubResource("ArrayMesh_2a7r4")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("6_seb0h")
 
+[node name="column-damaged3" parent="SubViewport/Objects" instance=ExtResource("21_758kt")]
+transform = Transform3D(1.12211, 0, -0.995419, -0.102546, 1.98936, -0.115598, 0.990123, 0.206036, 1.11614, 12.6758, 0.0176336, -8.92572)
+
+[node name="column-damaged" parent="SubViewport/Objects/column-damaged3" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
+
+[node name="lily_large2" parent="SubViewport/Objects" instance=ExtResource("1_ehk3l")]
+transform = Transform3D(3.333, 0, 0, 0, 6, 0, 0, 0, 3.333, 17.366, -0.23894, -5.22412)
+
+[node name="lily_large4" parent="SubViewport/Objects" instance=ExtResource("1_ehk3l")]
+transform = Transform3D(3.333, 0, 0, 0, 6, 0, 0, 0, 3.333, 15.9718, -0.231743, -5.72299)
+
+[node name="lily_large3" parent="SubViewport/Objects" instance=ExtResource("1_ehk3l")]
+transform = Transform3D(-1.13826, 0, 3.13261, 0, 6, 0, -3.13261, 0, -1.13826, 15.9653, -0.21873, -4.03481)
+
+[node name="overworldRocksBlend" parent="SubViewport/Objects" instance=ExtResource("23_kdpg5")]
+transform = Transform3D(-0.299799, 0, 0.0109774, 0, 0.1, 0, -0.0109774, 0, -0.299799, -8.13628, 7.603, 29.3987)
+
+[node name="tower-square-arch2" parent="SubViewport/Objects" instance=ExtResource("26_ehk3l")]
+transform = Transform3D(4.66667, 0, 0, 0, 3.33333, 0, 0, 0, 4.66667, 15.559, -3.19905, -11.0124)
+
+[node name="tower-square-arch" parent="SubViewport/Objects/tower-square-arch2" index="0"]
+transform = Transform3D(0.988292, 0, 0.152572, 0.00567862, 0.999307, -0.0367835, -0.152466, 0.0372193, 0.987608, 0.100822, 0.00454962, -0.054076)
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
+
+[node name="tower-hexagon-base2" parent="SubViewport/Objects" instance=ExtResource("27_kdpg5")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 14.145, -2.94751, -4.05122)
+
+[node name="tower-hexagon-base" parent="SubViewport/Objects/tower-hexagon-base2" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
+
+[node name="bridge" parent="SubViewport/Objects" instance=ExtResource("25_ehk3l")]
+transform = Transform3D(0.0619893, 0, -0.190151, 0, 0.3, 0, 0.190151, 0, 0.0619893, 9.24317, -0.212578, -7.95547)
+
+[node name="Cube_214" parent="SubViewport/Objects/bridge" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_4lbhs")
+
 [node name="Display" type="Control" parent="." node_paths=PackedStringArray("_viewport", "_mainRendereSprite")]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 961.0
+offset_bottom = 559.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.01507, 1.01103)
@@ -1866,12 +2092,23 @@ _mainRendereSprite = NodePath("Sprite2D")
 texture_filter = 2
 material = SubResource("ShaderMaterial_642rp")
 position = Vector2(0.985153, 3.95636)
-scale = Vector2(3.91804, 3.90508)
+scale = Vector2(2.94161, 2.94529)
 texture = SubResource("ViewportTexture_28obu")
 centered = false
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1.3, 0, 0, 0, 1.25523, 0.33824, 0, -0.33824, 1.25523, 0, 4.37075, -6.71695)
+transform = Transform3D(1.28635, -0.0488913, 0.181439, -0.0102962, 1.23501, 0.405788, -0.187628, -0.402963, 1.22165, -5.23934, 4.37075, -7.47451)
 visible = false
 texture_filter = 2
 texture = ExtResource("7_3m67x")
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform3D(1.07578, -0.189899, 0.704728, -0.0968953, 1.20696, 0.473146, -0.723404, -0.444065, 0.984632, -17.6942, 4.37075, -3.45255)
+visible = false
+texture_filter = 2
+texture = ExtResource("31_u2oii")
+
+[editable path="SubViewport/Objects/column-damaged3"]
+[editable path="SubViewport/Objects/tower-square-arch2"]
+[editable path="SubViewport/Objects/tower-hexagon-base2"]
+[editable path="SubViewport/Objects/bridge"]

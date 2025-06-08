@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bl6brqn5vhrmc"
-path="res://.godot/imported/Vol_16_2_Sand_Base_Color.png-dcb03690f259233addd89124514e77ca.ctex"
+uid="uid://blkbvukwdc3ix"
+path="res://.godot/imported/Water_2_Height.png-38c6a794d1258b030d8aeb1f2262518b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Temp/TempTestTerrain3D/2K/Vol_16_2_Sand_Base_Color.png"
-dest_files=["res://.godot/imported/Vol_16_2_Sand_Base_Color.png-dcb03690f259233addd89124514e77ca.ctex"]
+source_file="res://Temp/PixelProject/Assets/2D/Textures/Water_2_Height.png"
+dest_files=["res://.godot/imported/Water_2_Height.png-38c6a794d1258b030d8aeb1f2262518b.ctex"]
 
 [params]
 

@@ -3,23 +3,24 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ch4hc80dqpwc8"
-path="res://.godot/imported/Water_01_Blue_2_Height.png-be2156d420c8c33d8083943b91fa5180.ctex"
+path.s3tc="res://.godot/imported/Water_01_Blue_2_Height.png-be2156d420c8c33d8083943b91fa5180.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Temp/TempTestTerrain3D/256px/Water_01_Blue_2_Height.png"
-dest_files=["res://.godot/imported/Water_01_Blue_2_Height.png-be2156d420c8c33d8083943b91fa5180.ctex"]
+dest_files=["res://.godot/imported/Water_01_Blue_2_Height.png-be2156d420c8c33d8083943b91fa5180.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
@@ -31,4 +32,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

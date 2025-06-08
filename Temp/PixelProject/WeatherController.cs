@@ -11,7 +11,7 @@ public partial class WeatherController : Node3D
 
 	// [ExportToolButton("Reset Cycle")]
 	// public Callable ResetWeatherCycleBtn => Callable.From(ResetWeatherCycle);
-
+	[Export] private bool _isWeatherCycleActive { get; set; } = false;
 	[Export] private Node3D _lightDirectionNode { get; set; }
 	[Export] private DirectionalLight3D _dayLight { get; set; }
 	[Export] private DirectionalLight3D _nightLight { get; set; }
@@ -32,8 +32,6 @@ public partial class WeatherController : Node3D
 
 	private ShaderMaterial _cloudsMaterial { get; set; }
 
-
-
 	public BaseWeatherState CurrentWeatherState { get; set; }
 	// public Dictionary<int, BaseWeatherState> WeatherStates = new()
 	// {
@@ -45,8 +43,11 @@ public partial class WeatherController : Node3D
 
 	public Dictionary<int, BaseWeatherState> WeatherStates = new()
 	{
-		{ 0, new DayState() },
-		{ 1, new NightState() },
+		{ 0, new Sunrise() },
+		{ 1, new MiddayState() },
+		{ 2, new Daystate() },
+		{ 3, new SunsetState() },
+		{ 4, new NightState() },
 	};
 
 	//TODO:Steps to work on
@@ -60,12 +61,14 @@ public partial class WeatherController : Node3D
 		_cycleDurationTimer.Timeout += CycleDurationTimerTimeout;
 
 		CurrentWeatherState = WeatherStates[0];
-		StartCycle(CurrentWeatherState);
-
 		if (_cloudsMesh.Mesh.SurfaceGetMaterial(0) is ShaderMaterial cloudsMaterial)
 		{
 			_cloudsMaterial = cloudsMaterial;
 		}
+
+		if (!_isWeatherCycleActive) return;
+		StartCycle(CurrentWeatherState);
+		_lightShafts.Visible = true;
 		// StartWeatherStateCycle();
 	}
 
@@ -145,11 +148,11 @@ public partial class WeatherController : Node3D
 
 	public override void _Process(double delta)
 	{
-		if (CurrentWeatherState == null) return;
+		if (CurrentWeatherState == null || !_isWeatherCycleActive) return;
 		ManageState(CurrentWeatherState, (float)delta);
 
 		//DEBUG CODE ONLY
-		_cycleState.Text = CurrentWeatherState.ToString();
+		_cycleState.Text = CurrentWeatherState.GetType().ToString();
 		_cycleProgress.Value = _cycleDurationTimer.TimeLeft / _cycleDurationTimer.WaitTime * 100;
 	}
 
@@ -183,7 +186,7 @@ public partial class WeatherController : Node3D
 }
 
 
-public abstract class BaseWeatherState
+public abstract record BaseWeatherState
 {
 	public abstract float StateDuration { get; set; }
 	public abstract float DirXRotationStart { get; set; }
@@ -204,32 +207,78 @@ public abstract class BaseWeatherState
 }
 
 
-public class DayState : BaseWeatherState
+
+public record Sunrise : BaseWeatherState
 {
-	public override float StateDuration { get; set; } = 10.0f;
-	public override float DirXRotationStart { get; set; } = 30.0f;
-	public override float DirXRotationEnd { get; set; } = 0.0f;
-	public override float DirZRotationStart { get; set; } = 40.0f;
-	public override float DirZRotationEnd { get; set; } = 0.0f;
-	public override float ShaftsAlphaValueStart { get; set; } = 0.2f;
-	public override float ShaftsAlphaValueEnd { get; set; } = 0.6f;
-	public override float ShaftsRadiusValueStart { get; set; } = 1.5f;
-	public override float ShaftsRadiusValueEnd { get; set; } = 5.0f;
-	public override float CloudsValueStart { get; set; } = 0.25f;
+	public override float StateDuration { get; set; } = 5.0f;
+	public override float DirXRotationStart { get; set; } = 20.0f;
+	public override float DirXRotationEnd { get; set; } = 5.0f;
+	public override float DirZRotationStart { get; set; } = 30.0f;
+	public override float DirZRotationEnd { get; set; } = 5.0f;
+	public override float ShaftsAlphaValueStart { get; set; } = 0.1f;
+	public override float ShaftsAlphaValueEnd { get; set; } = 0.4f;
+	public override float ShaftsRadiusValueStart { get; set; } = 0.8f;
+	public override float ShaftsRadiusValueEnd { get; set; } = 3.5f;
+	public override float CloudsValueStart { get; set; } = 0.35f;
+	public override float CloudsValueEnd { get; set; } = 0.85f;
+}
+
+public record MiddayState : BaseWeatherState
+{
+	public override float StateDuration { get; set; } = 5.0f;
+	public override float DirXRotationStart { get; set; } = 4.9f;
+	public override float DirXRotationEnd { get; set; } = -12.0f;
+	public override float DirZRotationStart { get; set; } = 4.9f;
+	public override float DirZRotationEnd { get; set; } = -15.0f;
+	public override float ShaftsAlphaValueStart { get; set; } = 0.3f;
+	public override float ShaftsAlphaValueEnd { get; set; } = 0.05f;
+	public override float ShaftsRadiusValueStart { get; set; } = 3.4f;
+	public override float ShaftsRadiusValueEnd { get; set; } = 1.5f;
+	public override float CloudsValueStart { get; set; } = 0.86f;
 	public override float CloudsValueEnd { get; set; } = 1.0f;
 }
 
-public class NightState : BaseWeatherState
+public record Daystate : BaseWeatherState
+{
+	public override float StateDuration { get; set; } = 10.0f;
+	public override float DirXRotationStart { get; set; } = -12.0f;
+	public override float DirXRotationEnd { get; set; } = -20.0f;
+	public override float DirZRotationStart { get; set; } = -15.0f;
+	public override float DirZRotationEnd { get; set; } = -22.0f;
+	public override float ShaftsAlphaValueStart { get; set; } = 0.05f;
+	public override float ShaftsAlphaValueEnd { get; set; } = 0.05f;
+	public override float ShaftsRadiusValueStart { get; set; } = 1.5f;
+	public override float ShaftsRadiusValueEnd { get; set; } = 0.5f;
+	public override float CloudsValueStart { get; set; } = 1.0f;
+	public override float CloudsValueEnd { get; set; } = 0.9f;
+}
+
+public record SunsetState : BaseWeatherState
+{
+	public override float StateDuration { get; set; } = 5.0f;
+	public override float DirXRotationStart { get; set; } = -20.0f;
+	public override float DirXRotationEnd { get; set; } = -25.0f;
+	public override float DirZRotationStart { get; set; } = -22.0f;
+	public override float DirZRotationEnd { get; set; } = -30.0f;
+	public override float ShaftsAlphaValueStart { get; set; } = 0.15f;
+	public override float ShaftsAlphaValueEnd { get; set; } = 0.0f;
+	public override float ShaftsRadiusValueStart { get; set; } = 1.0f;
+	public override float ShaftsRadiusValueEnd { get; set; } = 0.0f;
+	public override float CloudsValueStart { get; set; } = 0.89f;
+	public override float CloudsValueEnd { get; set; } = 0.0f;
+}
+
+public record NightState : BaseWeatherState
 {
 	public override float StateDuration { get; set; } = 2.0f;
-	public override float DirXRotationStart { get; set; } = 0.0f;
-	public override float DirXRotationEnd { get; set; } = -30.0f;
-	public override float DirZRotationStart { get; set; } = 0.0f;
-	public override float DirZRotationEnd { get; set; } = -40.0f;
-	public override float ShaftsAlphaValueStart { get; set; } = 0.2f;
+	public override float DirXRotationStart { get; set; } = 30.0f;
+	public override float DirXRotationEnd { get; set; } = 30.0f;
+	public override float DirZRotationStart { get; set; } = 40.0f;
+	public override float DirZRotationEnd { get; set; } = 40.0f;
+	public override float ShaftsAlphaValueStart { get; set; } = 0.0f;
 	public override float ShaftsAlphaValueEnd { get; set; } = 0.0f;
-	public override float ShaftsRadiusValueStart { get; set; } = 3.0f;
-	public override float ShaftsRadiusValueEnd { get; set; } = 1.5f;
+	public override float ShaftsRadiusValueStart { get; set; } = 0.0f;
+	public override float ShaftsRadiusValueEnd { get; set; } = 0.0f;
 	public override float CloudsValueStart { get; set; } = 0.0f;
 	public override float CloudsValueEnd { get; set; } = 0.0f;
 }

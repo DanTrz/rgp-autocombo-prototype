@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://df4eyka0erqws"]
+
+[ext_resource type="Shader" uid="uid://md0oksqn1iqg" path="res://Temp/PixelProject/WaterShader.gdshader" id="1_mfl67"]
+[ext_resource type="Texture2D" uid="uid://dwju7eckq0ngo" path="res://Temp/PixelProject/WaterNoiseText.tres" id="2_lgx2c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i0871"]
+render_priority = 0
+shader = ExtResource("1_mfl67")
+shader_parameter/noise_texture = ExtResource("2_lgx2c")
+shader_parameter/water_color = Color(0.1, 0.4, 0.4, 1)
+shader_parameter/ripple_color = Color(1, 1, 1, 1)
+shader_parameter/wave_strength = 0.5
+shader_parameter/wave_speed = 0.05
+shader_parameter/water_transparency = 0.8
+shader_parameter/water_roughness = 1.0
+shader_parameter/water_depth_fade = 0.5
+shader_parameter/edge_size = 2.0
+shader_parameter/edge_intensity = 2.0
+shader_parameter/ripple_intensity = 0.6
+
+[sub_resource type="QuadMesh" id="QuadMesh_pxf76"]
+material = SubResource("ShaderMaterial_i0871")
+size = Vector2(10, 10)
+subdivide_width = 20
+subdivide_depth = 20
+orientation = 1
+
+[node name="Water" type="MeshInstance3D"]
+mesh = SubResource("QuadMesh_pxf76")

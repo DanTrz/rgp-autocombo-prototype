@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c84ir4n47xsow"
-path.s3tc="res://.godot/imported/Ref Image.png-35de0f3dacdaf2b286262a882f8c5b5c.s3tc.ctex"
+path="res://.godot/imported/Ref Image.png-35de0f3dacdaf2b286262a882f8c5b5c.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Temp/PixelProject/Assets/2D/Ref Image.png"
-dest_files=["res://.godot/imported/Ref Image.png-35de0f3dacdaf2b286262a882f8c5b5c.s3tc.ctex"]
+dest_files=["res://.godot/imported/Ref Image.png-35de0f3dacdaf2b286262a882f8c5b5c.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

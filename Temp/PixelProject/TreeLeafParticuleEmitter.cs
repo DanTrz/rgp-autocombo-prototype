@@ -13,7 +13,7 @@ public partial class TreeLeafParticuleEmitter : Node3D
 	[Export] GpuParticles3D _particleEmitter;
 	[Export] MeshInstance3D _treeMesh;
 
-	[Export] int _totalParticulesCount = 700;
+	[Export] int _totalParticulesCount = 500;
 	[Export] Color _mainParticuleColor = Colors.White; // Main particule color
 	[Export] Color _internalMeshColorAdjust = Colors.White; // Adjust for the mesh color(internal mesh color)
 	[Export] GradientTexture1D _colorShadingRamp; // Color shading and darken ramp for particle colors

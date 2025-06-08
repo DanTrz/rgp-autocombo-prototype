@@ -26,36 +26,36 @@ void vertex() {
 void fragment() {
 	// Horizontal movement along U-axis
 	vec2 movingNoiseUV = UV + vec2(TIME * speed * 0.1, 0.0);
-	
+
 	// Sample noise texture
 	vec4 noiseValue = texture(noise_texture, movingNoiseUV);
-	
+
 	// Horizontal noise-based offset for gradient
 	vec2 noiseOffset = vec2(noiseValue.r * noise_movement, 0.0);
 	vec2 gradientUV = UV + noiseOffset;
-	
+
 	// Sample gradient texture
 	vec4 finalGradient = texture(gradient, gradientUV);
-	
+
 	// Fresnel for rim effect
 	float fresnel = pow(1.0 - dot(normalize(NORMAL), normalize(VIEW)), rim_power);
 	float fade = fresnel;
-	
+
 	// Compute alpha
 	float noiseAlpha = noiseValue.r * finalGradient.a * alpha;
-	
+
 	// Compute final color
 	vec4 finalColor = vec4(finalGradient.rgb * emission.rgb, noiseAlpha);
-	
+
 	// Compute emission
 	EMISSION = finalColor.rgb * emission_energy;
-	
+
 	// Set material properties
 	ALBEDO = clamp(finalColor.rgb, vec3(0.0), vec3(1.0));
 	ALPHA = clamp(fade * noiseAlpha, 0.0, 1.0);
 	ROUGHNESS = 0.0;
 	SPECULAR = 0.0;
-	
+
 	// Debug mode to visualize UVs
 	// ALBEDO = vec3(UV.x, UV.y, 0.0);
 	// ALPHA = 1.0;

@@ -8,9 +8,13 @@ uniform vec4 albedo_color : source_color = vec4(1.0f);
 
 // Toggle simulated ambient manually
 uniform bool disable_ambient_light = false;
+uniform bool Use_fake_ambient_light = false;
 
 // Allows to compensate adding fake ambient like - I use to add contrast to shadows
-uniform vec3 fake_ambient_light: source_color = vec3(0.4f);
+uniform vec3 fake_ambient_light: source_color = vec3(1.0f);
+
+uniform bool use_emission = false;
+uniform vec3 emission_color : source_color = vec3(1.0);
 
 // Toggle between texture repeat/linear types at runtime
 uniform bool use_repeat_nearest_texture = true;
@@ -27,7 +31,7 @@ uniform vec2 albedo_uv_offset = vec2(0.0, 0.0);
 uniform bool clamp_diffuse_to_max = true;
 
 // Toon shading controls
-uniform int cuts : hint_range(1, 20) = 3; // Use 1 cut for more traditional ToonShading
+uniform int cuts : hint_range(1, 20) = 2; // Use 1 cut for more traditional ToonShading
 uniform float wrap : hint_range(-2.0f, 2.0f) = 0.0f;
 uniform float steepness : hint_range(1.0f, 8.0f) = 1.0f;
 uniform bool use_attenuation = true;
@@ -51,6 +55,8 @@ uniform sampler2D ramp : source_color;
 uniform bool use_borders = false;
 uniform float border_width = 0.05f;
 
+uniform bool billboard = false;
+
 // Euler rotation for normals
 uniform float normal_rotation_pitch : hint_range(-180.0, 180.0) = 0.0;
 uniform float normal_rotation_yaw : hint_range(-180.0, 180.0) = 0.0;
@@ -58,6 +64,7 @@ uniform float normal_rotation_roll : hint_range(-180.0, 180.0) = 0.0;
 
 varying vec3 vertex_pos;
 varying vec3 normal;
+varying vec3 world_billboard_normal;
 
 // Helper: Simulate toon specular edge
 float split_specular(float specular) {
@@ -101,6 +108,18 @@ vec3 rotate_vector_by_quat(vec3 v, vec4 q) {
 void vertex() {
 	vertex_pos = VERTEX;
 	normal = NORMAL;
+	
+		if(billboard)
+	{
+		mat4 billboard_modelview = VIEW_MATRIX * mat4(
+        INV_VIEW_MATRIX[0],
+        INV_VIEW_MATRIX[1],
+        INV_VIEW_MATRIX[2],
+        MODEL_MATRIX[3]
+	    );
+
+		MODELVIEW_MATRIX = billboard_modelview;
+	}
 }
 
 void fragment() {
@@ -155,13 +174,34 @@ void light() {
 	}
 
 	// Add ambient manually if render_mode ambient_light_disabled is used
-	vec3 ambient = disable_ambient_light ? vec3(0.0) : vec3(fake_ambient_light); // Replace with desired ambient color
+	vec3 ambient = vec3(1.0);
+	//ambient = disable_ambient_light ? vec3(0.0) : vec3(fake_ambient_light); // ORITINAL => Replace with desired ambient color
+	if(Use_fake_ambient_light)
+	{
+		ambient = fake_ambient_light; // Replace with desired ambient color
+	}
+	
+	if(disable_ambient_light)
+	{
+		ambient =  vec3(0.0) ; // Replace with desired ambient color
+	}
+	
+	if(Use_fake_ambient_light == false && disable_ambient_light == false)
+	{
+		ambient = albedo_color.rgb;
+	}
+	
 	diffuse += ambient;
 
 	if (clamp_diffuse_to_max) {
 		DIFFUSE_LIGHT = max(DIFFUSE_LIGHT, diffuse);
 	} else {
 		DIFFUSE_LIGHT += diffuse;
+	}
+	
+	if(use_emission)
+	{
+		DIFFUSE_LIGHT +=  ALBEDO * emission_color * LIGHT_COLOR * ATTENUATION * diffuse; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION;
 	}
 
 	// Specular

@@ -62,12 +62,12 @@ void vertex() {
     world_billboard_normal = transpose(mat3(MODELVIEW_MATRIX)) * vec3(0.0, 0.0, 1.0);
 		//Model Origin info for consistent lighting across the entire mesh (passed to LIGHT_VERTEX in the Fragment function)
 	modelOrigin = (MODELVIEW_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
-	
+
 	if(use_vertex_color)
 	{
 		original_vertex_color = COLOR;
 	}
-	
+
 	//new RANDOMIZER CODE
 	  //// Calculate random darkness factor once per instance using model origin
     //float random_factor = hash(modelOrigin.xy + modelOrigin.z * 0.1);
@@ -94,7 +94,7 @@ void fragment() {
     //// Model Origin info is passed to LIGHT_VERTEX. This is DYLEARN's "VERTEX = MODEL_ORIGIN"
     //LIGHT_VERTEX = modelOrigin;
 	//
-	
+
 	//ORIGINAL BELOW
     vec4 tex = texture(albedo_tex, UV);
 
@@ -128,7 +128,7 @@ void light() {
 	}
 	else
 	{
-		DIFFUSE_LIGHT += NdotL * ALBEDO  * LIGHT_COLOR * ATTENUATION * diffuse ; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION;
+		DIFFUSE_LIGHT += NdotL * ALBEDO * ATTENUATION * diffuse ; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION;
 	}
 
 }

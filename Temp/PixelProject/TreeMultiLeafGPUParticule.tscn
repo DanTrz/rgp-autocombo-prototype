@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://dofp8cf2j0tol" path="res://Temp/PixelProject/TreeLeafParticuleEmitter.cs" id="1_j1kbm"]
 [ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_ot7g1"]
 [ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="3_877qk"]
-[ext_resource type="Shader" uid="uid://110tg26lml2i" path="res://Temp/PixelProject/FoliageAnimation_v1.gdshader" id="4_i1fau"]
 [ext_resource type="Shader" uid="uid://bhr41rldkpotm" path="res://Temp/PixelProject/MultiLeaf_ParticuleShader_v2.gdshader" id="4_ot7g1"]
+[ext_resource type="Shader" uid="uid://c4ho5ypde4oft" path="res://Temp/PixelProject/FoliageAnimation_v2_CorrectedColors.gdshader" id="5_1wsyu"]
 
 [sub_resource type="Gradient" id="Gradient_ot7g1"]
 resource_local_to_scene = true
@@ -15,13 +15,16 @@ colors = PackedColorArray(0.786667, 0.786667, 0.786667, 1, 0.817956, 0.817956, 0
 resource_local_to_scene = true
 gradient = SubResource("Gradient_ot7g1")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ytgf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8x41d"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_ot7g1")
-shader_parameter/albedo_color = Color(1, 0.678431, 1, 1)
-shader_parameter/disable_ambient_light = true
+shader_parameter/albedo_color = Color(0.541176, 0.690196, 0.376471, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/Use_fake_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
@@ -39,32 +42,36 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.05
+shader_parameter/billboard = false
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7ty4u"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1wsyu"]
 render_priority = 0
 shader = ExtResource("3_877qk")
 shader_parameter/shadows_enabled = true
 shader_parameter/highlights_enabled = true
-shader_parameter/shadow_strength = 0.7
-shader_parameter/highlight_strength = 0.5
-shader_parameter/highlight_color = Color(0.847703, 0.640601, 0.574885, 1)
+shader_parameter/shadow_strength = 0.8
+shader_parameter/highlight_strength = 0.4
+shader_parameter/highlight_color = Color(0.764221, 0.573364, 0.327441, 1)
 shader_parameter/shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1eq53"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wq7mf"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_7ty4u")
+next_pass = SubResource("ShaderMaterial_1wsyu")
 shader = ExtResource("2_ot7g1")
-shader_parameter/albedo_color = Color(0.653569, 0.392022, 0.225966, 1)
+shader_parameter/albedo_color = Color(0.704429, 0.526407, 0.397455, 1)
 shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/Use_fake_ambient_light = true
+shader_parameter/fake_ambient_light = Color(0.441798, 0.312208, 0.217097, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 3
+shader_parameter/cuts = 1
 shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true
@@ -77,6 +84,7 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.05
+shader_parameter/billboard = false
 shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
@@ -114,7 +122,7 @@ _surfaces = [{
 "format": 34896613399,
 "index_count": 192,
 "index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAEwAUABAAEwAVABQAFgAXABgAGAAZABYAGgAbABwAHAAdABoAHgAfACAAIAAhAB4AIgAjACQAJAAlACIAJgAnACgAKAApACYAKgArACwALAAtACoALgAvADAAMAAxAC4AMgAzADQANAA1ADIANgA3ADgAOAA5ADYAOgA7ADwAPAA9ADoAPgA/AEAAQABBAD4AQgBDAEQARABFAEIARgBHAEgASABJAEYASgBLAEwATABNAEoATgBPAFAAUABRAE4AUgBTAFQAVABVAFIAVgBXAFgAWABZAFYAWgBbAFwAXABdAFoAXgBfAGAAYABhAF4AYgBjAGQAZABlAGIAZgBnAGgAaABpAGYAaQBqAGYAawBpAGgAagBsAGYAaABtAGsAagBuAGwAbQBvAGsAbgBwAGwAbQBwAG8AcQBsAHAAbQBxAHAA"),
-"material": SubResource("ShaderMaterial_8ytgf"),
+"material": SubResource("ShaderMaterial_8x41d"),
 "name": "leafsDark",
 "primitive": 3,
 "uv_scale": Vector4(14.56, 82.3228, 0, 0),
@@ -126,7 +134,7 @@ _surfaces = [{
 "format": 34896613399,
 "index_count": 396,
 "index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAASABEAEgAVABMAEQAWABQAFQAXABMAFgAXABQAFgATABcAGAAZABoAGgAbABgAHAAdAB4AHgAfABwAIAAhACIAIgAjACAAJAAlACYAJgAnACQAKAApACoAKgArACgALAAtAC4ALgAvACwAMAAxADIAMgAzADAANAA1ADYANgA3ADQAOAA5ADoAOgA7ADgAPAA9AD4APgA/ADwAQAA+AD0APgBBAD8APQBCAEAAQQBDAD8AQgBDAEAAQgA/AEMARABFAEYARgBHAEQASABJAEoASgBLAEgATABIAEsASwBNAEwATgBMAE0ATQBPAE4AUABRAFIAUwBUAFUAVQBWAFMAVwBYAFkAWgBbAFwAXQBeAF8AXwBgAF0AYQBiAGMAZABlAGYAZwBoAGkAaQBqAGcAawBsAG0AbgBvAHAAcQByAHMAcwB0AHUAdQB2AHMAcwB2AHEAdgB3AHEAdwB4AHEAeAB5AHoAegB7AHgAewBxAHgAcQB7AHwAcQB8AH0AfQB+AHEAewB/AHwAfwCAAHwAfwCBAIAAfwCCAIEAggCDAIEAggCEAIMAhACFAIMAhgCEAIIAggCHAIYAhwCIAIYAiQCEAIYAhgCKAIkAigCLAIkAigCMAIsAjQCLAIwAjACOAI0AjwCQAJEAkQCSAI8AkwCUAJUAlQCWAJMAlwCYAJkAmgCbAJwAnQCeAJ8AnwCgAJ0AnwChAKAAogCgAKEAowCiAKEAoQCkAKMApQCmAKcApwCoAKUAqACnAKkAqQCqAKgAqgCpAKsAqwCsAKoArQCuAK8ArwCwAK0AsQCwAK8AsQCvALIAswCxALIAsgC0ALMAtQC2ALcAtwC4ALUAuQC1ALgAuQC4ALoAuwC5ALoAugC8ALsAvQC+AL8AvwDAAL0AwADBAL0AwgC9AMEAwwDCAMEAwQDEAMMAxQDGAMcAyADJAMoAygDLAMgAzADNAM4AzwDQANEA"),
-"material": SubResource("ShaderMaterial_1eq53"),
+"material": SubResource("ShaderMaterial_wq7mf"),
 "name": "woodBarkDark",
 "primitive": 3,
 "uv_scale": Vector4(16.2256, 37.1523, 0, 0),
@@ -158,15 +166,15 @@ load_path = "res://.godot/imported/Leafd.png-5242864aff212dc7c789c89694e87f11.s3
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rqk0u"]
 resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("4_i1fau")
+render_priority = 1
+shader = ExtResource("5_1wsyu")
 shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/Use_fake_ambient_light = false
+shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_fjmk2")
-shader_parameter/albedo_color = Color(1, 0.678431, 1, 1)
-shader_parameter/darkness_variation = 0.0
+shader_parameter/albedo_color = Color(0.541176, 0.690196, 0.376471, 1)
 shader_parameter/use_vertex_color = true
-shader_parameter/use_emission = false
+shader_parameter/use_emission = true
 shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/billboard = true
 shader_parameter/wind_sway_strength = 0.1
@@ -184,7 +192,7 @@ size = Vector2(0.5, 0.5)
 script = ExtResource("1_j1kbm")
 _particleEmitter = NodePath("tree_oak_dark/GPUParticles3D")
 _treeMesh = NodePath("tree_oak_dark")
-_mainParticuleColor = Color(1, 0.678431, 1, 1)
+_mainParticuleColor = Color(0.541176, 0.690196, 0.376471, 1)
 _colorShadingRamp = SubResource("GradientTexture1D_877qk")
 _colorNoise = 0.1
 _restartParticulesTime = NodePath("RestartParticulesTime")
@@ -197,7 +205,7 @@ skeleton = NodePath("")
 [node name="GPUParticles3D" type="GPUParticles3D" parent="tree_oak_dark"]
 transform = Transform3D(0.4, 0, 0, 0, 0.284668, -0.281006, 0, 0.281006, 0.284668, -0.0165017, 0.963993, 0)
 cast_shadow = 0
-amount = 700
+amount = 500
 lifetime = 1e+07
 one_shot = true
 explosiveness = 1.0
