@@ -99,12 +99,35 @@ void fragment() {
 	//ORIGINAL BELOW
     vec4 tex = texture(albedo_tex, UV);
 
-	if(use_vertex_color)
-	{
+	if (use_vertex_color) {
 		tex *= COLOR;
+		ALBEDO = tex.rgb * albedo_color.rgb;
+		ALPHA = tex.a * albedo_color.a;
 	}
-    ALBEDO = tex.rgb * albedo_color.rgb;
-    ALPHA = tex.a * albedo_color.a;
+	else
+	{
+		ALBEDO = tex.rgb * albedo_color.rgb;
+		ALPHA = tex.a * albedo_color.a;
+	}
+	
+	//if (use_vertex_color) {
+        //vec3 tex_color = pow(tex.rgb, vec3(2.2));
+        //vec3 vertex_rgb = pow(clamp(COLOR.rgb, 0.0, 1.0), vec3(2.2));
+        //vec3 final_color = tex_color * vertex_rgb;
+        //final_color = pow(final_color, vec3(1.0 / 2.2));
+//
+        //float final_alpha = tex.a * clamp(COLOR.a, 0.0, 1.0);
+        //ALBEDO = final_color;
+        //ALPHA = final_alpha;
+    //} else {
+        //vec3 albedo_rgb = pow(albedo_color.rgb, vec3(2.2));
+        //vec3 tex_rgb = pow(tex.rgb, vec3(2.2));
+        //vec3 final_color = pow(tex_rgb * albedo_rgb, vec3(1.0 / 2.2));
+//
+        //ALBEDO = final_color;
+        //ALPHA = tex.a * albedo_color.a;
+    //}
+
 
     if (ALPHA < 0.1) {
         discard;

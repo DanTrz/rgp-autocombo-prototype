@@ -6,8 +6,14 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g6oq6"]
 render_priority = 0
 shader = ExtResource("1_4elv1")
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
 shader_parameter/albedo_tex = ExtResource("2_k4f17")
 shader_parameter/albedo_color = Color(0.588995, 0.664717, 0.376281, 1)
+shader_parameter/use_vertex_color = true
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/billboard = true
 shader_parameter/wind_sway_strength = 0.1
 shader_parameter/wind_sway_speed = 1.0
 shader_parameter/wind_time_scale = 1.0

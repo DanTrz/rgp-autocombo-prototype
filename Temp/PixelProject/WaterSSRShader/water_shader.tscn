@@ -1,0 +1,224 @@
+[gd_scene load_steps=27 format=3 uid="uid://bc73oso8vmvnw"]
+
+[ext_resource type="Shader" uid="uid://cvxcr0jtbovg1" path="res://Temp/PixelProject/WaterSSRShader/waterSSR_reflection.gdshader" id="1_0mrke"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4dgpb"]
+size = Vector3(50, 0.2, 50)
+subdivide_width = 300
+subdivide_depth = 300
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_f4126"]
+noise_type = 0
+frequency = 0.007
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_063dl"]
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.5
+as_normal_map = true
+noise = SubResource("FastNoiseLite_f4126")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2u5js"]
+noise_type = 0
+frequency = 0.02
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_n43xj"]
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.5
+as_normal_map = true
+noise = SubResource("FastNoiseLite_2u5js")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2gedl"]
+frequency = 0.0005
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7dliq"]
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.5
+noise = SubResource("FastNoiseLite_2gedl")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_monxj"]
+noise_type = 3
+frequency = 0.0225
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fida5"]
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.5
+noise = SubResource("FastNoiseLite_monxj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mbcim"]
+resource_local_to_scene = true
+render_priority = -128
+shader = ExtResource("1_0mrke")
+shader_parameter/color_shallow = Color(0.01, 0.2, 0.3, 1)
+shader_parameter/color_deep = Color(0.3, 0.5, 0.6, 1)
+shader_parameter/transparency = 0.6
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.25
+shader_parameter/max_visible_depth = 20.0
+shader_parameter/wave_a = SubResource("NoiseTexture2D_7dliq")
+shader_parameter/wave_b = SubResource("NoiseTexture2D_fida5")
+shader_parameter/wave_move_direction_a = Vector2(-1, 0)
+shader_parameter/wave_move_direction_b = Vector2(0, 1)
+shader_parameter/wave_noise_scale_a = 15.0
+shader_parameter/wave_noise_scale_b = 15.0
+shader_parameter/wave_time_scale_a = 0.15
+shader_parameter/wave_time_scale_b = 0.15
+shader_parameter/wave_height_scale = 1.0
+shader_parameter/wave_normal_flatness = 50.0
+shader_parameter/surface_normals_a = SubResource("NoiseTexture2D_063dl")
+shader_parameter/surface_normals_b = SubResource("NoiseTexture2D_n43xj")
+shader_parameter/surface_normals_move_direction_a = Vector2(-1, 0.2)
+shader_parameter/surface_normals_move_direction_b = Vector2(0.2, 1)
+shader_parameter/surface_texture_roughness = 0.15
+shader_parameter/surface_texture_scale = 0.1
+shader_parameter/surface_texture_time_scale = 0.001
+shader_parameter/ssr_resolution = 1.0
+shader_parameter/ssr_max_travel = 30.0
+shader_parameter/ssr_max_diff = 4.0
+shader_parameter/ssr_mix_strength = 0.7
+shader_parameter/ssr_screen_border_fadeout = 0.3
+shader_parameter/refraction_intensity = 0.4
+shader_parameter/border_color = Color(1, 1, 1, 1)
+shader_parameter/border_scale = 2.0
+shader_parameter/border_near = 0.5
+shader_parameter/border_far = 300.0
+shader_parameter/cut_out_x = 0.0
+shader_parameter/cut_out_z = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_2gedl"]
+radius = 8.0
+height = 16.0
+
+[sub_resource type="Resource" id="Resource_1ewdi"]
+metadata/__load_path__ = "res://WaterShaderSSReflection/standard_shaders/pink.tres"
+
+[sub_resource type="SphereMesh" id="SphereMesh_7dliq"]
+radius = 5.0
+height = 10.0
+
+[sub_resource type="Resource" id="Resource_02hs0"]
+metadata/__load_path__ = "res://WaterShaderSSReflection/standard_shaders/green.tres"
+
+[sub_resource type="SphereMesh" id="SphereMesh_monxj"]
+radius = 2.0
+height = 4.0
+
+[sub_resource type="Resource" id="Resource_uwf4q"]
+metadata/__load_path__ = "res://WaterShaderSSReflection/standard_shaders/yellow.tres"
+
+[sub_resource type="BoxMesh" id="BoxMesh_fida5"]
+size = Vector3(50, 1, 2)
+
+[sub_resource type="Resource" id="Resource_a48vr"]
+metadata/__load_path__ = "res://WaterShaderSSReflection/standard_shaders/pink.tres"
+
+[sub_resource type="Resource" id="Resource_06ube"]
+metadata/__load_path__ = "res://WaterShaderSSReflection/standard_shaders/green.tres"
+
+[sub_resource type="Resource" id="Resource_klag4"]
+metadata/__load_path__ = "res://WaterShaderSSReflection/standard_shaders/yellow.tres"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mbcim"]
+sky_top_color = Color(0.298039, 0.756863, 0.984314, 1)
+sky_horizon_color = Color(0.521569, 0.682353, 0.752941, 1)
+sky_curve = 0.261165
+ground_bottom_color = Color(0.156863, 0.356863, 0.717647, 1)
+ground_horizon_color = Color(0.109804, 0.411765, 0.556863, 1)
+sun_angle_max = 344.09
+sun_curve = 0.0137258
+
+[sub_resource type="Sky" id="Sky_6wvss"]
+sky_material = SubResource("ProceduralSkyMaterial_mbcim")
+process_mode = 1
+
+[sub_resource type="Environment" id="Environment_7u3fa"]
+background_mode = 2
+sky = SubResource("Sky_6wvss")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+fog_light_color = Color(0.0588235, 0.552941, 0.976471, 1)
+fog_light_energy = 0.51
+fog_density = 0.0
+fog_sky_affect = 0.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+volumetric_fog_length = 500.0
+volumetric_fog_sky_affect = 0.0
+
+[sub_resource type="FogMaterial" id="FogMaterial_gxp0g"]
+density = 0.2
+albedo = Color(0.0215691, 0.571161, 0.871674, 1)
+height_falloff = 100.0
+edge_fade = 0.0517
+
+[sub_resource type="Resource" id="Resource_pvmbi"]
+metadata/__load_path__ = "res://WaterShaderSSReflection/FogVolume.gd"
+
+[node name="WaterShader" type="Node3D"]
+
+[node name="WaterSurface" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103.143, -1.03149, -57.8775)
+mesh = SubResource("BoxMesh_4dgpb")
+surface_material_override/0 = SubResource("ShaderMaterial_mbcim")
+
+[node name="Objects" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0822, -9.64915, 0)
+
+[node name="Sphere1" type="MeshInstance3D" parent="Objects"]
+transform = Transform3D(1, -5.96046e-08, -3.57628e-07, -1.49012e-08, 1, 1.04308e-07, 1.19209e-07, -5.96046e-08, 1, -134.465, 13.7421, -48.0399)
+mesh = SubResource("SphereMesh_2gedl")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("Resource_1ewdi")
+
+[node name="Sphere2" type="MeshInstance3D" parent="Objects"]
+transform = Transform3D(1, -5.96046e-08, -3.57628e-07, -1.49012e-08, 1, 1.04308e-07, 1.19209e-07, -5.96046e-08, 1, -116.925, 8.32512, -48.0399)
+mesh = SubResource("SphereMesh_7dliq")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("Resource_02hs0")
+
+[node name="Sphere3" type="MeshInstance3D" parent="Objects"]
+transform = Transform3D(1, -5.96046e-08, -3.57628e-07, -1.49012e-08, 1, 1.04308e-07, 1.19209e-07, -5.96046e-08, 1, -103.868, 6.28726, -48.0399)
+mesh = SubResource("SphereMesh_monxj")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("Resource_uwf4q")
+
+[node name="boxes" type="Node3D" parent="Objects"]
+
+[node name="Box1" type="MeshInstance3D" parent="Objects/boxes"]
+transform = Transform3D(0.57211, -0.456602, -0.681325, 0.636205, 0.771326, 0.0173053, 0.517622, -0.443363, 0.731776, -134.206, 4.05422, -77.1431)
+mesh = SubResource("BoxMesh_fida5")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("Resource_a48vr")
+
+[node name="Box2" type="MeshInstance3D" parent="Objects/boxes"]
+transform = Transform3D(-0.735081, 0.599193, 0.317212, 0.636205, 0.771326, 0.0173053, -0.234305, 0.214533, -0.948197, -116.454, 4.05422, -77.1431)
+mesh = SubResource("BoxMesh_fida5")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("Resource_06ube")
+
+[node name="Box3" type="MeshInstance3D" parent="Objects/boxes"]
+transform = Transform3D(-0.434076, 0.376398, -0.818476, 0.636205, 0.771326, 0.0173053, 0.637825, -0.513207, -0.574281, -99.6248, 4.05422, -77.1431)
+mesh = SubResource("BoxMesh_fida5")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("Resource_klag4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.864275, 0.42705, -0.265815, 0, 0.528438, 0.848972, 0.50302, 0.733745, -0.456716, -103.155, 28.088, -115.821)
+light_color = Color(1, 0.956863, 0.905882, 1)
+light_energy = 1.08
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7u3fa")
+
+[node name="FogVolume" type="FogVolume" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.832703, 0.142015, -0.829834)
+shape = 4
+material = SubResource("FogMaterial_gxp0g")
+script = SubResource("Resource_pvmbi")

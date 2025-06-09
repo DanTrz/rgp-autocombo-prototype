@@ -29,17 +29,17 @@ void vertex() {
 void fragment() {
     vec3 noise = get_noise(UV, TIME);
     float enhanced_noise = pow(noise.x, 1.25);
-    
+
     float depth_sample = texture(depth_texture, SCREEN_UV).r;
     vec4 depth_pos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, depth_sample, 1.0);
     depth_pos.xyz /= depth_pos.w;
     float depth_fade = clamp(1.0 - smoothstep(depth_pos.z + water_depth_fade, depth_pos.z, VERTEX.z), 0.0, 1.0);
     float water_depth = 1.0 - depth_fade;
-    
-    float edge = pow(water_depth, 24.0 / edge_size); 
-    
+
+    float edge = pow(water_depth, 24.0 / edge_size);
+
     vec3 ripple_effect = mix(water_color.rgb, ripple_color.rgb, enhanced_noise * ripple_intensity);
-    
+
     ALBEDO = mix(ripple_effect, ripple_color.rgb, edge * edge_intensity);
     ALPHA = water_transparency;
     ROUGHNESS = water_roughness;

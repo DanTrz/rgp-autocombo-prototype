@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://geceh0jd4ur7"]
+
+[ext_resource type="Script" uid="uid://b1dgoi5lggtw6" path="res://Temp/PixelProject/GDebugger.cs" id="1_darur"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dsnma"]
+font_size = 32
+
+[node name="GDebuggerUI" type="Control" node_paths=PackedStringArray("FPSCount")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_darur")
+FPSCount = NodePath("CanvasLayer/Performance/FPS")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Weather" type="HBoxContainer" parent="CanvasLayer"]
+texture_filter = 2
+custom_minimum_size = Vector2(300, 0)
+offset_right = 72.0
+offset_bottom = 45.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="cycleStateLabel" type="Label" parent="CanvasLayer/Weather"]
+layout_mode = 2
+text = "DAY"
+label_settings = SubResource("LabelSettings_dsnma")
+
+[node name="DayCyleProgressBar" type="ProgressBar" parent="CanvasLayer/Weather"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 1.0
+
+[node name="Performance" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="FPS" type="Label" parent="CanvasLayer/Performance"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "00"

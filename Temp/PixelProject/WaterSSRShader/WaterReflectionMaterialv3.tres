@@ -1,0 +1,60 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://bhgd1pfhckih7"]
+
+[ext_resource type="Shader" uid="uid://csrxv4t014t47" path="res://Temp/PixelProject/WaterSSRShader/waterSSR_reflection_goodVersion_testing.gdshader" id="1_kdcka"]
+[ext_resource type="Texture2D" uid="uid://stensn7vpvqw" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/Water_SurfaceNormalsA.tres" id="2_uqyj4"]
+[ext_resource type="Texture2D" uid="uid://ytfjx71fbpho" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/Water_SurfaceNormalsB.tres" id="3_pki3g"]
+[ext_resource type="Texture2D" uid="uid://bi6i3uj4mgj0t" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/Water_NoiseWaveA.tres" id="4_1iayj"]
+[ext_resource type="Texture2D" uid="uid://cux341gxxkqeq" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/Water_NoiseWaveB.tres" id="5_chvfs"]
+
+[resource]
+render_priority = -128
+shader = ExtResource("1_kdcka")
+shader_parameter/color_shallow = Color(0.176758, 0.347775, 0.584547, 1)
+shader_parameter/color_deep = Color(0.0953178, 0.468066, 0.516934, 1)
+shader_parameter/transparency = 0.2
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 1.0
+shader_parameter/max_visible_depth = 2.0
+shader_parameter/wave_a = ExtResource("4_1iayj")
+shader_parameter/wave_b = ExtResource("5_chvfs")
+shader_parameter/wave_move_direction_a = Vector2(1, 0)
+shader_parameter/wave_move_direction_b = Vector2(0, -1)
+shader_parameter/wave_noise_scale_a = 5.0
+shader_parameter/wave_noise_scale_b = 5.0
+shader_parameter/wave_time_scale_a = 0.1
+shader_parameter/wave_time_scale_b = 0.1
+shader_parameter/wave_height_scale = 0.5
+shader_parameter/wave_normal_flatness = 100.0
+shader_parameter/surface_normals_a = ExtResource("2_uqyj4")
+shader_parameter/surface_normals_b = ExtResource("3_pki3g")
+shader_parameter/surface_normals_move_direction_a = Vector2(-1, 0.2)
+shader_parameter/surface_normals_move_direction_b = Vector2(0.2, 1)
+shader_parameter/surface_texture_roughness = 0.15
+shader_parameter/surface_texture_scale = 0.1
+shader_parameter/surface_texture_time_scale = 0.06
+shader_parameter/ssr_resolution = 1.0
+shader_parameter/ssr_max_travel = 30.0
+shader_parameter/ssr_max_diff = 4.0
+shader_parameter/ssr_mix_strength = 0.8
+shader_parameter/ssr_screen_border_fadeout = 0.3
+shader_parameter/reflection_angle_bias = 0.0
+shader_parameter/reflection_angle_scale = 1.0
+shader_parameter/reflection_fresnel_power = 0.4
+shader_parameter/reflection_view_angle_cutoff = 0.1
+shader_parameter/reflection_depth_min = 0.5
+shader_parameter/reflection_depth_max = 20.0
+shader_parameter/reflection_depth_falloff = 1.0
+shader_parameter/reflection_distance_min = 1.0
+shader_parameter/reflection_distance_max = 50.0
+shader_parameter/reflection_distance_falloff = 2.0
+shader_parameter/reflection_min_object_size = 0.0
+shader_parameter/reflection_size_detection_samples = 4.0
+shader_parameter/refraction_intensity = 0.4
+shader_parameter/border_color = Color(0.898039, 0.807843, 0.705882, 1)
+shader_parameter/border_scale = 0.3
+shader_parameter/border_near = 50.0
+shader_parameter/border_far = 1500.0
+shader_parameter/cut_out_x = 0.0
+shader_parameter/cut_out_z = 0.0
+shader_parameter/use_fixed_reflection = true
+shader_parameter/fixed_reflection_world_pos = Vector3(20, 7, 2)
