@@ -108,7 +108,7 @@ vec3 rotate_vector_by_quat(vec3 v, vec4 q) {
 void vertex() {
 	vertex_pos = VERTEX;
 	normal = NORMAL;
-	
+
 		if(billboard)
 	{
 		mat4 billboard_modelview = VIEW_MATRIX * mat4(
@@ -180,17 +180,17 @@ void light() {
 	{
 		ambient = fake_ambient_light; // Replace with desired ambient color
 	}
-	
+
 	if(disable_ambient_light)
 	{
 		ambient =  vec3(0.0) ; // Replace with desired ambient color
 	}
-	
+
 	if(Use_fake_ambient_light == false && disable_ambient_light == false)
 	{
 		ambient = albedo_color.rgb;
 	}
-	
+
 	diffuse += ambient;
 
 	if (clamp_diffuse_to_max) {
@@ -198,7 +198,7 @@ void light() {
 	} else {
 		DIFFUSE_LIGHT += diffuse;
 	}
-	
+
 	if(use_emission)
 	{
 		DIFFUSE_LIGHT +=  ALBEDO * emission_color * LIGHT_COLOR * ATTENUATION * diffuse; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION;

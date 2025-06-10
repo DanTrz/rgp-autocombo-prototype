@@ -63,12 +63,12 @@ void vertex() {
     world_billboard_normal = transpose(mat3(MODELVIEW_MATRIX)) * vec3(0.0, 0.0, 1.0);
 		//Model Origin info for consistent lighting across the entire mesh (passed to LIGHT_VERTEX in the Fragment function)
 	modelOrigin = (MODELVIEW_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
-	
+
 	if(use_vertex_color)
 	{
 		original_vertex_color = COLOR;
 	}
-	
+
 	//new RANDOMIZER CODE
 	  //// Calculate random darkness factor once per instance using model origin
     //float random_factor = hash(modelOrigin.xy + modelOrigin.z * 0.1);
@@ -95,7 +95,7 @@ void fragment() {
     //// Model Origin info is passed to LIGHT_VERTEX. This is DYLEARN's "VERTEX = MODEL_ORIGIN"
     //LIGHT_VERTEX = modelOrigin;
 	//
-	
+
 	//ORIGINAL BELOW
     vec4 tex = texture(albedo_tex, UV);
 
@@ -109,7 +109,7 @@ void fragment() {
 		ALBEDO = tex.rgb * albedo_color.rgb;
 		ALPHA = tex.a * albedo_color.a;
 	}
-	
+
 	//if (use_vertex_color) {
         //vec3 tex_color = pow(tex.rgb, vec3(2.2));
         //vec3 vertex_rgb = pow(clamp(COLOR.rgb, 0.0, 1.0), vec3(2.2));
@@ -142,24 +142,24 @@ void light() {
 			// Apply diffuse
 	vec3 diffuse = ALBEDO.rgb * LIGHT_COLOR / PI;
 		// Add ambient manually if render_mode ambient_light_disabled is used
-	
+
 	vec3 ambient = vec3(1.0);
 	//ambient = disable_ambient_light ? vec3(0.0) : vec3(fake_ambient_light); // ORITINAL => Replace with desired ambient color
 	if(Use_fake_ambient_light)
 	{
 		ambient = fake_ambient_light; // Replace with desired ambient color
 	}
-	
+
 	if(disable_ambient_light)
 	{
 		ambient =  vec3(0.0) ; // Replace with desired ambient color
 	}
-	
+
 	if(Use_fake_ambient_light == false && disable_ambient_light == false)
 	{
 		ambient = albedo_color.rgb;
 	}
-	
+
 	diffuse += ambient;
 
 
@@ -173,7 +173,3 @@ void light() {
 	}
 
 }
-
-
-
-

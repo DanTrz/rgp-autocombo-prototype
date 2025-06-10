@@ -5,8 +5,8 @@ shader_type canvas_item;
 render_mode unshaded;
 
 // User-tweakable uniforms
-uniform float shadow_boost : hint_range(1.0, 5.0) = 2.0;
-uniform float shadow_threshold : hint_range(0.0, 1.0) = 0.5;
+uniform float shadow_boost : hint_range(1.0, 5.0) = 1.3;
+uniform float shadow_threshold : hint_range(0.0, 1.0) = 0.4;
 uniform vec3 shadow_color_override : source_color = vec3(0.0, 0.0, 0.0);
 uniform bool use_shadow_color_override = true;
 uniform float light_boost : hint_range(1.0, 3.0) = 1.0;

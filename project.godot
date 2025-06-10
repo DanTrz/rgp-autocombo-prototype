@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="RGP AutoCombo Prototype"
-run/main_scene="uid://dlpqebqa8g70y"
+run/main_scene="uid://c2citj8vy3n2"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 run/max_fps=60
 config/icon="res://icon.svg"
@@ -107,5 +107,5 @@ cam_orbit_right={
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=2
-textures/default_filters/use_nearest_mipmap_filter=true
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=3
+lights_and_shadows/positional_shadow/soft_shadow_filter_quality=3

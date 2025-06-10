@@ -48,10 +48,9 @@ public partial class CameraPixelSnap : Camera3D
 		// Calculate the camera's position in the snapping space.
 		Vector3 snapSpacePosition = this.GlobalPosition * _snapSpace;
 
-		// Snap the position to the nearest texel.
-		Vector3 snappedSnapSpacePosition = snapSpacePosition.Snapped(Vector3.One * _texelSize); //Original (X and Y)
-
-		//Vector3 snappedSnapSpacePosition = snapSpacePosition.Snapped(new Vector3(_texelSize, _texelSize, _texelSize)); //Added DT:try and snap Z also
+		// Snap the position to the nearest texel.//CHANGES HERE
+		//Vector3 snappedSnapSpacePosition = snapSpacePosition.Snapped(Vector3.One * _texelSize); //Original (X and Y)
+		Vector3 snappedSnapSpacePosition = snapSpacePosition.Snapped(new Vector3(_texelSize, _texelSize, _texelSize)); //Added DT:try and snap Z also
 
 		// Calculate the error introduced by snapping.
 		Vector3 snapError = snappedSnapSpacePosition - snapSpacePosition;
