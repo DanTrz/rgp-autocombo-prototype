@@ -1,7 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://c7kjke7mmdjoa"]
+[gd_scene load_steps=22 format=3 uid="uid://c7kjke7mmdjoa"]
 
 [ext_resource type="PackedScene" uid="uid://c7ea5wxf3exug" path="res://src/Levels/LevelComponents/GrassAnimSprite3D.tscn" id="1_4rnpv"]
+[ext_resource type="Script" uid="uid://b7o5064b45yqm" path="res://Temp/CSharpPixelPerfect/RotatingCube.cs" id="1_g6oq6"]
 [ext_resource type="PackedScene" uid="uid://uu41wp2c58on" path="res://src/Levels/LevelComponents/GrassSpriteSheetShaderMesh.tscn" id="1_lieeq"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="2_t285w"]
+[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="3_p5m5s"]
+[ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="5_w3kb0"]
+[ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="6_26go8"]
+[ext_resource type="Shader" uid="uid://d4q5ai1l6seh" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale.gdshader" id="9_t285w"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_frppt"]
 sky_top_color = Color(0.101961, 0.0980392, 0.196078, 1)
@@ -22,22 +28,109 @@ sky = SubResource("Sky_ynhhl")
 ambient_light_source = 2
 ambient_light_color = Color(0.529067, 0.529067, 0.529067, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p5m5s"]
+render_priority = 0
+shader = ExtResource("2_t285w")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.7
+shader_parameter/highlight_strength = 0.8
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qs4bo"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_p5m5s")
+shader = ExtResource("3_p5m5s")
+shader_parameter/albedo_color = Color(1, 0, 0, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/Use_fake_ambient_light = false
+shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 2
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/billboard = false
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i2pmk"]
+albedo_color = Color(1, 0.188, 0.13, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_idka1"]
+render_priority = 0
+shader = ExtResource("2_t285w")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.7
+shader_parameter/highlight_strength = 0.8
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_caobv"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_idka1")
+shader = ExtResource("3_p5m5s")
+shader_parameter/albedo_color = Color(0, 0.5, 1, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/Use_fake_ambient_light = false
+shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 2
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/billboard = false
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sebyb"]
 diffuse_mode = 3
 specular_mode = 1
 albedo_color = Color(0.345488, 0.473654, 0.0987542, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_o12ww"]
-size = Vector2(50, 50)
+size = Vector2(13, 13)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_sebyb"]
 points = PackedVector3Array(-25, 0, -25, -25, 0, 25, 25, 0, -25, 25, 0, 25)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o12ww"]
-specular_mode = 1
-albedo_color = Color(1, 0, 0.25098, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t285w"]
+shader = ExtResource("9_t285w")
 
-[sub_resource type="BoxMesh" id="BoxMesh_01vtk"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_p5m5s"]
+viewport_path = NodePath("SubViewport")
 
 [node name="World" type="Node3D"]
 
@@ -46,950 +139,848 @@ environment = SubResource("Environment_01vtk")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.597933, 0.490168, -0.634202, 1.40025e-08, 0.791223, 0.611528, 0.801546, -0.365652, 0.473098, 0, 3.59929, 0)
-visible = false
 shadow_enabled = true
 
-[node name="Plane" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.951546, 0, 0)
+[node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+anisotropic_filtering_level = 0
+size = Vector2i(300, 200)
+render_target_update_mode = 4
+
+[node name="PivotPointRotation" type="Node3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.562035, 0)
+script = ExtResource("1_g6oq6")
+
+[node name="RedBox" type="CSGBox3D" parent="SubViewport/PivotPointRotation" groups=["snap"]]
+transform = Transform3D(0.854468, 0, 0.519504, 0, 1, 0, -0.519504, 0, 0.854468, 0, 0, 0.671739)
+material_override = SubResource("ShaderMaterial_qs4bo")
+size = Vector3(1.5, 1.5, 1.5)
+material = SubResource("StandardMaterial3D_i2pmk")
+
+[node name="Node3D" type="Node3D" parent="SubViewport/PivotPointRotation"]
+transform = Transform3D(0.854468, 0, 0.519504, 0, 1, 0, -0.519504, 0, 0.854468, 0, 0, 0.671739)
+
+[node name="BlueBox" type="CSGBox3D" parent="SubViewport/PivotPointRotation/Node3D" groups=["snap"]]
+transform = Transform3D(0.396427, 0, -0.918067, 0, 1, 0, 0.918067, 0, 0.396427, -2.36646, 0.622239, 3.8923)
+size = Vector3(1.5, 1.5, 1.5)
+material = SubResource("ShaderMaterial_caobv")
+
+[node name="Plane" type="MeshInstance3D" parent="SubViewport"]
+transform = Transform3D(0.689367, 0, -0.724413, 0, 1, 0, 0.724413, 0, 0.689367, 0.0811117, -1.74941, 1.33685)
 material_override = SubResource("StandardMaterial3D_sebyb")
 mesh = SubResource("PlaneMesh_o12ww")
-skeleton = NodePath("../..")
-metadata/_edit_lock_ = true
+skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Plane"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Plane"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Plane/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_sebyb")
 
-[node name="Cube" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-material_override = SubResource("StandardMaterial3D_o12ww")
-mesh = SubResource("BoxMesh_01vtk")
-skeleton = NodePath("../..")
+[node name="ShaderBasedGrasses" type="Node3D" parent="SubViewport/Plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1821, 0.208697, 2.48325)
 
-[node name="ShaderBasedGrasses" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.10099, 0.208697, 3.8201)
-
-[node name="GrassMeshInstance3D" parent="ShaderBasedGrasses" instance=ExtResource("1_lieeq")]
+[node name="GrassMeshInstance3D" parent="SubViewport/Plane/ShaderBasedGrasses" instance=ExtResource("1_lieeq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.178536)
+skeleton = NodePath("../../../..")
 
-[node name="GrassMeshInstance3D2" parent="ShaderBasedGrasses" instance=ExtResource("1_lieeq")]
+[node name="GrassMeshInstance3D2" parent="SubViewport/Plane/ShaderBasedGrasses" instance=ExtResource("1_lieeq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.251627, -0.0251639, 0)
+skeleton = NodePath("../../../..")
 
-[node name="SpriteBasedGrasses" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.951546, 0, 0)
+[node name="SpriteBasedGrasses" type="Node3D" parent="SubViewport/Plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.870434, 0, -1.33685)
 
-[node name="GrassBlock" type="Node3D" parent="SpriteBasedGrasses"]
+[node name="GrassBlock" type="Node3D" parent="SubViewport/Plane/SpriteBasedGrasses"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.07061, -0.0353797, 0)
 
-[node name="GrassAnimated" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.262987, 0.243905, 0.45709)
 
-[node name="GrassAnimated2" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated2" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.531956, 0.243905, 0.503858)
 
-[node name="GrassAnimated6" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated6" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.531956, 0.243905, 0.854528)
 
-[node name="GrassAnimated7" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated7" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.218069, 0.243905, 0.910695)
 
-[node name="GrassAnimated8" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated8" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.848266, 0.243905, 0.967089)
 
-[node name="GrassAnimated9" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated9" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.07217, 0.243905, 1.14077)
 
-[node name="GrassAnimated10" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated10" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.07217, 0.243905, 0.752191)
 
-[node name="GrassAnimated11" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated11" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.171906, 0.243905, 0.752191)
 
-[node name="GrassAnimated12" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated12" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.171906, 0.243905, 1.20313)
 
-[node name="GrassAnimated13" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated13" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.150429, 0.243905, 1.35959)
 
-[node name="GrassAnimated14" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated14" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0607712, 0.243905, 1.52755)
 
-[node name="GrassAnimated15" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated15" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.415082, 0.243905, 1.52755)
 
-[node name="GrassAnimated16" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated16" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.198987, 0.243905, 1.67026)
 
-[node name="GrassAnimated17" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated17" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.766236, 0.243905, 1.74406)
 
-[node name="GrassAnimated18" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated18" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08939, 0.243905, 1.9934)
 
-[node name="GrassAnimated19" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated19" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.467859, 0.243905, 1.9934)
 
-[node name="GrassAnimated20" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated20" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.858022, 0.243905, 1.41358)
 
-[node name="GrassAnimated21" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated21" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16706, 0.243905, 1.60446)
 
-[node name="GrassAnimated22" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated22" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.564799, 0.243905, 1.23594)
 
-[node name="GrassAnimated23" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated23" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.46526, 0.243905, 1.23594)
 
-[node name="GrassAnimated24" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated24" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.87155, 0.243905, 0.685746)
 
-[node name="GrassAnimated25" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated25" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.87155, 0.243905, 1.37494)
 
-[node name="GrassAnimated26" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated26" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31948, 0.243905, 1.68554)
 
-[node name="GrassAnimated38" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.87593, 0.243905, 3.30785)
-
-[node name="GrassAnimated39" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.96596, 0.243905, 2.23624)
-
-[node name="GrassAnimated40" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.95219, 0.243905, 0.994866)
-
-[node name="GrassAnimated41" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated41" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28454, 0.243905, 3.74205)
 
-[node name="GrassAnimated27" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated27" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.78526, 0.243905, 2.158)
 
-[node name="GrassAnimated28" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated28" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.26272, 0.243905, 2.68107)
 
-[node name="GrassAnimated29" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated29" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.541673, 0.243905, 2.42163)
 
-[node name="GrassAnimated30" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated30" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.251459, 0.243905, 2.15396)
 
-[node name="GrassAnimated31" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated31" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.870291, 0.243905, 1.64779)
 
-[node name="GrassAnimated32" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated32" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.70002, 0.243905, 1.04536)
 
-[node name="GrassAnimated33" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated33" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.43007, 0.243905, 0.334827)
 
-[node name="GrassAnimated34" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated34" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.680358, 0.243905, -0.244476)
 
-[node name="GrassAnimated35" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated35" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.196934, 0.243905, -0.244476)
 
-[node name="GrassAnimated36" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated36" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.933142, 0.243905, -0.820012)
 
-[node name="GrassAnimated37" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated37" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73851, 0.243905, -0.142535)
 
-[node name="GrassAnimated5" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated5" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(0.956152, 0, -0.292872, 0, 1, 0, 0.292872, 0, 0.956152, 0.148021, 0.243905, 0.634672)
 
-[node name="GrassAnimated3" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated3" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.678818, 0.243905, 0.448241)
 
-[node name="GrassAnimated4" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated4" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(0.993522, 0, 0.113637, 0, 1, 0, -0.113637, 0, 0.993522, 0.828257, 0.243905, 0.570039)
 
-[node name="GrassAnimated42" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated42" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2561, 0.243905, 2.67519)
 
-[node name="GrassAnimated43" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated43" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98713, 0.243905, 2.72196)
 
-[node name="GrassAnimated44" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated44" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98713, 0.243905, 3.07263)
 
-[node name="GrassAnimated45" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated45" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.30102, 0.243905, 3.12879)
 
-[node name="GrassAnimated46" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated46" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.67082, 0.243905, 3.18519)
 
-[node name="GrassAnimated47" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated47" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.44692, 0.243905, 3.35887)
 
-[node name="GrassAnimated48" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated48" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.44692, 0.243905, 2.97029)
 
-[node name="GrassAnimated49" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated49" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.69099, 0.243905, 2.97029)
 
-[node name="GrassAnimated50" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated50" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.69099, 0.243905, 3.42123)
 
-[node name="GrassAnimated51" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated51" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.36866, 0.243905, 3.57769)
 
-[node name="GrassAnimated52" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated52" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.57986, 0.243905, 3.74565)
 
-[node name="GrassAnimated53" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated53" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.10401, 0.243905, 3.74565)
 
-[node name="GrassAnimated54" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated54" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3201, 0.243905, 3.88836)
 
-[node name="GrassAnimated55" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated55" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75285, 0.243905, 3.96216)
 
-[node name="GrassAnimated56" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated56" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4297, 0.243905, 4.2115)
 
-[node name="GrassAnimated57" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated57" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05123, 0.243905, 4.2115)
 
-[node name="GrassAnimated58" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated58" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.66107, 0.243905, 3.63168)
 
-[node name="GrassAnimated59" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated59" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35203, 0.243905, 3.82256)
 
-[node name="GrassAnimated60" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated60" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.95429, 0.243905, 3.45404)
 
-[node name="GrassAnimated61" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated61" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.05383, 0.243905, 3.45404)
 
-[node name="GrassAnimated62" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated62" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.64754, 0.243905, 2.90384)
 
-[node name="GrassAnimated63" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated63" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.64754, 0.243905, 3.59304)
 
-[node name="GrassAnimated64" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated64" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19961, 0.243905, 3.90364)
 
-[node name="GrassAnimated77" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated77" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.24756, 0.243905, 0.45709)
 
-[node name="GrassAnimated78" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated78" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.97859, 0.243905, 0.503858)
 
-[node name="GrassAnimated79" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated79" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.97859, 0.243905, 0.854528)
 
-[node name="GrassAnimated80" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated80" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.29248, 0.243905, 0.910695)
 
-[node name="GrassAnimated81" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated81" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.66228, 0.243905, 0.967089)
 
-[node name="GrassAnimated82" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated82" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.43838, 0.243905, 1.14077)
 
-[node name="GrassAnimated83" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated83" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.43838, 0.243905, 0.752191)
 
-[node name="GrassAnimated84" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated84" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.68245, 0.243905, 0.752191)
 
-[node name="GrassAnimated85" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated85" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.68245, 0.243905, 1.20313)
 
-[node name="GrassAnimated86" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated86" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.36012, 0.243905, 1.35959)
 
-[node name="GrassAnimated87" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated87" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.57132, 0.243905, 1.52755)
 
-[node name="GrassAnimated88" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated88" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.09547, 0.243905, 1.52755)
 
-[node name="GrassAnimated89" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated89" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.31156, 0.243905, 1.67026)
 
-[node name="GrassAnimated90" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated90" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.74431, 0.243905, 1.74406)
 
-[node name="GrassAnimated91" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated91" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.42116, 0.243905, 1.9934)
 
-[node name="GrassAnimated92" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated92" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.04269, 0.243905, 1.9934)
 
-[node name="GrassAnimated93" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated93" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.65253, 0.243905, 1.41358)
 
-[node name="GrassAnimated94" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated94" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.34349, 0.243905, 1.60446)
 
-[node name="GrassAnimated95" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated95" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.94575, 0.243905, 1.23594)
 
-[node name="GrassAnimated96" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated96" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.04529, 0.243905, 1.23594)
 
-[node name="GrassAnimated97" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated97" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.639, 0.243905, 0.685746)
 
-[node name="GrassAnimated98" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated98" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.639, 0.243905, 1.37494)
 
-[node name="GrassAnimated99" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated99" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.22601, 0.243905, 3.74205)
 
-[node name="GrassAnimated100" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated100" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.72529, 0.243905, 2.158)
 
-[node name="GrassAnimated101" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated101" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.24783, 0.243905, 2.68107)
 
-[node name="GrassAnimated102" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated102" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.96887, 0.243905, 2.42163)
 
-[node name="GrassAnimated103" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated103" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.76201, 0.243905, 2.15396)
 
-[node name="GrassAnimated104" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated104" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.38084, 0.243905, 1.64779)
 
-[node name="GrassAnimated105" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated105" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.21057, 0.243905, 1.04536)
 
-[node name="GrassAnimated106" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated106" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.77204, 0.243905, -0.142535)
 
-[node name="GrassAnimated107" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated107" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(0.956152, 0, -0.292872, 0, 1, 0, 0.292872, 0, 0.956152, -5.36253, 0.243905, 0.634672)
 
-[node name="GrassAnimated108" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated108" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.83173, 0.243905, 0.448241)
 
-[node name="GrassAnimated109" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated109" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(0.993522, 0, 0.113637, 0, 1, 0, -0.113637, 0, 0.993522, -4.68229, 0.243905, 0.570039)
 
-[node name="GrassAnimated110" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated110" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.71016, 0.243905, 3.90364)
 
-[node name="GrassAnimated65" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated65" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.23455, 0.243905, 5.96015)
 
-[node name="GrassAnimated66" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated66" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.73383, 0.243905, 4.3761)
 
-[node name="GrassAnimated67" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated67" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25637, 0.243905, 4.89917)
 
-[node name="GrassAnimated68" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated68" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.97741, 0.243905, 4.63973)
 
-[node name="GrassAnimated69" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated69" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.77055, 0.243905, 4.37206)
 
-[node name="GrassAnimated70" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated70" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.21911, 0.243905, 3.26346)
 
-[node name="GrassAnimated71" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated71" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.32215, 0.243905, 1.97362)
 
-[node name="GrassAnimated72" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated72" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.58595, 0.243905, 1.39809)
 
-[node name="GrassAnimated73" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated73" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.78058, 0.243905, 2.07556)
 
-[node name="GrassAnimated74" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated74" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(0.956152, 0, -0.292872, 0, 1, 0, 0.292872, 0, 0.956152, -3.37107, 0.243905, 2.85277)
 
-[node name="GrassAnimated75" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated75" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.84027, 0.243905, 2.66634)
 
-[node name="GrassAnimated76" parent="SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated76" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(0.993522, 0, 0.113637, 0, 1, 0, -0.113637, 0, 0.993522, -2.69083, 0.243905, 2.78814)
 
-[node name="GrassBlock2" type="Node3D" parent="SpriteBasedGrasses"]
+[node name="GrassBlock2" type="Node3D" parent="SubViewport/Plane/SpriteBasedGrasses"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.89461, -0.0353797, 1.57532)
 
-[node name="GrassAnimated" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.262987, 0.243905, 0.45709)
-
-[node name="GrassAnimated2" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.531956, 0.243905, 0.503858)
-
-[node name="GrassAnimated6" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.531956, 0.243905, 0.854528)
-
-[node name="GrassAnimated7" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.218069, 0.243905, 0.910695)
-
-[node name="GrassAnimated8" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.848266, 0.243905, 0.967089)
-
-[node name="GrassAnimated9" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.07217, 0.243905, 1.14077)
-
-[node name="GrassAnimated10" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.07217, 0.243905, 0.752191)
-
-[node name="GrassAnimated11" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.171906, 0.243905, 0.752191)
-
-[node name="GrassAnimated12" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.171906, 0.243905, 1.20313)
-
-[node name="GrassAnimated13" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.150429, 0.243905, 1.35959)
-
-[node name="GrassAnimated14" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0607712, 0.243905, 1.52755)
-
-[node name="GrassAnimated15" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.415082, 0.243905, 1.52755)
-
-[node name="GrassAnimated16" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.198987, 0.243905, 1.67026)
-
-[node name="GrassAnimated17" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.766236, 0.243905, 1.74406)
-
-[node name="GrassAnimated18" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08939, 0.243905, 1.9934)
-
-[node name="GrassAnimated19" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.467859, 0.243905, 1.9934)
-
-[node name="GrassAnimated20" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.858022, 0.243905, 1.41358)
-
-[node name="GrassAnimated21" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16706, 0.243905, 1.60446)
-
-[node name="GrassAnimated22" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.564799, 0.243905, 1.23594)
-
-[node name="GrassAnimated23" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.46526, 0.243905, 1.23594)
-
-[node name="GrassAnimated24" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.87155, 0.243905, 0.685746)
-
-[node name="GrassAnimated25" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.87155, 0.243905, 1.37494)
-
-[node name="GrassAnimated26" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31948, 0.243905, 1.68554)
-
-[node name="GrassAnimated38" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.87593, 0.243905, 3.30785)
-
-[node name="GrassAnimated39" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.96596, 0.243905, 2.23624)
-
-[node name="GrassAnimated40" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.95219, 0.243905, 0.994866)
-
-[node name="GrassAnimated41" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28454, 0.243905, 3.74205)
-
-[node name="GrassAnimated27" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.78526, 0.243905, 2.158)
-
-[node name="GrassAnimated28" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.26272, 0.243905, 2.68107)
-
-[node name="GrassAnimated29" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.541673, 0.243905, 2.42163)
-
-[node name="GrassAnimated30" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.251459, 0.243905, 2.15396)
-
-[node name="GrassAnimated31" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated31" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.870291, 0.243905, 1.64779)
 
-[node name="GrassAnimated32" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated32" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.70002, 0.243905, 1.04536)
 
-[node name="GrassAnimated33" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated33" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.43007, 0.243905, 0.334827)
 
-[node name="GrassAnimated34" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated34" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.680358, 0.243905, -0.244476)
 
-[node name="GrassAnimated42" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated42" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.94916, 0.243905, 2.55292)
 
-[node name="GrassAnimated43" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated43" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.19945, 0.243905, 1.97362)
 
-[node name="GrassAnimated44" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated44" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.94062, 0.243905, 0.334827)
 
-[node name="GrassAnimated45" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated45" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.19091, 0.243905, -0.244476)
 
-[node name="GrassAnimated46" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated46" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.70999, 0.243905, 1.97362)
 
-[node name="GrassAnimated35" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.196934, 0.243905, -0.244476)
-
-[node name="GrassAnimated36" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.933142, 0.243905, -0.820012)
-
-[node name="GrassAnimated37" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73851, 0.243905, -0.142535)
-
-[node name="GrassAnimated5" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(0.956152, 0, -0.292872, 0, 1, 0, 0.292872, 0, 0.956152, 0.148021, 0.243905, 0.634672)
-
-[node name="GrassAnimated3" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.678818, 0.243905, 0.448241)
-
-[node name="GrassAnimated4" parent="SpriteBasedGrasses/GrassBlock2" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(0.993522, 0, 0.113637, 0, 1, 0, -0.113637, 0, 0.993522, 0.828257, 0.243905, 0.570039)
-
-[node name="GrassBlock3" type="Node3D" parent="SpriteBasedGrasses"]
+[node name="GrassBlock3" type="Node3D" parent="SubViewport/Plane/SpriteBasedGrasses"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01788, -0.0353797, 2.19395)
 
-[node name="GrassAnimated" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.262987, 0.243905, 0.45709)
 
-[node name="GrassAnimated2" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated2" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.531956, 0.243905, 0.503858)
 
-[node name="GrassAnimated6" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated6" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.531956, 0.243905, 0.854528)
 
-[node name="GrassAnimated7" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated7" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.218069, 0.243905, 0.910695)
 
-[node name="GrassAnimated8" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated8" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.848266, 0.243905, 0.967089)
 
-[node name="GrassAnimated9" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated9" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.07217, 0.243905, 1.14077)
 
-[node name="GrassAnimated10" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated10" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.07217, 0.243905, 0.752191)
 
-[node name="GrassAnimated11" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated11" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.171906, 0.243905, 0.752191)
 
-[node name="GrassAnimated12" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated12" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.171906, 0.243905, 1.20313)
 
-[node name="GrassAnimated13" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated13" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.150429, 0.243905, 1.35959)
 
-[node name="GrassAnimated14" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated14" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0607712, 0.243905, 1.52755)
 
-[node name="GrassAnimated15" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated15" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.415082, 0.243905, 1.52755)
 
-[node name="GrassAnimated16" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated16" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.198987, 0.243905, 1.67026)
 
-[node name="GrassAnimated17" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated17" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.766236, 0.243905, 1.74406)
 
-[node name="GrassAnimated18" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated18" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08939, 0.243905, 1.9934)
 
-[node name="GrassAnimated19" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated19" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.467859, 0.243905, 1.9934)
 
-[node name="GrassAnimated20" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated20" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.858022, 0.243905, 1.41358)
 
-[node name="GrassAnimated21" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated21" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16706, 0.243905, 1.60446)
 
-[node name="GrassAnimated22" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated22" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.564799, 0.243905, 1.23594)
 
-[node name="GrassAnimated23" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated23" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.46526, 0.243905, 1.23594)
 
-[node name="GrassAnimated24" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated24" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.87155, 0.243905, 0.685746)
 
-[node name="GrassAnimated25" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated25" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.87155, 0.243905, 1.37494)
 
-[node name="GrassAnimated26" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated26" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31948, 0.243905, 1.68554)
 
-[node name="GrassAnimated38" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated38" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.87593, 0.243905, 3.30785)
 
-[node name="GrassAnimated39" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.96596, 0.243905, 2.23624)
-
-[node name="GrassAnimated40" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated40" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.95219, 0.243905, 0.994866)
 
-[node name="GrassAnimated41" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated41" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28454, 0.243905, 3.74205)
 
-[node name="GrassAnimated27" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated27" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.78526, 0.243905, 2.158)
 
-[node name="GrassAnimated28" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated28" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.26272, 0.243905, 2.68107)
 
-[node name="GrassAnimated29" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated29" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.541673, 0.243905, 2.42163)
 
-[node name="GrassAnimated30" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated30" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.251459, 0.243905, 2.15396)
 
-[node name="GrassAnimated31" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated31" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.870291, 0.243905, 1.64779)
 
-[node name="GrassAnimated32" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated32" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.70002, 0.243905, 1.04536)
 
-[node name="GrassAnimated33" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated33" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.43007, 0.243905, 0.334827)
 
-[node name="GrassAnimated34" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated34" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.680358, 0.243905, -0.244476)
 
-[node name="GrassAnimated35" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated35" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.196934, 0.243905, -0.244476)
 
-[node name="GrassAnimated36" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated36" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.933142, 0.243905, -0.820012)
 
-[node name="GrassAnimated37" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated37" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73851, 0.243905, -0.142535)
 
-[node name="GrassAnimated5" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated5" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(0.956152, 0, -0.292872, 0, 1, 0, 0.292872, 0, 0.956152, 0.148021, 0.243905, 0.634672)
 
-[node name="GrassAnimated3" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated3" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.678818, 0.243905, 0.448241)
 
-[node name="GrassAnimated4" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated4" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(0.993522, 0, 0.113637, 0, 1, 0, -0.113637, 0, 0.993522, 0.828257, 0.243905, 0.570039)
 
-[node name="GrassAnimated71" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated71" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.24756, 0.243905, 0.45709)
 
-[node name="GrassAnimated72" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated72" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.97859, 0.243905, 0.503858)
 
-[node name="GrassAnimated73" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated73" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.97859, 0.243905, 0.854528)
 
-[node name="GrassAnimated74" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated74" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.29248, 0.243905, 0.910695)
 
-[node name="GrassAnimated75" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated75" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.66228, 0.243905, 0.967089)
 
-[node name="GrassAnimated76" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated76" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.43838, 0.243905, 1.14077)
 
-[node name="GrassAnimated77" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated77" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.43838, 0.243905, 0.752191)
 
-[node name="GrassAnimated78" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated78" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.68245, 0.243905, 0.752191)
 
-[node name="GrassAnimated79" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated79" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.68245, 0.243905, 1.20313)
 
-[node name="GrassAnimated80" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated80" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.36012, 0.243905, 1.35959)
 
-[node name="GrassAnimated81" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated81" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.57132, 0.243905, 1.52755)
 
-[node name="GrassAnimated82" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated82" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.09547, 0.243905, 1.52755)
 
-[node name="GrassAnimated83" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated83" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.31156, 0.243905, 1.67026)
 
-[node name="GrassAnimated84" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated84" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.74431, 0.243905, 1.74406)
 
-[node name="GrassAnimated85" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated85" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.42116, 0.243905, 1.9934)
 
-[node name="GrassAnimated86" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated86" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.04269, 0.243905, 1.9934)
 
-[node name="GrassAnimated87" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated87" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.65253, 0.243905, 1.41358)
 
-[node name="GrassAnimated88" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated88" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.34349, 0.243905, 1.60446)
 
-[node name="GrassAnimated89" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated89" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.94575, 0.243905, 1.23594)
 
-[node name="GrassAnimated90" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated90" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.04529, 0.243905, 1.23594)
 
-[node name="GrassAnimated91" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated91" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.639, 0.243905, 0.685746)
 
-[node name="GrassAnimated92" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated92" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.639, 0.243905, 1.37494)
 
-[node name="GrassAnimated93" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated93" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.19107, 0.243905, 1.68554)
 
-[node name="GrassAnimated94" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated94" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.31361, 0.243905, -0.244476)
 
-[node name="GrassAnimated95" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated95" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.57741, 0.243905, -0.820012)
 
-[node name="GrassAnimated96" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated96" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.77204, 0.243905, -0.142535)
 
-[node name="GrassAnimated97" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated97" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(0.956152, 0, -0.292872, 0, 1, 0, 0.292872, 0, 0.956152, -5.36253, 0.243905, 0.634672)
 
-[node name="GrassAnimated98" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated98" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.83173, 0.243905, 0.448241)
 
-[node name="GrassAnimated99" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated99" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(0.993522, 0, 0.113637, 0, 1, 0, -0.113637, 0, 0.993522, -4.68229, 0.243905, 0.570039)
 
-[node name="GrassAnimated42" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated42" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2561, 0.243905, 2.67519)
 
-[node name="GrassAnimated43" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated43" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98713, 0.243905, 2.72196)
 
-[node name="GrassAnimated44" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated44" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98713, 0.243905, 3.07262)
 
-[node name="GrassAnimated45" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated45" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.30102, 0.243905, 3.12879)
 
-[node name="GrassAnimated46" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated46" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.67082, 0.243905, 3.18519)
 
-[node name="GrassAnimated47" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated47" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.44692, 0.243905, 3.35887)
 
-[node name="GrassAnimated48" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated48" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.44692, 0.243905, 2.97029)
 
-[node name="GrassAnimated49" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated49" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.36866, 0.243905, 3.57769)
 
-[node name="GrassAnimated50" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated50" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.57986, 0.243905, 3.74565)
 
-[node name="GrassAnimated51" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated51" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.10401, 0.243905, 3.74565)
 
-[node name="GrassAnimated52" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated52" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3201, 0.243905, 3.88836)
 
-[node name="GrassAnimated53" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated53" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75285, 0.243905, 3.96216)
 
-[node name="GrassAnimated54" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated54" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4297, 0.243905, 4.2115)
 
-[node name="GrassAnimated55" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated55" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05123, 0.243905, 4.2115)
 
-[node name="GrassAnimated56" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated56" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.66107, 0.243905, 3.63168)
 
-[node name="GrassAnimated57" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated57" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35203, 0.243905, 3.82256)
 
-[node name="GrassAnimated58" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated58" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.95429, 0.243905, 3.45404)
 
-[node name="GrassAnimated59" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated59" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.05383, 0.243905, 3.45404)
 
-[node name="GrassAnimated60" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated60" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.64754, 0.243905, 2.90384)
 
-[node name="GrassAnimated61" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated61" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.64754, 0.243905, 3.59304)
 
-[node name="GrassAnimated62" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated62" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19961, 0.243905, 3.90364)
 
-[node name="GrassAnimated63" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated63" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.73383, 0.243905, 4.3761)
 
-[node name="GrassAnimated64" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated64" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.97741, 0.243905, 4.63973)
 
-[node name="GrassAnimated65" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated65" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.32215, 0.243905, 1.97362)
 
-[node name="GrassAnimated66" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated66" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.58595, 0.243905, 1.39809)
 
-[node name="GrassAnimated67" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated67" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.78058, 0.243905, 2.07556)
 
-[node name="GrassAnimated68" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated68" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(0.956152, 0, -0.292872, 0, 1, 0, 0.292872, 0, 0.956152, -3.37107, 0.243905, 2.85277)
 
-[node name="GrassAnimated69" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated69" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.84027, 0.243905, 2.66634)
 
-[node name="GrassAnimated70" parent="SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated70" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock3" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(0.993522, 0, 0.113637, 0, 1, 0, -0.113637, 0, 0.993522, -2.69083, 0.243905, 2.78814)
 
-[node name="GrassBlock4" type="Node3D" parent="SpriteBasedGrasses"]
+[node name="GrassBlock4" type="Node3D" parent="SubViewport/Plane/SpriteBasedGrasses"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.79401, -0.0353797, 4.19312)
 
-[node name="GrassAnimated" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.262987, 0.243905, 0.45709)
 
-[node name="GrassAnimated2" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated2" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.531956, 0.243905, 0.503858)
 
-[node name="GrassAnimated6" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated6" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.531956, 0.243905, 0.854528)
 
-[node name="GrassAnimated7" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated7" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.218069, 0.243905, 0.910695)
 
-[node name="GrassAnimated8" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated8" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.848266, 0.243905, 0.967089)
 
-[node name="GrassAnimated9" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated9" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.07217, 0.243905, 1.14077)
 
-[node name="GrassAnimated10" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated10" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.07217, 0.243905, 0.752191)
 
-[node name="GrassAnimated11" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated11" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.171906, 0.243905, 0.752191)
 
-[node name="GrassAnimated12" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated12" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.171906, 0.243905, 1.20313)
 
-[node name="GrassAnimated13" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated13" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.150429, 0.243905, 1.35959)
 
-[node name="GrassAnimated14" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated14" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0607712, 0.243905, 1.52755)
 
-[node name="GrassAnimated15" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated15" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.415082, 0.243905, 1.52755)
 
-[node name="GrassAnimated16" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated16" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.198987, 0.243905, 1.67026)
 
-[node name="GrassAnimated17" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated17" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.766236, 0.243905, 1.74406)
 
-[node name="GrassAnimated18" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08939, 0.243905, 1.9934)
-
-[node name="GrassAnimated19" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated19" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.467859, 0.243905, 1.9934)
 
-[node name="GrassAnimated20" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated20" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.858022, 0.243905, 1.41358)
 
-[node name="GrassAnimated21" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16706, 0.243905, 1.60446)
-
-[node name="GrassAnimated22" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated22" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.564799, 0.243905, 1.23594)
 
-[node name="GrassAnimated23" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.46526, 0.243905, 1.23594)
-
-[node name="GrassAnimated24" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.87155, 0.243905, 0.685746)
-
-[node name="GrassAnimated25" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.87155, 0.243905, 1.37494)
-
-[node name="GrassAnimated26" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31948, 0.243905, 1.68554)
-
-[node name="GrassAnimated38" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.87593, 0.243905, 3.30785)
-
-[node name="GrassAnimated39" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.96596, 0.243905, 2.23624)
-
-[node name="GrassAnimated40" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.95219, 0.243905, 0.994866)
-
-[node name="GrassAnimated41" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28454, 0.243905, 3.74205)
-
-[node name="GrassAnimated27" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.78526, 0.243905, 2.158)
-
-[node name="GrassAnimated28" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.26272, 0.243905, 2.68107)
-
-[node name="GrassAnimated29" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated29" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.541673, 0.243905, 2.42163)
 
-[node name="GrassAnimated30" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated30" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.251459, 0.243905, 2.15396)
 
-[node name="GrassAnimated31" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated31" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.870291, 0.243905, 1.64779)
 
-[node name="GrassAnimated32" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated32" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.70002, 0.243905, 1.04536)
 
-[node name="GrassAnimated33" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated33" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.43007, 0.243905, 0.334827)
 
-[node name="GrassAnimated34" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated34" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.680358, 0.243905, -0.244476)
 
-[node name="GrassAnimated35" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated35" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.196934, 0.243905, -0.244476)
 
-[node name="GrassAnimated45" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated45" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.19091, 0.243905, -0.244476)
 
-[node name="GrassAnimated46" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated46" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.31361, 0.243905, -0.244476)
 
-[node name="GrassAnimated42" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated42" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.94916, 0.243905, 2.55292)
 
-[node name="GrassAnimated43" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated43" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.19945, 0.243905, 1.97362)
 
-[node name="GrassAnimated44" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated44" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.32215, 0.243905, 1.97362)
 
-[node name="GrassAnimated36" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated36" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.933142, 0.243905, -0.820012)
 
-[node name="GrassAnimated37" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73851, 0.243905, -0.142535)
-
-[node name="GrassAnimated5" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated5" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(0.956152, 0, -0.292872, 0, 1, 0, 0.292872, 0, 0.956152, 0.148021, 0.243905, 0.634672)
 
-[node name="GrassAnimated3" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated3" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.678818, 0.243905, 0.448241)
 
-[node name="GrassAnimated4" parent="SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
+[node name="GrassAnimated4" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(0.993522, 0, 0.113637, 0, 1, 0, -0.113637, 0, 0.993522, 0.828257, 0.243905, 0.570039)
+
+[node name="CameraRigYaw" type="Node3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49464, 15.285, 57.7932)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw" groups=["snap"]]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0, -32.0503)
+projection = 1
+current = true
+size = 12.0
+far = 100.0
+script = ExtResource("5_w3kb0")
+
+[node name="WorldCentralPivot" type="Node3D" parent="SubViewport/CameraRigYaw/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.848048, -0.529919, 0, 0.529919, 0.848048, 0.00210667, -0.583457, -55.7407)
+
+[node name="Display" type="Control" parent="." node_paths=PackedStringArray("_viewport", "_mainRendereSprite")]
+texture_filter = 2
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -761.0
+offset_bottom = -506.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.01507, 1.01103)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("6_26go8")
+_viewport = NodePath("../SubViewport")
+_mainRendereSprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="Display"]
+texture_filter = 2
+material = SubResource("ShaderMaterial_t285w")
+position = Vector2(0.985153, 3.95636)
+scale = Vector2(3.99092, 2.88485)
+texture = SubResource("ViewportTexture_p5m5s")
+centered = false

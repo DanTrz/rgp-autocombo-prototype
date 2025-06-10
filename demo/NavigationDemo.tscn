@@ -60,7 +60,8 @@ _shader_parameters = {
 "noise_texture": SubResource("NoiseTexture2D_bov7h"),
 "projection_angular_division": 1.436,
 "projection_threshold": 0.8,
-"tri_scale_reduction": 0.3
+"tri_scale_reduction": 0.3,
+&"world_space_normal_blend": true
 }
 world_background = 0
 auto_shader = true

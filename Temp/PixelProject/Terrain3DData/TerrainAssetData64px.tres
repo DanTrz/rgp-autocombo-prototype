@@ -1,8 +1,8 @@
 [gd_resource type="Terrain3DAssets" load_steps=44 format=3 uid="uid://vjyk3bb4hqui"]
 
 [ext_resource type="PackedScene" uid="uid://bok06l3ildw4l" path="res://src/Levels/LevelComponents/GrassMeshAnimated.tscn" id="1_srmo4"]
+[ext_resource type="Shader" uid="uid://dsw64lg3jycdr" path="res://Temp/PixelProject/FoliageAnimation_v2_CorrectedColors_Depth.gdshader" id="1_t8n78"]
 [ext_resource type="PackedScene" uid="uid://dxujm0rnahgrd" path="res://Temp/PixelProject/Assets/3D/FlowerRed.tscn" id="2_x0d86"]
-[ext_resource type="Shader" uid="uid://c4ho5ypde4oft" path="res://Temp/PixelProject/FoliageAnimation_v2_CorrectedColors.gdshader" id="3_83ne2"]
 [ext_resource type="Texture2D" uid="uid://tpbaficb68b0" path="res://Temp/PixelProject/Assets/2D/Grass_4.png" id="4_a4ikv"]
 [ext_resource type="Texture2D" uid="uid://cm32mu2hv0eht" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/grass3_packed_albedo_height.png" id="5_x0d86"]
 [ext_resource type="Texture2D" uid="uid://tu15smx5714" path="res://Temp/PixelProject/Assets/2D/Textures/Packed/grass3_packed_normal_roughness.png" id="6_83ne2"]
@@ -18,7 +18,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5o0mk"]
 render_priority = -1
-shader = ExtResource("3_83ne2")
+shader = ExtResource("1_t8n78")
 shader_parameter/disable_ambient_light = false
 shader_parameter/Use_fake_ambient_light = false
 shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
@@ -28,6 +28,7 @@ shader_parameter/use_vertex_color = false
 shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/billboard = true
+shader_parameter/draw_order_offset = 0.0
 shader_parameter/wind_sway_strength = 0.1
 shader_parameter/wind_sway_speed = 1.0
 shader_parameter/wind_time_scale = 1.0
@@ -44,21 +45,22 @@ last_lod = 0
 last_shadow_lod = 0
 lod0_range = 128.0
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_n6nsh"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t8n78"]
 load_path = "res://.godot/imported/Grass_4.png-e257c332d8b5bcfdfdb336bc25502118.bptc.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ocm65"]
 render_priority = -1
-shader = ExtResource("3_83ne2")
+shader = ExtResource("1_t8n78")
 shader_parameter/disable_ambient_light = false
 shader_parameter/Use_fake_ambient_light = false
 shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
-shader_parameter/albedo_tex = SubResource("CompressedTexture2D_n6nsh")
+shader_parameter/albedo_tex = SubResource("CompressedTexture2D_t8n78")
 shader_parameter/albedo_color = Color(0.52549, 0.709804, 0.360784, 1)
 shader_parameter/use_vertex_color = false
 shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/billboard = true
+shader_parameter/draw_order_offset = 0.0
 shader_parameter/wind_sway_strength = 0.1
 shader_parameter/wind_sway_speed = 1.0
 shader_parameter/wind_time_scale = 1.0
@@ -84,21 +86,22 @@ last_lod = 0
 last_shadow_lod = 0
 lod0_range = 128.0
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ocm65"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_itovh"]
 load_path = "res://.godot/imported/Grass_4.png-e257c332d8b5bcfdfdb336bc25502118.bptc.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t8n78"]
 render_priority = -1
-shader = ExtResource("3_83ne2")
+shader = ExtResource("1_t8n78")
 shader_parameter/disable_ambient_light = false
 shader_parameter/Use_fake_ambient_light = false
 shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
-shader_parameter/albedo_tex = SubResource("CompressedTexture2D_ocm65")
+shader_parameter/albedo_tex = SubResource("CompressedTexture2D_itovh")
 shader_parameter/albedo_color = Color(0.760784, 0.827451, 0.407843, 1)
 shader_parameter/use_vertex_color = false
 shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/billboard = true
+shader_parameter/draw_order_offset = 0.0
 shader_parameter/wind_sway_strength = 0.1
 shader_parameter/wind_sway_speed = 1.0
 shader_parameter/wind_time_scale = 1.0
@@ -135,16 +138,17 @@ lod0_range = 128.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_itovh"]
 render_priority = -1
-shader = ExtResource("3_83ne2")
+shader = ExtResource("1_t8n78")
 shader_parameter/disable_ambient_light = false
 shader_parameter/Use_fake_ambient_light = false
 shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
-shader_parameter/albedo_tex = SubResource("CompressedTexture2D_n6nsh")
+shader_parameter/albedo_tex = SubResource("CompressedTexture2D_t8n78")
 shader_parameter/albedo_color = Color(0.439216, 0.607843, 0.403922, 1)
 shader_parameter/use_vertex_color = true
 shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/billboard = true
+shader_parameter/draw_order_offset = 0.0
 shader_parameter/wind_sway_strength = 0.1
 shader_parameter/wind_sway_speed = 1.0
 shader_parameter/wind_time_scale = 1.0

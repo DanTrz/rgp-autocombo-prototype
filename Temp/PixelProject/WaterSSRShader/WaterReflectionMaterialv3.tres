@@ -9,9 +9,9 @@
 [resource]
 render_priority = -128
 shader = ExtResource("1_kdcka")
-shader_parameter/color_shallow = Color(0.176758, 0.347775, 0.584547, 1)
-shader_parameter/color_deep = Color(0.0953178, 0.468066, 0.516934, 1)
-shader_parameter/transparency = 0.2
+shader_parameter/color_shallow = Color(0.346819, 0.697323, 0.762574, 1)
+shader_parameter/color_deep = Color(0.0929561, 0.459565, 0.507633, 1)
+shader_parameter/transparency = 0.1
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 1.0
 shader_parameter/max_visible_depth = 2.0

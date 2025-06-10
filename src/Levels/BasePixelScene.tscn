@@ -323,8 +323,8 @@ points = PackedVector3Array(-0.5, -1, 0, -0.497651, -1, -0.0490407, -0.497651, -
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ynhhl"]
 _surfaces = [{
-"aabb": AABB(0.127464, -7.72885, -58.6085, 36.3805, 16.2323, 58.0852),
-"attribute_data": PackedByteArray("/tlhTAAAAAAAAIA//tlhTAAAAAAAAAAA/tlhTFqklUAAAIA//tlhTFqklUAAAAAA/tlhTMKMR0EAAIA//tlhTMKMR0EAAAAA"),
+"aabb": AABB(0.130096, -55.5843, -19.837, 7.93429, 57.0005, 19.9447),
+"attribute_data": PackedByteArray("/tlhTAAAAAAAAIA//tlhTAAAAAAAAAAA/tlhTAyklUAAAIA//tlhTAyklUAAAAAA/tlhTJGMR0EAAIA//tlhTJGMR0EAAAAA"),
 "format": 34359742495,
 "index_count": 18,
 "index_data": PackedByteArray("AAABAAIAAQADAAIAAgADAAQAAwAFAAQABAAFAAAABQABAAAA"),
@@ -332,7 +332,7 @@ _surfaces = [{
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 6,
-"vertex_data": PackedByteArray("7IUCPkT6jb1i9wW/rF5jQcdS98ArXmnC+OILPtu8tj1lbx2/fk1QQUgOCEEWb2rC8zvVPpRrirzbhg2/HggSQouXvb/R2EHCOI7//8ABG7g4jv//wAEbuP9/AAAAAP+//38AAAAA/7+vePgKPgc6xa94+Ao+BzrF")
+"vertex_data": PackedByteArray("ADgFPjD8oD8Adtw9bjmfQFBWXsLR1pPBAJUOPpBHtT8A1oI8Um6lQJDrW8I0sp7B+JTWPiCypz8A+p89vwcBQXh5XMLymZbBxvF6iYJ6msTG8XqJgnqaxPfmJIJNaYq+9+Ykgk1pir6F3ueFsGPqvoXe54WwY+q+")
 }]
 
 [sub_resource type="Curve3D" id="Curve3D_h8kal"]
@@ -345,8 +345,8 @@ point_count = 3
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_wlawu"]
 _surfaces = [{
-"aabb": AABB(0.127464, -7.72885, -58.6085, 36.3805, 16.2323, 58.0852),
-"attribute_data": PackedByteArray("/tlhTAAAAAAAAIA//tlhTAAAAAAAAAAA/tlhTFqkFUAAAIA//tlhTFqkFUAAAAAA/tlhTMKMx0AAAIA//tlhTMKMx0AAAAAA"),
+"aabb": AABB(0.127464, -42.7134, -42.299, 24.615, 42.8026, 41.7757),
+"attribute_data": PackedByteArray("/tlhTAAAAAAAAIA//tlhTAAAAAAAAAAA/tlhTEqkFUAAAIA//tlhTEqkFUAAAAAA/tlhTJqMx0AAAIA//tlhTJqMx0AAAAAA"),
 "format": 34359742495,
 "index_count": 18,
 "index_data": PackedByteArray("AAABAAIAAQADAAIAAgADAAQAAwAFAAQABAAFAAAABQABAAAA"),
@@ -354,7 +354,7 @@ _surfaces = [{
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 6,
-"vertex_data": PackedByteArray("7IUCPkT6jb1i9wW/rF5jQcdS98ArXmnC+OILPtu8tj1lbx2/fk1QQUgOCEEWb2rC8zvVPpRrirzbhg2/HggSQouXvb/R2EHCOI7//8ABG7g4jv//wAEbuP9/AAAAAP+//38AAAAA/7+vePgKPgc6xa94+Ao+BzrF")
+"vertex_data": PackedByteArray("6IUCPgD7jb1g9wW/ywiNQYbaKsKMuRvC6OILPgC8tj1gbx2/uuyRQeJXHMI4MinC1DvVPgBsirzghg2/gPDFQawWH8LEWhnCnbu1bGRT7aedu7VsZFPtp5jIiXTRWLOvmMiJdNFYs6/neQtDSimklOd5C0NKKaSU")
 }]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_00ydq"]
