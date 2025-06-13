@@ -39,6 +39,7 @@ enabled=PackedStringArray("res://addons/color-palette/plugin.cfg", "res://addons
 
 character=""
 snap=""
+snap_objects=""
 
 [input]
 

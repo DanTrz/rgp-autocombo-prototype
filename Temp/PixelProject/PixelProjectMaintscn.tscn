@@ -1154,6 +1154,16 @@ offset_bottom = 526.0
 [node name="WorldEnvironmentBKUP" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0tgxd")
 
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1.28635, -0.0488913, 0.181439, -0.0102962, 1.23501, 0.405788, -0.187628, -0.402963, 1.22165, -5.23934, 4.37075, -7.47451)
+texture_filter = 1
+texture = ExtResource("7_3m67x")
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform3D(1.07578, -0.189899, 0.704728, -0.0968953, 1.20696, 0.473146, -0.723404, -0.444065, 0.984632, -17.6942, 4.37075, -3.45255)
+texture_filter = 1
+texture = ExtResource("31_u2oii")
+
 [node name="SubViewport" type="SubViewport" parent="."]
 handle_input_locally = false
 anisotropic_filtering_level = 0
@@ -1611,6 +1621,13 @@ surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 [node name="bridge" parent="SubViewport/Objects" instance=ExtResource("25_ehk3l")]
 transform = Transform3D(0.052266, 0, -0.144787, 0, 0.3, 0, 0.19305, 0, 0.0391995, 8.79411, -0.106164, -7.57308)
 
+[node name="statue2" parent="SubViewport" instance=ExtResource("34_e6aum")]
+transform = Transform3D(0.784395, 0, 1.27856, 0, 1.5, 0, -1.27856, 0, 0.784395, 21.2022, -0.345693, -5.97276)
+
+[node name="statue" parent="SubViewport/statue2" index="0"]
+transform = Transform3D(1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, 1, 0, 0.07931, 0)
+surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
+
 [node name="Display" type="Control" parent="." node_paths=PackedStringArray("_viewport", "_mainRendereSprite")]
 texture_filter = 2
 clip_contents = true
@@ -1636,28 +1653,9 @@ scale = Vector2(2.94161, 2.94529)
 texture = SubResource("ViewportTexture_28obu")
 centered = false
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1.28635, -0.0488913, 0.181439, -0.0102962, 1.23501, 0.405788, -0.187628, -0.402963, 1.22165, -5.23934, 4.37075, -7.47451)
-visible = false
-texture_filter = 1
-texture = ExtResource("7_3m67x")
-
-[node name="Sprite3D2" type="Sprite3D" parent="."]
-transform = Transform3D(1.07578, -0.189899, 0.704728, -0.0968953, 1.20696, 0.473146, -0.723404, -0.444065, 0.984632, -17.6942, 4.37075, -3.45255)
-visible = false
-texture_filter = 1
-texture = ExtResource("31_u2oii")
-
-[node name="statue2" parent="." instance=ExtResource("34_e6aum")]
-transform = Transform3D(0.784395, 0, 1.27856, 0, 1.5, 0, -1.27856, 0, 0.784395, 21.2022, -0.345693, -5.97276)
-
-[node name="statue" parent="statue2" index="0"]
-transform = Transform3D(1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, 1, 0, 0.07931, 0)
-surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
-
 [editable path="GDebuggerUI"]
 [editable path="SubViewport/Objects/column-damaged3"]
 [editable path="SubViewport/Objects/tower-square-arch2"]
 [editable path="SubViewport/Objects/tower-hexagon-base2"]
 [editable path="SubViewport/Objects/bridge"]
-[editable path="statue2"]
+[editable path="SubViewport/statue2"]

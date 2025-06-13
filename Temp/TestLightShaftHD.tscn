@@ -1,0 +1,77 @@
+[gd_scene load_steps=9 format=3 uid="uid://dxmr6povjeiuy"]
+
+[ext_resource type="Shader" uid="uid://becuk8cg3rnlv" path="res://Temp/PixelProject/godray_lightshaft.gdshader" id="4_pn7ud"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_jupot"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="QuadMesh" id="QuadMesh_jupot"]
+size = Vector2(25, 25)
+subdivide_width = 25
+subdivide_depth = 25
+
+[sub_resource type="Gradient" id="Gradient_qow3m"]
+offsets = PackedFloat32Array(0, 0.0545852, 0.180597, 0.341791, 0.352239, 0.404478, 0.408955, 0.647761, 0.652239, 0.775963, 0.850746, 0.859702, 1)
+colors = PackedColorArray(0.980392, 0.980392, 0.980392, 0.945098, 0.980392, 0.980392, 0.980392, 0.945098, 1, 1, 1, 0.454902, 0.98, 0.98, 0.98, 1, 1, 1, 1, 0.454902, 0.453683, 0.453683, 0.453683, 0.0173349, 0.980392, 0.980392, 0.980392, 0.945098, 1, 1, 1, 0.368627, 0.980392, 0.980392, 0.980392, 0.945098, 0.914427, 0.914427, 0.914427, 0.828989, 0.471026, 0.471026, 0.471026, 0.0485306, 0.98, 0.98, 0.98, 0.894118, 0.98, 0.98, 0.98, 0.945098)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jupot"]
+gradient = SubResource("Gradient_qow3m")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_guf70"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tvoi7"]
+render_priority = 0
+shader = ExtResource("4_pn7ud")
+shader_parameter/alpha = 1.0
+shader_parameter/rim_power = 0.05
+shader_parameter/speed = 0.4
+shader_parameter/noise_movement = 0.025
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_guf70")
+shader_parameter/gradient = SubResource("GradientTexture2D_jupot")
+shader_parameter/emission = Color(1, 0.940875, 0.775506, 1)
+shader_parameter/emission_energy = 1.0
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_jupot"]
+top_radius = 7.0
+bottom_radius = 10.0
+height = 20.0
+radial_segments = 12
+cap_top = false
+cap_bottom = false
+
+[node name="GodRayHD" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture = SubResource("ViewportTexture_jupot")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="QuadLightShaftSkin" type="MeshInstance3D" parent="SubViewport"]
+transform = Transform3D(0.632422, -0.774626, 0, 0.774626, 0.632423, 0, 0, 0, 1, 0, 19.0952, 0)
+visible = false
+cast_shadow = 0
+mesh = SubResource("QuadMesh_jupot")
+surface_material_override/0 = SubResource("ShaderMaterial_tvoi7")
+
+[node name="CylinderLightShaftSkin" type="MeshInstance3D" parent="SubViewport"]
+transform = Transform3D(0.607141, -0.794597, 0, 0.794596, 0.607141, 0, 0, 0, 1, 0, 18.9685, 0)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_jupot")
+surface_material_override/0 = SubResource("ShaderMaterial_tvoi7")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0930195, 18.7483, 40.8543)
+projection = 1
+current = true
+size = 10.0

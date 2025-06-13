@@ -31,7 +31,7 @@ uniform vec2 albedo_uv_offset = vec2(0.0, 0.0);
 uniform bool clamp_diffuse_to_max = true;
 
 // Toon shading controls
-uniform int cuts : hint_range(1, 20) = 2; // Use 1 cut for more traditional ToonShading
+uniform int cuts : hint_range(1, 20) = 1; // Use 1 cut for more traditional ToonShading
 uniform float wrap : hint_range(-2.0f, 2.0f) = 0.0f;
 uniform float steepness : hint_range(1.0f, 8.0f) = 1.0f;
 uniform bool use_attenuation = true;

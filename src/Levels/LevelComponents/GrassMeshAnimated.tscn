@@ -7,7 +7,7 @@
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wlmg1"]
 load_path = "res://.godot/imported/Grass_3.png-6711f90f42818dba951396c8414e2150.ctex"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jfcxj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wlmg1"]
 render_priority = -1
 shader = ExtResource("3_wlmg1")
 shader_parameter/disable_ambient_light = false
@@ -27,7 +27,7 @@ shader_parameter/wind_time_offset = 0.0
 shader_parameter/sway_from_bottom = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_bnv5h"]
-material = SubResource("ShaderMaterial_jfcxj")
+material = SubResource("ShaderMaterial_wlmg1")
 size = Vector2(0.5, 0.4)
 
 [node name="GrasMeshAnimated" type="Node3D" node_paths=PackedStringArray("meshInstance3D")]

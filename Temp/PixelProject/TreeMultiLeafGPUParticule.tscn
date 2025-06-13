@@ -52,9 +52,9 @@ render_priority = 0
 shader = ExtResource("3_877qk")
 shader_parameter/shadows_enabled = true
 shader_parameter/highlights_enabled = true
-shader_parameter/shadow_strength = 0.8
-shader_parameter/highlight_strength = 0.4
-shader_parameter/highlight_color = Color(0.764221, 0.573364, 0.327441, 1)
+shader_parameter/shadow_strength = 0.7
+shader_parameter/highlight_strength = 0.7
+shader_parameter/highlight_color = Color(0.879851, 0.745865, 0.651798, 1)
 shader_parameter/shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wq7mf"]
@@ -63,7 +63,7 @@ next_pass = SubResource("ShaderMaterial_1wsyu")
 shader = ExtResource("2_ot7g1")
 shader_parameter/albedo_color = Color(0.704429, 0.526407, 0.397455, 1)
 shader_parameter/disable_ambient_light = false
-shader_parameter/Use_fake_ambient_light = true
+shader_parameter/Use_fake_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.441798, 0.312208, 0.217097, 1)
 shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
@@ -174,7 +174,7 @@ shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_fjmk2")
 shader_parameter/albedo_color = Color(0.541176, 0.690196, 0.376471, 1)
 shader_parameter/use_vertex_color = true
-shader_parameter/use_emission = true
+shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/billboard = true
 shader_parameter/wind_sway_strength = 0.1
@@ -198,12 +198,12 @@ _colorNoise = 0.1
 _restartParticulesTime = NodePath("RestartParticulesTime")
 
 [node name="tree_oak_dark" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
+transform = Transform3D(2.5, 0, 0, 0, 3, 0, 0, 0, 2.5, 0, 0, 0)
 mesh = SubResource("ArrayMesh_a38gw")
 skeleton = NodePath("")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="tree_oak_dark"]
-transform = Transform3D(0.4, 0, 0, 0, 0.284668, -0.281006, 0, 0.281006, 0.284668, -0.0165017, 0.963993, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.284668, -0.281006, 0, 0.281006, 0.284668, -0.0165017, 0.880646, 0)
 cast_shadow = 0
 amount = 500
 lifetime = 1e+07

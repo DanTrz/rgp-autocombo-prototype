@@ -1,0 +1,178 @@
+[gd_scene load_steps=23 format=3 uid="uid://d4ih2npe2ba44"]
+
+[ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="2_s5fk6"]
+[ext_resource type="Shader" uid="uid://dcwsr43gaiw4m" path="res://water_gd_planar_reflections/planar_reflection_ortho_working.gdshader" id="3_qvv8d"]
+[ext_resource type="Script" uid="uid://b66hrw8ajguo0" path="res://water_gd_planar_reflections/PlanarReflection.gd" id="3_s5fk6"]
+[ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="5_qvv8d"]
+[ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="6_0bfsn"]
+[ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="6_g8b4f"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lgx2c"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_ku5o1"]
+sky_material = SubResource("ProceduralSkyMaterial_lgx2c")
+
+[sub_resource type="Environment" id="Environment_7nu6e"]
+sky = SubResource("Sky_ku5o1")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lgx2c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s3kyq"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_xhcne"]
+viewport_path = NodePath("PlanarReflector2/@SubViewport@24413")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qvv8d"]
+seed = 10
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0bfsn"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_qvv8d")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hukoa"]
+seed = 10
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mvp1u"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_hukoa")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hhrhu"]
+seed = 10
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g8b4f"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_hhrhu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4tqjt"]
+resource_local_to_scene = true
+render_priority = -10
+shader = ExtResource("3_qvv8d")
+shader_parameter/albedo = Color(0.290196, 0.52549, 0.670588, 1)
+shader_parameter/proximity_fade_distance = 0.5
+shader_parameter/roughness = 0.0
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
+shader_parameter/specular = 1.0
+shader_parameter/metallic = 0.0
+shader_parameter/texture_refraction = SubResource("NoiseTexture2D_g8b4f")
+shader_parameter/refraction = 0.0
+shader_parameter/refraction_texture_channel = Vector4(1, 1, 1, 1)
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_0bfsn")
+shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_mvp1u")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_xhcne")
+shader_parameter/normal_scale = 0.0
+shader_parameter/normal_uv_mult = 16.0
+shader_parameter/distortion_strength = 0.01
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/reflection_strength = 0.5
+shader_parameter/is_orthogonal_camera = false
+shader_parameter/ortho_uv_scale = 1.0
+shader_parameter/camera_size = 10.0
+shader_parameter/camera_fov = 70.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ndy57"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_4tqjt")
+size = Vector2(10, 10)
+subdivide_width = 20
+subdivide_depth = 20
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hukoa"]
+shader = ExtResource("6_0bfsn")
+shader_parameter/shadow_boost = 1.2
+shader_parameter/shadow_threshold = 0.46
+shader_parameter/shadow_color_override = Color(1, 1, 1, 1)
+shader_parameter/use_shadow_color_override = false
+shader_parameter/light_boost = 1.05
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_mvp1u"]
+viewport_path = NodePath("SubViewport")
+
+[node name="WaterTestingShader" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7nu6e")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.798917, -0.18291, -0.572953, 0.430893, -0.49054, 0.757431, -0.419598, -0.852006, -0.313086, -8.09849, 4.9777, 4.89715)
+shadow_enabled = true
+
+[node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="Objects" type="Node3D" parent="SubViewport"]
+transform = Transform3D(0.745822, 0.069073, -0.662555, 0.594207, -0.518565, 0.614823, -0.30111, -0.852244, -0.427801, 2.23352, 3.01102, 3.67148)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.931212, 0.256767, -0.258681, 0.197281, -0.951856, -0.23463, -0.306472, 0.167458, -0.937034, -3.05231, 4.14097, 2.79288)
+size = Vector3(1, 3, 1)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.977745, 0.155711, 0.140607, 0.190255, -0.375589, -0.907048, -0.0884272, 0.913612, -0.396855, -0.560704, 3.20795, -0.176818)
+size = Vector3(1, 3, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.968675, -0.228646, -0.0969101, 0.213088, 0.564882, 0.797184, -0.12753, -0.792862, 0.595909, -0.318842, 7.89844, 3.56345)
+mesh = SubResource("CylinderMesh_lgx2c")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_s3kyq")
+
+[node name="CameraRigYaw" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0425911, 22.9374, 61.8745)
+script = ExtResource("6_g8b4f")
+RotationPivotPoint = NodePath("Camera3D/WorldCentralPivot")
+MainCamera = NodePath("Camera3D")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw"]
+unique_name_in_owner = true
+physics_interpolation_mode = 2
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0, -32.0503)
+projection = 1
+current = true
+size = 10.0
+far = 100.0
+script = ExtResource("2_s5fk6")
+SnapObjects = false
+
+[node name="WorldCentralPivot" type="Node3D" parent="SubViewport/CameraRigYaw/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.40038, -39.6626)
+
+[node name="PlanarReflector" type="MeshInstance3D" parent="SubViewport" node_paths=PackedStringArray("main_cam")]
+mesh = SubResource("PlaneMesh_ndy57")
+script = ExtResource("3_s5fk6")
+main_cam = NodePath("../CameraRigYaw/Camera3D")
+reflection_camera_resolution = Vector2i(640, 360)
+
+[node name="Display" type="Control" parent="." node_paths=PackedStringArray("_viewport", "_mainRendereSprite")]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.01507, 1.01103)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("5_qvv8d")
+_viewport = NodePath("../SubViewport")
+_mainRendereSprite = NodePath("MainRenderSprite")
+
+[node name="MainRenderSprite" type="Sprite2D" parent="Display"]
+texture_filter = 2
+material = SubResource("ShaderMaterial_hukoa")
+position = Vector2(-0.985153, 3.95636)
+scale = Vector2(2.93853, 2.96452)
+texture = SubResource("ViewportTexture_mvp1u")
+centered = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c7kjke7mmdjoa"]
+[gd_scene load_steps=23 format=3 uid="uid://c7kjke7mmdjoa"]
 
 [ext_resource type="PackedScene" uid="uid://c7ea5wxf3exug" path="res://src/Levels/LevelComponents/GrassAnimSprite3D.tscn" id="1_4rnpv"]
 [ext_resource type="Script" uid="uid://b7o5064b45yqm" path="res://Temp/CSharpPixelPerfect/RotatingCube.cs" id="1_g6oq6"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="3_p5m5s"]
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="5_w3kb0"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="6_26go8"]
+[ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="6_t285w"]
 [ext_resource type="Shader" uid="uid://d4q5ai1l6seh" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale.gdshader" id="9_t285w"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_frppt"]
@@ -144,14 +145,14 @@ shadow_enabled = true
 [node name="SubViewport" type="SubViewport" parent="."]
 handle_input_locally = false
 anisotropic_filtering_level = 0
-size = Vector2i(300, 200)
+size = Vector2i(640, 360)
 render_target_update_mode = 4
 
 [node name="PivotPointRotation" type="Node3D" parent="SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.562035, 0)
 script = ExtResource("1_g6oq6")
 
-[node name="RedBox" type="CSGBox3D" parent="SubViewport/PivotPointRotation" groups=["snap"]]
+[node name="RedBox" type="CSGBox3D" parent="SubViewport/PivotPointRotation" groups=["snap", "snap_objects"]]
 transform = Transform3D(0.854468, 0, 0.519504, 0, 1, 0, -0.519504, 0, 0.854468, 0, 0, 0.671739)
 material_override = SubResource("ShaderMaterial_qs4bo")
 size = Vector3(1.5, 1.5, 1.5)
@@ -160,7 +161,7 @@ material = SubResource("StandardMaterial3D_i2pmk")
 [node name="Node3D" type="Node3D" parent="SubViewport/PivotPointRotation"]
 transform = Transform3D(0.854468, 0, 0.519504, 0, 1, 0, -0.519504, 0, 0.854468, 0, 0, 0.671739)
 
-[node name="BlueBox" type="CSGBox3D" parent="SubViewport/PivotPointRotation/Node3D" groups=["snap"]]
+[node name="BlueBox" type="CSGBox3D" parent="SubViewport/PivotPointRotation/Node3D" groups=["snap", "snap_objects"]]
 transform = Transform3D(0.396427, 0, -0.918067, 0, 1, 0, 0.918067, 0, 0.396427, -2.36646, 0.622239, 3.8923)
 size = Vector3(1.5, 1.5, 1.5)
 material = SubResource("ShaderMaterial_caobv")
@@ -943,15 +944,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.678818, 0.243905, 0.448241)
 [node name="GrassAnimated4" parent="SubViewport/Plane/SpriteBasedGrasses/GrassBlock4" instance=ExtResource("1_4rnpv")]
 transform = Transform3D(0.993522, 0, 0.113637, 0, 1, 0, -0.113637, 0, 0.993522, 0.828257, 0.243905, 0.570039)
 
-[node name="CameraRigYaw" type="Node3D" parent="SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49464, 15.285, 57.7932)
+[node name="CameraRigYaw" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0558643, 15.285, 58.9078)
+script = ExtResource("6_t285w")
+RotationPivotPoint = NodePath("Camera3D/WorldCentralPivot")
+MainCamera = NodePath("Camera3D")
 
-[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw" groups=["snap"]]
+[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw"]
 unique_name_in_owner = true
+physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0, -32.0503)
 projection = 1
 current = true
-size = 12.0
+size = 8.0
 far = 100.0
 script = ExtResource("5_w3kb0")
 
@@ -965,8 +970,7 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -761.0
-offset_bottom = -506.0
+offset_right = 11.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.01507, 1.01103)
@@ -981,6 +985,6 @@ _mainRendereSprite = NodePath("Sprite2D")
 texture_filter = 2
 material = SubResource("ShaderMaterial_t285w")
 position = Vector2(0.985153, 3.95636)
-scale = Vector2(3.99092, 2.88485)
+scale = Vector2(2.97239, 2.992)
 texture = SubResource("ViewportTexture_p5m5s")
 centered = false

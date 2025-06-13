@@ -8,10 +8,13 @@ using Godot;
 /// </summary>
 public partial class CameraPixelSnap : Camera3D
 {
+
 	// Determines if the camera's view should be snapped to pixel boundaries.
 	[Export] public bool SnapWorld = true;
 	// Determines if objects in the scene should also be snapped to pixel boundaries ( objects must have the "snap" group.)
 	[Export] public bool SnapObjects = true;
+	[Export] string snapGroup = "snap_objects";
+
 	// Stores the error in texel snapping, useful for adjusting sprite positions.
 	public Vector2 TexelError = Vector2.Zero;
 	// Previous rotation of the camera to detect changes.
@@ -36,6 +39,7 @@ public partial class CameraPixelSnap : Camera3D
 
 	public override void _Process(double delta)
 	{
+		if (!SnapWorld && !SnapObjects) return;
 		// Check if the camera's rotation has changed.
 		if (this.GlobalRotation != _prevRotation)
 		{
@@ -80,7 +84,7 @@ public partial class CameraPixelSnap : Camera3D
 	private void SnapObjectsToPixel()
 	{
 		// Retrieve nodes in the "snap" group.
-		_snapNodes = GetTree().GetNodesInGroup("snap");
+		_snapNodes = GetTree().GetNodesInGroup(snapGroup);
 
 		//if (_snapNodes.Count == 0 && _prevRotation == this.GlobalRotation) return; //Added DT: Tries to avoid snaping when no changes
 

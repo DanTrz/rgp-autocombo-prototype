@@ -14,7 +14,7 @@ public partial class CameraRigController : Node3D
 	[Export] public Node3D RotationPivotPoint;
 
 
-	[Export] public CameraPixelSnap MainCamera;
+	[Export] public Camera3D MainCamera;
 
 
 	public override void _Process(double delta)

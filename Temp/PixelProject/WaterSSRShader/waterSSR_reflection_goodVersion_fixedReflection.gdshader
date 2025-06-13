@@ -37,11 +37,10 @@ uniform float surface_texture_time_scale : hint_range(0.001, 2.0, 0.001) = 0.06;
 
 // Enhanced SSR Controls
 uniform float ssr_resolution : hint_range(0.01, 10.0, 0.1) = 1.0;
-uniform float ssr_max_travel : hint_range(0.0, 400.0, 0.1) = 30.0;
+uniform float ssr_max_travel : hint_range(0.0, 200.0, 0.1) = 30.0;
 uniform float ssr_max_diff : hint_range(0.1, 10.0, 0.1) = 4.0;
 uniform float ssr_mix_strength : hint_range(0.0, 1.0, 0.01) = 0.8;
 uniform float ssr_screen_border_fadeout: hint_range(0.0, 1.0, 0.1) = 0.3;
-uniform int ssr_binary_search_steps = 4;
 
 // Enhanced Reflection Angle Controls
 uniform float reflection_angle_bias : hint_range(-1.0, 1.0, 0.01) = 0.0;
@@ -182,71 +181,90 @@ float get_object_size_factor(vec2 screen_pos, float depth, mat4 inv_proj_m)
 
 vec4 get_enhanced_ssr_color(vec3 surface_view_position, vec3 normal_view_space, vec3 view_view_space, mat4 proj_m, mat4 inv_proj_m)
 {
-    if (ssr_max_travel < EPSILON)
-    {
-        return vec4(0);
-    }
+	if (ssr_max_travel < EPSILON)
+	{
+		return vec4(0);
+	}
 
-    vec3 current_position_view_space = surface_view_position;
-    vec3 view_direction_view_space = view_view_space * -1.0;
-    vec3 reflect_vector_view_space = normalize(reflect(view_direction_view_space.xyz, normal_view_space.xyz));
-    float travel = 0.0;
-    vec3 resulting_color = vec3(-1.0);
-    vec2 current_screen_position = vec2(0.0);
-    vec3 previous_position = current_position_view_space;
-    float previous_depth_diff = 1.0;
+	vec3 current_position_view_space = surface_view_position;
+	vec3 view_direction_view_space = normalize(view_view_space * -1.0);
 
-    while (travel < ssr_max_travel && resulting_color.x < 0.0)
-    {
-        current_position_view_space += reflect_vector_view_space * ssr_resolution;
-        travel += ssr_resolution;
-        current_screen_position = get_uv_from_view_position(current_position_view_space, proj_m);
+	// Apply angle bias and scaling to reflection vector
+	vec3 base_reflect_vector = reflect(view_direction_view_space.xyz, normal_view_space.xyz);
+	vec3 reflect_vector_view_space = normalize(mix(base_reflect_vector, normal_view_space, reflection_angle_bias) * reflection_angle_scale);
 
-        if (!is_within_screen_boundaries(current_screen_position))
-        {
-            break;
-        }
+	// Calculate view angle factor (Fresnel-like effect)
+	float view_dot_normal = dot(view_direction_view_space, normal_view_space);
+	float view_angle_factor = pow(1.0 - abs(view_dot_normal), reflection_fresnel_power);
 
-        float depth_texture_probe_raw = texture(DEPTH_TEXTURE, current_screen_position).x;
-        vec3 depth_texture_probe_view_position = get_view_position_from_uv(current_screen_position, depth_texture_probe_raw, inv_proj_m);
-        float depth_diff = current_position_view_space.z - depth_texture_probe_view_position.z;
+	// Early exit if view angle is too steep
+	if (abs(view_dot_normal) < reflection_view_angle_cutoff)
+	{
+		return vec4(0);
+	}
 
-        if (depth_diff <= 0.0 && previous_depth_diff > 0.0)
-        {
-            vec3 low = previous_position;
-            vec3 high = current_position_view_space;
+	vec2 current_screen_position = vec2(0.0);
+	vec3 resulting_color = vec3(-1.0);
+	float total_distance = 0.0;
 
-            for(int i = 0; i < ssr_binary_search_steps; i++)
-            {
-                vec3 mid_position = (low + high) / 2.0;
-                vec2 mid_screen_uv = get_uv_from_view_position(mid_position, proj_m);
-                float mid_depth_raw = texture(DEPTH_TEXTURE, mid_screen_uv).x;
-                vec3 mid_depth_view = get_view_position_from_uv(mid_screen_uv, mid_depth_raw, inv_proj_m);
-                float mid_depth_diff = mid_position.z - mid_depth_view.z;
+	for(float travel = 0.0; resulting_color.x < 0.0 && travel < ssr_max_travel; travel = travel + ssr_resolution)
+	{
+		current_position_view_space += reflect_vector_view_space * ssr_resolution;
+		current_screen_position = get_uv_from_view_position(current_position_view_space, proj_m);
+		total_distance += ssr_resolution;
 
-                if (mid_depth_diff > 0.0)
-                {
-                    low = mid_position;
-                }
-                else
-                {
-                    high = mid_position;
-                }
-            }
+		float depth_texture_probe_raw = texture(DEPTH_TEXTURE, current_screen_position).x;
+		vec3 depth_texture_probe_view_position = get_view_position_from_uv(current_screen_position, depth_texture_probe_raw, inv_proj_m);
 
-            vec3 final_position = (low + high) / 2.0;
-            vec2 final_screen_uv = get_uv_from_view_position(final_position, proj_m);
-            resulting_color = texture(SCREEN_TEXTURE, final_screen_uv).rgb;
-            current_screen_position = final_screen_uv;
-            break;
-        }
+		float depth_diff = depth_texture_probe_view_position.z - current_position_view_space.z;
 
-        previous_position = current_position_view_space;
-        previous_depth_diff = depth_diff;
-    }
+		// Calculate depth factor for the reflected object
+		float object_depth = length(depth_texture_probe_view_position - surface_view_position);
+		float depth_factor = 1.0;
 
-    float alpha = get_screen_border_alpha(current_screen_position);
-    return vec4(resulting_color, alpha);
+		if (object_depth < reflection_depth_min)
+		{
+			depth_factor = 0.0; // Too close, don't reflect
+		}
+		else if (object_depth > reflection_depth_max)
+		{
+			depth_factor = 0.0; // Too far, don't reflect
+		}
+		else
+		{
+			// Smooth falloff within range
+			float normalized_depth = (object_depth - reflection_depth_min) / (reflection_depth_max - reflection_depth_min);
+			depth_factor = pow(1.0 - normalized_depth, reflection_depth_falloff);
+		}
+
+		// Calculate distance factor
+		float distance_factor = 1.0;
+		if (total_distance > reflection_distance_min)
+		{
+			float normalized_distance = clamp((total_distance - reflection_distance_min) / (reflection_distance_max - reflection_distance_min), 0.0, 1.0);
+			distance_factor = pow(1.0 - normalized_distance, reflection_distance_falloff);
+		}
+
+		// Check object size
+		float size_factor = get_object_size_factor(current_screen_position, depth_texture_probe_raw, inv_proj_m);
+
+		vec3 ssr_screen_color = texture(SCREEN_TEXTURE, current_screen_position.xy).rgb;
+		bool valid_reflection = is_within_screen_boundaries(current_screen_position) &&
+								depth_diff >= 0.0 && depth_diff < ssr_max_diff &&
+								depth_factor > 0.1 && distance_factor > 0.1 && size_factor > 0.5;
+
+		resulting_color = valid_reflection ? ssr_screen_color : vec3(-1.0);
+
+		// Apply factors to the final result
+		if (resulting_color.x >= 0.0)
+		{
+			float combined_factor = view_angle_factor * depth_factor * distance_factor * size_factor;
+			resulting_color *= combined_factor;
+		}
+	}
+
+	float alpha = get_screen_border_alpha(current_screen_position);
+	return vec4(resulting_color, alpha);
 }
 
 float linear_depth(float cur_depth)
