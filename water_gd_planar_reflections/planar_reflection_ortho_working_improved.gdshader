@@ -12,6 +12,13 @@ uniform float specular : hint_range(0.0, 1.0) = 0.5;
 uniform sampler2D reflection_screen_texture: source_color,filter_linear_mipmap,repeat_enable;
 uniform float reflection_strength: hint_range(0.0, 1.0) = 0.5;
 
+// Color correction uniforms 
+uniform bool enable_color_correction = false;
+uniform float brightness_multiplier : hint_range(0.5, 3.0) = 1.0;
+uniform float contrast_adjustment : hint_range(0.5, 2.0) = 1.0;
+uniform float saturation_boost : hint_range(0.5, 2.0) = 1.0;
+uniform float gamma_correction : hint_range(0.3, 1.5) = 1.0;
+
 // Normal mapping and distortion
 uniform sampler2D texture_normal : source_color,filter_linear_mipmap,repeat_enable;
 uniform sampler2D texture_normal2: source_color,filter_linear_mipmap,repeat_enable;
@@ -21,12 +28,12 @@ uniform float distortion_strength : hint_range(0.0, 0.5) = 0.1;
 
 // UV transformation
 uniform vec3 uv1_scale = vec3(1.0, 1.0, 1.0);
-uniform vec3 uv1_offset  = vec3(0.0, 0.0, 0.0);
+uniform vec3 uv1_offset = vec3(0.0, 0.0, 0.0);
 
 // Refraction (optional - only if you use it)
 uniform sampler2D texture_refraction : filter_linear_mipmap,repeat_enable;
 uniform float refraction : hint_range(-1.0, 1.0) = 0.0;
-uniform vec4 refraction_texture_channel  = vec4(1.0, 0.0, 0.0, 0.0);
+uniform vec4 refraction_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
 
 // Fade effects
 uniform float proximity_fade_distance : hint_range(0.0, 10.0) = 1.0;
@@ -64,6 +71,32 @@ uniform sampler2D displacement_texture : source_color,filter_linear_mipmap,repea
 varying vec3 world_position;
 varying vec3 world_normal;
 varying float vertex_displacement;
+
+// Color correction function for non-layer-1 fix
+vec3 apply_color_correction(vec3 color) {
+    // Only apply correction if enabled and layer 1 is not active
+    if (!enable_color_correction) {
+        return color;
+    }
+    
+    // Gamma correction (applied first for proper color space)
+    color = pow(color, vec3(gamma_correction));
+    
+    // Brightness adjustment
+    color *= brightness_multiplier;
+    
+    // Contrast adjustment (around middle gray)
+    color = mix(vec3(0.5), color, contrast_adjustment);
+    
+    // Saturation boost
+    float luminance = dot(color, vec3(0.299, 0.587, 0.114));
+    color = mix(vec3(luminance), color, saturation_boost);
+    
+    // Clamp to prevent overflow
+    color = clamp(color, vec3(0.0), vec3(1.0));
+    
+    return color;
+}
 
 void vertex() {
 	UV = UV * uv1_scale.xy + uv1_offset.xy;
@@ -143,6 +176,9 @@ void fragment() {
 	
 	// Sample reflection texture
 	vec4 reflection_tex = texture(reflection_screen_texture, warped_uv);
+	
+	// APPLY COLOR CORRECTION 
+	reflection_tex.rgb = apply_color_correction(reflection_tex.rgb);
 	
 	// Combine normal maps
 	vec3 combined_normal = mix(NORMAL_MAP1, NORMAL_MAP2, 0.5);

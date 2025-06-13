@@ -1,4 +1,4 @@
-[gd_scene load_steps=265 format=4 uid="uid://c2citj8vy3n2"]
+[gd_scene load_steps=266 format=4 uid="uid://c2citj8vy3n2"]
 
 [ext_resource type="Texture2D" uid="uid://3sbqf0bf1n4s" path="res://Temp/PixelProject/Assets/2D/Textures/WhiteTextures/Blank64px.png" id="1_edkn3"]
 [ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="2_6tc5x"]
@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="9_lxxm7"]
 [ext_resource type="PackedScene" uid="uid://ceuqgja4ownk6" path="res://Temp/PixelProject/TreeMultiLeafGPUParticule.tscn" id="10_viqks"]
 [ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="11_am1ms"]
-[ext_resource type="Shader" uid="uid://c2pylwyrvmci4" path="res://Temp/PixelProject/WaterSSRShader/water_planar_testing.gdshader" id="12_ehfos"]
+[ext_resource type="Shader" uid="uid://cyevtlt7yjvyc" path="res://Temp/PixelProject/WaterSSRShader/waterSSR_reflection_goodVersion_fixedReflection.gdshader" id="12_da4iu"]
 [ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="12_sc0ui"]
 [ext_resource type="Material" uid="uid://cr8yf6r3utjih" path="res://Temp/PixelProject/WaterSSRShader/water_mat.tres" id="13_3dntl"]
 [ext_resource type="Shader" uid="uid://deslforjqj7i4" path="res://Temp/PixelProject/WaterSSRShader/ocean.gdshader" id="14_ny6f7"]
@@ -409,49 +409,59 @@ shader_parameter/emission_energy = 0.5
 shader_parameter/uv1_scale = Vector2(4, 0.1)
 shader_parameter/uv1_offset = Vector2(0, 0.85)
 
-[sub_resource type="BoxMesh" id="BoxMesh_v0kvh"]
+[sub_resource type="BoxMesh" id="BoxMesh_da4iu"]
 size = Vector3(150, 0.2, 150)
 subdivide_width = 150
 subdivide_depth = 150
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_03ca8"]
 render_priority = 0
-shader = ExtResource("12_ehfos")
-shader_parameter/absorption_color = Color(1, 0.35, 0, 1)
-shader_parameter/fresnel_radius = 2.0
-shader_parameter/fresnel_color = Color(0, 0.57, 0.72, 1)
-shader_parameter/roughness = 0.15
-shader_parameter/specular = 0.25
-shader_parameter/depth_distance = 25.0
-shader_parameter/beers_law = 4.5
-shader_parameter/displacement_strength = 0.3
-shader_parameter/displacement_scroll_speed = 0.1
-shader_parameter/displacement_scroll_offset = Vector2(-0.2, 0.3)
-shader_parameter/displacement_scale_offset = 0.5
-shader_parameter/displacement_scale = Vector2(0.04, 0.04)
-shader_parameter/edge_thickness = 0.3
-shader_parameter/edge_speed = 0.35
-shader_parameter/edge_noise_scale = Vector2(0.4, 0.4)
-shader_parameter/influence_size = 1.0
-shader_parameter/player_wave_frequenzy = 10.0
-shader_parameter/player_wave_speed = 5.0
-shader_parameter/caustic_size = 2.0
-shader_parameter/caustic_range = 40.0
-shader_parameter/caustic_strength = 0.08
-shader_parameter/ssr_mix_strength = 0.65
-shader_parameter/ssr_travel = 100.0
-shader_parameter/ssr_resolution_near = 1.0
-shader_parameter/ssr_resolution_far = 5.0
-shader_parameter/ssr_tolerance = 1.0
-shader_parameter/refraction_strength = 1.25
-shader_parameter/normal_map_strength = 1.0
-shader_parameter/scroll_speed = 0.3
-shader_parameter/scroll_offset = Vector2(0.1, -0.3)
-shader_parameter/scale_offset = 0.5
-shader_parameter/normal_map_scale = Vector2(0.1, 0.1)
-shader_parameter/wind_intensity = 0.0
-shader_parameter/wind_direction = Vector3(0, 0, 0)
-shader_parameter/player_position = Vector3(0, 0, 0)
+shader = ExtResource("12_da4iu")
+shader_parameter/color_shallow = Color(0.01, 0.2, 0.3, 1)
+shader_parameter/color_deep = Color(0.3, 0.5, 0.6, 1)
+shader_parameter/transparency = 0.16
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.0
+shader_parameter/max_visible_depth = 2.0
+shader_parameter/wave_move_direction_a = Vector2(-1, 0)
+shader_parameter/wave_move_direction_b = Vector2(0, 1)
+shader_parameter/wave_noise_scale_a = 5.0
+shader_parameter/wave_noise_scale_b = 5.0
+shader_parameter/wave_time_scale_a = 0.1
+shader_parameter/wave_time_scale_b = 0.1
+shader_parameter/wave_height_scale = 0.4
+shader_parameter/wave_normal_flatness = 50.0
+shader_parameter/surface_normals_move_direction_a = Vector2(-1, 0.2)
+shader_parameter/surface_normals_move_direction_b = Vector2(0.2, 1)
+shader_parameter/surface_texture_roughness = 0.15
+shader_parameter/surface_texture_scale = 0.1
+shader_parameter/surface_texture_time_scale = 0.06
+shader_parameter/ssr_resolution = 1.0
+shader_parameter/ssr_max_travel = 30.0
+shader_parameter/ssr_max_diff = 4.0
+shader_parameter/ssr_mix_strength = 0.8
+shader_parameter/ssr_screen_border_fadeout = 0.3
+shader_parameter/reflection_angle_bias = 0.0
+shader_parameter/reflection_angle_scale = 1.0
+shader_parameter/reflection_fresnel_power = 0.4
+shader_parameter/reflection_view_angle_cutoff = 0.1
+shader_parameter/reflection_depth_min = 0.5
+shader_parameter/reflection_depth_max = 20.0
+shader_parameter/reflection_depth_falloff = 1.0
+shader_parameter/reflection_distance_min = 1.0
+shader_parameter/reflection_distance_max = 50.0
+shader_parameter/reflection_distance_falloff = 2.0
+shader_parameter/reflection_min_object_size = 0.0
+shader_parameter/reflection_size_detection_samples = 4.0
+shader_parameter/refraction_intensity = 0.4
+shader_parameter/border_color = Color(1, 1, 1, 1)
+shader_parameter/border_scale = 0.01
+shader_parameter/border_near = 20000.0
+shader_parameter/border_far = 200000.0
+shader_parameter/cut_out_x = 0.0
+shader_parameter/cut_out_z = 0.0
+shader_parameter/use_fixed_reflection = true
+shader_parameter/fixed_reflection_world_pos = Vector3(15, 30, 15)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ny6f7"]
 size = Vector3(150, 0.1, 150)
@@ -502,13 +512,13 @@ shader_parameter/wind_intensity = 0.0
 shader_parameter/wind_direction = Vector3(0, 0, 0)
 shader_parameter/player_position = Vector3(0, 0, 0)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_856c6"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_da4iu"]
 viewport_path = NodePath("SubViewport/PlanarReflectorOrtho/@SubViewport@158248")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4dgxo"]
 seed = 10
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_da4iu"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_72eyv"]
 seamless = true
 as_normal_map = true
 noise = SubResource("FastNoiseLite_4dgxo")
@@ -516,7 +526,7 @@ noise = SubResource("FastNoiseLite_4dgxo")
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_iuvjp"]
 seed = 10
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_72eyv"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_crfu6"]
 seamless = true
 as_normal_map = true
 noise = SubResource("FastNoiseLite_iuvjp")
@@ -524,7 +534,7 @@ noise = SubResource("FastNoiseLite_iuvjp")
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7vq4r"]
 seed = 10
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_crfu6"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_03ca8"]
 seamless = true
 as_normal_map = true
 noise = SubResource("FastNoiseLite_7vq4r")
@@ -533,25 +543,30 @@ noise = SubResource("FastNoiseLite_7vq4r")
 resource_local_to_scene = true
 render_priority = -1
 shader = ExtResource("15_856c6")
-shader_parameter/albedo = Color(0.36, 0.829333, 1, 1)
+shader_parameter/albedo = Color(0.2881, 0.523605, 0.67, 0.388235)
 shader_parameter/metallic = 0.0
-shader_parameter/roughness = 1.0
+shader_parameter/roughness = 0.0
 shader_parameter/specular = 0.5
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_856c6")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_da4iu")
 shader_parameter/reflection_strength = 0.25
-shader_parameter/texture_normal = SubResource("NoiseTexture2D_da4iu")
-shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_72eyv")
-shader_parameter/normal_scale = 1.0
+shader_parameter/enable_color_correction = true
+shader_parameter/brightness_multiplier = 1.8
+shader_parameter/contrast_adjustment = 1.2
+shader_parameter/saturation_boost = 1.3
+shader_parameter/gamma_correction = 0.85
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_72eyv")
+shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_crfu6")
+shader_parameter/normal_scale = 0.0
 shader_parameter/normal_uv_mult = 1.0
-shader_parameter/distortion_strength = 0.1
+shader_parameter/distortion_strength = 0.0
 shader_parameter/uv1_scale = Vector3(0, 0, 0)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_refraction = SubResource("NoiseTexture2D_crfu6")
+shader_parameter/texture_refraction = SubResource("NoiseTexture2D_03ca8")
 shader_parameter/refraction = 0.0
 shader_parameter/refraction_texture_channel = Vector4(1, 1, 1, 1)
 shader_parameter/proximity_fade_distance = 1.0
-shader_parameter/is_orthogonal_camera = true
-shader_parameter/ortho_uv_scale = 0.6
+shader_parameter/is_orthogonal_camera = false
+shader_parameter/ortho_uv_scale = 1.0
 shader_parameter/enable_perturb_scale = false
 shader_parameter/perturb_scale = 0.1
 shader_parameter/perturb_frequency = 1.0
@@ -565,12 +580,14 @@ shader_parameter/foam_threshold = 0.5
 shader_parameter/shoreline_detection = false
 shader_parameter/caustics_enabled = false
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_03ca8"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_nn52y"]
 resource_local_to_scene = true
 material = SubResource("ShaderMaterial_psr7x")
 size = Vector2(15, 15)
 subdivide_width = 20
 subdivide_depth = 20
+
+[sub_resource type="Environment" id="Environment_rfdoi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_crfu6"]
 render_priority = 0
@@ -2684,8 +2701,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44502, 0)
 
 [node name="WaterSSR" type="MeshInstance3D" parent="SubViewport/WaterSRROption2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.24742, -0.719487, -16.6314)
-visible = false
-mesh = SubResource("BoxMesh_v0kvh")
+mesh = SubResource("BoxMesh_da4iu")
 surface_material_override/0 = SubResource("ShaderMaterial_03ca8")
 
 [node name="WaterSSR3" type="MeshInstance3D" parent="SubViewport/WaterSRROption2"]
@@ -2702,14 +2718,16 @@ mesh = SubResource("QuadMesh_wktjo")
 surface_material_override/0 = SubResource("ShaderMaterial_856c6")
 
 [node name="PlanarReflectorOrtho" type="MeshInstance3D" parent="SubViewport/WaterSRROption2" node_paths=PackedStringArray("main_cam")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.6561, 0.195351, -2.29827)
-layers = 524291
-mesh = SubResource("PlaneMesh_03ca8")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.0754, 0.290339, -4.29634)
+visible = false
+layers = 524289
+mesh = SubResource("PlaneMesh_nn52y")
 skeleton = NodePath("../PlanarReflector")
 script = ExtResource("16_lymdg")
 main_cam = NodePath("../../CameraRigYaw/Camera3D")
 reflection_camera_resolution = Vector2i(640, 360)
-lod_distance_near = 15.0
+reflection_layers = 524288
+custom_environment = SubResource("Environment_rfdoi")
 
 [node name="WeatherController" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("_lightDirectionNode", "_dayLight", "_cloudsMesh", "_lightShafts", "_cycleDurationTimer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.9686, 0)
@@ -2725,6 +2743,7 @@ transform = Transform3D(0.791101, -0.549544, 0.268627, 0.447016, 0.819169, 0.359
 
 [node name="DayLight" type="DirectionalLight3D" parent="SubViewport/WeatherController/LightDirection"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+layers = 524289
 shadow_enabled = true
 shadow_blur = 0.2
 directional_shadow_mode = 0
@@ -2761,303 +2780,303 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.2416, 2.05357, 0)
 
 [node name="TreeMultiLeafGPUParticule10" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.19173, 0, -0.14067, 0, 1.5, 0, 0.14067, 0, -1.19173, -9.53461, 0, -4.97964)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_crfu6")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_crfu6")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule11" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.19173, 0, -0.14067, 0, 1.5, 0, 0.14067, 0, -1.19173, -7.29414, 0, -1.55343)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_nn52y")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_nn52y")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule12" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.19173, 0, -0.14067, 0, 1.5, 0, 0.14067, 0, -1.19173, -6.15445, 0, -10.9148)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_v0kvh")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_v0kvh")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule19" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.19173, 0, -0.14067, 0, 1.5, 0, 0.14067, 0, -1.19173, -0.556705, 0, -10.7724)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_w7rph")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_w7rph")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule20" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.19173, 0, -0.14067, 0, 1.5, 0, 0.14067, 0, -1.19173, -2.82217, 0, -9.32161)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_m1ir8")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_m1ir8")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule21" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.19173, 0, -0.14067, 0, 1.5, 0, 0.14067, 0, -1.19173, -2.82217, 0, -6.00986)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_uxcup")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_uxcup")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule14" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.15737, 0, -0.317011, 0, 1.5, 0, 0.317011, 0, -1.15737, 15.3742, 2.11082, -23.6718)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_03ca8")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_03ca8")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule15" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.15737, 0, -0.317011, 0, 1.5, 0, 0.317011, 0, -1.15737, 14.3699, 2.11082, -30.3234)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_rfdoi")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_rfdoi")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule16" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.15737, 0, -0.317011, 0, 1.5, 0, 0.317011, 0, -1.15737, 12.1312, 2.11082, -27.4731)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_urvk5")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_urvk5")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule17" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.15737, 0, -0.317011, 0, 1.5, 0, 0.317011, 0, -1.15737, 15.5043, 2.11082, -27.7739)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_2ouqh")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_2ouqh")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule18" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.15737, 0, -0.317011, 0, 1.5, 0, 0.317011, 0, -1.15737, 11.0131, 2.11082, -31.1031)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_oembb")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_oembb")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule22" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, 15.9669, -1.12288, -36.3037)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_3cdp3")
-_colorNoise = 0.26
 _totalParticulesCount = 1000
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_3cdp3")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule23" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, 10.6589, -1.12288, -36.3037)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_c1pun")
-_colorNoise = 0.26
 _totalParticulesCount = 1000
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_c1pun")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule26" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, 0.0735931, -1.12288, -36.3037)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_llsuo")
-_colorNoise = 0.26
 _totalParticulesCount = 1000
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_llsuo")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule27" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, -5.11756, -1.12288, -36.3037)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_o6o0y")
-_colorNoise = 0.26
 _totalParticulesCount = 1000
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_o6o0y")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule30" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, -15.2418, -1.12288, -35.9413)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_l2wlu")
-_colorNoise = 0.26
 _totalParticulesCount = 1000
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_l2wlu")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule32" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, -25.2394, -0.414064, -36.0772)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_57bhg")
-_colorNoise = 0.26
 _totalParticulesCount = 1000
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_57bhg")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule33" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, -27.3954, -0.294972, -37.6737)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_4jv0r")
-_colorNoise = 0.26
 _totalParticulesCount = 1000
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_4jv0r")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule34" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, -22.7292, -0.294972, -37.6737)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_s2tjp")
-_colorNoise = 0.26
 _totalParticulesCount = 1000
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_s2tjp")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule35" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, -17.9926, -0.294972, -37.6737)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_o27vv")
-_colorNoise = 0.26
 _totalParticulesCount = 1000
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_o27vv")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule37" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, -10.946, -0.294972, -37.6737)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_gqjdg")
-_colorNoise = 0.26
 _totalParticulesCount = 1000
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_gqjdg")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule39" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, 2.37683, -0.294972, -37.6737)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_op4r1")
-_colorNoise = 0.26
 _totalParticulesCount = 1000
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_op4r1")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule41" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, 8.15771, -0.294972, -37.6737)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_ov0jn")
-_colorNoise = 0.26
 _totalParticulesCount = 1000
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_ov0jn")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule13" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.19173, 0, -0.14067, 0, 1.5, 0, 0.14067, 0, -1.19173, -10.062, 0, -9.01639)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_xknqr")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_xknqr")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule25" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(1.40043, 0, 0.335282, 0, 2.25, 0, -0.335282, 0, 1.40043, -4.16359, 0, 21.0718)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_8qlts")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_8qlts")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule40" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(1.43727, 0.114148, -0.0502921, -0.0730103, 2.2471, 0.00255473, 0.050357, 0, 1.43913, 10.3936, -0.163968, -11.2752)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_2ujm1")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_2ujm1")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule42" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(1.40043, 0, 0.335282, 0, 2.25, 0, -0.335282, 0, 1.40043, -8.96122, 0, -13.4393)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_6qhxi")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_6qhxi")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule44" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(1.40043, 0, 0.335282, 0, 2.25, 0, -0.335282, 0, 1.40043, -5.67123, 0, -7.34606)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_lywnj")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_lywnj")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule45" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(1.40043, 0, 0.335282, 0, 2.25, 0, -0.335282, 0, 1.40043, -9.0865, 0, 4.57093)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_lv3bb")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_lv3bb")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="TreeMultiLeafGPUParticule28" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(1.40043, 0, 0.335282, 0, 2.25, 0, -0.335282, 0, 1.40043, -3.00651, 0, 17.5708)
-_mainParticuleColor = Color(1, 1, 1, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_tbgg4")
-_colorNoise = 0.26
 _totalParticulesCount = 400
+_mainParticuleColor = Color(1, 1, 1, 1)
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_tbgg4")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
+_colorNoise = 0.26
 
 [node name="Objects" type="Node3D" parent="SubViewport"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 3.65295, 0)

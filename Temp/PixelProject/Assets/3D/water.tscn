@@ -85,6 +85,12 @@ shadow_mesh = SubResource("ArrayMesh_4jv0r")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_da4iu"]
 render_priority = -15
 shader = ExtResource("6_2aes8")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.7
+shader_parameter/highlight_strength = 0.5
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4bpg8"]
 render_priority = 0

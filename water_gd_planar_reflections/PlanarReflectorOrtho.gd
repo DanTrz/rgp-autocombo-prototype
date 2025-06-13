@@ -41,6 +41,14 @@ var reflect_viewport: SubViewport
 @export var shoreline_detection: bool = false  # For future shoreline interaction
 @export var caustics_enabled: bool = false  # For future caustics implementation
 
+# Color Correction Options 
+@export_group("Color Correction")
+@export var enable_color_correction: bool = false
+@export var brightness_multiplier: float = 1.8  # Brighten non-layer-1 reflections
+@export var contrast: float = 1.2  # Increase contrast for non-layer-1
+@export var saturation: float = 1.3  # Boost saturation for non-layer-1
+@export var gamma: float = 0.85  # Gamma correction for non-layer-1 (lower = brighter)
+
 # Internal optimization variables
 var frame_counter: int = 0
 var last_camera_position: Vector3
@@ -52,6 +60,7 @@ var rotation_threshold: float = 0.001  # Only update if camera rotated this much
 var cached_reflection_plane: Plane
 var cached_clip_plane: Plane
 var reflection_plane_dirty: bool = true
+var is_layer_one_active: bool = true
 
 func _ready():
 	reflect_viewport = SubViewport.new()
@@ -82,6 +91,13 @@ func setup_reflection_layers():
 	"""Configure which layers the reflection camera can see"""
 	var cull_mask = reflection_layers
 	reflect_camera.cull_mask = cull_mask
+	
+	# Check if layer 1 is active (bit 0 = layer 1)
+	if cull_mask & (1 << (1 - 1)):
+		is_layer_one_active = true
+	else:
+		is_layer_one_active = false
+		print("Layer 1 not active, make sure to add the layers to the scene Lights cull masks")
 
 func setup_reflection_environment():
 	"""Set up environment for reflection camera"""
@@ -222,6 +238,13 @@ func update_shader_parameters():
 	mat.set_shader_parameter("is_orthogonal_camera", is_orthogonal)
 	mat.set_shader_parameter("ortho_uv_scale", ortho_uv_scale)
 	
+	# Color correction parameters for non-layer-1 fix
+	mat.set_shader_parameter("enable_color_correction", enable_color_correction)
+	mat.set_shader_parameter("brightness_multiplier", brightness_multiplier)
+	mat.set_shader_parameter("contrast_adjustment", contrast)
+	mat.set_shader_parameter("saturation_boost", saturation)
+	mat.set_shader_parameter("gamma_correction", gamma)
+	
 	# Advanced reflection parameters
 	mat.set_shader_parameter("enable_perturb_scale", enable_perturb_scale)
 	mat.set_shader_parameter("perturb_scale", perturb_scale)
@@ -287,7 +310,6 @@ func get_shoreline_distance(world_pos: Vector3) -> float:
 	"""Get distance to shoreline - for future shoreline effects"""
 	# This will be implemented when shoreline detection is added
 	return 0.0
-
 
 
 
