@@ -3,18 +3,18 @@ render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_toon,specular_toon;
 
 // Main surface properties
 uniform vec4 albedo : source_color = vec4(1.0);
-uniform sampler2D texture_albedo : source_color,filter_nearest_mipmap;
+uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
 uniform float metallic : hint_range(0.0, 1.0) = 0.0;
 uniform float roughness : hint_range(0.0, 1.0) = 0.5;
 uniform float specular : hint_range(0.0, 1.0) = 0.5;
 
 // Reflection properties
-uniform sampler2D reflection_screen_texture: source_color,filter_nearest_mipmap;
+uniform sampler2D reflection_screen_texture: source_color,filter_linear_mipmap,repeat_enable;
 uniform float reflection_strength: hint_range(0.0, 1.0) = 0.5;
 
 // Normal mapping and distortion
-uniform sampler2D texture_normal : source_color,filter_nearest_mipmap;
-uniform sampler2D texture_normal2: source_color,filter_nearest_mipmap;
+uniform sampler2D texture_normal : source_color,filter_linear_mipmap,repeat_enable;
+uniform sampler2D texture_normal2: source_color,filter_linear_mipmap,repeat_enable;
 uniform float normal_scale : hint_range(0.0, 2.0) = 1.0;
 uniform float normal_uv_mult : hint_range(0.1, 10.0) = 1.0;
 uniform float distortion_strength : hint_range(0.0, 0.5) = 0.1;
@@ -24,7 +24,7 @@ uniform vec3 uv1_scale = vec3(1.0, 1.0, 1.0);
 uniform vec3 uv1_offset  = vec3(0.0, 0.0, 0.0);
 
 // Refraction (optional - only if you use it)
-uniform sampler2D texture_refraction : source_color,filter_nearest_mipmap;
+uniform sampler2D texture_refraction : filter_linear_mipmap,repeat_enable; //: hint_default_black, repeat_enable;
 uniform float refraction : hint_range(-1.0, 1.0) = 0.0;
 uniform vec4 refraction_texture_channel  = vec4(1.0, 0.0, 0.0, 0.0);
 

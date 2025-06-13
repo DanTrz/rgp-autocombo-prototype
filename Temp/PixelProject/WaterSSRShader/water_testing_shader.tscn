@@ -145,7 +145,7 @@ script = ExtResource("2_s5fk6")
 SnapObjects = false
 
 [node name="WorldCentralPivot" type="Node3D" parent="SubViewport/CameraRigYaw/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.40038, -39.6626)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0998, -38.7519)
 
 [node name="PlanarReflector" type="MeshInstance3D" parent="SubViewport" node_paths=PackedStringArray("main_cam")]
 mesh = SubResource("PlaneMesh_ndy57")
