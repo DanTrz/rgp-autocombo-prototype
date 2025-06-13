@@ -8,6 +8,7 @@ var reflect_camera : Camera3D
 var reflect_viewport: SubViewport
 @export var main_cam : Camera3D = null
 @export var reflection_camera_resolution: Vector2i = Vector2i(1920, 1080)
+@export_flags_3d_render var reflection_layers: int = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,7 +17,8 @@ func _ready():
 	reflect_viewport.size = reflection_camera_resolution;
 	reflect_camera = Camera3D.new();
 	reflect_viewport.add_child(reflect_camera);
-	reflect_camera.cull_mask = 1;
+	#reflect_camera.cull_mask = 1;
+	reflect_camera.cull_mask = reflection_layers;
 	reflect_camera.fov = main_cam.fov
 	reflect_camera.environment = main_cam.environment
 	reflect_camera.attributes = main_cam.attributes

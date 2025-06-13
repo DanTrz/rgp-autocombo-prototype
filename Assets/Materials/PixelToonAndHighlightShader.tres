@@ -9,7 +9,7 @@ shader = ExtResource("1_bha7r")
 shader_parameter/shadows_enabled = true
 shader_parameter/highlights_enabled = true
 shader_parameter/shadow_strength = 0.7
-shader_parameter/highlight_strength = 0.5
+shader_parameter/highlight_strength = 0.7
 shader_parameter/highlight_color = Color(1, 1, 1, 1)
 shader_parameter/shadow_color = Color(0, 0, 0, 1)
 

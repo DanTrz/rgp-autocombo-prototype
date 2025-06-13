@@ -62,7 +62,7 @@ void vertex() {
 	}
 
     VERTEX = mod_vertex;
-    
+
     // Simple draw order control - move towards/away from camera
     VERTEX.z += draw_order_offset;
 
