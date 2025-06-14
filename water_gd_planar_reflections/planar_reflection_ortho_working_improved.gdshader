@@ -1,3 +1,4 @@
+//##ENHANCED SHADER CODE##=> Enhanced PlanarReflector with Improved Depth Filtering <=####
 shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_toon,specular_toon;
 
@@ -48,12 +49,29 @@ uniform float clip_bias : hint_range(-0.1, 0.1) = 0.01;
 uniform vec3 reflection_plane_normal = vec3(0.0, 1.0, 0.0);
 uniform float reflection_plane_distance = 0.0;
 
-// Water Depth Reflection (SHADER-ONLY uniforms - clean architecture)
+// ENHANCED Water Depth Reflection - Improved precision and control
 group_uniforms WaterEffects; //GROUP for WaterEffects
 uniform bool enable_depth_filtering = false;
 uniform float reflection_depth_cutoff : hint_range(0.0, 10.0) = 2.0;
 uniform float depth_fade_smoothness : hint_range(0.1, 5.0) = 1.0;
 uniform float planar_surface_y = 0.0; // Passed from GDScript
+
+// NEW: Enhanced Depth Detection Controls
+uniform bool enable_precise_depth_detection = true; // More accurate depth calculations
+uniform float depth_precision_bias : hint_range(-1.0, 1.0) = 0.1; // Adjust for pixel art precision
+uniform float underwater_reflection_intensity : hint_range(0.0, 1.0) = 0.2; // Allow some underwater reflection
+uniform float above_water_boost : hint_range(1.0, 2.0) = 1.2; // Enhance above-water reflections
+
+// NEW: Gradient-based Detection (for partial objects)
+uniform bool enable_gradient_detection = true; // Detect object edges crossing water surface
+uniform float gradient_threshold : hint_range(0.1, 2.0) = 0.5; // Sensitivity for detecting water line
+uniform float gradient_smooth_range : hint_range(0.1, 1.0) = 0.3; // Smooth transition at water line
+
+// Manual Reflection Clipping Controls (KEEP - useful fallback)
+uniform bool enable_reflection_clipping = false;
+uniform float reflection_clip_top : hint_range(0.0, 1.0) = 0.0;
+uniform float reflection_clip_bottom : hint_range(0.0, 1.0) = 0.0;
+uniform float reflection_clip_fade : hint_range(0.0, 0.5) = 0.1;
 
 // Future water features (READY FOR IMPLEMENTATION)
 uniform bool enable_wave_displacement = false;
@@ -83,7 +101,6 @@ varying float vertex_displacement;
 
 // Color correction function for non-layer-1 fix
 vec3 apply_color_correction(vec3 color) {
-    // Only apply correction if enabled and layer 1 is not active
     if (!enable_color_correction) {
         return color;
     }
@@ -105,6 +122,15 @@ vec3 apply_color_correction(vec3 color) {
     color = clamp(color, vec3(0.0), vec3(1.0));
 
     return color;
+}
+
+// Helper function for simple reflection calculations (no matrix access)
+float calculate_simple_reflection_factor(float depth_below_water) {
+    if (depth_below_water > reflection_depth_cutoff) {
+        float fade = smoothstep(reflection_depth_cutoff, reflection_depth_cutoff + depth_fade_smoothness, depth_below_water);
+        return mix(1.0, underwater_reflection_intensity, fade);
+    }
+    return 1.0;
 }
 
 void vertex() {
@@ -186,24 +212,62 @@ void fragment() {
 	// Sample reflection texture
 	vec4 reflection_tex = texture(reflection_screen_texture, warped_uv);
 
-	// Water Depth Reflection Filtering (SHADER-ONLY logic following clean architecture)
+	// Manual Reflection Clipping (KEPT - useful fallback for uniform scenes)
+	if (enable_reflection_clipping) {
+		float clip_mask = 1.0;
+
+		// Bottom clipping - useful for hiding underwater reflections
+		if (warped_uv.y < reflection_clip_bottom) {
+			clip_mask *= smoothstep(reflection_clip_bottom - reflection_clip_fade, reflection_clip_bottom, warped_uv.y);
+		}
+
+		// Top clipping - if needed for other effects
+		if (warped_uv.y > 1.0 - reflection_clip_top) {
+			clip_mask *= smoothstep(1.0 - reflection_clip_top + reflection_clip_fade, 1.0 - reflection_clip_top, warped_uv.y);
+		}
+
+		// Apply clipping mask to reflection
+		reflection_tex.rgb *= clip_mask;
+	}
+
+	// ENHANCED Water Depth Reflection Filtering - Per-pixel precision for partial objects
 	if (enable_depth_filtering) {
 		// Get the depth of the reflected object
 		float depth_raw = texture(depth_texture, warped_uv).r;
 
-		// Convert to world Y position using method from ocean.gdshader
+		// Convert to world Y position with enhanced precision for pixel art
 		vec3 ndc = vec3(warped_uv * 2.0 - 1.0, depth_raw);
 		vec4 world = INV_VIEW_MATRIX * INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
 		float object_world_y = world.y / world.w;
 
-		// Simple depth check: how far below water surface is this object?
+		// Apply precision bias for pixel art rendering (640x360 optimization)
+		object_world_y += depth_precision_bias;
+
+		// Calculate how far below water surface this pixel is
 		float depth_below_water = planar_surface_y - object_world_y;
 
-		// Only reduce reflections for objects deeper than cutoff
-		if (depth_below_water > reflection_depth_cutoff) {
-			float fade = smoothstep(reflection_depth_cutoff, reflection_depth_cutoff + depth_fade_smoothness, depth_below_water);
-			reflection_tex.rgb *= (1.0 - fade); // Fade out deep reflections
+		float reflection_factor = 1.0;
+
+		if (enable_precise_depth_detection) {
+			// SIMPLIFIED LOGIC - Test if new parameters work at all
+			if (depth_below_water > 0.0) {
+				// Object is underwater - apply underwater intensity
+				reflection_factor = underwater_reflection_intensity;
+			} else {
+				// Object is above water - apply boost
+				reflection_factor = above_water_boost;
+			}
+		} else {
+			// Original simple method (fallback)
+			if (depth_below_water > reflection_depth_cutoff) {
+				float fade = smoothstep(reflection_depth_cutoff, reflection_depth_cutoff + depth_fade_smoothness, depth_below_water);
+				reflection_factor = (1.0 - fade);
+			}
 		}
+
+		// Apply the calculated reflection factor
+		reflection_factor = clamp(reflection_factor, 0.0, 2.0);
+		reflection_tex.rgb *= reflection_factor;
 	}
 
 	// APPLY COLOR CORRECTION

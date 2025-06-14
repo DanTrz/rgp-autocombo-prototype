@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://df4eyka0erqws"]
+[gd_scene load_steps=24 format=4 uid="uid://df4eyka0erqws"]
 
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="1_lgx2c"]
 [ext_resource type="Material" uid="uid://cr8yf6r3utjih" path="res://Temp/PixelProject/WaterSSRShader/water_mat.tres" id="1_s3kyq"]
@@ -124,6 +124,12 @@ shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a8fnq"]
+albedo_color = Color(1, 0.372549, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2aes8"]
+albedo_color = Color(1, 1, 0.145098, 1)
+
 [node name="Water" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -204,3 +210,18 @@ layers = 524291
 mesh = SubResource("ArrayMesh_wte4x")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_4bpg8")
+
+[node name="CylinderTwoCOlors" type="CSGCombiner3D" parent="."]
+transform = Transform3D(0.966569, 0.231934, -0.109323, -0.256407, 0.874312, -0.41211, 0, 0.426363, 0.904552, 0, -1.03552, 4.47515)
+
+[node name="Pink" type="CSGCylinder3D" parent="CylinderTwoCOlors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4781, 0)
+height = 1.0
+material = SubResource("StandardMaterial3D_a8fnq")
+metadata/_edit_lock_ = true
+
+[node name="Yellow" type="CSGCylinder3D" parent="CylinderTwoCOlors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.485296, 0)
+height = 1.0
+material = SubResource("StandardMaterial3D_2aes8")
+metadata/_edit_lock_ = true
