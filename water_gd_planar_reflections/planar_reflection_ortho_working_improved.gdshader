@@ -46,16 +46,11 @@ uniform sampler2D depth_texture : hint_depth_texture, filter_nearest_mipmap;
 uniform bool is_orthogonal_camera = false;
 uniform float ortho_uv_scale : hint_range(0.1, 3.0) = 1.0;
 
-// Reflection offset parameters (from script)
-uniform bool reflection_offset_enabled = false;
-uniform vec3 reflection_offset_position = vec3(0.0, 0.0, 0.0);
-uniform float reflection_offset_scale = 1.0;
-
-// NEW: Water Depth Filtering Parameters (SIMPLIFIED)
+// Water Depth Reflection (SHADER-ONLY uniforms - clean architecture)
 uniform bool enable_depth_filtering = false;
 uniform float reflection_depth_cutoff : hint_range(0.0, 10.0) = 2.0;
 uniform float depth_fade_smoothness : hint_range(0.1, 5.0) = 1.0;
-uniform float water_surface_y = 0.0;
+uniform float water_surface_y = 0.0; // Passed from GDScript
 
 // Advanced reflection parameters
 uniform bool enable_perturb_scale = false;
@@ -188,12 +183,12 @@ void fragment() {
 	// Sample reflection texture
 	vec4 reflection_tex = texture(reflection_screen_texture, warped_uv);
 
-	// NEW: SIMPLIFIED depth-based reflection filtering
+	// Water Depth Reflection Filtering (SHADER-ONLY logic following clean architecture)
 	if (enable_depth_filtering) {
 		// Get the depth of the reflected object
 		float depth_raw = texture(depth_texture, warped_uv).r;
 
-		// Convert to world Y position (simplified from ocean.gdshader approach)
+		// Convert to world Y position using method from ocean.gdshader
 		vec3 ndc = vec3(warped_uv * 2.0 - 1.0, depth_raw);
 		vec4 world = INV_VIEW_MATRIX * INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
 		float object_world_y = world.y / world.w;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://jvqetltjmfln"]
+[gd_scene load_steps=40 format=4 uid="uid://jvqetltjmfln"]
 
 [ext_resource type="Material" uid="uid://c4p4jr823j1gw" path="res://water_gd_planar_reflections/ReflectionMaterial.tres" id="1_31ghw"]
 [ext_resource type="Script" uid="uid://b66hrw8ajguo0" path="res://water_gd_planar_reflections/PlanarReflection.gd" id="1_qfd56"]
@@ -65,7 +65,7 @@ noise = SubResource("FastNoiseLite_ohdar")
 resource_local_to_scene = true
 render_priority = -1
 shader = ExtResource("3_4dgxo")
-shader_parameter/albedo = Color(0.2881, 0.523605, 0.67, 0.388235)
+shader_parameter/albedo = Color(0.196078, 0.647059, 0.776471, 1)
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 0.5
 shader_parameter/specular = 0.5
@@ -86,12 +86,9 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/texture_refraction = SubResource("NoiseTexture2D_t5pnn")
 shader_parameter/refraction = 0.0
 shader_parameter/refraction_texture_channel = Vector4(1, 1, 1, 1)
-shader_parameter/proximity_fade_distance = 0.3
+shader_parameter/proximity_fade_distance = 1.0
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
-shader_parameter/reflection_offset_enabled = false
-shader_parameter/reflection_offset_position = Vector3(0, 0, 0)
-shader_parameter/reflection_offset_scale = 1.0
 shader_parameter/enable_depth_filtering = false
 shader_parameter/reflection_depth_cutoff = 2.0
 shader_parameter/depth_fade_smoothness = 1.0
@@ -117,6 +114,50 @@ subdivide_width = 20
 subdivide_depth = 20
 
 [sub_resource type="Environment" id="Environment_psr7x"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_psr7x"]
+size = Vector2(10, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ohdar"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_4dgxo")
+shader_parameter/albedo = Color(1.34766e-06, 0.952283, 0.952283, 1)
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.5
+shader_parameter/specular = 0.5
+shader_parameter/reflection_strength = 0.5
+shader_parameter/enable_color_correction = false
+shader_parameter/brightness_multiplier = 1.0
+shader_parameter/contrast_adjustment = 1.0
+shader_parameter/saturation_boost = 1.0
+shader_parameter/gamma_correction = 1.0
+shader_parameter/normal_scale = 1.0
+shader_parameter/normal_uv_mult = 1.0
+shader_parameter/distortion_strength = 0.1
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/refraction = 0.0
+shader_parameter/refraction_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/proximity_fade_distance = 1.0
+shader_parameter/is_orthogonal_camera = false
+shader_parameter/ortho_uv_scale = 1.0
+shader_parameter/enable_depth_filtering = false
+shader_parameter/reflection_depth_cutoff = 0.0
+shader_parameter/depth_fade_smoothness = 0.1
+shader_parameter/water_surface_y = 0.0
+shader_parameter/enable_perturb_scale = false
+shader_parameter/perturb_scale = 0.1
+shader_parameter/perturb_frequency = 1.0
+shader_parameter/clip_bias = 0.01
+shader_parameter/reflection_plane_normal = Vector3(0, 1, 0)
+shader_parameter/reflection_plane_distance = 0.0
+shader_parameter/enable_wave_displacement = false
+shader_parameter/wave_amplitude = 1.0
+shader_parameter/wave_frequency = 1.0
+shader_parameter/foam_threshold = 0.5
+shader_parameter/shoreline_detection = false
+shader_parameter/caustics_enabled = false
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_tqrmm"]
 
@@ -246,6 +287,7 @@ reflection_layers = 1048575
 metadata/_custom_type_script = "uid://b66hrw8ajguo0"
 
 [node name="PlanarReflectorOrtho" type="MeshInstance3D" parent="SubViewport" node_paths=PackedStringArray("main_cam")]
+visible = false
 layers = 524289
 mesh = SubResource("PlaneMesh_4ivak")
 skeleton = NodePath("../PlanarReflector")
@@ -255,6 +297,12 @@ reflection_camera_resolution = Vector2i(640, 360)
 reflection_layers = 524288
 custom_environment = SubResource("Environment_psr7x")
 reflection_offset_position = Vector3(0, -5, 0)
+
+[node name="PlanarReflectorOrtho_ONLYSHADER" type="MeshInstance3D" parent="SubViewport"]
+layers = 524289
+mesh = SubResource("PlaneMesh_psr7x")
+skeleton = NodePath("../PlanarReflector")
+surface_material_override/0 = SubResource("ShaderMaterial_ohdar")
 
 [node name="CamRig" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
 script = ExtResource("3_o64fk")
