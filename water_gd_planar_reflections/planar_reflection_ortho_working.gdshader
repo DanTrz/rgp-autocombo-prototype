@@ -39,31 +39,31 @@ void fragment() {
 	vec2 base_uv = UV;
 	vec3 NORMAL_MAP1 = texture(texture_normal,vec2(base_uv.x - TIME*0.002, base_uv.y - TIME*0.002)*normal_uv_mult).rgb;
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
-	
+
 	// Calculate warped UV with camera mode consideration
 	vec2 distortion = distortion_strength * NORMAL_MAP1.rr - distortion_strength*NORMAL_MAP1.gg;
-	
+
 	// Adjust distortion based on camera mode
 	if (is_orthogonal_camera) {
 		// For orthogonal cameras, scale distortion differently
 		distortion *= ortho_uv_scale;
 	}
-	
+
 	vec2 warped_uv = SCREEN_UV + distortion;
-	
+
 	// Handle UV mapping for orthogonal cameras
 	if (is_orthogonal_camera) {
 		// Apply additional scaling for orthogonal projection
 		vec2 center = vec2(0.5, 0.5);
 		warped_uv = center + (warped_uv - center) * ortho_uv_scale;
 	}
-	
+
 	warped_uv.x = clamp(warped_uv.x, 0.0, 1.0);
 	warped_uv.y = clamp(warped_uv.y, 0.0, 1.0);
-	
+
 	vec4 reflection_tex = texture(reflection_screen_texture, warped_uv);
 	ALBEDO = mix(reflection_tex.rgb, albedo_tex.rgb * albedo.rgb, reflection_strength);
-	
+
 	float metallic_tex = dot(texture(texture_metallic,base_uv),metallic_texture_channel);
 	METALLIC = metallic_tex * metallic;
 	vec4 roughness_texture_channel = vec4(1.0,0.0,0.0,0.0);

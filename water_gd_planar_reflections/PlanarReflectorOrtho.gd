@@ -1,4 +1,5 @@
 extends MeshInstance3D
+
 class_name PlanarReflectorOrtho
 
 var reflect_camera : Camera3D
@@ -7,60 +8,51 @@ var reflect_viewport: SubViewport
 @export var reflection_camera_resolution: Vector2i = Vector2i(1920, 1080)
 
 # Camera mode parameters
+@export_group("Camera Controls")
 @export var ortho_scale_multiplier: float = 1.0 #scale the orthographic projection size for the reflection camera.(lower values = bigger reflection)
-@export var ortho_uv_scale: float = 1.0 # uv scale (1 = Normal // 0.5 = sample from half of texture  (zoomed effect) //  2.0 = Sample larger area (tiled effect) )
+@export var ortho_uv_scale: float = 1.0 # uv scale (1 = Normal // 0.5 = sample from half of texture (zoomed effect) // 2.0 = Sample larger area (tiled effect) )
 @export var auto_detect_camera_mode: bool = true
 
-# Performance parameters
-@export var update_frequency: int = 1  # Update every N frames (1 = every frame, 2 = every other frame)
-@export var use_lod: bool = true # Auto reduce reflection resolution based on distance
-@export var lod_distance_near: float = 10.0
-@export var lod_distance_far: float = 50.0
-@export var lod_resolution_multiplier: float = 0.25  # Multiply resolution by this when far
-
 # Layer and environment control
+@export_group("Reflection Layers and Environment")
 @export_flags_3d_render var reflection_layers: int = 1
 @export var use_custom_environment: bool = true
 @export var custom_environment: Environment
 
-# Advanced reflection parameters (for future complex water shaders)
-@export_group("Advanced Reflection")
-@export var enable_perturb_scale: bool = false
-@export var perturb_scale: float = 0.1  # How much normals distort the reflection plane geometry
-@export var perturb_frequency: float = 1.0  # Frequency multiplier for perturbation
-@export var clip_bias: float = 0.01  # Geometry rendering bias beyond reflection plane
-@export var reflection_plane_offset: float = 0.0  # Manual offset for reflection plane position
-@export var enable_advanced_culling: bool = false  # More precise culling for complex geometry
+# NEW: Reflection Offset Controls
+@export_group("Reflection Offset Control")
+@export var enable_reflection_offset: bool = false
+@export var reflection_offset_position: Vector3 = Vector3(0.0, 0.0, 0.0) # World space offset for reflection camera position
+@export var reflection_offset_rotation: Vector3 = Vector3(0.0, 0.0, 0.0) # Euler angles offset for reflection camera rotation (degrees)
+@export var reflection_offset_scale: float = 1.0 # Scale factor for offset effect
+@export var offset_blend_mode: int = 0 # 0 = Add, 1 = Multiply, 2 = Screen space shift
 
-# Future-proofing parameters for complex water features
-@export_group("Future Water Features")
-@export var enable_wave_displacement: bool = false  # For future wave vertex displacement
-@export var wave_amplitude: float = 1.0  # Amplitude for future wave displacement
-@export var wave_frequency: float = 1.0  # Frequency for future wave patterns
-@export var foam_threshold: float = 0.5  # Threshold for future foam generation
-@export var shoreline_detection: bool = false  # For future shoreline interaction
-@export var caustics_enabled: bool = false  # For future caustics implementation
+# Performance parameters
+@export_group("Performance Controls")
+@export var update_frequency: int = 1 # Update every N frames (1 = every frame, 2 = every other frame)
+@export var use_lod: bool = true # Auto reduce reflection resolution based on distance
+@export var lod_distance_near: float = 10.0
+@export var lod_distance_far: float = 50.0
+@export var lod_resolution_multiplier: float = 0.25 # Multiply resolution by this when far
 
-# Color Correction Options 
-@export_group("Color Correction")
-@export var enable_color_correction: bool = false
-@export var brightness_multiplier: float = 1.8  # Brighten non-layer-1 reflections
-@export var contrast: float = 1.2  # Increase contrast for non-layer-1
-@export var saturation: float = 1.3  # Boost saturation for non-layer-1
-@export var gamma: float = 0.85  # Gamma correction for non-layer-1 (lower = brighter)
 
 # Internal optimization variables
 var frame_counter: int = 0
 var last_camera_position: Vector3
 var last_camera_rotation: Basis
-var position_threshold: float = 0.01  # Only update if camera moved this much
-var rotation_threshold: float = 0.001  # Only update if camera rotated this much
+var position_threshold: float = 0.01 # Only update if camera moved this much
+var rotation_threshold: float = 0.001 # Only update if camera rotated this much
 
 # Advanced reflection calculation cache (for future optimizations)
 var cached_reflection_plane: Plane
 var cached_clip_plane: Plane
 var reflection_plane_dirty: bool = true
 var is_layer_one_active: bool = true
+
+# NEW: Offset calculation cache
+var cached_offset_transform: Transform3D
+var last_offset_position: Vector3
+var last_offset_rotation: Vector3
 
 func _ready():
 	reflect_viewport = SubViewport.new()
@@ -86,6 +78,9 @@ func _ready():
 	
 	reflect_camera.current = true
 	reflect_camera.make_current()
+	
+	# Initialize offset cache
+	update_offset_cache()
 
 func setup_reflection_layers():
 	"""Configure which layers the reflection camera can see"""
@@ -107,13 +102,13 @@ func setup_reflection_environment():
 			reflection_env = custom_environment
 		else:
 			# Auto-generate clean environment
-			reflection_env.background_mode = Environment.BG_CLEAR_COLOR 
+			reflection_env.background_mode = Environment.BG_CLEAR_COLOR
 			# Copy lighting settings from main environment but exclude sky contribution
 			if main_cam.environment:
 				# Copy ambient light but not from sky
 				if main_cam.environment.ambient_light_source == Environment.AMBIENT_SOURCE_SKY:
 					reflection_env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-					reflection_env.ambient_light_color = Color(0.4, 0.4, 0.4)  # Neutral gray
+					reflection_env.ambient_light_color = Color(0.4, 0.4, 0.4) # Neutral gray
 					reflection_env.ambient_light_energy = 0.3
 				else:
 					reflection_env.ambient_light_source = main_cam.environment.ambient_light_source
@@ -122,12 +117,58 @@ func setup_reflection_environment():
 				
 				# Copy other lighting but disable sky-dependent effects
 				if main_cam.environment.has_method("get_fog_enabled"):
-					reflection_env.fog_enabled = false  # Disable fog to avoid sky color bleeding
+					reflection_env.fog_enabled = false # Disable fog to avoid sky color bleeding
 		
 		reflect_camera.environment = reflection_env
 	else:
 		# Use main camera environment as-is
 		reflect_camera.environment = main_cam.environment
+
+func update_offset_cache():
+	"""Update the cached offset transform when offset parameters change"""
+	if not enable_reflection_offset:
+		cached_offset_transform = Transform3D.IDENTITY
+		return
+	
+	# Check if offset parameters changed
+	if (last_offset_position != reflection_offset_position or 
+		last_offset_rotation != reflection_offset_rotation):
+		
+		# Create offset transform
+		var offset_basis = Basis()
+		offset_basis = offset_basis.rotated(Vector3.RIGHT, deg_to_rad(reflection_offset_rotation.x))
+		offset_basis = offset_basis.rotated(Vector3.UP, deg_to_rad(reflection_offset_rotation.y))
+		offset_basis = offset_basis.rotated(Vector3.FORWARD, deg_to_rad(reflection_offset_rotation.z))
+		
+		cached_offset_transform = Transform3D(offset_basis, reflection_offset_position * reflection_offset_scale)
+		
+		last_offset_position = reflection_offset_position
+		last_offset_rotation = reflection_offset_rotation
+
+func apply_reflection_offset(base_transform: Transform3D) -> Transform3D:
+	"""Apply reflection offset to the base reflection transform"""
+	if not enable_reflection_offset:
+		return base_transform
+	
+	var result_transform = base_transform
+	
+	match offset_blend_mode:
+		0: # Add mode - simple addition of offset
+			result_transform.origin += cached_offset_transform.origin
+			# Apply rotational offset
+			if reflection_offset_rotation != Vector3.ZERO:
+				result_transform.basis = result_transform.basis * cached_offset_transform.basis
+		
+		1: # Multiply mode - relative to current transform
+			result_transform = result_transform * cached_offset_transform
+		
+		2: # Screen space shift mode - offset relative to camera view
+			if main_cam:
+				var view_offset = main_cam.global_transform.basis * cached_offset_transform.origin
+				result_transform.origin += view_offset
+				result_transform.basis = result_transform.basis * cached_offset_transform.basis
+	
+	return result_transform
 
 func _process(_delta):
 	update_viewport()
@@ -135,6 +176,9 @@ func _process(_delta):
 		return
 
 	frame_counter += 1
+	
+	# Update offset cache if needed
+	update_offset_cache()
 	
 	# Skip updates based on frequency and movement threshold
 	var should_update = (frame_counter % update_frequency == 0)
@@ -149,7 +193,7 @@ func _process(_delta):
 			var rot_diff = current_basis.get_euler().distance_to(last_camera_rotation.get_euler())
 			
 			if pos_diff < position_threshold and rot_diff < rotation_threshold:
-				return  # Skip update if camera barely moved
+				return # Skip update if camera barely moved
 		
 		last_camera_position = current_pos
 		last_camera_rotation = current_basis
@@ -163,21 +207,7 @@ func calculate_reflection_plane() -> Plane:
 	"""Calculate the reflection plane with optional offset and perturbation"""
 	var reflection_transform = global_transform * Transform3D().rotated(Vector3.RIGHT, PI/2)
 	var plane_origin = reflection_transform.origin
-	
-	# Apply manual plane offset if specified
-	if reflection_plane_offset != 0.0:
-		plane_origin += reflection_transform.basis.z.normalized() * reflection_plane_offset
-	
 	var plane_normal = reflection_transform.basis.z.normalized()
-	
-	# Future: Add perturbation based on wave displacement here
-	if enable_perturb_scale and enable_wave_displacement:
-		# This will be expanded when wave displacement is implemented
-		# Use engine time for simple wave motion
-		var time_offset = Engine.get_process_frames() * 0.016 * wave_frequency  # Approximate frame time
-		var perturb_offset = sin(time_offset) * perturb_scale * wave_amplitude
-		plane_origin += plane_normal * perturb_offset
-	
 	return Plane(plane_normal, plane_origin.dot(plane_normal))
 
 func update_reflection_camera():
@@ -193,31 +223,22 @@ func update_reflection_camera():
 	var proj_pos := reflection_plane.project(cam_pos)
 	var mirrored_pos = cam_pos + (proj_pos - cam_pos) * 2.0
 	
-	reflect_camera.global_transform.origin = mirrored_pos
-
-	reflect_camera.basis = Basis(
+	# NEW: Create base reflection transform
+	var base_reflection_transform = Transform3D()
+	base_reflection_transform.origin = mirrored_pos
+	base_reflection_transform.basis = Basis(
 		main_cam.basis.x.normalized().bounce(reflection_plane.normal).normalized(),
 		main_cam.basis.y.normalized().bounce(reflection_plane.normal).normalized(),
 		main_cam.basis.z.normalized().bounce(reflection_plane.normal).normalized()
 	)
 	
-	# Apply advanced culling and clipping if enabled
-	if enable_advanced_culling:
-		setup_advanced_clipping(reflection_plane)
-	
+	# Apply reflection offset
+	var final_reflection_transform = apply_reflection_offset(base_reflection_transform)
+	# Set the final transform
+	reflect_camera.global_transform = final_reflection_transform
 	# Pass parameters to shader
 	update_shader_parameters()
 
-func setup_advanced_clipping(reflection_plane: Plane):
-	"""Set up advanced clipping planes for complex geometry"""
-	if clip_bias != 0.0:
-		# Adjust the clipping plane with bias to prevent seams
-		var adjusted_plane = Plane(reflection_plane.normal, reflection_plane.d + clip_bias)
-		cached_clip_plane = adjusted_plane
-		
-		# Future: Implement custom clipping plane setup here
-		# This will be useful for complex wave geometry and shoreline interactions
-	
 func update_shader_parameters():
 	"""Update all shader parameters including advanced features"""
 	var mat: ShaderMaterial = self.mesh.surface_get_material(0)
@@ -238,28 +259,10 @@ func update_shader_parameters():
 	mat.set_shader_parameter("is_orthogonal_camera", is_orthogonal)
 	mat.set_shader_parameter("ortho_uv_scale", ortho_uv_scale)
 	
-	# Color correction parameters for non-layer-1 fix
-	mat.set_shader_parameter("enable_color_correction", enable_color_correction)
-	mat.set_shader_parameter("brightness_multiplier", brightness_multiplier)
-	mat.set_shader_parameter("contrast_adjustment", contrast)
-	mat.set_shader_parameter("saturation_boost", saturation)
-	mat.set_shader_parameter("gamma_correction", gamma)
-	
-	# Advanced reflection parameters
-	mat.set_shader_parameter("enable_perturb_scale", enable_perturb_scale)
-	mat.set_shader_parameter("perturb_scale", perturb_scale)
-	mat.set_shader_parameter("perturb_frequency", perturb_frequency)
-	mat.set_shader_parameter("clip_bias", clip_bias)
-	
-	# Future water feature parameters (ready for when shader supports them)
-	mat.set_shader_parameter("enable_wave_displacement", enable_wave_displacement)
-	mat.set_shader_parameter("wave_amplitude", wave_amplitude)
-	mat.set_shader_parameter("wave_frequency", wave_frequency)
-	mat.set_shader_parameter("foam_threshold", foam_threshold)
-	mat.set_shader_parameter("shoreline_detection", shoreline_detection)
-	mat.set_shader_parameter("caustics_enabled", caustics_enabled)
-	
-	# Pass reflection plane data for advanced shader calculations
+	# NEW: Pass reflection offset info to shader for additional effects
+	mat.set_shader_parameter("reflection_offset_enabled", enable_reflection_offset)
+	mat.set_shader_parameter("reflection_offset_position", reflection_offset_position)
+	mat.set_shader_parameter("reflection_offset_scale", reflection_offset_scale)
 	mat.set_shader_parameter("reflection_plane_normal", cached_reflection_plane.normal)
 	mat.set_shader_parameter("reflection_plane_distance", cached_reflection_plane.d)
 
@@ -287,34 +290,22 @@ func update_viewport() -> void:
 			lod_factor = lerp(1.0, lod_resolution_multiplier, lerp_factor)
 		
 		target_size = Vector2i(target_size * lod_factor)
-		target_size.x = max(target_size.x, 128)  # Minimum resolution
+		target_size.x = max(target_size.x, 128) # Minimum resolution
 		target_size.y = max(target_size.y, 128)
 	
 	reflect_viewport.size = target_size
+	
+# Utility functions for reflection offset
+func set_reflection_offset_animated(new_offset: Vector3, duration: float = 1.0):
+	"""Smoothly animate reflection offset to new position"""
+	var tween = create_tween()
+	tween.tween_property(self, "reflection_offset_position", new_offset, duration)
 
-# Utility functions for future advanced features
-func get_water_height_at_position(world_pos: Vector3) -> float:
-	"""Get water surface height at a world position - for future wave displacement"""
-	# This will be implemented when wave displacement is added
-	if enable_wave_displacement:
-		# Use a simple time-based approach with engine frames
-		var time_offset = Engine.get_process_frames() * 0.016 * wave_frequency  # ~60fps timing
-		return sin(world_pos.x * 0.1 + time_offset) * wave_amplitude
-	return global_transform.origin.y
-
-func is_position_underwater(world_pos: Vector3) -> bool:
-	"""Check if a world position is underwater - for future foam/caustics"""
-	return world_pos.y < get_water_height_at_position(world_pos)
-
-func get_shoreline_distance(world_pos: Vector3) -> float:
-	"""Get distance to shoreline - for future shoreline effects"""
-	# This will be implemented when shoreline detection is added
-	return 0.0
-
-
-
-
-
+func reset_reflection_offset():
+	"""Reset reflection offset to default values"""
+	reflection_offset_position = Vector3.ZERO
+	reflection_offset_rotation = Vector3.ZERO
+	reflection_offset_scale = 1.0
 
 
 
