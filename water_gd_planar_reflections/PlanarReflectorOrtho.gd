@@ -264,9 +264,7 @@ func update_shader_parameters():
 	mat.set_shader_parameter("reflection_offset_scale", reflection_offset_scale)
 	mat.set_shader_parameter("reflection_plane_normal", cached_reflection_plane.normal)
 	mat.set_shader_parameter("reflection_plane_distance", cached_reflection_plane.d)
-	
-	# MINIMAL support for water depth filtering - only pass water surface position
-	mat.set_shader_parameter("water_surface_y", global_transform.origin.y)
+	mat.set_shader_parameter("planar_surface_y", global_transform.origin.y)
 
 func update_camera_projection():
 	if auto_detect_camera_mode:

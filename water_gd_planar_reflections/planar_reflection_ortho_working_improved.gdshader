@@ -1,23 +1,27 @@
 shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_toon,specular_toon;
 
+// System textures (don't need user modification)
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest_mipmap;
+uniform sampler2D depth_texture : hint_depth_texture, filter_nearest_mipmap;
+
 // Main surface properties
+group_uniforms Main;  //GROUP
 uniform vec4 albedo : source_color = vec4(1.0);
 uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
 uniform float metallic : hint_range(0.0, 1.0) = 0.0;
 uniform float roughness : hint_range(0.0, 1.0) = 0.5;
 uniform float specular : hint_range(0.0, 1.0) = 0.5;
 
-// Reflection properties
+// Planar Reflection properties
+group_uniforms PlanarReflection; //GROUP
 uniform sampler2D reflection_screen_texture: source_color,filter_linear_mipmap,repeat_enable;
 uniform float reflection_strength: hint_range(0.0, 1.0) = 0.5;
-
-// Color correction uniforms
-uniform bool enable_color_correction = false;
-uniform float brightness_multiplier : hint_range(0.5, 3.0) = 1.0;
-uniform float contrast_adjustment : hint_range(0.5, 2.0) = 1.0;
-uniform float saturation_boost : hint_range(0.5, 2.0) = 1.0;
-uniform float gamma_correction : hint_range(0.3, 1.5) = 1.0;
+// Fade effects
+uniform float proximity_fade_distance;
+// Camera mode handling (set by script)
+uniform bool is_orthogonal_camera = false;
+uniform float ortho_uv_scale : hint_range(0.1, 3.0) = 1.0;
 
 // Normal mapping and distortion
 uniform sampler2D texture_normal : source_color,filter_linear_mipmap,repeat_enable;
@@ -35,30 +39,21 @@ uniform sampler2D texture_refraction : filter_linear_mipmap,repeat_enable;
 uniform float refraction : hint_range(-1.0, 1.0) = 0.0;
 uniform vec4 refraction_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
 
-// Fade effects
-uniform float proximity_fade_distance : hint_range(0.0, 10.0) = 1.0;
-
-// System textures (don't need user modification)
-uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest_mipmap;
-uniform sampler2D depth_texture : hint_depth_texture, filter_nearest_mipmap;
-
-// Camera mode handling (set by script)
-uniform bool is_orthogonal_camera = false;
-uniform float ortho_uv_scale : hint_range(0.1, 3.0) = 1.0;
-
-// Water Depth Reflection (SHADER-ONLY uniforms - clean architecture)
-uniform bool enable_depth_filtering = false;
-uniform float reflection_depth_cutoff : hint_range(0.0, 10.0) = 2.0;
-uniform float depth_fade_smoothness : hint_range(0.1, 5.0) = 1.0;
-uniform float water_surface_y = 0.0; // Passed from GDScript
-
 // Advanced reflection parameters
+group_uniforms AdvancedControls; //GROUP
 uniform bool enable_perturb_scale = false;
 uniform float perturb_scale : hint_range(0.0, 1.0) = 0.1;
 uniform float perturb_frequency : hint_range(0.1, 10.0) = 1.0;
 uniform float clip_bias : hint_range(-0.1, 0.1) = 0.01;
 uniform vec3 reflection_plane_normal = vec3(0.0, 1.0, 0.0);
 uniform float reflection_plane_distance = 0.0;
+
+// Water Depth Reflection (SHADER-ONLY uniforms - clean architecture)
+group_uniforms WaterEffects; //GROUP for WaterEffects
+uniform bool enable_depth_filtering = false;
+uniform float reflection_depth_cutoff : hint_range(0.0, 10.0) = 2.0;
+uniform float depth_fade_smoothness : hint_range(0.1, 5.0) = 1.0;
+uniform float planar_surface_y = 0.0; // Passed from GDScript
 
 // Future water features (READY FOR IMPLEMENTATION)
 uniform bool enable_wave_displacement = false;
@@ -72,6 +67,14 @@ uniform bool caustics_enabled = false;
 uniform sampler2D foam_texture : source_color,filter_linear_mipmap,repeat_enable;
 uniform sampler2D caustics_texture : source_color,filter_linear_mipmap,repeat_enable;
 uniform sampler2D displacement_texture : source_color,filter_linear_mipmap,repeat_enable;
+
+// Color correction uniforms
+group_uniforms ColorCorrection;
+uniform bool enable_color_correction = false;
+uniform float brightness_multiplier : hint_range(0.5, 3.0) = 1.0;
+uniform float contrast_adjustment : hint_range(0.5, 2.0) = 1.0;
+uniform float saturation_boost : hint_range(0.5, 2.0) = 1.0;
+uniform float gamma_correction : hint_range(0.3, 1.5) = 1.0;
 
 // Varying variables for advanced calculations
 varying vec3 world_position;
@@ -194,7 +197,7 @@ void fragment() {
 		float object_world_y = world.y / world.w;
 
 		// Simple depth check: how far below water surface is this object?
-		float depth_below_water = water_surface_y - object_world_y;
+		float depth_below_water = planar_surface_y - object_world_y;
 
 		// Only reduce reflections for objects deeper than cutoff
 		if (depth_below_water > reflection_depth_cutoff) {
