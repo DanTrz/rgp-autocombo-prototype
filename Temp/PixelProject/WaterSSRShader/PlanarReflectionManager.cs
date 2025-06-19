@@ -8,6 +8,8 @@ public partial class PlanarReflectionManager : MeshInstance3D
 	[Export] public SubViewport ReflectionViewport;
 	[Export] public ShaderMaterial WaterMaterial;
 
+
+
 	public override void _Process(double delta)
 	{
 		if (ReflectionCamera == null || ReflectionViewport == null || WaterMaterial == null)
@@ -111,8 +113,11 @@ public partial class PlanarReflectionManager : MeshInstance3D
 		return result;
 	}
 
-
-
+	public override void _Ready()
+	{
+		GD.Print("PlanarReflectionManager is ready.");
+		
+	}
 
 	// [Export] public SubViewport ReflectionViewport;
 	// [Export] public Camera3D ReflectionCamera;

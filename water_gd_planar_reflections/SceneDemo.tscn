@@ -1,10 +1,10 @@
-[gd_scene load_steps=42 format=4 uid="uid://jvqetltjmfln"]
+[gd_scene load_steps=32 format=4 uid="uid://jvqetltjmfln"]
 
 [ext_resource type="Material" uid="uid://c4p4jr823j1gw" path="res://water_gd_planar_reflections/ReflectionMaterial.tres" id="1_31ghw"]
 [ext_resource type="Script" uid="uid://b66hrw8ajguo0" path="res://water_gd_planar_reflections/PlanarReflection.gd" id="1_qfd56"]
-[ext_resource type="Shader" uid="uid://ry7b8gwavbyf" path="res://water_gd_planar_reflections/planar_reflection_ortho_working_improved.gdshader" id="3_4dgxo"]
 [ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="3_o64fk"]
-[ext_resource type="Script" uid="uid://cqrnrxjd2army" path="res://water_gd_planar_reflections/PlanarReflectorOrtho.gd" id="4_27fyg"]
+[ext_resource type="Material" uid="uid://x4ihf67reqen" path="res://BaseReflectionShaderMaterial.tres" id="3_psr7x"]
+[ext_resource type="Script" uid="uid://cqrnrxjd2army" path="res://PlanarReflectorOrtho.gd" id="4_27fyg"]
 [ext_resource type="Texture2D" uid="uid://cspgmsd72voka" path="res://Temp/PixelProject/Assets/3D/pillar_dungeon_texture.png" id="5_psr7x"]
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="6_e16cc"]
 [ext_resource type="Shader" uid="uid://dbhnb5q3r31tb" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight_Test.gdshader" id="6_psr7x"]
@@ -34,152 +34,14 @@ size = Vector2(10, 10)
 subdivide_width = 20
 subdivide_depth = 20
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_4dgxo"]
-viewport_path = NodePath("SubViewport/PlanarReflectorOrtho/@SubViewport@158248")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_psr7x"]
-seed = 10
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4dgxo"]
-seamless = true
-as_normal_map = true
-noise = SubResource("FastNoiseLite_psr7x")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_t5pnn"]
-seed = 10
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7vq4r"]
-seamless = true
-as_normal_map = true
-noise = SubResource("FastNoiseLite_t5pnn")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ohdar"]
-seed = 10
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t5pnn"]
-seamless = true
-as_normal_map = true
-noise = SubResource("FastNoiseLite_ohdar")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ivak"]
-resource_local_to_scene = true
-render_priority = -1
-shader = ExtResource("3_4dgxo")
-shader_parameter/albedo = Color(0.196078, 0.647059, 0.776471, 1)
-shader_parameter/metallic = 0.0
-shader_parameter/roughness = 0.5
-shader_parameter/specular = 0.5
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_4dgxo")
-shader_parameter/reflection_strength = 0.25
-shader_parameter/proximity_fade_distance = 0.3
-shader_parameter/is_orthogonal_camera = false
-shader_parameter/ortho_uv_scale = 1.0
-shader_parameter/texture_normal = SubResource("NoiseTexture2D_4dgxo")
-shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_7vq4r")
-shader_parameter/normal_scale = 1.0
-shader_parameter/normal_uv_mult = 1.0
-shader_parameter/distortion_strength = 0.0
-shader_parameter/uv1_scale = Vector3(0, 0, 0)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_refraction = SubResource("NoiseTexture2D_t5pnn")
-shader_parameter/refraction = 0.0
-shader_parameter/refraction_texture_channel = Vector4(1, 1, 1, 1)
-shader_parameter/enable_perturb_scale = false
-shader_parameter/perturb_scale = 0.1
-shader_parameter/perturb_frequency = 1.0
-shader_parameter/clip_bias = 0.01
-shader_parameter/reflection_plane_normal = Vector3(0, 1, 0)
-shader_parameter/reflection_plane_distance = 0.0
-shader_parameter/enable_depth_filtering = false
-shader_parameter/reflection_depth_cutoff = 2.0
-shader_parameter/depth_fade_smoothness = 1.0
-shader_parameter/planar_surface_y = 0.0
-shader_parameter/enable_precise_depth_detection = true
-shader_parameter/depth_precision_bias = 0.1
-shader_parameter/underwater_reflection_intensity = 0.2
-shader_parameter/above_water_boost = 1.2
-shader_parameter/enable_gradient_detection = true
-shader_parameter/gradient_threshold = 0.5
-shader_parameter/gradient_smooth_range = 0.3
-shader_parameter/enable_reflection_clipping = false
-shader_parameter/reflection_clip_top = 0.0
-shader_parameter/reflection_clip_bottom = 0.0
-shader_parameter/reflection_clip_fade = 0.1
-shader_parameter/enable_wave_displacement = false
-shader_parameter/wave_amplitude = 1.0
-shader_parameter/wave_frequency = 1.0
-shader_parameter/foam_threshold = 0.5
-shader_parameter/shoreline_detection = false
-shader_parameter/caustics_enabled = false
-shader_parameter/enable_color_correction = false
-shader_parameter/brightness_multiplier = 1.0
-shader_parameter/contrast_adjustment = 1.0
-shader_parameter/saturation_boost = 1.0
-shader_parameter/gamma_correction = 1.0
-
 [sub_resource type="PlaneMesh" id="PlaneMesh_4ivak"]
 resource_local_to_scene = true
-material = SubResource("ShaderMaterial_4ivak")
+material = ExtResource("3_psr7x")
 size = Vector2(10, 10)
 subdivide_width = 20
 subdivide_depth = 20
 
 [sub_resource type="Environment" id="Environment_psr7x"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_psr7x"]
-size = Vector2(10, 10)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ohdar"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("3_4dgxo")
-shader_parameter/albedo = Color(1.34766e-06, 0.952283, 0.952283, 1)
-shader_parameter/metallic = 0.0
-shader_parameter/roughness = 0.5
-shader_parameter/specular = 0.5
-shader_parameter/reflection_strength = 0.5
-shader_parameter/proximity_fade_distance = 1.0
-shader_parameter/is_orthogonal_camera = false
-shader_parameter/ortho_uv_scale = 1.0
-shader_parameter/normal_scale = 1.0
-shader_parameter/normal_uv_mult = 1.0
-shader_parameter/distortion_strength = 0.1
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/refraction = 0.0
-shader_parameter/refraction_texture_channel = Vector4(1, 0, 0, 0)
-shader_parameter/enable_perturb_scale = false
-shader_parameter/perturb_scale = 0.1
-shader_parameter/perturb_frequency = 1.0
-shader_parameter/clip_bias = 0.01
-shader_parameter/reflection_plane_normal = Vector3(0, 1, 0)
-shader_parameter/reflection_plane_distance = 0.0
-shader_parameter/enable_depth_filtering = false
-shader_parameter/reflection_depth_cutoff = 0.0
-shader_parameter/depth_fade_smoothness = 0.1
-shader_parameter/planar_surface_y = 0.0
-shader_parameter/enable_precise_depth_detection = true
-shader_parameter/depth_precision_bias = 0.1
-shader_parameter/underwater_reflection_intensity = 0.2
-shader_parameter/above_water_boost = 1.2
-shader_parameter/enable_gradient_detection = true
-shader_parameter/gradient_threshold = 0.5
-shader_parameter/gradient_smooth_range = 0.3
-shader_parameter/enable_reflection_clipping = false
-shader_parameter/reflection_clip_top = 0.0
-shader_parameter/reflection_clip_bottom = 0.0
-shader_parameter/reflection_clip_fade = 0.1
-shader_parameter/enable_wave_displacement = false
-shader_parameter/wave_amplitude = 1.0
-shader_parameter/wave_frequency = 1.0
-shader_parameter/foam_threshold = 0.5
-shader_parameter/shoreline_detection = false
-shader_parameter/caustics_enabled = false
-shader_parameter/enable_color_correction = false
-shader_parameter/brightness_multiplier = 1.0
-shader_parameter/contrast_adjustment = 1.0
-shader_parameter/saturation_boost = 1.0
-shader_parameter/gamma_correction = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_psr7x"]
 albedo_color = Color(1, 0.372549, 1, 1)
@@ -325,13 +187,6 @@ reflection_camera_resolution = Vector2i(640, 360)
 reflection_layers = 524288
 custom_environment = SubResource("Environment_psr7x")
 reflection_offset_position = Vector3(0, -5, 0)
-
-[node name="PlanarReflectorOrtho_ONLYSHADER" type="MeshInstance3D" parent="SubViewport"]
-visible = false
-layers = 524289
-mesh = SubResource("PlaneMesh_psr7x")
-skeleton = NodePath("../PlanarReflector")
-surface_material_override/0 = SubResource("ShaderMaterial_ohdar")
 
 [node name="CamRig" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
 script = ExtResource("3_o64fk")

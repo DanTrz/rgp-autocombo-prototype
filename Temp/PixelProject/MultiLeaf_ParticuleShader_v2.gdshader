@@ -1,5 +1,5 @@
 shader_type particles;
-render_mode disable_velocity;
+render_mode disable_velocity; //original working code
 
 // Uniforms for color and position control
 group_uniforms ColorAndPosition;

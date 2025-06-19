@@ -23,12 +23,6 @@ public partial class TreeLeafParticuleEmitter : Node3D
 	[Export(PropertyHint.Range, "0,2,0.1")] float _particuleSphereRadius = 1.0f; // Radius of the emission sphere (fixed)
 	[Export] Timer _restartParticulesTime;
 
-	public override void _Ready()
-	{
-		_restartParticulesTime.Timeout += StartEmittingParticles;
-		StartEmittingParticles();
-		StartTimer();
-	}
 
 	private void StartTimer()
 	{

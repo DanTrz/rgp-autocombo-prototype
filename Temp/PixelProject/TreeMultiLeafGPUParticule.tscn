@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=4 uid="uid://ceuqgja4ownk6"]
+[gd_scene load_steps=18 format=4 uid="uid://ceuqgja4ownk6"]
 
 [ext_resource type="Script" uid="uid://dofp8cf2j0tol" path="res://Temp/PixelProject/TreeLeafParticuleEmitter.cs" id="1_j1kbm"]
 [ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_ot7g1"]
 [ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="3_877qk"]
 [ext_resource type="Shader" uid="uid://bhr41rldkpotm" path="res://Temp/PixelProject/MultiLeaf_ParticuleShader_v2.gdshader" id="4_ot7g1"]
 [ext_resource type="Shader" uid="uid://c4ho5ypde4oft" path="res://Temp/PixelProject/FoliageAnimation_v2_CorrectedColors.gdshader" id="5_1wsyu"]
+[ext_resource type="Texture2D" uid="uid://1b2dh6hbyfpm" path="res://Temp/PixelProject/Assets/Tree_LoD_GPUParticule.png" id="6_8x41d"]
 
 [sub_resource type="Gradient" id="Gradient_ot7g1"]
 resource_local_to_scene = true
@@ -19,7 +20,7 @@ gradient = SubResource("Gradient_ot7g1")
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_ot7g1")
-shader_parameter/albedo_color = Color(0.541176, 0.690196, 0.376471, 1)
+shader_parameter/albedo_color = Color(0.783523, 0.783523, 0.783523, 1)
 shader_parameter/disable_ambient_light = false
 shader_parameter/Use_fake_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
@@ -172,7 +173,7 @@ shader_parameter/disable_ambient_light = false
 shader_parameter/Use_fake_ambient_light = false
 shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_fjmk2")
-shader_parameter/albedo_color = Color(0.541176, 0.690196, 0.376471, 1)
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
 shader_parameter/use_vertex_color = true
 shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
@@ -192,7 +193,7 @@ size = Vector2(0.5, 0.7)
 script = ExtResource("1_j1kbm")
 _particleEmitter = NodePath("tree_oak_dark/GPUParticles3D")
 _treeMesh = NodePath("tree_oak_dark")
-_mainParticuleColor = Color(0.541176, 0.690196, 0.376471, 1)
+_internalMeshColorAdjust = Color(0.783523, 0.783523, 0.783523, 1)
 _colorShadingRamp = SubResource("GradientTexture1D_877qk")
 _colorNoise = 0.1
 _restartParticulesTime = NodePath("RestartParticulesTime")
@@ -204,13 +205,22 @@ skeleton = NodePath("")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="tree_oak_dark"]
 transform = Transform3D(0.4, 0, 0, 0, 0.284668, -0.281006, 0, 0.281006, 0.284668, -0.0165017, 0.880646, 0)
+layers = 524289
 cast_shadow = 0
+emitting = false
 amount = 500
 lifetime = 1e+07
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ShaderMaterial_ot7g1")
 draw_pass_1 = SubResource("QuadMesh_ot7g1")
+
+[node name="LodTree" type="Sprite3D" parent="."]
+transform = Transform3D(0.875, 0, 0, 0, 1.05, 0, 0, 0, 0.875, 0, 1.77052, 0)
+layers = 524288
+modulate = Color(0.389392, 0.46852, 0.181399, 1)
+billboard = 2
+texture = ExtResource("6_8x41d")
 
 [node name="RestartParticulesTime" type="Timer" parent="."]
 unique_name_in_owner = true

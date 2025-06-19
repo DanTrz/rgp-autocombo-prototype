@@ -3,6 +3,16 @@
     "editor.background": "#1b1919"
   },
 
+  "theme-by-language.themes": {
+    "*": "Dracula Theme",
+    "csharp": "Dracula Theme",
+    "godot4": "Godot",
+    "gdscript": "Godot",
+    "filename:.*\\.ipynb": "<theme name>",
+    "filename:.*\\.drawio": "<theme name>",
+
+  },
+
   "[csharp]": {
     "editor.codeActionsOnSave": {
       "source.addMissingImports": "explicit",
@@ -184,8 +194,11 @@
   "godotTools.editorPath.godot4": "c:\\Local Documents\\Development\\Godot\\Godot Versions\\Godot_v4.4.1-stable_mono_win64\\Godot_v4.4.1-stable_mono_win64.exe",
   "workbench.colorTheme": "Godot",
   "cSpell.words": [
-    "ogqq"
+    "ogqq",
+    "particule",
+    "Particules"
   ],
   "dotnet.formatting.organizeImportsOnFormat": true,
   "files.autoSave": "onWindowChange"
+  
 }
