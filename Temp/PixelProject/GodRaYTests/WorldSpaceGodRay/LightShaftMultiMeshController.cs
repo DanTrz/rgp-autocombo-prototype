@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 
@@ -14,7 +15,7 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 	[Export] PackedScene _lightShaftScene = GD.Load<PackedScene>("uid://b3vej5yd5cpjo");
 	[Export] Camera3D _mainCam;
 	[Export] Vector2 _gridSize = new Vector2(10, 10);
-	[Export] MultiMeshInstance3D _multiMesh;
+	// [Export] MultiMeshInstance3D _multiMesh;
 	[Export] int _instanceCount = 1;
 
 	[Export] Vector3 _position { get; set; } = new();
@@ -25,25 +26,33 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 	[Export] private float _rayLenght { get; set; } = 45.0f;
 	[Export(PropertyHint.Layers3DRender)] public uint CollisionLayers { get; set; }
 
-	private Dictionary<int, InstanceCollider> _instanceList { get; set; } = new();
-	private bool _hasCollided = false;
+	private Dictionary<int, InstanceCollider> _instanceList { get; set; } = new(); //int=IntanceID /--/ InstanceCollider=InstanaceInfo
+	private bool _hasCollidersMissing = true;
 	// private PhysicsRayQueryParameters3D _raycast;
 
 
 
 
-	public override async void _Ready()
+	public override void _Ready()
 	{
 		if (Engine.IsEditorHint()) return;
 		//PopulateGrid(_gridSize, GetGridCellSize(_gridSize));
-		await SetupMultiMesh();
+		SetupMultiMeshInstances();
+	}
+
+	public override void _Process(double delta)
+	{
+		if (!_hasCollidersMissing) return;
+		SetInstancesCollision();
 	}
 
 
-	private async Task SetupMultiMesh()
+
+
+	private void SetupMultiMeshInstances()
 	{
 
-		MultiMesh Multimesh = _multiMesh.Multimesh;
+		MultiMesh Multimesh = this.Multimesh;
 		//Reset the MultiMesh
 		Multimesh.InstanceCount = 0;
 		Multimesh.VisibleInstanceCount = -1;
@@ -54,122 +63,84 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 		Multimesh.VisibleInstanceCount = _instanceCount;
 
 		//DEBUG - TEST ONLY
-		//Define Vector3 Offset for shadow control. 
-		Vector3 minWorld = new Vector3(-500, -500, -500);
-		Vector3 maxWorld = new Vector3(500, 500, 500);
 		CleanAllDebugSpheres();
 		//DEBUG - TEST ONLY
 
 		for (int i = 0; i < Multimesh.InstanceCount; i++)
 		{
-			Vector3 newLocalPos = new Vector3((i * _position.X), _position.Y, _position.Z); //Seems an offset from parent
-			Vector3 centerGlobalWorldPos = this.GlobalTransform * newLocalPos; //Actual World Position (Global Position)
+			Vector3 newLocalPos = new Vector3((i * _position.X), _position.Y, _position.Z); //Seems an offset from parent (Local Pos)
+			Vector3 centerGlobalWorldPos = this.GlobalTransform * newLocalPos; //Convert to World Position (Global Position)
 
-			_instanceList[i] = new InstanceCollider(centerGlobalWorldPos, false);
-
-			//DEBUG - TEST ONLY //
-			// Vector3 colliderPos = new Vector3(centerGlobalWorldPos.X + 2, centerGlobalWorldPos.Y + 2, centerGlobalWorldPos.Z);
-			// await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
-			// await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
-			Vector3 colliderPos = await GetColliderPosition(centerGlobalWorldPos, new Vector3(0, -1, 0));
-			Vector3 normalizedColliderPos = new Vector3(
-				Mathf.InverseLerp(minWorld.X, maxWorld.X, colliderPos.X),
-				Mathf.InverseLerp(minWorld.Y, maxWorld.Y, colliderPos.Y),
-				Mathf.InverseLerp(minWorld.Z, maxWorld.Z, colliderPos.Z)
-			);
-
-			// Vector3 offset = colliderPos - centerWorldPos;
-			// Vector3 normalizedOffsetPos = new Vector3(
-			// 	Mathf.InverseLerp(minWorld.X, maxWorld.X, offset.X),
-			// 	Mathf.InverseLerp(minWorld.Y, maxWorld.Y, offset.Y),
-			// 	Mathf.InverseLerp(minWorld.Z, maxWorld.Z, offset.Z)
-			// );
-
-			Multimesh.SetInstanceCustomData(i, new Color(normalizedColliderPos.X, normalizedColliderPos.Y, normalizedColliderPos.Z, 1));
-			// Multimesh.SetInstanceCustomData(i, new Color(normalizedOffsetPos.X, normalizedOffsetPos.Y, normalizedOffsetPos.Z, 1));
-
-			CreateDebugCircle(centerGlobalWorldPos, Colors.Green);// World position center
-			CreateDebugCircle(colliderPos, Colors.Red);// Fake collider position (this will be replaced by the RayCast collider data)
-													   // CreateDebugCircle(offset, Colors.Yellow);
-
-			//	_offsetFromObjCenter = _colliderPos - _originalObjCenter;
+			_instanceList[i] = new InstanceCollider(centerGlobalWorldPos, newLocalPos, false);
 
 			//DEBUG - TEST ONLY
+			CreateDebugCircle(centerGlobalWorldPos, Colors.Green);// World position center
 
 			float newRotation = Mathf.DegToRad(_rotationZ);
 			Basis newBasis = new Basis(Vector3.One, newRotation); //Apply Rotation
 			newBasis.Column1 *= _scale.Y; //Scale just the Y axis
 			newBasis.Column2 *= _scale.Z; //Scale just the Z axis
-			newBasis.Column0 *= _scale.X; //Scale just the X axis //If you want apply Rotation indiviaully use basis.Column0 * RotationValue;
+			newBasis.Column0 *= _scale.X; //Scale just the X axis //use basis.Column0 * RotationValue;
 
+			//Set position. SetInstanceTransform is relative to parent
 			Multimesh.SetInstanceTransform(i, new Transform3D(newBasis, newLocalPos));
-			GD.Print($"Instance {i} set to {newLocalPos}");
+			Log.Debug($"Instance {i} set to GlobalPos {centerGlobalWorldPos}, LocalPos {newLocalPos}");
 		}
-
-
-		// Set the transform of the instances.
-		// for (int i = 0; i < Multimesh.InstanceCount; i++)
-		// {
-		// 	Vector3 adjustedPosition = new Vector3(i * position.X, position.Y, position.Z);
-		// 	Vector3 adjustedScale = new Vector3(scale.X, scale.Y, scale.Z);
-		// 	float adjustedRotation = Mathf.DegToRad(rotationZ);
-
-		// 	// Vector3 adjustedPosition = new Vector3(i * position.X, position.Y, position.Z);
-		// 	// rotation = Mathf.DegToRad(rotation);
-
-		// 	//CREATING A TRANSFORM MANUALLY AND APPLYING SCALE
-		// 	Transform3D transform = new Transform3D(Basis.Identity, adjustedPosition);
-
-		// 	Basis newBasis = new Basis(Vector3.One.Normalized(), Mathf.DegToRad(-20f));
-		// 	transform.Basis = newBasis;
-		// 	// transform.Basis = new Basis(Vector3.Forward.Normalized(), adjustedRotation);
-
-
-		// 	transform = transform.Scaled(adjustedScale);
-
-		// 	Multimesh.SetInstanceTransform(i, transform);
-
-		// 	GD.Print($"Instance {i} set to {adjustedPosition}");
-		// }
-
-		// for (int i = 0; i < Multimesh.InstanceCount; i++)
-		// {
-		// 	Vector3 newPosition = new Vector3(i * position.X, position.Y, position.Z);
-		// 	Vector3 newScale = new Vector3(scale.X, scale.Y, scale.Z);
-		// 	float newRotation = Mathf.DegToRad(rotationZ);
-
-		// 	// Create rotation basis (around Y for example)
-		// 	Basis basis = new Basis(Vector3.Up, newRotation);
-
-		// 	// Apply scale manually to the basis
-		// 	basis = new Basis(
-		// 		basis.Column0 * scale.X,
-		// 		basis.Column1 * scale.Y,
-		// 		basis.Column2 * scale.Z
-		// 	);
-
-		// 	// Apply transform
-		// 	Multimesh.SetInstanceTransform(i, new Transform3D(basis, newPosition));
-
-		// 	GD.Print($"Instance {i} set to {newPosition}");
-		// }
 
 	}
 
 	private void SetInstancesCollision()
 	{
+		if (_instanceList.Count == 0) return; //TODO: In the future we can find a way to check if the "entire list" is already set customdata. 
 
+		MultiMesh Multimesh = this.Multimesh;
+		//DEBUG - TEST ONLY
+		//Define Vector3 Offset for shadow control. 
+		Vector3 minWorld = new Vector3(-500, -500, -500);
+		Vector3 maxWorld = new Vector3(500, 500, 500);
+		//DEBUG - TEST ONLY
 
+		//Loop our InstanceList and Send the RayCast for Collision from their World Position Center
+		for (int i = 0; i < _instanceList.Count; i++)
+		{
+			if (_instanceList[i].HasCustomData) continue; //Skipt if we already passed CustomData to the Shader
+
+			if (_instanceList[i].HasCollided)
+			{
+				Vector3 colliderPos = _instanceList[i].ColliderPosition;
+				Vector3 normalizedColliderPos = new Vector3(
+					Mathf.InverseLerp(minWorld.X, maxWorld.X, colliderPos.X),
+					Mathf.InverseLerp(minWorld.Y, maxWorld.Y, colliderPos.Y),
+					Mathf.InverseLerp(minWorld.Z, maxWorld.Z, colliderPos.Z)
+				);
+
+				Multimesh.SetInstanceCustomData(i, new Color(normalizedColliderPos.X, normalizedColliderPos.Y, normalizedColliderPos.Z, 1));
+				CreateDebugCircle(colliderPos, Colors.Red);
+				_instanceList[i].HasCustomData = true;
+			}
+			else //Has not collided yet. Need to send a RayCast
+			{
+				//Get instance Global Position and send a RayCast to find collider
+				Vector3 centerGlobalWorldPos = _instanceList[i].GlobalPosition;
+				Vector3 centerLocalPos = _instanceList[i].LocalPosition;
+
+				//TODO - Wich one is more correct? Should we fire the Raycast from GlobalPos or is it influence by parent and local pos?
+				SendRaycast(i, centerGlobalWorldPos, new Vector3(0, -1, 0));
+				//SendRaycast(i, centerLocalPos, new Vector3(0, -1, 0));
+
+			}
+		}
+
+		//Check if all instances have collided and update class level
+		_hasCollidersMissing = _instanceList.Values.Any(instance => !instance.HasCustomData);
 	}
 
-	private async Task<Vector3> GetColliderPosition(Vector3 raycastStart, Vector3 _raycastDirection)
+	private void SendRaycast(int instanceIndex, Vector3 raycastStart, Vector3 _raycastDirection)
 	{
+		if (_instanceList[instanceIndex].HasCollided) return;
 
-		// _raycastDirection = _markerDownDirection;
-		//_markerDownDirection = -_originMarker.GlobalTransform.Basis.Y;
-		_hasCollided = false;
 		Vector3 colliderGlobalPos = Vector3.Zero;
-		_raycastDirection = -this.GlobalTransform.Basis.Y;
+		//_raycastDirection = -this.GlobalTransform.Basis.Y;
 
 		var spaceState = GetWorld3D().DirectSpaceState;
 		var raycastEndPoint = raycastStart + _raycastDirection * _rayLenght;
@@ -181,58 +152,34 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 
 		Godot.Collections.Dictionary result = spaceState.IntersectRay(query);
 
-		// await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-		// await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
-		// await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
-		// await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-		// await ToSignal(GetTree().CreateTimer(0.2), Timer.SignalName.Timeout);
-
-
-
 		if (result.Count > 0) //while (result.Count < 0)
 		{
-			_hasCollided = true;
 			if (result.TryGetValue("collider", out var collider))
 			{
+
 				Node3D colliderNode = (Node3D)collider; // Cast the Variant to a Node
 														// Log.Debug($"Collider is: {colliderNode.Name}");
 
-				Vector3 colliderLocalPos = result["position"].AsVector3();
-				colliderGlobalPos = this.GlobalTransform * colliderLocalPos; //Actual World Position (Global Position)
+				// Vector3 colliderLocalPos = result["position"].AsVector3();
+				// colliderGlobalPos = this.GlobalTransform * colliderLocalPos; //Actual World Position (Global Position)
+
+				colliderGlobalPos = result["position"].AsVector3(); // already global??
+
+				_instanceList[instanceIndex].HasCollided = true;
+				_instanceList[instanceIndex].ColliderPosition = colliderGlobalPos;
+
 				Log.Debug($"Collider Found Pos: {colliderGlobalPos}");
-
-
-				// _offsetFromObjCenter = _colliderPos - _originalObjCenter;
-				// UpdateShaderParameters(_offsetFromObjCenter, noiseMovement);
-
-				// ResizeMesh();
-				// PositionMarkers(_raycastMesh.Mesh as CylinderMesh, _colliderPos);
-
-
 			}
-			return colliderGlobalPos;
-
-
-			// if (DebugActive)
-			// {
-			// 	_debugCollisionSphere.Visible = true;
-			// 	_originMarker.Visible = true;
-			// 	// //_debugSphere.GlobalPosition = raycastEndPoint;
-			// }
-
 
 		}
 		else
 		{
-			Log.Debug($"No Collision Found - Return default {colliderGlobalPos}");
-			return colliderGlobalPos;
+			Log.Debug($"No Collision. Collider:{colliderGlobalPos}, RayStart:{raycastStart}, RayEnd:{raycastEndPoint}");
 		}
-
 	}
 
 	private void CreateDebugCircle(Vector3 position, Color color)
 	{
-
 		var mesh = new SphereMesh();
 		mesh.Radius = 0.5f;
 		var material = new StandardMaterial3D();
@@ -256,77 +203,54 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 		}
 	}
 
-
-
-
-	//OLDER CODE
-
-	private Vector2 GetGridCellSize(Vector2 gridSize)
+	public class InstanceCollider
 	{
-		//1. Get the camera size
-		//For an Orthogonal camera, 'size' is its height in world units.
-		float camViewHeight = _mainCam.Size;
-		float camViewWidth = camViewHeight * _mainCam.GetViewport().GetVisibleRect().Size.X / _mainCam.GetViewport().GetVisibleRect().Size.Aspect();
+		public Vector3 GlobalPosition { get; set; }
+		public Vector3 LocalPosition { get; set; }
 
-		//2. Find the Top-Left Corner of the View
-		Vector3 topLeftCorner = _mainCam.GlobalTransform.Origin - _mainCam.GlobalTransform.Basis.Z * camViewHeight * 0.5f;
-		Log.Debug($"Top Left Corner: {topLeftCorner}");
-		//var top_left = cam_transform.origin - (cam_transform.basis.x * view_width / 2.0) + (cam_transform.basis.y * view_height / 2.0)
 
-		//3. Calculate Cell Size in World Units 
-		float gridCellWidth = camViewWidth / gridSize.X;
-		float gridCellHeight = camViewHeight / gridSize.Y;
+		public bool HasCollided { get; set; } = false;
 
-		Log.Debug($"GridSize - Width: {gridCellWidth} - Height: {gridCellHeight}");
-		return new Vector2(gridCellWidth, gridCellHeight);
+		public Vector3 ColliderPosition { get; set; }
 
-	}
+		public bool HasCustomData { get; set; } = false;
 
-	private void PopulateGrid(Vector2 gridSize, Vector2 cellSize)
-	{
-		for (int y = 0; y < gridSize.Y; y++)
+		public InstanceCollider(Vector3 globalPos, Vector3 localPos, bool hasCollided)
 		{
-			for (int x = 0; x < gridSize.X; x++)
-			{
-				//# Calculate the center of the current cell in 2D screen coordinates.
-				//var screen_point = Vector2(x * cell_size.x, y * cell_size.y) + (cell_size * 0.5)
-				Vector2 gridCenter = new Vector2(x, y) * cellSize;
-
-				// #Convert 2D Point to 3D Position ---
-				// # This is the core logic.
-				// 	var ray_origin = camera.project_ray_origin(screen_point)
-				// 	var ray_direction = camera.project_ray_normal(screen_point)
-				// 	var world_position = ray_origin + ray_direction * spawn_distance_from_camera
-
-				// SpawnLightShaft(new Vector3(gridCenter.X, 0, gridCenter.Y));
-				// Log.Debug($"Spawned LightShaft at: {gridCenter}");
-			}
+			GlobalPosition = globalPos;
+			LocalPosition = localPos;
+			HasCollided = hasCollided;
 		}
-
 	}
 
-	private void SpawnLightShaft(Vector3 position)
+	public partial class DebugSphere : MeshInstance3D
 	{
-		LightShaftRaycast lightShaftNode = _lightShaftScene.Instantiate<LightShaftRaycast>();
-		lightShaftNode.GlobalPosition = position;
-		AddChild(lightShaftNode);
+
 	}
 }
 
-public class InstanceCollider
-{
-	public Vector3 Position { get; set; }
-	public bool HasCollided { get; set; }
 
-	public InstanceCollider(Vector3 position, bool hasCollided)
-	{
-		Position = position;
-		HasCollided = hasCollided;
-	}
-}
+// 	for (int i = 0; i<Multimesh.InstanceCount; i++)
+// 	{
+// 		Vector3 newLocalPos = new Vector3((i * _position.X), _position.Y, _position.Z); //Seems an offset from parent
+// Vector3 centerGlobalWorldPos = this.GlobalTransform * newLocalPos; //Actual World Position (Global Position)
 
-public partial class DebugSphere : MeshInstance3D
-{
+// _instanceList[i] = new InstanceCollider(centerGlobalWorldPos, false);
 
-}
+// //SET COLLIDER POSITION
+// Vector3 colliderPos = await GetColliderPosition(centerGlobalWorldPos, new Vector3(0, -1, 0));
+// Vector3 normalizedColliderPos = new Vector3(
+// 	Mathf.InverseLerp(minWorld.X, maxWorld.X, colliderPos.X),
+// 	Mathf.InverseLerp(minWorld.Y, maxWorld.Y, colliderPos.Y),
+// 	Mathf.InverseLerp(minWorld.Z, maxWorld.Z, colliderPos.Z)
+// );
 
+
+// Multimesh.SetInstanceCustomData(i, new Color(normalizedColliderPos.X, normalizedColliderPos.Y, normalizedColliderPos.Z, 1));
+// 		// Multimesh.SetInstanceCustomData(i, new Color(normalizedOffsetPos.X, normalizedOffsetPos.Y, normalizedOffsetPos.Z, 1));
+
+// 		CreateDebugCircle(centerGlobalWorldPos, Colors.Green);// World position center
+// CreateDebugCircle(colliderPos, Colors.Red);// Fake collider position (this will be replaced by the RayCast collider data)
+// 										   // CreateDebugCircle(offset, Colors.Yellow);
+
+// Multimesh.SetInstanceCustomData(i, new Color(normalizedColliderPos.X, normalizedColliderPos.Y, normalizedColliderPos.Z, 1));

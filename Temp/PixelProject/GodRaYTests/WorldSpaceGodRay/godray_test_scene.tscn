@@ -350,15 +350,15 @@ debug_color = Color(1, 0.105882, 0, 0.419608)
 
 [node name="GodraysController" type="Node3D" parent="."]
 
-[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="GodraysController" node_paths=PackedStringArray("_mainCam", "_multiMesh")]
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="GodraysController" node_paths=PackedStringArray("_mainCam")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.28227, 0)
 multimesh = SubResource("MultiMesh_3uann")
 script = ExtResource("4_bf1d8")
 _mainCam = NodePath("../../SubViewport/CameraRigYaw/Camera3D")
-_multiMesh = NodePath(".")
 _instanceCount = 3
 _position = Vector3(1.5, 0, 0)
 _scale = Vector3(1, 10, 1)
+CollisionLayers = 1
 
 [node name="LightShaftRaycastLocal" parent="GodraysController" instance=ExtResource("3_hooab")]
 transform = Transform3D(0.827227, 0.561867, 0, -0.561867, 0.827227, 0, 0, 0, 1, -0.304347, 10.5008, -2.19557)
@@ -626,7 +626,7 @@ SnapObjects = false
 transform = Transform3D(-0.002461, 0, -0.999997, 0, 1, 0, 0.999997, 0, -0.002461, 0, 0, 0)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="SubViewport/Objects"]
-transform = Transform3D(-4.37114e-08, -1, 1.234e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -3.81667, 4.66236, -3.09177)
+transform = Transform3D(-4.37114e-08, -1, 1.3737e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -3.81667, 4.66236, -3.09177)
 use_collision = true
 size = Vector3(0.4, 10, 12)
 

@@ -43,7 +43,7 @@ public partial class LightShaftRaycast : Node3D
 		_originMarker.Visible = false;
 
 		SetMeshParameters(_randomize);
-		Log.Debug($"Light Shaft Ready Called: {this.Name}");
+		// Log.Debug($"Light Shaft Ready Called: {this.Name}");
 
 
 	}
@@ -172,7 +172,7 @@ public partial class LightShaftRaycast : Node3D
 
 		}
 		UpdateShaderParameters(Vector3.Zero, noiseMovement);
-		Log.Debug($"{this.Name} - Noise:{noiseMovement} - Width:{_rayWidth} ");
+		// Log.Debug($"{this.Name} - Noise:{noiseMovement} - Width:{_rayWidth} ");
 	}
 
 	private void PositionMarkers(CylinderMesh cylinder, Vector3 collisionPoint)
