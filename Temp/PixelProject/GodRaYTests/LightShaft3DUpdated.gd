@@ -22,7 +22,7 @@ extends MeshInstance3D
 @export var uv_tile_count: int = 1:
 	get: return uv_tile_count; 
 	set(value): uv_tile_count = value; if is_node_ready(): call_deferred("_rebuild", self) 
-@export var collision_mask: int = 524288: # Default to layer 1, 524288 = 20 // all = 4294967295  (they are in 32Bits)
+@export_flags_3d_render var collision_mask:  = 1: # Default to layer 1, 524288 = 20 // all = 4294967295  (they are in 32Bits)
 	get: return collision_mask; 
 	set(value): collision_mask = value; if is_node_ready(): call_deferred("_rebuild", self) 
 

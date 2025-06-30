@@ -1,0 +1,115 @@
+[gd_scene load_steps=19 format=3 uid="uid://b3vej5yd5cpjo"]
+
+[ext_resource type="Script" uid="uid://0j7sbald6lcv" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftRaycast.cs" id="1_ekalw"]
+[ext_resource type="Shader" uid="uid://ynltn072st6h" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/godray_shadow_occlusion_multi_point_sample_offset.gdshader" id="2_56qro"]
+[ext_resource type="Texture2D" uid="uid://b4d3hpuavsew5" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftGradient1.tres" id="3_xqxdd"]
+[ext_resource type="Texture2D" uid="uid://dopp767dqs0l4" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftGradient4.tres" id="5_qq6hr"]
+
+[sub_resource type="Gradient" id="Gradient_ofrra"]
+offsets = PackedFloat32Array(0, 0.155789, 0.353684, 0.402105, 0.932632)
+colors = PackedColorArray(0, 0, 0, 0, 0.819608, 0.819608, 0.819608, 0.0509804, 0.756863, 0.756863, 0.756863, 0.196078, 0.8, 0.8, 0.8, 0.258824, 0.741176, 0.741176, 0.741176, 0.313726)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ri41u"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_ofrra")
+
+[sub_resource type="Gradient" id="Gradient_f4pjb"]
+offsets = PackedFloat32Array(0.573394)
+colors = PackedColorArray(1, 1, 1, 0.333333)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_83kr6"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_f4pjb")
+
+[sub_resource type="Gradient" id="Gradient_53t8j"]
+offsets = PackedFloat32Array(0.0321101, 0.0412844, 0.427368, 0.44, 0.866973)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.337255, 1, 1, 1, 0.501961, 1, 1, 1, 0.262327, 1, 1, 1, 0.227451)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fa4m2"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_53t8j")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ekalw"]
+resource_local_to_scene = true
+top_radius = 1.0
+bottom_radius = 1.0
+height = 45.0
+radial_segments = 8
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="Gradient" id="Gradient_56qro"]
+colors = PackedColorArray(0.955782, 0.955782, 0.955782, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_61ec6"]
+gradient = SubResource("Gradient_56qro")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ip4c0"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_56qro")
+shader_parameter/ray_color = Color(0.999999, 0.998198, 0.734549, 1)
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 0.5
+shader_parameter/fadeout_start_point = 0.1
+shader_parameter/fadeout_length = 0.008
+shader_parameter/fade_from_bottom = false
+shader_parameter/rim_power = 1.2
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.5
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/sampling_offset = Vector3(0, 0, 0)
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/noise_texture = SubResource("GradientTexture2D_61ec6")
+shader_parameter/gradient = ExtResource("3_xqxdd")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hooab"]
+resource_local_to_scene = true
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v6gh4"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_56qro"]
+resource_local_to_scene = true
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ekalw"]
+albedo_color = Color(0.47451, 1, 0, 1)
+
+[node name="LightShaftRaycast" type="Node3D" node_paths=PackedStringArray("_raycastMesh", "_debugCollisionSphere", "_originMarker")]
+script = ExtResource("1_ekalw")
+_raycastMesh = NodePath("LightShaftSkin")
+_debugCollisionSphere = NodePath("DebugCollisionSphere")
+_originMarker = NodePath("Origin")
+CollisionLayers = 1
+_gradientTextures = Array[GradientTexture2D]([SubResource("GradientTexture2D_ri41u"), SubResource("GradientTexture2D_83kr6"), SubResource("GradientTexture2D_fa4m2"), ExtResource("5_qq6hr")])
+
+[node name="LightShaftSkin" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0411672, 0.0819349, -0.0134847)
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("CylinderMesh_ekalw")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ip4c0")
+
+[node name="DebugCollisionSphere" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_hooab")
+surface_material_override/0 = SubResource("StandardMaterial3D_v6gh4")
+
+[node name="Origin" type="Marker3D" parent="."]
+transform = Transform3D(1, 2.98023e-08, 0, -2.98023e-08, 1, 0, 0, 0, 1, 6.70552e-07, 22.5, 0)
+
+[node name="OriginDebugger" type="MeshInstance3D" parent="Origin"]
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_56qro")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ekalw")

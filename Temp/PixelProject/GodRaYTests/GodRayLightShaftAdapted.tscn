@@ -15,9 +15,10 @@ background_mode = 1
 ambient_light_source = 1
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_q5on4"]
+resource_local_to_scene = true
 _surfaces = [{
-"aabb": AABB(-100.353, -30.1722, -98.8265, 199.874, 49.9625, 199.78),
-"attribute_data": PackedByteArray("yqMATAAAAAAAAIA/yqMATAAAAAAAAAAAyqMATMWxZD0AAIA/yqMATMWxZD0AAAAAyqMATJp3Jz4AAIA/yqMATJp3Jz4AAAAAyqMATPZueD4AAIA/yqMATPZueD4AAAAAyqMATFdTrj4AAIA/yqMATFdTrj4AAAAAyqMATOZ+5z4AAIA/yqMATOZ+5z4AAAAAyqMATGlMAj8AAIA/yqMATGlMAj8AAAAAyqMATKy7Ez8AAIA/yqMATKy7Ez8AAAAAyqMATKPGHz8AAIA/yqMATKPGHz8AAAAAyqMATDWNNz8AAIA/yqMATDWNNz8AAAAAyqMATH60Uj8AAIA/yqMATH60Uj8AAAAAyqMATAY9ZD8AAIA/yqMATAY9ZD8AAAAAyqMATN4rbz8AAIA/yqMATN4rbz8AAAAA"),
+"aabb": AABB(-0.948239, -0.404235, -100.94, 2.26422, 0.622838, 102.088),
+"attribute_data": PackedByteArray("/uWXTAAAAAAAAIA//uWXTAAAAAAAAAAA/uWXTMWxZD0AAIA//uWXTMWxZD0AAAAA/uWXTJp3Jz4AAIA//uWXTJp3Jz4AAAAA/uWXTPZueD4AAIA//uWXTPZueD4AAAAA/uWXTFdTrj4AAIA//uWXTFdTrj4AAAAA/uWXTOZ+5z4AAIA//uWXTOZ+5z4AAAAA/uWXTGlMAj8AAIA//uWXTGlMAj8AAAAA/uWXTKy7Ez8AAIA//uWXTKy7Ez8AAAAA/uWXTKPGHz8AAIA//uWXTKPGHz8AAAAA/uWXTDWNNz8AAIA//uWXTDWNNz8AAAAA/uWXTH60Uj8AAIA//uWXTH60Uj8AAAAA/uWXTAY9ZD8AAIA//uWXTAY9ZD8AAAAA/uWXTN4rbz8AAIA//uWXTN4rbz8AAAAA"),
 "format": 34359742495,
 "index_count": 78,
 "index_data": PackedByteArray("AAABAAIAAQADAAIAAgADAAQAAwAFAAQABAAFAAYABQAHAAYABgAHAAgABwAJAAgACAAJAAoACQALAAoACgALAAwACwANAAwADAANAA4ADQAPAA4ADgAPABAADwARABAAEAARABIAEQATABIAEgATABQAEwAVABQAFAAVABYAFQAXABYAFgAXABgAFwAZABgAGAAZAAAAGQABAAAA"),
@@ -25,7 +26,7 @@ _surfaces = [{
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 26,
-"vertex_data": PackedByteArray("RkFUvwVvSD0/v4S9o7TIwgyHvUBADPvAaW4Rv5RMzj2ELca+7KukwpaXaUF3ZWDCpRqhPYMTEb7jjE2/FOoaQZeAi8Eqp8XCAwUiPzXocDwFhnC/SfxhQk8CqD/VvafC6WWgP1+3uL7Bq1W/XGGkQmBNvcHK+VrCCHKoPyZXgb4EXwe8xwrHQoHVmMHN9R+/7pSeP+T3zr7jb8M+XfK4Qrhg8cHt7eNB6bV5PwmWGb09RR4/9MmqQu4WUsBPf1hCIGA1P/ascL2Szlg/3pCBQlPtq8Bb4JpC+qQpPfb/ODgOSoQ/wXWBQJctjTsY6MlCnYA+v/b/ODiwA5M/HnpcwtQbVjt8JapCCoFYv3fZXz7GMTI/iSCZwoFSnkFGEHxCy79yv/q3Kz60kcs+Fe+3wv0cgkEpPxpC/3//f/9/AID/f/9//38AgDiOAADHDx6/OI4AAMcPHr93+P9/f3jDv3f4/39/eMO/4IPgA/8DD77gg+AD/wMPvgAA/79UVamqAAD/v1RVqar/fwAAAAD/v/9/AAAAAP+///9l5mCYPI///2XmYJg8j3h4d/j4Bz+8eHh3+PgHP7z/fwAAAAD/v/9/AAAAAP+/hwf/f3+Hw7+HB/9/f4fDvwAA/79UVamqAAD/v1RVqaqqqv9/bVttm6qq/39tW22b/38AAAAA/7//fwAAAAD/vw==")
+"vertex_data": PackedByteArray("RkFUvwVvSD0/v4S9RkFUvwVvSD0wIcjCaW4Rv5RMzj2ELca+aW4Rv5RMzj0uxsjCpRqhPYMTEb7jjE2/pRqhPYMTEb4am8nCAwUiPzXocDwFhnC/AwUiPzXocDwM4cnC6WWgP1+3uL7Bq1W/6WWgP1+3uL5Yq8nCCHKoPyZXgb4EXwe8CHKoPyZXgb47BMjC7pSeP+T3zr7jb8M+7pSeP+T3zr6QPMfC6bV5PwmWGb09RR4/6bV5PwmWGb12w8bCIGA1P/ascL2Szlg/IGA1P/ascL1jTsbC+qQpPfb/ODgOSoQ/+qQpPfb/ODjY7sXCnYA+v/b/ODiwA5M/nYA+v/b/ODjxs8XCCoFYv3fZXz7GMTI/CoFYv3fZXz6cm8bCy79yv/q3Kz60kcs+y79yv/q3Kz5uNMfC3XgiB4cHjcPdeCIHhweNw7hsRxMbFmLJuGxHExsWYslM0rGt0moQ00zSsa3SahDTF30X/fgCi74XfRf9+AKLvpycYuOfInDNnJxi458icM2clGHr1Rf+yZyUYevVF/7JfJ+B4Kgmks58n4HgqCaSzryEQvvpBFzCvIRC++kEXMLMiTH2jArexMyJMfaMCt7E3H/c/yIA7b/cf9z/IgDtv/1/AQABAADA/X8BAAEAAMC1ZUoaah96zLVlShpqH3rMw2w8EwwWXcnDbDwTDBZdyQ==")
 }]
 
 [sub_resource type="Curve3D" id="Curve3D_3j0yl"]
@@ -135,7 +136,7 @@ shader_parameter/alpha_factor = 1.0
 shader_parameter/occlusion_uv_scale = Vector2(1, 1)
 shader_parameter/occlusion_uv_offset = Vector2(0, 0)
 shader_parameter/occlusion_strength = 5.0
-shader_parameter/use_occlusion = false
+shader_parameter/use_occlusion = true
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_nfqaq"]
 
@@ -299,17 +300,21 @@ script = ExtResource("2_tk7ux")
 outline = NodePath("outline")
 origin = NodePath("origin")
 length = 100.0
-color = Color(0.792726, 0.641441, 1.80972e-05, 0.3)
+spread = false
+color = Color(0.999999, 0.89832, 0.592351, 0.3)
+collision_mask = 524290
 metadata/_custom_type_script = "uid://bslqtjuwuelro"
 
-[node name="outline" type="Path3D" parent="light_shaft_3d"]
+[node name="outline" type="Path3D" parent="light_shaft_3d" node_paths=PackedStringArray("parent")]
 transform = Transform3D(-0.627583, 0, -0.77855, 0, 1, 0, 0.77855, 0, -0.627583, 0.4599, -0.685254, -0.57053)
 curve = SubResource("Curve3D_3j0yl")
 script = ExtResource("3_unthy")
+parent = NodePath("..")
 
-[node name="origin" type="Marker3D" parent="light_shaft_3d"]
+[node name="origin" type="Marker3D" parent="light_shaft_3d" node_paths=PackedStringArray("parent")]
 transform = Transform3D(-0.190371, 0.886816, -0.42109, -0.0316435, 0.423168, 0.905499, 0.981202, 0.185705, -0.0524969, -3.07804, 6.61894, -0.383737)
 script = ExtResource("3_unthy")
+parent = NodePath("..")
 
 [node name="directionalLight" type="DirectionalLight3D" parent="light_shaft_3d"]
 transform = Transform3D(-0.913216, -0.0556656, -0.403655, -0.400991, -0.0532521, 0.914533, -0.0724036, 0.997028, 0.0263092, -0.661751, 0.830414, -0.400645)
@@ -378,8 +383,7 @@ mesh = SubResource("CylinderMesh_faoo7")
 surface_material_override/0 = SubResource("ShaderMaterial_lld8s")
 
 [node name="ShaderV1_MyVersion_Oclusion" type="MeshInstance3D" parent="GodRaysMultipleVersions" node_paths=PackedStringArray("_detectionArea")]
-transform = Transform3D(0.999857, -1.30385e-08, 0.016877, 7.45058e-09, 0.999999, 0, -0.016877, 0, 0.999858, 22.6731, 24.8317, 0)
-visible = false
+transform = Transform3D(0.999857, -1.30385e-08, 0.016877, 7.45058e-09, 0.999999, 0, -0.016877, 0, 0.999858, 25.0947, 5.14434, 0)
 mesh = SubResource("CylinderMesh_vr6xd")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_jtanw")

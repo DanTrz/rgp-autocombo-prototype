@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://doxjnv0m0f785"]
+
+[ext_resource type="Script" uid="uid://3ifj4dfdj7rt" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/TestPackFloats.cs" id="1_whphb"]
+
+[node name="TestPackFloats" type="Node2D"]
+script = ExtResource("1_whphb")

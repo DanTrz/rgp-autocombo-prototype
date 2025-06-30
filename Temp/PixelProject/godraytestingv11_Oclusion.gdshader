@@ -30,9 +30,9 @@ void fragment() {
     if (use_occlusion) {
         // Sample the occlusion mask using SCREEN_UV for per-screen-pixel occlusion
         vec2 mask_sample_uv = SCREEN_UV * occlusion_uv_scale + occlusion_uv_offset;
-        
+
         // Optional: Clamp UVs if your mask doesn't tile or to prevent issues with scaling
-        // mask_sample_uv = clamp(mask_sample_uv, vec2(0.0), vec2(1.0)); 
+        // mask_sample_uv = clamp(mask_sample_uv, vec2(0.0), vec2(1.0));
 
         float mask_value = texture(occlusion_mask, mask_sample_uv).r; // .r for grayscale
 

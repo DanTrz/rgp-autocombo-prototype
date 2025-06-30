@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b7qfafv58aeph"]
+
+[ext_resource type="Shader" uid="uid://p8l4gns07mpy" path="res://Temp/PixelProject/DissolveShader_CloudFocused_v2.gdshader" id="1_u3ayt"]
+[ext_resource type="Texture2D" uid="uid://drcpoknu322m8" path="res://Temp/PixelProject/Assets/2D/Textures/Cloud/caustic_distort_noise_invert.png" id="2_2ol4v"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_u3ayt")
+shader_parameter/baseColor = Color(1, 1, 1, 1)
+shader_parameter/dissolveSlider = 1.5
+shader_parameter/dissolveNoiseScale = 2.0
+shader_parameter/edgeNoiseScale = -0.25
+shader_parameter/edgesThickness = 0.0
+shader_parameter/edgeColor = Color(0, 0, 1, 1)
+shader_parameter/edgeEmissionSlider = 1.0
+shader_parameter/enable_dissolve_animation = true
+shader_parameter/animation_speed = 0.4
+shader_parameter/animation_intensity = 0.1
+shader_parameter/enable_texture_influence = true
+shader_parameter/influence_texture = ExtResource("2_2ol4v")
+shader_parameter/influence_strength = 1.0
+shader_parameter/influence_scale = 10.0

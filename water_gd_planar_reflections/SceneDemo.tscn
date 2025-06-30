@@ -182,11 +182,11 @@ layers = 524289
 mesh = SubResource("PlaneMesh_4ivak")
 skeleton = NodePath("../PlanarReflector")
 script = ExtResource("4_27fyg")
-main_cam = NodePath("../CamRig/Camera3D")
 reflection_camera_resolution = Vector2i(640, 360)
 reflection_layers = 524288
 custom_environment = SubResource("Environment_psr7x")
 reflection_offset_position = Vector3(0, -5, 0)
+main_cam = NodePath("../CamRig/Camera3D")
 
 [node name="CamRig" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
 script = ExtResource("3_o64fk")

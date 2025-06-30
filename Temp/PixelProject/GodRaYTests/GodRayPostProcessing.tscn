@@ -24,23 +24,25 @@ resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("1_eofbl")
 shader_parameter/occlusion_map = SubResource("ViewportTexture_eofbl")
-shader_parameter/screen_resolution = Vector2(470, 280)
+shader_parameter/screen_resolution = Vector2(640, 360)
 shader_parameter/base_color = Color(1, 0.95, 0.8, 1)
 shader_parameter/light_screen_pos = Vector2(-0.037, 1.61)
-shader_parameter/num_steps = 96
-shader_parameter/ray_length_modifier = 0.8
+shader_parameter/num_steps = 512
+shader_parameter/ray_length_modifier = 0.1
 shader_parameter/step_base_intensity = 0.03
 shader_parameter/decay_per_step = 0.96
-shader_parameter/exposure = 0.4
-shader_parameter/occlusion_contrast_power = 5.0
+shader_parameter/exposure = 0.375
+shader_parameter/occlusion_contrast_power = 32.0
 shader_parameter/min_light_pass_threshold = 0.15
-shader_parameter/min_clear_initial_steps = 7
+shader_parameter/min_clear_initial_steps = 15
 
 [sub_resource type="QuadMesh" id="QuadMesh_gdkye"]
 resource_local_to_scene = true
 material = SubResource("ShaderMaterial_2iff8")
 flip_faces = true
-size = Vector2(50, 50)
+size = Vector2(40, 40)
+subdivide_width = 25
+subdivide_depth = 25
 
 [sub_resource type="BoxMesh" id="BoxMesh_gdkye"]
 size = Vector3(40, 0.1, 12)
@@ -52,7 +54,7 @@ script = ExtResource("1_2iff8")
 environment = SubResource("Environment_gdkye")
 
 [node name="MainDirectionalLight" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.801523, -0.0556656, 0.595368, 0.596073, 0.00475194, 0.802916, -0.047524, 0.998438, 0.029372, -1.91464, 10.1127, -0.116671)
+transform = Transform3D(-0.843185, -0.0558643, 0.534714, 0.535519, 0.000645788, 0.844522, -0.047524, 0.998438, 0.0293719, -1.91464, 10.1127, -0.116671)
 layers = 524289
 light_bake_mode = 0
 shadow_enabled = true
@@ -60,13 +62,15 @@ shadow_enabled = true
 [node name="OccluderViewport" type="SubViewport" parent="."]
 transparent_bg = true
 canvas_cull_mask = 4293918720
-size = Vector2i(470, 280)
+size = Vector2i(640, 360)
 render_target_update_mode = 4
 
 [node name="OccluderCamera" type="Camera3D" parent="OccluderViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.975111, 0.221719, 0, -0.221719, 0.975111, -0.135998, 8.7536, 12.1073)
 cull_mask = 524288
+projection = 1
 current = true
+size = 15.0
 script = ExtResource("1_7dhwe")
 MainCameraPath = NodePath("../../MainCamera3D")
 
@@ -114,9 +118,12 @@ skeleton = NodePath("")
 
 [node name="MainCamera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.975111, 0.221719, 0, -0.221719, 0.975111, -0.135998, 8.7536, 12.1073)
+projection = 1
+current = true
+size = 15.0
 
 [node name="GodRayOverlay" type="MeshInstance3D" parent="MainCamera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.89028)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.661612, -5.80002)
 mesh = SubResource("QuadMesh_gdkye")
 script = ExtResource("3_i8ax1")
 OccluderSubViewportPath = NodePath("../../OccluderViewport")

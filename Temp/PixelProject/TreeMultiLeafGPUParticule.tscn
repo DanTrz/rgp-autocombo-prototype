@@ -217,6 +217,7 @@ draw_pass_1 = SubResource("QuadMesh_ot7g1")
 
 [node name="LodTree" type="Sprite3D" parent="."]
 transform = Transform3D(0.875, 0, 0, 0, 1.05, 0, 0, 0, 0.875, 0, 1.77052, 0)
+visible = false
 layers = 524288
 modulate = Color(0.389392, 0.46852, 0.181399, 1)
 billboard = 2

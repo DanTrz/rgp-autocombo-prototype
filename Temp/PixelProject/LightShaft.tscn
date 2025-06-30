@@ -5,8 +5,8 @@
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_q8dxd"]
 resource_local_to_scene = true
-top_radius = 1.5
-bottom_radius = 1.0
+top_radius = 5.0
+bottom_radius = 5.0
 height = 45.0
 radial_segments = 8
 cap_top = false
@@ -19,7 +19,10 @@ colors = PackedColorArray(0.0766734, 0.0766734, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_758kt"]
 gradient = SubResource("Gradient_yif83")
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_q8dxd"]
+
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ehk3l"]
+noise = SubResource("FastNoiseLite_q8dxd")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0ef8x"]
 render_priority = 0
@@ -35,11 +38,8 @@ shader_parameter/emission_energy = 0.5
 shader_parameter/uv1_scale = Vector2(4, 0.1)
 shader_parameter/uv1_offset = Vector2(0, 0.85)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_758kt"]
-
-[node name="LightShaft" type="Node3D" node_paths=PackedStringArray("_detectionArea", "_lightShaftSkin")]
+[node name="LightShaft" type="Node3D" node_paths=PackedStringArray("_lightShaftSkin")]
 script = ExtResource("2_0ef8x")
-_detectionArea = NodePath("LightShaftSkin/Area3D")
 _lightShaftSkin = NodePath("LightShaftSkin")
 
 [node name="LightShaftSkin" type="MeshInstance3D" parent="."]
@@ -47,8 +47,3 @@ cast_shadow = 0
 mesh = SubResource("CylinderMesh_q8dxd")
 skeleton = NodePath("../../../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_0ef8x")
-
-[node name="Area3D" type="Area3D" parent="LightShaftSkin"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LightShaftSkin/Area3D"]
-shape = SubResource("SphereShape3D_758kt")

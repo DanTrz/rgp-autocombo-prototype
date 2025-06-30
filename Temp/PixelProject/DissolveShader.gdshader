@@ -154,10 +154,10 @@ void fragment() {
     animatedDissolve = clamp(animatedDissolve, 0.0, 1.0);
     float dissolveFactor = step(edgeNoise, animatedDissolve);
     float edgeMask = step(edgeNoise, animatedDissolve) - step(edgeNoise, animatedDissolve - edgesThickness);
-    vec3 edgeEmission = edgeMask * edgeColor.rgb * edgeEmissionSlider;
+    vec4 edgeEmission = edgeMask * edgeColor.rgba * edgeEmissionSlider;
 
     ALBEDO = albedoColor.rgb;
     ALPHA = dissolveFactor;
-    EMISSION = edgeEmission;
+    EMISSION = edgeEmission.rgb;
     ALPHA_SCISSOR_THRESHOLD = 0.5;
 }

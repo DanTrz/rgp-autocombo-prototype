@@ -1,0 +1,723 @@
+[gd_scene load_steps=69 format=4 uid="uid://y8doxgffj7py"]
+
+[ext_resource type="Material" uid="uid://b7qfafv58aeph" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/CloudDissolveShaderMaterial.tres" id="1_r7km4"]
+[ext_resource type="Shader" uid="uid://dy3lf5o3bhg67" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/godray_shadow_occlusion_muti_point_offsetv2.gdshader" id="3_1hele"]
+[ext_resource type="CylinderMesh" uid="uid://5owtsxpfxgp6" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftMesh.tres" id="3_3uann"]
+[ext_resource type="Material" uid="uid://dqgh45ow7ygkh" path="res://Temp/PixelProject/GodRaYTests/light_shafts/default_light_shaft.material" id="3_6f8ln"]
+[ext_resource type="Shader" uid="uid://dy3gpa57ppqyi" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/godray_shadow_occlusion_multi_point_sample.gdshader" id="3_ejesm"]
+[ext_resource type="PackedScene" uid="uid://b3vej5yd5cpjo" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftRaycast.tscn" id="3_hooab"]
+[ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="3_syswk"]
+[ext_resource type="Shader" uid="uid://ynltn072st6h" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/godray_shadow_occlusion_multi_point_sample_offset.gdshader" id="3_v6gh4"]
+[ext_resource type="Script" uid="uid://bcg2px4q72n21" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftMultiMeshController.cs" id="4_bf1d8"]
+[ext_resource type="Script" uid="uid://dlmmwimo0htcj" path="res://Temp/PixelProject/GodRaYTests/LightShaft3DUpdated.gd" id="4_ejesm"]
+[ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="4_h64d6"]
+[ext_resource type="Texture2D" uid="uid://dwju7eckq0ngo" path="res://Temp/PixelProject/WaterNoiseText.tres" id="4_hooab"]
+[ext_resource type="Shader" uid="uid://cf1bxth5mpftt" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/godray_volumetric_light_beam.gdshader" id="4_qfjaq"]
+[ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="5_ftsip"]
+[ext_resource type="Script" uid="uid://c1u7eyhigk821" path="res://Temp/PixelProject/GodRaYTests/light_shafts/local_transform_listener.gd" id="5_qfjaq"]
+[ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="6_jwmb7"]
+[ext_resource type="Texture2D" uid="uid://dopp767dqs0l4" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftGradient4.tres" id="7_tpril"]
+[ext_resource type="Shader" uid="uid://2docrqvva2b" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/fake_shadow_detect.gdshader" id="12_s5mwc"]
+[ext_resource type="Shader" uid="uid://dupq0hpa15t1e" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/shadow_detect.gdshader" id="13_xkrvx"]
+[ext_resource type="Shader" uid="uid://c6350ai2nbwbh" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/godray_shadow_occlusion_multi_point_sample_offset_PLAYTESTING.gdshader" id="14_r7km4"]
+[ext_resource type="Texture2D" uid="uid://bifn2watmqnhg" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/GodRayGradient.tres" id="15_r7km4"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_r7km4"]
+material = ExtResource("1_r7km4")
+size = Vector2(150, 150)
+subdivide_width = 100
+subdivide_depth = 100
+
+[sub_resource type="BoxMesh" id="BoxMesh_v6gh4"]
+size = Vector3(28, 1, 28)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v6gh4"]
+size = Vector3(27.8437, 1, 28.1885)
+
+[sub_resource type="MultiMesh" id="MultiMesh_3uann"]
+transform_format = 1
+use_custom_data = true
+instance_count = 3
+visible_instance_count = 3
+mesh = ExtResource("3_3uann")
+buffer = PackedFloat32Array(1, 0, 0, 0, 0, 10, 0, 0, 0, 0, 1, 0, 0.502, 0.509282, 0.5, 1, 1, 0, 0, 1.5, 0, 10, 0, 0, 0, 0, 1, 0, 0.5035, 0.509282, 0.5, 1, 1, 0, 0, 3, 0, 10, 0, 0, 0, 0, 1, 0, 0.505, 0.509282, 0.5, 1)
+
+[sub_resource type="Gradient" id="Gradient_ofrra"]
+offsets = PackedFloat32Array(0, 0.155789, 0.353684, 0.402105, 0.932632)
+colors = PackedColorArray(0, 0, 0, 0, 0.819608, 0.819608, 0.819608, 0.0509804, 0.756863, 0.756863, 0.756863, 0.196078, 0.8, 0.8, 0.8, 0.258824, 0.741176, 0.741176, 0.741176, 0.313726)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bf1d8"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_ofrra")
+
+[sub_resource type="Gradient" id="Gradient_f4pjb"]
+offsets = PackedFloat32Array(0.573394)
+colors = PackedColorArray(1, 1, 1, 0.333333)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_53t8j"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_f4pjb")
+
+[sub_resource type="Gradient" id="Gradient_53t8j"]
+offsets = PackedFloat32Array(0.0321101, 0.0412844, 0.427368, 0.44, 0.866973)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.337255, 1, 1, 1, 0.501961, 1, 1, 1, 0.262327, 1, 1, 1, 0.227451)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1cotu"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_53t8j")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kh3sm"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_ofrra")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tpril"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_f4pjb")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bcp1h"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_53t8j")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_e8n3f"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_ofrra")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m5icl"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_f4pjb")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0wujy"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_53t8j")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6f8ln"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 15.0
+radial_segments = 8
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ftsip"]
+render_priority = 0
+shader = ExtResource("3_v6gh4")
+shader_parameter/ray_color = Color(1, 1, 0.8, 1)
+shader_parameter/brightness = 5.0
+shader_parameter/alpha = 1.0
+shader_parameter/fadeout_start_point = 0.1
+shader_parameter/fadeout_length = 0.01
+shader_parameter/fade_from_bottom = false
+shader_parameter/rim_power = 0.5
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.5
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/sampling_offset = Vector3(0, 0, 0)
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/noise_texture = ExtResource("4_hooab")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ejesm"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 25.0
+radial_segments = 8
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="Gradient" id="Gradient_v6gh4"]
+offsets = PackedFloat32Array(0.0261569, 0.0545852, 0.0734406, 0.116092, 0.13908, 0.190805, 0.211494, 0.311871, 0.341791, 0.352239, 0.404478, 0.408955, 0.450704, 0.640845, 0.652239, 0.712644, 0.76092, 0.798851, 0.850746, 0.859702, 0.896552, 0.956322, 1)
+colors = PackedColorArray(0.98, 0.98, 0.98, 0.2, 0.980392, 0.980392, 0.980392, 0.945098, 0.999883, 0.999883, 0.999883, 0.0450439, 0.65678, 0.65678, 0.65678, 0.180004, 0.644759, 0.644759, 0.644759, 0.170376, 0.998734, 0.998734, 0.998734, 0.48942, 0.999791, 0.999791, 0.999791, 0.0806103, 1, 1, 1, 0, 0.98, 0.98, 0.98, 1, 1, 1, 1, 0.454902, 0.453683, 0.453683, 0.453683, 0.0173349, 0.980392, 0.980392, 0.980392, 0.945098, 0.998782, 0.998782, 0.998782, 0.0587089, 0.997902, 0.997902, 0.997902, 0.101137, 0.980392, 0.980392, 0.980392, 0.945098, 0.71, 0.71, 0.71, 0, 0.739688, 0.739688, 0.739688, 0.120388, 0.914427, 0.914427, 0.914427, 0.828989, 0.471026, 0.471026, 0.471026, 0.0485306, 0.98, 0.98, 0.98, 0.662745, 0.998665, 0.998665, 0.998665, 0.0643597, 0.998839, 0.998839, 0.998839, 0.055966, 0.98, 0.98, 0.98, 0.521569)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hooab"]
+gradient = SubResource("Gradient_v6gh4")
+
+[sub_resource type="Gradient" id="Gradient_3uann"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bf1d8"]
+gradient = SubResource("Gradient_3uann")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_75b6h"]
+render_priority = 0
+shader = ExtResource("3_ejesm")
+shader_parameter/ray_color = Color(0.907654, 0.880678, 0.762905, 0.607843)
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 0.5
+shader_parameter/rim_power = 0.5
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.1
+shader_parameter/ray_samples = 16
+shader_parameter/ray_length = 20.0
+shader_parameter/sample_from_sky = true
+shader_parameter/shadow_fadeout_distance = 2.0
+shader_parameter/noise_texture = SubResource("GradientTexture1D_bf1d8")
+shader_parameter/gradient = SubResource("GradientTexture2D_hooab")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2r8ue"]
+render_priority = 0
+shader = ExtResource("3_1hele")
+shader_parameter/ray_color = Color(0.907654, 0.880678, 0.762905, 0.607843)
+shader_parameter/brightness = 1.0
+shader_parameter/base_alpha = 0.5
+shader_parameter/light_projection_matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qfjaq"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 3.0
+radial_segments = 8
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_m4gnd"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 25.0
+radial_segments = 8
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="Gradient" id="Gradient_1hele"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_s5mwc"]
+gradient = SubResource("Gradient_1hele")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xkrvx"]
+render_priority = 0
+shader = ExtResource("4_qfjaq")
+shader_parameter/ray_color = Color(0.907654, 0.880678, 0.762905, 0.607843)
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 0.5
+shader_parameter/rim_power = 0.5
+shader_parameter/speed = 1.0
+shader_parameter/noise_movement = 0.1
+shader_parameter/noise_texture = SubResource("GradientTexture1D_s5mwc")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ftsip"]
+size = Vector2(50, 50)
+subdivide_width = 10
+subdivide_depth = 10
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_m4gnd"]
+resource_local_to_scene = true
+_surfaces = [{
+"aabb": AABB(-0.644098, -37.6833, -9.40269, 20.3266, 37.2167, 15.4241),
+"attribute_data": PackedByteArray("/uWXTAAAAAAAAIA//uWXTAAAAAAAAAAA/uWXTMexZD0AAIA//uWXTMexZD0AAAAA/uWXTJt3Jz4AAIA//uWXTJt3Jz4AAAAA/uWXTARveD4AAIA//uWXTARveD4AAAAA/uWXTFpTrj4AAIA//uWXTFpTrj4AAAAA/uWXTPJ+5z4AAIA//uWXTPJ+5z4AAAAA/uWXTGlMAj8AAIA//uWXTGlMAj8AAAAA/uWXTKy7Ez8AAIA//uWXTKy7Ez8AAAAA/uWXTKLGHz8AAIA//uWXTKLGHz8AAAAA/uWXTDKNNz8AAIA//uWXTDKNNz8AAAAA/uWXTIC0Uj8AAIA//uWXTIC0Uj8AAAAA/uWXTAs9ZD8AAIA//uWXTAs9ZD8AAAAA/uWXTOIrbz8AAIA//uWXTOIrbz8AAAAA"),
+"format": 34359742495,
+"index_count": 78,
+"index_data": PackedByteArray("AAABAAIAAQADAAIAAgADAAQAAwAFAAQABAAFAAYABQAHAAYABgAHAAgABwAJAAgACAAJAAoACQALAAoACgALAAwACwANAAwADAANAA4ADQAPAA4ADgAPABAADwARABAAEAARABIAEQATABIAEgATABQAEwAVABQAFAAVABYAFQAXABYAFgAXABgAFwAZABgAGAAZAAAAGQABAAAA"),
+"material": ExtResource("3_6f8ln"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 26,
+"vertex_data": PackedByteArray("IO6DP8DlIr9Qcpa/3HWdQaRJBsKMm5jAMBOPPyCjFb9AGEW/yzydQeaiAcL+dR7AQJCEP6CxU78AULC7HnOOQbZ0+cF4v8Q/AFBLPyCpK7+ACAM/7ZqEQZkI88HdLYVAwIWlPjDkhb/wy20/wk5YQV1E9sGUr8BAwBe4vkAYcL+gHes+lRcyQZWDA8JMtYBAAGQdv1B0i7/ALh4+0mkfQVHFCMJezx1AoDMivyAGOb/A4ku+R18rQb4tC8LsYSg/oOMkv2B3Pr8A6Qy/ZbguQTjoDsJE1Ku/wNC9vsBpL79A7Je/UPxPQVoGE8Jm56TAAPwFPeBpL78Yc++/66J8Qbm7FsJtcRbBAMDlPoDs7r4wOdW/p/iQQfPjD8LDcQHBwNU+P6B+BL+gdse/eemZQWokDMLsqefALC3SUlVr8NIsLdJSVWvw0o4pJEnbYfrPjikkSdth+s/bNsVXRHe41ds2xVdEd7jVm15uelChKZSbXm56UKEplOM4jWNFl6LL4ziNY0WXosslNEtopppByCU0S2immkHIigoICQJ2mYqKCggJAnaZivIfDWAwdr7O8h8NYDB2vs57F8NI2VmqxHsXw0jZWarE/+//73GcG4f/7//vcZwbh+xEdWLTrh7D7ER1YtOuHsNFFy46PE/muUUXLjo8T+a55R6eRjxcXsnlHp5GPFxeyQ==")
+}]
+
+[sub_resource type="Curve3D" id="Curve3D_75b6h"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.829121, 0.048934, -0.0648179, 0, 0, 0, 0, 0, 0, -0.568091, 0.100732, -0.387066, 0, 0, 0, 0, 0, 0, 0.0786641, -0.141676, -0.802931, 0, 0, 0, 0, 0, 0, 0.632889, 0.0147038, -0.939545, 0, 0, 0, 0, 0, 0, 1.25311, -0.360774, -0.834652, 0, 0, 0, 0, 0, 0, 1.31598, -0.252618, -0.0082624, 0, 0, 0, 0, 0, 0, 1.23892, -0.404235, 0.381713, 0, 0, 0, 0, 0, 0, 0.975432, -0.0374966, 0.618244, 0, 0, 0, 0, 0, 0, 0.708498, -0.0587587, 0.846902, 0, 0, 0, 0, 0, 0, 0.0414171, 4.41074e-05, 1.03351, 0, 0, 0, 0, 0, 0, -0.74415, 4.41074e-05, 1.14855, 0, 0, 0, 0, 0, 0, -0.845719, 0.218603, 0.696072, 0, 0, 0, 0, 0, 0, -0.948239, 0.167694, 0.397596),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 13
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h64d6"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_ftsip"]
+sky_material = SubResource("ProceduralSkyMaterial_h64d6")
+
+[sub_resource type="Environment" id="Environment_jwmb7"]
+background_mode = 2
+sky = SubResource("Sky_ftsip")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jwmb7"]
+size = Vector2(50, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pjqle"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_color = Color(0.478883, 0.35593, 0.271778, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_v6gh4"]
+points = PackedVector3Array(-25, 0, -25, -25, 0, 25, 25, 0, -25, 25, 0, 25)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7km4"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("12_s5mwc")
+shader_parameter/shadow_threshold = 5.0
+shader_parameter/search_radius = 2.0
+shader_parameter/sample_quality = 2
+shader_parameter/use_depth_shadow_detection = true
+shader_parameter/use_ambient_occlusion_detection = true
+shader_parameter/ao_radius = 2.0
+shader_parameter/ao_intensity = 1.0
+shader_parameter/use_manual_shadow_direction = true
+shader_parameter/shadow_direction = Color(-0.5, -1, -0.3, 1)
+shader_parameter/shadow_angle_threshold = 0.3
+shader_parameter/show_debug_visualization = false
+shader_parameter/shadow_color = Color(1, 0, 0, 1)
+shader_parameter/lit_color = Color(0, 1, 0, 1)
+shader_parameter/base_albedo = Color(0.5, 0.5, 0.5, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_s5mwc"]
+height = 7.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_2r8ue"]
+viewport_path = NodePath("ShadowMapSubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v6gh4"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("13_xkrvx")
+shader_parameter/shadow_texture = SubResource("ViewportTexture_2r8ue")
+shader_parameter/shadow_threshold = 0.3
+shader_parameter/light_view_matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/light_projection_matrix = Projection(0.028125, 0, 0, 0, 0, 0.05, 0, 0, 0, 0, -0.02001, 0, 0, 0, -1.001, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xkrvx"]
+height = 7.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hooab"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("14_r7km4")
+shader_parameter/ray_color = Color(1, 1, 0.8, 1)
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 0.5
+shader_parameter/rim_power = 0.5
+shader_parameter/speed = 1.0
+shader_parameter/noise_movement = 0.5
+shader_parameter/shadow_detection_threshold = 0.01
+shader_parameter/shadow_sensitivity = 0.0
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/sampling_offset_x = 0.0
+shader_parameter/sampling_offset_y = 0.0
+shader_parameter/sampling_offset_z = 0.0
+shader_parameter/sample_count = 4
+shader_parameter/sample_offsets = PackedVector3Array(0, -10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/noise_texture = ExtResource("15_r7km4")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pjqle"]
+shader = ExtResource("6_jwmb7")
+shader_parameter/shadow_boost = 1.1
+shader_parameter/shadow_threshold = 0.4
+shader_parameter/shadow_color_override = Color(1, 1, 0, 1)
+shader_parameter/use_shadow_color_override = false
+shader_parameter/light_boost = 1.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6f8ln"]
+viewport_path = NodePath("SubViewport")
+
+[node name="GodrayTestScene" type="Node3D"]
+
+[node name="Clouds" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 5.21541e-08, 1.49012e-08, -4.47035e-08, 1, 0, -1, -4.47035e-08, 5.49964, 31.1705, -11.7716)
+mesh = SubResource("QuadMesh_r7km4")
+skeleton = NodePath("")
+
+[node name="SpawnAreaReferenceTemp" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.31075, 0, -3.90617)
+visible = false
+cast_shadow = 0
+mesh = SubResource("BoxMesh_v6gh4")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SpawnAreaReferenceTemp"]
+
+[node name="LighShaftSpawnArea3D" type="Area3D" parent="."]
+
+[node name="BoxCollisionShape3D" type="CollisionShape3D" parent="LighShaftSpawnArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.33135, 0, -3.85188)
+shape = SubResource("BoxShape3D_v6gh4")
+debug_color = Color(1, 0.105882, 0, 0.419608)
+
+[node name="GodraysController" type="Node3D" parent="."]
+
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="GodraysController" node_paths=PackedStringArray("_mainCam", "_multiMesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.28227, 0)
+multimesh = SubResource("MultiMesh_3uann")
+script = ExtResource("4_bf1d8")
+_mainCam = NodePath("../../SubViewport/CameraRigYaw/Camera3D")
+_multiMesh = NodePath(".")
+_instanceCount = 3
+_position = Vector3(1.5, 0, 0)
+_scale = Vector3(1, 10, 1)
+
+[node name="LightShaftRaycastLocal" parent="GodraysController" instance=ExtResource("3_hooab")]
+transform = Transform3D(0.827227, 0.561867, 0, -0.561867, 0.827227, 0, 0, 0, 1, -0.304347, 10.5008, -2.19557)
+visible = false
+_gradientTextures = Array[GradientTexture2D]([SubResource("GradientTexture2D_bf1d8"), SubResource("GradientTexture2D_53t8j"), SubResource("GradientTexture2D_1cotu"), ExtResource("7_tpril")])
+
+[node name="LightShaftRaycastLocal2" parent="GodraysController" instance=ExtResource("3_hooab")]
+transform = Transform3D(0.797752, 0.602985, 0, -0.602985, 0.797752, 0, 0, 0, 1, 6.22244, 10.5008, -2.19557)
+visible = false
+_gradientTextures = Array[GradientTexture2D]([SubResource("GradientTexture2D_kh3sm"), SubResource("GradientTexture2D_tpril"), SubResource("GradientTexture2D_bcp1h"), ExtResource("7_tpril")])
+
+[node name="LightShaftRaycastLocal3" parent="GodraysController" instance=ExtResource("3_hooab")]
+transform = Transform3D(0.797752, 0.602985, 0, -0.602985, 0.797752, 0, 0, 0, 1, 2.73033, 10.5008, -2.19557)
+visible = false
+_gradientTextures = Array[GradientTexture2D]([SubResource("GradientTexture2D_e8n3f"), SubResource("GradientTexture2D_m5icl"), SubResource("GradientTexture2D_0wujy"), ExtResource("7_tpril")])
+
+[node name="GodraysLegacy" type="Node3D" parent="."]
+visible = false
+
+[node name="GodrayPlane_Shadow_OriginOcclusion2" type="MeshInstance3D" parent="GodraysLegacy"]
+transform = Transform3D(0.927655, 0.309643, -0.208738, -0.307129, 0.950593, 0.0451989, 0.212421, 0.0221804, 0.976927, -1.14427, 7.86734, 2.79211)
+visible = false
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("CylinderMesh_6f8ln")
+surface_material_override/0 = SubResource("ShaderMaterial_ftsip")
+
+[node name="GodrayPlane_Shadow_MultiSample_Occulision" type="MeshInstance3D" parent="GodraysLegacy"]
+transform = Transform3D(0.173182, 0.98306, -0.0599764, -0.961706, 0.181927, 0.204982, 0.212421, 0.0221804, 0.976927, -6.31885, 4.6105, -2.72464)
+visible = false
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("CylinderMesh_ejesm")
+surface_material_override/0 = SubResource("ShaderMaterial_75b6h")
+
+[node name="GodrayPlane_Shadow_Offset_v2" type="MeshInstance3D" parent="GodraysLegacy"]
+transform = Transform3D(0.190609, 0.979596, -0.063687, -0.958405, 0.19974, 0.203859, 0.212421, 0.0221804, 0.976927, 0.399676, 4.88227, -0.982342)
+visible = false
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("CylinderMesh_ejesm")
+surface_material_override/0 = SubResource("ShaderMaterial_2r8ue")
+
+[node name="MultiRaySegmentGroup" type="Node3D" parent="GodraysLegacy"]
+transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+
+[node name="MultiSegmentGodRay27" type="Node3D" parent="GodraysLegacy/MultiRaySegmentGroup"]
+transform = Transform3D(0.999996, 0, 0, 0, 0.999999, 0, 0, 0, 1, -2.63185, -1.51965, 0)
+
+[node name="MultiPartRay" type="MeshInstance3D" parent="GodraysLegacy/MultiRaySegmentGroup/MultiSegmentGodRay27"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("CylinderMesh_qfjaq")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ftsip")
+
+[node name="MultiPartRay2" type="MeshInstance3D" parent="GodraysLegacy/MultiRaySegmentGroup/MultiSegmentGodRay27"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("CylinderMesh_qfjaq")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ftsip")
+
+[node name="MultiPartRay3" type="MeshInstance3D" parent="GodraysLegacy/MultiRaySegmentGroup/MultiSegmentGodRay27"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("CylinderMesh_qfjaq")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ftsip")
+
+[node name="MultiPartRay4" type="MeshInstance3D" parent="GodraysLegacy/MultiRaySegmentGroup/MultiSegmentGodRay27"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("CylinderMesh_qfjaq")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ftsip")
+
+[node name="MultiPartRay5" type="MeshInstance3D" parent="GodraysLegacy/MultiRaySegmentGroup/MultiSegmentGodRay27"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0)
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("CylinderMesh_qfjaq")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ftsip")
+
+[node name="MultiSegmentGodRay28" type="Node3D" parent="GodraysLegacy/MultiRaySegmentGroup"]
+transform = Transform3D(0.999996, 0, 0, 0, 0.999999, 0, 0, 0, 1, 3.57948, -1.51965, -0.0247498)
+
+[node name="MultiPartRay" type="MeshInstance3D" parent="GodraysLegacy/MultiRaySegmentGroup/MultiSegmentGodRay28"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("CylinderMesh_qfjaq")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ftsip")
+
+[node name="MultiPartRay2" type="MeshInstance3D" parent="GodraysLegacy/MultiRaySegmentGroup/MultiSegmentGodRay28"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("CylinderMesh_qfjaq")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ftsip")
+
+[node name="MultiPartRay3" type="MeshInstance3D" parent="GodraysLegacy/MultiRaySegmentGroup/MultiSegmentGodRay28"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("CylinderMesh_qfjaq")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ftsip")
+
+[node name="MultiPartRay4" type="MeshInstance3D" parent="GodraysLegacy/MultiRaySegmentGroup/MultiSegmentGodRay28"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("CylinderMesh_qfjaq")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ftsip")
+
+[node name="MultiPartRay5" type="MeshInstance3D" parent="GodraysLegacy/MultiRaySegmentGroup/MultiSegmentGodRay28"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0)
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("CylinderMesh_qfjaq")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ftsip")
+
+[node name="Node3D" type="Node3D" parent="GodraysLegacy"]
+transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+
+[node name="GodrayPlane_Shadow_Vecidium" type="MeshInstance3D" parent="GodraysLegacy/Node3D"]
+transform = Transform3D(0.928445, 0.307187, -0.208854, -0.304732, 0.95139, 0.0446595, 0.212421, 0.0221804, 0.976927, -7.53985, 10.135, -1.66213)
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("CylinderMesh_m4gnd")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_xkrvx")
+
+[node name="Otherversions" type="Node3D" parent="GodraysLegacy"]
+visible = false
+
+[node name="GodrayPlane2" type="MeshInstance3D" parent="GodraysLegacy/Otherversions"]
+transform = Transform3D(0.912373, 0.311166, -0.265991, -0.276208, 0.947514, 0.161019, 0.302133, -0.0734407, 0.950433, -6.31637, 12.5319, -2.91053)
+visible = false
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("QuadMesh_ftsip")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ftsip")
+
+[node name="GodrayPlane3" type="MeshInstance3D" parent="GodraysLegacy/Otherversions"]
+transform = Transform3D(0.912373, 0.311166, -0.265991, -0.276208, 0.947514, 0.161019, 0.302133, -0.0734407, 0.950433, 7.31014, 12.5319, -12.8829)
+visible = false
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("QuadMesh_ftsip")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ftsip")
+
+[node name="light_shaft_3d" type="MeshInstance3D" parent="GodraysLegacy/Otherversions" node_paths=PackedStringArray("outline", "origin")]
+transform = Transform3D(0.841578, 0.403368, 0.35922, -0.249811, 0.880328, -0.403261, -0.478894, 0.249639, 0.841629, 2.07214, 35.1665, 15.3635)
+mesh = SubResource("ArrayMesh_m4gnd")
+skeleton = NodePath("../..")
+script = ExtResource("4_ejesm")
+outline = NodePath("outline")
+origin = NodePath("origin")
+length = 100.0
+color = Color(0.999999, 0.89832, 0.592351, 0.3)
+metadata/_custom_type_script = "uid://bslqtjuwuelro"
+
+[node name="outline" type="Path3D" parent="GodraysLegacy/Otherversions/light_shaft_3d" node_paths=PackedStringArray("parent")]
+transform = Transform3D(-0.627583, 0, -0.77855, 0, 1, 0, 0.77855, 0, -0.627583, 0.4599, -0.685254, -0.57053)
+curve = SubResource("Curve3D_75b6h")
+script = ExtResource("5_qfjaq")
+parent = NodePath("..")
+
+[node name="origin" type="Marker3D" parent="GodraysLegacy/Otherversions/light_shaft_3d" node_paths=PackedStringArray("parent")]
+transform = Transform3D(-0.190371, 0.886816, -0.42109, -0.0316435, 0.423168, 0.905499, 0.981202, 0.185705, -0.0524969, -3.07804, 6.61894, -0.383737)
+script = ExtResource("5_qfjaq")
+parent = NodePath("..")
+
+[node name="light_shaft_3d2" type="MeshInstance3D" parent="GodraysLegacy/Otherversions" node_paths=PackedStringArray("outline", "origin")]
+transform = Transform3D(0.841578, 0.403368, 0.35922, -0.249811, 0.880328, -0.403261, -0.478894, 0.249639, 0.841629, -1.07207, 32.5862, 7.23422)
+mesh = SubResource("ArrayMesh_m4gnd")
+skeleton = NodePath("../..")
+script = ExtResource("4_ejesm")
+outline = NodePath("outline")
+origin = NodePath("origin")
+length = 100.0
+color = Color(0.999999, 0.89832, 0.592351, 0.3)
+metadata/_custom_type_script = "uid://bslqtjuwuelro"
+
+[node name="outline" type="Path3D" parent="GodraysLegacy/Otherversions/light_shaft_3d2" node_paths=PackedStringArray("parent")]
+transform = Transform3D(-0.627583, 0, -0.77855, 0, 1, 0, 0.77855, 0, -0.627583, 0.4599, -0.685254, -0.57053)
+curve = SubResource("Curve3D_75b6h")
+script = ExtResource("5_qfjaq")
+parent = NodePath("..")
+
+[node name="origin" type="Marker3D" parent="GodraysLegacy/Otherversions/light_shaft_3d2" node_paths=PackedStringArray("parent")]
+transform = Transform3D(-0.190371, 0.886816, -0.42109, -0.0316435, 0.423168, 0.905499, 0.981202, 0.185705, -0.0524969, -3.07804, 6.61894, -0.383737)
+script = ExtResource("5_qfjaq")
+parent = NodePath("..")
+
+[node name="light_shaft_3d3" type="MeshInstance3D" parent="GodraysLegacy/Otherversions" node_paths=PackedStringArray("outline", "origin")]
+transform = Transform3D(0.798894, 0.521348, 0.299938, -0.363905, 0.816014, -0.449105, -0.478894, 0.249639, 0.841629, -4.7341, 29.8871, 13.2935)
+mesh = SubResource("ArrayMesh_m4gnd")
+skeleton = NodePath("../..")
+script = ExtResource("4_ejesm")
+outline = NodePath("outline")
+origin = NodePath("origin")
+length = 100.0
+color = Color(0.999999, 0.89832, 0.592351, 0.3)
+metadata/_custom_type_script = "uid://bslqtjuwuelro"
+
+[node name="outline" type="Path3D" parent="GodraysLegacy/Otherversions/light_shaft_3d3" node_paths=PackedStringArray("parent")]
+transform = Transform3D(-0.627583, 0, -0.77855, 0, 1, 0, 0.77855, 0, -0.627583, 0.4599, -0.685254, -0.57053)
+curve = SubResource("Curve3D_75b6h")
+script = ExtResource("5_qfjaq")
+parent = NodePath("..")
+
+[node name="origin" type="Marker3D" parent="GodraysLegacy/Otherversions/light_shaft_3d3" node_paths=PackedStringArray("parent")]
+transform = Transform3D(-0.190371, 0.886816, -0.42109, -0.0316435, 0.423168, 0.905499, 0.981202, 0.185705, -0.0524969, -3.07804, 6.61894, -0.383737)
+script = ExtResource("5_qfjaq")
+parent = NodePath("..")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
+environment = SubResource("Environment_jwmb7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
+transform = Transform3D(-0.00609718, -0.997811, 0.0658556, 0.0484935, 0.0654842, 0.996674, -0.998805, 0.00927047, 0.0479881, 17.3808, 24.646, 0.496677)
+shadow_enabled = true
+
+[node name="CameraRigYaw" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 24)
+script = ExtResource("3_syswk")
+RotationPivotPoint = NodePath("WorldCentralPivot")
+MainCamera = NodePath("Camera3D")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw"]
+unique_name_in_owner = true
+physics_interpolation_mode = 2
+transform = Transform3D(1, 0, 0, 0, 0.984807, 0.173648, 0, -0.173648, 0.984807, -3.11263, 14.1286, 16.1229)
+projection = 1
+current = true
+size = 15.0
+far = 100.0
+script = ExtResource("4_h64d6")
+SnapObjects = false
+
+[node name="WorldCentralPivot" type="Node3D" parent="SubViewport/CameraRigYaw"]
+
+[node name="Objects" type="Node3D" parent="SubViewport"]
+transform = Transform3D(-0.002461, 0, -0.999997, 0, 1, 0, 0.999997, 0, -0.002461, 0, 0, 0)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewport/Objects"]
+transform = Transform3D(-4.37114e-08, -1, 1.234e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -3.81667, 4.66236, -3.09177)
+use_collision = true
+size = Vector3(0.4, 10, 12)
+
+[node name="Floor2" type="MeshInstance3D" parent="SubViewport/Objects"]
+mesh = SubResource("PlaneMesh_jwmb7")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_pjqle")
+metadata/_edit_lock_ = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Floor2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Floor2/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_v6gh4")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.97935, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.97935, -8.40685, 2.06411, -2.41095)
+use_collision = true
+height = 4.0
+
+[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.978681, -4.58093, 0.883915, -2.42036)
+use_collision = true
+height = 4.0
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.97935, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.97935, -6.0343, 2.06411, 2.32791)
+use_collision = true
+height = 4.0
+
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, 2.84218, 2.02999, 3.55318)
+use_collision = true
+height = 4.0
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.97935, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.97935, 0.328959, 1.91419, 8.69017)
+use_collision = true
+height = 4.0
+
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -0.00162929, 5.03225, 8.81347)
+use_collision = true
+height = 4.0
+
+[node name="ShadowCylinder" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.688406, 0.0203479, 0.725033, -0.0157353, 0.999777, -0.0131191, -0.725151, -0.00237679, 0.688582, 4.77843, 0.441797, 12.6711)
+layers = 524288
+material_override = SubResource("ShaderMaterial_r7km4")
+use_collision = true
+height = 5.62549
+sides = 12
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewport/Objects"]
+transform = Transform3D(-0.0623683, 0.996634, -0.0532066, 0.0638384, 0.0571847, 0.996321, 0.996009, 0.0587423, -0.0671899, 0.644345, 1.94971, 5.12065)
+use_collision = true
+size = Vector3(0.4, 10, 12)
+
+[node name="ShadowMesh" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(-0.965633, -0.259718, -0.00960549, -0.259856, 0.965458, 0.0190571, 0.00432419, 0.0208981, -0.999773, 4.19044, 1.87276, 1.66745)
+visible = false
+layers = 524288
+mesh = SubResource("CylinderMesh_s5mwc")
+surface_material_override/0 = SubResource("ShaderMaterial_v6gh4")
+
+[node name="FakeShadowMesh2" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(-0.00672931, 0.0279457, -0.999584, -0.0546223, -0.998127, -0.0275374, -0.998481, 0.0544119, 0.00824311, 2.08719, 9.82716, 6.68405)
+visible = false
+layers = 524288
+mesh = SubResource("CylinderMesh_xkrvx")
+surface_material_override/0 = SubResource("ShaderMaterial_hooab")
+
+[node name="Display" type="Control" parent="." node_paths=PackedStringArray("_viewport", "_mainRendereSprite")]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.01507, 1.01103)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("5_ftsip")
+_viewport = NodePath("../SubViewport")
+_mainRendereSprite = NodePath("MainRenderSprite")
+
+[node name="MainRenderSprite" type="Sprite2D" parent="Display"]
+texture_filter = 2
+material = SubResource("ShaderMaterial_pjqle")
+position = Vector2(-0.985153, 3.95636)
+scale = Vector2(2.93853, 2.96452)
+texture = SubResource("ViewportTexture_6f8ln")
+centered = false

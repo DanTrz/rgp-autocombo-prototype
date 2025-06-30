@@ -60,3 +60,23 @@ void fragment() {
 	// ALBEDO = vec3(UV.x, UV.y, 0.0);
 	// ALPHA = 1.0;
 }
+
+void light() {
+    // ATTENUATION includes shadow information
+    float shadow = ATTENUATION;
+    
+    //todo: Calculate NdotL for directional contribution
+	//todo: NdotL CALCULATION OPTION 1 (CHECK WHICH IS BETTER)
+    float NdotL = max(0.0, dot(NORMAL, LIGHT));
+	
+	//todo: NdotL CALCULATION OPTION 2 (CHECK WHICH IS BETTER)
+	//vec3 normal = normalize(world_billboard_normal);
+	//float NdotL = max(dot(normal, LIGHT), 0.0);
+    
+    // For godrays, we want to show light where it's not blocked by shadows
+    // and where the surface is facing the light
+    float light_contribution = shadow * (0.5 + 0.5 * NdotL); // Blend between pure shadow and NdotL
+    
+    // Output the final lit godray color
+    DIFFUSE_LIGHT += emission.rgb * ALBEDO.r * light_contribution * LIGHT_COLOR;
+}

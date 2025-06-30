@@ -1,0 +1,8 @@
+[gd_resource type="GradientTexture2D" load_steps=2 format=3 uid="uid://bifn2watmqnhg"]
+
+[sub_resource type="Gradient" id="Gradient_ftsip"]
+offsets = PackedFloat32Array(0, 0.0771704, 0.118971, 0.264334, 0.273081, 0.303207, 0.37299, 0.616505, 0.652733, 0.662379, 0.681244, 0.848396, 0.885326, 0.913183, 1)
+colors = PackedColorArray(0.0766734, 0.0766734, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0.454524, 0.454524, 0.454524, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0.521141, 0.521141, 0.521141, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0.758127, 0.758127, 0.738042, 1, 0.0784314, 0.0784314, 0, 0)
+
+[resource]
+gradient = SubResource("Gradient_ftsip")

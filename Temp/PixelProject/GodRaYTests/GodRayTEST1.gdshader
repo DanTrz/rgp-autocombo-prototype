@@ -8,14 +8,14 @@ uniform vec3 base_color : source_color = vec3(1.0, 0.95, 0.8);
 uniform vec2 light_screen_pos = vec2(0.5, 0.5); // Normalized (0-1) screen pos of light
 
 // --- Raymarching Parameters ---
-uniform int num_steps : hint_range(10, 256) = 96; // Adjusted default
+uniform int num_steps : hint_range(10, 512) = 96; // Adjusted default
 uniform float ray_length_modifier : hint_range(0.1, 2.0) = 0.8; 
 uniform float step_base_intensity : hint_range(0.001, 0.2) = 0.03; // Adjusted default
 uniform float decay_per_step : hint_range(0.80, 1.0) = 0.96; 
 uniform float exposure : hint_range(0.1, 10.0) = 2.0; // Adjusted default
 
 // --- Parameters for Ray Definition ---
-uniform float occlusion_contrast_power : hint_range(1.0, 16.0) = 5.0; 
+uniform float occlusion_contrast_power : hint_range(1.0, 32.0) = 5.0; 
 uniform float min_light_pass_threshold : hint_range(0.0, 0.5) = 0.15; // Slightly higher threshold
 // New: How many initial steps must be clear for a ray to be strong
 uniform int min_clear_initial_steps : hint_range(0, 32) = 7; // Slightly higher
