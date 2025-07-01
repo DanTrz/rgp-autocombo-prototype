@@ -10,43 +10,50 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 
 	// [ExportToolButton("CreateMultiMeshes")]
 	// public Callable CreateMultiMeshesBtb => Callable.From(() => SetupMultiMesh());
+	// [Export] private bool _runInEditor { get; set; } = false;
 
-	[ExportGroup("Controller Settings")]
-	[Export] PackedScene _lightShaftScene = GD.Load<PackedScene>("uid://b3vej5yd5cpjo");
-	[Export] Camera3D _mainCam;
+	[ExportGroup("Shaft Generation")]
 	[Export] Vector2 _gridSize = new Vector2(10, 10);
-	// [Export] MultiMeshInstance3D _multiMesh;
 	[Export] int _instanceCount = 1;
-
-	[Export] Vector3 _position { get; set; } = new();
-	[Export] Vector3 _scale { get; set; } = Vector3.One;
+	[Export] Vector3 _initialPosition { get; set; } = new();
+	[Export] Vector3 _intialScale { get; set; } = Vector3.One;
 	[Export] float _rotationZ { get; set; } = 0.0f;
-
-	[ExportGroup("Raycast Settings")]
-	[Export] private float _rayLenght { get; set; } = 45.0f;
-	[Export(PropertyHint.Layers3DRender)] public uint RaycastCollisionLayers { get; set; } = 1;
 	[Export] private float _worldBoundMaxSize { get; set; } = 500.0f;
+
+	[ExportGroup("Raycast")]
+	[Export] bool _raycastEnabled { get; set; } = true;
+	[Export] bool _resizeShaftOnCollision { get; set; } = true;
+	[Export] private float _rayLenght { get; set; } = 80.0f;
+	[Export(PropertyHint.Layers3DRender)] public uint RaycastCollisionLayers { get; set; } = 1;
 	[Export] private bool _showDebugSpheres { get; set; } = false;
 
-	private Dictionary<int, InstanceCollider> _instanceList { get; set; } = new(); //int=IntanceID /--/ InstanceCollider=InstanaceInfo
+	private List<InstanceCollider> _instanceList { get; set; } = new(); //int=IntanceID /--/ InstanceCollider=InstanaceInfo
 	private bool _hasCollidersMissing = true;
+
+	MultiMesh _multiMesh;
 
 
 	public override void _Ready()
 	{
-		if (Engine.IsEditorHint()) return;
+		_multiMesh = this.Multimesh;
+		if (_multiMesh == null)
+		{
+			Log.Error($"Error: MultiMesh is null: {_multiMesh}");
+			return;
+		}
+
+		// if (!_runInEditor) return;
 		//PopulateGrid(_gridSize, GetGridCellSize(_gridSize));
+		CleanAllDebugSpheres();
 		SetupMultiMeshInstances();
 	}
 
 	public override void _Process(double delta)
 	{
-		if (!_hasCollidersMissing) return;
+		// if (!_runInEditor) return;
+		if (!_hasCollidersMissing || _multiMesh == null) return;
 		SetInstancesCollision();
 	}
-
-
-
 
 	private void SetupMultiMeshInstances()
 	{
@@ -61,24 +68,28 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 		Multimesh.InstanceCount = _instanceCount;
 		Multimesh.VisibleInstanceCount = _instanceCount;
 
+		_instanceList.Clear();
+
 		CleanAllDebugSpheres(); //DEBUG - TEST ONLY
 
 		for (int i = 0; i < Multimesh.InstanceCount; i++)
 		{
-			Vector3 newLocalPos = new Vector3((i * _position.X), _position.Y, _position.Z); //LocalPos
+			Vector3 newLocalPos = new Vector3((i * _initialPosition.X), _initialPosition.Y, _initialPosition.Z); //LocalPos
 			Vector3 centerGlobalWorldPos = this.GlobalTransform * newLocalPos; //Convert to World Position (Global Position)
 
 			//Update Instance List for raycast logic
-			_instanceList[i] = new InstanceCollider(centerGlobalWorldPos, newLocalPos, false);
+			// _instanceList[i] = new InstanceCollider(centerGlobalWorldPos, newLocalPos, false);
+			_instanceList.Add(new InstanceCollider(centerGlobalWorldPos, newLocalPos, false));
+
 			CreateDebugSphere(centerGlobalWorldPos, Colors.Green);// World position center 	//DEBUG - TEST ONLY
 
 
 			//Setup transform and pass it to the MultiMesh for each instance
 			float newRotation = Mathf.DegToRad(_rotationZ);
 			Basis newBasis = new Basis(Vector3.One, newRotation); //Apply Rotation
-			newBasis.Column1 *= _scale.Y; //Scale just the Y axis
-			newBasis.Column2 *= _scale.Z; //Scale just the Z axis
-			newBasis.Column0 *= _scale.X; //Scale just the X axis //use basis.Column0 * RotationValue;
+			newBasis.Column0 *= _intialScale.X; //Scale just the X axis 
+			newBasis.Column1 *= _intialScale.Y; //Scale just the Y axis
+			newBasis.Column2 *= _intialScale.Z; //Scale just the Z axis
 
 			Multimesh.SetInstanceTransform(i, new Transform3D(newBasis, newLocalPos));
 			Log.Debug($"Instance {i} set to GlobalPos {centerGlobalWorldPos}, LocalPos {newLocalPos}");
@@ -90,7 +101,7 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 	{
 		if (_instanceList.Count == 0) return; //TODO: In the future we can find a way to check if the "entire list" is already set customdata. 
 
-		MultiMesh Multimesh = this.Multimesh;
+
 
 		//Define world bounds (used for packing/unpacking vectors to be sent to shader)
 		Vector3 minWorld = new Vector3(-_worldBoundMaxSize, -_worldBoundMaxSize, -_worldBoundMaxSize);
@@ -112,22 +123,42 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 					Mathf.InverseLerp(minWorld.Z, maxWorld.Z, colliderPos.Z)
 				);
 
-				Multimesh.SetInstanceCustomData(i, new Color(normalizedColliderPos.X, normalizedColliderPos.Y, normalizedColliderPos.Z, 1));
+				_multiMesh.SetInstanceCustomData(i, new Color(normalizedColliderPos.X, normalizedColliderPos.Y, normalizedColliderPos.Z, 1));
+
 				CreateDebugSphere(colliderPos, Colors.Red);     //DEBUG - TEST ONLY
+
 				_instanceList[i].PassedCustomData = true;
+
+				// Get instance dimensions and Resize the mesh/instance to realign with collision point
+				// float meshOrigHeight = ((CylinderMesh)this.Multimesh.Mesh).Height;
+				float? meshOrigHeight = (this.Multimesh.Mesh as CylinderMesh)?.Height;
+				if (meshOrigHeight == null)
+					Log.Error("Failed to get CylinderMesh Height");
+
+
+				Vector3 basisYScale = _multiMesh.GetInstanceTransform(i).Basis.Column1; //Get  Y axis scale to multiple by original mesh height
+				float meshCurrentHeight = basisYScale.Length() * (float)meshOrigHeight;
+				Vector3 startPoint = _instanceList[i].GlobalPosition - (-this.Transform.Basis.Y) * meshCurrentHeight / 2.0f;
+
+				CreateDebugSphere(startPoint, Colors.Blue); //DEBUG - TEST ONLY
+
+				if (_resizeShaftOnCollision) ResizeInstance(i, colliderPos, _instanceList[i].GlobalPosition, startPoint, meshCurrentHeight);
+
 			}
 			else //Has not collided yet. Need to send a RayCast
 			{
 				//Get instance Global Position and send a RayCast to find collider
 				Vector3 centerGlobalWorldPos = _instanceList[i].GlobalPosition;
 				Vector3 centerLocalPos = _instanceList[i].LocalPosition;
-				SendRaycast(i, centerGlobalWorldPos, -this.Transform.Basis.Y);
 
+
+
+				if (_raycastEnabled) SendRaycast(i, centerGlobalWorldPos, -this.Transform.Basis.Y);
 			}
 		}
 
 		//Check if all instances have collided and update class level variable
-		_hasCollidersMissing = _instanceList.Values.Any(instance => !instance.PassedCustomData);
+		_hasCollidersMissing = _instanceList.Any(instance => !instance.PassedCustomData);
 	}
 
 	private void SendRaycast(int instanceIndex, Vector3 raycastStart, Vector3 _raycastDirection)
@@ -163,6 +194,34 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 		{
 			Log.Debug($"No Collision. Collider:{colliderGlobalPos}, RayStart:{raycastStart}, RayEnd:{raycastEndPoint}");
 		}
+	}
+
+	private void ResizeInstance(int instanceIndex, Vector3 colliderGlobalPos, Vector3 instanceGlobalPos, Vector3 instanceStartPoint, float instanceHeight)
+	{
+		Log.Debug($"Resizing => ID: {instanceIndex}, ColliderPos: {colliderGlobalPos}, GlobalPos: {instanceGlobalPos}, InitHeight: {instanceHeight}");
+
+		float newHeight = instanceStartPoint.DistanceTo(colliderGlobalPos);
+		Vector3 newGlobalPos = (instanceStartPoint + colliderGlobalPos) / 2.0f;
+		//Vector3 midPoint /this.GlobalTransform  = this.GlobalTransform * newLocalPos; //Convert to World Position (Global Position)
+
+		//Set this as new Instance Transform
+		Transform3D currentInstaTrans = _multiMesh.GetInstanceTransform(instanceIndex);
+		Vector3 currentLocalPos = currentInstaTrans.Origin;
+
+		Vector3 newLocalPos = this.ToLocal(newGlobalPos); //Gets the LocalPos representation of the newGlobalPos
+
+		// Retrieve the current basis and current rotation from the instance and adjust the scale
+		float newRotation = Mathf.DegToRad(_rotationZ);
+		Basis newBasis = new Basis(Vector3.One, newRotation);
+		newBasis.Column1 *= newHeight;
+
+		Log.Debug($"ID {instanceIndex} => New_H: {newHeight} Prev_H: {instanceHeight}");
+
+		Multimesh.SetInstanceTransform(instanceIndex, new Transform3D(newBasis, newLocalPos));
+		CreateDebugSphere(newGlobalPos, Colors.Black); //DEBUG - TEST ONLY
+
+		_instanceList[instanceIndex].GlobalPosition = newGlobalPos;
+		_instanceList[instanceIndex].LocalPosition = newLocalPos;
 	}
 
 	private void CreateDebugSphere(Vector3 position, Color color)
@@ -202,6 +261,9 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 		public Vector3 ColliderPosition { get; set; }
 
 		public bool PassedCustomData { get; set; } = false;
+
+		public bool HasResized { get; set; } = false;
+
 
 		public InstanceCollider(Vector3 globalPos, Vector3 localPos, bool hasCollided)
 		{

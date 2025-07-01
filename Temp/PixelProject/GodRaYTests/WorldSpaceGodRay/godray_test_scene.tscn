@@ -1,14 +1,14 @@
-[gd_scene load_steps=69 format=4 uid="uid://y8doxgffj7py"]
+[gd_scene load_steps=56 format=4 uid="uid://y8doxgffj7py"]
 
 [ext_resource type="Material" uid="uid://b7qfafv58aeph" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/CloudDissolveShaderMaterial.tres" id="1_r7km4"]
 [ext_resource type="Shader" uid="uid://dy3lf5o3bhg67" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/godray_shadow_occlusion_muti_point_offsetv2.gdshader" id="3_1hele"]
 [ext_resource type="CylinderMesh" uid="uid://5owtsxpfxgp6" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftMesh.tres" id="3_3uann"]
 [ext_resource type="Material" uid="uid://dqgh45ow7ygkh" path="res://Temp/PixelProject/GodRaYTests/light_shafts/default_light_shaft.material" id="3_6f8ln"]
+[ext_resource type="Script" uid="uid://bcg2px4q72n21" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftMultiMeshController.cs" id="3_bf1d8"]
 [ext_resource type="Shader" uid="uid://dy3gpa57ppqyi" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/godray_shadow_occlusion_multi_point_sample.gdshader" id="3_ejesm"]
 [ext_resource type="PackedScene" uid="uid://b3vej5yd5cpjo" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftRaycast.tscn" id="3_hooab"]
 [ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="3_syswk"]
 [ext_resource type="Shader" uid="uid://ynltn072st6h" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/godray_shadow_occlusion_multi_point_sample_offset.gdshader" id="3_v6gh4"]
-[ext_resource type="Script" uid="uid://bcg2px4q72n21" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftMultiMeshController.cs" id="4_bf1d8"]
 [ext_resource type="Script" uid="uid://dlmmwimo0htcj" path="res://Temp/PixelProject/GodRaYTests/LightShaft3DUpdated.gd" id="4_ejesm"]
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="4_h64d6"]
 [ext_resource type="Texture2D" uid="uid://dwju7eckq0ngo" path="res://Temp/PixelProject/WaterNoiseText.tres" id="4_hooab"]
@@ -16,7 +16,6 @@
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="5_ftsip"]
 [ext_resource type="Script" uid="uid://c1u7eyhigk821" path="res://Temp/PixelProject/GodRaYTests/light_shafts/local_transform_listener.gd" id="5_qfjaq"]
 [ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="6_jwmb7"]
-[ext_resource type="Texture2D" uid="uid://dopp767dqs0l4" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftGradient4.tres" id="7_tpril"]
 [ext_resource type="Shader" uid="uid://2docrqvva2b" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/fake_shadow_detect.gdshader" id="12_s5mwc"]
 [ext_resource type="Shader" uid="uid://dupq0hpa15t1e" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/shadow_detect.gdshader" id="13_xkrvx"]
 [ext_resource type="Shader" uid="uid://c6350ai2nbwbh" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/godray_shadow_occlusion_multi_point_sample_offset_PLAYTESTING.gdshader" id="14_r7km4"]
@@ -40,55 +39,7 @@ use_custom_data = true
 instance_count = 3
 visible_instance_count = 3
 mesh = ExtResource("3_3uann")
-buffer = PackedFloat32Array(1, 0, 0, 0, 0, 10, 0, 0, 0, 0, 1, 0, 0.502, 0.509282, 0.5, 1, 1, 0, 0, 1.5, 0, 10, 0, 0, 0, 0, 1, 0, 0.5035, 0.509282, 0.5, 1, 1, 0, 0, 3, 0, 10, 0, 0, 0, 0, 1, 0, 0.505, 0.509282, 0.5, 1)
-
-[sub_resource type="Gradient" id="Gradient_ofrra"]
-offsets = PackedFloat32Array(0, 0.155789, 0.353684, 0.402105, 0.932632)
-colors = PackedColorArray(0, 0, 0, 0, 0.819608, 0.819608, 0.819608, 0.0509804, 0.756863, 0.756863, 0.756863, 0.196078, 0.8, 0.8, 0.8, 0.258824, 0.741176, 0.741176, 0.741176, 0.313726)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_3uann"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_ofrra")
-
-[sub_resource type="Gradient" id="Gradient_f4pjb"]
-offsets = PackedFloat32Array(0.573394)
-colors = PackedColorArray(1, 1, 1, 0.333333)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_bf1d8"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_f4pjb")
-
-[sub_resource type="Gradient" id="Gradient_53t8j"]
-offsets = PackedFloat32Array(0.0321101, 0.0412844, 0.427368, 0.44, 0.866973)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.337255, 1, 1, 1, 0.501961, 1, 1, 1, 0.262327, 1, 1, 1, 0.227451)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_53t8j"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_53t8j")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1cotu"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_ofrra")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_kh3sm"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_f4pjb")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tpril"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_53t8j")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_bcp1h"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_ofrra")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_e8n3f"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_f4pjb")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_m5icl"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_53t8j")
+buffer = PackedFloat32Array(1, 0, 0, 0, 0, 10, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1.5, 0, 10, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 3, 0, 10, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_6f8ln"]
 top_radius = 0.3
@@ -220,7 +171,7 @@ _surfaces = [{
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 26,
-"vertex_data": PackedByteArray("IO6DP8DlIr9Qcpa/3HWdQaRJBsKMm5jAMBOPPyCjFb9AGEW/yzydQeaiAcL+dR7AQJCEP6CxU78AULC7HnOOQbZ0+cF4v8Q/AFBLPyCpK7+ACAM/7ZqEQZkI88HdLYVAwIWlPjDkhb/wy20/wk5YQV1E9sGUr8BAwBe4vkAYcL+gHes+lRcyQZWDA8JMtYBAAGQdv1B0i7/ALh4+0mkfQVHFCMJezx1AoDMivyAGOb/A4ku+R18rQb4tC8LsYSg/oOMkv2B3Pr8A6Qy/ZbguQTjoDsJE1Ku/wNC9vsBpL79A7Je/UPxPQVoGE8Jm56TAAPwFPeBpL78Yc++/66J8Qbm7FsJtcRbBAMDlPoDs7r4wOdW/p/iQQfPjD8LDcQHBwNU+P6B+BL+gdse/eemZQWokDMLsqefALC3SUlVr8NIsLdJSVWvw0o4pJEnbYfrPjikkSdth+s/bNsVXRHe41ds2xVdEd7jVm15uelChKZSbXm56UKEplOM4jWNFl6LL4ziNY0WXosslNEtopppByCU0S2immkHIigoICQJ2mYqKCggJAnaZivIfDWAwdr7O8h8NYDB2vs57F8NI2VmqxHsXw0jZWarE/+//73GcG4f/7//vcZwbh+xEdWLTrh7D7ER1YtOuHsNFFy46PE/muUUXLjo8T+a55R6eRjxcXsnlHp5GPFxeyQ==")
+"vertex_data": PackedByteArray("IO6DP8DlIr9Qcpa/3HWdQaRJBsKMm5jAMBOPPyCjFb9AGEW/xBV1QSW1x8Fo6gTAQJCEP6CxU78AULC7nA5sQcxAzcFOz6A/AFBLPyCpK7+ACAM/MNZkQfrL0MEqtWhAwIWlPjDkhb/wy20/wk5YQV1E9sGUr8BAwBe4vkAYcL+gHes+lRcyQZWDA8JMtYBAAGQdv1B0i7/ALh4+0mkfQVHFCMJezx1AoDMivyAGOb/A4ku+R18rQb4tC8LsYSg/oOMkv2B3Pr8A6Qy/ZbguQTjoDsJE1Ku/wNC9vsBpL79A7Je/UPxPQVoGE8Jm56TAAPwFPeBpL78Yc++/66J8Qbm7FsJtcRbBAMDlPoDs7r4wOdW/p/iQQfPjD8LDcQHBwNU+P6B+BL+gdse/eemZQWokDMLsqefALC3SUlVr8NIsLdJSVWvw0v049FWHdGzW/Tj0VYd0bNbzPG1bmoak1PM8bVuahqTU92AefJiegJL3YB58mJ6AkuM4jWNFl6LL4ziNY0WXosslNEtopppByCU0S2immkHIigoICQJ2mYqKCggJAnaZivIfDWAwdr7O8h8NYDB2vs57F8NI2VmqxHsXw0jZWarE/+//73GcG4f/7//vcZwbh+xEdWLTrh7D7ER1YtOuHsNFFy46PE/muUUXLjo8T+a55R6eRjxcXsnlHp5GPFxeyQ==")
 }]
 
 [sub_resource type="Curve3D" id="Curve3D_75b6h"]
@@ -350,29 +301,28 @@ debug_color = Color(1, 0.105882, 0, 0.419608)
 
 [node name="GodraysController" type="Node3D" parent="."]
 
-[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="GodraysController" node_paths=PackedStringArray("_mainCam")]
-transform = Transform3D(0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0, 1, 0, 7.28227, 0)
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="GodraysController"]
+transform = Transform3D(0.826167, 0.563425, 0, -0.563425, 0.826167, 0, 0, 0, 1, 1.27006, 10.5733, 0)
 multimesh = SubResource("MultiMesh_3uann")
-script = ExtResource("4_bf1d8")
-_mainCam = NodePath("../../SubViewport/CameraRigYaw/Camera3D")
-_instanceCount = 3
-_position = Vector3(1.5, 0, 0)
-_scale = Vector3(1, 10, 1)
+script = ExtResource("3_bf1d8")
+_instanceCount = 5
+_initialPosition = Vector3(-2.5, 1, 0)
+_showDebugSpheres = true
 
 [node name="LightShaftRaycastLocal" parent="GodraysController" instance=ExtResource("3_hooab")]
 transform = Transform3D(0.827227, 0.561867, 0, -0.561867, 0.827227, 0, 0, 0, 1, -0.304347, 10.5008, -2.19557)
 visible = false
-_gradientTextures = Array[GradientTexture2D]([SubResource("GradientTexture2D_3uann"), SubResource("GradientTexture2D_bf1d8"), SubResource("GradientTexture2D_53t8j"), ExtResource("7_tpril")])
+script = null
 
 [node name="LightShaftRaycastLocal2" parent="GodraysController" instance=ExtResource("3_hooab")]
 transform = Transform3D(0.797752, 0.602985, 0, -0.602985, 0.797752, 0, 0, 0, 1, 6.22244, 10.5008, -2.19557)
 visible = false
-_gradientTextures = Array[GradientTexture2D]([SubResource("GradientTexture2D_1cotu"), SubResource("GradientTexture2D_kh3sm"), SubResource("GradientTexture2D_tpril"), ExtResource("7_tpril")])
+script = null
 
 [node name="LightShaftRaycastLocal3" parent="GodraysController" instance=ExtResource("3_hooab")]
 transform = Transform3D(0.797752, 0.602985, 0, -0.602985, 0.797752, 0, 0, 0, 1, 2.73033, 10.5008, -2.19557)
 visible = false
-_gradientTextures = Array[GradientTexture2D]([SubResource("GradientTexture2D_bcp1h"), SubResource("GradientTexture2D_e8n3f"), SubResource("GradientTexture2D_m5icl"), ExtResource("7_tpril")])
+script = null
 
 [node name="GodraysLegacy" type="Node3D" parent="."]
 visible = false
@@ -599,11 +549,11 @@ render_target_update_mode = 4
 environment = SubResource("Environment_jwmb7")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
-transform = Transform3D(-0.00609718, -0.997811, 0.0658556, 0.0484935, 0.0654842, 0.996674, -0.998805, 0.00927047, 0.0479881, 17.3808, 24.646, 0.496677)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -2.23113, 24.646, 0.496677)
 shadow_enabled = true
 
 [node name="CameraRigYaw" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 24)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.39666, 24)
 script = ExtResource("3_syswk")
 RotationPivotPoint = NodePath("WorldCentralPivot")
 MainCamera = NodePath("Camera3D")
@@ -611,7 +561,7 @@ MainCamera = NodePath("Camera3D")
 [node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw"]
 unique_name_in_owner = true
 physics_interpolation_mode = 2
-transform = Transform3D(1, 0, 0, 0, 0.984807, 0.173648, 0, -0.173648, 0.984807, -3.11263, 14.1286, 16.1229)
+transform = Transform3D(1, 0, 0, 0, 0.996194, 0.0871557, 0, -0.0871557, 0.996194, -3.11263, 14.1286, 16.1229)
 projection = 1
 current = true
 size = 15.0
@@ -625,7 +575,7 @@ SnapObjects = false
 transform = Transform3D(-0.002461, 0, -0.999997, 0, 1, 0, 0.999997, 0, -0.002461, 0, 0, 0)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="SubViewport/Objects"]
-transform = Transform3D(-4.37114e-08, -1, 1.39698e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -3.82651, 4.66236, -7.09176)
+transform = Transform3D(-4.37114e-08, -1, 2.04891e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -3.6182, 4.75004, -6.87637)
 use_collision = true
 size = Vector3(0.4, 10, 12)
 
@@ -656,7 +606,7 @@ use_collision = true
 height = 4.0
 
 [node name="CSGCylinder3D7" type="CSGCylinder3D" parent="SubViewport/Objects"]
-transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, 2.84218, 2.02999, 3.55318)
+transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, 7.50811, 2.02999, 13.6073)
 use_collision = true
 height = 4.0
 
@@ -679,7 +629,7 @@ height = 5.62549
 sides = 12
 
 [node name="CSGBox3D" type="CSGBox3D" parent="SubViewport/Objects"]
-transform = Transform3D(-0.0623683, 0.996634, -0.0532066, 0.0638384, 0.0571847, 0.996321, 0.996009, 0.0587423, -0.0671899, 0.644345, 1.94971, 5.12065)
+transform = Transform3D(-0.0624111, 0.996665, -0.0525663, -0.196082, 0.0393978, 0.979796, 0.978598, 0.0714575, 0.19297, 0.644345, 1.94971, 5.12065)
 use_collision = true
 size = Vector3(0.4, 10, 12)
 
