@@ -46,7 +46,7 @@ buffer = PackedFloat32Array(1, 0, 0, 0, 0, 10, 0, 0, 0, 0, 1, 0, 0.502, 0.509282
 offsets = PackedFloat32Array(0, 0.155789, 0.353684, 0.402105, 0.932632)
 colors = PackedColorArray(0, 0, 0, 0, 0.819608, 0.819608, 0.819608, 0.0509804, 0.756863, 0.756863, 0.756863, 0.196078, 0.8, 0.8, 0.8, 0.258824, 0.741176, 0.741176, 0.741176, 0.313726)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_bf1d8"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3uann"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_ofrra")
 
@@ -54,7 +54,7 @@ gradient = SubResource("Gradient_ofrra")
 offsets = PackedFloat32Array(0.573394)
 colors = PackedColorArray(1, 1, 1, 0.333333)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_53t8j"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bf1d8"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_f4pjb")
 
@@ -62,31 +62,31 @@ gradient = SubResource("Gradient_f4pjb")
 offsets = PackedFloat32Array(0.0321101, 0.0412844, 0.427368, 0.44, 0.866973)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.337255, 1, 1, 1, 0.501961, 1, 1, 1, 0.262327, 1, 1, 1, 0.227451)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1cotu"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_53t8j"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_53t8j")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1cotu"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_ofrra")
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_kh3sm"]
 resource_local_to_scene = true
-gradient = SubResource("Gradient_ofrra")
+gradient = SubResource("Gradient_f4pjb")
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_tpril"]
 resource_local_to_scene = true
-gradient = SubResource("Gradient_f4pjb")
+gradient = SubResource("Gradient_53t8j")
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_bcp1h"]
 resource_local_to_scene = true
-gradient = SubResource("Gradient_53t8j")
+gradient = SubResource("Gradient_ofrra")
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_e8n3f"]
 resource_local_to_scene = true
-gradient = SubResource("Gradient_ofrra")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_m5icl"]
-resource_local_to_scene = true
 gradient = SubResource("Gradient_f4pjb")
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_0wujy"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m5icl"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_53t8j")
 
@@ -351,29 +351,28 @@ debug_color = Color(1, 0.105882, 0, 0.419608)
 [node name="GodraysController" type="Node3D" parent="."]
 
 [node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="GodraysController" node_paths=PackedStringArray("_mainCam")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.28227, 0)
+transform = Transform3D(0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0, 1, 0, 7.28227, 0)
 multimesh = SubResource("MultiMesh_3uann")
 script = ExtResource("4_bf1d8")
 _mainCam = NodePath("../../SubViewport/CameraRigYaw/Camera3D")
 _instanceCount = 3
 _position = Vector3(1.5, 0, 0)
 _scale = Vector3(1, 10, 1)
-CollisionLayers = 1
 
 [node name="LightShaftRaycastLocal" parent="GodraysController" instance=ExtResource("3_hooab")]
 transform = Transform3D(0.827227, 0.561867, 0, -0.561867, 0.827227, 0, 0, 0, 1, -0.304347, 10.5008, -2.19557)
 visible = false
-_gradientTextures = Array[GradientTexture2D]([SubResource("GradientTexture2D_bf1d8"), SubResource("GradientTexture2D_53t8j"), SubResource("GradientTexture2D_1cotu"), ExtResource("7_tpril")])
+_gradientTextures = Array[GradientTexture2D]([SubResource("GradientTexture2D_3uann"), SubResource("GradientTexture2D_bf1d8"), SubResource("GradientTexture2D_53t8j"), ExtResource("7_tpril")])
 
 [node name="LightShaftRaycastLocal2" parent="GodraysController" instance=ExtResource("3_hooab")]
 transform = Transform3D(0.797752, 0.602985, 0, -0.602985, 0.797752, 0, 0, 0, 1, 6.22244, 10.5008, -2.19557)
 visible = false
-_gradientTextures = Array[GradientTexture2D]([SubResource("GradientTexture2D_kh3sm"), SubResource("GradientTexture2D_tpril"), SubResource("GradientTexture2D_bcp1h"), ExtResource("7_tpril")])
+_gradientTextures = Array[GradientTexture2D]([SubResource("GradientTexture2D_1cotu"), SubResource("GradientTexture2D_kh3sm"), SubResource("GradientTexture2D_tpril"), ExtResource("7_tpril")])
 
 [node name="LightShaftRaycastLocal3" parent="GodraysController" instance=ExtResource("3_hooab")]
 transform = Transform3D(0.797752, 0.602985, 0, -0.602985, 0.797752, 0, 0, 0, 1, 2.73033, 10.5008, -2.19557)
 visible = false
-_gradientTextures = Array[GradientTexture2D]([SubResource("GradientTexture2D_e8n3f"), SubResource("GradientTexture2D_m5icl"), SubResource("GradientTexture2D_0wujy"), ExtResource("7_tpril")])
+_gradientTextures = Array[GradientTexture2D]([SubResource("GradientTexture2D_bcp1h"), SubResource("GradientTexture2D_e8n3f"), SubResource("GradientTexture2D_m5icl"), ExtResource("7_tpril")])
 
 [node name="GodraysLegacy" type="Node3D" parent="."]
 visible = false
@@ -626,7 +625,7 @@ SnapObjects = false
 transform = Transform3D(-0.002461, 0, -0.999997, 0, 1, 0, 0.999997, 0, -0.002461, 0, 0, 0)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="SubViewport/Objects"]
-transform = Transform3D(-4.37114e-08, -1, 1.3737e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -3.81667, 4.66236, -3.09177)
+transform = Transform3D(-4.37114e-08, -1, 1.39698e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -3.82651, 4.66236, -7.09176)
 use_collision = true
 size = Vector3(0.4, 10, 12)
 
