@@ -3,7 +3,7 @@
 [ext_resource type="Shader" uid="uid://bawxq16vak6cv" path="res://addons/PlanarReflectorCpp/SupportFiles/planar_reflection_base.gdshader" id="1_cepju"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_6yvjd"]
-viewport_path = NodePath("PlanarReflectorCPP/@SubViewport@26091")
+viewport_path = NodePath("SubViewport/WaterSRROption2/PlanarReflectorCPP/editor_reflect_viewport")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_psr7x"]
 seed = 10
@@ -33,7 +33,7 @@ noise = SubResource("FastNoiseLite_ohdar")
 resource_local_to_scene = true
 render_priority = -1
 shader = ExtResource("1_cepju")
-shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/albedo = Color(0.345098, 1, 0.8, 1)
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 0.5
 shader_parameter/specular = 0.5

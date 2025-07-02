@@ -5,17 +5,9 @@ using System.Threading.Tasks;
 using Godot;
 
 // [Tool]
-public partial class LightShaftMultiMeshController : MultiMeshInstance3D
+public partial class ShaftMultiMeshController : MultiMeshInstance3D
 {
-
-	// [ExportToolButton("CreateMultiMeshes")]
-	// public Callable CreateMultiMeshesBtb => Callable.From(() => SetupMultiMesh());
-	// [Export] private bool _runInEditor { get; set; } = false;
-
 	[ExportGroup("Shaft Generation")]
-	[Export] Vector2 _gridSize = new Vector2(10, 10);
-	[Export] int _instanceCount = 1;
-	[Export] Vector3 _initialPosition { get; set; } = new();
 	[Export] Vector3 _intialScale { get; set; } = Vector3.One;
 	[Export] float _rotationZ { get; set; } = 0.0f;
 	[Export] private float _worldBoundMaxSize { get; set; } = 500.0f;
@@ -25,7 +17,11 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 	[Export] bool _resizeShaftOnCollision { get; set; } = true;
 	[Export] private float _rayLenght { get; set; } = 80.0f;
 	[Export(PropertyHint.Layers3DRender)] public uint RaycastCollisionLayers { get; set; } = 1;
+	[ExportGroup("Debugging")]
 	[Export] private bool _showDebugSpheres { get; set; } = false;
+	[Export] SphereDebugVisualizer _debugger { get; set; }
+	[Export] private bool _showOnlyColliders { get; set; } = true;
+
 
 	private List<InstanceCollider> _instanceList { get; set; } = new(); //int=IntanceID /--/ InstanceCollider=InstanaceInfo
 	private bool _hasCollidersMissing = true;
@@ -45,7 +41,7 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 		// if (!_runInEditor) return;
 		//PopulateGrid(_gridSize, GetGridCellSize(_gridSize));
 		CleanAllDebugSpheres();
-		SetupMultiMeshInstances();
+		//SpawnInstances();
 	}
 
 	public override void _Process(double delta)
@@ -55,9 +51,9 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 		SetInstancesCollision();
 	}
 
-	private void SetupMultiMeshInstances()
+	public void SpawnInstances(List<Vector3> positions) //List<Vector3>
 	{
-
+		Log.Debug($"{this.Name} SpawnInstances called: {positions.Count}");
 		MultiMesh Multimesh = this.Multimesh;
 		//Reset the MultiMesh
 		Multimesh.InstanceCount = 0;
@@ -65,24 +61,24 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 
 		//Setup the MultiMesh
 		Multimesh.UseCustomData = true;
-		Multimesh.InstanceCount = _instanceCount;
-		Multimesh.VisibleInstanceCount = _instanceCount;
+		Multimesh.InstanceCount = positions.Count;
+		Multimesh.VisibleInstanceCount = positions.Count;
+		// Multimesh.VisibleInstanceCount = _instanceCount;
+
 
 		_instanceList.Clear();
 
 		CleanAllDebugSpheres(); //DEBUG - TEST ONLY
 
-		for (int i = 0; i < Multimesh.InstanceCount; i++)
+		for (int i = 0; i < positions.Count; i++)
 		{
-			Vector3 newLocalPos = new Vector3((i * _initialPosition.X), _initialPosition.Y, _initialPosition.Z); //LocalPos
-			Vector3 centerGlobalWorldPos = this.GlobalTransform * newLocalPos; //Convert to World Position (Global Position)
+			// Vector3 newLocalPos = new Vector3((i * _initialPosition.X), _initialPosition.Y, _initialPosition.Z); //LocalPos
+			Vector3 newLocalPos = positions[i]; //Instance LocalPos
+			Vector3 centerGlobalWorldPos = this.GlobalTransform * newLocalPos; //Get World Position (Global Position)
 
 			//Update Instance List for raycast logic
-			// _instanceList[i] = new InstanceCollider(centerGlobalWorldPos, newLocalPos, false);
 			_instanceList.Add(new InstanceCollider(centerGlobalWorldPos, newLocalPos, false));
-
-			CreateDebugSphere(centerGlobalWorldPos, Colors.Green);// World position center 	//DEBUG - TEST ONLY
-
+			CreateDebugSphere(centerGlobalWorldPos, Colors.Green, DebugType.MID_POINT_SPHERE);// World position center 	//DEBUG - TEST ONLY
 
 			//Setup transform and pass it to the MultiMesh for each instance
 			float newRotation = Mathf.DegToRad(_rotationZ);
@@ -92,7 +88,7 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 			newBasis.Column2 *= _intialScale.Z; //Scale just the Z axis
 
 			Multimesh.SetInstanceTransform(i, new Transform3D(newBasis, newLocalPos));
-			Log.Debug($"Instance {i} set to GlobalPos {centerGlobalWorldPos}, LocalPos {newLocalPos}");
+			// Log.Debug($"Instance {i} set to GlobalPos {centerGlobalWorldPos}, LocalPos {newLocalPos}");
 		}
 
 	}
@@ -125,7 +121,7 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 
 				_multiMesh.SetInstanceCustomData(i, new Color(normalizedColliderPos.X, normalizedColliderPos.Y, normalizedColliderPos.Z, 1));
 
-				CreateDebugSphere(colliderPos, Colors.Red);     //DEBUG - TEST ONLY
+				CreateDebugSphere(colliderPos, Colors.Red, DebugType.COLLIDER_SPHERE);     //DEBUG - TEST ONLY
 
 				_instanceList[i].PassedCustomData = true;
 
@@ -140,7 +136,7 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 				float meshCurrentHeight = basisYScale.Length() * (float)meshOrigHeight;
 				Vector3 startPoint = _instanceList[i].GlobalPosition - (-this.Transform.Basis.Y) * meshCurrentHeight / 2.0f;
 
-				CreateDebugSphere(startPoint, Colors.Blue); //DEBUG - TEST ONLY
+				CreateDebugSphere(startPoint, Colors.Blue, DebugType.START_POINT_SPHERE); //DEBUG - TEST ONLY
 
 				if (_resizeShaftOnCollision) ResizeInstance(i, colliderPos, _instanceList[i].GlobalPosition, startPoint, meshCurrentHeight);
 
@@ -186,19 +182,22 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 				_instanceList[instanceIndex].HasCollided = true;
 				_instanceList[instanceIndex].ColliderPosition = colliderGlobalPos;
 
-				Log.Debug($"Collider Found Pos: {colliderGlobalPos}");
+				// Log.Debug($"Collider Found Pos: {colliderGlobalPos}");
 			}
 
 		}
 		else
 		{
-			Log.Debug($"No Collision. Collider:{colliderGlobalPos}, RayStart:{raycastStart}, RayEnd:{raycastEndPoint}");
+			// Log.Debug($"No Collision. Collider:{colliderGlobalPos}, RayStart:{raycastStart}, RayEnd:{raycastEndPoint}");
+
+			//TODO: Log a number of attempts, then stop trying to send rays for that instance
+			//BUG: We will get a bug when no collsion is found and a "continues loop"
 		}
 	}
 
 	private void ResizeInstance(int instanceIndex, Vector3 colliderGlobalPos, Vector3 instanceGlobalPos, Vector3 instanceStartPoint, float instanceHeight)
 	{
-		Log.Debug($"Resizing => ID: {instanceIndex}, ColliderPos: {colliderGlobalPos}, GlobalPos: {instanceGlobalPos}, InitHeight: {instanceHeight}");
+		// Log.Debug($"Resizing => ID: {instanceIndex}, ColliderPos: {colliderGlobalPos}, GlobalPos: {instanceGlobalPos}, InitHeight: {instanceHeight}");
 
 		float newHeight = instanceStartPoint.DistanceTo(colliderGlobalPos);
 		Vector3 newGlobalPos = (instanceStartPoint + colliderGlobalPos) / 2.0f;
@@ -215,39 +214,59 @@ public partial class LightShaftMultiMeshController : MultiMeshInstance3D
 		Basis newBasis = new Basis(Vector3.One, newRotation);
 		newBasis.Column1 *= newHeight;
 
-		Log.Debug($"ID {instanceIndex} => New_H: {newHeight} Prev_H: {instanceHeight}");
+		// Log.Debug($"ID {instanceIndex} => New_H: {newHeight} Prev_H: {instanceHeight}");
 
 		Multimesh.SetInstanceTransform(instanceIndex, new Transform3D(newBasis, newLocalPos));
-		CreateDebugSphere(newGlobalPos, Colors.Black); //DEBUG - TEST ONLY
+		CreateDebugSphere(newGlobalPos, Colors.Black, DebugType.MID_POINT_SPHERE); //DEBUG - TEST ONLY
 
 		_instanceList[instanceIndex].GlobalPosition = newGlobalPos;
 		_instanceList[instanceIndex].LocalPosition = newLocalPos;
 	}
 
-	private void CreateDebugSphere(Vector3 position, Color color)
+	private void CreateDebugSphere(Vector3 position, Color color, DebugType type)
 	{
-		if (!_showDebugSpheres) return;
-		var mesh = new SphereMesh();
-		mesh.Radius = 0.5f;
-		var material = new StandardMaterial3D();
-		material.AlbedoColor = color;
-		var sphere = new DebugSphere();
-		sphere.Mesh = mesh;
-		sphere.MaterialOverride = material;
-		AddChild(sphere);
-		mesh.Radius = 0.25f;
-		mesh.Height = 0.5f;
-		sphere.CastShadow = 0; //SHADOW_CASTING_SETTING_OFF = 0
-		sphere.GlobalPosition = position;
-		Log.Debug($"DebugSphere: {sphere.GlobalPosition}, Color {color.ToString()}");
+		if (!_showDebugSpheres || _debugger == null) return;
+		if (_showOnlyColliders && type != DebugType.COLLIDER_SPHERE) return;
+		_debugger.AddPoint(position, color);
+		// var mesh = new SphereMesh();
+		// mesh.Radius = 0.5f;
+		// var material = new StandardMaterial3D();
+		// material.AlbedoColor = color;
+		// var sphere = new DebugSphere();
+		// sphere.Mesh = mesh;
+		// sphere.MaterialOverride = material;
+		// AddChild(sphere);
+		// mesh.Radius = 0.25f;
+		// mesh.Height = 0.5f;
+		// sphere.CastShadow = 0; //SHADOW_CASTING_SETTING_OFF = 0
+		// sphere.GlobalPosition = position;
+		// // Log.Debug($"DebugSphere: {sphere.GlobalPosition}, Color {color.ToString()}");
 
 	}
+
 	private void CleanAllDebugSpheres()
 	{
-		foreach (DebugSphere sphere in GetChildren())
-		{
-			sphere.QueueFree();
-		}
+		if (!_showDebugSpheres || _debugger == null) return;
+		_debugger.ClearAll();
+
+		// foreach (DebugSphere sphere in GetChildren())
+		// {
+		// 	sphere.QueueFree();
+		// }
+
+		// foreach (DebugSphere sphere in GetChildren())
+		// {
+		// 	sphere.QueueFree();
+		// }
+	}
+
+	private enum DebugType
+	{
+		COLLIDER_SPHERE,
+		START_POINT_SPHERE,
+		END_POINT_SPHERE,
+		MID_POINT_SPHERE
+
 	}
 
 	public class InstanceCollider

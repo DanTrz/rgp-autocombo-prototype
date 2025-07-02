@@ -200,6 +200,7 @@ _restartParticulesTime = NodePath("RestartParticulesTime")
 
 [node name="tree_oak_dark" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.5, 0, 0, 0, 3, 0, 0, 0, 2.5, 0, 0, 0)
+layers = 524289
 mesh = SubResource("ArrayMesh_a38gw")
 skeleton = NodePath("")
 
@@ -207,7 +208,6 @@ skeleton = NodePath("")
 transform = Transform3D(0.4, 0, 0, 0, 0.284668, -0.281006, 0, 0.281006, 0.284668, -0.0165017, 0.880646, 0)
 layers = 524289
 cast_shadow = 0
-emitting = false
 amount = 500
 lifetime = 1e+07
 one_shot = true

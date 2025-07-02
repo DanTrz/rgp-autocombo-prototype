@@ -1,0 +1,569 @@
+[gd_scene load_steps=37 format=3 uid="uid://b3a4clvljya0c"]
+
+[ext_resource type="Shader" uid="uid://p8l4gns07mpy" path="res://Temp/PixelProject/DissolveShader_CloudFocused_v2.gdshader" id="1_vti57"]
+[ext_resource type="Script" uid="uid://ck7nsguq3ha83" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/ShaftChunkController.cs" id="1_y7guv"]
+[ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="1_yp6g0"]
+[ext_resource type="Texture2D" uid="uid://drcpoknu322m8" path="res://Temp/PixelProject/Assets/2D/Textures/Cloud/caustic_distort_noise_invert.png" id="2_1bdby"]
+[ext_resource type="Script" uid="uid://bcg2px4q72n21" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/ShaftMultiMeshController.cs" id="2_1v7uf"]
+[ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="2_dyepu"]
+[ext_resource type="CylinderMesh" uid="uid://5owtsxpfxgp6" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftMesh.tres" id="2_gb41b"]
+[ext_resource type="Shader" uid="uid://2docrqvva2b" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/fake_shadow_detect.gdshader" id="3_y7guv"]
+[ext_resource type="Shader" uid="uid://dupq0hpa15t1e" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/shadow_detect.gdshader" id="4_g6uio"]
+[ext_resource type="Script" uid="uid://c8v7mtdswx3q1" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/SphereDebugVisualizer.cs" id="4_lfdt2"]
+[ext_resource type="Shader" uid="uid://c6350ai2nbwbh" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/godray_shadow_occlusion_multi_point_sample_offset_PLAYTESTING.gdshader" id="5_tsdta"]
+[ext_resource type="Texture2D" uid="uid://bifn2watmqnhg" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/GodRayGradient.tres" id="6_1v7uf"]
+[ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="9_tsdta"]
+[ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="10_1v7uf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vti57"]
+render_priority = 0
+shader = ExtResource("1_vti57")
+shader_parameter/baseColor = Color(1, 1, 1, 1)
+shader_parameter/dissolveSlider = 1.075
+shader_parameter/dissolveNoiseScale = 0.1
+shader_parameter/edgeNoiseScale = -0.25
+shader_parameter/edgesThickness = 0.01
+shader_parameter/edgeColor = Color(0, 0, 1, 1)
+shader_parameter/edgeEmissionSlider = 1.0
+shader_parameter/enable_dissolve_animation = true
+shader_parameter/animation_speed = 0.5
+shader_parameter/animation_intensity = 0.1
+shader_parameter/enable_texture_influence = true
+shader_parameter/influence_texture = ExtResource("2_1bdby")
+shader_parameter/influence_strength = 1.0
+shader_parameter/influence_scale = 10.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_uir4v"]
+material = SubResource("ShaderMaterial_vti57")
+size = Vector2(1000, 1000)
+subdivide_width = 10
+subdivide_depth = 10
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dyepu"]
+size = Vector3(123.092, 1, 91.2598)
+
+[sub_resource type="MultiMesh" id="MultiMesh_1v7uf"]
+transform_format = 1
+use_custom_data = true
+mesh = ExtResource("2_gb41b")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lfdt2"]
+vertex_color_use_as_albedo = true
+disable_receive_shadows = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_1bdby"]
+material = SubResource("StandardMaterial3D_lfdt2")
+radius = 0.15
+height = 0.25
+radial_segments = 32
+rings = 16
+
+[sub_resource type="MultiMesh" id="MultiMesh_lfdt2"]
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("SphereMesh_1bdby")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gb41b"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_ftsip"]
+sky_material = SubResource("ProceduralSkyMaterial_gb41b")
+
+[sub_resource type="Environment" id="Environment_lfdt2"]
+background_mode = 2
+sky = SubResource("Sky_ftsip")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vti57"]
+size = Vector2(300, 300)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bdby"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_color = Color(0.478883, 0.35593, 0.271778, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vti57"]
+points = PackedVector3Array(-150, 0, -150, -150, 0, 150, 150, 0, -150, 150, 0, 150)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oa6h0"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_y7guv")
+shader_parameter/shadow_threshold = 5.0
+shader_parameter/search_radius = 2.0
+shader_parameter/sample_quality = 2
+shader_parameter/use_depth_shadow_detection = true
+shader_parameter/use_ambient_occlusion_detection = true
+shader_parameter/ao_radius = 2.0
+shader_parameter/ao_intensity = 1.0
+shader_parameter/use_manual_shadow_direction = true
+shader_parameter/shadow_direction = Color(-0.5, -1, -0.3, 1)
+shader_parameter/shadow_angle_threshold = 0.3
+shader_parameter/show_debug_visualization = false
+shader_parameter/shadow_color = Color(1, 0, 0, 1)
+shader_parameter/lit_color = Color(0, 1, 0, 1)
+shader_parameter/base_albedo = Color(0.5, 0.5, 0.5, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ofadk"]
+height = 7.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_2r8ue"]
+viewport_path = NodePath("ShadowMapSubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_usnyq"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_g6uio")
+shader_parameter/shadow_texture = SubResource("ViewportTexture_2r8ue")
+shader_parameter/shadow_threshold = 0.3
+shader_parameter/light_view_matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/light_projection_matrix = Projection(0.028125, 0, 0, 0, 0, 0.05, 0, 0, 0, 0, -0.02001, 0, 0, 0, -1.001, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tcjc1"]
+height = 7.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1t6qn"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_tsdta")
+shader_parameter/ray_color = Color(1, 1, 0.8, 1)
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 0.5
+shader_parameter/rim_power = 0.5
+shader_parameter/speed = 1.0
+shader_parameter/noise_movement = 0.5
+shader_parameter/shadow_detection_threshold = 0.01
+shader_parameter/shadow_sensitivity = 0.0
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/sampling_offset_x = 0.0
+shader_parameter/sampling_offset_y = 0.0
+shader_parameter/sampling_offset_z = 0.0
+shader_parameter/sample_count = 4
+shader_parameter/sample_offsets = PackedVector3Array(0, -10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/noise_texture = ExtResource("6_1v7uf")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_uir4v"]
+points = PackedVector3Array(-25, 0, -25, -25, 0, 25, 25, 0, -25, 25, 0, 25)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gb41b"]
+shader = ExtResource("10_1v7uf")
+shader_parameter/shadow_boost = 1.1
+shader_parameter/shadow_threshold = 0.4
+shader_parameter/shadow_color_override = Color(1, 1, 0, 1)
+shader_parameter/use_shadow_color_override = false
+shader_parameter/light_boost = 1.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_lfdt2"]
+viewport_path = NodePath("SubViewport")
+
+[node name="ShaftSpawnerTestScene" type="Node3D"]
+
+[node name="Clouds" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.999999, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 197.083, 0)
+mesh = SubResource("QuadMesh_uir4v")
+skeleton = NodePath("")
+
+[node name="ShaftChunkController" type="Area3D" parent="." node_paths=PackedStringArray("_collisionShape", "_shaftMultiMesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.19059, 186.338, 0)
+script = ExtResource("1_y7guv")
+_chunkDensity = 3.0
+_minimumSpacing = 2.0
+_collisionShape = NodePath("ChunkCollisionShape3D")
+_shaftMultiMesh = NodePath("ShaftMultiMeshController")
+
+[node name="ChunkCollisionShape3D" type="CollisionShape3D" parent="ShaftChunkController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8702, 0, -19.5049)
+shape = SubResource("BoxShape3D_dyepu")
+
+[node name="ShaftMultiMeshController" type="MultiMeshInstance3D" parent="ShaftChunkController" node_paths=PackedStringArray("_debugger")]
+transform = Transform3D(0.944394, 0.328817, 0, -0.325864, 0.935911, -0.133727, -0.0439717, 0.126291, 0.991018, 0, 0, 0)
+cast_shadow = 0
+multimesh = SubResource("MultiMesh_1v7uf")
+script = ExtResource("2_1v7uf")
+_rayLenght = 250.0
+_debugger = NodePath("SphereDebugVisualizer")
+
+[node name="SphereDebugVisualizer" type="MultiMeshInstance3D" parent="ShaftChunkController/ShaftMultiMeshController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.5225, 0)
+cast_shadow = 0
+multimesh = SubResource("MultiMesh_lfdt2")
+script = ExtResource("4_lfdt2")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
+environment = SubResource("Environment_lfdt2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
+transform = Transform3D(0.762499, 0.100508, 0.639135, -0.6193, 0.399287, 0.676045, -0.18725, -0.9113, 0.3667, -2.23113, 24.646, 0.496677)
+shadow_enabled = true
+
+[node name="CameraRigYaw" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 150, 214.767)
+script = ExtResource("1_yp6g0")
+RotationPivotPoint = NodePath("WorldCentralPivot")
+MainCamera = NodePath("Camera3D")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw"]
+unique_name_in_owner = true
+physics_interpolation_mode = 2
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 3.05176e-05, 0)
+projection = 1
+current = true
+fov = 30.8
+size = 15.0
+far = 300.0
+script = ExtResource("2_dyepu")
+SnapObjects = false
+
+[node name="WorldCentralPivot" type="Node3D" parent="SubViewport/CameraRigYaw"]
+
+[node name="Floor2" type="MeshInstance3D" parent="SubViewport"]
+transform = Transform3D(-0.002461, 0, -0.999997, 0, 1, 0, 0.999997, 0, -0.002461, 0, 0, 0)
+mesh = SubResource("PlaneMesh_vti57")
+surface_material_override/0 = SubResource("StandardMaterial3D_1bdby")
+metadata/_edit_lock_ = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Floor2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Floor2/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_vti57")
+
+[node name="Objects" type="Node3D" parent="SubViewport"]
+transform = Transform3D(-0.002461, 0, -0.999997, 0, 1, 0, 0.999997, 0, -0.002461, 0, 0, 0)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewport/Objects"]
+transform = Transform3D(-4.37114e-08, -1, 2.07219e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -3.6182, 6.98438, -6.87637)
+use_collision = true
+size = Vector3(0.4, 10, 12)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="SubViewport/Objects"]
+transform = Transform3D(-4.37114e-08, -1, 6.77537e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, 7.30798, 1.54734, -4.42277)
+use_collision = true
+size = Vector3(3.22231, 2.80182, 3.56592)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="SubViewport/Objects"]
+transform = Transform3D(-4.37114e-08, -1, 6.82194e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -6.91621, 2.04117, -16.1789)
+use_collision = true
+size = Vector3(3.22231, 2.80182, 3.56592)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="SubViewport/Objects"]
+transform = Transform3D(-4.37114e-08, -1, 6.8685e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -9.22232, 2.04117, 2.26259)
+use_collision = true
+size = Vector3(3.22231, 2.80182, 3.56592)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="SubViewport/Objects"]
+transform = Transform3D(-4.37114e-08, -1, 6.91507e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -13.3968, 2.04117, 6.95808)
+use_collision = true
+size = Vector3(3.22231, 2.80182, 3.56592)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="SubViewport/Objects"]
+transform = Transform3D(-4.37114e-08, -1, 7.0082e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -20.7975, 1.55261, -16.2341)
+use_collision = true
+size = Vector3(3.22231, 2.80182, 3.56592)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="SubViewport/Objects"]
+transform = Transform3D(-4.37114e-08, -1, 7.05477e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -36.0824, 1.55261, -8.29797)
+use_collision = true
+size = Vector3(3.22231, 2.80182, 3.56592)
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.97935, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.97935, -8.40685, 2.06411, -2.41095)
+use_collision = true
+height = 4.0
+
+[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.978681, -4.58093, 0.883915, -2.42036)
+use_collision = true
+height = 4.0
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.97935, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.97935, -6.0343, 2.06411, 2.32791)
+use_collision = true
+height = 4.0
+
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, 7.50811, 2.02999, 13.6073)
+use_collision = true
+height = 4.0
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.97935, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.97935, 0.328959, 1.91419, 8.69017)
+use_collision = true
+height = 4.0
+
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -0.00162929, 5.03225, 8.81347)
+use_collision = true
+height = 4.0
+
+[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -23.3112, 5.03225, 8.87083)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -18.3067, 5.03225, 2.47164)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D11" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -21.5768, 5.03225, 2.47968)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D12" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -16.9469, 5.03225, 2.46829)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D13" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -19.9127, 5.03225, 2.47559)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D14" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -19.925, 5.03225, -2.53339)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D15" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -29.2783, 5.03225, -2.51038)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D16" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -29.2887, 5.03225, -6.71322)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D17" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -26.1199, 5.03225, -6.72101)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D18" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -26.1395, 5.03225, -14.6908)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D19" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -32.8179, 5.03225, -14.6744)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D20" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -32.8179, 5.03225, -14.6744)
+use_collision = true
+height = 20.0
+
+[node name="ShadowCylinder" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.688406, 0.0203479, 0.725033, -0.0157353, 0.999777, -0.0131191, -0.725151, -0.00237679, 0.688582, 4.77843, 0.441797, 12.6711)
+layers = 524288
+material_override = SubResource("ShaderMaterial_oa6h0")
+use_collision = true
+height = 5.62549
+sides = 12
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewport/Objects"]
+transform = Transform3D(-0.0624111, 0.996665, -0.0525663, -0.196082, 0.0393978, 0.979796, 0.978598, 0.0714575, 0.19297, -1.31866, 1.94971, 5.12548)
+use_collision = true
+size = Vector3(0.4, 10, 12)
+
+[node name="ShadowMesh" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(-0.965633, -0.259718, -0.00960549, -0.259856, 0.965458, 0.0190571, 0.00432419, 0.0208981, -0.999773, 4.19044, 1.87276, 1.66745)
+visible = false
+layers = 524288
+mesh = SubResource("CylinderMesh_ofadk")
+surface_material_override/0 = SubResource("ShaderMaterial_usnyq")
+
+[node name="FakeShadowMesh2" type="MeshInstance3D" parent="SubViewport/Objects"]
+transform = Transform3D(-0.00672931, 0.0279457, -0.999584, -0.0546223, -0.998127, -0.0275374, -0.998481, 0.0544119, 0.00824311, 2.08719, 9.82716, 6.68405)
+visible = false
+layers = 524288
+mesh = SubResource("CylinderMesh_tcjc1")
+surface_material_override/0 = SubResource("ShaderMaterial_1t6qn")
+
+[node name="LargeCylinders" type="Node3D" parent="SubViewport/Objects"]
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.4077, 0, 0.121593)
+shape = SubResource("ConvexPolygonShape3D_uir4v")
+
+[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.978681, -52.6356, 19.1, -2.3021)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D11" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.978681, -52.6511, 19.1, -8.59387)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D12" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.978681, -52.5956, 19.1, 13.9568)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D13" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.978681, -52.6195, 19.1, 4.23661)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D14" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.978681, -36.3396, 19.1, 4.19655)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D15" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.978681, -36.3707, 19.1, -8.44015)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D16" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.97868, -36.3202, 19.1, 12.102)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D17" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.97868, -36.3538, 19.1, -1.5445)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D18" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.97868, -36.3299, 19.1, 8.12907)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D19" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.97868, -45.4215, 19.1, 8.15144)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D20" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.97868, -45.4429, 19.1, -0.55709)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D21" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -45.4578, 19.1, -6.58951)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D22" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -45.4688, 19.1, -11.0625)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D23" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -61.2925, 19.1, -11.0236)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D24" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -61.2751, 19.1, -3.97016)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D25" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -61.2528, 19.1, 5.09566)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D26" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -61.2317, 19.1, 13.659)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D27" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09098e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -31.1996, 19.1, 13.5851)
+extra_cull_margin = 1.0
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D28" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09098e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -31.2153, 19.1, 7.19522)
+extra_cull_margin = 1.0
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D29" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09098e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -31.2288, 19.1, 1.73645)
+extra_cull_margin = 10.0
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D30" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09098e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -31.2417, 19.1, -3.5459)
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D31" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09098e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -31.2417, 19.1, -3.5459)
+extra_cull_margin = 10.0
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D32" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09098e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -31.2606, 19.1, -11.2272)
+extra_cull_margin = 10.0
+use_collision = true
+height = 45.0
+
+[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.978681, -52.6108, 11.4838, 7.77345)
+use_collision = true
+height = 45.0
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.107882, 0.000145265, 0.994163, 0.0586673, 0.998256, -0.00651217, -0.992431, 0.0590274, 0.107685, -14.7494, 0.75526, 15.6021)
+polygon = PackedVector2Array(0, 0, 0.201127, 1.74263, 0.797626, 7.30291, 2.23836, -0.852112)
+mode = 1
+spin_degrees = 360.0
+spin_sides = 8
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.107882, 0.000145265, 0.994163, 0.0586673, 0.998256, -0.00651217, -0.99243, 0.0590274, 0.107685, -2.32268, 12.8007, -24.8549)
+polygon = PackedVector2Array(0, 0, 0.201127, 1.74263, 0.797626, 7.30291, 8.47795, -2.00781)
+mode = 1
+spin_degrees = 360.0
+spin_sides = 8
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.28406, 4.94165, -25.737)
+radius = 7.06299
+height = 11.8833
+
+[node name="Display" type="Control" parent="." node_paths=PackedStringArray("_viewport", "_mainRendereSprite")]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.01507, 1.01103)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("9_tsdta")
+_viewport = NodePath("../SubViewport")
+_mainRendereSprite = NodePath("MainRenderSprite")
+
+[node name="MainRenderSprite" type="Sprite2D" parent="Display"]
+texture_filter = 2
+material = SubResource("ShaderMaterial_gb41b")
+position = Vector2(-0.985153, 3.95636)
+scale = Vector2(2.93853, 2.96452)
+texture = SubResource("ViewportTexture_lfdt2")
+centered = false

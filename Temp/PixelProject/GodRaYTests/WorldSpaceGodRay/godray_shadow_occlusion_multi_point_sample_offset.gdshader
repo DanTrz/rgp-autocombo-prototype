@@ -1,5 +1,6 @@
 shader_type spatial;
 render_mode blend_add, depth_draw_opaque, cull_back, diffuse_toon, specular_toon;
+//render_mode blend_add, depth_draw_never, cull_back, diffuse_toon, specular_toon, depth_test_disabled;
 
 // Uniforms for controlling the look of the rays
 uniform vec4 ray_color : source_color = vec4(1.0, 1.0, 0.8, 1.0);

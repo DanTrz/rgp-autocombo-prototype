@@ -23,7 +23,7 @@ uniform float edgeEmissionSlider : hint_range(0.0, 10.0, 0.01) = 1.0;
 
 group_uniforms animation;
 uniform bool enable_dissolve_animation = false;
-uniform float animation_speed : hint_range(0.0, 5.0, 0.1) = 1.0;
+uniform float animation_speed : hint_range(0.0, 5.0, 0.01) = 1.0;
 uniform float animation_intensity : hint_range(0.0, 1.0, 0.01) = 0.2;
 
 // NEW: MINIMAL texture influence controls (only what's needed)

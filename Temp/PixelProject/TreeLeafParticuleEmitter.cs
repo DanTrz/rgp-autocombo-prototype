@@ -24,6 +24,10 @@ public partial class TreeLeafParticuleEmitter : Node3D
 	[Export] Timer _restartParticulesTime;
 
 
+	public override void _Ready()
+	{
+		StartEmittingParticles();
+	}
 	private void StartTimer()
 	{
 		_restartParticulesTime.Start(_restartParticulesTime.WaitTime);
