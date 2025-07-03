@@ -47,3 +47,17 @@ cast_shadow = 0
 mesh = SubResource("CylinderMesh_q8dxd")
 skeleton = NodePath("../../../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_0ef8x")
+
+[node name="LightShaftSkin2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9982, 0, 0)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_q8dxd")
+skeleton = NodePath("../../../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_0ef8x")
+
+[node name="LightShaftSkin3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.7073, 0, 0)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_q8dxd")
+skeleton = NodePath("../../../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_0ef8x")

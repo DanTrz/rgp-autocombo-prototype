@@ -1,15 +1,13 @@
-[gd_scene load_steps=37 format=3 uid="uid://b3a4clvljya0c"]
+[gd_scene load_steps=31 format=3 uid="uid://b3a4clvljya0c"]
 
 [ext_resource type="Shader" uid="uid://p8l4gns07mpy" path="res://Temp/PixelProject/DissolveShader_CloudFocused_v2.gdshader" id="1_vti57"]
-[ext_resource type="Script" uid="uid://ck7nsguq3ha83" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/ShaftChunkController.cs" id="1_y7guv"]
 [ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="1_yp6g0"]
 [ext_resource type="Texture2D" uid="uid://drcpoknu322m8" path="res://Temp/PixelProject/Assets/2D/Textures/Cloud/caustic_distort_noise_invert.png" id="2_1bdby"]
-[ext_resource type="Script" uid="uid://bcg2px4q72n21" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/ShaftMultiMeshController.cs" id="2_1v7uf"]
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="2_dyepu"]
-[ext_resource type="CylinderMesh" uid="uid://5owtsxpfxgp6" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftMesh.tres" id="2_gb41b"]
+[ext_resource type="Script" uid="uid://bb02twtn1odyj" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/ShaftChunksActivator.cs" id="3_1bdby"]
 [ext_resource type="Shader" uid="uid://2docrqvva2b" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/fake_shadow_detect.gdshader" id="3_y7guv"]
 [ext_resource type="Shader" uid="uid://dupq0hpa15t1e" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/shadow_detect.gdshader" id="4_g6uio"]
-[ext_resource type="Script" uid="uid://c8v7mtdswx3q1" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/SphereDebugVisualizer.cs" id="4_lfdt2"]
+[ext_resource type="PackedScene" uid="uid://cx7s02uixl4l1" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/ShaftChunkController.tscn" id="4_gb41b"]
 [ext_resource type="Shader" uid="uid://c6350ai2nbwbh" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/godray_shadow_occlusion_multi_point_sample_offset_PLAYTESTING.gdshader" id="5_tsdta"]
 [ext_resource type="Texture2D" uid="uid://bifn2watmqnhg" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/GodRayGradient.tres" id="6_1v7uf"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="9_tsdta"]
@@ -39,30 +37,9 @@ size = Vector2(1000, 1000)
 subdivide_width = 10
 subdivide_depth = 10
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_dyepu"]
-size = Vector3(123.092, 1, 91.2598)
-
-[sub_resource type="MultiMesh" id="MultiMesh_1v7uf"]
-transform_format = 1
-use_custom_data = true
-mesh = ExtResource("2_gb41b")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lfdt2"]
-vertex_color_use_as_albedo = true
-disable_receive_shadows = true
-
-[sub_resource type="SphereMesh" id="SphereMesh_1bdby"]
-material = SubResource("StandardMaterial3D_lfdt2")
-radius = 0.15
-height = 0.25
-radial_segments = 32
-rings = 16
-
-[sub_resource type="MultiMesh" id="MultiMesh_lfdt2"]
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("SphereMesh_1bdby")
+[sub_resource type="BoxShape3D" id="BoxShape3D_gb41b"]
+resource_local_to_scene = true
+size = Vector3(150, 1, 72.7593)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gb41b"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -166,34 +143,46 @@ viewport_path = NodePath("SubViewport")
 
 [node name="Clouds" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.999999, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 197.083, 0)
+visible = false
 mesh = SubResource("QuadMesh_uir4v")
 skeleton = NodePath("")
 
-[node name="ShaftChunkController" type="Area3D" parent="." node_paths=PackedStringArray("_collisionShape", "_shaftMultiMesh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.19059, 186.338, 0)
-script = ExtResource("1_y7guv")
-_chunkDensity = 3.0
-_minimumSpacing = 2.0
-_collisionShape = NodePath("ChunkCollisionShape3D")
-_shaftMultiMesh = NodePath("ShaftMultiMeshController")
+[node name="ShaftChunksActivator" type="Node3D" parent="." node_paths=PackedStringArray("_chunksArray", "_mainCamera")]
+script = ExtResource("3_1bdby")
+_chunksArray = [NodePath("ShaftChunkController"), NodePath("ShaftChunkController2"), NodePath("ShaftChunkController3")]
+_mainCamera = NodePath("../SubViewport/CameraRigYaw/Camera3D")
+ActivationRange = 250.0
+DeactivationRange = 75.0
 
-[node name="ChunkCollisionShape3D" type="CollisionShape3D" parent="ShaftChunkController"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8702, 0, -19.5049)
-shape = SubResource("BoxShape3D_dyepu")
+[node name="ShaftChunkController" parent="ShaftChunksActivator" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_gb41b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.19059, 164.267, 11.9712)
+_collisionShape = NodePath("CollisionShape3D")
+RotationType = 1
+_nodeRotationZ = -20.0
 
-[node name="ShaftMultiMeshController" type="MultiMeshInstance3D" parent="ShaftChunkController" node_paths=PackedStringArray("_debugger")]
-transform = Transform3D(0.944394, 0.328817, 0, -0.325864, 0.935911, -0.133727, -0.0439717, 0.126291, 0.991018, 0, 0, 0)
-cast_shadow = 0
-multimesh = SubResource("MultiMesh_1v7uf")
-script = ExtResource("2_1v7uf")
-_rayLenght = 250.0
-_debugger = NodePath("SphereDebugVisualizer")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksActivator/ShaftChunkController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0836, 0, -29.4281)
+shape = SubResource("BoxShape3D_gb41b")
 
-[node name="SphereDebugVisualizer" type="MultiMeshInstance3D" parent="ShaftChunkController/ShaftMultiMeshController"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.5225, 0)
-cast_shadow = 0
-multimesh = SubResource("MultiMesh_lfdt2")
-script = ExtResource("4_lfdt2")
+[node name="ShaftChunkController2" parent="ShaftChunksActivator" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_gb41b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.19059, 164.267, -56.244)
+_collisionShape = NodePath("CollisionShape3D")
+RotationType = 1
+_nodeRotationZ = -20.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksActivator/ShaftChunkController2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0836, 0, -43.0485)
+shape = SubResource("BoxShape3D_gb41b")
+
+[node name="ShaftChunkController3" parent="ShaftChunksActivator" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_gb41b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.19059, 164.267, -141.939)
+_collisionShape = NodePath("CollisionShape3D")
+RotationType = 1
+_nodeRotationZ = -20.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksActivator/ShaftChunkController3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0836, 0, -43.0485)
+shape = SubResource("BoxShape3D_gb41b")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 handle_input_locally = false
@@ -208,7 +197,7 @@ transform = Transform3D(0.762499, 0.100508, 0.639135, -0.6193, 0.399287, 0.67604
 shadow_enabled = true
 
 [node name="CameraRigYaw" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 150, 214.767)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100.703, 166.367)
 script = ExtResource("1_yp6g0")
 RotationPivotPoint = NodePath("WorldCentralPivot")
 MainCamera = NodePath("Camera3D")
@@ -216,22 +205,22 @@ MainCamera = NodePath("Camera3D")
 [node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw"]
 unique_name_in_owner = true
 physics_interpolation_mode = 2
-transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 3.05176e-05, 0)
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 16.2949, 0)
 projection = 1
 current = true
 fov = 30.8
 size = 15.0
-far = 300.0
+near = 10.0
+far = 275.0
 script = ExtResource("2_dyepu")
 SnapObjects = false
 
 [node name="WorldCentralPivot" type="Node3D" parent="SubViewport/CameraRigYaw"]
 
 [node name="Floor2" type="MeshInstance3D" parent="SubViewport"]
-transform = Transform3D(-0.002461, 0, -0.999997, 0, 1, 0, 0.999997, 0, -0.002461, 0, 0, 0)
+transform = Transform3D(-0.002461, 0, -0.999997, 0, 1, 0, 0.999997, 0, -0.002461, 0, 0, -108.527)
 mesh = SubResource("PlaneMesh_vti57")
 surface_material_override/0 = SubResource("StandardMaterial3D_1bdby")
-metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Floor2"]
 
@@ -363,6 +352,156 @@ height = 20.0
 
 [node name="CSGCylinder3D20" type="CSGCylinder3D" parent="SubViewport/Objects"]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -32.8179, 5.03225, -14.6744)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D21" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -69.1742, 5.03225, -14.5849)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D22" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -69.1742, 5.03225, -14.5849)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D23" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -106.271, 5.03225, -14.4936)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D24" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -106.271, 5.03225, -14.4936)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D25" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -106.263, 5.03225, -11.4108)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D26" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -106.263, 5.03225, -11.4108)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D27" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -155.92, 5.03225, -14.3714)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D28" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -155.92, 5.03225, -14.3714)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D29" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -155.913, 5.03225, -11.2886)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D30" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -155.913, 5.03225, -11.2886)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D31" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -155.913, 5.03225, -11.4416)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D32" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -155.913, 5.03225, -11.4416)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D33" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -155.905, 5.03225, -8.35876)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D34" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -155.905, 5.03225, -8.35876)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D35" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -216.527, 5.03225, -14.2223)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D36" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -216.527, 5.03225, -14.2223)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D37" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -216.52, 5.03225, -11.1395)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D38" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -216.52, 5.03225, -11.1395)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D39" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -216.52, 5.03225, -11.2924)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D40" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -216.52, 5.03225, -11.2924)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D41" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979347, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979347, -216.512, 5.03225, -8.20961)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D42" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979347, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979347, -216.512, 5.03225, -8.20961)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D43" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -216.507, 5.03225, -5.98805)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D44" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -216.507, 5.03225, -5.98805)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D45" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979347, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979347, -216.499, 5.03225, -2.90524)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D46" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979347, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979347, -216.499, 5.03225, -2.90524)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D47" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979347, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979347, -216.5, 5.03225, -3.05818)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D48" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979347, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979347, -216.5, 5.03225, -3.05818)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D49" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979347, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979347, -216.492, 5.03225, 0.0246248)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D50" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979347, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979347, -216.492, 5.03225, 0.0246248)
 use_collision = true
 height = 20.0
 

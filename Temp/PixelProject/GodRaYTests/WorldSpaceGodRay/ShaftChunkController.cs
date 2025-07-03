@@ -4,6 +4,10 @@ using Godot;
 
 public partial class ShaftChunkController : Area3D
 {
+	[ExportGroup("Mandatory Node References")]
+	[Export] CollisionShape3D _collisionShape { get; set; }
+	[Export] ShaftMultiMeshController _shaftMultiMesh { get; set; }
+
 	[ExportGroup("Chunk Settings")]
 	[Export] bool _isChunkActive { get; set; } = true;
 	[Export] bool _useRandomSpread { get; set; } = true;
@@ -12,13 +16,42 @@ public partial class ShaftChunkController : Area3D
 	[Export] float _chunkDensity { get; set; } = 50.0f;
 	[Export] float _minimumSpacing { get; set; } = 1.5f; // Minimum distance between instances
 
-	[ExportGroup("Node References")]
-	[Export] CollisionShape3D _collisionShape { get; set; }
-	[Export] ShaftMultiMeshController _shaftMultiMesh { get; set; }
+	[ExportGroup("Shaft Generation")]
+	[Export] bool _isShaftMMActive { get; set; } = true;
+	[Export] Vector3 _intialScale { get; set; } = Vector3.One;
+
+	[Export(PropertyHint.Enum, "InstanceBased,NodeBased")] public int RotationType { get; set; } = 0;
+	[Export] float _instancesRotationZ { get; set; } = 0.0f;
+	[Export] float _nodeRotationZ { get; set; } = 0.0f;
+	[Export] private float _worldBoundMaxSize { get; set; } = 500.0f;
+
+	[ExportGroup("Raycast")]
+	[Export] bool _raycastEnabled { get; set; } = true;
+	[Export] bool _resizeShaftOnCollision { get; set; } = true;
+	[Export] private float _rayLenght { get; set; } = 80.0f;
+	[Export(PropertyHint.Layers3DRender)] public uint RaycastCollisionLayers { get; set; } = 1;
+
+	[ExportGroup("Debugging")]
+	[Export] private bool _showDebugSpheres { get; set; } = false;
+	[Export] SphereDebugVisualizer _debuggerSphere { get; set; }
+	[Export] private bool _showOnlyColliders { get; set; } = true;
 
 	public override void _Ready()
 	{
-		Log.Debug($"{this.Name} Ready");
+		if (_collisionShape == null || _shaftMultiMesh == null)
+		{
+			try
+			{
+				_collisionShape = GetNode<CollisionShape3D>("CollisionShape3D");
+				_shaftMultiMesh = GetNode<ShaftMultiMeshController>("ShaftMultiMeshController");
+			}
+			catch (System.Exception exception)
+			{
+
+				Log.Error($"ShaftChunkController error: Missing references for CollisionShape3D and {nameof(ShaftMultiMeshController)} : {exception.Message}");
+				return;
+			}
+		}
 
 		var bounds = ((BoxShape3D)_collisionShape.Shape).Size;
 
@@ -26,9 +59,54 @@ public partial class ShaftChunkController : Area3D
 			? GenerateRandomPositions(bounds)
 			: GenerateGridPositions(bounds);
 
+		SetupMultiMeshController();
 		_shaftMultiMesh.SpawnInstances(spawnPositions);
 	}
 
+	private void SetupMultiMeshController()
+	{
+
+		_shaftMultiMesh.IsShaftMMActive = _isShaftMMActive;
+		_shaftMultiMesh.InitialScale = _intialScale;
+		_shaftMultiMesh.WorldBoundMaxSize = _worldBoundMaxSize;
+		_shaftMultiMesh.RaycastEnabled = _raycastEnabled;
+		_shaftMultiMesh.ResizeShaftOnCollision = _resizeShaftOnCollision;
+		_shaftMultiMesh.RayLenght = _rayLenght;
+		_shaftMultiMesh.RaycastCollisionLayers = RaycastCollisionLayers;
+		_shaftMultiMesh.ShowDebugSpheres = _showDebugSpheres;
+		_shaftMultiMesh.DebuggerSphere = _debuggerSphere;
+		_shaftMultiMesh.ShowOnlyColliders = _showOnlyColliders;
+
+		switch (RotationType)
+		{
+			case 0:
+				_shaftMultiMesh.InstancesRotationZ = _instancesRotationZ;
+				break;
+			case 1:
+				_shaftMultiMesh.RotateZ(Mathf.DegToRad(_nodeRotationZ));
+				_shaftMultiMesh.InstancesRotationZ = 0.0f;
+				break;
+
+			default:
+				break;
+		}
+	}
+
+	public void ActivateChunk()
+	{
+		Visible = true;
+		SetProcess(true);
+		Log.Debug($"Activated chunk: {Name}");
+		// Future: trigger shader fade-in
+	}
+
+	public void DeactivateChunk()
+	{
+		Visible = false;
+		SetProcess(false);
+		Log.Debug($"Deactivated chunk: {Name}");
+		// Future: trigger shader fade-out
+	}
 	private List<Vector3> GenerateGridPositions(Vector3 bounds)
 	{
 		Log.Debug("GenerateGridPositions started");

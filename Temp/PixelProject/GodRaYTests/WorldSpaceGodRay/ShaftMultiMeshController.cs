@@ -7,27 +7,21 @@ using Godot;
 // [Tool]
 public partial class ShaftMultiMeshController : MultiMeshInstance3D
 {
-	[ExportGroup("Shaft Generation")]
-	[Export] Vector3 _intialScale { get; set; } = Vector3.One;
-	[Export] float _rotationZ { get; set; } = 0.0f;
-	[Export] private float _worldBoundMaxSize { get; set; } = 500.0f;
+	public bool IsShaftMMActive { get; set; } = false;
+	public Vector3 InitialScale { get; set; } = Vector3.One;
+	public float InstancesRotationZ { get; set; } = 0.0f;
+	public float WorldBoundMaxSize { get; set; } = 500.0f;
 
-	[ExportGroup("Raycast")]
-	[Export] bool _raycastEnabled { get; set; } = true;
-	[Export] bool _resizeShaftOnCollision { get; set; } = true;
-	[Export] private float _rayLenght { get; set; } = 80.0f;
-	[Export(PropertyHint.Layers3DRender)] public uint RaycastCollisionLayers { get; set; } = 1;
-	[ExportGroup("Debugging")]
-	[Export] private bool _showDebugSpheres { get; set; } = false;
-	[Export] SphereDebugVisualizer _debugger { get; set; }
-	[Export] private bool _showOnlyColliders { get; set; } = true;
-
-
+	public bool RaycastEnabled { get; set; } = true;
+	public bool ResizeShaftOnCollision { get; set; } = true;
+	public float RayLenght { get; set; } = 80.0f;
+	public uint RaycastCollisionLayers { get; set; } = 1;
+	public bool ShowDebugSpheres { get; set; } = false;
+	public SphereDebugVisualizer DebuggerSphere { get; set; }
+	public bool ShowOnlyColliders { get; set; } = true;
 	private List<InstanceCollider> _instanceList { get; set; } = new(); //int=IntanceID /--/ InstanceCollider=InstanaceInfo
 	private bool _hasCollidersMissing = true;
-
 	MultiMesh _multiMesh;
-
 
 	public override void _Ready()
 	{
@@ -47,7 +41,7 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 	public override void _Process(double delta)
 	{
 		// if (!_runInEditor) return;
-		if (!_hasCollidersMissing || _multiMesh == null) return;
+		if (!_hasCollidersMissing || _multiMesh == null || !IsShaftMMActive) return;
 		SetInstancesCollision();
 	}
 
@@ -81,11 +75,11 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 			CreateDebugSphere(centerGlobalWorldPos, Colors.Green, DebugType.MID_POINT_SPHERE);// World position center 	//DEBUG - TEST ONLY
 
 			//Setup transform and pass it to the MultiMesh for each instance
-			float newRotation = Mathf.DegToRad(_rotationZ);
+			float newRotation = Mathf.DegToRad(InstancesRotationZ);
 			Basis newBasis = new Basis(Vector3.One, newRotation); //Apply Rotation
-			newBasis.Column0 *= _intialScale.X; //Scale just the X axis 
-			newBasis.Column1 *= _intialScale.Y; //Scale just the Y axis
-			newBasis.Column2 *= _intialScale.Z; //Scale just the Z axis
+			newBasis.Column0 *= InitialScale.X; //Scale just the X axis 
+			newBasis.Column1 *= InitialScale.Y; //Scale just the Y axis
+			newBasis.Column2 *= InitialScale.Z; //Scale just the Z axis
 
 			Multimesh.SetInstanceTransform(i, new Transform3D(newBasis, newLocalPos));
 			// Log.Debug($"Instance {i} set to GlobalPos {centerGlobalWorldPos}, LocalPos {newLocalPos}");
@@ -100,8 +94,8 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 
 		//Define world bounds (used for packing/unpacking vectors to be sent to shader)
-		Vector3 minWorld = new Vector3(-_worldBoundMaxSize, -_worldBoundMaxSize, -_worldBoundMaxSize);
-		Vector3 maxWorld = new Vector3(_worldBoundMaxSize, _worldBoundMaxSize, _worldBoundMaxSize);
+		Vector3 minWorld = new Vector3(-WorldBoundMaxSize, -WorldBoundMaxSize, -WorldBoundMaxSize);
+		Vector3 maxWorld = new Vector3(WorldBoundMaxSize, WorldBoundMaxSize, WorldBoundMaxSize);
 
 
 		//Loop our InstanceList and Send the RayCast for Collision from their World Position Center
@@ -138,7 +132,7 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 				CreateDebugSphere(startPoint, Colors.Blue, DebugType.START_POINT_SPHERE); //DEBUG - TEST ONLY
 
-				if (_resizeShaftOnCollision) ResizeInstance(i, colliderPos, _instanceList[i].GlobalPosition, startPoint, meshCurrentHeight);
+				if (ResizeShaftOnCollision) ResizeInstance(i, colliderPos, _instanceList[i].GlobalPosition, startPoint, meshCurrentHeight);
 
 			}
 			else //Has not collided yet. Need to send a RayCast
@@ -149,7 +143,7 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 
 
-				if (_raycastEnabled) SendRaycast(i, centerGlobalWorldPos, -this.Transform.Basis.Y);
+				if (RaycastEnabled) SendRaycast(i, centerGlobalWorldPos, -this.Transform.Basis.Y);
 			}
 		}
 
@@ -165,7 +159,7 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 		//Create a Raycast and check if it hits anything
 		var spaceState = GetWorld3D().DirectSpaceState;
-		var raycastEndPoint = raycastStart + _raycastDirection * _rayLenght;
+		var raycastEndPoint = raycastStart + _raycastDirection * RayLenght;
 		var query = PhysicsRayQueryParameters3D.Create(raycastStart, raycastEndPoint);
 		query.CollideWithAreas = false;
 		query.CollideWithBodies = true;
@@ -210,7 +204,7 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 		Vector3 newLocalPos = this.ToLocal(newGlobalPos); //Gets the LocalPos representation of the newGlobalPos
 
 		// Retrieve the current basis and current rotation from the instance and adjust the scale
-		float newRotation = Mathf.DegToRad(_rotationZ);
+		float newRotation = Mathf.DegToRad(InstancesRotationZ);
 		Basis newBasis = new Basis(Vector3.One, newRotation);
 		newBasis.Column1 *= newHeight;
 
@@ -225,9 +219,9 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 	private void CreateDebugSphere(Vector3 position, Color color, DebugType type)
 	{
-		if (!_showDebugSpheres || _debugger == null) return;
-		if (_showOnlyColliders && type != DebugType.COLLIDER_SPHERE) return;
-		_debugger.AddPoint(position, color);
+		if (!ShowDebugSpheres || DebuggerSphere == null) return;
+		if (ShowOnlyColliders && type != DebugType.COLLIDER_SPHERE) return;
+		DebuggerSphere.AddPoint(position, color);
 		// var mesh = new SphereMesh();
 		// mesh.Radius = 0.5f;
 		// var material = new StandardMaterial3D();
@@ -246,8 +240,8 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 	private void CleanAllDebugSpheres()
 	{
-		if (!_showDebugSpheres || _debugger == null) return;
-		_debugger.ClearAll();
+		if (!ShowDebugSpheres || DebuggerSphere == null) return;
+		DebuggerSphere.ClearAll();
 
 		// foreach (DebugSphere sphere in GetChildren())
 		// {

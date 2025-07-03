@@ -2,8 +2,8 @@
 
 [ext_resource type="Shader" uid="uid://bh6mj2l6w8vci" path="res://planar_reflection_base.gdshader" id="1_cepju"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_4dgxo"]
-viewport_path = NodePath("SubViewport/PlanarReflectorOrtho/@SubViewport@158248")
+[sub_resource type="ViewportTexture" id="ViewportTexture_6hkn2"]
+viewport_path = NodePath("SubViewport/WaterSRROption2/PlanarReflectorCPP/@SubViewport@23238")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_psr7x"]
 seed = 10
@@ -37,7 +37,7 @@ shader_parameter/albedo = Color(0.196078, 0.647059, 0.776471, 1)
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 0.5
 shader_parameter/specular = 0.5
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_4dgxo")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_6hkn2")
 shader_parameter/reflection_strength = 0.25
 shader_parameter/proximity_fade_distance = 0.3
 shader_parameter/is_orthogonal_camera = false

@@ -29,7 +29,7 @@ uniform bool enable_distributed_sampling = true;
 uniform bool use_custom_data_position = true;
 
 //uniform float sampling_offset_x : hint_range(-20.0, 20.0) = 0.0; // Offset sample point in X
-//uniform float sampling_offset_y : hint_range(-20.0, 20.0) = 0.0; // Offset sample point in Y  
+//uniform float sampling_offset_y : hint_range(-20.0, 20.0) = 0.0; // Offset sample point in Y
 //uniform float sampling_offset_z : hint_range(-20.0, 20.0) = 0.0; // Offset sample point in Z
 uniform vec3 sampling_offset= vec3(.0,.0,.0); // Offset sample point in Z
 uniform bool hide_entire_ray_on_shadow = true; // Hide entire ray if ANY shadow detected
@@ -70,16 +70,16 @@ float rand (vec2 uv) {
 }
 
 void vertex() {
-	
+
 	//These are going to be used for Randomization of NoiseValue and GradientTexture
 	world_position_rand = NODE_POSITION_WORLD * vec3(1.05, 1.14, 1.33) * 10.0;
 	position_seed_rand = fract(world_position_rand.x + world_position_rand.y + world_position_rand.z); // Get a value between 0 and 1.0f
-	
+
     UV = UV * uv1_scale + uv1_offset;
-    
+
     // Calculate world position of this vertex // Could also just use NODE_POSITION_WORLD
     world_position = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-    
+
     if (enable_distributed_sampling) {
         // Calculate a strategic sample position
         object_center = MODEL_MATRIX[3].xyz;
@@ -87,30 +87,30 @@ void vertex() {
         // You can experiment with different sampling strategies:
         // Option 1: Fixed offset from center
         sample_position = object_center + offset;
-        
+
         // Option 2: Use vertex position with offset (distributed across ray)
         //sample_position = world_position + offset;
-        
+
         // Option 3: Sample at edges of the ray object
         // vec3 to_vertex = world_position - object_center;
         // sample_position = object_center + normalize(to_vertex) * length(offset);
-        
+
     } else {
         // Use vertex position directly
         sample_position = world_position;
     }
-	
+
 	if(use_custom_data_position)
 	{
-		//Option 1: Fixed world position 
+		//Option 1: Fixed world position
 		vec3 packed_position = INSTANCE_CUSTOM.rgb;
 		sample_position_custom_data = mix(min_world_bounds, max_world_bounds, packed_position);
-		
+
 		////Option 2: Fixed offset from object center
 		//vec3 offset = sample_position_custom_data;
 		//sample_position_custom_data = object_center + offset;
 	}
-	
+
 }
 
 vec4 select_gradient_texture(vec2 uv) {
@@ -138,14 +138,14 @@ void fragment() {
 		gradient_seed_rand = position_seed_rand * 0.4; //Limits to 0.4 (as we will use 4 gradients)
 	}
 	vec4 final_gradient = select_gradient_texture(gradient_uv);   //vec4 final_gradient = texture(gradient, gradient_uv);
-  
+
     // Use Fresnel to fade the ray at sharp angles to the camera
     //float fresnel = pow(1.0 - dot(normalize(NORMAL), normalize(VIEW)), rim_power);
     float fresnel = rim_power;
-	
+
     // The base transparency from your noise and gradient textures
     float noise_alpha = noise_value.r * final_gradient.a * alpha;
-    
+
     // --- NEW FADEOUT CALCULATION ---
     float fade_uv = fade_from_bottom ? UV.y : 1.0 - UV.y;
     float fade_start = fadeout_start_point;
@@ -164,29 +164,29 @@ void fragment() {
 
     ROUGHNESS = 1.0;
     SPECULAR = 0.0;
-	
-    
+
+
     // Use our calculated sample position for shadow detection
 	if(use_custom_data_position)
 	{
 		LIGHT_VERTEX = (VIEW_MATRIX * vec4(sample_position_custom_data, 1.0)).xyz;
 	}
 	else
-	{	
+	{
 		LIGHT_VERTEX = (VIEW_MATRIX * vec4(sample_position, 1.0)).xyz;
 	}
-	 
-   
+
+
 }
 
 void light() {
     float NdotL = max(0.0, dot(NORMAL, LIGHT));
-    
+
     // Get shadow value at our sample position
     float shadow_sample = ATTENUATION;
-    
+
     float light_contribution = 0.0;
-    
+
     if (hide_entire_ray_on_shadow) {
         // SIMPLE STRATEGY: If ANY shadow detected, hide entire ray
         if (shadow_sample < shadow_detection_threshold) {
@@ -207,7 +207,7 @@ void light() {
             light_contribution = NdotL * brightness;
         }
     }
-	
+
     //Uncomment this light if you want to affect the pixel brightness based on receiving light
     //DIFFUSE_LIGHT += ALBEDO * light_contribution * LIGHT_COLOR;
 }

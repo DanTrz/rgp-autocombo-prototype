@@ -14,6 +14,12 @@ uniform float emission_energy : hint_range(0.0, 1.0) = 0.5;
 uniform vec2 uv1_scale = vec2(4.0, 0.1);
 uniform vec2 uv1_offset = vec2(0.0, 0.85);
 
+//global uniform bool shaft_is_activating_global;
+//global uniform bool shaft_is_deactivating_global;
+//global uniform float shaft_deactivating_alpha_global;
+//global uniform float shaft_activating_alpha_global;
+
+
 void vertex() {
 	// Rotate UVs to align U with world-space horizontal
 	float angle = -3.14159265 / 4.0; // -45 degrees
