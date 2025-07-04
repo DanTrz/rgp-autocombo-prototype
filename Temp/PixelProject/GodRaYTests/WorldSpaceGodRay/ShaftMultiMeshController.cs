@@ -62,25 +62,20 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 		Multimesh.UseColors = true;
 		Multimesh.InstanceCount = positions.Count;
 		Multimesh.VisibleInstanceCount = positions.Count;
-		// Multimesh.VisibleInstanceCount = _instanceCount;
-
 
 		_instanceList.Clear();
-
-		CleanAllDebugSpheres(); //DEBUG - TEST ONLY
+		CleanAllDebugSpheres();
 
 		for (int i = 0; i < positions.Count; i++)
 		{
 			Multimesh.SetInstanceColor(i, Colors.White);
 
-			// Vector3 newLocalPos = new Vector3((i * _initialPosition.X), _initialPosition.Y, _initialPosition.Z); //LocalPos
 			Vector3 newLocalPos = positions[i]; //Instance LocalPos
 			Vector3 centerGlobalWorldPos = this.GlobalTransform * newLocalPos; //Get World Position (Global Position)
-																			   //Vector3 centerGlobalWorldPos = chunkTransform.Xform(newLocalPos);
 
 			//Update Instance List for raycast logic
 			_instanceList.Add(new InstanceCollider(centerGlobalWorldPos, newLocalPos, false));
-			CreateDebugSphere(centerGlobalWorldPos, Colors.Green, DebugType.MID_POINT_SPHERE);// World position center 	//DEBUG - TEST ONLY
+			CreateDebugSphere(centerGlobalWorldPos, Colors.Green, DebugType.MID_POINT_SPHERE);// World position center 
 
 			//Setup transform and pass it to the MultiMesh for each instance
 			float newRotation = Mathf.DegToRad(InstancesRotationZ);
@@ -89,23 +84,16 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 			newBasis.Column1 *= InitialScale.Y; //Scale just the Y axis
 			newBasis.Column2 *= InitialScale.Z; //Scale just the Z axis
 
-
 			Multimesh.SetInstanceTransform(i, new Transform3D(newBasis, newLocalPos));
-
-
 			// Log.Debug($"Instance {i} set to GlobalPos {centerGlobalWorldPos}, LocalPos {newLocalPos}");
 		}
 
 	}
 
-	public void UpdateInstancesAlpha(float cameraDistance)
+	public void UpdateInstanceColors(float cameraDistance)
 	{
-		//Max = ActivationRangeMax
-		//Min = ActivationRangeMin
 		//Lerp between Colors.White and Colors.Black based on cameraDistance and ActivationRangeMax and ActivationRangeMin.
-		//The max Alpha needs to be ActivationRangeMax / ActivationRangeMin - So we have our peak ALPHA at the middle.
-		//The min Alpha needs to be when cameraDistance is = ActivationRangeMax or ActivationRangeMin.
-
+		//THis creates a fade-in and fade-out effect
 		float min = ActivationRangeMin;
 		float max = ActivationRangeMax;
 		float mid = (min + max) * 0.5f;
@@ -113,44 +101,12 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 		// Triangle distribution: 0 → 1 → 0
 		float weight = 1.0f - Mathf.Abs((cameraDistance - mid) / (mid - min));
 		weight = Mathf.Clamp(weight, 0f, 1f);
-
 		Color fadeColor = Colors.Black.Lerp(Colors.White, weight);
-		// if (GetParent().Name == "ShaftChunkController")
-		// {
-		// 	Log.Debug($"{GetParent().Name} NewColor: {fadeColor}- distance: {cameraDistance}");
-		// }
 		for (int i = 0; i < _multiMesh.InstanceCount; i++)
 		{
 			_multiMesh.SetInstanceColor(i, fadeColor);
-			// Log.Debug($"Instance {i} set to Color {newColor} - distance: {cameraDistance}");
 		}
-
-		// Color _color = cameraDistance switch
-		// {
-		// 	> 90.0f => new Color(0.2f, 0.2f, 0.2f),
-		// 	> 80.0f => new Color(0.4f, 0.4f, 0.4f),
-		// 	> 70.0f => new Color(0.6f, 0.6f, 0.6f),
-		// 	> 60.0f => new Color(0.85f, 0.85f, 0.85f),
-		// 	> 50.0f => Colors.White,
-		// 	> 40.0f => new Color(0.8f, 0.8f, 0.8f),
-		// 	> 30.0f => new Color(0.6f, 0.6f, 0.6f),
-		// 	> 20.0f => new Color(0.4f, 0.4f, 0.4f),
-		// 	> 10.0f => new Color(0.2f, 0.2f, 0.2f),
-
-		// 	_ => Colors.Black
-		// };
-
-		// if (GetParent().Name == "ShaftChunkController")
-		// {
-		// 	Log.Debug($"{GetParent().Name} NewColor: {_color} - distance: {cameraDistance}");
-		// }
-		// for (int i = 0; i < Multimesh.InstanceCount; i++)
-		// {
-		// 	Multimesh.SetInstanceColor(i, _color);
-		// }
-
 	}
-
 
 	private void SetInstancesCollision()
 	{
@@ -258,11 +214,8 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 	private void ResizeInstance(int instanceIndex, Vector3 colliderGlobalPos, Vector3 instanceGlobalPos, Vector3 instanceStartPoint, float instanceHeight)
 	{
-		// Log.Debug($"Resizing => ID: {instanceIndex}, ColliderPos: {colliderGlobalPos}, GlobalPos: {instanceGlobalPos}, InitHeight: {instanceHeight}");
-
 		float newHeight = instanceStartPoint.DistanceTo(colliderGlobalPos);
 		Vector3 newGlobalPos = (instanceStartPoint + colliderGlobalPos) / 2.0f;
-		//Vector3 midPoint /this.GlobalTransform  = this.GlobalTransform * newLocalPos; //Convert to World Position (Global Position)
 
 		//Set this as new Instance Transform
 		Transform3D currentInstaTrans = _multiMesh.GetInstanceTransform(instanceIndex);
@@ -274,8 +227,6 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 		float newRotation = Mathf.DegToRad(InstancesRotationZ);
 		Basis newBasis = new Basis(Vector3.One, newRotation);
 		newBasis.Column1 *= newHeight;
-
-		// Log.Debug($"ID {instanceIndex} => New_H: {newHeight} Prev_H: {instanceHeight}");
 
 		Multimesh.SetInstanceTransform(instanceIndex, new Transform3D(newBasis, newLocalPos));
 		CreateDebugSphere(newGlobalPos, Colors.Black, DebugType.MID_POINT_SPHERE); //DEBUG - TEST ONLY
@@ -345,29 +296,3 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 	}
 }
-
-
-// 	for (int i = 0; i<Multimesh.InstanceCount; i++)
-// 	{
-// 		Vector3 newLocalPos = new Vector3((i * _position.X), _position.Y, _position.Z); //Seems an offset from parent
-// Vector3 centerGlobalWorldPos = this.GlobalTransform * newLocalPos; //Actual World Position (Global Position)
-
-// _instanceList[i] = new InstanceCollider(centerGlobalWorldPos, false);
-
-// //SET COLLIDER POSITION
-// Vector3 colliderPos = await GetColliderPosition(centerGlobalWorldPos, new Vector3(0, -1, 0));
-// Vector3 normalizedColliderPos = new Vector3(
-// 	Mathf.InverseLerp(minWorld.X, maxWorld.X, colliderPos.X),
-// 	Mathf.InverseLerp(minWorld.Y, maxWorld.Y, colliderPos.Y),
-// 	Mathf.InverseLerp(minWorld.Z, maxWorld.Z, colliderPos.Z)
-// );
-
-
-// Multimesh.SetInstanceCustomData(i, new Color(normalizedColliderPos.X, normalizedColliderPos.Y, normalizedColliderPos.Z, 1));
-// 		// Multimesh.SetInstanceCustomData(i, new Color(normalizedOffsetPos.X, normalizedOffsetPos.Y, normalizedOffsetPos.Z, 1));
-
-// 		CreateDebugCircle(centerGlobalWorldPos, Colors.Green);// World position center
-// CreateDebugCircle(colliderPos, Colors.Red);// Fake collider position (this will be replaced by the RayCast collider data)
-// 										   // CreateDebugCircle(offset, Colors.Yellow);
-
-// Multimesh.SetInstanceCustomData(i, new Color(normalizedColliderPos.X, normalizedColliderPos.Y, normalizedColliderPos.Z, 1));

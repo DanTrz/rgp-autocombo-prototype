@@ -38,9 +38,6 @@ public partial class ShaftChunkController : Area3D
 
 	public float DistanceToCamera { get; set; }
 
-
-
-
 	public override void _Ready()
 	{
 		if (_collisionShape == null || _shaftMultiMesh == null)
@@ -100,8 +97,12 @@ public partial class ShaftChunkController : Area3D
 	public void ActivateChunk()
 	{
 		Visible = true;
-		SetProcess(true);
 		_isChunkActive = true;
+		SetProcess(true);
+
+		_shaftMultiMesh.SetProcess(true);
+		_shaftMultiMesh.IsShaftMMActive = true;
+
 		Log.Debug($"Activated chunk: {Name}");
 		// Future: trigger shader fade-in
 	}
@@ -109,8 +110,12 @@ public partial class ShaftChunkController : Area3D
 	public void DeactivateChunk()
 	{
 		Visible = false;
-		SetProcess(false);
 		_isChunkActive = false;
+		SetProcess(false);
+
+		_shaftMultiMesh.SetProcess(false);
+		_shaftMultiMesh.IsShaftMMActive = false;
+
 		Log.Debug($"Deactivated chunk: {Name}");
 		// Future: trigger shader fade-out
 	}
