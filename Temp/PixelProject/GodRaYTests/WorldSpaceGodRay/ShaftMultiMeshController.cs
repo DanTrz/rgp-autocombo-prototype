@@ -80,7 +80,7 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 			//Setup transform and pass it to the MultiMesh for each instance
 			float newRotation = Mathf.DegToRad(InstancesRotationZ);
-			Basis newBasis = new Basis(Vector3.One, newRotation); //Apply Rotation
+			Basis newBasis = new Basis(new Vector3(0, 0, 1), newRotation); //Rotation on Z only
 			newBasis.Column0 *= InitialScale.X; //Scale just the X axis 
 			newBasis.Column1 *= InitialScale.Y; //Scale just the Y axis
 			newBasis.Column2 *= InitialScale.Z; //Scale just the Z axis
@@ -234,7 +234,7 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 		// Retrieve the current basis and current rotation from the instance and adjust the scale
 		float newRotation = Mathf.DegToRad(InstancesRotationZ);
-		Basis newBasis = new Basis(Vector3.One, newRotation);
+		Basis newBasis = new Basis(new Vector3(0, 0, 1), newRotation); //Rotation on Z only
 		newBasis.Column1 *= newHeight;
 
 		Multimesh.SetInstanceTransform(instanceIndex, new Transform3D(newBasis, newLocalPos));

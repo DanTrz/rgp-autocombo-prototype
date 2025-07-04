@@ -159,7 +159,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.24503)
 _collisionShape = NodePath("CollisionShape3D")
 _chunkDensity = 5.0
 _minimumSpacing = 1.0
-RotationType = 1
 _instancesRotationZ = -20.0
 _nodeRotationZ = -20.0
 _showDebugSpheres = true
@@ -173,7 +172,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20.9754)
 _collisionShape = NodePath("CollisionShape3D")
 _chunkDensity = 5.0
 _minimumSpacing = 0.5
-RotationType = 1
 _instancesRotationZ = -20.0
 _nodeRotationZ = -20.0
 
@@ -186,7 +184,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -41.2393)
 _collisionShape = NodePath("CollisionShape3D")
 _chunkDensity = 5.0
 _minimumSpacing = 0.5
-RotationType = 1
 _instancesRotationZ = -20.0
 _nodeRotationZ = -20.0
 
@@ -199,7 +196,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.11922, 0, -62.9749)
 _collisionShape = NodePath("CollisionShape3D")
 _chunkDensity = 5.0
 _minimumSpacing = 0.5
-RotationType = 1
 _instancesRotationZ = -20.0
 _nodeRotationZ = -20.0
 
