@@ -39,7 +39,7 @@ subdivide_depth = 10
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gb41b"]
 resource_local_to_scene = true
-size = Vector3(150, 1, 72.7593)
+size = Vector3(65.2732, 1, 16.926)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gb41b"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -148,40 +148,61 @@ mesh = SubResource("QuadMesh_uir4v")
 skeleton = NodePath("")
 
 [node name="ShaftChunksActivator" type="Node3D" parent="." node_paths=PackedStringArray("_chunksArray", "_mainCamera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 55, 0)
 script = ExtResource("3_1bdby")
-_chunksArray = [NodePath("ShaftChunkController"), NodePath("ShaftChunkController2"), NodePath("ShaftChunkController3")]
+_chunksArray = [NodePath("ShaftChunkController"), NodePath("ShaftChunkController2"), NodePath("ShaftChunkController3"), NodePath("ShaftChunkController4")]
 _mainCamera = NodePath("../SubViewport/CameraRigYaw/Camera3D")
-ActivationRange = 250.0
-DeactivationRange = 75.0
+ActivationRange = Vector2(40, 100)
 
 [node name="ShaftChunkController" parent="ShaftChunksActivator" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_gb41b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.19059, 164.267, 11.9712)
 _collisionShape = NodePath("CollisionShape3D")
+_chunkDensity = 5.0
+_minimumSpacing = 0.5
 RotationType = 1
+_instancesRotationZ = -20.0
 _nodeRotationZ = -20.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksActivator/ShaftChunkController"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0836, 0, -29.4281)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.1215, 0, 0.885517)
 shape = SubResource("BoxShape3D_gb41b")
 
 [node name="ShaftChunkController2" parent="ShaftChunksActivator" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_gb41b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.19059, 164.267, -56.244)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20.9754)
 _collisionShape = NodePath("CollisionShape3D")
+_chunkDensity = 5.0
+_minimumSpacing = 0.5
 RotationType = 1
+_instancesRotationZ = -20.0
 _nodeRotationZ = -20.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksActivator/ShaftChunkController2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0836, 0, -43.0485)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.8265, 0, 0.885517)
 shape = SubResource("BoxShape3D_gb41b")
 
 [node name="ShaftChunkController3" parent="ShaftChunksActivator" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_gb41b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.19059, 164.267, -141.939)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -41.2393)
 _collisionShape = NodePath("CollisionShape3D")
+_chunkDensity = 5.0
+_minimumSpacing = 0.5
 RotationType = 1
+_instancesRotationZ = -20.0
 _nodeRotationZ = -20.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksActivator/ShaftChunkController3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0836, 0, -43.0485)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.8265, 0, 0.885517)
+shape = SubResource("BoxShape3D_gb41b")
+
+[node name="ShaftChunkController4" parent="ShaftChunksActivator" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_gb41b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.11922, 0, -62.9749)
+_collisionShape = NodePath("CollisionShape3D")
+_chunkDensity = 5.0
+_minimumSpacing = 0.5
+RotationType = 1
+_instancesRotationZ = -20.0
+_nodeRotationZ = -20.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksActivator/ShaftChunkController4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.8265, 0, 0.885517)
 shape = SubResource("BoxShape3D_gb41b")
 
 [node name="SubViewport" type="SubViewport" parent="."]
@@ -197,7 +218,7 @@ transform = Transform3D(0.762499, 0.100508, 0.639135, -0.6193, 0.399287, 0.67604
 shadow_enabled = true
 
 [node name="CameraRigYaw" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100.703, 166.367)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 70)
 script = ExtResource("1_yp6g0")
 RotationPivotPoint = NodePath("WorldCentralPivot")
 MainCamera = NodePath("Camera3D")
@@ -205,7 +226,7 @@ MainCamera = NodePath("Camera3D")
 [node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw"]
 unique_name_in_owner = true
 physics_interpolation_mode = 2
-transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 16.2949, 0)
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0, 0)
 projection = 1
 current = true
 fov = 30.8
@@ -315,6 +336,26 @@ transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, 
 use_collision = true
 height = 20.0
 
+[node name="CSGCylinder3D53" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -14.1482, 5.03225, -5.01018)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D54" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -16.2192, 5.03225, -0.473145)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D55" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -14.8906, 5.03225, -8.07047)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D56" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -19.3136, 5.03225, -13.5714)
+use_collision = true
+height = 20.0
+
 [node name="CSGCylinder3D13" type="CSGCylinder3D" parent="SubViewport/Objects"]
 transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -19.9127, 5.03225, 2.47559)
 use_collision = true
@@ -342,6 +383,16 @@ height = 20.0
 
 [node name="CSGCylinder3D18" type="CSGCylinder3D" parent="SubViewport/Objects"]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -26.1395, 5.03225, -14.6908)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D51" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -20.9259, 5.03225, -21.7562)
+use_collision = true
+height = 20.0
+
+[node name="CSGCylinder3D52" type="CSGCylinder3D" parent="SubViewport/Objects"]
+transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -17.238, 5.03225, -10.4102)
 use_collision = true
 height = 20.0
 

@@ -9,9 +9,8 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 {
 	public bool IsShaftMMActive { get; set; } = false;
 	public Vector3 InitialScale { get; set; } = Vector3.One;
-	public float InstancesRotationZ { get; set; } = 0.0f;
 	public float WorldBoundMaxSize { get; set; } = 500.0f;
-
+	public float InstancesRotationZ { get; set; } = 0.0f;
 	public bool RaycastEnabled { get; set; } = true;
 	public bool ResizeShaftOnCollision { get; set; } = true;
 	public float RayLenght { get; set; } = 80.0f;
@@ -21,6 +20,9 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 	public bool ShowOnlyColliders { get; set; } = true;
 	private List<InstanceCollider> _instanceList { get; set; } = new(); //int=IntanceID /--/ InstanceCollider=InstanaceInfo
 	private bool _hasCollidersMissing = true;
+	public float ActivationRangeMax { get; set; } = 100.0f;
+	public float ActivationRangeMin { get; set; } = 50.0f;
+
 	MultiMesh _multiMesh;
 
 	public override void _Ready()
@@ -31,6 +33,8 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 			Log.Error($"Error: MultiMesh is null: {_multiMesh}");
 			return;
 		}
+
+
 
 		// if (!_runInEditor) return;
 		//PopulateGrid(_gridSize, GetGridCellSize(_gridSize));
@@ -55,6 +59,7 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 		//Setup the MultiMesh
 		Multimesh.UseCustomData = true;
+		Multimesh.UseColors = true;
 		Multimesh.InstanceCount = positions.Count;
 		Multimesh.VisibleInstanceCount = positions.Count;
 		// Multimesh.VisibleInstanceCount = _instanceCount;
@@ -66,9 +71,12 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 		for (int i = 0; i < positions.Count; i++)
 		{
+			Multimesh.SetInstanceColor(i, Colors.White);
+
 			// Vector3 newLocalPos = new Vector3((i * _initialPosition.X), _initialPosition.Y, _initialPosition.Z); //LocalPos
 			Vector3 newLocalPos = positions[i]; //Instance LocalPos
 			Vector3 centerGlobalWorldPos = this.GlobalTransform * newLocalPos; //Get World Position (Global Position)
+																			   //Vector3 centerGlobalWorldPos = chunkTransform.Xform(newLocalPos);
 
 			//Update Instance List for raycast logic
 			_instanceList.Add(new InstanceCollider(centerGlobalWorldPos, newLocalPos, false));
@@ -81,11 +89,68 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 			newBasis.Column1 *= InitialScale.Y; //Scale just the Y axis
 			newBasis.Column2 *= InitialScale.Z; //Scale just the Z axis
 
+
 			Multimesh.SetInstanceTransform(i, new Transform3D(newBasis, newLocalPos));
+
+
 			// Log.Debug($"Instance {i} set to GlobalPos {centerGlobalWorldPos}, LocalPos {newLocalPos}");
 		}
 
 	}
+
+	public void UpdateInstancesAlpha(float cameraDistance)
+	{
+		//Max = ActivationRangeMax
+		//Min = ActivationRangeMin
+		//Lerp between Colors.White and Colors.Black based on cameraDistance and ActivationRangeMax and ActivationRangeMin.
+		//The max Alpha needs to be ActivationRangeMax / ActivationRangeMin - So we have our peak ALPHA at the middle.
+		//The min Alpha needs to be when cameraDistance is = ActivationRangeMax or ActivationRangeMin.
+
+		float min = ActivationRangeMin;
+		float max = ActivationRangeMax;
+		float mid = (min + max) * 0.5f;
+
+		// Triangle distribution: 0 → 1 → 0
+		float weight = 1.0f - Mathf.Abs((cameraDistance - mid) / (mid - min));
+		weight = Mathf.Clamp(weight, 0f, 1f);
+
+		Color fadeColor = Colors.Black.Lerp(Colors.White, weight);
+		// if (GetParent().Name == "ShaftChunkController")
+		// {
+		// 	Log.Debug($"{GetParent().Name} NewColor: {fadeColor}- distance: {cameraDistance}");
+		// }
+		for (int i = 0; i < _multiMesh.InstanceCount; i++)
+		{
+			_multiMesh.SetInstanceColor(i, fadeColor);
+			// Log.Debug($"Instance {i} set to Color {newColor} - distance: {cameraDistance}");
+		}
+
+		// Color _color = cameraDistance switch
+		// {
+		// 	> 90.0f => new Color(0.2f, 0.2f, 0.2f),
+		// 	> 80.0f => new Color(0.4f, 0.4f, 0.4f),
+		// 	> 70.0f => new Color(0.6f, 0.6f, 0.6f),
+		// 	> 60.0f => new Color(0.85f, 0.85f, 0.85f),
+		// 	> 50.0f => Colors.White,
+		// 	> 40.0f => new Color(0.8f, 0.8f, 0.8f),
+		// 	> 30.0f => new Color(0.6f, 0.6f, 0.6f),
+		// 	> 20.0f => new Color(0.4f, 0.4f, 0.4f),
+		// 	> 10.0f => new Color(0.2f, 0.2f, 0.2f),
+
+		// 	_ => Colors.Black
+		// };
+
+		// if (GetParent().Name == "ShaftChunkController")
+		// {
+		// 	Log.Debug($"{GetParent().Name} NewColor: {_color} - distance: {cameraDistance}");
+		// }
+		// for (int i = 0; i < Multimesh.InstanceCount; i++)
+		// {
+		// 	Multimesh.SetInstanceColor(i, _color);
+		// }
+
+	}
+
 
 	private void SetInstancesCollision()
 	{
@@ -151,6 +216,8 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 		_hasCollidersMissing = _instanceList.Any(instance => !instance.PassedCustomData);
 	}
 
+	//TODO: We are using this Nodes GlobalTransform to get the Raycast direction. This will break if we change the logic to InstanceBased rotations
+	//BUG: Raycast and collision not going in riht direction when rotation is "per instance"
 	private void SendRaycast(int instanceIndex, Vector3 raycastStart, Vector3 _raycastDirection)
 	{
 		if (_instanceList[instanceIndex].HasCollided) return;
@@ -222,19 +289,6 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 		if (!ShowDebugSpheres || DebuggerSphere == null) return;
 		if (ShowOnlyColliders && type != DebugType.COLLIDER_SPHERE) return;
 		DebuggerSphere.AddPoint(position, color);
-		// var mesh = new SphereMesh();
-		// mesh.Radius = 0.5f;
-		// var material = new StandardMaterial3D();
-		// material.AlbedoColor = color;
-		// var sphere = new DebugSphere();
-		// sphere.Mesh = mesh;
-		// sphere.MaterialOverride = material;
-		// AddChild(sphere);
-		// mesh.Radius = 0.25f;
-		// mesh.Height = 0.5f;
-		// sphere.CastShadow = 0; //SHADOW_CASTING_SETTING_OFF = 0
-		// sphere.GlobalPosition = position;
-		// // Log.Debug($"DebugSphere: {sphere.GlobalPosition}, Color {color.ToString()}");
 
 	}
 

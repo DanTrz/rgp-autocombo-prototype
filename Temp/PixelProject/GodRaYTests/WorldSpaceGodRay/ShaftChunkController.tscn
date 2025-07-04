@@ -6,7 +6,9 @@
 [ext_resource type="Script" uid="uid://c8v7mtdswx3q1" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/SphereDebugVisualizer.cs" id="4_oql6p"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_1v7uf"]
+resource_local_to_scene = true
 transform_format = 1
+use_colors = true
 use_custom_data = true
 mesh = ExtResource("2_76bab")
 
@@ -22,14 +24,14 @@ radial_segments = 32
 rings = 16
 
 [sub_resource type="MultiMesh" id="MultiMesh_lfdt2"]
+resource_local_to_scene = true
 transform_format = 1
 use_colors = true
 use_custom_data = true
 mesh = SubResource("SphereMesh_1bdby")
 
-[node name="ShaftChunkController" type="Area3D" node_paths=PackedStringArray("_collisionShape", "_shaftMultiMesh", "_debuggerSphere")]
+[node name="ShaftChunkController" type="Area3D" node_paths=PackedStringArray("_shaftMultiMesh", "_debuggerSphere")]
 script = ExtResource("1_y0kfh")
-_collisionShape = NodePath("")
 _shaftMultiMesh = NodePath("ShaftMultiMeshController")
 _chunkDensity = 3.0
 _minimumSpacing = 2.0
@@ -37,7 +39,6 @@ _rayLenght = 250.0
 _debuggerSphere = NodePath("ShaftMultiMeshController/SphereDebugVisualizer")
 
 [node name="ShaftMultiMeshController" type="MultiMeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 cast_shadow = 0
 multimesh = SubResource("MultiMesh_1v7uf")
 script = ExtResource("3_73t7l")

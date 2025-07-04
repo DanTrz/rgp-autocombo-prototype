@@ -4,7 +4,10 @@ render_mode blend_add, depth_draw_opaque, cull_back, diffuse_toon, specular_toon
 
 // Uniforms for controlling the look of the rays
 group_uniforms CoreSetup;
-uniform vec4 ray_color : source_color = vec4(1.0, 1.0, 0.8, 1.0);
+uniform vec4 albedo_color : source_color = vec4(1.0, 1.0, 0.8, 1.0);
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+
+
 uniform float brightness : hint_range(0.0, 5.0) = 1.0;
 uniform float alpha : hint_range(0.0, 1.0) = 0.5;
 // Where the fade begins (0.0 = bottom, 1.0 = top of the mesh)
@@ -59,7 +62,7 @@ varying vec3 object_center;
 varying vec3 world_position_rand;
 varying float position_seed_rand;
 varying float gradient_seed_rand;
-
+varying float custom_data_alpha;
 
 
 
@@ -71,6 +74,7 @@ float rand (vec2 uv) {
 
 void vertex() {
 
+	custom_data_alpha = INSTANCE_CUSTOM.a;
 	//These are going to be used for Randomization of NoiseValue and GradientTexture
 	world_position_rand = NODE_POSITION_WORLD * vec3(1.05, 1.14, 1.33) * 10.0;
 	position_seed_rand = fract(world_position_rand.x + world_position_rand.y + world_position_rand.z); // Get a value between 0 and 1.0f
@@ -122,6 +126,7 @@ vec4 select_gradient_texture(vec2 uv) {
 
 void fragment() {
     // --- Calculate the visual texture and transparency of the ray ---
+	vec2 base_uv = UV;
     vec2 moving_noise_uv = UV + vec2(TIME * speed * 0.1, 0.0);
     vec4 noise_value = texture(noise_texture, moving_noise_uv);
     vec2 noise_offset = vec2(noise_value.r * noise_movement, 0.0);
@@ -144,7 +149,10 @@ void fragment() {
     float fresnel = rim_power;
 
     // The base transparency from your noise and gradient textures
-    float noise_alpha = noise_value.r * final_gradient.a * alpha;
+
+    float noise_alpha = noise_value.r * final_gradient.a * alpha; //custom_data_alpha
+    //float noise_alpha = noise_value.r * final_gradient.a * custom_data_alpha;
+
 
     // --- NEW FADEOUT CALCULATION ---
     float fade_uv = fade_from_bottom ? UV.y : 1.0 - UV.y;
@@ -152,16 +160,22 @@ void fragment() {
     float fade_end = fade_start + fadeout_length;
     float fadeout_multiplier = smoothstep(fade_start, fade_end, fade_uv);
 
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
     // --- DEFINE THE MATERIAL'S PROPERTIES ---
-    ALBEDO = ray_color.rgb * final_gradient.rgb; // I've also multiplied by the gradient color here for more visual variety
-    EMISSION = vec3(0.0);
+
+    albedo_tex *= COLOR;
+	//vec4 fake_color = vec4(0.0);
+    //albedo_tex *= fake_color * COLOR;
+
+	ALBEDO = albedo_color.rgb * final_gradient.rgb * albedo_tex.rgb; // I've also multiplied by the gradient color here for more visual variety
+	//ALBEDO = albedo_color.rgb * final_gradient.rgb; // I've also multiplied by the gradient color here for more visual variety
+	EMISSION = vec3(0.0);
 
     // --- MODIFIED ALPHA CALCULATION ---
     // We take the original alpha and multiply it by our new fadeout_multiplier.
     // If the pixel is outside the fade area, the multiplier is 1.0, having no effect.
     // If it's inside the fade area, the multiplier will be between 0.0 and 1.0, causing it to fade.
     ALPHA = clamp(fresnel * noise_alpha * fadeout_multiplier, 0.0, 1.0);
-
     ROUGHNESS = 1.0;
     SPECULAR = 0.0;
 

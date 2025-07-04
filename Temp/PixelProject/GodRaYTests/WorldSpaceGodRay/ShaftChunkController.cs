@@ -5,8 +5,8 @@ using Godot;
 public partial class ShaftChunkController : Area3D
 {
 	[ExportGroup("Mandatory Node References")]
-	[Export] CollisionShape3D _collisionShape { get; set; }
-	[Export] ShaftMultiMeshController _shaftMultiMesh { get; set; }
+	[Export] public CollisionShape3D _collisionShape { get; set; }
+	[Export] public ShaftMultiMeshController _shaftMultiMesh { get; set; }
 
 	[ExportGroup("Chunk Settings")]
 	[Export] bool _isChunkActive { get; set; } = true;
@@ -35,6 +35,11 @@ public partial class ShaftChunkController : Area3D
 	[Export] private bool _showDebugSpheres { get; set; } = false;
 	[Export] SphereDebugVisualizer _debuggerSphere { get; set; }
 	[Export] private bool _showOnlyColliders { get; set; } = true;
+
+	public float DistanceToCamera { get; set; }
+
+
+
 
 	public override void _Ready()
 	{
@@ -96,6 +101,7 @@ public partial class ShaftChunkController : Area3D
 	{
 		Visible = true;
 		SetProcess(true);
+		_isChunkActive = true;
 		Log.Debug($"Activated chunk: {Name}");
 		// Future: trigger shader fade-in
 	}
@@ -104,6 +110,7 @@ public partial class ShaftChunkController : Area3D
 	{
 		Visible = false;
 		SetProcess(false);
+		_isChunkActive = false;
 		Log.Debug($"Deactivated chunk: {Name}");
 		// Future: trigger shader fade-out
 	}

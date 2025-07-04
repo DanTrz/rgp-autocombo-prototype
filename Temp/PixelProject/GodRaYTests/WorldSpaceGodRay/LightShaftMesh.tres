@@ -1,4 +1,4 @@
-[gd_resource type="CylinderMesh" load_steps=13 format=3 uid="uid://5owtsxpfxgp6"]
+[gd_resource type="CylinderMesh" load_steps=15 format=3 uid="uid://5owtsxpfxgp6"]
 
 [ext_resource type="Shader" uid="uid://b86s03n3u2mwn" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/godray_shadow_occlusion_offset_randomizer.gdshader" id="1_brkdl"]
 
@@ -40,13 +40,21 @@ colors = PackedColorArray(0.955782, 0.955782, 0.955782, 1, 1, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_bb7p3"]
 gradient = SubResource("Gradient_wwa6q")
 
+[sub_resource type="Gradient" id="Gradient_brkdl"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_plo4g"]
+gradient = SubResource("Gradient_brkdl")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nh8tu"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("1_brkdl")
-shader_parameter/ray_color = Color(0.999999, 0.998198, 0.734549, 1)
+shader_parameter/albedo_color = Color(1, 0.992157, 0.741176, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
 shader_parameter/brightness = 1.0
-shader_parameter/alpha = 0.5
+shader_parameter/alpha = 0.75
 shader_parameter/fadeout_start_point = 0.1
 shader_parameter/fadeout_length = 0.008
 shader_parameter/fade_from_bottom = false
