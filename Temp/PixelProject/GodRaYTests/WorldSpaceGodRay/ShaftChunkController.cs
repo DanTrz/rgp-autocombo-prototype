@@ -83,8 +83,10 @@ public partial class ShaftChunkController : Area3D
 		{
 			case 0:
 				_shaftMultiMesh.InstancesRotationZ = _instancesRotationZ;
+				_shaftMultiMesh.RotationType = RotationType;
 				break;
 			case 1:
+				_shaftMultiMesh.RotationType = RotationType;
 				_shaftMultiMesh.RotateZ(Mathf.DegToRad(_nodeRotationZ));
 				_shaftMultiMesh.InstancesRotationZ = 0.0f;
 				break;

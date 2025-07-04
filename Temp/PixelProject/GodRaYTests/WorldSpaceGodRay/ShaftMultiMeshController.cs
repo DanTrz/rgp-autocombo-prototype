@@ -10,6 +10,7 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 	public bool IsShaftMMActive { get; set; } = false;
 	public Vector3 InitialScale { get; set; } = Vector3.One;
 	public float WorldBoundMaxSize { get; set; } = 500.0f;
+	public int RotationType { get; set; } = 0;
 	public float InstancesRotationZ { get; set; } = 0.0f;
 	public bool RaycastEnabled { get; set; } = true;
 	public bool ResizeShaftOnCollision { get; set; } = true;
@@ -87,7 +88,6 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 			Multimesh.SetInstanceTransform(i, new Transform3D(newBasis, newLocalPos));
 			// Log.Debug($"Instance {i} set to GlobalPos {centerGlobalWorldPos}, LocalPos {newLocalPos}");
 		}
-
 	}
 
 	public void UpdateInstanceColors(float cameraDistance)
@@ -162,9 +162,18 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 				Vector3 centerGlobalWorldPos = _instanceList[i].GlobalPosition;
 				Vector3 centerLocalPos = _instanceList[i].LocalPosition;
 
-
-
-				if (RaycastEnabled) SendRaycast(i, centerGlobalWorldPos, -this.Transform.Basis.Y);
+				if (RaycastEnabled)
+				{
+					var rayDirection = -this.Transform.Basis.Y.Normalized();
+					if (RotationType == 0) //  "0=InstanceBased,1=NodeBased")]
+					{
+						//If rotation is based on "Instance Rotation" we apply the instance rotation to the raycast direction
+						Transform3D instTransform = _multiMesh.GetInstanceTransform(i);
+						Transform3D globalInst = this.GlobalTransform * instTransform;
+						rayDirection = -globalInst.Basis.Y.Normalized();
+					}
+					SendRaycast(i, centerGlobalWorldPos, rayDirection);
+				}
 			}
 		}
 

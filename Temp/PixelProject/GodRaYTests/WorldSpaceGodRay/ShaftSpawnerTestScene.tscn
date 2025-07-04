@@ -39,7 +39,7 @@ subdivide_depth = 10
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gb41b"]
 resource_local_to_scene = true
-size = Vector3(65.2732, 1, 16.926)
+size = Vector3(47.1003, 1, 16.926)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gb41b"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -155,15 +155,17 @@ _mainCamera = NodePath("../SubViewport/CameraRigYaw/Camera3D")
 ActivationRange = Vector2(40, 100)
 
 [node name="ShaftChunkController" parent="ShaftChunksActivator" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_gb41b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.24503)
 _collisionShape = NodePath("CollisionShape3D")
 _chunkDensity = 5.0
-_minimumSpacing = 0.5
+_minimumSpacing = 1.0
 RotationType = 1
 _instancesRotationZ = -20.0
 _nodeRotationZ = -20.0
+_showDebugSpheres = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksActivator/ShaftChunkController"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.1215, 0, 0.885517)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.035, 0, 0.885517)
 shape = SubResource("BoxShape3D_gb41b")
 
 [node name="ShaftChunkController2" parent="ShaftChunksActivator" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_gb41b")]
