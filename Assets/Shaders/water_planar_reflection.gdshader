@@ -1,111 +1,393 @@
-//##ENHANCED SHADER CODE##=> Enhanced PlanarReflector with Improved Depth Filtering <=####
 shader_type spatial;
-render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_toon,specular_toon;
+render_mode shadows_disabled;
 
-// System textures (don't need user modification)
-uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest_mipmap;
-uniform sampler2D depth_texture : hint_depth_texture, filter_nearest_mipmap;
+#define CAUSTICS
+#define FRESNEL
+#define PLAYER_WAVES
+#define DISPLACEMENT
 
-// Main surface properties
-group_uniforms Main;  //GROUP
-uniform vec4 albedo : source_color = vec4(1.0);
-uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
-uniform float metallic : hint_range(0.0, 1.0) = 0.0;
-uniform float roughness : hint_range(0.0, 1.0) = 0.5;
-uniform float specular : hint_range(0.0, 1.0) = 0.5;
+group_uniforms color;
+uniform vec3 absorption_color : source_color = vec3(1.0, 0.35, 0.0);
+#ifdef FRESNEL
+uniform float fresnel_radius : hint_range(0.0, 6.0, 0.01) = 2.0;
+uniform vec3 fresnel_color : source_color = vec3(0.0, 0.57, 0.72);
+#endif
+uniform float roughness : hint_range(0.0, 1.0, 0.01) = 0.15;
+uniform float specular : hint_range(0.0, 1.0, 0.01) = 0.25;
+// Depth adjustment
+uniform float depth_distance : hint_range(0.0, 50.0, 0.1) = 25.0;
+uniform float beers_law : hint_range(0.0, 20.0, 0.1) = 4.5;
 
-// Planar Reflection properties
-group_uniforms PlanarReflection; //GROUP
-uniform sampler2D reflection_screen_texture: source_color,filter_linear_mipmap,repeat_enable;
-uniform float reflection_strength: hint_range(0.0, 1.0) = 0.5;
-// Fade effects
-uniform float proximity_fade_distance;
-// Camera mode handling (set by script)
+#ifdef DISPLACEMENT
+group_uniforms displacement;
+uniform float displacement_strength : hint_range(0.0, 5.0, 0.1) = 0.3;
+uniform float displacement_scroll_speed : hint_range(0.0, 1.0, 0.001) = 0.1;
+uniform vec2 displacement_scroll_offset = vec2 (-0.2, 0.3);
+uniform float displacement_scale_offset = 0.5;
+uniform vec2 displacement_scale = vec2(0.04);
+uniform sampler2D displacement_texture : hint_default_black, repeat_enable;
+#endif
+
+group_uniforms edge;
+uniform float edge_thickness : hint_range(0.0, 1.0, 0.001) = 0.3;
+uniform float edge_speed : hint_range(0.0, 1.0, 0.001) = 0.35;
+uniform vec2 edge_noise_scale = vec2(0.4);
+uniform sampler2D edge_noise : repeat_enable;
+uniform sampler2D edge_ramp : repeat_disable;
+
+#ifdef PLAYER_WAVES
+group_uniforms player;
+uniform float influence_size : hint_range(0.0, 4.0, 0.1) = 1.0;
+uniform float player_wave_frequenzy : hint_range(0.0, 20.0, 0.1) = 10.0;
+uniform float player_wave_speed : hint_range(0.0, 10.0, 0.1) = 5.0;
+#endif
+
+#ifdef CAUSTICS
+group_uniforms caustics;
+uniform float caustic_size : hint_range(0.0, 8.0, 0.01) = 2.0;
+uniform float caustic_range : hint_range(0.0, 256.0, 0.1) = 40.0;
+uniform float caustic_strength : hint_range(0.0, 1.0, 0.01) = 0.08;
+uniform float caustic_world_scale : hint_range(0.1, 10.0, 0.1) = 1.0; // NEW: Control caustic detail
+#endif
+
+group_uniforms normal_map;
+uniform float refraction_strength : hint_range(0.0, 4.0, 0.01) = 1.25;
+uniform float normal_map_strength : hint_range(0.0, 4.0, 0.01) = 1.0;
+uniform float scroll_speed : hint_range(0.0, 1.0, 0.01) = 0.3;
+uniform vec2 scroll_offset = vec2(0.1, -0.3);
+uniform float scale_offset = 0.5;
+uniform vec2 normal_map_scale = vec2(0.1);
+uniform sampler2D normal_map : hint_normal, filter_linear_mipmap;
+
+// PLANAR REFLECTION UNIFORMS - Added from Shader 2
+group_uniforms planar_reflection;
+uniform sampler2D reflection_screen_texture : source_color, filter_linear_mipmap, repeat_enable;
+uniform float reflection_strength : hint_range(0.0, 1.0) = 0.5;
 uniform bool is_orthogonal_camera = false;
 uniform float ortho_uv_scale : hint_range(0.1, 3.0) = 1.0;
 
-// Normal mapping and distortion
-uniform sampler2D texture_normal : source_color,filter_linear_mipmap,repeat_enable;
-uniform sampler2D texture_normal2: source_color,filter_linear_mipmap,repeat_enable;
-uniform float normal_scale : hint_range(0.0, 2.0) = 1.0;
-uniform float normal_uv_mult : hint_range(0.1, 10.0) = 1.0;
-uniform float distortion_strength : hint_range(0.0, 0.5) = 0.1;
+// ORTHOGONAL CAMERA FIXES
+group_uniforms orthogonal_fixes;
+uniform float ortho_depth_scale : hint_range(0.1, 10.0, 0.1) = 1.0; // Adjust depth perception
+uniform float ortho_caustic_boost : hint_range(0.5, 5.0, 0.1) = 2.0; // Boost caustic visibility
+uniform float ortho_edge_compensation : hint_range(0.5, 2.0, 0.1) = 1.0; // Edge detection adjustment
+uniform float reflection_distortion_scale : hint_range(0.0, 2.0, 0.01) = 1.0; // Control reflection distortion intensity
 
-// UV transformation
-uniform vec3 uv1_scale = vec3(1.0, 1.0, 1.0);
-uniform vec3 uv1_offset = vec3(0.0, 0.0, 0.0);
+// Hidden Uniforms
+uniform float wind_intensity; // Global shader parameter between 0.0 and 1.0
+uniform vec3 wind_direction;
+#ifdef PLAYER_WAVES
+uniform vec3 player_position;
+#endif
+uniform sampler2D screen_texture: hint_screen_texture, filter_linear_mipmap, repeat_disable;
+uniform sampler2D depth_texture: hint_depth_texture, filter_linear_mipmap, repeat_disable;
 
-// Refraction (optional - only if you use it)
-uniform sampler2D texture_refraction : filter_linear_mipmap,repeat_enable;
-uniform float refraction : hint_range(-1.0, 1.0) = 0.0;
-uniform vec4 refraction_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+varying vec3 global_position;
+varying vec3 view_position;
+varying float camera_distance_factor;
+varying float vertex_displacement_amount;
 
-// Varying variables for advanced calculations
-varying vec3 world_position;
-varying vec3 world_normal;
-varying float vertex_displacement;
-
-void vertex() {
-	UV = UV * uv1_scale.xy + uv1_offset.xy;
-	world_position = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	world_normal = (MODEL_MATRIX * vec4(NORMAL, 0.0)).xyz;
-	vertex_displacement = 0.0;
+#ifdef CAUSTICS
+// Permutation polynomial hash credit Stefan Gustavson
+vec4 permute(vec4 t) {
+    return t * (t * 34.0 + 133.0);
 }
 
+// Gradient set is a normalized expanded rhombic dodecahedron
+vec3 grad(float hash) {
+
+    // Random vertex of a cube, +/- 1 each
+    vec3 cube = mod(floor(hash / vec3(1.0, 2.0, 4.0)), 2.0) * 2.0 - 1.0;
+
+    // Random edge of the three edges connected to that vertex
+    // Also a cuboctahedral vertex
+    // And corresponds to the face of its dual, the rhombic dodecahedron
+    vec3 cuboct = cube;
+    cuboct[int(hash / 16.0)] = 0.0;
+
+    // In a funky way, pick one of the four points on the rhombic face
+    float type = mod(floor(hash / 8.0), 2.0);
+    vec3 rhomb = (1.0 - type) * cube + type * (cuboct + cross(cube, cuboct));
+
+    // Expand it so that the new edges are the same length
+    // as the existing ones
+    vec3 grad = fma(cuboct, vec3(1.22474487139), rhomb);
+
+    // To make all gradients the same length, we only need to shorten the
+    // second type of vector. We also put in the whole noise scale constant.
+    // The compiler should reduce it into the existing floats. I think.
+    grad *= fma(-0.042942436724648037, type, 1.0) * 3.5946317686139184;
+
+    return grad;
+}
+
+// BCC lattice split up into 2 cube lattices
+vec4 os2NoiseWithDerivativesPart(vec3 X) {
+    vec3 b = floor(X);
+    vec4 i4 = vec4(X - b, 2.5);
+
+    // Pick between each pair of oppposite corners in the cube.
+    vec3 v1 = b + floor(dot(i4, vec4(.25)));
+    vec3 v2 = b + vec3(1, 0, 0) + vec3(-1, 1, 1) * floor(dot(i4, vec4(-.25, .25, .25, .35)));
+    vec3 v3 = b + vec3(0, 1, 0) + vec3(1, -1, 1) * floor(dot(i4, vec4(.25, -.25, .25, .35)));
+    vec3 v4 = b + vec3(0, 0, 1) + vec3(1, 1, -1) * floor(dot(i4, vec4(.25, .25, -.25, .35)));
+
+    // Gradient hashes for the four vertices in this half-lattice.
+    vec4 hashes = permute(mod(vec4(v1.x, v2.x, v3.x, v4.x), 289.0));
+    hashes = permute(mod(hashes + vec4(v1.y, v2.y, v3.y, v4.y), 289.0));
+    hashes = mod(permute(mod(hashes + vec4(v1.z, v2.z, v3.z, v4.z), 289.0)), 48.0);
+
+    // Gradient extrapolations & kernel function
+    vec3 d1 = X - v1; vec3 d2 = X - v2; vec3 d3 = X - v3; vec3 d4 = X - v4;
+    vec4 a = max(0.75 - vec4(dot(d1, d1), dot(d2, d2), dot(d3, d3), dot(d4, d4)), 0.0);
+    vec4 aa = a * a; vec4 aaaa = aa * aa;
+    vec3 g1 = grad(hashes.x); vec3 g2 = grad(hashes.y);
+    vec3 g3 = grad(hashes.z); vec3 g4 = grad(hashes.w);
+    vec4 extrapolations = vec4(dot(d1, g1), dot(d2, g2), dot(d3, g3), dot(d4, g4));
+
+    // Derivatives of the noise
+    vec4 derivative = -8.0 * mat4(vec4(d1,0.), vec4(d2,0.), vec4(d3,0.), vec4(d4,0.)) * (aa * a * extrapolations)
+        + mat4(vec4(g1, 0.), vec4(g2, 0.), vec4(g3, 0.), vec4(g4, 0.)) * aaaa;
+
+    // Return it all as a vec4
+    return vec4(derivative.xyz, dot(aaaa, extrapolations));
+}
+
+// Rotates domain, but preserve shape. Hides grid better in cardinal slices.
+// Good for texturing 3D objects with lots of flat parts along cardinal planes.
+vec4 os2NoiseWithDerivatives_Fallback(vec3 X) {
+    X = dot(X, vec3(2.0/3.0)) - X;
+
+    vec4 result = os2NoiseWithDerivativesPart(X) + os2NoiseWithDerivativesPart(X + 144.5);
+
+    return vec4(dot(result.xyz, vec3(2.0/3.0)) - result.xyz, result.w);
+}
+#endif
+
+#ifdef FRESNEL
+float fresnel(vec3 normal, vec3 view) {
+	return pow((1.0 - clamp(dot(normalize(normal), normalize(view)), 0.0, 1.0 )), fresnel_radius);
+}
+#endif
+
+
+vec2 refract_uv(inout vec2 uv, vec3 normal, float depth){
+	float strength1 = refraction_strength * depth;
+	uv += fma(strength1, length(normal), strength1 * -1.2);
+	return uv;
+}
+
+bool in_bounds(vec2 uv) {
+	vec2 fruv = abs(floor(uv));
+	return fruv.x + fruv.y < 0.1;
+}
+
+
+void vertex() {
+	global_position = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	view_position = (VIEW_MATRIX * vec4(global_position, 1.0)).xyz;
+	
+	// Calculate a distance factor for orthogonal camera compensation
+	// Use world space distance instead of view space for consistency
+	vec3 camera_world_pos = (INV_VIEW_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+	float world_distance = length(global_position - camera_world_pos);
+	// Normalize to a reasonable range (adjust these values based on your scene scale)
+	camera_distance_factor = clamp(world_distance / 100.0, 0.1, 1.0);
+
+	#ifdef DISPLACEMENT
+	float time = TIME * displacement_scroll_speed * fma(wind_intensity, 0.7, 0.3);
+	float displace1 = texture(displacement_texture, fma(global_position.xz, displacement_scale, time * -wind_direction.xz)).r;
+	float displace2 = texture(displacement_texture, fma(global_position.xz, displacement_scale * displacement_scale_offset, time * (-wind_direction.xz + displacement_scroll_offset))).r;
+	float displacement_mixed = mix(displace1, displace2, 0.4);
+	float offset = fma(displacement_mixed, 2.0, -1.0) * displacement_strength;
+	VERTEX.y += offset;
+	global_position.y += offset;
+	vertex_displacement_amount = offset; // Store for fragment shader
+	#else
+	vertex_displacement_amount = 0.0;
+	#endif
+}
+
+
 void fragment() {
-	vec2 base_uv = UV;
-	// Enhanced normal sampling with perturbation support
-	vec2 normal_uv1 = vec2(base_uv.x - TIME*0.002, base_uv.y - TIME*0.002) * normal_uv_mult;
-	vec2 normal_uv2 = vec2(base_uv.x + TIME*0.00025, base_uv.y + TIME*0.0005) * normal_uv_mult;
-	vec3 NORMAL_MAP1 = texture(texture_normal, normal_uv1).rgb;
-	vec3 NORMAL_MAP2 = texture(texture_normal2, normal_uv2).rgb;
-	vec4 albedo_tex = texture(texture_albedo, base_uv);
-	// Enhanced distortion calculation with perturb scale
-	vec2 distortion = distortion_strength * NORMAL_MAP1.rr - distortion_strength * NORMAL_MAP1.gg;
-	vec2 clip_offset = vec2(0.0);
-	// Adjust distortion based on camera mode
+	vec3 opposing_color = vec3(1.0) - absorption_color.rgb;
+	vec3 normalized_wind_direction = normalize(wind_direction);
+	float wind_intens_factor = fma(wind_intensity, 0.7, 0.3);
+	#ifdef FRESNEL
+	float fresnel_value = fresnel(NORMAL, VIEW);
+	#endif
+
+	float time_factor = TIME * scroll_speed * wind_intens_factor;
+	vec3 n1 = textureLod(normal_map, fma(global_position.xz, normal_map_scale, time_factor * -normalized_wind_direction.xz), 2.0).xyz;
+	vec3 n2 = textureLod(normal_map, fma(global_position.xz, normal_map_scale * scale_offset, time_factor * 0.8 * (-normalized_wind_direction.xz + scroll_offset)), 2.0).xyz;
+	NORMAL_MAP = mix(n1, n2, 0.5);
+	NORMAL_MAP_DEPTH = normal_map_strength;
+
+	float depth_tex = texture(depth_texture, SCREEN_UV).r;
+
+	vec3 ndc = vec3(fma(SCREEN_UV, vec2(2.0), vec2(-1.0)), depth_tex);
+	vec4 world = INV_VIEW_MATRIX * INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
+	world.y /= world.w;
+	float vertey_y = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).y;
+	float relative_depth = vertey_y - world.y;
+	
+	// Apply orthogonal depth compensation
 	if (is_orthogonal_camera) {
-		distortion *= ortho_uv_scale;
+		relative_depth *= ortho_depth_scale;
 	}
-	vec2 warped_uv = SCREEN_UV + distortion;
-	// Handle UV mapping for orthogonal cameras
+
+	// Create Edge caused by other Objects
+	float edge_thickness_adjusted = edge_thickness;
 	if (is_orthogonal_camera) {
-		vec2 center = vec2(0.5, 0.5);
-		warped_uv = center + (warped_uv - center) * ortho_uv_scale;
+		edge_thickness_adjusted *= ortho_edge_compensation;
 	}
-	warped_uv = clamp(warped_uv, 0.0, 1.0);
-	// Sample reflection texture
-	vec4 reflection_tex = texture(reflection_screen_texture, warped_uv);
-	// Combine normal maps
-	vec3 combined_normal = mix(NORMAL_MAP1, NORMAL_MAP2, 0.5);
-	NORMAL_MAP = combined_normal;
-	NORMAL_MAP_DEPTH = normal_scale;
-	// Set base material properties
-	vec3 base_albedo = mix(reflection_tex.rgb, albedo_tex.rgb * albedo.rgb, reflection_strength);
-	ALBEDO = base_albedo;
-	METALLIC = metallic;
+	
+	float edge_blend = clamp(relative_depth / -edge_thickness_adjusted + 1.0, 0.0, 1.0);
+	vec2 edge_noise_uv = global_position.xz * edge_noise_scale * fma(normalized_wind_direction.xz, vec2(0.5), vec2(0.5));
+	edge_noise_uv = fma(-normalized_wind_direction.xz * TIME * edge_speed, vec2(wind_intens_factor), edge_noise_uv);
+	float edge_noise_sample = texture(edge_noise, edge_noise_uv).r;
+	float edge_mask = normalize( texture(edge_ramp, vec2(edge_noise_sample * fma(edge_blend, -1., 1.))).r);
+
+	// Create Ripples caused by player
+	float player_effect_mask = 0.0;
+	#ifdef PLAYER_WAVES
+	vec3 player_relative = vec3(global_position - player_position);
+	float player_height = smoothstep(1.0, 0.0, abs(player_relative.y));
+	float player_position_factor = smoothstep(influence_size, 0.0, length(player_relative.xz));
+	float player_waves = pow( fma( sin(fma(player_position_factor, player_wave_frequenzy, TIME * player_wave_speed)), 0.5, 0.5), 6.0);
+	float wave_distort = texture( edge_ramp, vec2( player_waves * (edge_noise_sample + 0.2) * player_position_factor * player_height)).x;
+	player_effect_mask = clamp(normalize( fma(wave_distort, -1.0, 0.4)), 0.0, 1.0);
+	#endif
+
+	// combine Edge Mask with Player Ripples
+	float ripple_mask = clamp( fma( edge_mask, edge_blend, player_effect_mask), 0.0, 1.0);
+
+	// PLANAR REFLECTION DISTORTION - Enhanced for moving water
+	vec2 distortion = vec2(0.0);
+	vec2 warped_uv = SCREEN_UV;
+	if (reflection_strength > 0.0) {
+		// Combine multiple distortion sources for realistic water reflection
+		vec3 combined_normal = mix(n1, n2, 0.5);
+		
+		// 1. Base normal map distortion
+		vec2 normal_distortion = (combined_normal.rg - vec2(0.5)) * 2.0;
+		
+		// 2. Add displacement influence (if enabled)
+		float displacement_influence = 0.0;
+		#ifdef DISPLACEMENT
+		// Use the vertex displacement amount to influence reflection
+		displacement_influence = vertex_displacement_amount * 0.5;
+		// Create pseudo-gradient based on world position
+		vec2 disp_gradient = vec2(
+			sin(global_position.x * 10.0 + TIME * 0.5) * displacement_influence,
+			cos(global_position.z * 10.0 + TIME * 0.7) * displacement_influence
+		);
+		normal_distortion += disp_gradient;
+		#endif
+		
+		// 3. Scale distortion based on settings
+		distortion = normal_distortion * normal_map_strength * 0.02 * reflection_distortion_scale;
+		
+		// 4. Apply refraction strength to reflection as well
+		distortion *= (1.0 + refraction_strength * 0.2);
+		
+		// 5. Add subtle time-based wobble for extra movement
+		vec2 time_wobble = vec2(
+			sin(TIME * 2.0 + global_position.x * 0.5), 
+			cos(TIME * 1.5 + global_position.z * 0.5)
+		) * 0.003 * reflection_distortion_scale;
+		distortion += time_wobble;
+		
+		// 6. Add ripple influence to reflection
+		if (ripple_mask > 0.0) {
+			distortion += vec2(ripple_mask * 0.01, ripple_mask * 0.01) * sin(TIME * 10.0);
+		}
+		
+		warped_uv = SCREEN_UV + distortion;
+		
+		// Handle orthogonal camera mode
+		if (is_orthogonal_camera) {
+			vec2 center = vec2(0.5);
+			warped_uv = center + (warped_uv - center) * ortho_uv_scale;
+		}
+		warped_uv = clamp(warped_uv, 0.0, 1.0);
+	}
+
+	// Calculate Fragment Depth
+	vec4 clip_pos = PROJECTION_MATRIX * vec4(VERTEX, 1.0);
+	clip_pos.xyz /= clip_pos.w;
+	DEPTH = clip_pos.z;
+	// Refract UV
+	vec2 refracted_uv = SCREEN_UV;
+	refract_uv(refracted_uv, NORMAL_MAP, sqrt(DEPTH) * relative_depth);
+
+	vec3 screen;
+	float depth_blend;
+	float refracted_depth_tex = texture(depth_texture, refracted_uv).x;
+	ndc = vec3(fma(refracted_uv, vec2(2.0), vec2(-1.0)), refracted_depth_tex);
+	world = INV_VIEW_MATRIX * INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
+	world.xyz /= world.w;
+	float depth_test = vertey_y - world.y;
+
+	// Caustic Effects with orthogonal compensation
+	#ifdef CAUSTICS
+	// Use world position for consistent caustic calculation
+	float caustic_range_adjusted = caustic_range;
+	if (is_orthogonal_camera) {
+		// Use world Y position instead of view space
+		caustic_range_adjusted *= 2.0; // Increase range for orthogonal
+	}
+	
+	float range_mod = clamp((global_position.y + caustic_range_adjusted) * 0.05, 0.0, 1.0);
+	float caustic_value = 0.0;
+	
+	if (range_mod > 0.0) {
+		// Use world position for caustics to maintain consistency
+		vec3 X = vec3(global_position.xz * caustic_size * caustic_world_scale, mod(TIME, 578.0) * 0.8660254037844386);
+		vec4 noiseResult = os2NoiseWithDerivatives_Fallback(X);
+		noiseResult = os2NoiseWithDerivatives_Fallback(X - noiseResult.xyz / 16.0);
+		caustic_value = fma(noiseResult.w, 0.5, 0.5) * range_mod * range_mod;
+		
+		// Boost caustics for orthogonal camera
+		if (is_orthogonal_camera) {
+			caustic_value *= ortho_caustic_boost;
+		}
+	}
+	#endif
+
+	/*
+	Sometimes the Water Refraction would cause the sampling of a screen position that is either
+	outside the screen bounds or where another object is infront of the water.
+	Switching back to the unrefracted SCREEN_UV fixes that.
+	*/
+
+	if (depth_test > -0.0001 && in_bounds(refracted_uv)) {
+		screen = texture(screen_texture, refracted_uv).rgb * 0.9;
+		depth_blend = clamp(depth_test / depth_distance, 0.0, 1.0);
+		depth_blend = fma(exp(-depth_blend * beers_law), -1.0, 1.0);
+	} else {
+		screen = texture(screen_texture, SCREEN_UV).rgb * 0.9;
+		depth_blend = clamp(relative_depth / depth_distance, 0.0, 1.0);
+		depth_blend = fma(exp(-depth_blend * beers_law), -1.0, 1.0);
+	}
+
+	vec3 color = clamp(screen - absorption_color.rgb * depth_blend, vec3(0.0), vec3(1.0)); // Absorb Screen Color
+	color = mix(color, opposing_color, depth_blend*depth_blend); // Apply depth color
+	#ifdef FRESNEL
+	color = mix(color, fresnel_color, fresnel_value); // Apply fresnel color
+	#endif
+	#ifdef CAUSTICS
+	color = clamp(color + caustic_value * caustic_strength * (1.0 - depth_blend), vec3(0.0), vec3(1.0));
+	#endif
+	
+	// PLANAR REFLECTION INTEGRATION - Added from Shader 2
+	if (reflection_strength > 0.0) {
+		vec4 reflection_tex = texture(reflection_screen_texture, warped_uv);
+		color = mix(color, reflection_tex.rgb, reflection_strength * (1.0 - depth_blend));
+	}
+	
+	color = mix(color, vec3(0.98), ripple_mask); // Apply Ripples
+	ALBEDO = color;
 	ROUGHNESS = roughness;
 	SPECULAR = specular;
-	// Enhanced refraction with advanced features
-	if (refraction != 0.0) {
-		vec3 unpacked_normal = NORMAL_MAP * 2.0 - 1.0;
-		unpacked_normal.z = sqrt(max(0.0, 1.0 - dot(unpacked_normal.xy, unpacked_normal.xy)));
-
-		vec3 ref_normal = normalize(mix(NORMAL, TANGENT * unpacked_normal.x + BINORMAL * unpacked_normal.y + NORMAL * unpacked_normal.z, NORMAL_MAP_DEPTH));
-		vec4 refraction_tex = texture(texture_refraction, base_uv);
-		vec2 ref_ofs = SCREEN_UV - ref_normal.xy * dot(refraction_tex, refraction_texture_channel) * refraction;
-
-		float ref_amount = 1.0 - mix(reflection_tex.a, albedo.a * albedo_tex.a, reflection_strength);
-		EMISSION += textureLod(screen_texture, ref_ofs, ROUGHNESS * 8.0).rgb * ref_amount * EXPOSURE;
-		ALBEDO *= 1.0 - ref_amount;
-	}
-	ALPHA = 1.0;
-	// Enhanced proximity fade with foam consideration
-	if (proximity_fade_distance > 0.0) {
-		float depth_tex = textureLod(depth_texture, SCREEN_UV, 0.0).r;
-		vec4 world_pos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, depth_tex, 1.0);
-		world_pos.xyz /= world_pos.w;
-		float fade_factor = clamp(1.0 - smoothstep(world_pos.z + proximity_fade_distance, world_pos.z, VERTEX.z), 0.0, 1.0);
-		ALPHA *= fade_factor;
-	}
 }

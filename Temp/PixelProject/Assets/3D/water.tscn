@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://df4eyka0erqws"]
+[gd_scene load_steps=30 format=4 uid="uid://df4eyka0erqws"]
 
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="1_lgx2c"]
 [ext_resource type="Material" uid="uid://cr8yf6r3utjih" path="res://Temp/PixelProject/WaterSSRShader/water_mat.tres" id="1_s3kyq"]
@@ -33,6 +33,195 @@ material = SubResource("StandardMaterial3D_7nu6e")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mfl67"]
 albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ide7"]
+resource_name = "colormap"
+cull_mode = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_tbgg4"]
+_surfaces = [{
+"aabb": AABB(-0.25, 0, -0.25, 0.5, 1.1, 0.5),
+"format": 34896613377,
+"index_count": 192,
+"index_data": PackedByteArray("AAAUABUAAgAVABQAFAAWAAIADAAVAAIAFQAMAAAAFwACABYAAgAXAAwAGAAWABQAFAAAABgAFgAYABcAAAAMABkAFwAZAAwAAAABABgAFwAYAAEAGQAaAAAAAAAaAAEAFwAbABkAAQAbABcADQAaABkAAwAbAAEAGgAcAAEAAQAcAAMAGgANABwAGwADAB0AGwAdABkAHQADABwAGQAdAA0AHAANAB0ADgAeAB8AEAAfAB4AHgAgABAAEgAfABAAHwASAA4AIQAQACAAEAAhABIAIgAgAB4AHgAOACIAIAAiACEADgASACMAIQAjABIADgAkACIAIQAiACQAIwAlAA4ADgAlACQAIQARACMAJAARACEAJgAlACMAEwARACQAJQAPACQAJAAPABMAJQAmAA8AEQATACcAEQAnACMAJwATAA8AIwAnACYADwAmACcABAAFAAYABQAEAAcABgAIAAQABwAJAAUACgAIAAYACQAHAAoABgALAAoACgALAAkA"),
+"lods": [0.176587, PackedByteArray("AAABAAIAAQADAAIAAgAMAAAAAgADAAwAAAANAAEAAQANAAMADAANAAAADAADAA0ADgAPABAADwARABAAEAASAA4AEgAPAA4AEAARABIAEwARAA8AEQATABIAEgATAA8ABAAFAAYABQAEAAcABgAIAAQABwAJAAUACgAIAAYACQAHAAoABgALAAoACgALAAkA"), 0.377652, PackedByteArray("AAABAAIAAQADAAIAAgADAAAAAQAAAAMABAAFAAYABQAEAAcABgAIAAQABwAJAAUACgAIAAYACQAHAAoABgALAAoACgALAAkA")],
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 40,
+"vertex_data": PackedByteArray("Zeb/////AACZGf//AAAAAP//c9GZGQAAAABz0ZkZAABmJnPRZiYAAFsviy5bLwAAo9CLLlsvAABmJnPRmNkAAJjZc9FmJgAAWy+LLqPQAACY2XPRmNkAAKPQiy6j0AAAZeZz0f//AAAAAP//ZeYAAGXmiy7//wAAAACLLpkZAAD//wAAmRkAAJkZAAAAAAAAZeYAAP//AAAAAAAAmRkAAP////9l5gAA//9z0WXmAAD/////mRkAAGXmc9EAAAAAZeb//wAAAACZGXPR//8AAJkZ/////wAAmRlz0QAAAAAAAP//mRkAAAAAc9Fl5gAA//+LLmXmAAD//wAAZeYAAP//iy6ZGQAAZeYAAAAAAABl5osuAAAAAJkZAAD//wAAmRmLLgAAAACZGYsu//8AAAAAiy5l5gAAAAAAAGXmAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_a8fnq"]
+resource_name = "column_column"
+_surfaces = [{
+"aabb": AABB(-0.25, 0, -0.25, 0.5, 1.1, 0.5),
+"attribute_data": PackedByteArray("/1cy0/9XMtP/V8vs/1fL7P83y+z/NzLT/zcy0/83y+z/NzLT/zfL7P83y+z/NzLT/zfL7P83MtP/NzLT/zfL7P83y+z/N8vs/zcy0/83MtP/V8vs/1cy0/9Xy+z/V8vs/1fL7P9XMtP/VzLT/1cy0/9XMtP/VzLT/1fL7P9Xy+z/V8vs/1fL7P9Xy+z/V8vs/1fL7P9Xy+z/VzLT/1fL7P9XMtP/VzLT/1fL7P9Xy+z/V8vs/1cy0/9Xy+z/V8vs/1fL7P9Xy+z/V8vs/1fL7P9XMtP/V8vs/1fL7P9XMtP/VzLT/1cy0/9Xy+z/V8vs/1cy0/9XMtP/VzLT/1fL7P9Xy+z/VzLT/1fL7P9Xy+z/VzLT/1cy0/9XMtP/VzLT/1cy0/9XMtP/VzLT/1fL7P9XMtP/VzLT/1fL7P9XMtP/VzLT/1fL7P9Xy+z/VzLT/1cy0/9XMtP/VzLT/1cy0/9XMtP/VzLT/1cy0/9Xy+z/V8vs/1cy0/9XMtP/VzLT/1fL7P9XMtP/V8vs/1cy0/9XMtP/V8vs/1fL7P9XMtP/V8vs/1fL7P9Xy+z/V8vs/1fL7P9Xy+z/VzLT/1cy0w=="),
+"format": 34896613399,
+"index_count": 192,
+"index_data": PackedByteArray("AAAmACcAJwAUAAAAKAApACoAKgACACgAKwAsABUAFQAtACsAGAAuABYAFgAvABgALwAwABgALwAxADAAMQAyADAAMQAXADIAAwAzAAEAAQA0AAMANQA2ADcANwA4ADUAOQA6ADsAOwA8ADkAPQA+AD8APwBAAD0AQQBCAEMAQwBEAEEARQBGAEcARwAZAEUAGQAbAEUAGQBIABsASABJABsASAAaAEkAHABKAEsASwAfABwATABNAE4ATgAeAEwATwBQAFEAUQBSAE8AUwBUAFUAVQBWAFMAVgBXAFMAVgBYAFcAWABZAFcAWABaAFkAWwBcAF0AXQBeAFsAXwAgAGAAYABhAF8AYgAhAB0AHQBjAGIAZABlAGYAZgBnAGQAJABoACIAIgBpACQAaQBqACQAaQAjAGoAIwBrAGoAIwAlAGsAbABtAG4AbgBvAGwABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAA"),
+"lods": [0.176587, PackedByteArray("AAABAAIAAQADAAIAAgAUAAAAAQAVAAMAFAADABUAFAAVAAAAFgAXABgAGQAaABsAHAAdAB4AHgAfABwAHwAdABwAHQAgAB4AHwAhAB0AIQAgAB0AIgAjACQAIwAlACQABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAA"), 0.377652, PackedByteArray("AAABAAIAAQADAAIAAgADAAAAAQAAAAMABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAA")],
+"material": SubResource("StandardMaterial3D_7ide7"),
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 112,
+"vertex_data": PackedByteArray("Zeb//////4+ZGf//AAD/7///c9GZGf/PAABz0ZkZ/89mJnPRZib//1sviy5bL///o9CLLlsv//+Y2XPRZib//1sviy5bLwDAZiZz0WYmAMBmJnPRmNkAwFsviy6j0ADAmNlz0ZjZBIGj0Isuo9AEgVsviy6j0ASBZiZz0ZjZBIGY2XPRmNkAwJjZc9FmJgDAo9CLLlsvAMCj0Isuo9AAwGXmc9H///+PAAD//2Xm/6///3PRmRn/vwAAc9GZGf+/ZeZz0f///79l5v///////wAA//9l5v//mRn//wAA//9l5osu////jwAAiy6ZGf/P//8AAJkZ/89l5gAA////j5kZAAAAAP/vAAAAAJkZ/8///wAAmRn/v5kZAAAAAP+/ZeYAAP///78AAAAAmRn/v/////9l5v+v//9z0WXm/6//////mRn/z2Xm//8AAP/vZeZz0QAA/++ZGXPR////jwAAc9Fl5v+vmRn//////4///3PRZeb/v2Xmc9EAAP+/mRlz0f///7+ZGXPRAAD/vwAAc9Fl5v+/mRlz0QAA/+8AAP//mRn/zwAAc9Fl5v+vAABz0ZkZ/88AAP//mRn/zwAA//9l5v+vmRn//wAA/++ZGXPRAAD/72Xmc9EAAP/vZeb//wAA/+//////Zeb/r/////+ZGf/P//9z0ZkZ/8///3PRZeb/r2Xm//////+PZeZz0f///4+ZGXPR////j5kZ//////+PZeb//wAA////////mRn///////9l5v//mRn///////8AAP//mRn/////iy5l5v+v//8AAGXm/6///4sumRn/z2Xmiy4AAP/vZeYAAAAA/+///4suZeb/r///iy6ZGf/P//8AAJkZ/8///wAAZeb/r2Xmiy4AAP////+LLpkZ/////4suZeb//2Xmiy7/////mRmLLgAA//+ZGYsu/////wAAiy6ZGf//AACLLmXm//+ZGQAA////jwAAAABl5v+vAACLLmXm/6+ZGYsu////j5kZiy4AAP/vZeYAAAAA/+9l5osuAAD/7wAAAABl5v+vAACLLmXm/69l5osu////j2XmAAD///+PmRkAAP///4+ZGYsu////j///AABl5v+/ZeYAAAAA/7+ZGQAA////vwAAAABl5v+/AAAAAJkZ/8+ZGQAAAAD/75kZiy4AAP/vAACLLpkZ/8//fwAA/3////9/AAD/f///k4H//5OB//+Tgf//k4H//+B8b/7gfG/+4Hxv/uB8b/4AAP9/AAD/fwAA/38AAP9/b34fA29+HwNvfh8Db34fA/9/AAD/f///AAD/fwAA/38AAP9//3//v/9//7//f/+//38AAP9/////fwAA/38AAP9/////f///AAD/fwAA/38AAP9/AAD/f/9/AAD/fwAA/38AAP9/AAD/fwAA/3////9/////f///AAD/fwAA/38AAP9/AAD/fwAA/3//f////3////9/////f////3////9/////f////3////9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/3////9/////f/+//3//v/9//7//f/+//3//v/9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9//7//f/+//3//v/9//7//f/+//3//v/9//7//f/+//3////9/////f////3////9/////fwAA/38AAP9/////f////38AAP9/AAD/f////3///wAA/38AAP9/AAD/fwAA/3//f////3////9/////f///")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_tbgg4")
+
+[sub_resource type="Shader" id="Shader_2aes8"]
+code = "shader_type spatial;
+render_mode unshaded;
+
+// MIT License. Made by Leo Peltola
+// Inspired by https://threejs.org/examples/webgl_postprocessing_pixel.html
+
+uniform sampler2D DEPTH_TEXTURE : hint_depth_texture, filter_linear_mipmap;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+uniform sampler2D NORMAL_TEXTURE : hint_normal_roughness_texture, filter_nearest;
+
+uniform bool shadows_enabled = true;
+uniform bool highlights_enabled = true;
+uniform float shadow_strength : hint_range(0.0, 1.0, 0.01) = 0.7;
+uniform float highlight_strength : hint_range(0.0, 1.0, 0.01) = 0.5;
+uniform vec3 highlight_color : source_color = vec3(1.0);
+uniform vec3 shadow_color : source_color = vec3(0.0);
+
+varying mat4 model_view_matrix;
+
+
+float getDepth(vec2 screen_uv, sampler2D depth_texture, mat4 inv_projection_matrix){
+//	Credit: https://godotshaders.com/shader/depth-modulated-pixel-outline-in-screen-space/
+	float raw_depth = texture(depth_texture, screen_uv)[0];
+	vec3 normalized_device_coordinates = vec3(screen_uv * 2.0 - 1.0, raw_depth);
+    vec4 view_space = inv_projection_matrix * vec4(normalized_device_coordinates, 1.0);
+	view_space.xyz /= view_space.w;
+	return -view_space.z;
+}
+
+vec3 getPos(float depth, mat4 mvm, mat4 ipm, vec2 suv, mat4 wm, mat4 icm){
+  vec4 pos = inverse(mvm) * ipm * vec4((suv * 2.0 - 1.0), depth * 2.0 - 1.0, 1.0);
+  pos.xyz /= (pos.w+0.0001*(1.-abs(sign(pos.w))));
+  return (pos*icm).xyz+wm[3].xyz;
+}
+
+float normalIndicator(vec3 normalEdgeBias, vec3 baseNormal, vec3 newNormal, float depth_diff){
+	// Credit: https://threejs.org/examples/webgl_postprocessing_pixel.html
+	float normalDiff = dot(baseNormal - newNormal, normalEdgeBias);
+	float normalIndicator = clamp(smoothstep(-.01, .01, normalDiff), 0.0, 1.0);
+	float depthIndicator = clamp(sign(depth_diff * .25 + .0025), 0.0, 1.0);
+	return (1.0 - dot(baseNormal, newNormal)) * depthIndicator * normalIndicator;
+}
+
+void vertex(){
+    model_view_matrix = VIEW_MATRIX * mat4(INV_VIEW_MATRIX[0], INV_VIEW_MATRIX[1], INV_VIEW_MATRIX[2], MODEL_MATRIX[3]);
+}
+
+void fragment() {
+	vec2 e = vec2(1./VIEWPORT_SIZE.xy);
+
+//	Shadows
+	float depth_diff = 0.0;
+	float neg_depth_diff = .5;
+	if (shadows_enabled) {
+		float depth = getDepth(SCREEN_UV, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
+		float du = getDepth(SCREEN_UV+vec2(0., -1.)*e, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
+		float dr = getDepth(SCREEN_UV+vec2(1., 0.)*e, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
+		float dd = getDepth(SCREEN_UV+vec2(0., 1.)*e, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
+		float dl = getDepth(SCREEN_UV+vec2(-1., 0.)*e, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
+		depth_diff += clamp(du - depth, 0., 1.);
+		depth_diff += clamp(dd - depth, 0., 1.);
+		depth_diff += clamp(dr - depth, 0., 1.);
+		depth_diff += clamp(dl - depth, 0., 1.);
+		neg_depth_diff += depth - du;
+		neg_depth_diff += depth - dd;
+		neg_depth_diff += depth - dr;
+		neg_depth_diff += depth - dl;
+		neg_depth_diff = clamp(neg_depth_diff, 0., 1.);
+		neg_depth_diff = clamp(smoothstep(0.5, 0.5, neg_depth_diff)*10., 0., 1.);
+		depth_diff = smoothstep(0.2, 0.3, depth_diff);
+//		ALBEDO = vec3(neg_depth_diff);
+	}
+
+//	Highlights
+	float normal_diff = 0.;
+	if (highlights_enabled) {
+		vec3 normal = texture(NORMAL_TEXTURE, SCREEN_UV).rgb * 2.0 - 1.0;
+		vec3 nu = texture(NORMAL_TEXTURE, SCREEN_UV+vec2(0., -1.)*e).rgb * 2.0 - 1.0;
+		vec3 nr = texture(NORMAL_TEXTURE, SCREEN_UV+vec2(1., 0.)*e).rgb * 2.0 - 1.0;
+		vec3 nd = texture(NORMAL_TEXTURE, SCREEN_UV+vec2(0., 1.)*e).rgb * 2.0 - 1.0;
+		vec3 nl = texture(NORMAL_TEXTURE, SCREEN_UV+vec2(-1., 0.)*e).rgb * 2.0 - 1.0;
+		vec3 normal_edge_bias = (vec3(1., 1., 1.));
+		normal_diff += normalIndicator(normal_edge_bias, normal, nu, depth_diff);
+		normal_diff += normalIndicator(normal_edge_bias, normal, nr, depth_diff);
+		normal_diff += normalIndicator(normal_edge_bias, normal, nd, depth_diff);
+		normal_diff += normalIndicator(normal_edge_bias, normal, nl, depth_diff);
+		normal_diff = smoothstep(0.2, 0.8, normal_diff);
+		normal_diff = clamp(normal_diff-neg_depth_diff, 0., 1.);
+//		ALBEDO = vec3(normal_diff);
+	}
+
+
+	vec3 original_color = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
+	vec3 final_highlight_color = mix(original_color, highlight_color, highlight_strength);
+	vec3 final_shadow_color = mix(original_color, shadow_color, shadow_strength);
+	vec3 final = original_color;
+	if (highlights_enabled) {
+		final = mix(final, final_highlight_color, normal_diff);
+	}
+	if (shadows_enabled) {
+		final = mix(final, final_shadow_color, depth_diff);
+	}
+	ALBEDO = final;
+
+	float alpha_mask = depth_diff * float(shadows_enabled) + normal_diff * float(highlights_enabled);
+	ALPHA = clamp((alpha_mask) * 5., 0., 1.);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l2wlu"]
+render_priority = 0
+shader = SubResource("Shader_2aes8")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.8
+shader_parameter/highlight_strength = 0.8
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_elpo0"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_l2wlu")
+shader = ExtResource("7_elpo0")
+shader_parameter/albedo_color = Color(0.671874, 0.621973, 0.6066, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/Use_fake_ambient_light = true
+shader_parameter/fake_ambient_light = Color(0.516009, 0.465891, 0.450434, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_uv_scale = Vector2(0.1, 0.1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 1
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/billboard = false
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7nu6e"]
 shader = ExtResource("5_oal72")
@@ -144,12 +333,18 @@ handle_input_locally = false
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="Water" type="MeshInstance3D" parent="SubViewportMain"]
+[node name="OceanShaderWater" type="MeshInstance3D" parent="SubViewportMain"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 0.999999, 0, -0.999999, -4.37114e-08, 0, 0, 0)
 layers = 3
 mesh = SubResource("QuadMesh_uix6f")
 skeleton = NodePath("../../..")
 surface_material_override/0 = ExtResource("1_s3kyq")
+
+[node name="WaterFloor" type="MeshInstance3D" parent="SubViewportMain"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 0.999999, 0, -0.999999, -4.37114e-08, 0, -0.999552, 0)
+layers = 3
+mesh = SubResource("QuadMesh_uix6f")
+skeleton = NodePath("../../..")
 
 [node name="Objects" type="Node3D" parent="SubViewportMain"]
 transform = Transform3D(0.745822, 0.069073, -0.662555, 0.594207, -0.518565, 0.614823, -0.30111, -0.852243, -0.427801, 2.23352, 4.25721, 3.67148)
@@ -160,17 +355,23 @@ layers = 2
 size = Vector3(1, 3, 1)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="SubViewportMain/Objects"]
-transform = Transform3D(0.977745, 0.155711, 0.140607, 0.190255, -0.375589, -0.907048, -0.0884271, 0.913612, -0.396855, -1.13483, 3.03325, -1.90245)
+transform = Transform3D(0.977745, 0.155711, 0.140607, 0.190255, -0.375589, -0.907048, -0.088427, 0.913612, -0.396855, -1.6717, 3.50178, -2.45794)
 size = Vector3(1, 3, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportMain/Objects"]
 transform = Transform3D(0.968674, -0.228646, -0.0969102, 0.213088, 0.564882, 0.797184, -0.12753, -0.792862, 0.595909, -5.26339, 2.04469, 0.760215)
 mesh = SubResource("CylinderMesh_uix6f")
-skeleton = NodePath("../../Water")
+skeleton = NodePath("../../OceanShaderWater")
 surface_material_override/0 = SubResource("StandardMaterial3D_mfl67")
 
+[node name="column7" type="MeshInstance3D" parent="SubViewportMain/Objects"]
+transform = Transform3D(0.552027, -0.54498, -1.35586, 1.37844, 0.583586, 0.476778, 0.21257, -2.36906, 0.429352, 0.163355, 6.19322, 0.0442403)
+mesh = SubResource("ArrayMesh_a8fnq")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_elpo0")
+
 [node name="CameraRigYaw" type="Node3D" parent="SubViewportMain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.56398, 9.61048)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.94318, 12.5259)
 script = ExtResource("2_7nu6e")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportMain/CameraRigYaw"]

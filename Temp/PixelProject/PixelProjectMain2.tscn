@@ -14,11 +14,9 @@
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="9_lxxm7"]
 [ext_resource type="PackedScene" uid="uid://ceuqgja4ownk6" path="res://Temp/PixelProject/TreeMultiLeafGPUParticule.tscn" id="10_viqks"]
 [ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="11_am1ms"]
-[ext_resource type="Shader" uid="uid://cyevtlt7yjvyc" path="res://Temp/PixelProject/WaterSSRShader/waterSSR_reflection_goodVersion_fixedReflection.gdshader" id="12_da4iu"]
 [ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="12_sc0ui"]
 [ext_resource type="Material" uid="uid://cr8yf6r3utjih" path="res://Temp/PixelProject/WaterSSRShader/water_mat.tres" id="13_3dntl"]
 [ext_resource type="Material" uid="uid://x4ihf67reqen" path="res://BaseReflectionShaderMaterial.tres" id="14_lymdg"]
-[ext_resource type="Shader" uid="uid://deslforjqj7i4" path="res://Temp/PixelProject/WaterSSRShader/ocean.gdshader" id="14_ny6f7"]
 [ext_resource type="PackedScene" uid="uid://be8vp1ovkxhey" path="res://Temp/PixelProject/Assets/3D/MushRooms.tscn" id="15_0swlf"]
 [ext_resource type="Texture2D" uid="uid://h12x2inlbk5t" path="res://Temp/PixelProject/Assets/2D/Textures/Rocks_LIGHT_1.png" id="15_ehfos"]
 [ext_resource type="Texture2D" uid="uid://duqliy4w8k0m5" path="res://Temp/PixelProject/Assets/2D/Textures/rocks_5_moss.png" id="16_3dntl"]
@@ -389,115 +387,55 @@ roughness = 1.0
 uv_scale = 1.0
 detiling_rotation = 0.1
 
+[sub_resource type="Image" id="Image_rfdoi"]
+data = {
+"data": PackedByteArray("//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr/AEACJEmSJP97AABQUFVV/wBIkiRJkiT/ewAAVFVVVQ=="),
+"format": "DXT5 RGBA8",
+"height": 64,
+"mipmaps": true,
+"width": 64
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_v0kvh"]
+image = SubResource("Image_rfdoi")
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_urvk5"]
+name = "Blank64px"
+id = 7
+albedo_texture = ExtResource("1_edkn3")
+normal_texture = SubResource("ImageTexture_v0kvh")
+uv_scale = 2.0
+
+[sub_resource type="Image" id="Image_ny6f7"]
+data = {
+"data": PackedByteArray("//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr//0mSJEmSJF+EX3Oqqqqq//9JkiRJkiRfhF9zqqqqqv//SZIkSZIkX4Rfc6qqqqr/AEACJEmSJP97AABQUFVV/wBIkiRJkiT/ewAAVFVVVQ=="),
+"format": "DXT5 RGBA8",
+"height": 64,
+"mipmaps": true,
+"width": 64
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_wktjo"]
+image = SubResource("Image_ny6f7")
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_856c6"]
+name = "Blue"
+id = 8
+albedo_color = Color(0.43, 0.715, 1, 1)
+albedo_texture = ExtResource("1_edkn3")
+normal_texture = SubResource("ImageTexture_wktjo")
+
 [sub_resource type="Terrain3DAssets" id="Terrain3DAssets_3o2o4"]
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_xh5bt"), SubResource("Terrain3DMeshAsset_3dntl"), SubResource("Terrain3DMeshAsset_6tc5x"), SubResource("Terrain3DMeshAsset_ny6f7"), SubResource("Terrain3DMeshAsset_edkn3")])
-texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_v11xl"), SubResource("Terrain3DTextureAsset_edkn3"), SubResource("Terrain3DTextureAsset_am1ms"), SubResource("Terrain3DTextureAsset_sc0ui"), SubResource("Terrain3DTextureAsset_6tc5x"), SubResource("Terrain3DTextureAsset_xh5bt"), SubResource("Terrain3DTextureAsset_ehfos")])
-
-[sub_resource type="BoxMesh" id="BoxMesh_da4iu"]
-size = Vector3(150, 0.2, 150)
-subdivide_width = 150
-subdivide_depth = 150
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_03ca8"]
-render_priority = 0
-shader = ExtResource("12_da4iu")
-shader_parameter/color_shallow = Color(0.01, 0.2, 0.3, 1)
-shader_parameter/color_deep = Color(0.3, 0.5, 0.6, 1)
-shader_parameter/transparency = 0.16
-shader_parameter/metallic = 0.0
-shader_parameter/roughness = 0.0
-shader_parameter/max_visible_depth = 2.0
-shader_parameter/wave_move_direction_a = Vector2(-1, 0)
-shader_parameter/wave_move_direction_b = Vector2(0, 1)
-shader_parameter/wave_noise_scale_a = 5.0
-shader_parameter/wave_noise_scale_b = 5.0
-shader_parameter/wave_time_scale_a = 0.1
-shader_parameter/wave_time_scale_b = 0.1
-shader_parameter/wave_height_scale = 0.4
-shader_parameter/wave_normal_flatness = 50.0
-shader_parameter/surface_normals_move_direction_a = Vector2(-1, 0.2)
-shader_parameter/surface_normals_move_direction_b = Vector2(0.2, 1)
-shader_parameter/surface_texture_roughness = 0.15
-shader_parameter/surface_texture_scale = 0.1
-shader_parameter/surface_texture_time_scale = 0.06
-shader_parameter/ssr_resolution = 1.0
-shader_parameter/ssr_max_travel = 30.0
-shader_parameter/ssr_max_diff = 4.0
-shader_parameter/ssr_mix_strength = 0.8
-shader_parameter/ssr_screen_border_fadeout = 0.3
-shader_parameter/reflection_angle_bias = 0.0
-shader_parameter/reflection_angle_scale = 1.0
-shader_parameter/reflection_fresnel_power = 0.4
-shader_parameter/reflection_view_angle_cutoff = 0.1
-shader_parameter/reflection_depth_min = 0.5
-shader_parameter/reflection_depth_max = 20.0
-shader_parameter/reflection_depth_falloff = 1.0
-shader_parameter/reflection_distance_min = 1.0
-shader_parameter/reflection_distance_max = 50.0
-shader_parameter/reflection_distance_falloff = 2.0
-shader_parameter/reflection_min_object_size = 0.0
-shader_parameter/reflection_size_detection_samples = 4.0
-shader_parameter/refraction_intensity = 0.4
-shader_parameter/border_color = Color(1, 1, 1, 1)
-shader_parameter/border_scale = 0.01
-shader_parameter/border_near = 20000.0
-shader_parameter/border_far = 200000.0
-shader_parameter/cut_out_x = 0.0
-shader_parameter/cut_out_z = 0.0
-shader_parameter/use_fixed_reflection = true
-shader_parameter/fixed_reflection_world_pos = Vector3(15, 30, 15)
-
-[sub_resource type="BoxMesh" id="BoxMesh_ny6f7"]
-size = Vector3(150, 0.1, 150)
-subdivide_width = 50
-subdivide_depth = 50
-
-[sub_resource type="QuadMesh" id="QuadMesh_wktjo"]
-size = Vector2(50, 50)
-subdivide_width = 10
-subdivide_depth = 10
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_856c6"]
-render_priority = 0
-shader = ExtResource("14_ny6f7")
-shader_parameter/absorption_color = Color(1, 0.35, 0, 1)
-shader_parameter/fresnel_radius = 2.0
-shader_parameter/fresnel_color = Color(0, 0.57, 0.72, 1)
-shader_parameter/roughness = 0.15
-shader_parameter/specular = 0.25
-shader_parameter/depth_distance = 50.0
-shader_parameter/beers_law = 4.5
-shader_parameter/displacement_strength = 0.3
-shader_parameter/displacement_scroll_speed = 0.1
-shader_parameter/displacement_scroll_offset = Vector2(-0.2, 0.3)
-shader_parameter/displacement_scale_offset = 0.5
-shader_parameter/displacement_scale = Vector2(0.04, 0.04)
-shader_parameter/edge_thickness = 0.3
-shader_parameter/edge_speed = 0.35
-shader_parameter/edge_noise_scale = Vector2(0.4, 0.4)
-shader_parameter/influence_size = 1.0
-shader_parameter/player_wave_frequenzy = 10.0
-shader_parameter/player_wave_speed = 5.0
-shader_parameter/caustic_size = 2.0
-shader_parameter/caustic_range = 40.0
-shader_parameter/caustic_strength = 0.08
-shader_parameter/ssr_mix_strength = 2.0
-shader_parameter/ssr_travel = 100.0
-shader_parameter/ssr_resolution_near = 1.0
-shader_parameter/ssr_resolution_far = 5.0
-shader_parameter/ssr_tolerance = 2.0
-shader_parameter/refraction_strength = 1.25
-shader_parameter/normal_map_strength = 1.0
-shader_parameter/scroll_speed = 0.3
-shader_parameter/scroll_offset = Vector2(0.1, -0.3)
-shader_parameter/scale_offset = 0.5
-shader_parameter/normal_map_scale = Vector2(0.1, 0.1)
-shader_parameter/wind_intensity = 0.0
-shader_parameter/wind_direction = Vector3(0, 0, 0)
-shader_parameter/player_position = Vector3(0, 0, 0)
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_v11xl"), SubResource("Terrain3DTextureAsset_edkn3"), SubResource("Terrain3DTextureAsset_am1ms"), SubResource("Terrain3DTextureAsset_sc0ui"), SubResource("Terrain3DTextureAsset_6tc5x"), SubResource("Terrain3DTextureAsset_xh5bt"), SubResource("Terrain3DTextureAsset_ehfos"), SubResource("Terrain3DTextureAsset_urvk5"), SubResource("Terrain3DTextureAsset_856c6")])
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_856c6"]
 size = Vector2(75, 75)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ny6f7"]
+size = Vector2(40, 40)
+subdivide_width = 20
+subdivide_depth = 20
 
 [sub_resource type="Gradient" id="Gradient_72eyv"]
 resource_local_to_scene = true
@@ -773,7 +711,7 @@ gradient = SubResource("Gradient_dqia4")
 resource_name = "colormap"
 cull_mode = 2
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_tbgg4"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_856c6"]
 _surfaces = [{
 "aabb": AABB(-0.25, 0, -0.25, 0.5, 1.1, 0.5),
 "format": 34896613377,
@@ -805,7 +743,7 @@ _surfaces = [{
 "vertex_data": PackedByteArray("Zeb//////4+ZGf//AAD/7///c9GZGf/PAABz0ZkZ/89mJnPRZib//1sviy5bL///o9CLLlsv//+Y2XPRZib//1sviy5bLwDAZiZz0WYmAMBmJnPRmNkAwFsviy6j0ADAmNlz0ZjZBIGj0Isuo9AEgVsviy6j0ASBZiZz0ZjZBIGY2XPRmNkAwJjZc9FmJgDAo9CLLlsvAMCj0Isuo9AAwGXmc9H///+PAAD//2Xm/6///3PRmRn/vwAAc9GZGf+/ZeZz0f///79l5v///////wAA//9l5v//mRn//wAA//9l5osu////jwAAiy6ZGf/P//8AAJkZ/89l5gAA////j5kZAAAAAP/vAAAAAJkZ/8///wAAmRn/v5kZAAAAAP+/ZeYAAP///78AAAAAmRn/v/////9l5v+v//9z0WXm/6//////mRn/z2Xm//8AAP/vZeZz0QAA/++ZGXPR////jwAAc9Fl5v+vmRn//////4///3PRZeb/v2Xmc9EAAP+/mRlz0f///7+ZGXPRAAD/vwAAc9Fl5v+/mRlz0QAA/+8AAP//mRn/zwAAc9Fl5v+vAABz0ZkZ/88AAP//mRn/zwAA//9l5v+vmRn//wAA/++ZGXPRAAD/72Xmc9EAAP/vZeb//wAA/+//////Zeb/r/////+ZGf/P//9z0ZkZ/8///3PRZeb/r2Xm//////+PZeZz0f///4+ZGXPR////j5kZ//////+PZeb//wAA////////mRn///////9l5v//mRn///////8AAP//mRn/////iy5l5v+v//8AAGXm/6///4sumRn/z2Xmiy4AAP/vZeYAAAAA/+///4suZeb/r///iy6ZGf/P//8AAJkZ/8///wAAZeb/r2Xmiy4AAP////+LLpkZ/////4suZeb//2Xmiy7/////mRmLLgAA//+ZGYsu/////wAAiy6ZGf//AACLLmXm//+ZGQAA////jwAAAABl5v+vAACLLmXm/6+ZGYsu////j5kZiy4AAP/vZeYAAAAA/+9l5osuAAD/7wAAAABl5v+vAACLLmXm/69l5osu////j2XmAAD///+PmRkAAP///4+ZGYsu////j///AABl5v+/ZeYAAAAA/7+ZGQAA////vwAAAABl5v+/AAAAAJkZ/8+ZGQAAAAD/75kZiy4AAP/vAACLLpkZ/8//fwAA/3////9/AAD/f///k4H//5OB//+Tgf//k4H//+B8b/7gfG/+4Hxv/uB8b/4AAP9/AAD/fwAA/38AAP9/b34fA29+HwNvfh8Db34fA/9/AAD/f///AAD/fwAA/38AAP9//3//v/9//7//f/+//38AAP9/////fwAA/38AAP9/////f///AAD/fwAA/38AAP9/AAD/f/9/AAD/fwAA/38AAP9/AAD/fwAA/3////9/////f///AAD/fwAA/38AAP9/AAD/fwAA/3//f////3////9/////f////3////9/////f////3////9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/3////9/////f/+//3//v/9//7//f/+//3//v/9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9//7//f/+//3//v/9//7//f/+//3//v/9//7//f/+//3////9/////f////3////9/////fwAA/38AAP9/////f////38AAP9/AAD/f////3///wAA/38AAP9/AAD/fwAA/3//f////3////9/////f///")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_tbgg4")
+shadow_mesh = SubResource("ArrayMesh_856c6")
 
 [sub_resource type="Shader" id="Shader_qbqq8"]
 code = "shader_type spatial;
@@ -916,7 +854,7 @@ void fragment() {
 	ALPHA = clamp((alpha_mask) * 5., 0., 1.);
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_l2wlu"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lymdg"]
 render_priority = 0
 shader = SubResource("Shader_qbqq8")
 shader_parameter/shadows_enabled = true
@@ -928,7 +866,7 @@ shader_parameter/shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y8n5w"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_l2wlu")
+next_pass = SubResource("ShaderMaterial_lymdg")
 shader = ExtResource("27_72eyv")
 shader_parameter/albedo_color = Color(0.671874, 0.621973, 0.6066, 1)
 shader_parameter/disable_ambient_light = false
@@ -2431,7 +2369,7 @@ size = Vector2i(640, 360)
 render_target_update_mode = 4
 
 [node name="CameraRigYaw" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.328, 100, 200)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.328, 19.343, 66.6176)
 script = ExtResource("8_0swlf")
 RotationPivotPoint = NodePath("WorldCentralPivot")
 MainCamera = NodePath("Camera3D")
@@ -2464,25 +2402,6 @@ metadata/_edit_lock_ = true
 [node name="WaterSRROption2" type="Node3D" parent="SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44502, 0)
 
-[node name="WaterSSR" type="MeshInstance3D" parent="SubViewport/WaterSRROption2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.24742, -0.719487, -16.6314)
-visible = false
-mesh = SubResource("BoxMesh_da4iu")
-surface_material_override/0 = SubResource("ShaderMaterial_03ca8")
-
-[node name="WaterSSR3" type="MeshInstance3D" parent="SubViewport/WaterSRROption2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.24742, -0.719487, -16.6314)
-visible = false
-mesh = SubResource("BoxMesh_ny6f7")
-surface_material_override/0 = ExtResource("13_3dntl")
-
-[node name="SSR_OceanShader" type="MeshInstance3D" parent="SubViewport/WaterSRROption2"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 30.0211, 0.148497, -4.77018)
-visible = false
-layers = 524288
-mesh = SubResource("QuadMesh_wktjo")
-surface_material_override/0 = SubResource("ShaderMaterial_856c6")
-
 [node name="PlanarReflectorCPP" type="PlanarReflectorCPP" parent="SubViewport/WaterSRROption2" node_paths=PackedStringArray("main_camera")]
 main_camera = NodePath("../../CameraRigYaw/Camera3D")
 reflection_camera_resolution = Vector2i(640, 360)
@@ -2491,6 +2410,14 @@ use_lod = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.06322, 0.00517941, 0)
 material_override = ExtResource("14_lymdg")
 mesh = SubResource("PlaneMesh_856c6")
+
+[node name="OceanShaderWater" type="MeshInstance3D" parent="SubViewport/WaterSRROption2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 0.999999, 0, -0.999999, -4.37114e-08, 32.0773, -0.538731, -5.22149)
+visible = false
+layers = 3
+mesh = SubResource("QuadMesh_ny6f7")
+skeleton = NodePath("../../..")
+surface_material_override/0 = ExtResource("13_3dntl")
 
 [node name="WeatherController" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("_lightDirectionNode", "_dayLight", "_cloudsMesh", "_lightShafts", "_cycleDurationTimer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.9686, 0)
@@ -2808,8 +2735,14 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
 [node name="column6" type="MeshInstance3D" parent="SubViewport/Objects/Columns"]
-transform = Transform3D(1.28953, -0.124099, -0.76261, 0.163934, 2.47524, 0.132197, 0.748494, -0.32832, 1.2849, 21.8335, -1.22124, 3.59185)
+transform = Transform3D(1.29623, 0.374271, -0.720669, -0.0977149, 2.44993, 0.282288, 0.748494, -0.32832, 1.2849, 19.937, -1.99581, 3.59185)
 layers = 524289
+mesh = SubResource("ArrayMesh_crlll")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
+
+[node name="column7" type="MeshInstance3D" parent="SubViewport/Objects/Columns"]
+transform = Transform3D(1.20169, 1.11708, -0.597264, -0.495693, 2.21232, 0.492266, 0.748494, -0.32832, 1.2849, 21.8834, -3.09819, -0.294863)
 mesh = SubResource("ArrayMesh_crlll")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")

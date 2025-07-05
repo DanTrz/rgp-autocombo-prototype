@@ -1,54 +1,99 @@
-[gd_resource type="ShaderMaterial" load_steps=9 format=3 uid="uid://x4ihf67reqen"]
+[gd_resource type="ShaderMaterial" load_steps=11 format=3 uid="uid://x4ihf67reqen"]
 
 [ext_resource type="Shader" uid="uid://b3pvqhsfxf5qt" path="res://Assets/Shaders/water_planar_reflection.gdshader" id="1_6hkn2"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_w3yky"]
-viewport_path = NodePath("SubViewport/WaterSRROption2/PlanarReflectorCPP/@SubViewport@24705")
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6hkn2"]
+noise_type = 0
+frequency = 0.011
+fractal_octaves = 2
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_psr7x"]
-seed = 10
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4dgxo"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_w3yky"]
 seamless = true
-as_normal_map = true
-noise = SubResource("FastNoiseLite_psr7x")
+seamless_blend_skirt = 0.2
+noise = SubResource("FastNoiseLite_6hkn2")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_t5pnn"]
-seed = 10
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_khfff"]
+resource_local_to_scene = true
+noise_type = 2
+seed = 29
+frequency = 0.0173
+fractal_octaves = 1
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7vq4r"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c0vru"]
+resource_local_to_scene = true
 seamless = true
-as_normal_map = true
-noise = SubResource("FastNoiseLite_t5pnn")
+seamless_blend_skirt = 0.325
+noise = SubResource("FastNoiseLite_khfff")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ohdar"]
-seed = 10
+[sub_resource type="Gradient" id="Gradient_6hkn2"]
+offsets = PackedFloat32Array(0, 0.286275)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t5pnn"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_w3yky"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_6hkn2")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_w3yky"]
+noise_type = 2
+fractal_octaves = 3
+fractal_lacunarity = 1.74
+fractal_gain = 0.38
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_khfff"]
+resource_local_to_scene = true
 seamless = true
+seamless_blend_skirt = 0.12
 as_normal_map = true
-noise = SubResource("FastNoiseLite_ohdar")
+bump_strength = 9.0
+noise = SubResource("FastNoiseLite_w3yky")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6hkn2"]
+viewport_path = NodePath("SubViewport/WaterSRROption2/PlanarReflectorCPP/@SubViewport@136667")
 
 [resource]
 resource_local_to_scene = true
 render_priority = -1
 shader = ExtResource("1_6hkn2")
-shader_parameter/albedo = Color(0.196078, 0.647059, 0.776471, 1)
-shader_parameter/metallic = 0.0
-shader_parameter/roughness = 0.5
-shader_parameter/specular = 0.5
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_w3yky")
-shader_parameter/reflection_strength = 0.25
-shader_parameter/proximity_fade_distance = 0.3
-shader_parameter/is_orthogonal_camera = false
+shader_parameter/absorption_color = Color(1, 0.35, 0, 1)
+shader_parameter/fresnel_radius = 0.5
+shader_parameter/fresnel_color = Color(0, 0.57, 0.72, 1)
+shader_parameter/roughness = 0.15
+shader_parameter/specular = 0.25
+shader_parameter/depth_distance = 25.0
+shader_parameter/beers_law = 4.5
+shader_parameter/displacement_strength = 0.3
+shader_parameter/displacement_scroll_speed = 0.1
+shader_parameter/displacement_scroll_offset = Vector2(-0.2, 0.3)
+shader_parameter/displacement_scale_offset = 0.5
+shader_parameter/displacement_scale = Vector2(0.04, 0.04)
+shader_parameter/displacement_texture = SubResource("NoiseTexture2D_w3yky")
+shader_parameter/edge_thickness = 0.239
+shader_parameter/edge_speed = 1.0
+shader_parameter/edge_noise_scale = Vector2(0.4, 0.4)
+shader_parameter/edge_noise = SubResource("NoiseTexture2D_c0vru")
+shader_parameter/edge_ramp = SubResource("GradientTexture1D_w3yky")
+shader_parameter/influence_size = 1.0
+shader_parameter/player_wave_frequenzy = 10.0
+shader_parameter/player_wave_speed = 5.0
+shader_parameter/caustic_size = 4.01
+shader_parameter/caustic_range = 40.0
+shader_parameter/caustic_strength = 0.2
+shader_parameter/caustic_world_scale = 1.0
+shader_parameter/refraction_strength = 0.0
+shader_parameter/normal_map_strength = 0.0
+shader_parameter/scroll_speed = 0.0
+shader_parameter/scroll_offset = Vector2(0.1, -0.3)
+shader_parameter/scale_offset = 0.5
+shader_parameter/normal_map_scale = Vector2(0.1, 0.1)
+shader_parameter/normal_map = SubResource("NoiseTexture2D_khfff")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_6hkn2")
+shader_parameter/reflection_strength = 0.75
+shader_parameter/is_orthogonal_camera = true
 shader_parameter/ortho_uv_scale = 1.0
-shader_parameter/texture_normal = SubResource("NoiseTexture2D_4dgxo")
-shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_7vq4r")
-shader_parameter/normal_scale = 1.0
-shader_parameter/normal_uv_mult = 1.0
-shader_parameter/distortion_strength = 0.0
-shader_parameter/uv1_scale = Vector3(0, 0, 0)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_refraction = SubResource("NoiseTexture2D_t5pnn")
-shader_parameter/refraction = 0.0
-shader_parameter/refraction_texture_channel = Vector4(1, 1, 1, 1)
+shader_parameter/ortho_depth_scale = 1.0
+shader_parameter/ortho_caustic_boost = 2.0
+shader_parameter/ortho_edge_compensation = 1.0
+shader_parameter/reflection_distortion_scale = 1.0
+shader_parameter/wind_intensity = 0.1
+shader_parameter/wind_direction = Vector3(1, -1, 1)
+shader_parameter/player_position = Vector3(0, 0, 0)
