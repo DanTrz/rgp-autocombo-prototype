@@ -28,7 +28,7 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 	public float RandWidthMax { get; set; } = 50.0f;
 	public float RandWidthMin { get; set; } = 50.0f;
-	public bool UseRandomWith { get; set; } = true;
+	public bool UseRandomWidth { get; set; } = true;
 
 
 	MultiMesh _multiMesh;

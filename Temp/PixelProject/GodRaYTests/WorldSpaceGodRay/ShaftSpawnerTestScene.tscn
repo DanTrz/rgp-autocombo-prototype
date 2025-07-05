@@ -157,8 +157,7 @@ ActivationRange = Vector2(40, 100)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.24503)
 _collisionShape = NodePath("CollisionShape3D")
 _chunkDensity = 5.0
-_instancesRotationZ = -20.0
-_nodeRotationZ = -20.0
+_RotationZ = -15.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksActivator/ShaftChunkController"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.035, 0, 0.885517)
@@ -168,8 +167,7 @@ shape = SubResource("BoxShape3D_gb41b")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22.5777)
 _collisionShape = NodePath("CollisionShape3D")
 _chunkDensity = 5.0
-_instancesRotationZ = -20.0
-_nodeRotationZ = -20.0
+_RotationZ = -15.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksActivator/ShaftChunkController2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.035, 0, 0.885517)
@@ -179,8 +177,7 @@ shape = SubResource("BoxShape3D_gb41b")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -44.9692)
 _collisionShape = NodePath("CollisionShape3D")
 _chunkDensity = 5.0
-_instancesRotationZ = -20.0
-_nodeRotationZ = -20.0
+_RotationZ = -15.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksActivator/ShaftChunkController3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.035, 0, 0.885517)

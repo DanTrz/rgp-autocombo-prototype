@@ -18,8 +18,8 @@
         // "--debug-paths",
         // "--debug-navigation",
         //"--verbose",
-        "--path",
-        "${workspaceFolder}"
+        //"--path", //THis one is usually needed. TEsting without to see if HotReloadworks
+        //"${workspaceFolder}" //THis one is usually needed. TEsting without to see if HotReloadworks
       ],
       "cwd": "${workspaceFolder}",
       "stopAtEntry": false,
