@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=10 format=3 uid="uid://cr8yf6r3utjih"]
 
-[ext_resource type="Shader" uid="uid://deslforjqj7i4" path="res://Temp/PixelProject/WaterSSRShader/ocean.gdshader" id="1_xwlr2"]
+[ext_resource type="Shader" uid="uid://cy0yrj1mgwewy" path="res://Temp/PixelProject/WaterSSRShader/ocean_no_reflection.gdshader" id="1_rq3q3"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_eyp26"]
 noise_type = 0
@@ -45,7 +45,7 @@ noise = SubResource("FastNoiseLite_1qqoi")
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_xwlr2")
+shader = ExtResource("1_rq3q3")
 shader_parameter/absorption_color = Color(1, 0.35, 0, 1)
 shader_parameter/fresnel_radius = 0.5
 shader_parameter/fresnel_color = Color(0, 0.57, 0.72, 1)
