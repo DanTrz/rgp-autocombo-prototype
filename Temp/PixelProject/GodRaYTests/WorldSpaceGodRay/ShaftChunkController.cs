@@ -19,11 +19,14 @@ public partial class ShaftChunkController : Area3D
 	[ExportGroup("Shaft Generation")]
 	[Export] bool _isShaftMMActive { get; set; } = true;
 	[Export] Vector3 _intialScale { get; set; } = Vector3.One;
-
 	[Export(PropertyHint.Enum, "InstanceBased,NodeBased")] public int RotationType { get; set; } = 0;
 	[Export] float _instancesRotationZ { get; set; } = 0.0f;
 	[Export] float _nodeRotationZ { get; set; } = 0.0f;
 	[Export] private float _worldBoundMaxSize { get; set; } = 500.0f;
+	[Export] bool _useRandomWith { get; set; } = true;
+	[Export] private float _randWidthMax { get; set; } = 2.0f;
+	[Export] private float _randWidthMin { get; set; } = 0.5f;
+
 
 	[ExportGroup("Raycast")]
 	[Export] bool _raycastEnabled { get; set; } = true;
@@ -78,6 +81,10 @@ public partial class ShaftChunkController : Area3D
 		_shaftMultiMesh.ShowDebugSpheres = _showDebugSpheres;
 		_shaftMultiMesh.DebuggerSphere = _debuggerSphere;
 		_shaftMultiMesh.ShowOnlyColliders = _showOnlyColliders;
+		_shaftMultiMesh.UseRandomWith = _useRandomWith;
+		_shaftMultiMesh.RandWidthMax = _randWidthMax;
+		_shaftMultiMesh.RandWidthMin = _randWidthMin;
+
 
 		switch (RotationType)
 		{

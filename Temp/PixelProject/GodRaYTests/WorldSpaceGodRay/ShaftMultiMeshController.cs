@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Threading.Tasks;
 using Godot;
 
@@ -23,6 +24,12 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 	private bool _hasCollidersMissing = true;
 	public float ActivationRangeMax { get; set; } = 100.0f;
 	public float ActivationRangeMin { get; set; } = 50.0f;
+
+
+	public float RandWidthMax { get; set; } = 50.0f;
+	public float RandWidthMin { get; set; } = 50.0f;
+	public bool UseRandomWith { get; set; } = true;
+
 
 	MultiMesh _multiMesh;
 
@@ -223,7 +230,9 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 	private void ResizeInstance(int instanceIndex, Vector3 colliderGlobalPos, Vector3 instanceGlobalPos, Vector3 instanceStartPoint, float instanceHeight)
 	{
-		float newHeight = instanceStartPoint.DistanceTo(colliderGlobalPos);
+		float newHeightMultiplier = instanceStartPoint.DistanceTo(colliderGlobalPos);
+		float newWithMultiplier = (float)GD.RandRange(RandWidthMin, RandWidthMax);
+
 		Vector3 newGlobalPos = (instanceStartPoint + colliderGlobalPos) / 2.0f;
 
 		//Set this as new Instance Transform
@@ -235,7 +244,9 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 		// Retrieve the current basis and current rotation from the instance and adjust the scale
 		float newRotation = Mathf.DegToRad(InstancesRotationZ);
 		Basis newBasis = new Basis(new Vector3(0, 0, 1), newRotation); //Rotation on Z only
-		newBasis.Column1 *= newHeight;
+		newBasis.Column1 *= newHeightMultiplier; //Scale Y axis
+		newBasis.Column0 *= newWithMultiplier; //Scale X axis
+
 
 		Multimesh.SetInstanceTransform(instanceIndex, new Transform3D(newBasis, newLocalPos));
 		CreateDebugSphere(newGlobalPos, Colors.Black, DebugType.MID_POINT_SPHERE); //DEBUG - TEST ONLY

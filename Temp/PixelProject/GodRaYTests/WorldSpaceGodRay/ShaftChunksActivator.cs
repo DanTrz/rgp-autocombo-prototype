@@ -5,23 +5,41 @@ public partial class ShaftChunksActivator : Node3D
 {
 
 	[ExportGroup("Mandatory Node References")]
-	[Export] Godot.Collections.Array<ShaftChunkController> _chunksArray;
 	[Export] Camera3D _mainCamera;
 
 	[ExportGroup("Chunk Activation")]
 	[Export] Vector2 ActivationRange { get; set; } = new Vector2(75.0f, 250.0f);
+
+	Godot.Collections.Array<ShaftChunkController> _chunksArray = new();
 
 
 	private Godot.Collections.Dictionary<ShaftChunkController, bool> _chunkState = new();
 
 	public override void _Ready()
 	{
-		if (_mainCamera == null || _chunksArray.Count == 0)
+		if (_mainCamera == null)
 		{
-			Log.Error($"ShaftChunksActivator error: Missing references for {nameof(_mainCamera)} or {nameof(_chunksArray)}");
+			Log.Error($"ShaftChunksActivator error: Missing references for {nameof(_mainCamera)}");
 			return;
 		}
+
+		GetChunksArray();
+
+		if (_chunksArray.Count == 0)
+		{
+			Log.Error($"ShaftChunksActivator error: Missing references for {nameof(_chunksArray)}");
+			return;
+		}
+
 		ChunkInitialization();
+	}
+	private void GetChunksArray()
+	{
+		foreach (ShaftChunkController item in GetChildren())
+		{
+			if (item is ShaftChunkController)
+				_chunksArray.Add(item);
+		}
 	}
 
 	private void ChunkInitialization()
