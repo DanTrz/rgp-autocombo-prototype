@@ -1,3 +1,4 @@
+//SHADER THAT APPLY THE OUTLINES - TOON SHADER FOR OUTLINE AND DEPTH LINES
 shader_type spatial;
 
 // Fixed: Removed ambient_light_disabled to prevent lighting issues

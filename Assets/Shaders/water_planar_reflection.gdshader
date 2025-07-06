@@ -1,5 +1,7 @@
+//LATEST VERSION 
 shader_type spatial;
-render_mode shadows_disabled;
+//render_mode shadows_disabled;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_toon,specular_toon;
 
 #define CAUSTICS
 #define FRESNEL

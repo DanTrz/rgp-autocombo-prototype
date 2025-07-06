@@ -756,7 +756,6 @@ script = ExtResource("4_5klvy")
 shape = SubResource("Resource_3agf6")
 
 [node name="LoadingScreen" type="PanelContainer" parent="."]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

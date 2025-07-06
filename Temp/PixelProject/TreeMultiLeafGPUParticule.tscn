@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dofp8cf2j0tol" path="res://Temp/PixelProject/TreeLeafParticuleEmitter.cs" id="1_j1kbm"]
 [ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_ot7g1"]
-[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="3_877qk"]
+[ext_resource type="Shader" uid="uid://xyu6c57vn0ks" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight_waterUpdate.gdshader" id="3_8x41d"]
 [ext_resource type="Shader" uid="uid://bhr41rldkpotm" path="res://Temp/PixelProject/MultiLeaf_ParticuleShader_v2.gdshader" id="4_ot7g1"]
 [ext_resource type="Shader" uid="uid://c4ho5ypde4oft" path="res://Temp/PixelProject/FoliageAnimation_v2_CorrectedColors.gdshader" id="5_1wsyu"]
 [ext_resource type="Texture2D" uid="uid://1b2dh6hbyfpm" path="res://Temp/PixelProject/Assets/Tree_LoD_GPUParticule.png" id="6_8x41d"]
@@ -50,13 +50,15 @@ shader_parameter/normal_rotation_roll = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1wsyu"]
 render_priority = 0
-shader = ExtResource("3_877qk")
+shader = ExtResource("3_8x41d")
 shader_parameter/shadows_enabled = true
 shader_parameter/highlights_enabled = true
 shader_parameter/shadow_strength = 0.7
 shader_parameter/highlight_strength = 0.7
 shader_parameter/highlight_color = Color(0.879851, 0.745865, 0.651798, 1)
 shader_parameter/shadow_color = Color(0, 0, 0, 1)
+shader_parameter/water_height = 0.0
+shader_parameter/water_fade_distance = 0.75
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wq7mf"]
 render_priority = 0

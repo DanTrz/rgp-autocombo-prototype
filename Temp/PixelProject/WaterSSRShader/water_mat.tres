@@ -1,82 +1,24 @@
-[gd_resource type="ShaderMaterial" load_steps=10 format=3 uid="uid://cr8yf6r3utjih"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cr8yf6r3utjih"]
 
-[ext_resource type="Shader" uid="uid://cy0yrj1mgwewy" path="res://Temp/PixelProject/WaterSSRShader/ocean_no_reflection.gdshader" id="1_rq3q3"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_eyp26"]
-noise_type = 0
-frequency = 0.011
-fractal_octaves = 2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_grv7g"]
-seamless = true
-seamless_blend_skirt = 0.2
-noise = SubResource("FastNoiseLite_eyp26")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_nk01l"]
-noise_type = 2
-seed = 29
-frequency = 0.0173
-fractal_octaves = 1
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gd420"]
-seamless = true
-seamless_blend_skirt = 0.325
-noise = SubResource("FastNoiseLite_nk01l")
-
-[sub_resource type="Gradient" id="Gradient_i6w4f"]
-offsets = PackedFloat32Array(0, 0.0836013)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_n38dh"]
-gradient = SubResource("Gradient_i6w4f")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_1qqoi"]
-noise_type = 2
-fractal_octaves = 3
-fractal_lacunarity = 1.74
-fractal_gain = 0.38
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dowuo"]
-seamless = true
-seamless_blend_skirt = 0.12
-as_normal_map = true
-bump_strength = 9.0
-noise = SubResource("FastNoiseLite_1qqoi")
+[ext_resource type="Shader" uid="uid://dqqt6ocptx5is" path="res://Temp/PixelProject/WaterSSRShader/toon_water_no_reflection.gdshader" id="1_rq3q3"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_rq3q3")
-shader_parameter/absorption_color = Color(1, 0.35, 0, 1)
-shader_parameter/fresnel_radius = 0.53
-shader_parameter/fresnel_color = Color(7.5084e-06, 0.597935, 0.779365, 1)
-shader_parameter/roughness = 0.0
-shader_parameter/specular = 0.25
-shader_parameter/depth_distance = 19.4
-shader_parameter/beers_law = 20.0
-shader_parameter/displacement_strength = 0.3
-shader_parameter/displacement_scroll_speed = 0.1
-shader_parameter/displacement_scroll_offset = Vector2(-0.2, 0.3)
-shader_parameter/displacement_scale_offset = 0.5
-shader_parameter/displacement_scale = Vector2(0.04, 0.04)
-shader_parameter/displacement_texture = SubResource("NoiseTexture2D_grv7g")
-shader_parameter/edge_thickness = 0.599
-shader_parameter/edge_speed = 0.35
-shader_parameter/edge_noise_scale = Vector2(0.4, 0.4)
-shader_parameter/edge_noise = SubResource("NoiseTexture2D_gd420")
-shader_parameter/edge_ramp = SubResource("GradientTexture1D_n38dh")
-shader_parameter/influence_size = 1.0
-shader_parameter/player_wave_frequenzy = 10.0
-shader_parameter/player_wave_speed = 5.0
-shader_parameter/caustic_size = 2.0
-shader_parameter/caustic_range = 40.0
-shader_parameter/caustic_strength = 1.0
-shader_parameter/refraction_strength = 0.0
-shader_parameter/normal_map_strength = 1.0
-shader_parameter/scroll_speed = 0.3
-shader_parameter/scroll_offset = Vector2(0.1, -0.3)
-shader_parameter/scale_offset = 0.5
-shader_parameter/normal_map_scale = Vector2(0.1, 0.1)
-shader_parameter/normal_map = SubResource("NoiseTexture2D_dowuo")
-shader_parameter/wind_intensity = 0.1
-shader_parameter/wind_direction = Vector3(1, -1, 1)
-shader_parameter/player_position = Vector3(0, 0, 0)
+shader_parameter/WATER_COL = Color(0.04, 0.38, 0.88, 1)
+shader_parameter/WATER2_COL = Color(0.04, 0.35, 0.78, 1)
+shader_parameter/FOAM_COL = Color(0.631504, 0.773869, 0.997315, 1)
+shader_parameter/distortion_speed = 2.0
+shader_parameter/tile = Vector2(75, 75)
+shader_parameter/wave_speed = 0.5
+shader_parameter/wave_amplitude = 0.1
+shader_parameter/wave_frequency = 1.0
+shader_parameter/time_offset = 0.0
+shader_parameter/water_size = Vector2(128, 128)
+shader_parameter/water_transparency = 0.8
+shader_parameter/water_depth_factor = 0.1
+shader_parameter/foam_width = 2.0
+shader_parameter/foam_edge_softness = 0.05
+shader_parameter/foam_smoothness = 0.03
+shader_parameter/foam_distortion_speed = 0.5
+shader_parameter/foam_distortion_amount = 0.1

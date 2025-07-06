@@ -61,6 +61,8 @@ func _ready():
 	reflect_viewport.positional_shadow_atlas_size = 2048
 	reflect_viewport.own_world_3d = false
 
+
+
 	reflect_camera = Camera3D.new()
 	reflect_viewport.add_child(reflect_camera)
 	

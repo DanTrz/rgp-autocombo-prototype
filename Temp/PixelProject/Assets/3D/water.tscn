@@ -1,9 +1,13 @@
-[gd_scene load_steps=30 format=4 uid="uid://df4eyka0erqws"]
+[gd_scene load_steps=43 format=4 uid="uid://df4eyka0erqws"]
 
+[ext_resource type="Shader" uid="uid://cy0yrj1mgwewy" path="res://Temp/PixelProject/WaterSSRShader/ocean_no_reflection.gdshader" id="1_2aes8"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="1_lgx2c"]
-[ext_resource type="Material" uid="uid://cr8yf6r3utjih" path="res://Temp/PixelProject/WaterSSRShader/water_mat.tres" id="1_s3kyq"]
+[ext_resource type="Shader" uid="uid://dqqt6ocptx5is" path="res://Temp/PixelProject/WaterSSRShader/toon_water_no_reflection.gdshader" id="2_4bpg8"]
 [ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="2_7nu6e"]
+[ext_resource type="Shader" uid="uid://cy05bpe7mg1mc" path="res://Temp/PixelProject/WaterSSRShader/toon_v2_water_no_reflection.gdshader" id="3_elpo0"]
+[ext_resource type="Texture2D" uid="uid://cwopgjiunh5xc" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterDistortion.png" id="4_4bpg8"]
 [ext_resource type="Texture2D" uid="uid://cspgmsd72voka" path="res://Temp/PixelProject/Assets/3D/pillar_dungeon_texture.png" id="5_a8fnq"]
+[ext_resource type="Texture2D" uid="uid://b6cx8vug6xhx0" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterPerlinNoise.png" id="5_mu541"]
 [ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="5_oal72"]
 [ext_resource type="Shader" uid="uid://dbhnb5q3r31tb" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight_Test.gdshader" id="6_2aes8"]
 [ext_resource type="Shader" uid="uid://c8ynu5hrg8bbx" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3_Testing.gdshader" id="7_elpo0"]
@@ -21,10 +25,117 @@ sky = SubResource("Sky_mfl67")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="QuadMesh" id="QuadMesh_elpo0"]
+size = Vector2(40, 40)
+subdivide_width = 40
+subdivide_depth = 40
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_khfff"]
+resource_local_to_scene = true
+noise_type = 2
+seed = 29
+frequency = 0.0173
+fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4bpg8"]
+resource_local_to_scene = true
+seamless = true
+seamless_blend_skirt = 0.325
+noise = SubResource("FastNoiseLite_khfff")
+
+[sub_resource type="Gradient" id="Gradient_6hkn2"]
+offsets = PackedFloat32Array(0, 0.286275)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4bpg8"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_6hkn2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wte4x"]
+render_priority = 0
+shader = ExtResource("1_2aes8")
+shader_parameter/absorption_color = Color(1, 0.35, 0, 1)
+shader_parameter/fresnel_radius = 0.5
+shader_parameter/fresnel_color = Color(0.0862745, 0.407843, 1, 1)
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.25
+shader_parameter/depth_distance = 25.0
+shader_parameter/beers_law = 4.5
+shader_parameter/displacement_strength = 0.3
+shader_parameter/displacement_scroll_speed = 0.1
+shader_parameter/displacement_scroll_offset = Vector2(-0.2, 0.3)
+shader_parameter/displacement_scale_offset = 0.5
+shader_parameter/displacement_scale = Vector2(0.04, 0.04)
+shader_parameter/edge_thickness = 0.3
+shader_parameter/edge_speed = 0.35
+shader_parameter/edge_noise_scale = Vector2(0.4, 0.4)
+shader_parameter/edge_noise = SubResource("NoiseTexture2D_4bpg8")
+shader_parameter/edge_ramp = SubResource("GradientTexture1D_4bpg8")
+shader_parameter/influence_size = 1.0
+shader_parameter/player_wave_frequenzy = 10.0
+shader_parameter/player_wave_speed = 5.0
+shader_parameter/caustic_size = 2.0
+shader_parameter/caustic_range = 40.0
+shader_parameter/caustic_strength = 0.08
+shader_parameter/refraction_strength = 1.25
+shader_parameter/normal_map_strength = 1.0
+shader_parameter/scroll_speed = 0.3
+shader_parameter/scroll_offset = Vector2(0.1, -0.3)
+shader_parameter/scale_offset = 0.5
+shader_parameter/normal_map_scale = Vector2(0.1, 0.1)
+shader_parameter/wind_intensity = 0.0
+shader_parameter/wind_direction = Vector3(0, 0, 0)
+shader_parameter/player_position = Vector3(0, 0, 0)
+
 [sub_resource type="QuadMesh" id="QuadMesh_uix6f"]
 size = Vector2(40, 40)
-subdivide_width = 20
-subdivide_depth = 20
+subdivide_width = 40
+subdivide_depth = 40
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yw2bn"]
+render_priority = 0
+shader = ExtResource("2_4bpg8")
+shader_parameter/WATER_COL = Color(0.04, 0.38, 0.88, 1)
+shader_parameter/WATER2_COL = Color(0.04, 0.35, 0.78, 1)
+shader_parameter/FOAM_COL = Color(0.8125, 0.9609, 0.9648, 1)
+shader_parameter/distortion_speed = 2.0
+shader_parameter/tile = Vector2(50, 50)
+shader_parameter/wave_speed = 2.0
+shader_parameter/wave_amplitude = 0.5
+shader_parameter/wave_frequency = 1.5
+shader_parameter/time_offset = 0.0
+shader_parameter/water_size = Vector2(128, 128)
+shader_parameter/water_transparency = 0.8
+shader_parameter/water_depth_factor = 0.1
+shader_parameter/foam_width = 0.5
+shader_parameter/foam_edge_softness = 0.05
+shader_parameter/foam_smoothness = 0.03
+shader_parameter/foam_distortion_speed = 0.5
+shader_parameter/foam_distortion_amount = 0.1
+
+[sub_resource type="QuadMesh" id="QuadMesh_wte4x"]
+size = Vector2(40, 40)
+subdivide_width = 40
+subdivide_depth = 40
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mu541"]
+render_priority = 0
+shader = ExtResource("3_elpo0")
+shader_parameter/surfaceNoise = ExtResource("5_mu541")
+shader_parameter/distortNoise = ExtResource("4_4bpg8")
+shader_parameter/beer_factor = 0.8
+shader_parameter/foam_distance = 0.01
+shader_parameter/foam_max_distance = 0.4
+shader_parameter/foam_min_distance = 0.04
+shader_parameter/foam_color = Color(1, 1, 1, 1)
+shader_parameter/surface_noise_tiling = Vector2(5, 20)
+shader_parameter/surface_noise_scroll = Vector3(0.03, 0.03, 0)
+shader_parameter/surface_noise_cutoff = 0.804
+shader_parameter/surface_distortion_amount = 0.556
+shader_parameter/_DepthGradientShallow = Color(0.325, 0.807, 0.971, 0.725)
+shader_parameter/_DepthGradientDeep = Color(0.086, 0.407, 1, 0.749)
+shader_parameter/_DepthMaxDistance = 1.0
+shader_parameter/_DepthFactor = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7nu6e"]
 
@@ -335,16 +446,33 @@ render_target_update_mode = 4
 
 [node name="OceanShaderWater" type="MeshInstance3D" parent="SubViewportMain"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 0.999999, 0, -0.999999, -4.37114e-08, 0, 0, 0)
+visible = false
 layers = 3
-mesh = SubResource("QuadMesh_uix6f")
+mesh = SubResource("QuadMesh_elpo0")
 skeleton = NodePath("../../..")
-surface_material_override/0 = ExtResource("1_s3kyq")
+surface_material_override/0 = SubResource("ShaderMaterial_wte4x")
 
 [node name="WaterFloor" type="MeshInstance3D" parent="SubViewportMain"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 0.999999, 0, -0.999999, -4.37114e-08, 0, -0.999552, 0)
+visible = false
 layers = 3
 mesh = SubResource("QuadMesh_uix6f")
 skeleton = NodePath("../../..")
+
+[node name="ToonWater" type="MeshInstance3D" parent="SubViewportMain"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 0.999999, 0, -0.999999, -4.37114e-08, 0, 0, 0)
+visible = false
+layers = 3
+mesh = SubResource("QuadMesh_uix6f")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_yw2bn")
+
+[node name="ToonV2Water" type="MeshInstance3D" parent="SubViewportMain"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 0.999999, 0, -0.999999, -4.37114e-08, 0, 0, 0)
+layers = 3
+mesh = SubResource("QuadMesh_wte4x")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_mu541")
 
 [node name="Objects" type="Node3D" parent="SubViewportMain"]
 transform = Transform3D(0.745822, 0.069073, -0.662555, 0.594207, -0.518565, 0.614823, -0.30111, -0.852243, -0.427801, 2.23352, 4.25721, 3.67148)
@@ -359,7 +487,7 @@ transform = Transform3D(0.977745, 0.155711, 0.140607, 0.190255, -0.375589, -0.90
 size = Vector3(1, 3, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportMain/Objects"]
-transform = Transform3D(0.968674, -0.228646, -0.0969102, 0.213088, 0.564882, 0.797184, -0.12753, -0.792862, 0.595909, -5.26339, 2.04469, 0.760215)
+transform = Transform3D(0.968674, -0.228646, -0.0969102, 0.213088, 0.564882, 0.797184, -0.12753, -0.792862, 0.595909, -5.566, 2.30878, 0.447103)
 mesh = SubResource("CylinderMesh_uix6f")
 skeleton = NodePath("../../OceanShaderWater")
 surface_material_override/0 = SubResource("StandardMaterial3D_mfl67")
@@ -371,7 +499,7 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_elpo0")
 
 [node name="CameraRigYaw" type="Node3D" parent="SubViewportMain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.94318, 12.5259)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.94318, 9.87068)
 script = ExtResource("2_7nu6e")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportMain/CameraRigYaw"]

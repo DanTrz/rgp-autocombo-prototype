@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bm5iibdmdk4b2"
-path.s3tc="res://.godot/imported/water_2_packed_albedo_height.png-b25046fcb87f38d49c1a185623fc0d3b.s3tc.ctex"
+uid="uid://dixqstxe6b56r"
+path.s3tc="res://.godot/imported/WaterLinear.png-34fa18c64cb4d871c707bdf028df877b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Temp/TempTestTerrain3D/1K/Packaged/water_2_packed_albedo_height.png"
-dest_files=["res://.godot/imported/water_2_packed_albedo_height.png-b25046fcb87f38d49c1a185623fc0d3b.s3tc.ctex"]
+source_file="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterLinear.png"
+dest_files=["res://.godot/imported/WaterLinear.png-34fa18c64cb4d871c707bdf028df877b.s3tc.ctex"]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=2
+compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
