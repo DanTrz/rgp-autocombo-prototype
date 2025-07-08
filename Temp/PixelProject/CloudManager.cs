@@ -63,6 +63,8 @@ public partial class CloudManager : MeshInstance3D
 			if (enableDirectionalShadows && sunLight != null)
 			{
 				lightDirection = -sunLight.GlobalTransform.Basis.Z; // Light forward direction
+																	// lightDirection = sunLight.GlobalTransform.Basis.Z; // Light back direction
+
 			}
 
 			RenderingServer.GlobalShaderParameterSet("sun_light_direction", lightDirection);

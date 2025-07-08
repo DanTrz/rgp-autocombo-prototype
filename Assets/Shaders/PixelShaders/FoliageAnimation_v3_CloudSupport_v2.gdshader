@@ -65,12 +65,16 @@ float calculate_final_shadow() {
     vec2 uv = normalized + vec2(0.5);
     uv += cloud_movement_offset;
     
-    // Directional shadow offset
+    // Directional shadow offset - FIXED DIRECTION
     if (enable_directional_shadows && sun_light_direction.y < -0.001) {
         float grass_ground_y = grass_center_world.y;
         vec3 cloud_pos = vec3(grass_center_world.x, cloud_mesh_y, grass_center_world.z);
         float t = (grass_ground_y - cloud_pos.y) / sun_light_direction.y;
-        vec3 shadow_pos = cloud_pos + sun_light_direction * t;
+        
+        // FIXED: Invert the shadow direction calculation
+        vec3 shadow_pos = cloud_pos - sun_light_direction * t;
+        
+        // Use shadow position for UV calculation
         relative_pos = shadow_pos.xz - cloud_area_center.xz;
         normalized = relative_pos / cloud_area_size;
         uv = normalized + vec2(0.5);
