@@ -113,19 +113,51 @@ lights_and_shadows/positional_shadow/soft_shadow_filter_quality=3
 
 [shader_globals]
 
-shaft_is_activating_global={
-"type": "bool",
-"value": false
+cloud_shadow_texture={
+"type": "sampler2D",
+"value": ""
 }
-shaft_activating_alpha_global={
+cloud_alpha_scissor={
 "type": "float",
 "value": 0.0
 }
-shaft_deactivating_alpha_global={
+cloud_shadow_proj_matrix={
+"type": "transform",
+"value": Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+}
+cloud_shadow_strength={
 "type": "float",
 "value": 0.0
 }
-shaft_is_deactivating_global={
+cloud_movement_offset={
+"type": "vec2",
+"value": Vector2(0, 0)
+}
+cloud_area_center={
+"type": "vec3",
+"value": Vector3(0, 0, 0)
+}
+cloud_area_size={
+"type": "float",
+"value": 0.0
+}
+sun_light_direction={
+"type": "vec3",
+"value": Vector3(0, 0, 0)
+}
+enable_directional_shadows={
 "type": "bool",
 "value": false
+}
+shadow_distance={
+"type": "float",
+"value": 0.0
+}
+ground_plane_y={
+"type": "float",
+"value": 0.0
+}
+cloud_mesh_y={
+"type": "float",
+"value": 0.0
 }

@@ -28,6 +28,9 @@ uniform vec2 surface_noise_tiling = vec2(1.0, 4.0);
 uniform vec3 surface_noise_scroll = vec3(0.03, 0.03, 0.0);
 uniform float surface_noise_cutoff: hint_range(0, 1) = 0.777;
 uniform float surface_distortion_amount: hint_range(0, 2) = 0.27;
+// Material Properties
+uniform float roughness : hint_range(0.0, 1.0, 0.01) = 0.15;
+uniform float specular : hint_range(0.0, 1.0, 0.01) = 0.25;
 
 // Animation Speed Controls
 group_uniforms animation_speeds;
@@ -36,9 +39,7 @@ uniform float wave_animation_speed: hint_range(0.0, 2.0) = 1.0; // Vertex wave s
 uniform float reflection_wobble_speed: hint_range(0.0, 2.0) = 1.0; // Reflection distortion speed
 uniform float foam_animation_speed: hint_range(0.0, 2.0) = 1.0; // Foam reflection influence speed
 
-// Material Properties
-uniform float roughness : hint_range(0.0, 1.0, 0.01) = 0.15;
-uniform float specular : hint_range(0.0, 1.0, 0.01) = 0.25;
+
 
 // PLANAR REFLECTION UNIFORMS
 group_uniforms planar_reflection;
