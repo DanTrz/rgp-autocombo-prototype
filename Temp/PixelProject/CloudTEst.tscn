@@ -67,7 +67,7 @@ noise = SubResource("FastNoiseLite_3paja")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_olqhf"]
 transparency = 2
-alpha_scissor_threshold = 0.6
+alpha_scissor_threshold = 0.631
 alpha_antialiasing_mode = 0
 albedo_texture = SubResource("NoiseTexture2D_2ujm1")
 ao_light_affect = 1.0
@@ -146,7 +146,7 @@ noise = SubResource("FastNoiseLite_f7cxb")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yx00j"]
 transparency = 2
-alpha_scissor_threshold = 0.596
+alpha_scissor_threshold = 1.0
 alpha_antialiasing_mode = 0
 albedo_texture = SubResource("NoiseTexture2D_lywnj")
 ao_light_affect = 1.0
@@ -249,15 +249,17 @@ load_path = "res://.godot/imported/Grass_3.png-6711f90f42818dba951396c8414e2150.
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xh5bt"]
 render_priority = -1
 shader = ExtResource("2_pjemg")
-shader_parameter/debug_mode = false
-shader_parameter/debug_test = 2
-shader_parameter/use_granular_shadows = true
-shader_parameter/white_shadow_intensity = 0.0
-shader_parameter/gray_shadow_intensity = 0.25
-shader_parameter/black_shadow_intensity = 0.5
-shader_parameter/color_threshold = 0.5
+shader_parameter/override_global_shadow = false
+shader_parameter/real_shadow_threshold = 0.1
 shader_parameter/enable_cloud_shadows = true
 shader_parameter/cloud_shadow_intensity = 1.0
+shader_parameter/use_granular_shadows = true
+shader_parameter/white_shadow_intensity = 0.0
+shader_parameter/gray_shadow_intensity = 0.681
+shader_parameter/black_shadow_intensity = 1.0
+shader_parameter/color_threshold = 0.5
+shader_parameter/debug_mode = false
+shader_parameter/debug_test = 5
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_a4ruw")
 shader_parameter/albedo_color = Color(0.321569, 0.741176, 0.301961, 1)
 shader_parameter/billboard = true
@@ -534,7 +536,6 @@ texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_
 
 [node name="CloudsTest" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 1, 1.77019, 16.5271, 1.70251)
-visible = false
 cast_shadow = 3
 gi_mode = 0
 mesh = SubResource("PlaneMesh_pjemg")
@@ -543,6 +544,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_olqhf")
 
 [node name="CloudsFakeNoShadow" type="MeshInstance3D" parent="." node_paths=PackedStringArray("sunLight")]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 1, 1.77019, 16.5271, 1.70251)
+visible = false
 cast_shadow = 0
 gi_mode = 0
 mesh = SubResource("PlaneMesh_ntwum")
