@@ -141,11 +141,3 @@ void fragment() {
     EMISSION = edgeEmission;
     ALPHA_SCISSOR_THRESHOLD = 0.5;
 }
-
-
-
-
-
-
-
-

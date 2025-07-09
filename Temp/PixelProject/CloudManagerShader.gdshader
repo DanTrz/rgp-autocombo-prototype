@@ -30,15 +30,21 @@ void vertex() {
 }
 
 void fragment() {
-    // Use SAME scaling method as grass shader - simple multiplication
-    vec2 scaled_uv = UV * cloud_texture_scale;
+    // Use WORLD PROJECTION UV (same as grass shader) instead of mesh UV
+    vec2 relative_pos = world_position.xz - cloud_area_center.xz;
+    vec2 normalized = relative_pos / cloud_area_size;
+    vec2 uv = normalized + vec2(0.5);
+    uv += cloud_movement_offset;
+    
+    // Apply texture scaling (same as grass shader)
+    vec2 scaled_uv = uv * cloud_texture_scale;
     
     // Sample cloud texture
     vec4 cloud_sample = texture(cloud_texture, scaled_uv);
     
     // Debug visualizations or normal rendering
     if (debug_show_uv) {
-        ALBEDO = vec3(fract(UV), 0.0);
+        ALBEDO = vec3(fract(uv), 0.0);
         ALPHA = 1.0;
     } else if (debug_show_scaled_uv) {
         ALBEDO = vec3(fract(scaled_uv), 0.0);

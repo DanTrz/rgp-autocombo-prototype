@@ -1,0 +1,75 @@
+[gd_resource type="StandardMaterial3D" load_steps=16 format=3 uid="uid://c2jd512jbujic"]
+
+[sub_resource type="Gradient" id="Gradient_e700e"]
+offsets = PackedFloat32Array(0.0033557, 1)
+colors = PackedColorArray(0, 0, 0, 0.729412, 1, 1, 1, 0.447059)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8wq2b"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lywnj"]
+seamless_blend_skirt = 0.5
+color_ramp = SubResource("Gradient_e700e")
+noise = SubResource("FastNoiseLite_8wq2b")
+
+[sub_resource type="Gradient" id="Gradient_axtr7"]
+offsets = PackedFloat32Array(0.00671141, 0.580537, 0.996644, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.341176, 0.341176, 0.341176, 1, 0.114865, 0.114865, 0.114865, 0.114865, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ex5wb"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_o27vv"]
+seamless_blend_skirt = 0.0
+color_ramp = SubResource("Gradient_axtr7")
+noise = SubResource("FastNoiseLite_ex5wb")
+
+[sub_resource type="Gradient" id="Gradient_jmgik"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_js72x"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4nyb2"]
+color_ramp = SubResource("Gradient_jmgik")
+noise = SubResource("FastNoiseLite_js72x")
+
+[sub_resource type="Gradient" id="Gradient_wm4bk"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6vst4"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p7e4i"]
+color_ramp = SubResource("Gradient_wm4bk")
+noise = SubResource("FastNoiseLite_6vst4")
+
+[sub_resource type="Gradient" id="Gradient_ytxpn"]
+offsets = PackedFloat32Array(0, 0.738255, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.724832, 0.724832, 0.724832, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_f7cxb"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6kl7h"]
+color_ramp = SubResource("Gradient_ytxpn")
+noise = SubResource("FastNoiseLite_f7cxb")
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+albedo_texture = SubResource("NoiseTexture2D_lywnj")
+ao_light_affect = 1.0
+ao_texture_channel = 3
+heightmap_scale = 4.065
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+heightmap_texture = SubResource("NoiseTexture2D_p7e4i")
+subsurf_scatter_strength = 1.0
+subsurf_scatter_transmittance_enabled = true
+subsurf_scatter_transmittance_color = Color(1, 1, 1, 0.486275)
+subsurf_scatter_transmittance_depth = 0.33
+subsurf_scatter_transmittance_boost = 0.42
+refraction_scale = 1.0
+refraction_texture = SubResource("NoiseTexture2D_6kl7h")
+detail_mask = SubResource("NoiseTexture2D_4nyb2")
+detail_blend_mode = 3
+detail_albedo = SubResource("NoiseTexture2D_o27vv")
+uv2_world_triplanar = true
