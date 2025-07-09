@@ -115,13 +115,13 @@ void fragment() {
 
     // YOUR ORIGINAL WORKING DISSOLVE LOGIC (exactly as it was)
     float dissolveNoise = cnoise(localPos * dissolveNoiseScale) * 0.5 + 0.5;
-    
+
     // ONLY ADD texture influence if enabled (minimal change)
     if (enable_texture_influence) {
         float texture_sample = texture(influence_texture, uv * influence_scale).r;
         dissolveNoise = mix(dissolveNoise, texture_sample, influence_strength);
     }
-    
+
     float edgeNoise = cnoise(localPos * edgeNoiseScale) * 0.5 + 0.5;
     float animatedDissolve = (1.0 - (dissolveSlider + 0.5)) + dissolveNoise;
 

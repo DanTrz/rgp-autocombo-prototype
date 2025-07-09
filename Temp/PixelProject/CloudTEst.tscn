@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=4 uid="uid://6o8sq0n0p8rn"]
+[gd_scene load_steps=83 format=4 uid="uid://6o8sq0n0p8rn"]
 
 [ext_resource type="PackedScene" uid="uid://bok06l3ildw4l" path="res://src/Levels/LevelComponents/GrassMeshAnimated.tscn" id="2_hdqrt"]
 [ext_resource type="Shader" uid="uid://osv6ambcbili" path="res://Assets/Shaders/PixelShaders/FoliageAnimation_v3_CloudSupport_v2.gdshader" id="2_pjemg"]
@@ -14,87 +14,8 @@
 [ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="12_ed8f5"]
 [ext_resource type="Shader" uid="uid://c8ynu5hrg8bbx" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3_Testing.gdshader" id="13_3sbtr"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_pjemg"]
-size = Vector2(100, 100)
-subdivide_width = 100
-subdivide_depth = 100
-
-[sub_resource type="Gradient" id="Gradient_iloe7"]
-offsets = PackedFloat32Array(0.0033557, 1)
-colors = PackedColorArray(0, 0, 0, 0.729412, 1, 1, 1, 0.447059)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_2muod"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2ujm1"]
-seamless_blend_skirt = 0.5
-color_ramp = SubResource("Gradient_iloe7")
-noise = SubResource("FastNoiseLite_2muod")
-
-[sub_resource type="Gradient" id="Gradient_44b81"]
-offsets = PackedFloat32Array(0.00671141, 0.580537, 0.996644, 1)
-colors = PackedColorArray(0, 0, 0, 0, 0.341176, 0.341176, 0.341176, 1, 0.114865, 0.114865, 0.114865, 0.114865, 1, 1, 1, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_f2e7b"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_57bhg"]
-seamless_blend_skirt = 0.0
-color_ramp = SubResource("Gradient_44b81")
-noise = SubResource("FastNoiseLite_f2e7b")
-
-[sub_resource type="Gradient" id="Gradient_ed8f5"]
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_3sbtr"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6qhxi"]
-color_ramp = SubResource("Gradient_ed8f5")
-noise = SubResource("FastNoiseLite_3sbtr")
-
-[sub_resource type="Gradient" id="Gradient_a4ruw"]
-colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ro3v6"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8ncxe"]
-color_ramp = SubResource("Gradient_a4ruw")
-noise = SubResource("FastNoiseLite_ro3v6")
-
-[sub_resource type="Gradient" id="Gradient_gjs8b"]
-offsets = PackedFloat32Array(0, 0.738255, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.724832, 0.724832, 0.724832, 1, 1, 1, 1, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_3paja"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g26fm"]
-color_ramp = SubResource("Gradient_gjs8b")
-noise = SubResource("FastNoiseLite_3paja")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_olqhf"]
-transparency = 2
-alpha_scissor_threshold = 0.61
-alpha_antialiasing_mode = 0
-albedo_texture = SubResource("NoiseTexture2D_2ujm1")
-ao_light_affect = 1.0
-ao_texture_channel = 3
-heightmap_scale = 4.065
-heightmap_deep_parallax = true
-heightmap_min_layers = 8
-heightmap_max_layers = 32
-heightmap_texture = SubResource("NoiseTexture2D_8ncxe")
-subsurf_scatter_strength = 1.0
-subsurf_scatter_transmittance_enabled = true
-subsurf_scatter_transmittance_color = Color(1, 1, 1, 0.486275)
-subsurf_scatter_transmittance_depth = 0.33
-subsurf_scatter_transmittance_boost = 0.42
-refraction_scale = 1.0
-refraction_texture = SubResource("NoiseTexture2D_g26fm")
-detail_mask = SubResource("NoiseTexture2D_6qhxi")
-detail_blend_mode = 3
-detail_albedo = SubResource("NoiseTexture2D_57bhg")
-uv2_world_triplanar = true
-
 [sub_resource type="PlaneMesh" id="PlaneMesh_ntwum"]
-size = Vector2(100, 100)
+size = Vector2(200, 200)
 subdivide_width = 100
 subdivide_depth = 100
 
@@ -150,7 +71,7 @@ noise = SubResource("FastNoiseLite_f7cxb")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yx00j"]
 transparency = 2
-alpha_scissor_threshold = 1.0
+alpha_scissor_threshold = 0.62
 alpha_antialiasing_mode = 0
 albedo_texture = SubResource("NoiseTexture2D_lywnj")
 ao_light_affect = 1.0
@@ -256,11 +177,11 @@ shader = ExtResource("2_pjemg")
 shader_parameter/override_global_shadow = false
 shader_parameter/real_shadow_threshold = 0.99
 shader_parameter/enable_cloud_shadows = true
-shader_parameter/cloud_shadow_intensity = 0.5
+shader_parameter/cloud_shadow_intensity = 1.0
 shader_parameter/use_granular_shadows = true
-shader_parameter/white_shadow_intensity = 0.0
+shader_parameter/white_shadow_intensity = 0.5
 shader_parameter/gray_shadow_intensity = 0.5
-shader_parameter/black_shadow_intensity = 0.5
+shader_parameter/black_shadow_intensity = 0.75
 shader_parameter/color_threshold = 0.5
 shader_parameter/debug_mode = false
 shader_parameter/debug_test = 2
@@ -626,23 +547,14 @@ shader_parameter/normal_rotation_roll = 0.0
 
 [node name="Node3D" type="Node3D"]
 
-[node name="CloudsTest" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 1, 1.77019, 16.5271, 1.70251)
-cast_shadow = 3
-gi_mode = 0
-mesh = SubResource("PlaneMesh_pjemg")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_olqhf")
-
-[node name="CloudsFakeNoShadow" type="MeshInstance3D" parent="." node_paths=PackedStringArray("sunLight")]
-transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 1, 1.77019, 16.5271, 1.70251)
-visible = false
-cast_shadow = 0
+[node name="CloudManager" type="MeshInstance3D" parent="." node_paths=PackedStringArray("sunLight")]
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 1, 10.3542, 60.3229, -10.2735)
 gi_mode = 0
 mesh = SubResource("PlaneMesh_ntwum")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_yx00j")
 script = ExtResource("9_hdqrt")
+_alphaScissor = 0.57
 sunLight = NodePath("../DayLight")
 enableDirectionalShadows = true
 
@@ -679,7 +591,7 @@ _colorSpread = 0.69
 _colorNoise = 0.26
 
 [node name="BolderRockv11" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.954509, 0.29567, -0.0386311, -0.281722, 0.936666, 0.20806, 0.0977015, -0.187711, 0.977353, 21.2002, -0.577776, -17.3598)
+transform = Transform3D(0.954509, 0.29567, -0.0386311, -0.281722, 0.936666, 0.20806, 0.0977015, -0.187711, 0.977353, 19.3727, -0.931051, -17.3598)
 layers = 524289
 mesh = SubResource("ArrayMesh_ro3v6")
 skeleton = NodePath("")

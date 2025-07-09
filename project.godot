@@ -161,3 +161,7 @@ cloud_mesh_y={
 "type": "float",
 "value": 0.0
 }
+cloud_texture_scale={
+"type": "float",
+"value": 0.0
+}

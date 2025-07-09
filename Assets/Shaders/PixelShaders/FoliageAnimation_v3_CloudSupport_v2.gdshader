@@ -1,4 +1,4 @@
-//RESTRUCTURED SHADER - Clean Single Point Shadow Control
+//RESTRUCTURED FOLIAGE AND GRASS SHADER - With Dissolve Support
 shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_toon;
 
@@ -12,6 +12,7 @@ global uniform float cloud_area_size;
 global uniform vec3 sun_light_direction;
 global uniform bool enable_directional_shadows;
 global uniform float cloud_mesh_y;
+global uniform float cloud_texture_scale;
 
 // ===== SINGLE SHADOW CONTROL SYSTEM =====
 uniform bool override_global_shadow = false;
@@ -47,7 +48,7 @@ varying vec3 world_billboard_normal;
 varying vec3 world_position;
 varying vec3 grass_center_world;
 
-// ===== SINGLE SHADOW CALCULATION FUNCTION =====
+// ===== SINGLE SHADOW CALCULATION FUNCTION (UPDATED) =====
 float calculate_final_shadow() {
     // OVERRIDE CHECK FIRST - if true, ignore ALL cloud parameters
     if (override_global_shadow) {
@@ -83,6 +84,12 @@ float calculate_final_shadow() {
     
     // Sample cloud texture
     vec4 cloud_sample = texture(cloud_shadow_texture, uv);
+	//vec4 cloud_sample = texture(cloud_shadow_texture, uv * cloud_texture_scale);
+    
+    // NEW: Check if cloud is dissolved at this location
+    if (cloud_sample.a < cloud_alpha_scissor) {
+        return 1.0; // Cloud dissolved here - use global shadows only
+    }
     
     float shadow_intensity;
     
@@ -189,7 +196,7 @@ void light() {
         final_attenuation = ATTENUATION;
     }
     else {
-        // NORMAL: Apply cloud shadow system
+        // NORMAL: Apply cloud shadow system (now with dissolve support)
         float cloud_shadow = calculate_final_shadow();
         final_attenuation = ATTENUATION * cloud_shadow;
     }
