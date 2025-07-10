@@ -1,6 +1,6 @@
 //COMPLETE FOLIAGE AND GRASS SHADER - Cloud Features + Original Animations
 shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_toon, ambient_light_disabled;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_toon;
 
 // Global uniforms (CLOUD SYSTEM - PROTECTED)
 global uniform sampler2D cloud_shadow_texture;
@@ -14,12 +14,27 @@ global uniform bool enable_directional_shadows;
 global uniform float cloud_mesh_y;
 global uniform float cloud_texture_scale;
 
+
+
+// ===== ORIGINAL FOLIAGE FEATURES (RESTORED) =====
+group_uniforms Texture_and_colors;
+// Basic properties
+uniform sampler2D albedo_tex : filter_nearest, source_color;
+uniform vec4 albedo_color : source_color = vec4(1.0);
+uniform bool billboard = true;
+// Vertex colors and emission (RESTORED)
+uniform bool use_vertex_color = true;
+uniform bool use_emission = false;
+uniform vec3 emission_color : source_color = vec3(1.0);
+// Ambient light controls (RESTORED)
+uniform bool disable_ambient_light = false;
+uniform vec3 fake_ambient_light : source_color = vec3(0.4);
+
 // ===== SINGLE SHADOW CONTROL SYSTEM (CLOUD - PROTECTED) =====
+group_uniforms Shadows;
 uniform bool override_global_shadow = false;
 uniform float real_shadow_threshold : hint_range(0.0, 1.0) = 0.99;
-
-// Cloud shadow controls (ONLY used when override_global_shadow = false)
-group_uniforms shadows;
+// Cloud shadow controls (ONLY used when override_global_shadow = false) (CLOUD - PROTECTED)
 uniform bool enable_cloud_shadows = true;
 uniform float cloud_shadow_intensity : hint_range(0.0, 2.0) = 1.0;
 uniform bool use_granular_shadows = false;
@@ -28,8 +43,16 @@ uniform float gray_shadow_intensity : hint_range(0.0, 1.0) = 0.5;
 uniform float black_shadow_intensity : hint_range(0.0, 1.0) = 1.0;
 uniform float color_threshold : hint_range(0.01, 0.5) = 0.2;
 
+// Wind Animation (RESTORED)
+group_uniforms Animations;
+uniform float wind_sway_strength : hint_range(0.0, 1.0) = 0.1;
+uniform float wind_sway_speed : hint_range(0.1, 10.0) = 1.0;
+uniform float wind_time_scale : hint_range(0.0, 5.0) = 1.0;
+uniform float wind_time_offset = 0.0;
+uniform bool sway_from_bottom = false;
+
 // ===== DEBUG CONTROLS (CLOUD - PROTECTED) =====
-group_uniforms debug;
+group_uniforms Debug;
 uniform bool debug_mode = false;
 uniform int debug_test : hint_range(0, 5) = 0;
 /* Debug Tests:
@@ -40,28 +63,6 @@ uniform int debug_test : hint_range(0, 5) = 0;
    4 = Show scaled UV coordinates
    5 = Normal rendering
 */
-
-// ===== ORIGINAL FOLIAGE FEATURES (RESTORED) =====
-// Basic properties
-group_uniforms Colors_and_texture;
-uniform sampler2D albedo_tex : filter_nearest, source_color;
-uniform vec4 albedo_color : source_color = vec4(1.0);
-uniform bool billboard = true;
-// Vertex colors and emission (RESTORED
-uniform bool use_vertex_color = true;
-uniform bool use_emission = false;
-uniform vec3 emission_color : source_color = vec3(1.0);
-// Ambient light controls (RESTORED)
-uniform bool disable_ambient_light = false;
-uniform vec3 fake_ambient_light : source_color = vec3(0.4);
-
-// Wind Animation (RESTORED)
-group_uniforms animation;
-uniform float wind_sway_strength : hint_range(0.0, 1.0) = 0.1;
-uniform float wind_sway_speed : hint_range(0.1, 10.0) = 1.0;
-uniform float wind_time_scale : hint_range(0.0, 5.0) = 1.0;
-uniform float wind_time_offset = 0.0;
-uniform bool sway_from_bottom = false;
 
 // Varying variables (CLOUD + ORIGINAL)
 varying vec3 modelOrigin;
@@ -235,8 +236,7 @@ void fragment() {
 void light() {
     // ===== ORIGINAL LIGHTING SETUP (RESTORED) =====
     vec3 normal = normalize(world_billboard_normal);
-    float NdotL = dot(normal, LIGHT);
-    float diffuse_amount = NdotL;
+    float NdotL = max(dot(normal, LIGHT), 0.0); // Clamp to positive values only
 
     // ===== CLOUD SHADOW INTEGRATION (PROTECTED) =====
     float final_attenuation;
@@ -251,14 +251,18 @@ void light() {
         final_attenuation = ATTENUATION * cloud_shadow;
     }
 
-    // ===== ORIGINAL AMBIENT LIGHT SYSTEM (RESTORED) =====
-    vec3 diffuse = disable_ambient_light ? vec3(0.0) : vec3(fake_ambient_light);
+    // ===== CORRECTED LIGHTING CALCULATION =====
     
-    // ===== COMBINED LIGHTING (ORIGINAL + CLOUD SHADOWS) =====
-    DIFFUSE_LIGHT += NdotL * (diffuse * 5.0) * final_attenuation;
+    // 1. AMBIENT LIGHT (not affected by shadows or light direction)
+    if (!disable_ambient_light) {
+        DIFFUSE_LIGHT += fake_ambient_light * ALBEDO;
+    }
+    
+    // 2. DIRECTIONAL LIGHT (affected by shadows and light direction)
+    DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * final_attenuation;
 
-    // ===== ORIGINAL EMISSION SYSTEM (RESTORED) =====
+    // 3. EMISSION (not affected by shadows)
     if(use_emission) {
-        DIFFUSE_LIGHT += NdotL * ALBEDO * emission_color * LIGHT_COLOR * final_attenuation * diffuse;
+        DIFFUSE_LIGHT += emission_color * ALBEDO;
     }
 }

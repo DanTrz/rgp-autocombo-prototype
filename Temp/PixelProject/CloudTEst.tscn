@@ -37,7 +37,7 @@ noise = SubResource("FastNoiseLite_a4ruw")
 render_priority = 0
 shader = ExtResource("1_f2e7b")
 shader_parameter/cloud_texture = SubResource("NoiseTexture2D_f2e7b")
-shader_parameter/cloud_alpha_scissor_threshold = 0.6
+shader_parameter/cloud_alpha_scissor_threshold = 0.65
 shader_parameter/cloud_color = Color(1, 1, 1, 1)
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 0.5
@@ -199,30 +199,30 @@ load_path = "res://.godot/imported/Grass_3.png-6711f90f42818dba951396c8414e2150.
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xh5bt"]
 render_priority = -1
 shader = ExtResource("2_pjemg")
-shader_parameter/override_global_shadow = false
-shader_parameter/real_shadow_threshold = 0.99
-shader_parameter/enable_cloud_shadows = true
-shader_parameter/cloud_shadow_intensity = 1.0
-shader_parameter/use_granular_shadows = true
-shader_parameter/white_shadow_intensity = 0.5
-shader_parameter/gray_shadow_intensity = 0.5
-shader_parameter/black_shadow_intensity = 0.75
-shader_parameter/color_threshold = 0.5
-shader_parameter/debug_mode = false
-shader_parameter/debug_test = 2
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_a4ruw")
-shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/albedo_color = Color(0.0628204, 0.699219, 0.118158, 1)
 shader_parameter/billboard = true
 shader_parameter/use_vertex_color = false
 shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/disable_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/override_global_shadow = false
+shader_parameter/real_shadow_threshold = 0.99
+shader_parameter/enable_cloud_shadows = true
+shader_parameter/cloud_shadow_intensity = 1.0
+shader_parameter/use_granular_shadows = true
+shader_parameter/white_shadow_intensity = 0.0
+shader_parameter/gray_shadow_intensity = 0.5
+shader_parameter/black_shadow_intensity = 0.5
+shader_parameter/color_threshold = 0.5
 shader_parameter/wind_sway_strength = 0.1
 shader_parameter/wind_sway_speed = 1.0
 shader_parameter/wind_time_scale = 1.0
 shader_parameter/wind_time_offset = 0.0
 shader_parameter/sway_from_bottom = false
+shader_parameter/debug_mode = false
+shader_parameter/debug_test = 2
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_xh5bt"]
 name = "GrassMeshAnimated"
@@ -336,7 +336,7 @@ image = SubResource("Image_ed8f5")
 [sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_edkn3"]
 name = "GrassFlat"
 id = 1
-albedo_color = Color(0.321569, 0.592157, 0.345098, 1)
+albedo_color = Color(0.258824, 0.847059, 0.145098, 1)
 albedo_texture = ExtResource("4_iloe7")
 normal_texture = SubResource("ImageTexture_3o2o4")
 roughness = 1.0
@@ -589,6 +589,7 @@ mesh = SubResource("PlaneMesh_ntwum")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_ed8f5")
 script = ExtResource("9_hdqrt")
+_alphaScissor = 0.6
 cloudTextureScale = 3.0
 moveDirection = Vector2(0.901609, 0.432553)
 moveSpeedMultiplier = 0.01
@@ -636,7 +637,14 @@ _colorSpread = 0.69
 _colorNoise = 0.26
 
 [node name="BolderRockv11" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.954509, 0.29567, -0.0386311, -0.281722, 0.936666, 0.20806, 0.0977015, -0.187711, 0.977353, 10.0507, -0.931051, 1.45352)
+transform = Transform3D(0.954509, 0.29567, -0.0386311, -0.281722, 0.936666, 0.20806, 0.0977015, -0.187711, 0.977353, -7.30968, -0.340172, -1.38716)
+layers = 524289
+mesh = SubResource("ArrayMesh_ro3v6")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_gjs8b")
+
+[node name="BolderRockv12" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.954509, 0.29567, -0.0386311, -0.281722, 0.936666, 0.20806, 0.0977015, -0.187711, 0.977353, -18.9314, -0.931051, -5.38979)
 layers = 524289
 mesh = SubResource("ArrayMesh_ro3v6")
 skeleton = NodePath("")
