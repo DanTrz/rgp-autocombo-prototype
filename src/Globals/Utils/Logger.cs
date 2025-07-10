@@ -1,4 +1,3 @@
-using Godot;
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
@@ -6,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Godot;
 
 public static class Log
 {
@@ -31,6 +31,10 @@ public static class Log
     private static readonly bool _disableAllMessages = false;
     private static readonly bool _isVisualStudioDebugger = false;
 
+    // CRITICAL FIX: Only use complex logging when NOT in editor
+    // In editor/tool context, use simple direct logging to prevent assembly unload issues
+    private static readonly bool _useSimpleLogging = Engine.IsEditorHint();
+
     //SUMMARY OF THE LOGGINS SYSTEM
     //1.. _logQueue: A thread-safe blocking collection to hold log entries.
     //2.. Producers (Log.Debug, Info, etc.) add entries to this queue.
@@ -40,10 +44,12 @@ public static class Log
 
     /// <summary>
     /// Built-in thread-safe blocking collection and handles queue management and wake-up.
+    /// Only used when NOT in editor to prevent assembly unload issues
     /// </summary>
     private static readonly BlockingCollection<LogEntry> _logQueue = [];
     /// <summary>
     /// Background task responsible for processing log entries.
+    /// Only used when NOT in editor to prevent assembly unload issues
     /// </summary>
     private static Task _processingTask;
     private static readonly Lock _processingLock = new();
@@ -77,8 +83,13 @@ public static class Log
         if (OS.IsDebugBuild())
         {
             _isVisualStudioDebugger = IsRunningInVisualStudio();
-            // Start the background task to process log messages.
-            StartProcessingQueue();
+
+            // CRITICAL FIX: Only start complex logging when NOT in editor
+            if (!_useSimpleLogging)
+            {
+                // Start the background task to process log messages.
+                StartProcessingQueue();
+            }
         }
         else
         {
@@ -146,7 +157,36 @@ public static class Log
     }
 
     /// <summary>
+    /// SIMPLE LOGGING: Direct output without complex threading/reflection for editor use
+    /// </summary>
+    private static void AddSimpleLogMessage(LogLevel level, params object[] message)
+    {
+        if (_disableAllMessages)
+            return;
+
+        string logMessage = $"[{level}] ";
+        string color = level switch
+        {
+            LogLevel.DEBUG => "WHITE",
+            LogLevel.INFO => "CYAN",
+            LogLevel.WARNING => "YELLOW",
+            LogLevel.ERROR => "RED",
+            _ => "CYAN"
+        };
+
+        if (!_isVisualStudioDebugger)
+        {
+            GD.PrintRich([$"[color={color}]{logMessage}[/color]", .. message]);
+        }
+        else
+        {
+            System.Diagnostics.Debug.WriteLine(logMessage + AppendPrintParams(message));
+        }
+    }
+
+    /// <summary>
     /// Captures the caller information at the time the log is created
+    /// ONLY used when NOT in editor to prevent assembly unload issues
     /// </summary>
     /// <param name="callerNode"></param>
     /// <param name="level"></param>
@@ -205,7 +245,14 @@ public static class Log
     {
         if (_debugMessages || _enableAllMessages)
         {
-            _logQueue.Add(CreateLogEntry(null, LogLevel.DEBUG, message));
+            if (_useSimpleLogging)
+            {
+                AddSimpleLogMessage(LogLevel.DEBUG, message);
+            }
+            else
+            {
+                _logQueue.Add(CreateLogEntry(null, LogLevel.DEBUG, message));
+            }
         }
     }
 
@@ -213,7 +260,14 @@ public static class Log
     {
         if (_debugMessages || _enableAllMessages)
         {
-            _logQueue.Add(CreateLogEntry(callerNode, LogLevel.DEBUG, message));
+            if (_useSimpleLogging)
+            {
+                AddSimpleLogMessage(LogLevel.DEBUG, message);
+            }
+            else
+            {
+                _logQueue.Add(CreateLogEntry(callerNode, LogLevel.DEBUG, message));
+            }
         }
     }
 
@@ -221,7 +275,14 @@ public static class Log
     {
         if (_infoMessages || _enableAllMessages)
         {
-            _logQueue.Add(CreateLogEntry(null, LogLevel.INFO, message));
+            if (_useSimpleLogging)
+            {
+                AddSimpleLogMessage(LogLevel.INFO, message);
+            }
+            else
+            {
+                _logQueue.Add(CreateLogEntry(null, LogLevel.INFO, message));
+            }
         }
     }
 
@@ -229,7 +290,14 @@ public static class Log
     {
         if (_infoMessages || _enableAllMessages)
         {
-            _logQueue.Add(CreateLogEntry(callerNode, LogLevel.INFO, message));
+            if (_useSimpleLogging)
+            {
+                AddSimpleLogMessage(LogLevel.INFO, message);
+            }
+            else
+            {
+                _logQueue.Add(CreateLogEntry(callerNode, LogLevel.INFO, message));
+            }
         }
     }
 
@@ -237,7 +305,14 @@ public static class Log
     {
         if (_warningMessages || _enableAllMessages)
         {
-            _logQueue.Add(CreateLogEntry(null, LogLevel.WARNING, message));
+            if (_useSimpleLogging)
+            {
+                AddSimpleLogMessage(LogLevel.WARNING, message);
+            }
+            else
+            {
+                _logQueue.Add(CreateLogEntry(null, LogLevel.WARNING, message));
+            }
         }
     }
 
@@ -245,7 +320,14 @@ public static class Log
     {
         if (_warningMessages || _enableAllMessages)
         {
-            _logQueue.Add(CreateLogEntry(callerNode, LogLevel.WARNING, message));
+            if (_useSimpleLogging)
+            {
+                AddSimpleLogMessage(LogLevel.WARNING, message);
+            }
+            else
+            {
+                _logQueue.Add(CreateLogEntry(callerNode, LogLevel.WARNING, message));
+            }
         }
     }
 
@@ -253,7 +335,14 @@ public static class Log
     {
         if (_errorMessages || _enableAllMessages)
         {
-            _logQueue.Add(CreateLogEntry(null, LogLevel.ERROR, message));
+            if (_useSimpleLogging)
+            {
+                AddSimpleLogMessage(LogLevel.ERROR, message);
+            }
+            else
+            {
+                _logQueue.Add(CreateLogEntry(null, LogLevel.ERROR, message));
+            }
         }
     }
 
@@ -261,7 +350,14 @@ public static class Log
     {
         if (_errorMessages || _enableAllMessages)
         {
-            _logQueue.Add(CreateLogEntry(callerNode, LogLevel.ERROR, message));
+            if (_useSimpleLogging)
+            {
+                AddSimpleLogMessage(LogLevel.ERROR, message);
+            }
+            else
+            {
+                _logQueue.Add(CreateLogEntry(callerNode, LogLevel.ERROR, message));
+            }
         }
     }
 
@@ -283,7 +379,8 @@ public static class Log
 
     public static void Shutdown()
     {
-        if (!_logQueue.IsAddingCompleted)
+        // Only shutdown complex logging if it was started
+        if (!_useSimpleLogging && !_logQueue.IsAddingCompleted)
         {
             _logQueue.CompleteAdding();
             try

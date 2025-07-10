@@ -17,7 +17,8 @@ public partial class CloudManager : MeshInstance3D
 		set
 		{
 			field = value;
-			UpdateCloudShadows();
+			Callable.From(UpdateCloudShadows).CallDeferred();
+			// UpdateCloudShadows();
 		}
 	} = 0.55f;
 
@@ -48,7 +49,7 @@ public partial class CloudManager : MeshInstance3D
 	public override void _Ready()
 	{
 		_cloudShaderMaterial = GetActiveMaterial(0) as ShaderMaterial;
-		UpdateCloudShadows();
+		Callable.From(UpdateCloudShadows).CallDeferred();
 	}
 
 	public override void _Process(double delta)
@@ -96,7 +97,7 @@ public partial class CloudManager : MeshInstance3D
 
 			if (textureToUse == null)
 			{
-				GD.PrintErr("No cloud texture found!");
+				Log.Error("No cloud texture found!");
 				return;
 			}
 
@@ -111,7 +112,7 @@ public partial class CloudManager : MeshInstance3D
 			}
 			else
 			{
-				GD.PrintErr("Cloud mesh should be a PlaneMesh!");
+				Log.Error("Cloud mesh should be a PlaneMesh!");
 				return;
 			}
 
@@ -153,20 +154,20 @@ public partial class CloudManager : MeshInstance3D
 			RenderingServer.GlobalShaderParameterSet("enable_directional_shadows", enableDirectionalShadows);
 			RenderingServer.GlobalShaderParameterSet("cloud_mesh_y", meshWorldPosition.Y);
 
-			GD.Print("Cloud shadows updated!");
-			GD.Print($"Mesh World Position: {meshWorldPosition}");
-			GD.Print($"Plane Size: {meshSize}");
-			GD.Print($"Area Size: {autoAreaSize}");
-			GD.Print($"Texture Scale: {cloudTextureScale}");
-			GD.Print($"Is Moving: {isMoving}");
-			GD.Print($"Move Speed: {moveDirection}");
-			GD.Print($"Speed Multiplier: {moveSpeedMultiplier}");
-			GD.Print($"Light Direction: {lightDirection}");
-			GD.Print($"Directional Shadows: {enableDirectionalShadows}");
+			Log.Debug("Cloud shadows updated!");
+			Log.Info($"Mesh World Position: {meshWorldPosition}");
+			Log.Debug($"Plane Size: {meshSize}");
+			Log.Debug($"Area Size: {autoAreaSize}");
+			Log.Debug($"Texture Scale: {cloudTextureScale}");
+			Log.Debug($"Is Moving: {isMoving}");
+			Log.Debug($"Move Speed: {moveDirection}");
+			Log.Debug($"Speed Multiplier: {moveSpeedMultiplier}");
+			Log.Debug($"Light Direction: {lightDirection}");
+			Log.Debug($"Directional Shadows: {enableDirectionalShadows}");
 		}
 		catch (System.Exception e)
 		{
-			GD.PrintErr($"UpdateCloudShadows Failed: {e.Message}");
+			Log.Error($"UpdateCloudShadows Failed: {e.Message}");
 		}
 	}
 
@@ -191,7 +192,7 @@ public partial class CloudManager : MeshInstance3D
 			}
 		}
 
-		GD.PrintErr("No texture found! Assign cloudTexture property or set cloud_texture shader parameter");
+		Log.Error("No texture found! Assign cloudTexture property or set cloud_texture shader parameter");
 		return null;
 	}
 }
