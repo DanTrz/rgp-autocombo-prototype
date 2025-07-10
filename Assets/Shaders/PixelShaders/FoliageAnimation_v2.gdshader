@@ -1,8 +1,6 @@
+//original foliage shader with animations, vertex colors, emission, Sway, Time Scale, WindTime, Sway from bottom
 shader_type spatial;
-//render_mode blend_mix, cull_back; //blend_mix, cull_back; // unshaded, cull_back; //ORIGINAL LINE
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_toon, ambient_light_disabled;
-//render_mode blend_mix, cull_back, ambient_light_disabled, diffuse_toon, specular_toon;//
-//render_mode ambient_light_disabled;
 
 // Toggle simulated ambient manually
 uniform bool disable_ambient_light = false;
@@ -94,24 +92,5 @@ void light() {
 	{
 		DIFFUSE_LIGHT += NdotL * ALBEDO * emission_color * LIGHT_COLOR * ATTENUATION * diffuse; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION;
 	}
-	
-	/////=ORIGINAL
-	
-    //vec3 normal = normalize(world_billboard_normal);
-    //float NdotL = max(dot(normal, LIGHT), 0.0);
-			//// Apply diffuse
-	//vec3 diffuse = ALBEDO.rgb * LIGHT_COLOR / PI;
-		//// Add ambient manually if render_mode ambient_light_disabled is used
-	//vec3 ambient = disable_ambient_light ? vec3(0.0) : vec3(fake_ambient_light); // Replace with desired ambient color
-	//diffuse += ambient;
-//
-	//if(use_emission)
-	//{
-		//DIFFUSE_LIGHT += NdotL * ALBEDO * emission_color * LIGHT_COLOR * ATTENUATION * diffuse; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION;
-	//}
-	//else
-	//{
-		////DIFFUSE_LIGHT += NdotL * ALBEDO  * ATTENUATION * diffuse; // DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * ATTENUATION;
-		//DIFFUSE_LIGHT += NdotL * diffuse;
-	//}
+
 }

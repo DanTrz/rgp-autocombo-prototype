@@ -1,8 +1,8 @@
-//RESTRUCTURED FOLIAGE AND GRASS SHADER - With Dissolve Support and Texture Scaling
+//COMPLETE FOLIAGE AND GRASS SHADER - Cloud Features + Original Animations
 shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_toon;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_toon, ambient_light_disabled;
 
-// Global uniforms
+// Global uniforms (CLOUD SYSTEM - PROTECTED)
 global uniform sampler2D cloud_shadow_texture;
 global uniform float cloud_alpha_scissor : hint_range(0.0, 1.0);
 global uniform float cloud_shadow_strength : hint_range(0.0, 1.0);
@@ -12,13 +12,14 @@ global uniform float cloud_area_size;
 global uniform vec3 sun_light_direction;
 global uniform bool enable_directional_shadows;
 global uniform float cloud_mesh_y;
-global uniform float cloud_texture_scale; // NEW: Texture scaling control
+global uniform float cloud_texture_scale;
 
-// ===== SINGLE SHADOW CONTROL SYSTEM =====
+// ===== SINGLE SHADOW CONTROL SYSTEM (CLOUD - PROTECTED) =====
 uniform bool override_global_shadow = false;
 uniform float real_shadow_threshold : hint_range(0.0, 1.0) = 0.99;
 
 // Cloud shadow controls (ONLY used when override_global_shadow = false)
+group_uniforms shadows;
 uniform bool enable_cloud_shadows = true;
 uniform float cloud_shadow_intensity : hint_range(0.0, 2.0) = 1.0;
 uniform bool use_granular_shadows = false;
@@ -27,7 +28,8 @@ uniform float gray_shadow_intensity : hint_range(0.0, 1.0) = 0.5;
 uniform float black_shadow_intensity : hint_range(0.0, 1.0) = 1.0;
 uniform float color_threshold : hint_range(0.01, 0.5) = 0.2;
 
-// ===== DEBUG CONTROLS =====
+// ===== DEBUG CONTROLS (CLOUD - PROTECTED) =====
+group_uniforms debug;
 uniform bool debug_mode = false;
 uniform int debug_test : hint_range(0, 5) = 0;
 /* Debug Tests:
@@ -39,17 +41,35 @@ uniform int debug_test : hint_range(0, 5) = 0;
    5 = Normal rendering
 */
 
+// ===== ORIGINAL FOLIAGE FEATURES (RESTORED) =====
 // Basic properties
+group_uniforms Colors_and_texture;
 uniform sampler2D albedo_tex : filter_nearest, source_color;
 uniform vec4 albedo_color : source_color = vec4(1.0);
 uniform bool billboard = true;
+// Vertex colors and emission (RESTORED
+uniform bool use_vertex_color = true;
+uniform bool use_emission = false;
+uniform vec3 emission_color : source_color = vec3(1.0);
+// Ambient light controls (RESTORED)
+uniform bool disable_ambient_light = false;
+uniform vec3 fake_ambient_light : source_color = vec3(0.4);
 
+// Wind Animation (RESTORED)
+group_uniforms animation;
+uniform float wind_sway_strength : hint_range(0.0, 1.0) = 0.1;
+uniform float wind_sway_speed : hint_range(0.1, 10.0) = 1.0;
+uniform float wind_time_scale : hint_range(0.0, 5.0) = 1.0;
+uniform float wind_time_offset = 0.0;
+uniform bool sway_from_bottom = false;
+
+// Varying variables (CLOUD + ORIGINAL)
 varying vec3 modelOrigin;
 varying vec3 world_billboard_normal;
 varying vec3 world_position;
 varying vec3 grass_center_world;
 
-// ===== SINGLE SHADOW CALCULATION FUNCTION (UPDATED WITH TEXTURE SCALING) =====
+// ===== CLOUD SHADOW CALCULATION (PROTECTED - UNCHANGED) =====
 float calculate_final_shadow() {
     // OVERRIDE CHECK FIRST - if true, ignore ALL cloud parameters
     if (override_global_shadow) {
@@ -83,7 +103,7 @@ float calculate_final_shadow() {
         uv += cloud_movement_offset;
     }
 
-    // NEW: Apply texture scaling to UV coordinates (simple multiplication)
+    // Apply texture scaling to UV coordinates
     vec2 scaled_uv = uv * cloud_texture_scale;
 
     // Sample cloud texture with scaled UV
@@ -119,7 +139,7 @@ float calculate_final_shadow() {
     return 1.0 - final_intensity;
 }
 
-// ===== DEBUG VISUALIZATION (UPDATED) =====
+// ===== DEBUG VISUALIZATION (CLOUD - PROTECTED) =====
 vec3 debug_visualization(vec3 world_pos) {
     if (debug_test == 0) {
         vec2 world_xz = world_pos.xz;
@@ -143,7 +163,7 @@ vec3 debug_visualization(vec3 world_pos) {
         return vec3(shadow);
     }
     else if (debug_test == 4) {
-        // Show scaled UV coordinates (simple multiplication)
+        // Show scaled UV coordinates
         vec2 relative_pos = world_pos.xz - cloud_area_center.xz;
         vec2 normalized = relative_pos / cloud_area_size;
         vec2 uv = normalized + vec2(0.5);
@@ -157,6 +177,14 @@ vec3 debug_visualization(vec3 world_pos) {
 void vertex() {
     vec3 mod_vertex = VERTEX;
 
+    // ===== ORIGINAL WIND ANIMATION (RESTORED) =====
+    float time = TIME * wind_time_scale + wind_time_offset;
+    // Control sway influence origin (top or bottom)
+    float sway_influence = sway_from_bottom ? UV.y : (1.0 - UV.y);
+    float sway = sin((time + VERTEX.x * 0.5) * wind_sway_speed) * wind_sway_strength * sway_influence;
+    mod_vertex.x += sway;
+
+    // ===== BILLBOARD SYSTEM (ORIGINAL + CLOUD COMPATIBLE) =====
     if(billboard) {
         mat4 billboard_modelview = VIEW_MATRIX * mat4(
         INV_VIEW_MATRIX[0],
@@ -171,19 +199,27 @@ void vertex() {
     world_billboard_normal = transpose(mat3(MODELVIEW_MATRIX)) * vec3(0.0, 0.0, 1.0);
     modelOrigin = (MODELVIEW_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
 
+    // ===== CLOUD SYSTEM WORLD POSITIONS (PROTECTED) =====
     world_position = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
     grass_center_world = (MODEL_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
 }
 
 void fragment() {
+    // ===== CLOUD DEBUG MODE (PROTECTED) =====
     if (debug_mode && debug_test < 5) {
         ALBEDO = debug_visualization(world_position);
         ALPHA = 1.0;
         LIGHT_VERTEX = modelOrigin;
     }
     else {
-        // CLEAN FRAGMENT - NO CLOUD LOGIC HERE
+        // ===== ORIGINAL FRAGMENT LOGIC (RESTORED) =====
         vec4 tex = texture(albedo_tex, UV);
+        
+        // Apply vertex colors if enabled (RESTORED)
+        if(use_vertex_color) {
+            tex *= COLOR;
+        }
+        
         ALBEDO = tex.rgb * albedo_color.rgb;
         ALPHA = tex.a * albedo_color.a;
 
@@ -191,26 +227,38 @@ void fragment() {
             discard;
         }
 
+        // Model Origin info for consistent lighting (ORIGINAL + CLOUD COMPATIBLE)
         LIGHT_VERTEX = modelOrigin;
     }
 }
 
 void light() {
+    // ===== ORIGINAL LIGHTING SETUP (RESTORED) =====
     vec3 normal = normalize(world_billboard_normal);
-    float NdotL = max(dot(normal, LIGHT), 0.0);
+    float NdotL = dot(normal, LIGHT);
+    float diffuse_amount = NdotL;
 
-    // SINGLE POINT OF SHADOW CONTROL
+    // ===== CLOUD SHADOW INTEGRATION (PROTECTED) =====
     float final_attenuation;
-
+    
     if (override_global_shadow) {
         // OVERRIDE: Use ONLY real shadows, ignore ALL cloud parameters
         final_attenuation = ATTENUATION;
     }
     else {
-        // NORMAL: Apply cloud shadow system (now with dissolve and scaling support)
+        // NORMAL: Apply cloud shadow system
         float cloud_shadow = calculate_final_shadow();
         final_attenuation = ATTENUATION * cloud_shadow;
     }
 
-    DIFFUSE_LIGHT += NdotL * ALBEDO * final_attenuation;
+    // ===== ORIGINAL AMBIENT LIGHT SYSTEM (RESTORED) =====
+    vec3 diffuse = disable_ambient_light ? vec3(0.0) : vec3(fake_ambient_light);
+    
+    // ===== COMBINED LIGHTING (ORIGINAL + CLOUD SHADOWS) =====
+    DIFFUSE_LIGHT += NdotL * (diffuse * 5.0) * final_attenuation;
+
+    // ===== ORIGINAL EMISSION SYSTEM (RESTORED) =====
+    if(use_emission) {
+        DIFFUSE_LIGHT += NdotL * ALBEDO * emission_color * LIGHT_COLOR * final_attenuation * diffuse;
+    }
 }
