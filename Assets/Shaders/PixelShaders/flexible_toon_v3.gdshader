@@ -1,7 +1,7 @@
 shader_type spatial;
 
 // Conditional ambient light disable (set via uniform)
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_toon, ambient_light_disabled;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_toon;
 
 // Base color of the mesh.
 uniform vec4 albedo_color : source_color = vec4(1.0f);
@@ -31,7 +31,7 @@ uniform vec2 albedo_uv_offset = vec2(0.0, 0.0);
 uniform bool clamp_diffuse_to_max = true;
 
 // Toon shading controls
-uniform int cuts : hint_range(1, 20) = 1; // Use 1 cut for more traditional ToonShading
+uniform int cuts : hint_range(1, 20) = 2; // Use 1 cut for more traditional ToonShading
 uniform float wrap : hint_range(-2.0f, 2.0f) = 0.0f;
 uniform float steepness : hint_range(1.0f, 8.0f) = 1.0f;
 uniform bool use_attenuation = true;

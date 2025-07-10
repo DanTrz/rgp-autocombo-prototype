@@ -9,8 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://cspgmsd72voka" path="res://Temp/PixelProject/Assets/3D/pillar_dungeon_texture.png" id="5_a8fnq"]
 [ext_resource type="Texture2D" uid="uid://b6cx8vug6xhx0" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterPerlinNoise.png" id="5_mu541"]
 [ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="5_oal72"]
-[ext_resource type="Shader" uid="uid://dbhnb5q3r31tb" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight_Test.gdshader" id="6_2aes8"]
-[ext_resource type="Shader" uid="uid://c8ynu5hrg8bbx" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3_Testing.gdshader" id="7_elpo0"]
+[ext_resource type="Shader" uid="uid://dbhnb5q3r31tb" path="res://Assets/Shaders/OtherShadersRepo/3dOutlineHighlight_Test.gdshader" id="6_2aes8"]
+[ext_resource type="Shader" uid="uid://c8ynu5hrg8bbx" path="res://Assets/Shaders/OtherShadersRepo/flexible_toon_v3_Testing.gdshader" id="7_elpo0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uix6f"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)

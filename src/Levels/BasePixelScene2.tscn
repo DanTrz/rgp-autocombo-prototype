@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://q6krt7c51nuf"]
 
 [ext_resource type="PackedScene" uid="uid://cedw1iorowriy" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.tscn" id="2_foawk"]
-[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/PixelShaders/flexible_toon_v2.gdshader" id="3_rvhlf"]
+[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/OtherShadersRepo/flexible_toon_v2.gdshader" id="3_rvhlf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rwce8"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)

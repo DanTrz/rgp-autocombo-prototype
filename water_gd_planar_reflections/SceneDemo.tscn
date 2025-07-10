@@ -7,8 +7,8 @@
 [ext_resource type="Script" uid="uid://cqrnrxjd2army" path="res://PlanarReflectorOrtho.gd" id="4_27fyg"]
 [ext_resource type="Texture2D" uid="uid://cspgmsd72voka" path="res://Temp/PixelProject/Assets/3D/pillar_dungeon_texture.png" id="5_psr7x"]
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="6_e16cc"]
-[ext_resource type="Shader" uid="uid://dbhnb5q3r31tb" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight_Test.gdshader" id="6_psr7x"]
-[ext_resource type="Shader" uid="uid://c8ynu5hrg8bbx" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3_Testing.gdshader" id="6_t5pnn"]
+[ext_resource type="Shader" uid="uid://dbhnb5q3r31tb" path="res://Assets/Shaders/OtherShadersRepo/3dOutlineHighlight_Test.gdshader" id="6_psr7x"]
+[ext_resource type="Shader" uid="uid://c8ynu5hrg8bbx" path="res://Assets/Shaders/OtherShadersRepo/flexible_toon_v3_Testing.gdshader" id="6_t5pnn"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="7_4dgxo"]
 [ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="8_iuvjp"]
 

@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://x4ihf67reqen"]
 
-[ext_resource type="Shader" uid="uid://dpwmhlausv7b8" path="res://Assets/Shaders/water_toon_planar_reflection.gdshader" id="1_6hkn2"]
+[ext_resource type="Shader" uid="uid://dpwmhlausv7b8" path="res://Assets/Shaders/PixelShaders/water_toon_planar_reflection.gdshader" id="1_6hkn2"]
 [ext_resource type="Texture2D" uid="uid://cwopgjiunh5xc" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterDistortion.png" id="2_khfff"]
 [ext_resource type="Texture2D" uid="uid://b6cx8vug6xhx0" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterPerlinNoise.png" id="3_c0vru"]
 

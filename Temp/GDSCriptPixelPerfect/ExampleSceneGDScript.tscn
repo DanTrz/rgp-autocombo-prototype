@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://che6figi2es2g" path="res://Temp/GDSCriptPixelPerfect/display2.gd" id="5_ygtb4"]
 [ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="6_ajgr6"]
 [ext_resource type="Shader" uid="uid://d4q5ai1l6seh" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale.gdshader" id="6_nn2jk"]
-[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/PixelShaders/flexible_toon_v2.gdshader" id="7_k8f0i"]
+[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/OtherShadersRepo/flexible_toon_v2.gdshader" id="7_k8f0i"]
 [ext_resource type="Shader" uid="uid://im2pcdmdj31a" path="res://Assets/Shaders/OtherShadersRepo/DepthInLineWithNormals.gdshader" id="8_yg63y"]
 [ext_resource type="PackedScene" uid="uid://cedw1iorowriy" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.tscn" id="9_xdvn2"]
 

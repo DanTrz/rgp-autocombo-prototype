@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://cair4uoxj5lif" path="res://Assets/Shaders/OtherShadersRepo/Outline3D.gdshader" id="7_uxmec"]
 [ext_resource type="PackedScene" uid="uid://cedw1iorowriy" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.tscn" id="8_35hy6"]
 [ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="8_y14fl"]
-[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/PixelShaders/flexible_toon_v2.gdshader" id="9_3bxx4"]
+[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/OtherShadersRepo/flexible_toon_v2.gdshader" id="9_3bxx4"]
 [ext_resource type="Shader" uid="uid://im2pcdmdj31a" path="res://Assets/Shaders/OtherShadersRepo/DepthInLineWithNormals.gdshader" id="10_rur1f"]
 [ext_resource type="Material" uid="uid://bhs5wo5aw14xm" path="res://Assets/Materials/PixelToonAndHighlightShader.tres" id="11_mjapo"]
 [ext_resource type="Shader" uid="uid://c3j14atbm7u6e" path="res://Temp/CSharpPixelPerfect/Assets/fixed_colors_outline_and_edge.gdshader" id="12_gbt38"]

@@ -1,3 +1,4 @@
+//SHADER FOR PARTICULES FOR GPUPARTICULE3D
 shader_type particles;
 render_mode disable_velocity; //original working code
 

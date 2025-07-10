@@ -36,12 +36,12 @@ uniform bool override_global_shadow = false;
 uniform float real_shadow_threshold : hint_range(0.0, 1.0) = 0.99;
 // Cloud shadow controls (ONLY used when override_global_shadow = false) (CLOUD - PROTECTED)
 uniform bool enable_cloud_shadows = true;
-uniform float cloud_shadow_intensity : hint_range(0.0, 2.0) = 1.0;
+uniform float cloud_shadow_intensity : hint_range(0.0, 2.0) = 0.5;
 uniform bool use_granular_shadows = false;
 uniform float white_shadow_intensity : hint_range(0.0, 1.0) = 0.0;
 uniform float gray_shadow_intensity : hint_range(0.0, 1.0) = 0.5;
-uniform float black_shadow_intensity : hint_range(0.0, 1.0) = 1.0;
-uniform float color_threshold : hint_range(0.01, 0.5) = 0.2;
+uniform float black_shadow_intensity : hint_range(0.0, 1.0) = 0.5;
+uniform float color_threshold : hint_range(0.01, 0.5) = 0.5;
 
 // Wind Animation (RESTORED)
 group_uniforms Animations;

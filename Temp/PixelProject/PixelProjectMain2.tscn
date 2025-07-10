@@ -1,7 +1,7 @@
 [gd_scene load_steps=297 format=4 uid="uid://c5imcubvi8vyl"]
 
 [ext_resource type="Texture2D" uid="uid://3sbqf0bf1n4s" path="res://Temp/PixelProject/Assets/2D/Textures/WhiteTextures/Blank64px.png" id="1_edkn3"]
-[ext_resource type="Shader" uid="uid://dttitqg6gttav" path="res://Assets/Shaders/PixelShaders/DissolveShader_CloudFocused_v3_bands.gdshader" id="1_nn52y"]
+[ext_resource type="Shader" uid="uid://dttitqg6gttav" path="res://Assets/Shaders/OtherShadersRepo/DissolveShader_CloudFocused_v3_bands.gdshader" id="1_nn52y"]
 [ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="2_6tc5x"]
 [ext_resource type="Script" uid="uid://tweefbwoi14v" path="res://Temp/PixelProject/CloudManager.cs" id="2_nn52y"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="2_pm78i"]
@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://vsslbgh1tge3" path="res://Temp/PixelProject/Assets/2D/Textures/WhiteTextures/white_dirty_01.png" id="4_0swlf"]
 [ext_resource type="Texture2D" uid="uid://b135eh601erpu" path="res://Temp/PixelProject/Assets/2D/Textures/WhiteTextures/white_ground_2.png" id="5_lxxm7"]
 [ext_resource type="Script" uid="uid://buk1mdie3b2om" path="res://Temp/PixelProject/WeatherController.cs" id="5_yww70"]
-[ext_resource type="Shader" uid="uid://cwwifepanoc1o" path="res://Assets/Shaders/PixelShaders/FoliageAnimation_v3_CloudSupport.gdshader" id="6_rfdoi"]
+[ext_resource type="Shader" uid="uid://cwwifepanoc1o" path="res://Assets/Shaders/OtherShadersRepo/FoliageAnimation_v3_CloudSupport.gdshader" id="6_rfdoi"]
 [ext_resource type="Texture2D" uid="uid://mg0ws3yv815j" path="res://Temp/PixelProject/Assets/2D/Textures/WhiteTextures/White_rocks_5..png" id="6_viqks"]
 [ext_resource type="Texture2D" uid="uid://ds3svmdomxbob" path="res://Temp/PixelProject/Assets/2D/Textures/WhiteTextures/white_grass_basic_1 - Copy.png" id="7_am1ms"]
 [ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="8_0swlf"]
@@ -19,9 +19,9 @@
 [ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="11_am1ms"]
 [ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="12_sc0ui"]
 [ext_resource type="Material" uid="uid://cr8yf6r3utjih" path="res://Temp/PixelProject/WaterSSRShader/water_mat.tres" id="13_3dntl"]
-[ext_resource type="Shader" uid="uid://b3pvqhsfxf5qt" path="res://Assets/Shaders/water_planar_reflection.gdshader" id="13_wktjo"]
+[ext_resource type="Shader" uid="uid://b3pvqhsfxf5qt" path="res://Assets/Shaders/PixelShaders/water_planar_reflection.gdshader" id="13_wktjo"]
 [ext_resource type="Texture2D" uid="uid://8qutt28cvkou" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/CloudNoise.tres" id="14_nn52y"]
-[ext_resource type="Shader" uid="uid://dpwmhlausv7b8" path="res://Assets/Shaders/water_toon_planar_reflection.gdshader" id="14_wktjo"]
+[ext_resource type="Shader" uid="uid://dpwmhlausv7b8" path="res://Assets/Shaders/PixelShaders/water_toon_planar_reflection.gdshader" id="14_wktjo"]
 [ext_resource type="PackedScene" uid="uid://be8vp1ovkxhey" path="res://Temp/PixelProject/Assets/3D/MushRooms.tscn" id="15_0swlf"]
 [ext_resource type="Texture2D" uid="uid://cux341gxxkqeq" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/Water_NoiseWaveB.tres" id="15_72eyv"]
 [ext_resource type="Texture2D" uid="uid://stensn7vpvqw" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/Water_SurfaceNormalsA.tres" id="15_da4iu"]
@@ -41,7 +41,7 @@
 [ext_resource type="Shader" uid="uid://xyu6c57vn0ks" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight_waterUpdate.gdshader" id="24_crfu6"]
 [ext_resource type="Texture2D" uid="uid://bqcn8gxfah2sm" path="res://Temp/PixelProject/Assets/3D/camp_nagon_texture.png" id="25_yww70"]
 [ext_resource type="ArrayMesh" uid="uid://blkkhoc2hdbor" path="res://Temp/PixelProject/Assets/3D/bridge_Cube_551.res" id="26_il5i8"]
-[ext_resource type="Shader" uid="uid://c8ynu5hrg8bbx" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3_Testing.gdshader" id="27_72eyv"]
+[ext_resource type="Shader" uid="uid://c8ynu5hrg8bbx" path="res://Assets/Shaders/OtherShadersRepo/flexible_toon_v3_Testing.gdshader" id="27_72eyv"]
 [ext_resource type="Texture2D" uid="uid://cspgmsd72voka" path="res://Temp/PixelProject/Assets/3D/pillar_dungeon_texture.png" id="27_yww70"]
 [ext_resource type="Texture2D" uid="uid://dyvkt6qqdrepj" path="res://Temp/PixelProject/Assets/3D/Rocks_castle-colour-palette.png" id="28_gwg7d"]
 [ext_resource type="Texture2D" uid="uid://swpugb3qa75e" path="res://Temp/PixelProject/Assets/3D/column_dungeon_texture.png" id="28_lxxm7"]
@@ -106,7 +106,7 @@ noise = SubResource("FastNoiseLite_57bhg")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crfu6"]
 transparency = 2
-alpha_scissor_threshold = 0.568
+alpha_scissor_threshold = 0.0
 alpha_antialiasing_mode = 0
 albedo_texture = SubResource("NoiseTexture2D_2ujm1")
 ao_light_affect = 1.0
@@ -613,8 +613,8 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 resource_local_to_scene = true
 gradient = SubResource("Gradient_6hkn2")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_rfdoi"]
-viewport_path = NodePath("SubViewport/WaterSRROption2/WaterCaustic/@SubViewport@50389")
+[sub_resource type="ViewportTexture" id="ViewportTexture_uxcup"]
+viewport_path = NodePath("SubViewport/WaterSRROption2/WaterCaustic/@SubViewport@82473")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_crfu6"]
 resource_local_to_scene = true
@@ -652,7 +652,7 @@ shader_parameter/scroll_offset = Vector2(0.1, -0.3)
 shader_parameter/scale_offset = 0.5
 shader_parameter/normal_map_scale = Vector2(0.1, 0.1)
 shader_parameter/normal_map = ExtResource("15_da4iu")
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_rfdoi")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_uxcup")
 shader_parameter/reflection_strength = 0.75
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
@@ -674,8 +674,8 @@ size = Vector2(75, 75)
 subdivide_width = 50
 subdivide_depth = 50
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_v0kvh"]
-viewport_path = NodePath("SubViewport/WaterSRROption2/WaterToon/@SubViewport@50391")
+[sub_resource type="ViewportTexture" id="ViewportTexture_372we"]
+viewport_path = NodePath("SubViewport/WaterSRROption2/WaterToon/@SubViewport@82475")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_urvk5"]
 render_priority = 0
@@ -701,7 +701,7 @@ shader_parameter/master_time_scale = 1.0
 shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_v0kvh")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_372we")
 shader_parameter/reflection_strength = 0.5
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0

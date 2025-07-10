@@ -7,7 +7,7 @@
 [ext_resource type="Shader" uid="uid://cair4uoxj5lif" path="res://Assets/Shaders/OtherShadersRepo/Outline3D.gdshader" id="5_0hk0o"]
 [ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="6_cmp7w"]
 [ext_resource type="Shader" uid="uid://d4q5ai1l6seh" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale.gdshader" id="6_lxoyt"]
-[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/PixelShaders/flexible_toon_v2.gdshader" id="7_00j36"]
+[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/OtherShadersRepo/flexible_toon_v2.gdshader" id="7_00j36"]
 [ext_resource type="Script" uid="uid://yyk7v6dy4cgt" path="res://src/DisplayAndCamera/CameraRig.cs" id="8_cmp7w"]
 [ext_resource type="Shader" uid="uid://c3j14atbm7u6e" path="res://Temp/CSharpPixelPerfect/Assets/fixed_colors_outline_and_edge.gdshader" id="8_g3wal"]
 [ext_resource type="Material" uid="uid://bhs5wo5aw14xm" path="res://Assets/Materials/PixelToonAndHighlightShader.tres" id="8_gufyq"]
