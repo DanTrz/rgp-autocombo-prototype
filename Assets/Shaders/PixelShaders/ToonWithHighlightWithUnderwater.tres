@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cg03su2nb8jw2"]
 
 [ext_resource type="Shader" uid="uid://xyu6c57vn0ks" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight_waterUpdate.gdshader" id="1_8u6v1"]
-[ext_resource type="Shader" uid="uid://c8ynu5hrg8bbx" path="res://Assets/Shaders/OtherShadersRepo/flexible_toon_v3_Testing.gdshader" id="2_jovbr"]
+[ext_resource type="Shader" uid="uid://cmqagob15pcm3" path="res://Assets/Shaders/PixelShaders/flexible_toon_v4.gdshader" id="2_8u6v1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_03ca8"]
 render_priority = 0
@@ -10,26 +10,26 @@ shader_parameter/shadows_enabled = true
 shader_parameter/highlights_enabled = true
 shader_parameter/shadow_strength = 0.55
 shader_parameter/highlight_strength = 0.7
-shader_parameter/highlight_color = Color(0.779291, 0.779291, 0.779291, 1)
-shader_parameter/shadow_color = Color(0.377919, 0.377919, 0.377919, 1)
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
 shader_parameter/water_height = 2.0
 shader_parameter/water_fade_distance = 0.75
 
 [resource]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_03ca8")
-shader = ExtResource("2_jovbr")
-shader_parameter/albedo_color = Color(0.671874, 0.621973, 0.6066, 1)
+shader = ExtResource("2_8u6v1")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
 shader_parameter/disable_ambient_light = false
 shader_parameter/Use_fake_ambient_light = true
-shader_parameter/fake_ambient_light = Color(0.516009, 0.465891, 0.450434, 1)
+shader_parameter/fake_ambient_light = Color(0.720467, 0.720468, 0.720467, 1)
 shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(0.1, 0.1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 1
+shader_parameter/cuts = 2
 shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true

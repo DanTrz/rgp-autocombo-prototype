@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://ds3svmdomxbob" path="res://Temp/PixelProject/Assets/2D/Textures/WhiteTextures/white_grass_basic_1 - Copy.png" id="10_nfqn6"]
 [ext_resource type="Texture2D" uid="uid://cgevqdb47vav6" path="res://Temp/PixelProject/Assets/3D/BolderRockv2_Ucupaint BolderRock Color.png" id="11_qodvv"]
 [ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="12_f0hk7"]
-[ext_resource type="Shader" uid="uid://c8ynu5hrg8bbx" path="res://Assets/Shaders/OtherShadersRepo/flexible_toon_v3_Testing.gdshader" id="13_4hqal"]
+[ext_resource type="Shader" uid="uid://cmqagob15pcm3" path="res://Assets/Shaders/PixelShaders/flexible_toon_v4.gdshader" id="13_bnugo"]
 [ext_resource type="PackedScene" uid="uid://ceuqgja4ownk6" path="res://Temp/PixelProject/TreeMultiLeafGPUParticule.tscn" id="14_k22ku"]
 [ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="15_ldr28"]
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="16_nxmp7"]
@@ -546,18 +546,18 @@ shader_parameter/shadow_color = Color(0.377919, 0.377919, 0.377919, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gjs8b"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_lymdg")
-shader = ExtResource("13_4hqal")
+shader = ExtResource("13_bnugo")
 shader_parameter/albedo_color = Color(0.671874, 0.621973, 0.6066, 1)
 shader_parameter/disable_ambient_light = false
 shader_parameter/Use_fake_ambient_light = true
-shader_parameter/fake_ambient_light = Color(0.516009, 0.465891, 0.450434, 1)
+shader_parameter/fake_ambient_light = Color(0.564356, 0.512808, 0.496915, 1)
 shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/use_repeat_nearest_texture = true
 shader_parameter/albedo_uv_scale = Vector2(0.1, 0.1)
 shader_parameter/albedo_uv_offset = Vector2(0, 0)
 shader_parameter/clamp_diffuse_to_max = true
-shader_parameter/cuts = 1
+shader_parameter/cuts = 2
 shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true
