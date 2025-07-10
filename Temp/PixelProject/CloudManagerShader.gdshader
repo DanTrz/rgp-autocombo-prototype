@@ -35,13 +35,13 @@ void fragment() {
     vec2 normalized = relative_pos / cloud_area_size;
     vec2 uv = normalized + vec2(0.5);
     uv += cloud_movement_offset;
-    
+
     // Apply texture scaling (same as grass shader)
     vec2 scaled_uv = uv * cloud_texture_scale;
-    
+
     // Sample cloud texture
     vec4 cloud_sample = texture(cloud_texture, scaled_uv);
-    
+
     // Debug visualizations or normal rendering
     if (debug_show_uv) {
         ALBEDO = vec3(fract(uv), 0.0);
@@ -54,10 +54,10 @@ void fragment() {
         ALBEDO = cloud_sample.rgb * cloud_color.rgb;
         ALPHA = cloud_sample.a * cloud_color.a;
     }
-    
+
     // Apply alpha scissor threshold
     ALPHA_SCISSOR_THRESHOLD = cloud_alpha_scissor_threshold;
-    
+
     // Material properties
     METALLIC = metallic;
     ROUGHNESS = roughness;

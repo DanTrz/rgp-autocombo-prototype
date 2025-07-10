@@ -1,4 +1,4 @@
-//LATEST VERSION 
+//LATEST VERSION
 shader_type spatial;
 //render_mode shadows_disabled;
 render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_toon,specular_toon;
@@ -188,7 +188,7 @@ bool in_bounds(vec2 uv) {
 void vertex() {
 	global_position = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	view_position = (VIEW_MATRIX * vec4(global_position, 1.0)).xyz;
-	
+
 	// Calculate a distance factor for orthogonal camera compensation
 	// Use world space distance instead of view space for consistency
 	vec3 camera_world_pos = (INV_VIEW_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
@@ -232,7 +232,7 @@ void fragment() {
 	world.y /= world.w;
 	float vertey_y = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).y;
 	float relative_depth = vertey_y - world.y;
-	
+
 	// Apply orthogonal depth compensation
 	if (is_orthogonal_camera) {
 		relative_depth *= ortho_depth_scale;
@@ -243,7 +243,7 @@ void fragment() {
 	if (is_orthogonal_camera) {
 		edge_thickness_adjusted *= ortho_edge_compensation;
 	}
-	
+
 	float edge_blend = clamp(relative_depth / -edge_thickness_adjusted + 1.0, 0.0, 1.0);
 	vec2 edge_noise_uv = global_position.xz * edge_noise_scale * fma(normalized_wind_direction.xz, vec2(0.5), vec2(0.5));
 	edge_noise_uv = fma(-normalized_wind_direction.xz * TIME * edge_speed, vec2(wind_intens_factor), edge_noise_uv);
@@ -270,10 +270,10 @@ void fragment() {
 	if (reflection_strength > 0.0) {
 		// Combine multiple distortion sources for realistic water reflection
 		vec3 combined_normal = mix(n1, n2, 0.5);
-		
+
 		// 1. Base normal map distortion
 		vec2 normal_distortion = (combined_normal.rg - vec2(0.5)) * 2.0;
-		
+
 		// 2. Add displacement influence (if enabled)
 		float displacement_influence = 0.0;
 		#ifdef DISPLACEMENT
@@ -286,27 +286,27 @@ void fragment() {
 		);
 		normal_distortion += disp_gradient;
 		#endif
-		
+
 		// 3. Scale distortion based on settings
 		distortion = normal_distortion * normal_map_strength * 0.02 * reflection_distortion_scale;
-		
+
 		// 4. Apply refraction strength to reflection as well
 		distortion *= (1.0 + refraction_strength * 0.2);
-		
+
 		// 5. Add subtle time-based wobble for extra movement
 		vec2 time_wobble = vec2(
-			sin(TIME * 2.0 + global_position.x * 0.5), 
+			sin(TIME * 2.0 + global_position.x * 0.5),
 			cos(TIME * 1.5 + global_position.z * 0.5)
 		) * 0.003 * reflection_distortion_scale;
 		distortion += time_wobble;
-		
+
 		// 6. Add ripple influence to reflection
 		if (ripple_mask > 0.0) {
 			distortion += vec2(ripple_mask * 0.01, ripple_mask * 0.01) * sin(TIME * 10.0);
 		}
-		
+
 		warped_uv = SCREEN_UV + distortion;
-		
+
 		// Handle orthogonal camera mode
 		if (is_orthogonal_camera) {
 			vec2 center = vec2(0.5);
@@ -339,17 +339,17 @@ void fragment() {
 		// Use world Y position instead of view space
 		caustic_range_adjusted *= 2.0; // Increase range for orthogonal
 	}
-	
+
 	float range_mod = clamp((global_position.y + caustic_range_adjusted) * 0.05, 0.0, 1.0);
 	float caustic_value = 0.0;
-	
+
 	if (range_mod > 0.0) {
 		// Use world position for caustics to maintain consistency
 		vec3 X = vec3(global_position.xz * caustic_size * caustic_world_scale, mod(TIME, 578.0) * 0.8660254037844386);
 		vec4 noiseResult = os2NoiseWithDerivatives_Fallback(X);
 		noiseResult = os2NoiseWithDerivatives_Fallback(X - noiseResult.xyz / 16.0);
 		caustic_value = fma(noiseResult.w, 0.5, 0.5) * range_mod * range_mod;
-		
+
 		// Boost caustics for orthogonal camera
 		if (is_orthogonal_camera) {
 			caustic_value *= ortho_caustic_boost;
@@ -381,13 +381,13 @@ void fragment() {
 	#ifdef CAUSTICS
 	color = clamp(color + caustic_value * caustic_strength * (1.0 - depth_blend), vec3(0.0), vec3(1.0));
 	#endif
-	
+
 	// PLANAR REFLECTION INTEGRATION - Added from Shader 2
 	if (reflection_strength > 0.0) {
 		vec4 reflection_tex = texture(reflection_screen_texture, warped_uv);
 		color = mix(color, reflection_tex.rgb, reflection_strength * (1.0 - depth_blend));
 	}
-	
+
 	color = mix(color, vec3(0.98), ripple_mask); // Apply Ripples
 	ALBEDO = color;
 	ROUGHNESS = roughness;
