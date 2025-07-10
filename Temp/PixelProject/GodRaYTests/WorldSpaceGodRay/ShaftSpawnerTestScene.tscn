@@ -45,12 +45,12 @@ size = Vector3(47.1003, 1, 16.926)
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 
-[sub_resource type="Sky" id="Sky_ftsip"]
+[sub_resource type="Sky" id="Sky_gb41b"]
 sky_material = SubResource("ProceduralSkyMaterial_gb41b")
 
 [sub_resource type="Environment" id="Environment_lfdt2"]
 background_mode = 2
-sky = SubResource("Sky_ftsip")
+sky = SubResource("Sky_gb41b")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -87,14 +87,14 @@ shader_parameter/base_albedo = Color(0.5, 0.5, 0.5, 1)
 [sub_resource type="CylinderMesh" id="CylinderMesh_ofadk"]
 height = 7.0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_2r8ue"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_vti57"]
 viewport_path = NodePath("ShadowMapSubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_usnyq"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_g6uio")
-shader_parameter/shadow_texture = SubResource("ViewportTexture_2r8ue")
+shader_parameter/shadow_texture = SubResource("ViewportTexture_vti57")
 shader_parameter/shadow_threshold = 0.3
 shader_parameter/light_view_matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 shader_parameter/light_projection_matrix = Projection(0.028125, 0, 0, 0, 0, 0.05, 0, 0, 0, 0, -0.02001, 0, 0, 0, -1.001, 1)

@@ -16,6 +16,7 @@ public partial class TreeLeafParticuleEmitter : Node3D
 	[Export] int _totalParticulesCount = 500;
 	[Export] Color _mainParticuleColor = Colors.White; // Main particule color
 	[Export] Color _internalMeshColorAdjust = Colors.White; // Adjust for the mesh color(internal mesh color)
+	[Export] bool _useVertexColors = false;
 	[Export] GradientTexture1D _colorShadingRamp; // Color shading and darken ramp for particle colors
 	[Export] Vector3 _colorShadingDirection = new Vector3(0, 1, 0); // Direction for darkest color (default: Y-up)
 	[Export(PropertyHint.Range, "0,1,0.01")] float _colorSpread = 0.5f; // How spread out colors are (0.0 = tight, 1.0 = full sphere)
@@ -56,17 +57,22 @@ public partial class TreeLeafParticuleEmitter : Node3D
 	private void ApplyColorToMesh()
 	{
 
+
+		//Set color of internal tree mesh 
 		if (_treeMesh.Mesh.SurfaceGetMaterial(0) is ShaderMaterial meshShaderMaterial)
 		{
 			meshShaderMaterial.SetShaderParameter("albedo_color", _mainParticuleColor * _internalMeshColorAdjust);
 		}
 
+		//Set color of mesh inside the GpuParticlers that control the leaves
 		if (_particleEmitter.DrawPass1.SurfaceGetMaterial(0) is ShaderMaterial particuleShaderMaterial)
 		{
 			particuleShaderMaterial.SetShaderParameter("albedo_color", _mainParticuleColor);
+			particuleShaderMaterial.SetShaderParameter("use_vertex_color", _useVertexColors);
 		}
 		// _particleEmitter.DrawPass1.Material.SetShaderParameter("albedo_color", _particuleColor);
 
+		//Set color of the emitter within the Particule Emmitter ProcessMaterial
 		if (_particleEmitter.ProcessMaterial is ShaderMaterial processShaderMaterial)
 		{
 
@@ -77,6 +83,9 @@ public partial class TreeLeafParticuleEmitter : Node3D
 			processShaderMaterial.SetShaderParameter("color_spread", _colorSpread);
 			processShaderMaterial.SetShaderParameter("emission_sphere_radius", _particuleSphereRadius);
 			processShaderMaterial.SetShaderParameter("color_noise", _colorNoise);
+
+
+
 		}
 
 	}

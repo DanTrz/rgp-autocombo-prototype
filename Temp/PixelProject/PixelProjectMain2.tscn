@@ -613,8 +613,8 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 resource_local_to_scene = true
 gradient = SubResource("Gradient_6hkn2")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_uxcup"]
-viewport_path = NodePath("SubViewport/WaterSRROption2/WaterCaustic/@SubViewport@82473")
+[sub_resource type="ViewportTexture" id="ViewportTexture_rfdoi"]
+viewport_path = NodePath("SubViewport/WaterSRROption2/WaterCaustic/@SubViewport@140625")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_crfu6"]
 resource_local_to_scene = true
@@ -652,7 +652,7 @@ shader_parameter/scroll_offset = Vector2(0.1, -0.3)
 shader_parameter/scale_offset = 0.5
 shader_parameter/normal_map_scale = Vector2(0.1, 0.1)
 shader_parameter/normal_map = ExtResource("15_da4iu")
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_uxcup")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_rfdoi")
 shader_parameter/reflection_strength = 0.75
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
@@ -674,8 +674,8 @@ size = Vector2(75, 75)
 subdivide_width = 50
 subdivide_depth = 50
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_372we"]
-viewport_path = NodePath("SubViewport/WaterSRROption2/WaterToon/@SubViewport@82475")
+[sub_resource type="ViewportTexture" id="ViewportTexture_v0kvh"]
+viewport_path = NodePath("SubViewport/WaterSRROption2/WaterToon/@SubViewport@140627")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_urvk5"]
 render_priority = 0
@@ -701,7 +701,7 @@ shader_parameter/master_time_scale = 1.0
 shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_372we")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_v0kvh")
 shader_parameter/reflection_strength = 0.5
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
@@ -2925,11 +2925,12 @@ _colorNoise = 0.26
 [node name="TreeMultiLeafGPUParticule40" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(1.43727, 0.114148, -0.0502921, -0.0730103, 2.2471, 0.00255473, 0.050357, 0, 1.43913, 10.6872, -0.163968, -11.723)
 _totalParticulesCount = 400
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_mainParticuleColor = Color(0.641934, 0.641934, 0.641934, 1)
+_internalMeshColorAdjust = Color(0.545746, 0.881154, 0.515493, 1)
 _colorShadingRamp = SubResource("GradientTexture1D_2ujm1")
 _colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
+_colorSpread = 0.53
+_colorNoise = 0.25
 
 [node name="TreeMultiLeafGPUParticule42" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
 transform = Transform3D(1.40043, 0, 0.335282, 0, 2.25, 0, -0.335282, 0, 1.40043, -8.96122, 0, -13.4393)

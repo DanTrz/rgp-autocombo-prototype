@@ -28,7 +28,7 @@ uniform bool use_emission = false;
 uniform vec3 emission_color : source_color = vec3(1.0);
 // Ambient light controls (RESTORED)
 uniform bool disable_ambient_light = false;
-uniform vec3 fake_ambient_light : source_color = vec3(0.4);
+uniform vec3 fake_ambient_light : source_color = vec3(0.8);
 
 // ===== SINGLE SHADOW CONTROL SYSTEM (CLOUD - PROTECTED) =====
 group_uniforms Shadows;

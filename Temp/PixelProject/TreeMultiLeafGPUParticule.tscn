@@ -7,20 +7,20 @@
 [ext_resource type="Shader" uid="uid://osv6ambcbili" path="res://Assets/Shaders/PixelShaders/FoliageAnimation_v3_CloudSupport_v2.gdshader" id="5_8x41d"]
 [ext_resource type="Texture2D" uid="uid://1b2dh6hbyfpm" path="res://Temp/PixelProject/Assets/Tree_LoD_GPUParticule.png" id="6_8x41d"]
 
-[sub_resource type="Gradient" id="Gradient_ot7g1"]
+[sub_resource type="Gradient" id="Gradient_o6o0y"]
 resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.127726, 0.146417, 0.784946, 0.995976)
-colors = PackedColorArray(0.786667, 0.786667, 0.786667, 1, 0.817956, 0.817956, 0.817956, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_877qk"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wq7mf"]
 resource_local_to_scene = true
-gradient = SubResource("Gradient_ot7g1")
+gradient = SubResource("Gradient_o6o0y")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8x41d"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_ot7g1")
-shader_parameter/albedo_color = Color(0.104062, 0.416247, 0.131208, 1)
+shader_parameter/albedo_color = Color(0.783523, 0.783523, 0.783523, 1)
 shader_parameter/disable_ambient_light = false
 shader_parameter/Use_fake_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
@@ -67,7 +67,7 @@ shader = ExtResource("2_ot7g1")
 shader_parameter/albedo_color = Color(0.704429, 0.526407, 0.397455, 1)
 shader_parameter/disable_ambient_light = false
 shader_parameter/Use_fake_ambient_light = true
-shader_parameter/fake_ambient_light = Color(0.441798, 0.312208, 0.217097, 1)
+shader_parameter/fake_ambient_light = Color(0.341954, 0.237036, 0.159885, 1)
 shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/use_repeat_nearest_texture = true
@@ -150,7 +150,7 @@ shadow_mesh = SubResource("ArrayMesh_fjmk2")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ot7g1"]
 resource_local_to_scene = true
 shader = ExtResource("4_ot7g1")
-shader_parameter/color_ramp_texture = SubResource("GradientTexture1D_877qk")
+shader_parameter/color_ramp_texture = SubResource("GradientTexture1D_wq7mf")
 shader_parameter/target_color_direction = Vector3(0, 1, 0)
 shader_parameter/color_spread = 0.5
 shader_parameter/color_noise = 0.1
@@ -172,13 +172,13 @@ resource_local_to_scene = true
 render_priority = 1
 shader = ExtResource("5_8x41d")
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_fjmk2")
-shader_parameter/albedo_color = Color(0.0628204, 0.699219, 0.118158, 1)
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
 shader_parameter/billboard = true
-shader_parameter/use_vertex_color = false
+shader_parameter/use_vertex_color = true
 shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/fake_ambient_light = Color(0.8, 0.8, 0.8, 1)
 shader_parameter/override_global_shadow = false
 shader_parameter/real_shadow_threshold = 0.99
 shader_parameter/enable_cloud_shadows = true
@@ -205,9 +205,9 @@ size = Vector2(0.5, 0.7)
 script = ExtResource("1_j1kbm")
 _particleEmitter = NodePath("tree_oak_dark/GPUParticles3D")
 _treeMesh = NodePath("tree_oak_dark")
-_mainParticuleColor = Color(0.132813, 0.53125, 0.167459, 1)
 _internalMeshColorAdjust = Color(0.783523, 0.783523, 0.783523, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_877qk")
+_useVertexColors = true
+_colorShadingRamp = SubResource("GradientTexture1D_wq7mf")
 _colorNoise = 0.1
 _restartParticulesTime = NodePath("RestartParticulesTime")
 
