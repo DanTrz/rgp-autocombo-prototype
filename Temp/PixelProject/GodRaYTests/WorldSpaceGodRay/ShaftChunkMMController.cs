@@ -6,31 +6,44 @@ using System.Threading.Tasks;
 using Godot;
 
 // [Tool]
-public partial class ShaftMultiMeshController : MultiMeshInstance3D
+public partial class ShaftChunkMMController : MultiMeshInstance3D
 {
-	public bool IsShaftMMActive { get; set; } = false;
-	public Vector3 InitialScale { get; set; } = Vector3.One;
-	public float WorldBoundMaxSize { get; set; } = 500.0f;
-	public int RotationType { get; set; } = 0;
-	public float InstancesRotationZ { get; set; } = 0.0f;
-	public bool RaycastEnabled { get; set; } = true;
-	public bool ResizeShaftOnCollision { get; set; } = true;
-	public float RayLenght { get; set; } = 80.0f;
-	public uint RaycastCollisionLayers { get; set; } = 1;
-	public bool ShowDebugSpheres { get; set; } = false;
-	public SphereDebugVisualizer DebuggerSphere { get; set; }
-	public bool ShowOnlyColliders { get; set; } = true;
+	[ExportGroup("Mandatory Node References")]
+	[Export] public CollisionShape3D _collisionShape { get; set; }
+
+	[ExportGroup("Chunk Settings")]
+	[Export] bool _isChunkActive { get; set; } = true;
+	[Export] bool _useRandomSpread { get; set; } = true;
+	[Export] bool _useFixedCount { get; set; } = false;
+	[Export] int _fixCountPerChunk { get; set; } = 10;
+	[Export] float _chunkDensity { get; set; } = 50.0f;
+	[Export] float _minimumSpacing { get; set; } = 1.5f; // Minimum distance between instances
+
+	[ExportGroup("Shaft Generation")]
+	[Export] private bool _isShaftMMActive { get; set; } = false;
+	[Export] private Vector3 _initialScale { get; set; } = Vector3.One;
+	[Export] private float _worldBoundMaxSize { get; set; } = 500.0f;
+
+	[Export(PropertyHint.Enum, "InstanceBased,NodeBased")] public int _rotationType { get; set; } = 0;
+	[Export] private float _instancesRotationZ { get; set; } = 0.0f;
+	[Export] private bool _raycastEnabled { get; set; } = true;
+	[Export] private bool _resizeShaftOnCollision { get; set; } = true;
+	[Export] private float _rayLenght { get; set; } = 200.0f;
+	[Export] private bool _useRandomWidth { get; set; } = true;
+	[Export] private float _randWidthMax { get; set; } = 1.5f;
+	[Export] private float _randWidthMin { get; set; } = 0.5f;
+
+	[Export] public float _activationRangeMax { get; set; } = 100.0f;
+	[Export] public float _activationRangeMin { get; set; } = 50.0f;
+	[Export(PropertyHint.Layers3DRender)] public uint _raycastCollisionLayers { get; set; } = 1;
+
+	[ExportGroup("Debug")]
+	[Export] private bool _showDebugSpheres { get; set; } = false;
+	[Export] private SphereDebugVisualizer _debuggerSphere { get; set; }
+	[Export] private bool _showOnlyColliders { get; set; } = true;
 	private List<InstanceCollider> _instanceList { get; set; } = new(); //int=IntanceID /--/ InstanceCollider=InstanaceInfo
 	private bool _hasCollidersMissing = true;
-	public float ActivationRangeMax { get; set; } = 100.0f;
-	public float ActivationRangeMin { get; set; } = 50.0f;
-
-
-	public float RandWidthMax { get; set; } = 50.0f;
-	public float RandWidthMin { get; set; } = 50.0f;
-	public bool UseRandomWidth { get; set; } = true;
-
-
+	public float DistanceToCamera { get; set; }
 	MultiMesh _multiMesh;
 
 	public override void _Ready()
@@ -41,22 +54,151 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 			Log.Error($"Error: MultiMesh is null: {_multiMesh}");
 			return;
 		}
-
-
-
-		// if (!_runInEditor) return;
-		//PopulateGrid(_gridSize, GetGridCellSize(_gridSize));
 		CleanAllDebugSpheres();
-		//SpawnInstances();
+		IntialChunkSetup();
+	}
+
+	private void IntialChunkSetup()
+	{
+		if (_collisionShape == null)
+		{
+			try
+			{
+				_collisionShape = GetNode<CollisionShape3D>("CollisionShape3D");
+			}
+			catch (System.Exception ex)
+			{
+				Log.Error($"ShaftChunkController error: Missing references for CollisionShape3D {ex.Message}");
+				return;
+			}
+		}
+
+		var bounds = ((BoxShape3D)_collisionShape.Shape).Size;
+
+		List<Vector3> spawnPositions = _useRandomSpread
+			? GenerateRandomPositions(bounds)
+			: GenerateGridPositions(bounds);
+
+		SpawnInstances(spawnPositions);
 	}
 
 	public override void _Process(double delta)
 	{
 		// if (!_runInEditor) return;
-		if (!_hasCollidersMissing || _multiMesh == null || !IsShaftMMActive) return;
+		if (!_hasCollidersMissing || _multiMesh == null || !_isShaftMMActive) return;
 		SetInstancesCollision();
 	}
 
+	#region ChunkCreation
+
+	public void ActivateChunk()
+	{
+		Visible = true;
+		_isChunkActive = true;
+		SetProcess(true);
+
+		SetProcess(true);
+		_isShaftMMActive = true;
+
+		Log.Debug($"Activated chunk: {Name}");
+		// Future: trigger shader fade-in
+	}
+
+	public void DeactivateChunk()
+	{
+		Visible = false;
+		_isChunkActive = false;
+		SetProcess(false);
+
+		SetProcess(false);
+		_isShaftMMActive = false;
+
+		Log.Debug($"Deactivated chunk: {Name}");
+		// Future: trigger shader fade-out
+	}
+	private List<Vector3> GenerateGridPositions(Vector3 bounds)
+	{
+		Log.Debug("GenerateGridPositions started");
+
+		int count = _useFixedCount
+			? _fixCountPerChunk
+			: Mathf.RoundToInt(bounds.X * bounds.Z * (_chunkDensity / 100f));
+		count = Mathf.Max(count, 1);
+
+		// Adjust grid layout based on minimum spacing
+		int columns = Mathf.Max(1, Mathf.FloorToInt(bounds.X / _minimumSpacing));
+		int rows = Mathf.Max(1, Mathf.FloorToInt(bounds.Z / _minimumSpacing));
+		int maxCount = columns * rows;
+		count = Mathf.Min(count, maxCount);
+
+		float cellSizeX = bounds.X / columns;
+		float cellSizeZ = bounds.Z / rows;
+
+		List<Vector3> positions = new();
+		float originX = -bounds.X / 2f + cellSizeX / 2f;
+		float originZ = -bounds.Z / 2f + cellSizeZ / 2f;
+
+		for (int x = 0; x < columns; x++)
+		{
+			for (int z = 0; z < rows; z++)
+			{
+				Vector3 localPos = new(
+					originX + x * cellSizeX,
+					0f,
+					originZ + z * cellSizeZ
+				);
+				positions.Add(localPos);
+				if (positions.Count >= count) return positions;
+			}
+		}
+
+		return positions;
+	}
+
+	private List<Vector3> GenerateRandomPositions(Vector3 bounds)
+	{
+		Log.Debug("GenerateRandomPositions started");
+
+		float area = bounds.X * bounds.Z;
+		float effectiveCellArea = _minimumSpacing * _minimumSpacing;
+		int maxCountBySpacing = Mathf.FloorToInt(area / effectiveCellArea);
+		int count = _useFixedCount ? _fixCountPerChunk : Mathf.Min(Mathf.RoundToInt(area * (_chunkDensity / 100f)), maxCountBySpacing);
+		count = Mathf.Max(count, 1);
+
+		List<Vector3> positions = new();
+		int attempts = 0;
+		const int maxAttempts = 10000;
+
+		while (positions.Count < count && attempts < maxAttempts)
+		{
+			attempts++;
+			Vector3 candidate = new(
+				(float)GD.RandRange(-bounds.X / 2f, bounds.X / 2f),
+				0f,
+				(float)GD.RandRange(-bounds.Z / 2f, bounds.Z / 2f)
+			);
+
+			bool isFarEnough = true;
+			foreach (var pos in positions)
+			{
+				if (candidate.DistanceTo(pos) < _minimumSpacing)
+				{
+					isFarEnough = false;
+					break;
+				}
+			}
+
+			if (isFarEnough)
+			{
+				positions.Add(candidate);
+			}
+		}
+
+		return positions;
+	}
+	#endregion ChunkCreation
+
+	#region MultiMeshSpwaning Controls
 	public void SpawnInstances(List<Vector3> positions) //List<Vector3>
 	{
 		Log.Debug($"{this.Name} SpawnInstances called: {positions.Count}");
@@ -86,11 +228,11 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 			CreateDebugSphere(centerGlobalWorldPos, Colors.Green, DebugType.MID_POINT_SPHERE);// World position center 
 
 			//Setup transform and pass it to the MultiMesh for each instance
-			float newRotation = Mathf.DegToRad(InstancesRotationZ);
+			float newRotation = Mathf.DegToRad(_instancesRotationZ);
 			Basis newBasis = new Basis(new Vector3(0, 0, 1), newRotation); //Rotation on Z only
-			newBasis.Column0 *= InitialScale.X; //Scale just the X axis 
-			newBasis.Column1 *= InitialScale.Y; //Scale just the Y axis
-			newBasis.Column2 *= InitialScale.Z; //Scale just the Z axis
+			newBasis.Column0 *= _initialScale.X; //Scale just the X axis 
+			newBasis.Column1 *= _initialScale.Y; //Scale just the Y axis
+			newBasis.Column2 *= _initialScale.Z; //Scale just the Z axis
 
 			Multimesh.SetInstanceTransform(i, new Transform3D(newBasis, newLocalPos));
 			// Log.Debug($"Instance {i} set to GlobalPos {centerGlobalWorldPos}, LocalPos {newLocalPos}");
@@ -101,8 +243,8 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 	{
 		//Lerp between Colors.White and Colors.Black based on cameraDistance and ActivationRangeMax and ActivationRangeMin.
 		//THis creates a fade-in and fade-out effect
-		float min = ActivationRangeMin;
-		float max = ActivationRangeMax;
+		float min = _activationRangeMin;
+		float max = _activationRangeMax;
 		float mid = (min + max) * 0.5f;
 
 		// Triangle distribution: 0 → 1 → 0
@@ -122,8 +264,8 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 
 		//Define world bounds (used for packing/unpacking vectors to be sent to shader)
-		Vector3 minWorld = new Vector3(-WorldBoundMaxSize, -WorldBoundMaxSize, -WorldBoundMaxSize);
-		Vector3 maxWorld = new Vector3(WorldBoundMaxSize, WorldBoundMaxSize, WorldBoundMaxSize);
+		Vector3 minWorld = new Vector3(-_worldBoundMaxSize, -_worldBoundMaxSize, -_worldBoundMaxSize);
+		Vector3 maxWorld = new Vector3(_worldBoundMaxSize, _worldBoundMaxSize, _worldBoundMaxSize);
 
 
 		//Loop our InstanceList and Send the RayCast for Collision from their World Position Center
@@ -160,7 +302,7 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 				CreateDebugSphere(startPoint, Colors.Blue, DebugType.START_POINT_SPHERE); //DEBUG - TEST ONLY
 
-				if (ResizeShaftOnCollision) ResizeInstance(i, colliderPos, _instanceList[i].GlobalPosition, startPoint, meshCurrentHeight);
+				if (_resizeShaftOnCollision) ResizeInstance(i, colliderPos, _instanceList[i].GlobalPosition, startPoint, meshCurrentHeight);
 
 			}
 			else //Has not collided yet. Need to send a RayCast
@@ -169,10 +311,10 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 				Vector3 centerGlobalWorldPos = _instanceList[i].GlobalPosition;
 				Vector3 centerLocalPos = _instanceList[i].LocalPosition;
 
-				if (RaycastEnabled)
+				if (_raycastEnabled)
 				{
 					var rayDirection = -this.Transform.Basis.Y.Normalized();
-					if (RotationType == 0) //  "0=InstanceBased,1=NodeBased")]
+					if (_rotationType == 0) //  "0=InstanceBased,1=NodeBased")]
 					{
 						//If rotation is based on "Instance Rotation" we apply the instance rotation to the raycast direction
 						Transform3D instTransform = _multiMesh.GetInstanceTransform(i);
@@ -198,11 +340,11 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 		//Create a Raycast and check if it hits anything
 		var spaceState = GetWorld3D().DirectSpaceState;
-		var raycastEndPoint = raycastStart + _raycastDirection * RayLenght;
+		var raycastEndPoint = raycastStart + _raycastDirection * _rayLenght;
 		var query = PhysicsRayQueryParameters3D.Create(raycastStart, raycastEndPoint);
 		query.CollideWithAreas = false;
 		query.CollideWithBodies = true;
-		query.CollisionMask = RaycastCollisionLayers;
+		query.CollisionMask = _raycastCollisionLayers;
 		Godot.Collections.Dictionary result = spaceState.IntersectRay(query);
 
 		if (result.Count > 0) //If the Raycast hit something we get the collider and updated _instanceList
@@ -230,8 +372,12 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 	private void ResizeInstance(int instanceIndex, Vector3 colliderGlobalPos, Vector3 instanceGlobalPos, Vector3 instanceStartPoint, float instanceHeight)
 	{
-		float newHeightMultiplier = instanceStartPoint.DistanceTo(colliderGlobalPos);
-		float newWithMultiplier = (float)GD.RandRange(RandWidthMin, RandWidthMax);
+		float heighMultiplier = instanceStartPoint.DistanceTo(colliderGlobalPos);
+		float widthMultiplier = 1.0f;
+		if (_useRandomWidth)
+		{
+			widthMultiplier = (float)GD.RandRange(_randWidthMin, _randWidthMax);
+		}
 
 		Vector3 newGlobalPos = (instanceStartPoint + colliderGlobalPos) / 2.0f;
 
@@ -242,10 +388,10 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 		Vector3 newLocalPos = this.ToLocal(newGlobalPos); //Gets the LocalPos representation of the newGlobalPos
 
 		// Retrieve the current basis and current rotation from the instance and adjust the scale
-		float newRotation = Mathf.DegToRad(InstancesRotationZ);
+		float newRotation = Mathf.DegToRad(_instancesRotationZ);
 		Basis newBasis = new Basis(new Vector3(0, 0, 1), newRotation); //Rotation on Z only
-		newBasis.Column1 *= newHeightMultiplier; //Scale Y axis
-		newBasis.Column0 *= newWithMultiplier; //Scale X axis
+		newBasis.Column1 *= heighMultiplier; //Scale Y axis
+		newBasis.Column0 *= widthMultiplier; //Scale X axis
 
 
 		Multimesh.SetInstanceTransform(instanceIndex, new Transform3D(newBasis, newLocalPos));
@@ -257,16 +403,16 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 
 	private void CreateDebugSphere(Vector3 position, Color color, DebugType type)
 	{
-		if (!ShowDebugSpheres || DebuggerSphere == null) return;
-		if (ShowOnlyColliders && type != DebugType.COLLIDER_SPHERE) return;
-		DebuggerSphere.AddPoint(position, color);
+		if (!_showDebugSpheres || _debuggerSphere == null) return;
+		if (_showOnlyColliders && type != DebugType.COLLIDER_SPHERE) return;
+		_debuggerSphere.AddPoint(position, color);
 
 	}
 
 	private void CleanAllDebugSpheres()
 	{
-		if (!ShowDebugSpheres || DebuggerSphere == null) return;
-		DebuggerSphere.ClearAll();
+		if (!_showDebugSpheres || _debuggerSphere == null) return;
+		_debuggerSphere.ClearAll();
 
 		// foreach (DebugSphere sphere in GetChildren())
 		// {
@@ -279,6 +425,9 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 		// }
 	}
 
+	#endregion MultiMeshSpwaning Controls
+
+	#region Helper Classes
 	private enum DebugType
 	{
 		COLLIDER_SPHERE,
@@ -315,4 +464,6 @@ public partial class ShaftMultiMeshController : MultiMeshInstance3D
 	{
 
 	}
+
+	#endregion Helper Classes
 }

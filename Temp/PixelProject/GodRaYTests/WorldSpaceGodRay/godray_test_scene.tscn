@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://dy3lf5o3bhg67" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/godray_shadow_occlusion_muti_point_offsetv2.gdshader" id="3_1hele"]
 [ext_resource type="CylinderMesh" uid="uid://5owtsxpfxgp6" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftMesh.tres" id="3_3uann"]
 [ext_resource type="Material" uid="uid://dqgh45ow7ygkh" path="res://Temp/PixelProject/GodRaYTests/light_shafts/default_light_shaft.material" id="3_6f8ln"]
-[ext_resource type="Script" uid="uid://bcg2px4q72n21" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/ShaftMultiMeshController.cs" id="3_bf1d8"]
+[ext_resource type="Script" uid="uid://bcg2px4q72n21" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/ShaftChunkMMController.cs" id="3_bf1d8"]
 [ext_resource type="Shader" uid="uid://dy3gpa57ppqyi" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/godray_shadow_occlusion_multi_point_sample.gdshader" id="3_ejesm"]
 [ext_resource type="PackedScene" uid="uid://b3vej5yd5cpjo" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftRaycast.tscn" id="3_hooab"]
 [ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="3_syswk"]

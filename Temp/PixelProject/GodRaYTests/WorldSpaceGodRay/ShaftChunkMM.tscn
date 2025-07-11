@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://cnoal853hd07d"]
+
+[ext_resource type="CylinderMesh" uid="uid://5owtsxpfxgp6" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftMesh.tres" id="1_xtxnn"]
+[ext_resource type="Script" uid="uid://bcg2px4q72n21" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/ShaftChunkMMController.cs" id="2_hknp4"]
+[ext_resource type="Script" uid="uid://c8v7mtdswx3q1" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/SphereDebugVisualizer.cs" id="3_j2uj4"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_1v7uf"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = ExtResource("1_xtxnn")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lfdt2"]
+vertex_color_use_as_albedo = true
+disable_receive_shadows = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_1bdby"]
+material = SubResource("StandardMaterial3D_lfdt2")
+radius = 0.15
+height = 0.25
+radial_segments = 32
+rings = 16
+
+[sub_resource type="MultiMesh" id="MultiMesh_lfdt2"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("SphereMesh_1bdby")
+
+[node name="ShaftChunkMMController" type="MultiMeshInstance3D" node_paths=PackedStringArray("_debuggerSphere")]
+cast_shadow = 0
+multimesh = SubResource("MultiMesh_1v7uf")
+script = ExtResource("2_hknp4")
+_debuggerSphere = NodePath("SphereDebugVisualizer")
+
+[node name="SphereDebugVisualizer" type="MultiMeshInstance3D" parent="."]
+cast_shadow = 0
+multimesh = SubResource("MultiMesh_lfdt2")
+script = ExtResource("3_j2uj4")

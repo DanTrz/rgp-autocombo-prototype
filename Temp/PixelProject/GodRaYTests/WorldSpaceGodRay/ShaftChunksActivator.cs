@@ -10,10 +10,8 @@ public partial class ShaftChunksActivator : Node3D
 	[ExportGroup("Chunk Activation")]
 	[Export] Vector2 ActivationRange { get; set; } = new Vector2(75.0f, 250.0f);
 
-	Godot.Collections.Array<ShaftChunkController> _chunksArray = new();
-
-
-	private Godot.Collections.Dictionary<ShaftChunkController, bool> _chunkState = new();
+	Godot.Collections.Array<ShaftChunkMMController> _chunksArray = new();
+	private Godot.Collections.Dictionary<ShaftChunkMMController, bool> _chunkState = new();
 
 	public override void _Ready()
 	{
@@ -35,37 +33,37 @@ public partial class ShaftChunksActivator : Node3D
 	}
 	private void GetChunksArray()
 	{
-		foreach (ShaftChunkController item in GetChildren())
+		foreach (ShaftChunkMMController item in GetChildren())
 		{
-			if (item is ShaftChunkController)
+			if (item is ShaftChunkMMController)
 				_chunksArray.Add(item);
 		}
 	}
 
 	private void ChunkInitialization()
 	{
-		foreach (ShaftChunkController chunkController in _chunksArray)
+		foreach (ShaftChunkMMController chunkController in _chunksArray)
 		{
-			_chunkState[(ShaftChunkController)chunkController] = false; // assume all start inactive
-																		// chunkController.DeactivateChunk();
-			chunkController._shaftMultiMesh.ActivationRangeMax = ActivationRange.Y;
-			chunkController._shaftMultiMesh.ActivationRangeMin = ActivationRange.X;
+			_chunkState[(ShaftChunkMMController)chunkController] = false; // assume all start inactive
+																		  // chunkController.DeactivateChunk();
+			chunkController._activationRangeMax = ActivationRange.Y;
+			chunkController._activationRangeMin = ActivationRange.X;
 		}
 	}
 
 	private void ManageChunks()
 	{
 		Vector3 cameraPos = _mainCamera.GlobalTransform.Origin;
-		foreach (ShaftChunkController chunkController in _chunksArray)
+		foreach (ShaftChunkMMController chunkController in _chunksArray)
 		{
 			//Check and pass the camera distance to the chunk collisionShape and manage chunk alpha (fade-in and fade-out)
 			float currentCamDistance = cameraPos.DistanceTo(chunkController._collisionShape.GlobalTransform.Origin);
 			if (chunkController.DistanceToCamera != currentCamDistance)
 			{
 				chunkController.DistanceToCamera = currentCamDistance;
-				chunkController._shaftMultiMesh.UpdateInstanceColors(currentCamDistance);
-				chunkController._shaftMultiMesh.ActivationRangeMax = ActivationRange.Y;
-				chunkController._shaftMultiMesh.ActivationRangeMin = ActivationRange.X;
+				chunkController.UpdateInstanceColors(currentCamDistance);
+				chunkController._activationRangeMax = ActivationRange.Y;
+				chunkController._activationRangeMin = ActivationRange.X;
 			}
 
 			bool isActive = _chunkState[chunkController];
