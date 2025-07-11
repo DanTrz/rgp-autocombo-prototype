@@ -7,8 +7,29 @@ public partial class ShaftChunksSpawner : Node3D
 	[ExportGroup("Mandatory Node References")]
 	[Export] Camera3D _mainCamera;
 
-	[ExportGroup("Chunk Activation")]
-	[Export] Vector2 ActivationRange { get; set; } = new Vector2(75.0f, 250.0f);
+	[ExportGroup("Chunk Setup")]
+	[Export] Vector2 _activationRange { get; set; } = new Vector2(40.0f, 150.0f);
+	[Export] bool _useRandomSpread { get; set; } = true;
+	[Export] bool _useFixedCount { get; set; } = false;
+	[Export] int _fixeCountValue { get; set; } = 10;
+	[Export] float _chunkDensity { get; set; } = 20.0f;
+	[Export] float _minSpacing { get; set; } = 1.5f; // 
+
+
+	[ExportGroup("Shaft Generation")]
+	[Export] private float _worldBoundMaxSize { get; set; } = 500.0f;
+	[Export(PropertyHint.Enum, "InstanceBased,NodeBased")] private int _rotationType { get; set; } = 0;
+	[Export] private float _instancesRotationZ { get; set; } = 0.0f;
+	[Export] private bool _raycastEnabled { get; set; } = true;
+	[Export] private bool _resizeShaftOnCollision { get; set; } = true;
+	[Export] private float _rayLenght { get; set; } = 200.0f;
+	[Export] private bool _useRandomWidth { get; set; } = true;
+	[Export] private float _randWidthMax { get; set; } = 1.5f;
+	[Export] private float _randWidthMin { get; set; } = 0.5f;
+
+	[ExportGroup("Debug")]
+	[Export] private bool _showDebugSpheres { get; set; } = false;
+	[Export] private bool _showOnlyColliders { get; set; } = true;
 
 	Godot.Collections.Array<ShaftChunkMMController> _chunksArray = new();
 	private Godot.Collections.Dictionary<ShaftChunkMMController, bool> _chunkState = new();
@@ -46,8 +67,29 @@ public partial class ShaftChunksSpawner : Node3D
 		{
 			_chunkState[(ShaftChunkMMController)chunkController] = false; // assume all start inactive
 																		  // chunkController.DeactivateChunk();
-			chunkController._activationRangeMax = ActivationRange.Y;
-			chunkController._activationRangeMin = ActivationRange.X;
+			chunkController.ActivationRangeMax = _activationRange.Y;
+			chunkController.ActivationRangeMin = _activationRange.X;
+			chunkController.UseRandomSpread = _useRandomSpread;
+			chunkController.UseFixedCount = _useFixedCount;
+			chunkController.FixeCountValue = _fixeCountValue;
+			chunkController.ChunkDensity = _chunkDensity;
+			chunkController.MinSpacing = _minSpacing;
+
+			chunkController.WorldBoundMaxSize = _worldBoundMaxSize;
+			chunkController.RotationType = _rotationType;
+			chunkController.InstancesRotationZ = _instancesRotationZ;
+			chunkController.RaycastEnabled = _raycastEnabled;
+			chunkController.ResizeShaftOnCollision = _resizeShaftOnCollision;
+			chunkController.RayLenght = _rayLenght;
+			chunkController.UseRandomWidth = _useRandomWidth;
+			chunkController.RandWidthMax = _randWidthMax;
+			chunkController.RandWidthMin = _randWidthMin;
+
+			chunkController.ShowDebugSpheres = _showDebugSpheres;
+			chunkController.ShowOnlyColliders = _showOnlyColliders;
+
+			chunkController.IntialChunkSetup();
+
 		}
 	}
 
@@ -62,14 +104,14 @@ public partial class ShaftChunksSpawner : Node3D
 			{
 				chunkController.DistanceToCamera = currentCamDistance;
 				chunkController.UpdateInstanceColors(currentCamDistance);
-				chunkController._activationRangeMax = ActivationRange.Y;
-				chunkController._activationRangeMin = ActivationRange.X;
+				chunkController.ActivationRangeMax = _activationRange.Y;
+				chunkController.ActivationRangeMin = _activationRange.X;
 			}
 
 			bool isActive = _chunkState[chunkController];
 			//Apply the activation based on the camera distance ranges (x=activationMin, y=ActivationMax)
 			//ActivateChunk if cameraDistance > minRange and cameraDistance <= maxRange
-			if (currentCamDistance > ActivationRange.X && currentCamDistance <= ActivationRange.Y)
+			if (currentCamDistance > _activationRange.X && currentCamDistance <= _activationRange.Y)
 			{
 				if (!isActive)
 				{

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://b3a4clvljya0c"]
+[gd_scene load_steps=59 format=3 uid="uid://b3a4clvljya0c"]
 
 [ext_resource type="Shader" uid="uid://p8l4gns07mpy" path="res://Temp/PixelProject/DissolveShader_CloudFocused_v2.gdshader" id="1_vti57"]
 [ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="1_yp6g0"]
@@ -192,6 +192,65 @@ use_colors = true
 use_custom_data = true
 mesh = SubResource("CylinderMesh_uir4v")
 
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ofadk"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_5pwqe")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_usnyq"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_i1ns1")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tcjc1"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_x5wsi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xxt2h"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_vti57")
+shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 0.75
+shader_parameter/fadeout_start_point = 0.1
+shader_parameter/fadeout_length = 0.008
+shader_parameter/fade_from_bottom = false
+shader_parameter/rim_power = 1.2
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.5
+shader_parameter/random_noise_movement = true
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/use_custom_data_position = true
+shader_parameter/sampling_offset = Vector3(0, 0, 0)
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
+shader_parameter/selected_gradient = 0.0
+shader_parameter/random_gradient = true
+shader_parameter/gradient0 = SubResource("GradientTexture2D_ofadk")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_usnyq")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_tcjc1")
+shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
+shader_parameter/max_world_bounds = Vector3(500, 500, 500)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pjdk5"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_xxt2h")
+height = 1.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="MultiMesh" id="MultiMesh_h8a62"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("CylinderMesh_pjdk5")
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gb41b"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -302,15 +361,13 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 55, 0)
 script = ExtResource("3_lfdt2")
 _mainCamera = NodePath("../SubViewport/CameraRigYaw/Camera3D")
-ActivationRange = Vector2(40, 150)
+_instancesRotationZ = -20.0
+_showDebugSpheres = true
 
 [node name="ShaftChunkMMController" parent="ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_lfdt2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0514, 0, 1.46939)
 multimesh = SubResource("MultiMesh_tcjc1")
 _collisionShape = NodePath("CollisionShape3D")
-_chunkDensity = 25.0
-_instancesRotationZ = -20.0
-_useRandomWidth = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksSpawner/ShaftChunkMMController"]
 shape = SubResource("BoxShape3D_1t6qn")
@@ -320,9 +377,6 @@ disabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0514, 0, -16.7625)
 multimesh = SubResource("MultiMesh_oa6h0")
 _collisionShape = NodePath("CollisionShape3D")
-_chunkDensity = 25.0
-_instancesRotationZ = -20.0
-_useRandomWidth = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksSpawner/ShaftChunkMMController2"]
 shape = SubResource("BoxShape3D_1t6qn")
@@ -330,11 +384,8 @@ disabled = true
 
 [node name="ShaftChunkMMController3" parent="ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_lfdt2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0514, 0, -33.8527)
-multimesh = SubResource("MultiMesh_oa6h0")
+multimesh = SubResource("MultiMesh_h8a62")
 _collisionShape = NodePath("CollisionShape3D")
-_chunkDensity = 25.0
-_instancesRotationZ = -20.0
-_useRandomWidth = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksSpawner/ShaftChunkMMController3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.50912)

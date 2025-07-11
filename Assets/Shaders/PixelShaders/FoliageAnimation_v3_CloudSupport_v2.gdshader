@@ -215,12 +215,12 @@ void fragment() {
     else {
         // ===== ORIGINAL FRAGMENT LOGIC (RESTORED) =====
         vec4 tex = texture(albedo_tex, UV);
-        
+
         // Apply vertex colors if enabled (RESTORED)
         if(use_vertex_color) {
             tex *= COLOR;
         }
-        
+
         ALBEDO = tex.rgb * albedo_color.rgb;
         ALPHA = tex.a * albedo_color.a;
 
@@ -240,7 +240,7 @@ void light() {
 
     // ===== CLOUD SHADOW INTEGRATION (PROTECTED) =====
     float final_attenuation;
-    
+
     if (override_global_shadow) {
         // OVERRIDE: Use ONLY real shadows, ignore ALL cloud parameters
         final_attenuation = ATTENUATION;
@@ -252,12 +252,12 @@ void light() {
     }
 
     // ===== CORRECTED LIGHTING CALCULATION =====
-    
+
     // 1. AMBIENT LIGHT (not affected by shadows or light direction)
     if (!disable_ambient_light) {
         DIFFUSE_LIGHT += fake_ambient_light * ALBEDO;
     }
-    
+
     // 2. DIRECTIONAL LIGHT (affected by shadows and light direction)
     DIFFUSE_LIGHT += NdotL * ALBEDO * LIGHT_COLOR * final_attenuation;
 
