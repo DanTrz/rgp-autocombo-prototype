@@ -242,12 +242,13 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 	public void UpdateInstanceColors(float cameraDistance)
 	{
 		//Lerp between Colors.White and Colors.Black based on cameraDistance and ActivationRangeMax and ActivationRangeMin.
-		//THis creates a fade-in and fade-out effect
+		//THis creates a fade-in and fade-out effect 
 		float min = _activationRangeMin;
 		float max = _activationRangeMax;
 		float mid = (min + max) * 0.5f;
 
-		// Triangle distribution: 0 → 1 → 0
+		//Max "brightness color" value is halfpoint within _activationRangeMin and _activationRangeMax
+		//Triangle distribution: 0 → 1 → 0
 		float weight = 1.0f - Mathf.Abs((cameraDistance - mid) / (mid - min));
 		weight = Mathf.Clamp(weight, 0f, 1f);
 		Color fadeColor = Colors.Black.Lerp(Colors.White, weight);

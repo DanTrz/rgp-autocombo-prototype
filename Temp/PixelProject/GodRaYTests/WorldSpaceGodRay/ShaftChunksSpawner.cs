@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-public partial class ShaftChunksActivator : Node3D
+public partial class ShaftChunksSpawner : Node3D
 {
 
 	[ExportGroup("Mandatory Node References")]
@@ -67,7 +67,8 @@ public partial class ShaftChunksActivator : Node3D
 			}
 
 			bool isActive = _chunkState[chunkController];
-			//Apply the activation based on the camera distance ranges
+			//Apply the activation based on the camera distance ranges (x=activationMin, y=ActivationMax)
+			//ActivateChunk if cameraDistance > minRange and cameraDistance <= maxRange
 			if (currentCamDistance > ActivationRange.X && currentCamDistance <= ActivationRange.Y)
 			{
 				if (!isActive)
@@ -76,7 +77,7 @@ public partial class ShaftChunksActivator : Node3D
 					_chunkState[chunkController] = true;
 				}
 			}
-			else if (isActive)
+			else if (isActive) //Deactivate Chunk if cameraDistance > ActivationRange.Y
 			{
 				chunkController.DeactivateChunk();
 				_chunkState[chunkController] = false;
