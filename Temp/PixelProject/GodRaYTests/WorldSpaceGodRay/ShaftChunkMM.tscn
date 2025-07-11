@@ -11,12 +11,12 @@ use_colors = true
 use_custom_data = true
 mesh = ExtResource("1_xtxnn")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lfdt2"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xtxnn"]
 vertex_color_use_as_albedo = true
 disable_receive_shadows = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_1bdby"]
-material = SubResource("StandardMaterial3D_lfdt2")
+material = SubResource("StandardMaterial3D_xtxnn")
 radius = 0.15
 height = 0.25
 radial_segments = 32
