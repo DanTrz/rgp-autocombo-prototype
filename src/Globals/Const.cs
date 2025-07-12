@@ -17,6 +17,14 @@ public static class Const
 
     }
 
+    public static class WeatherEnums
+    {
+        public enum ShaftRotationTypes //"InstanceRotation,NodeRotation,LightRotation"
+        {
+            INSTANCE_ROTATION, NODE_ROTATION, LIGHT_ROTATION
+        }
+    }
+
     // public class PlayerStates
     // {
     //     public const string PLAYER_WALK_STATE = "PlayerWalkState";

@@ -6,6 +6,7 @@ public partial class ShaftChunksSpawner : Node3D
 
 	[ExportGroup("Mandatory Node References")]
 	[Export] Camera3D _mainCamera;
+	[Export] public DirectionalLight3D sunLight;
 
 	[ExportGroup("Chunk Setup")]
 	[Export] Vector2 _activationRange { get; set; } = new Vector2(40.0f, 150.0f);
@@ -18,14 +19,17 @@ public partial class ShaftChunksSpawner : Node3D
 
 	[ExportGroup("Shaft Generation")]
 	[Export] private float _worldBoundMaxSize { get; set; } = 500.0f;
-	[Export(PropertyHint.Enum, "InstanceBased,NodeBased")] private int _rotationType { get; set; } = 0;
-	[Export] private float _instancesRotationZ { get; set; } = 0.0f;
 	[Export] private bool _raycastEnabled { get; set; } = true;
 	[Export] private bool _resizeShaftOnCollision { get; set; } = true;
 	[Export] private float _rayLenght { get; set; } = 200.0f;
+
+	[ExportGroup("Shaft Size and Rotation")]
+	[Export] private Const.WeatherEnums.ShaftRotationTypes _rotationType { get; set; } = Const.WeatherEnums.ShaftRotationTypes.INSTANCE_ROTATION;
+	[Export] private float _instancesRotationZ { get; set; } = 0.0f;
 	[Export] private bool _useRandomWidth { get; set; } = true;
 	[Export] private float _randWidthMax { get; set; } = 1.5f;
 	[Export] private float _randWidthMin { get; set; } = 0.5f;
+
 
 	[ExportGroup("Debug")]
 	[Export] private bool _showDebugSpheres { get; set; } = false;
@@ -50,7 +54,8 @@ public partial class ShaftChunksSpawner : Node3D
 			return;
 		}
 
-		ChunkInitialization();
+		Callable.From(ChunkInitialization).CallDeferred();
+		// ChunkInitialization();
 	}
 	private void GetChunksArray()
 	{
@@ -84,6 +89,7 @@ public partial class ShaftChunksSpawner : Node3D
 			chunkController.UseRandomWidth = _useRandomWidth;
 			chunkController.RandWidthMax = _randWidthMax;
 			chunkController.RandWidthMin = _randWidthMin;
+			chunkController.LightRotation = GetLight3DRotation();
 
 			chunkController.ShowDebugSpheres = _showDebugSpheres;
 			chunkController.ShowOnlyColliders = _showOnlyColliders;
@@ -100,12 +106,13 @@ public partial class ShaftChunksSpawner : Node3D
 		{
 			//Check and pass the camera distance to the chunk collisionShape and manage chunk alpha (fade-in and fade-out)
 			float currentCamDistance = cameraPos.DistanceTo(chunkController._collisionShape.GlobalTransform.Origin);
-			if (chunkController.DistanceToCamera != currentCamDistance)
+			if (chunkController.DistanceToCamera != currentCamDistance)//Camera moved, then update chunk parameters
 			{
 				chunkController.DistanceToCamera = currentCamDistance;
 				chunkController.UpdateInstanceColors(currentCamDistance);
 				chunkController.ActivationRangeMax = _activationRange.Y;
 				chunkController.ActivationRangeMin = _activationRange.X;
+				chunkController.LightRotation = GetLight3DRotation();
 			}
 
 			bool isActive = _chunkState[chunkController];
@@ -129,5 +136,14 @@ public partial class ShaftChunksSpawner : Node3D
 	public override void _Process(double delta)
 	{
 		ManageChunks();
+	}
+
+	private Basis GetLight3DRotation()
+	{
+		if (sunLight == null) return Basis.Identity;
+
+		Vector3 lightRotationEuler = sunLight.GlobalRotation; // Already in radians
+		return Basis.FromEuler(lightRotationEuler); // Create rotation basis from Euler
+
 	}
 }

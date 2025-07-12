@@ -24,8 +24,9 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 	[Export] private bool _isShaftMMActive { get; set; } = false;
 	[Export] private Vector3 _initialScale { get; set; } = Vector3.One;
 	[Export] public float WorldBoundMaxSize { get; set; } = 500.0f;
+	[Export] public Basis LightRotation { get; set; } = new();
 
-	[Export(PropertyHint.Enum, "InstanceBased,NodeBased")] public int RotationType { get; set; } = 0;
+	[Export] public Const.WeatherEnums.ShaftRotationTypes RotationType { get; set; } = Const.WeatherEnums.ShaftRotationTypes.INSTANCE_ROTATION;
 	[Export] public float InstancesRotationZ { get; set; } = 0.0f;
 	[Export] public bool RaycastEnabled { get; set; } = true;
 	[Export] public bool ResizeShaftOnCollision { get; set; } = true;
@@ -233,8 +234,7 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 
 		for (int i = 0; i < positions.Count; i++)
 		{
-			Multimesh.SetInstanceColor(i, Colors.White);
-
+			// Multimesh.SetInstanceColor(i, Colors.White);
 			Vector3 newLocalPos = positions[i]; //Instance LocalPos
 			Vector3 centerGlobalWorldPos = this.GlobalTransform * newLocalPos; //Get World Position (Global Position)
 
@@ -243,13 +243,33 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 			CreateDebugSphere(centerGlobalWorldPos, Colors.Green, DebugType.MID_POINT_SPHERE);// World position center 
 
 			//Setup transform and pass it to the MultiMesh for each instance
-			float newRotation = Mathf.DegToRad(InstancesRotationZ);
-			Basis newBasis = new Basis(new Vector3(0, 0, 1), newRotation); //Rotation on Z only
-			newBasis.Column0 *= _initialScale.X; //Scale just the X axis 
-			newBasis.Column1 *= _initialScale.Y; //Scale just the Y axis
-			newBasis.Column2 *= _initialScale.Z; //Scale just the Z axis
 
-			Multimesh.SetInstanceTransform(i, new Transform3D(newBasis, newLocalPos));
+
+			// PREVIOUS WORKING CODE
+			float simpleRotation = Mathf.DegToRad(InstancesRotationZ);
+			Basis finalBasis = new Basis(new Vector3(0, 0, 1), simpleRotation); //Rotation on Z only
+			finalBasis.Column0 *= _initialScale.X; //Scale just the X axis 
+			finalBasis.Column1 *= _initialScale.Y; //Scale just the Y axis
+			finalBasis.Column2 *= _initialScale.Z; //Scale just the Z axis
+
+			//NEW CODE NOT WORKING
+			// // 1. DETERMINE THE ROTATION BASIS
+			// Basis newBasis = Basis.Identity;
+			// if (RotationType == Const.WeatherEnums.ShaftRotationTypes.LIGHT_ROTATION)
+			// {
+			// 	newBasis = LightRotation;
+			// }
+			// else
+			// {
+			// 	float simpleRotation = Mathf.DegToRad(InstancesRotationZ);
+			// 	newBasis = new Basis(Vector3.Back, simpleRotation); //simple rotation just on Z -  Vector3(0, 0, 1)
+			// }
+
+			// // 2. CREATE THE SCALED BASIS
+			// Basis finalBasis = newBasis.Scaled(new Vector3(_initialScale.X, _initialScale.Y, _initialScale.Z));
+
+
+			Multimesh.SetInstanceTransform(i, new Transform3D(finalBasis, newLocalPos));
 			// Log.Debug($"Instance {i} set to GlobalPos {centerGlobalWorldPos}, LocalPos {newLocalPos}");
 		}
 	}
@@ -348,12 +368,17 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 				if (RaycastEnabled)
 				{
 					var rayDirection = -this.Transform.Basis.Y.Normalized();
-					if (RotationType == 0) //  "0=InstanceBased,1=NodeBased")]
+					if (RotationType == Const.WeatherEnums.ShaftRotationTypes.INSTANCE_ROTATION)
 					{
 						//If rotation is based on "Instance Rotation" we apply the instance rotation to the raycast direction
 						Transform3D instTransform = _multiMesh.GetInstanceTransform(i);
 						Transform3D globalInst = this.GlobalTransform * instTransform;
 						rayDirection = -globalInst.Basis.Y.Normalized();
+					}
+					else if (RotationType == Const.WeatherEnums.ShaftRotationTypes.LIGHT_ROTATION)
+					{
+						rayDirection = -LightRotation.Z.Normalized(); // Forward direction of the light
+
 					}
 					SendRaycast(i, centerGlobalWorldPos, rayDirection);
 				}
@@ -364,8 +389,6 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 		_hasCollidersMissing = _instanceList.Any(instance => !instance.PassedCustomData);
 	}
 
-	//TODO: We are using this Nodes GlobalTransform to get the Raycast direction. This will break if we change the logic to InstanceBased rotations
-	//BUG: Raycast and collision not going in riht direction when rotation is "per instance"
 	private void SendRaycast(int instanceIndex, Vector3 raycastStart, Vector3 _raycastDirection)
 	{
 		if (_instanceList[instanceIndex].HasCollided) return;
@@ -421,16 +444,33 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 
 		Vector3 newLocalPos = this.ToLocal(newGlobalPos); //Gets the LocalPos representation of the newGlobalPos
 
-		// Retrieve the current basis and current rotation from the instance and adjust the scale
-		float newRotation = Mathf.DegToRad(InstancesRotationZ);
-		Basis newBasis = new Basis(new Vector3(0, 0, 1), newRotation); //Rotation on Z only
-		newBasis.Column1 *= heighMultiplier; //Scale Y axis
-		newBasis.Column0 *= widthMultiplier; //Scale X axis
+		// PREVIOUS WORKING CODE
+		float simpleRotation = Mathf.DegToRad(InstancesRotationZ);
+		Basis finalBasis = new Basis(new Vector3(0, 0, 1), simpleRotation); //Rotation on Z only
+		finalBasis.Column1 *= heighMultiplier; //Scale Y axis
+		finalBasis.Column0 *= widthMultiplier; //Scale X axis
 
 
-		Multimesh.SetInstanceTransform(instanceIndex, new Transform3D(newBasis, newLocalPos));
-		CreateDebugSphere(newGlobalPos, Colors.Black, DebugType.MID_POINT_SPHERE); //DEBUG - TEST ONLY
+		//NEW CODE NOT WORKING
+		// 1. DETERMINE THE ROTATION BASIS
+		// Basis newBasis = Basis.Identity;
+		// if (RotationType == Const.WeatherEnums.ShaftRotationTypes.LIGHT_ROTATION)
+		// {
+		// 	newBasis = LightRotation;
+		// }
+		// else
+		// {
+		// 	float simpleRotation = Mathf.DegToRad(InstancesRotationZ);
+		// 	newBasis = new Basis(Vector3.Back, simpleRotation); //simple rotation just on Z -  Vector3(0, 0, 1)
+		// }
 
+		// // 2. CREATE THE SCALED BASIS
+		// Basis finalBasis = newBasis.Scaled(new Vector3(widthMultiplier, heighMultiplier, 1.0f));
+
+		// 3. APPLY THE TRANSFORM
+		Multimesh.SetInstanceTransform(instanceIndex, new Transform3D(finalBasis, newLocalPos));
+
+		CreateDebugSphere(newGlobalPos, Colors.Black, DebugType.MID_POINT_SPHERE);
 		_instanceList[instanceIndex].GlobalPosition = newGlobalPos;
 		_instanceList[instanceIndex].LocalPosition = newLocalPos;
 	}
@@ -448,15 +488,6 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 		if (!ShowDebugSpheres || _debuggerSphere == null) return;
 		_debuggerSphere.ClearAll();
 
-		// foreach (DebugSphere sphere in GetChildren())
-		// {
-		// 	sphere.QueueFree();
-		// }
-
-		// foreach (DebugSphere sphere in GetChildren())
-		// {
-		// 	sphere.QueueFree();
-		// }
 	}
 
 	#endregion MultiMeshSpwaning Controls
