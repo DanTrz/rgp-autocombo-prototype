@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics.X86;
 using System.Threading.Tasks;
 using Godot;
@@ -265,14 +266,29 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 		//Triangle distribution: 0 → 1 → 0
 		float weight = 1.0f - Mathf.Abs((cameraDistance - mid) / (mid - min));
 		weight = Mathf.Clamp(weight, 0f, 1f);
-		Color fadeColor = Colors.Black.Lerp(Colors.White, weight);
-		for (int i = 0; i < _multiMesh.InstanceCount; i++)
-		{
-			_multiMesh.SetInstanceColor(i, fadeColor);
-		}
+
+		//Set new color (Use this when updating individual instances)
+		// Color fadeColor = Colors.Black.Lerp(Colors.White, weight);
+		// for (int i = 0; i < _multiMesh.InstanceCount; i++)
+		// {
+		// 	_multiMesh.SetInstanceColor(i, fadeColor);
+		// }
+
+		//Set new alpha (Use this when updating all instances- directly using the Shader inside the MultiMesh mesh)
+		float alpha = Mathf.Lerp(0.0f, 1.0f, weight); // LLerp(Colors.White, weight);
+		UpdateMMMeshShaderAlpha(alpha);
 
 		// if (this.Name == "ShaftChunkMMController")
-		// 	Log.Info($"UpdateInstanceColorscolor {fadeColor}");
+		// 	Log.Info($"UpdateAlpha {alpha}");
+	}
+
+	public void UpdateMMMeshShaderAlpha(float value)
+	{
+		var material = _multiMesh.Mesh.SurfaceGetMaterial(0);
+		if (material is ShaderMaterial shaderMaterial)
+		{
+			shaderMaterial.SetShaderParameter("alpha", value);
+		}
 	}
 
 	private void SetInstancesCollision()

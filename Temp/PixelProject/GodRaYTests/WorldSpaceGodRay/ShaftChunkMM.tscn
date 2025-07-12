@@ -30,12 +30,14 @@ use_custom_data = true
 mesh = SubResource("SphereMesh_1bdby")
 
 [node name="ShaftChunkMMController" type="MultiMeshInstance3D" node_paths=PackedStringArray("_debuggerSphere")]
+layers = 262144
 cast_shadow = 0
 multimesh = SubResource("MultiMesh_1v7uf")
 script = ExtResource("2_hknp4")
 _debuggerSphere = NodePath("SphereDebugVisualizer")
 
 [node name="SphereDebugVisualizer" type="MultiMeshInstance3D" parent="."]
+layers = 262145
 cast_shadow = 0
 multimesh = SubResource("MultiMesh_lfdt2")
 script = ExtResource("3_j2uj4")

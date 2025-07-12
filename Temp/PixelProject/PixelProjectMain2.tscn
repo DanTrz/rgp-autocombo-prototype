@@ -613,8 +613,8 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 resource_local_to_scene = true
 gradient = SubResource("Gradient_6hkn2")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_rfdoi"]
-viewport_path = NodePath("SubViewport/WaterSRROption2/WaterCaustic/@SubViewport@140625")
+[sub_resource type="ViewportTexture" id="ViewportTexture_uxcup"]
+viewport_path = NodePath("SubViewport/WaterSRROption2/WaterCaustic/@SubViewport@199371")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_crfu6"]
 resource_local_to_scene = true
@@ -652,7 +652,7 @@ shader_parameter/scroll_offset = Vector2(0.1, -0.3)
 shader_parameter/scale_offset = 0.5
 shader_parameter/normal_map_scale = Vector2(0.1, 0.1)
 shader_parameter/normal_map = ExtResource("15_da4iu")
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_rfdoi")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_uxcup")
 shader_parameter/reflection_strength = 0.75
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
@@ -674,8 +674,8 @@ size = Vector2(75, 75)
 subdivide_width = 50
 subdivide_depth = 50
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_v0kvh"]
-viewport_path = NodePath("SubViewport/WaterSRROption2/WaterToon/@SubViewport@140627")
+[sub_resource type="ViewportTexture" id="ViewportTexture_372we"]
+viewport_path = NodePath("SubViewport/WaterSRROption2/WaterToon/@SubViewport@199373")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_urvk5"]
 render_priority = 0
@@ -701,7 +701,7 @@ shader_parameter/master_time_scale = 1.0
 shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_v0kvh")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_372we")
 shader_parameter/reflection_strength = 0.5
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
@@ -3594,7 +3594,7 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "FPS"
 
-[node name="Display" type="Control" parent="." node_paths=PackedStringArray("_viewport", "_mainRendereSprite")]
+[node name="Display" type="Control" parent="." node_paths=PackedStringArray("_mainRendereSprite")]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 15
@@ -3607,7 +3607,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("2_pm78i")
-_viewport = NodePath("../SubViewport")
 _mainRendereSprite = NodePath("MainRenderSprite")
 
 [node name="MainRenderSprite" type="Sprite2D" parent="Display"]

@@ -5,6 +5,7 @@
 [node name="LightShaftMesh" type="Node3D"]
 
 [node name="LightShaftSkin" type="MeshInstance3D" parent="."]
+layers = 262144
 extra_cull_margin = 16384.0
 ignore_occlusion_culling = true
 mesh = ExtResource("1_5pwqe")
