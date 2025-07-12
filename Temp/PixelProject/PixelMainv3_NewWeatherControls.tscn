@@ -1248,7 +1248,7 @@ sunLight = NodePath("../../MainSubViewport/DayLight")
 _activationRange = Vector2(30, 250)
 _chunkDensity = 10.0
 _minSpacing = 2.5
-_rotationType = 2
+_rotationType = 1
 _instancesRotationZ = -20.0
 
 [node name="ShaftChunkMMController" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]

@@ -21,7 +21,7 @@ public static class Const
     {
         public enum ShaftRotationTypes //"InstanceRotation,NodeRotation,LightRotation"
         {
-            INSTANCE_ROTATION, NODE_ROTATION, LIGHT_ROTATION
+            INSTANCE_ROTATION, LIGHT_ROTATION
         }
     }
 
