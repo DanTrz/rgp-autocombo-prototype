@@ -1,4 +1,4 @@
-[gd_scene load_steps=149 format=4 uid="uid://d1fonqxidgbmt"]
+[gd_scene load_steps=148 format=4 uid="uid://d1fonqxidgbmt"]
 
 [ext_resource type="Shader" uid="uid://d7i4v6mk0aps" path="res://Temp/PixelProject/CloudManagerShader.gdshader" id="1_bnugo"]
 [ext_resource type="Script" uid="uid://tweefbwoi14v" path="res://Temp/PixelProject/CloudManager.cs" id="2_eb58x"]
@@ -20,7 +20,6 @@
 [ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="15_ldr28"]
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="16_nxmp7"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="17_e5132"]
-[ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="18_4fqyh"]
 [ext_resource type="Script" uid="uid://c1k442kuarm6s" path="res://Temp/PixelProject/CloneCamera3d.cs" id="20_kphyu"]
 [ext_resource type="Script" uid="uid://dtju7x6roocwx" path="res://Temp/PixelProject/DebugPanel.cs" id="23_s703g"]
 
@@ -46,7 +45,7 @@ noise = SubResource("FastNoiseLite_a4ruw")
 render_priority = 0
 shader = ExtResource("1_bnugo")
 shader_parameter/cloud_texture = SubResource("NoiseTexture2D_f2e7b")
-shader_parameter/cloud_alpha_scissor_threshold = 0.9
+shader_parameter/cloud_alpha_scissor_threshold = 0.63
 shader_parameter/cloud_color = Color(1, 1, 1, 1)
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 0.5
@@ -1093,12 +1092,6 @@ use_custom_data = true
 mesh = SubResource("CylinderMesh_1u1pc")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ro3v6"]
-shader = ExtResource("18_4fqyh")
-shader_parameter/shadow_boost = 1.2
-shader_parameter/shadow_threshold = 0.4
-shader_parameter/shadow_color_override = Color(1, 1, 1, 1)
-shader_parameter/use_shadow_color_override = false
-shader_parameter/light_boost = 1.0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gjs8b"]
 viewport_path = NodePath("MainSubViewport")
@@ -1135,7 +1128,7 @@ mesh = SubResource("PlaneMesh_ntwum")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_ed8f5")
 script = ExtResource("2_eb58x")
-_alphaScissor = 0.85
+_alphaScissor = 0.58
 cloudTextureScale = 3.0
 moveDirection = Vector2(0.901609, 0.432553)
 moveSpeedMultiplier = 0.01
@@ -1352,6 +1345,7 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -34.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.01507, 1.01103)
@@ -1374,8 +1368,7 @@ centered = false
 
 [node name="ShaftRender" type="Sprite2D" parent="Display"]
 texture_filter = 2
-material = SubResource("ShaderMaterial_ro3v6")
 position = Vector2(-0.985153, 3.95636)
-scale = Vector2(0.973866, 0.996417)
+scale = Vector2(0.983615, 0.979016)
 texture = SubResource("ViewportTexture_kphyu")
 centered = false
