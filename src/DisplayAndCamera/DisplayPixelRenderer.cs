@@ -20,25 +20,25 @@ public partial class DisplayPixelRenderer : Control
 	[Export] SubViewport _secondSubViewport;
 	[Export] Sprite2D _secondRenderSprite;
 
-	int _screenPadding = 2;
+	int _screenPaddingBase = 2;
 
 	public override void _Process(double delta)
 	{
 		if (_mainSubViewport == null || _mainRendereSprite == null) return;
-		AutoScaleRenderer(_mainSubViewport, _mainRendereSprite);
+		AutoScaleRenderer(_mainSubViewport, _mainRendereSprite, _screenPaddingBase);
 
 		if (!_userDualRender) return;
 		if (_secondRenderSprite == null || _secondSubViewport == null) return;
-		AutoScaleRenderer(_secondSubViewport, _secondRenderSprite);
+		AutoScaleRenderer(_secondSubViewport, _secondRenderSprite, 0);
 
 	}
 
-	private void AutoScaleRenderer(SubViewport subViewport, Sprite2D renderSprite)
+	private void AutoScaleRenderer(SubViewport subViewport, Sprite2D renderSprite, int screenPadding)
 	{
 		// Get the size of the screen
 		Vector2 screenSize = GetWindow().Size;
 		// Get the size of the viewport, minus any padding
-		Vector2 mainGameSize = new Vector2(subViewport.Size.X - _screenPadding, subViewport.Size.Y - _screenPadding);
+		Vector2 mainGameSize = new Vector2(subViewport.Size.X - screenPadding, subViewport.Size.Y - screenPadding);
 		// Calculate the display scale
 		Vector2 displayScale = screenSize / mainGameSize;
 

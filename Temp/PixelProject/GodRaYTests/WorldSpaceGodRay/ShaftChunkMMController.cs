@@ -246,30 +246,35 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 
 
 			// PREVIOUS WORKING CODE
-			float simpleRotation = Mathf.DegToRad(InstancesRotationZ);
-			Basis finalBasis = new Basis(new Vector3(0, 0, 1), simpleRotation); //Rotation on Z only
-			finalBasis.Column0 *= _initialScale.X; //Scale just the X axis 
-			finalBasis.Column1 *= _initialScale.Y; //Scale just the Y axis
-			finalBasis.Column2 *= _initialScale.Z; //Scale just the Z axis
+			// float simpleRotation = Mathf.DegToRad(InstancesRotationZ);
+			// Basis finalBasis = new Basis(new Vector3(0, 0, 1), simpleRotation); //Rotation on Z only
+			// finalBasis.Column0 *= _initialScale.X; //Scale just the X axis 
+			// finalBasis.Column1 *= _initialScale.Y; //Scale just the Y axis
+			// finalBasis.Column2 *= _initialScale.Z; //Scale just the Z axis
 
 			//NEW CODE NOT WORKING
-			// // 1. DETERMINE THE ROTATION BASIS
-			// Basis newBasis = Basis.Identity;
-			// if (RotationType == Const.WeatherEnums.ShaftRotationTypes.LIGHT_ROTATION)
-			// {
-			// 	newBasis = LightRotation;
-			// }
-			// else
-			// {
-			// 	float simpleRotation = Mathf.DegToRad(InstancesRotationZ);
-			// 	newBasis = new Basis(Vector3.Back, simpleRotation); //simple rotation just on Z -  Vector3(0, 0, 1)
-			// }
+			// 1. Determine Rotation
+			Basis newBasis;
+			if (RotationType == Const.WeatherEnums.ShaftRotationTypes.LIGHT_ROTATION)
+			{
+				// Rotate light forward (-Z) into +Y for godray mesh alignment
+				Basis adjustedLightBasis = LightRotation * new Basis(Vector3.Right, Mathf.DegToRad(90));
+				newBasis = adjustedLightBasis;
+			}
+			else
+			{
+				float simpleRotation = Mathf.DegToRad(InstancesRotationZ);
+				newBasis = new Basis(Vector3.Back, simpleRotation); // simple Z rotation
+			}
 
-			// // 2. CREATE THE SCALED BASIS
-			// Basis finalBasis = newBasis.Scaled(new Vector3(_initialScale.X, _initialScale.Y, _initialScale.Z));
+			// 2. Apply scale
+			// Basis finalBasis = newBasis.Scaled(_initialScale);
+			newBasis.Column0 *= _initialScale.X; //Scale just the X axis 
+			newBasis.Column1 *= _initialScale.Y; //Scale just the Y axis
+			newBasis.Column2 *= _initialScale.Z; //Scale just the Z axis
 
 
-			Multimesh.SetInstanceTransform(i, new Transform3D(finalBasis, newLocalPos));
+			Multimesh.SetInstanceTransform(i, new Transform3D(newBasis, newLocalPos));
 			// Log.Debug($"Instance {i} set to GlobalPos {centerGlobalWorldPos}, LocalPos {newLocalPos}");
 		}
 	}
@@ -377,7 +382,8 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 					}
 					else if (RotationType == Const.WeatherEnums.ShaftRotationTypes.LIGHT_ROTATION)
 					{
-						rayDirection = -LightRotation.Z.Normalized(); // Forward direction of the light
+						Basis adjustedLightBasis = LightRotation * new Basis(Vector3.Right, Mathf.DegToRad(90));
+						rayDirection = -adjustedLightBasis.Y.Normalized(); // Shaft "down" from light direction
 
 					}
 					SendRaycast(i, centerGlobalWorldPos, rayDirection);
@@ -445,30 +451,34 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 		Vector3 newLocalPos = this.ToLocal(newGlobalPos); //Gets the LocalPos representation of the newGlobalPos
 
 		// PREVIOUS WORKING CODE
-		float simpleRotation = Mathf.DegToRad(InstancesRotationZ);
-		Basis finalBasis = new Basis(new Vector3(0, 0, 1), simpleRotation); //Rotation on Z only
-		finalBasis.Column1 *= heighMultiplier; //Scale Y axis
-		finalBasis.Column0 *= widthMultiplier; //Scale X axis
+		// float simpleRotation = Mathf.DegToRad(InstancesRotationZ);
+		// Basis finalBasis = new Basis(new Vector3(0, 0, 1), simpleRotation); //Rotation on Z only
+		// finalBasis.Column1 *= heighMultiplier; //Scale Y axis
+		// finalBasis.Column0 *= widthMultiplier; //Scale X axis
 
 
 		//NEW CODE NOT WORKING
-		// 1. DETERMINE THE ROTATION BASIS
-		// Basis newBasis = Basis.Identity;
-		// if (RotationType == Const.WeatherEnums.ShaftRotationTypes.LIGHT_ROTATION)
-		// {
-		// 	newBasis = LightRotation;
-		// }
-		// else
-		// {
-		// 	float simpleRotation = Mathf.DegToRad(InstancesRotationZ);
-		// 	newBasis = new Basis(Vector3.Back, simpleRotation); //simple rotation just on Z -  Vector3(0, 0, 1)
-		// }
+		// 1. Determine Rotation
+		Basis newBasis;
+		if (RotationType == Const.WeatherEnums.ShaftRotationTypes.LIGHT_ROTATION)
+		{
+			// Rotate light forward (-Z) into +Y for godray mesh alignment
+			Basis adjustedLightBasis = LightRotation * new Basis(Vector3.Right, Mathf.DegToRad(90));
+			newBasis = adjustedLightBasis;
+		}
+		else
+		{
+			float simpleRotation = Mathf.DegToRad(InstancesRotationZ);
+			newBasis = new Basis(Vector3.Back, simpleRotation); // simple Z rotation
+		}
 
-		// // 2. CREATE THE SCALED BASIS
+		// 2. Apply scale
 		// Basis finalBasis = newBasis.Scaled(new Vector3(widthMultiplier, heighMultiplier, 1.0f));
+		newBasis.Column1 *= heighMultiplier; //Scale Y axis
+		newBasis.Column0 *= widthMultiplier; //Scale X axis
 
 		// 3. APPLY THE TRANSFORM
-		Multimesh.SetInstanceTransform(instanceIndex, new Transform3D(finalBasis, newLocalPos));
+		Multimesh.SetInstanceTransform(instanceIndex, new Transform3D(newBasis, newLocalPos));
 
 		CreateDebugSphere(newGlobalPos, Colors.Black, DebugType.MID_POINT_SPHERE);
 		_instanceList[instanceIndex].GlobalPosition = newGlobalPos;
