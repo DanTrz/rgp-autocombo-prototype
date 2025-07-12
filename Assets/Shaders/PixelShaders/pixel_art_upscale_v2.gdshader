@@ -9,7 +9,7 @@ uniform float shadow_boost : hint_range(1.0, 5.0) = 1.2;
 uniform float shadow_threshold : hint_range(0.0, 1.0) = 0.4;
 uniform vec3 shadow_color_override : source_color = vec3(0.0, 0.0, 0.0);
 uniform bool use_shadow_color_override = true;
-uniform float light_boost : hint_range(1.0, 3.0) = 1.0;
+uniform float light_boost : hint_range(0.4, 3.0) = 1.0;
 
 void fragment() {
 	// Pixel stability logic
