@@ -1,15 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnhr158fl1b4f"]
+[gd_scene load_steps=6 format=3 uid="uid://cnhr158fl1b4f"]
 
-[ext_resource type="Shader" uid="uid://bjskios6xae2y" path="res://Assets/Shaders/PixelShaders/GrassSpriteAnimShader.gdshader" id="1_4elv1"]
-[ext_resource type="Texture2D" uid="uid://ddf2o4kfmfltb" path="res://Temp/PixelProject/Assets/2D/Grass_3.png" id="2_k4f17"]
+[ext_resource type="Shader" uid="uid://drj08bf7i6ftx" path="res://Assets/Shaders/PixelShaders/GrassSpriteAnimShader_BillBoardIssuev2.gdshader" id="1_4elv1"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_g6oq6"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4elv1"]
+load_path = "res://.godot/imported/Grass_3.png-6711f90f42818dba951396c8414e2150.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k4f17"]
 render_priority = 0
 shader = ExtResource("1_4elv1")
 shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
-shader_parameter/albedo_tex = ExtResource("2_k4f17")
-shader_parameter/albedo_color = Color(0.588995, 0.664717, 0.376281, 1)
+shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
+shader_parameter/albedo_tex = SubResource("CompressedTexture2D_4elv1")
+shader_parameter/albedo_color = Color(0.807843, 0.243137, 0, 1)
 shader_parameter/use_vertex_color = true
 shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
@@ -20,10 +22,16 @@ shader_parameter/wind_time_scale = 1.0
 shader_parameter/wind_time_offset = 0.0
 shader_parameter/sway_from_bottom = false
 
-[sub_resource type="QuadMesh" id="QuadMesh_ms8ko"]
-material = SubResource("ShaderMaterial_g6oq6")
+[sub_resource type="QuadMesh" id="QuadMesh_kp10v"]
+material = SubResource("ShaderMaterial_k4f17")
 size = Vector2(0.5, 0.25)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4elv1"]
+
 [node name="GrassSingleSpriteShaderMesh" type="MeshInstance3D"]
-mesh = SubResource("QuadMesh_ms8ko")
+mesh = SubResource("QuadMesh_kp10v")
 skeleton = NodePath("../..")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+visible = false
+material = SubResource("StandardMaterial3D_4elv1")

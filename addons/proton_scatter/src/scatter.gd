@@ -20,15 +20,24 @@ const ProtonScatterUtil := preload('./common/scatter_util.gd')
 @export_category("ProtonScatter")
 
 @export_group("General")
+
+## Controls whether the scatter system is active. When disabled, all scattered objects
+## are removed from the scene. When enabled, the system rebuilds according to current settings.
 @export var enabled := true:
 	set(val):
 		enabled = val
 		if is_ready:
 			rebuild()
+
+## Used for random number generation across all modifiers.
+## Using the same seed with the same settings will produce identical results.
 @export var global_seed := 0:
 	set(val):
 		global_seed = val
 		rebuild()
+		
+## scattered objects will be visible in the scene tree.
+## Useful for debugging but may impact editor performance with large numbers of objects.
 @export var show_output_in_tree := false:
 	set(val):
 		show_output_in_tree = val
@@ -36,6 +45,12 @@ const ProtonScatterUtil := preload('./common/scatter_util.gd')
 			ProtonScatterUtil.enforce_output_root_owner(self)
 
 @export_group("Performance")
+
+
+## Determines how scattered objects are rendered in the scene:
+## Use Instancing (0): Uses MultiMesh instances for efficient rendering of identical objects.
+## Create Copies (1): Creates individual node copies for each scattered object.
+## Use Particles (2): Uses GPU particles system for very large numbers of objects.
 @export_enum("Use Instancing:0",
 			"Create Copies:1",
 			"Use Particles:2")\
@@ -61,11 +76,24 @@ var chunk_dimensions := Vector3.ONE * 15.0:
 		if is_ready:
 			rebuild.call_deferred()
 
+## If enabled, creates static collision shapes for scattered objects.
+## Uses the Physics server directly instead of creating actual collision nodes
 @export var keep_static_colliders := false
+
+## If enabled, forces a complete rebuild of the scattered objects when the scene loads.
+## Disable this if you want to restore the previously cached transforms instead of
+## regenerating them, which can be useful for faster scene loading times.
 @export var force_rebuild_on_load := true
+
+## If enabled, allows the scatter node to rebuild its output during gameplay.
+## Disable this in production to prevent unnecessary updates and improve performance,
+## since scattered objects typically don't need to change after the scene is loaded.
 @export var enable_updates_in_game := false
 
 @export_group("Dependency")
+
+## References another ProtonScatter node whose build completion should trigger this node to rebuild.
+## Used to create dependency chains where scattered objects are generated in a specific order.
 @export var scatter_parent: NodePath:
 	set(val):
 		if not is_inside_tree():
@@ -95,6 +123,10 @@ var chunk_dimensions := Vector3.ONE * 15.0:
 
 
 @export_group("Debug", "dbg_")
+
+## Debug option to disable multithreading during scatter operations.
+## When enabled, all scatter calculations run on the main thread, which is slower
+## but easier to debug. Only use this during development.
 @export var dbg_disable_thread := false
 
 var undo_redo # EditorUndoRedoManager - Can't type this, class not available outside the editor
@@ -107,8 +139,15 @@ var modifier_stack: ProtonScatterModifierStack:
 				modifier_stack.stack_changed.disconnect(rebuild)
 			if modifier_stack.transforms_ready.is_connected(_on_transforms_ready):
 				modifier_stack.transforms_ready.disconnect(_on_transforms_ready)
-
-		modifier_stack = val.get_copy() # Enfore uniqueness
+		if not val:
+			modifier_stack = null
+			return
+		# Enforce uniqueness if the stack is in used by another Scatter node
+		if val.parent and val.parent != self:
+			modifier_stack = val.get_copy()
+		else:
+			modifier_stack = val
+		modifier_stack.parent = self
 		modifier_stack.value_changed.connect(rebuild, CONNECT_DEFERRED)
 		modifier_stack.stack_changed.connect(rebuild, CONNECT_DEFERRED)
 		modifier_stack.transforms_ready.connect(_on_transforms_ready, CONNECT_DEFERRED)
@@ -154,7 +193,7 @@ func _exit_tree():
 		modifier_stack.stop_update()
 		_thread.wait_to_finish()
 		_thread = null
-	
+
 	_clear_collision_data()
 
 
@@ -294,7 +333,7 @@ func full_rebuild():
 	if is_thread_running():
 		await _thread.wait_to_finish()
 		_thread = null
-	
+
 	clear_output()
 	_rebuild(true)
 
@@ -427,7 +466,7 @@ func _update_split_multimeshes() -> void:
 		var root: Node3D = ProtonScatterUtil.get_or_create_item_root(item)
 		if not is_instance_valid(root):
 			continue
-		
+
 		# use count number of transforms for this item
 		var count = int(round(float(item.proportion) / total_item_proportion * transforms_count))
 
@@ -469,9 +508,9 @@ func _update_split_multimeshes() -> void:
 					if chunk_elements == 0:
 						continue
 					var mmi = ProtonScatterUtil.get_or_create_multimesh_chunk(
-													item, 
-													mesh_instance, 
-													Vector3i(xi, yi, zi), 
+													item,
+													mesh_instance,
+													Vector3i(xi, yi, zi),
 													chunk_elements)
 					if not mmi:
 						continue
@@ -727,7 +766,7 @@ func _on_transforms_ready(new_transforms: ProtonScatterTransformList) -> void:
 
 	update_gizmos()
 	build_version += 1
-	
+
 	if is_inside_tree():
 		await get_tree().process_frame
 

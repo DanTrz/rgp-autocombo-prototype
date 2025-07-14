@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_ot7g1"]
 [ext_resource type="Shader" uid="uid://xyu6c57vn0ks" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight_waterUpdate.gdshader" id="3_8x41d"]
 [ext_resource type="Shader" uid="uid://bhr41rldkpotm" path="res://Temp/PixelProject/MultiLeaf_ParticuleShader_v2.gdshader" id="4_ot7g1"]
-[ext_resource type="Shader" uid="uid://osv6ambcbili" path="res://Assets/Shaders/PixelShaders/FoliageAnimation_v3_CloudSupport_v2.gdshader" id="5_8x41d"]
+[ext_resource type="Shader" uid="uid://csdekka4own2p" path="res://Assets/Shaders/PixelShaders/FoliageAnimation_v3_CloudSupport_v2_BillBoardFix.gdshader" id="5_8x41d"]
 [ext_resource type="Texture2D" uid="uid://1b2dh6hbyfpm" path="res://Temp/PixelProject/Assets/Tree_LoD_GPUParticule.png" id="6_8x41d"]
 
 [sub_resource type="Gradient" id="Gradient_o6o0y"]
@@ -215,7 +215,6 @@ _restartParticulesTime = NodePath("RestartParticulesTime")
 transform = Transform3D(2.5, 0, 0, 0, 3, 0, 0, 0, 2.5, 0, 0, 0)
 layers = 524289
 mesh = SubResource("ArrayMesh_a38gw")
-skeleton = NodePath("")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="tree_oak_dark"]
 transform = Transform3D(0.4, 0, 0, 0, 0.284668, -0.281006, 0, 0.281006, 0.284668, -0.0165017, 0.880646, 0)

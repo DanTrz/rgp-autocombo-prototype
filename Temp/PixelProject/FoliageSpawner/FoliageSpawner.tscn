@@ -1,0 +1,2176 @@
+[gd_scene load_steps=28 format=4 uid="uid://cwfscb853nue2"]
+
+[ext_resource type="Script" uid="uid://be0gr1a2dqcu2" path="res://Temp/PixelProject/FoliageSpawner/FoliageSpawner.cs" id="1_l8flg"]
+[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_wtp4s"]
+[ext_resource type="Shader" uid="uid://xyu6c57vn0ks" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight_waterUpdate.gdshader" id="3_lvc2t"]
+[ext_resource type="Script" uid="uid://day3d20b0dies" path="res://Temp/PixelProject/FoliageSpawner/FoliageColShape.cs" id="4_lvc2t"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8x41d"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_wtp4s")
+shader_parameter/albedo_color = Color(0.783523, 0.783523, 0.783523, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/Use_fake_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 1
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/billboard = false
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1wsyu"]
+render_priority = 0
+shader = ExtResource("3_lvc2t")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.7
+shader_parameter/highlight_strength = 0.7
+shader_parameter/highlight_color = Color(0.879851, 0.745865, 0.651798, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+shader_parameter/water_height = 0.0
+shader_parameter/water_fade_distance = 0.75
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wq7mf"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_1wsyu")
+shader = ExtResource("2_wtp4s")
+shader_parameter/albedo_color = Color(0.704429, 0.526407, 0.397455, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/Use_fake_ambient_light = true
+shader_parameter/fake_ambient_light = Color(0.341954, 0.237036, 0.159885, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/use_repeat_nearest_texture = true
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 1
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/billboard = false
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_lvc2t"]
+_surfaces = [{
+"aabb": AABB(-0.320277, 0.5004, -0.369824, 0.640554, 0.72584, 0.739648),
+"format": 34896613377,
+"index_count": 192,
+"index_data": PackedByteArray("AAABAAIAAgABAAMABAABAAAAAQAEAAUABQADAAEAAAAGAAQABQAEAAcABwAEAAYABgAAAAgAAgAJAAAACAAAAAkAAwAKAAIACQACAAoACgADAAsACgAMAAkACwAMAAoADAANAAkACQANAAgADAAOAA0ACAANAA4ADgAMAAsADgAPAAgACwAPAA4ACAAPABAAEAAPAAsAEQALAAMACwARABAAAwAFABEAEAASAAgACAASAAYAEwAGABIAFAASABAAEgAUABMAFQAQABEAEAAVABQAFgARAAUAEQAWABUABQAXABYABwAXAAUABgATAAcAFgAXABgAGAAXAAcAFQAWABkAGAAZABYABwAaABgAGgAHABMAGQAYABoAGgAbABkAGwAcABkAHQAbABoAHAAeABkAGQAeABUAHAAfAB4AHwAgAB4AGgAhAB0AEwAhABoAIQAiAB0AIQAgACIAIwAhABMAIQAjACAAIwAeACAAFQAeACMAEwAUACMAIwAUABUA"),
+"name": "leafsDark",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("/3/n18vsAAAzE+fXZbYAAJlJ//8ymwAAMxPn15lJAAAAAHBO/78AAAAAcE7/PwAA/39wTv//AAA2GykVZLIAAMvs59dltgAA/3///2W2AACZSf//zGQAAP9/59czEwAA/3///5lJAABltv//MpsAAGW2///MZAAAy+zn15lJAAD//3BO/z8AAP9/cE4AAAAA//9wTv+/AAD/fykVyOQAAMjkKRVksgAAyOQpFZpNAAD/fykVNhsAADYbKRWaTQAAmk0AAM1mAAD/fwAAmk0AAJpNAAAxmQAA428AAPF3AAD/fwAA428AAONvAAANiAAAZLIAAM1mAAAbkAAA8XcAABuQAAANiAAA/38AAGSyAAD/fwAAG5AAAGSyAAAxmQAA")
+}, {
+"aabb": AABB(-0.206065, 1.60297e-31, -0.186986, 0.382371, 0.5004, 0.373973),
+"format": 34896613377,
+"index_count": 396,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAADAAIAAQAAAAUAAAAGAAUAAAAHAAYABQAGAAgACQAGAAcACAAGAAkACAAKAAUACQALAAgACgAIAAsADAAJAAcACwAJAAwADAAFAAoACwANAAoACgANAAwADAANAAsABQAMAAEADAAHAA4ADgABAAwADgAHAA8AAQAOABAADwARAA4AEgABABAAEQAPABMAFAABABIAAgABABQAEAAVABIAEgAWABQAFwAWABIAFwASABUAGAAUABYAFwAZABYAGQAYABYAGgAXABUAGwAUABgAAgAUABsAGAAcABsAHQAcABgAHAAdABsAGQAdABgAGwAdAB4AHgACABsAHwAdABkAHgAdAB8AIAAZABcAIQACAB4AIAAiABkAGQAiAB8AFwAjACAAIwAXABoAIgAkAB8AJQAkACIAJQAfACQAIgAgACUAJgAfACUAHwAmAB4AJQAgACcAJQAnACYAIwAnACAAJgAoAB4AHgAoACEAJgApACgAKQAmACcAIQAoACoAKgAoACkAIQAqACsAKQArACoAKwAsACEALAArACkAJwAsACkAAgAhACwALAAnAAIAAgAnAAQABAAnACMAIwAtAAQALgAtACMALgAvAC0ALwAwAC0ADwAtADAADwAwABMAMAAvADEAMQAvAC4AMQAyADAAEwAwADIAMwAyADEAMgAzABMAMQA0ADMAEwAzADQALgA0ADEANAAuABMAEwAuABEAIwARAC4AEQAjADUAGgA1ACMANQAaADYANwA1ADYAEQA1ADcANgA4ADcAOQA4ADYANwA4ADkANgAaADkAOgARADcANwA5ADoAGgA7ADkAOgA5ADsAOwAaABUAEQA6ADwAPAA6ADsAPAA9ABEADgARAD0APQA8AD4APQA+AD8APgA8AEAAQAA/AD4AQAA8ADsAPwBBAD0AQQA/AEAAPQBBAA4AQQBAAEIAQgAOAEEAOwBCAEAADgBCADsAOwBDAA4AQwAQAA4ARABDADsARQAQAEMAQwBEAEUARQBEADsARQAVABAAOwAVAEUA"),
+"name": "woodBarkDark",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 70,
+"vertex_data": PackedByteArray("9Yn//yNgAAD1idpRj1AAACOy2lFHaAAA8qT//xFwAADypP//7Y8AABuC+pzqWwAAsIJMrPFcAAD5bv//EXAAAEtuo6o+QQAAS3FMrDVnAADzbZiho0AAAAhko6pNRwAAt3D6nC5mAACwY5ihskYAAMdh2lFHaAAA+W7//+2PAAD7gbMpuEwAAMdh2lG3lwAA9YkAACE/AAAkbl5nF50AAPSTexRkSQAAmX0AAG1GAAAMlgAAREYAAPWJAADdwAAADMUAAAAAAAAMlgAAurkAAJl9AACRuQAANrN7FNhbAADU2AAArQsAANC0AABtWAAA58AAAJBfAADQtAAAkacAAPSTexSatgAAYbmzKWxtAAAMxQAA//8AAPWJ2lFvrwAA1NgAAFH0AAA2s3sUJqQAAOfAAABuoAAAI7LaUbeXAADnwAAAKG4AAOfAAADWkQAA//8AAFJ0AAD//wAArIsAAGG5symSkgAA9Yn//9ufAACJf15nW6cAAB6AsHZUpgAAuW6wdhCcAAC5awZ1B8IAAHZhBnX4uwAAHmH8a5O8AABha/xrosIAAPuBsylGswAA1FgAAFruAACEYrMps6AAAA1FAACt4gAAYV8AALqnAAAEUwAAbqAAAGFfAABEWAAABFMAACmSAAC2VnsUc5IAAAAAAACsiwAAAAAAAFJ0AAAEUwAA1W0AALZWexSLbQAABFMAAJBfAACEYrMpS18AAA1FAABRHQAA1FgAAKQRAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_l66w7"]
+resource_local_to_scene = true
+resource_name = "tree_oak_dark_Mesh tree_oak_dark"
+_surfaces = [{
+"aabb": AABB(-0.320277, 0.5004, -0.369824, 0.640554, 0.72584, 0.739648),
+"attribute_data": PackedByteArray("y+xgRTMTYEWZSaovZbaqLwAAViL+/1YiyOTlNzYb5Tf//1YiyOTlNzYb5TcAAFYiNhvlNwAAViL+/1YiyOTlN/9/WZbGIbqMxiF8ef9/3W843rqMON58ef7/FDAAABQwMxMAAMvsAACaTdhaNhu/Scjkv0lksthamUmqL2W2qi/L7GBFMxNgRcjkv0lksthamk3YWjYbv0n+/1YiyOTlNzYb5TcAAFYiNhu/Scjkv0lksthamk3YWjYbv0nI5L9JZLLYWppN2FrL7GBFMxNgRZlJqi9ltqovy+wAAP7/FDAAABQwMxMAAGW2qi/L7GBFMxNgRZlJqi9ksthamk3YWjYbv0nI5L9Jy+wAAP7/FDAAABQwMxMAAP7/ViLI5OU3NhvlNwAAViLL7AAA//8UMAAAFDAzEwAAy+wAAP7/FDAAABQwMxMAADMTYEWZSaovZbaqL8vsYEVltqovy+xgRTMTYEWZSaovmk3YWjYbv0nI5L9JZLLYWsvsAAD+/xQwAAAUMDMTAAD+/1YiyOTlNzYb5TcAAFYi/39IcUfXMXpH1wWM5ptCgP9/aH3mm/SFtygxev9/7pQYZEKA/3/OiBhk9IW3KAWM"),
+"format": 34896613399,
+"index_count": 192,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAEwAUABAAEwAVABQAFgAXABgAGAAZABYAGgAbABwAHAAdABoAHgAfACAAIAAhAB4AIgAjACQAJAAlACIAJgAnACgAKAApACYAKgArACwALAAtACoALgAvADAAMAAxAC4AMgAzADQANAA1ADIANgA3ADgAOAA5ADYAOgA7ADwAPAA9ADoAPgA/AEAAQABBAD4AQgBDAEQARABFAEIARgBHAEgASABJAEYASgBLAEwATABNAEoATgBPAFAAUABRAE4AUgBTAFQAVABVAFIAVgBXAFgAWABZAFYAWgBbAFwAXABdAFoAXgBfAGAAYABhAF4AYgBjAGQAZABlAGIAZgBnAGgAaABpAGYAaQBqAGYAawBpAGgAagBsAGYAaABtAGsAagBuAGwAbQBvAGsAbgBwAGwAbQBwAG8AcQBsAHAAbQBxAHAA"),
+"material": SubResource("ShaderMaterial_8x41d"),
+"name": "leafsDark",
+"primitive": 3,
+"uv_scale": Vector4(14.56, 82.3228, 0, 0),
+"vertex_count": 114,
+"vertex_data": PackedByteArray("/3/n18vsL6kzE+fXZbYvqZlJ//8ymy+p/3///2W2L6kAAHBO/z+UwQAAcE7/v5TBNhspFWSylME2GykVmk2UwQAAcE7/PxfrNhspFZpNF+v/fykVNhsX6/9/cE4AABfryOQpFWSylMH//3BO/7+Uwf//cE7/P5TByOQpFZpNlMH/f///Zbb/v5lJ//8ym/+/mUn//8xk/7//f///mUn/v2W2//8ym/+/Zbb//8xk/7///3BO/z8mwP//cE7/vybAy+zn12W2JsDL7OfXmUkmwJpNAADNZsfLNhspFZpNx8s2GykVZLLHy5pNAAAxmcfLZbb//8xktuz/f///mUm27P9/59czE7bsy+zn15lJtuzI5CkVmk3Hy2SyAADNZsfLZLIAADGZx8vI5CkVZLLHy/9/cE4AABfr/38pFTYbF+vI5CkVmk0X6///cE7/Pxfr/38pFTYbBO42GykVmk0E7ppNAADNZgTu/38AAJpNBO7I5CkVmk0E7v9/KRU2GwTu/38AAJpNBO5ksgAAzWYE7svs59dlti+p/3/n18vsL6n/f///ZbYvqWW2//8ymy+py+zn12W25ZX//3BO/7/llf9/cE7//+WV/3/n18vs5ZWZSf//MptZxzMT59dltlnHMxPn15lJWceZSf//zGRZx2SyAAAxmSCy/38AAGSyILL/fykVyOQgssjkKRVksiCyMxPn12W2JsAAAHBO/78mwAAAcE7/PybAMxPn15lJJsD/f3BO//+omv9/KRXI5KiaNhspFWSyqJoAAHBO/7+omjMT59eZSbTqAABwTv8/tOr/f3BOAAC06v9/59czE7Tq/3/n18vs5ZX/f3BO///llQAAcE7/v+WVMxPn12W25ZXL7OfXZbZZx2W2//8ym1nHZbb//8xkWcfL7OfXmUlZx5lJ///MZLbsMxPn15lJtuz/f+fXMxO27P9///+ZSbbsmk0AADGZILI2GykVZLIgsv9/KRXI5CCy/38AAGSyILL/f+fXMxO06v9/cE4AALTq//9wTv8/tOrL7OfXmUm06v//cE7/v6iayOQpFWSyqJr/fykVyOSomv9/cE7//6ia/38AAJpN//+aTQAAzWb//5pNAAAxmf//428AAPF3////fwAA42///+NvAAANiP//ZLIAAM1m////fwAAZLL//xuQAADxd////38AABuQ//8bkAAADYj//2SyAAAxmf//h8XVp4fF1aeHxdWnh8XVp0Zbou1GW6LtRlui7UZbou38ZX/6/GV/+vxlf/r8ZX/6o224JKNtuCSjbbgko224JP7//3////9/////f////3/+//9/////f/+N/wb/jf8G/43/Bv+N/waOOEbcjjhG3I44RtyOOEbcpa8RCqWvEQqlrxEKpa8RCkZccUdGXHFHRlxxR0ZccUeAegMagHoDGoB6AxqAegMaE0f38xNH9/MTR/fzE0f38/hz6zj4c+s4+HPrOPhz6zgp2IhFKdiIRSnYiEUp2IhF0Jy5FtCcuRbQnLkW0Jy5Fu6eIcLuniHC7p4hwu6eIcJbNOhfWzToX1s06F9bNOhf/4b/8f+G//H/hv/x/4b/8ZNBxM6TQcTOk0HEzpNBxM7zgcD284HA9vOBwPbzgcD2uZYu47mWLuO5li7juZYu49y97h7cve4e3L3uHty97h4RiljQEYpY0BGKWNARiljQFiBbtBYgW7QWIFu0FiBbtD6J9AE+ifQBPon0AT6J9AHETms+xE5rPsROaz7ETms+/3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8/")
+}, {
+"aabb": AABB(-0.206065, 1.60297e-31, -0.186986, 0.382371, 0.5004, 0.373973),
+"attribute_data": PackedByteArray("dI4AAIWVf1x5an9cinEAAHSOAACFlX9ceWp/XIpxAACphZlKqYVmT6p6Zk+qeplKwXmNXL+EjVyRiDhq73U4aoWVf1x5an9ckYiYNHSOAADvdZg0kYh0LIpxAADvdXQshZV/XHlqf1yKcQAAdI4AAHSOAACFlX9ceWp/XIpxAAC/hB8uv4TtMsF57TLBeR8uh56xM3adkSvrvHIsjb0+MZGIeI6/hCOcwXkjnO91eI7FwOBIZ8GrTWGiHlBQof5Hp10eUKI+q01DP+BIuV7+R+RCcSxaYpArSGGwM0NCPDGphZyfqnqcn9h28pF7ifKRhZV/XHlqf1x7iRFRdI4AANh2EVF7ie5IinEAANh27kjYdrJtqnoHYKmFB2B7ibJthZUcXm2d7Yl6kO2JvZD2fnlqHF5Bb/Z+kWLtiYRv7YkB7OOGM7HjhjGqxnDZkJGIl4q7rGd1u6wlb5GI/RPjhs1VxnDLTuOG3VEGfG1O44YtAeOGZ3VLvEFvhZe9kIWXl4pLvC0B44bdUQZ8bU7jhtH+44aRseOGIa4GfEFvhZe9kIWXl4pLvGd1S7zNVcZwy07jhv0T44YxqsZwAezjhjOx44aApyR3+bIJevmysH///0KC//+Ei/myFo75sr2TgKeilu6//q2UrZ+yd4uznXeLEnCUrSdb7r/IX/9/mKD/fy5tyHQCcMh0xJ0sSSlUPFg1d9I2ylg8WJGWLEmdudI2/LQFTQl6BU29kwVN0X8FTfWNfBJCgnwShIu9kIWXl4pLvGd1S7xBb4WXl4q7rGd1u6wlb5GI2ZCRiM1VxnDLTuOG/RPjhjGqxnAB7OOGM7Hjhm2d7Yl6kO2JvZD2foWVHF5Bb/Z+eWocXpFi7YmEb+2Jz2/tiZFi7Yl5ahxeJW+bc4WVHF7ZkJtzbZ3tiS+Q7Yltne2JepDtib2Q9n6FlRxeeWocXkFv9n6RYu2JhG/tiYWVHF5tne2JL5DtidmQm3N5ahxeJW+bc5Fi7YnPb+2JhZUcXm2d7YkvkO2J2ZCbcyVvm3N5ahxekWLtic9v7YkhrgZ80f7jhpGx44ZndbusJW+RiNmQkYiXirus3VEGfG1O44YtAeOGIa4GfNH+44aRseOG"),
+"format": 34896613399,
+"index_count": 396,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAASABEAEgAVABMAEQAWABQAFQAXABMAFgAXABQAFgATABcAGAAZABoAGgAbABgAHAAdAB4AHgAfABwAIAAhACIAIgAjACAAJAAlACYAJgAnACQAKAApACoAKgArACgALAAtAC4ALgAvACwAMAAxADIAMgAzADAANAA1ADYANgA3ADQAOAA5ADoAOgA7ADgAPAA9AD4APgA/ADwAQAA+AD0APgBBAD8APQBCAEAAQQBDAD8AQgBDAEAAQgA/AEMARABFAEYARgBHAEQASABJAEoASgBLAEgATABIAEsASwBNAEwATgBMAE0ATQBPAE4AUABRAFIAUwBUAFUAVQBWAFMAVwBYAFkAWgBbAFwAXQBeAF8AXwBgAF0AYQBiAGMAZABlAGYAZwBoAGkAaQBqAGcAawBsAG0AbgBvAHAAcQByAHMAcwB0AHUAdQB2AHMAcwB2AHEAdgB3AHEAdwB4AHEAeAB5AHoAegB7AHgAewBxAHgAcQB7AHwAcQB8AH0AfQB+AHEAewB/AHwAfwCAAHwAfwCBAIAAfwCCAIEAggCDAIEAggCEAIMAhACFAIMAhgCEAIIAggCHAIYAhwCIAIYAiQCEAIYAhgCKAIkAigCLAIkAigCMAIsAjQCLAIwAjACOAI0AjwCQAJEAkQCSAI8AkwCUAJUAlQCWAJMAlwCYAJkAmgCbAJwAnQCeAJ8AnwCgAJ0AnwChAKAAogCgAKEAowCiAKEAoQCkAKMApQCmAKcApwCoAKUAqACnAKkAqQCqAKgAqgCpAKsAqwCsAKoArQCuAK8ArwCwAK0AsQCwAK8AsQCvALIAswCxALIAsgC0ALMAtQC2ALcAtwC4ALUAuQC1ALgAuQC4ALoAuwC5ALoAugC8ALsAvQC+AL8AvwDAAL0AwADBAL0AwgC9AMEAwwDCAMEAwQDEAMMAxQDGAMcAyADJAMoAygDLAMgAzADNAM4AzwDQANEA"),
+"material": SubResource("ShaderMaterial_wq7mf"),
+"name": "woodBarkDark",
+"primitive": 3,
+"uv_scale": Vector4(16.2256, 37.1523, 0, 0),
+"vertex_count": 210,
+"vertex_data": PackedByteArray("9Yn//yNgrOr1idpRj1Cs6iOy2lFHaKzq8qT//xFwrOr5bv//7Y8HwMdh2lG3lwfAx2HaUUdoB8D5bv//EXAHwLlrBnUHwnWVYWv8a6LCdZUeYfxrk7x1lXZhBnX4u3WV822YoaNAse+wY5ihskax77dw+pwuZrHvG4L6nOpbse/HYdpRR2is6vWJ2lGPUKzqt3D6nC5mrOr5bv//EXCs6huC+pzqW6zqS3FMrDVnrOr1if//I2Cs6rCCTKzxXKzqI7LaUUdoB8AjstpRt5cHwPKk///tjwfA8qT//xFwB8DypP//7Y91lSOy2lG3l3WV9YnaUW+vdZX1if//2591lQhko6pNR6zqsGOYobJGrOrzbZiho0Cs6ktuo6o+QazqG4L6nOpbTtqwgkys8VxO2ktuo6o+QU7a822YoaNATtpLcUysNWeE8Ahko6pNR4TwS26jqj5BhPCwgkys8VyE8HZhBnX4u1rQHmH8a5O8WtAkbl5nF51a0LlusHYQnFrQiX9eZ1unr6Vha/xrosKvpblrBnUHwq+lHoCwdlSmr6UIZKOqTUekr0txTKw1Z6Svt3D6nC5mpK+wY5ihskakr7lrBnUHwkbAdmEGdfi7RsC5brB2EJxGwB6AsHZUpkbA9YnaUW+vdZXHYdpRt5d1lYl/Xmdbp3WV9Yn//9ufdZUkbl5nF511lR6AsHZUpnWV+W7//+2PdZW5brB2EJx1lSRuXmcXnee7HmH8a5O857tha/xrosLnu4l/Xmdbp+e7x2HaUbeXMMAEUwAAbqAwwARTAAApkjDAtlZ7FHOSMMDHYdpRR2gwwLZWexSLbTDABFMAAJBfMMAEUwAA1W0wwNRYAACkETXZmX0AAG1GNdn7gbMpuEw12YRisylLX+PsDUUAAFEd4+zUWAAApBHj7PuBsym4TOPsDUUAAFEdi66EYrMpS1+LrmFfAABEWIuuNrN7FCakONLQtAAAkac40tTYAABR9DjSDMUAAP//b7f0k3sUmrZvtzazexQmpG+31NgAAFH0b7cMxQAAAABw2PSTexRkSXDYDJYAAERGcNjU2AAArQvFrdC0AABtWMWtNrN7FNhbxa02s3sU2Fvl7vSTexRkSeXuDMUAAAAA5e7U2AAArQvl7mG5sylsbR3858AAAChuHfz//wAAUnQd/GG5symSkuCD//8AAKyL4IPnwAAA1pHgg2FfAABEWP//BFMAAJBf//8EUwAA1W3//wAAAABSdP//AAAAAKyL//8EUwAAKZL//wRTAABuoP//YV8AALqn//8NRQAAreL//9RYAABa7v//mX0AAJG5//+ZfQAAbUb//9RYAACkEf//DUUAAFEd///1iQAA3cD///WJAAAhP///DJYAAERG//8MlgAAurn//wzFAAAAAP//0LQAAG1Y///U2AAArQv//9C0AACRp///DMUAAP/////U2AAAUfT//+fAAACQX///58AAAG6g///nwAAAKG7//+fAAADWkf////8AAFJ0/////wAArIv//7ZWexRzkqrOAAAAAKyLqs4AAAAAUnSqzrZWexSLbarO1FgAAFruf6oNRQAAreJ/qoRisymzoH+q+4GzKUazf6r7gbMpRrPIppl9AACRucim1FgAAFruyKaEYrMps6Bz0Q1FAACt4nPRYV8AALqnc9HnwAAAbqAIltC0AACRpwiWNrN7FCakCJYjstpRt5cIlvSTexSatgiW9YnaUW+vCJb1iQAA3cAIlgyWAAC6uQiW58AAANaRMMDnwAAAbqAwwCOy2lG3lzDAYbmzKZKSMMAjstpRR2gwwGG5sylsbTDA58AAAJBfMMDnwAAAKG4wwPWJAAAhP7bqDJYAAERGtur0k3sUZEm26vWJ2lGPULbqI7LaUUdotuo2s3sU2Fu26ufAAACQX7bq0LQAAG1Ytur1idpRb68IlvWJAADdwAiWmX0AAJG5CJb7gbMpRrMIlsdh2lG3lwiWhGKzKbOgCJYEUwAAbqAIlmFfAAC6pwiWx2HaUUdotuoEUwAAkF+26mFfAABEWLbqhGKzKUtftur7gbMpuEy26vWJ2lGPULbq9YkAACE/tuqZfQAAbUa26rZWexSLbeP8AAAAAFJ04/wEUwAA1W3j/P//AACsi/bHYbmzKZKS9sdhubMpbG32x///AABSdPbHtlZ7FHOSG4MEUwAAKZIbgwAAAACsixuD9JN7FJq2jqcMxQAA//+OpwyWAAC6uY6nhoT0AIaE9ACGhPQAhoT0AH+D//h/g//4f4P/+H+D//gmjJbwJoyW8CaMlvAmjJbwMz4X8jM+F/IzPhfyMz4X8vSAd/v0gHf79IB3+/SAd/v0gHf79IB3+/SAd/v0gHf7/4Z/A/+GfwP/hn8D/4Z/A2iPJwxojycMaI8nDGiPJwz0gHf79IB3+/SAd/v0gHf7q4A5AKuAOQCrgDkAq4A5ALCOe7qwjnu6sI57urCOe7pLgD//S4A//0uAP/9LgD//V4HlAFeB5QBXgeUAV4HlAKyA3/6sgN/+rIDf/qyA3/5g0ouXYNKLl2DSi5dg0ouXJoyW8CaMlvAmjJXwJoyW8CaMlvAmjJbwJoyW8CeMlvDeGXOv3hlzr94Zc6/eGXOvt4eO8LeHjvC3h47wt4eO8LeHjvC3h47wt4eO8LeHjvD/fwAA/38AAP9/AABgiuLOYIrizmCK4s5giuLO/3////9/////f////38AAP9/AAD/fwAAfeN3Tn3jd05943dOfeN3Tv9/////f////3////9/AAD/fwAA/38AANq9Eg3avRIN2r0SDdq9Eg3/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z8jprazI6a2syOmtrMjprazksaDppLGg6aSxoOmksaDpv9/AAD/fwAA/38AAP9/////f////3///1yfuxhcn7sYXJ+7GFyfuxhcn7sYXJ+7GFyfuxhcn7sYb4+4B2+PuAdvj7gHb4+4B2+PuAdvj7gHb4+4B2+PuAc8iikCPIopAjyKKQI8iikCPIopAjyKKQI8iikCPIopAruYouC7mKLgu5ii4LuYouC7mKLgu5ii4LuYouC7mKLgKYLB9SmCwfUpgsH1KYLB9SmCwfUpgsH1KYLB9SmCwfX/f////3////9///9qv7Ufar+1H2q/tR9qv7Uf/3////9/////f////3////9/////f///")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_lvc2t")
+
+[sub_resource type="GDScript" id="GDScript_k22ku"]
+script/source = "@tool
+extends Node3D
+
+
+signal shape_changed
+signal thread_completed
+signal build_completed
+
+
+# Includes
+const ProtonScatterDomain := preload(\"./common/domain.gd\")
+const ProtonScatterItem := preload(\"./scatter_item.gd\")
+const ProtonScatterModifierStack := preload(\"./stack/modifier_stack.gd\")
+const ProtonScatterPhysicsHelper := preload(\"./common/physics_helper.gd\")
+const ProtonScatterShape := preload(\"./scatter_shape.gd\")
+const ProtonScatterTransformList := preload(\"./common/transform_list.gd\")
+const ProtonScatterUtil := preload('./common/scatter_util.gd')
+
+
+@export_category(\"ProtonScatter\")
+
+@export_group(\"General\")
+
+## Controls whether the scatter system is active. When disabled, all scattered objects
+## are removed from the scene. When enabled, the system rebuilds according to current settings.
+@export var enabled := true:
+	set(val):
+		enabled = val
+		if is_ready:
+			rebuild()
+
+## Used for random number generation across all modifiers.
+## Using the same seed with the same settings will produce identical results.
+@export var global_seed := 0:
+	set(val):
+		global_seed = val
+		rebuild()
+		
+## scattered objects will be visible in the scene tree.
+## Useful for debugging but may impact editor performance with large numbers of objects.
+@export var show_output_in_tree := false:
+	set(val):
+		show_output_in_tree = val
+		if output_root:
+			ProtonScatterUtil.enforce_output_root_owner(self)
+
+@export_group(\"Performance\")
+
+
+## Determines how scattered objects are rendered in the scene:
+## Use Instancing (0): Uses MultiMesh instances for efficient rendering of identical objects.
+## Create Copies (1): Creates individual node copies for each scattered object.
+## Use Particles (2): Uses GPU particles system for very large numbers of objects.
+@export_enum(\"Use Instancing:0\",
+			\"Create Copies:1\",
+			\"Use Particles:2\")\\
+		var render_mode := 0:
+	set(val):
+		render_mode = val
+		notify_property_list_changed()
+		if is_ready:
+			full_rebuild.call_deferred()
+
+var use_chunks : bool = true:
+	set(val):
+		use_chunks = val
+		notify_property_list_changed()
+		if is_ready:
+			full_rebuild.call_deferred()
+
+var chunk_dimensions := Vector3.ONE * 15.0:
+	set(val):
+		chunk_dimensions.x = max(val.x, 1.0)
+		chunk_dimensions.y = max(val.y, 1.0)
+		chunk_dimensions.z = max(val.z, 1.0)
+		if is_ready:
+			rebuild.call_deferred()
+
+## If enabled, creates static collision shapes for scattered objects.
+## Uses the Physics server directly instead of creating actual collision nodes
+@export var keep_static_colliders := false
+
+## If enabled, forces a complete rebuild of the scattered objects when the scene loads.
+## Disable this if you want to restore the previously cached transforms instead of
+## regenerating them, which can be useful for faster scene loading times.
+@export var force_rebuild_on_load := true
+
+## If enabled, allows the scatter node to rebuild its output during gameplay.
+## Disable this in production to prevent unnecessary updates and improve performance,
+## since scattered objects typically don't need to change after the scene is loaded.
+@export var enable_updates_in_game := false
+
+@export_group(\"Dependency\")
+
+## References another ProtonScatter node whose build completion should trigger this node to rebuild.
+## Used to create dependency chains where scattered objects are generated in a specific order.
+@export var scatter_parent: NodePath:
+	set(val):
+		if not is_inside_tree():
+			scatter_parent = val
+			return
+
+		scatter_parent = NodePath()
+		if is_instance_valid(_dependency_parent):
+			_dependency_parent.build_completed.disconnect(rebuild)
+			_dependency_parent = null
+
+		var node = get_node_or_null(val)
+		if not node:
+			return
+
+		var type = node.get_script()
+		var scatter_type = get_script()
+		if type != scatter_type:
+			push_warning(\"ProtonScatter warning: Please select a ProtonScatter node as a parent dependency.\")
+			return
+
+		# TODO: Check for cyclic dependency
+
+		scatter_parent = val
+		_dependency_parent = node
+		_dependency_parent.build_completed.connect(rebuild, CONNECT_DEFERRED)
+
+
+@export_group(\"Debug\", \"dbg_\")
+
+## Debug option to disable multithreading during scatter operations.
+## When enabled, all scatter calculations run on the main thread, which is slower
+## but easier to debug. Only use this during development.
+@export var dbg_disable_thread := false
+
+var undo_redo # EditorUndoRedoManager - Can't type this, class not available outside the editor
+var modifier_stack: ProtonScatterModifierStack:
+	set(val):
+		if modifier_stack:
+			if modifier_stack.value_changed.is_connected(rebuild):
+				modifier_stack.value_changed.disconnect(rebuild)
+			if modifier_stack.stack_changed.is_connected(rebuild):
+				modifier_stack.stack_changed.disconnect(rebuild)
+			if modifier_stack.transforms_ready.is_connected(_on_transforms_ready):
+				modifier_stack.transforms_ready.disconnect(_on_transforms_ready)
+		if not val:
+			modifier_stack = null
+			return
+		# Enforce uniqueness if the stack is in used by another Scatter node
+		if val.parent and val.parent != self:
+			modifier_stack = val.get_copy()
+		else:
+			modifier_stack = val
+		modifier_stack.parent = self
+		modifier_stack.value_changed.connect(rebuild, CONNECT_DEFERRED)
+		modifier_stack.stack_changed.connect(rebuild, CONNECT_DEFERRED)
+		modifier_stack.transforms_ready.connect(_on_transforms_ready, CONNECT_DEFERRED)
+
+var domain: ProtonScatterDomain:
+	set(_val):
+		domain = ProtonScatterDomain.new() # Enforce uniqueness
+
+var items: Array = []
+var total_item_proportion: int
+var output_root: Marker3D
+var transforms: ProtonScatterTransformList
+var editor_plugin # Holds a reference to the EditorPlugin. Used by other parts.
+var is_ready := false
+var build_version := 0
+
+# Internal variables
+var _thread: Thread
+var _rebuild_queued := false
+var _dependency_parent
+var _physics_helper: ProtonScatterPhysicsHelper
+var _body_rid: RID
+var _collision_shapes: Array[RID]
+var _ignore_transform_notification = false
+
+
+func _ready() -> void:
+	if Engine.is_editor_hint() or enable_updates_in_game:
+		set_notify_transform(true)
+		child_exiting_tree.connect(_on_child_exiting_tree)
+
+	_perform_sanity_check()
+	_discover_items()
+	update_configuration_warnings.call_deferred()
+	is_ready = true
+
+	if force_rebuild_on_load and not is_instance_valid(_dependency_parent):
+		full_rebuild.call_deferred()
+
+
+func _exit_tree():
+	if is_thread_running():
+		modifier_stack.stop_update()
+		_thread.wait_to_finish()
+		_thread = null
+
+	_clear_collision_data()
+
+
+func _get_property_list() -> Array:
+	var list := []
+	list.push_back({
+		name = \"modifier_stack\",
+		type = TYPE_OBJECT,
+		hint_string = \"ScatterModifierStack\",
+	})
+
+	var chunk_usage := PROPERTY_USAGE_NO_EDITOR
+	var dimensions_usage := PROPERTY_USAGE_NO_EDITOR
+	if render_mode == 0 or render_mode == 2:
+		chunk_usage = PROPERTY_USAGE_DEFAULT
+		if use_chunks:
+			dimensions_usage = PROPERTY_USAGE_DEFAULT
+
+	list.push_back({
+		name = \"Performance/use_chunks\",
+		type = TYPE_BOOL,
+		usage = chunk_usage
+	})
+
+	list.push_back({
+		name = \"Performance/chunk_dimensions\",
+		type = TYPE_VECTOR3,
+		usage = dimensions_usage
+	})
+	return list
+
+
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings := PackedStringArray()
+
+	if items.is_empty():
+		warnings.push_back(\"At least one ScatterItem node is required.\")
+
+	if modifier_stack and not modifier_stack.does_not_require_shapes():
+		if domain and domain.is_empty():
+			warnings.push_back(\"At least one ScatterShape node is required.\")
+
+	return warnings
+
+
+func _notification(what):
+	if not is_ready:
+		return
+	match what:
+		NOTIFICATION_TRANSFORM_CHANGED:
+			if _ignore_transform_notification:
+				_ignore_transform_notification = false
+				return
+			_perform_sanity_check()
+			domain.compute_bounds()
+			rebuild.call_deferred()
+		NOTIFICATION_ENTER_WORLD:
+			_ignore_transform_notification = true
+
+
+func _set(property, value):
+	if not Engine.is_editor_hint():
+		return false
+
+	# Workaround to detect when the node was duplicated from the editor.
+	if property == \"transform\":
+		_on_node_duplicated.call_deferred()
+
+	elif property == \"Performance/use_chunks\":
+		use_chunks = value
+
+	elif property == \"Performance/chunk_dimensions\":
+		chunk_dimensions = value
+
+	# Backward compatibility.
+	# Convert the value of previous property \"use_instancing\" into the proper render_mode.
+	elif property == \"use_instancing\":
+		render_mode = 0 if value else 1
+		return true
+
+	return false
+
+
+func _get(property):
+	if property == \"Performance/use_chunks\":
+		return use_chunks
+
+	elif property == \"Performance/chunk_dimensions\":
+		return chunk_dimensions
+
+
+func is_thread_running() -> bool:
+	return _thread != null and _thread.is_started()
+
+
+# Used by some modifiers to retrieve a physics helper node
+func get_physics_helper() -> ProtonScatterPhysicsHelper:
+	return _physics_helper
+
+
+# Deletes what the Scatter node generated.
+func clear_output() -> void:
+	if not output_root:
+		output_root = get_node_or_null(\"ScatterOutput\")
+
+	if output_root:
+		remove_child(output_root)
+		output_root.queue_free()
+		output_root = null
+
+	ProtonScatterUtil.ensure_output_root_exists(self)
+	_clear_collision_data()
+
+
+func _clear_collision_data() -> void:
+	if _body_rid.is_valid():
+		PhysicsServer3D.free_rid(_body_rid)
+		_body_rid = RID()
+
+	for rid in _collision_shapes:
+		if rid.is_valid():
+			PhysicsServer3D.free_rid(rid)
+
+	_collision_shapes.clear()
+
+
+# Wrapper around the _rebuild function. Clears previous output and force
+# a clean rebuild.
+func full_rebuild():
+	update_gizmos()
+
+	if not is_inside_tree():
+		return
+
+	_rebuild_queued = false
+
+	if is_thread_running():
+		await _thread.wait_to_finish()
+		_thread = null
+
+	clear_output()
+	_rebuild(true)
+
+
+# A wrapper around the _rebuild function. Ensure it's not called more than once
+# per frame. (Happens when the Scatter node is moved, which triggers the
+# TRANSFORM_CHANGED notification in every children, which in turn notify the
+# parent Scatter node back about the changes).
+func rebuild(force_discover := false) -> void:
+	update_gizmos()
+
+	if not is_inside_tree() or not is_ready:
+		return
+
+	if is_thread_running():
+		_rebuild_queued = true
+		return
+
+	force_discover = true # TMP while we fix the other issues
+	_rebuild(force_discover)
+
+
+# Re compute the desired output.
+# This is the main function, scattering the objects in the scene.
+# Scattered objects are stored under a Marker3D node called \"ScatterOutput\"
+# DON'T call this function directly outside of the 'rebuild()' function above.
+func _rebuild(force_discover) -> void:
+	if not enabled:
+		_clear_collision_data()
+		clear_output()
+		build_completed.emit()
+		return
+
+	_perform_sanity_check()
+
+	if force_discover:
+		_discover_items()
+		domain.discover_shapes(self)
+
+	if items.is_empty() or (domain.is_empty() and not modifier_stack.does_not_require_shapes()):
+		clear_output()
+		push_warning(\"ProtonScatter warning: No items or shapes, abort\")
+		return
+
+	if render_mode == 1:
+		clear_output() # TMP, prevents raycasts in modifier to self intersect with previous output
+
+	if keep_static_colliders:
+		_clear_collision_data()
+
+	if dbg_disable_thread:
+		modifier_stack.start_update(self, domain)
+		return
+
+	if is_thread_running():
+		await _thread.wait_to_finish()
+
+	_thread = Thread.new()
+	_thread.start(_rebuild_threaded, Thread.PRIORITY_NORMAL)
+
+
+func _rebuild_threaded() -> void:
+	# Disable thread safety, but only after 4.1 beta 3
+	if _thread.has_method(\"set_thread_safety_checks_enabled\"):
+		# Calls static method on instance, otherwise it crashes in 4.0.x
+		@warning_ignore(\"static_called_on_instance\")
+		_thread.set_thread_safety_checks_enabled(false)
+
+	modifier_stack.start_update(self, domain.get_copy())
+
+
+func _discover_items() -> void:
+	items.clear()
+	total_item_proportion = 0
+
+	for c in get_children():
+		if is_instance_of(c, ProtonScatterItem):
+			items.push_back(c)
+			total_item_proportion += c.proportion
+
+	update_configuration_warnings()
+
+
+# Creates one MultimeshInstance3D for each ScatterItem node.
+func _update_multimeshes() -> void:
+	if items.is_empty():
+		_discover_items()
+
+	var offset := 0
+	var transforms_count: int = transforms.size()
+
+	for item in items:
+		var count = int(round(float(item.proportion) / total_item_proportion * transforms_count))
+		var mmi = ProtonScatterUtil.get_or_create_multimesh(item, count)
+		if not mmi:
+			continue
+		var static_body := ProtonScatterUtil.get_collision_data(item)
+
+		var t: Transform3D
+		for i in count:
+			# Extra check because of how 'count' is calculated
+			if (offset + i) >= transforms_count:
+				mmi.multimesh.instance_count = i - 1
+				continue
+
+			t = item.process_transform(transforms.list[offset + i])
+			mmi.multimesh.set_instance_transform(i, t)
+			_create_collision(static_body, t)
+
+		static_body.queue_free()
+		offset += count
+
+
+func _update_split_multimeshes() -> void:
+	var size = domain.bounds_local.size
+
+	var splits := Vector3i.ONE
+	splits.x = max(1, ceil(size.x / chunk_dimensions.x))
+	splits.y = max(1, ceil(size.y / chunk_dimensions.y))
+	splits.z = max(1, ceil(size.z / chunk_dimensions.z))
+
+	if items.is_empty():
+		_discover_items()
+
+	var offset := 0 # this many transforms have been used up
+	var transforms_count: int = transforms.size()
+	clear_output()
+
+	for item in items:
+		var root: Node3D = ProtonScatterUtil.get_or_create_item_root(item)
+		if not is_instance_valid(root):
+			continue
+
+		# use count number of transforms for this item
+		var count = int(round(float(item.proportion) / total_item_proportion * transforms_count))
+
+		# create 3d array with dimensions of split_size to store the chunks' transforms
+		var transform_chunks : Array = []
+		for xi in splits.x:
+			transform_chunks.append([])
+			for yi in splits.y:
+				transform_chunks[xi].append([])
+				for zi in splits.z:
+					transform_chunks[xi][yi].append([])
+
+		var t_list = transforms.list.slice(offset)
+		var aabb = ProtonScatterUtil.get_aabb_from_transforms(t_list)
+		aabb = aabb.grow(0.1) # avoid degenerate cases
+		var static_body := ProtonScatterUtil.get_collision_data(item)
+
+		for i in count:
+			if (offset + i) >= transforms_count:
+				continue
+			# both aabb and t are in mmi's local coordinates
+			var t = item.process_transform(transforms.list[offset + i])
+			var p_rel = (t.origin - aabb.position) / aabb.size
+			# Chunk index
+			var ci = (p_rel * Vector3(splits)).floor()
+			# Store the transform to the appropriate array
+			transform_chunks[ci.x][ci.y][ci.z].append(t)
+			_create_collision(static_body, t)
+
+		static_body.queue_free()
+
+		# Cache the mesh instance to be used for the chunks
+		var mesh_instance: MeshInstance3D = ProtonScatterUtil.get_merged_meshes_from(item)
+		# The relevant transforms are now ordered in chunks
+		for xi in splits.x:
+			for yi in splits.y:
+				for zi in splits.z:
+					var chunk_elements = transform_chunks[xi][yi][zi].size()
+					if chunk_elements == 0:
+						continue
+					var mmi = ProtonScatterUtil.get_or_create_multimesh_chunk(
+													item,
+													mesh_instance,
+													Vector3i(xi, yi, zi),
+													chunk_elements)
+					if not mmi:
+						continue
+
+					# Use the eventual aabb as origin
+					# The multimeshinstance needs to be centered where the transforms are
+					# This matters because otherwise the visibility range fading is messed up
+					var center =  ProtonScatterUtil.get_aabb_from_transforms(transform_chunks[xi][yi][zi]).get_center()
+					mmi.transform.origin = center
+
+					var t: Transform3D
+					for i in chunk_elements:
+						t = transform_chunks[xi][yi][zi][i]
+						t.origin -= center
+						mmi.multimesh.set_instance_transform(i, t)
+		mesh_instance.queue_free()
+		offset += count
+
+
+func _update_duplicates() -> void:
+	var offset := 0
+	var transforms_count: int = transforms.size()
+
+	for item in items:
+		var count := int(round(float(item.proportion) / total_item_proportion * transforms_count))
+		var root: Node3D = ProtonScatterUtil.get_or_create_item_root(item)
+		var child_count := root.get_child_count()
+
+		for i in count:
+			if (offset + i) >= transforms_count:
+				return
+
+			var instance
+			if i < child_count: # Grab an instance from the pool if there's one available
+				instance = root.get_child(i)
+			else:
+				instance = _create_instance(item, root)
+
+			if not instance:
+				break
+
+			var t: Transform3D = item.process_transform(transforms.list[offset + i])
+			instance.transform = t
+			ProtonScatterUtil.set_visibility_layers(instance, item.visibility_layers)
+
+		# Delete the unused instances left in the pool if any
+		if count < child_count:
+			for i in (child_count - count):
+				root.get_child(-1).queue_free()
+
+		offset += count
+
+
+func _update_particles_system() -> void:
+	var offset := 0
+	var transforms_count: int = transforms.size()
+
+	for item in items:
+		var count := int(round(float(item.proportion) / total_item_proportion * transforms_count))
+		var particles = ProtonScatterUtil.get_or_create_particles(item)
+		if not particles:
+			continue
+
+		particles.visibility_aabb = AABB(domain.bounds_local.min, domain.bounds_local.size)
+		particles.amount = count
+
+		var static_body := ProtonScatterUtil.get_collision_data(item)
+		var t: Transform3D
+
+		for i in count:
+			if (offset + i) >= transforms_count:
+				particles.amount = i - 1
+				return
+
+			t = item.process_transform(transforms.list[offset + i])
+			particles.emit_particle(
+				t,
+				Vector3.ZERO,
+				Color.WHITE,
+				Color.BLACK,
+				GPUParticles3D.EMIT_FLAG_POSITION | GPUParticles3D.EMIT_FLAG_ROTATION_SCALE)
+			_create_collision(static_body, t)
+
+		offset += count
+
+
+# Creates collision data with the Physics server directly.
+# This does not create new nodes in the scene tree. This also means you can't
+# see these colliders, even when enabling \"Debug > Visible collision shapes\".
+func _create_collision(body: StaticBody3D, t: Transform3D) -> void:
+	if not keep_static_colliders or render_mode == 1:
+		return
+
+	# Create a static body
+	if not _body_rid.is_valid():
+		_body_rid = PhysicsServer3D.body_create()
+		PhysicsServer3D.body_set_mode(_body_rid, PhysicsServer3D.BODY_MODE_STATIC)
+		PhysicsServer3D.body_set_state(_body_rid, PhysicsServer3D.BODY_STATE_TRANSFORM, global_transform)
+		PhysicsServer3D.body_set_space(_body_rid, get_world_3d().space)
+
+	for c in body.get_children():
+		if c is CollisionShape3D:
+			var shape_rid: RID
+			var data: Variant
+
+			if c.shape is SphereShape3D:
+				shape_rid = PhysicsServer3D.sphere_shape_create()
+				data = c.shape.radius
+
+			elif c.shape is BoxShape3D:
+				shape_rid = PhysicsServer3D.box_shape_create()
+				data = c.shape.size / 2.0
+
+			elif c.shape is CapsuleShape3D:
+				shape_rid = PhysicsServer3D.capsule_shape_create()
+				data = {
+					\"radius\": c.shape.radius,
+					\"height\": c.shape.height,
+				}
+
+			elif c.shape is CylinderShape3D:
+				shape_rid = PhysicsServer3D.cylinder_shape_create()
+				data = {
+					\"radius\": c.shape.radius,
+					\"height\": c.shape.height,
+				}
+
+			elif c.shape is ConcavePolygonShape3D:
+				shape_rid = PhysicsServer3D.concave_polygon_shape_create()
+				data = {
+					\"faces\": c.shape.get_faces(),
+					\"backface_collision\": c.shape.backface_collision,
+				}
+
+			elif c.shape is ConvexPolygonShape3D:
+				shape_rid = PhysicsServer3D.convex_polygon_shape_create()
+				data = c.shape.points
+
+			elif c.shape is HeightMapShape3D:
+				shape_rid = PhysicsServer3D.heightmap_shape_create()
+				var min_height := 9999999.0
+				var max_height := -9999999.0
+				for v in c.shape.map_data:
+					min_height = v if v < min_height else min_height
+					max_height = v if v > max_height else max_height
+				data = {
+					\"width\": c.shape.map_width,
+					\"depth\": c.shape.map_depth,
+					\"heights\": c.shape.map_data,
+					\"min_height\": min_height,
+					\"max_height\": max_height,
+				}
+
+			elif c.shape is SeparationRayShape3D:
+				shape_rid = PhysicsServer3D.separation_ray_shape_create()
+				data = {
+					\"length\": c.shape.length,
+					\"slide_on_slope\": c.shape.slide_on_slope,
+				}
+
+			else:
+				print_debug(\"Scatter - Unsupported collision shape: \", c.shape)
+				continue
+
+			PhysicsServer3D.shape_set_data(shape_rid, data)
+			PhysicsServer3D.body_add_shape(_body_rid, shape_rid, t * c.transform)
+			_collision_shapes.push_back(shape_rid)
+
+
+func _create_instance(item: ProtonScatterItem, root: Node3D):
+	if not item:
+		return null
+
+	var instance = item.get_item()
+	if not instance:
+		return null
+
+	instance.visible = true
+	root.add_child.bind(instance, true).call_deferred()
+
+	if show_output_in_tree:
+		# We have to use a lambda here because ProtonScatterUtil isn't an
+		# actual class_name, it's a const, which makes it impossible to reference
+		# the callable, (but we can still call it)
+		var defer_ownership := func(i, o):
+			ProtonScatterUtil.set_owner_recursive(i, o)
+		defer_ownership.bind(instance, get_tree().get_edited_scene_root()).call_deferred()
+
+	return instance
+
+
+# Enforce the Scatter node has its required variables set.
+func _perform_sanity_check() -> void:
+	if not modifier_stack:
+		modifier_stack = ProtonScatterModifierStack.new()
+		modifier_stack.just_created = true
+
+	if not domain:
+		domain = ProtonScatterDomain.new()
+
+	domain.discover_shapes(self)
+
+	if not is_instance_valid(_physics_helper):
+		_physics_helper = ProtonScatterPhysicsHelper.new()
+		_physics_helper.name = \"PhysicsHelper\"
+		add_child(_physics_helper, true, INTERNAL_MODE_BACK)
+
+	# Retrigger the parent setter, in case the parent node no longer exists or changed type.
+	scatter_parent = scatter_parent
+
+
+# Remove output coming from the source node to avoid linked multimeshes or
+# other unwanted side effects
+func _on_node_duplicated() -> void:
+	clear_output()
+
+
+func _on_child_exiting_tree(node: Node) -> void:
+	if node is ProtonScatterShape or node is ProtonScatterItem:
+		rebuild.bind(true).call_deferred()
+
+
+# Called when the modifier stack is done generating the full transform list
+func _on_transforms_ready(new_transforms: ProtonScatterTransformList) -> void:
+	if is_thread_running():
+		await _thread.wait_to_finish()
+		_thread = null
+
+	_clear_collision_data()
+
+	if _rebuild_queued:
+		_rebuild_queued = false
+		rebuild.call_deferred()
+		return
+
+	transforms = new_transforms
+
+	if not transforms or transforms.is_empty():
+		clear_output()
+		update_gizmos()
+		return
+
+	match render_mode:
+		0:
+			if use_chunks:
+				_update_split_multimeshes()
+			else:
+				_update_multimeshes()
+		1:
+			_update_duplicates()
+		2:
+			_update_particles_system()
+
+	update_gizmos()
+	build_version += 1
+
+	if is_inside_tree():
+		await get_tree().process_frame
+
+	build_completed.emit()
+"
+
+[sub_resource type="GDScript" id="GDScript_ldr28"]
+script/source = "@tool
+extends Resource
+
+
+signal stack_changed
+signal value_changed
+signal transforms_ready
+
+
+const ProtonScatter := preload(\"../scatter.gd\")
+const TransformList := preload(\"../common/transform_list.gd\")
+
+
+@export var stack: Array[ScatterBaseModifier] = []
+
+var just_created := false
+var parent: ProtonScatter
+
+
+func start_update(scatter_node: ProtonScatter, domain):
+	var transforms = TransformList.new()
+
+	for modifier in stack:
+		await modifier.process_transforms(transforms, domain, scatter_node.global_seed)
+
+	transforms_ready.emit(transforms)
+	return transforms
+
+
+func stop_update() -> void:
+	for modifier in stack:
+		modifier.interrupt()
+
+
+func add(modifier: ScatterBaseModifier) -> void:
+	stack.push_back(modifier)
+	modifier.modifier_changed.connect(_on_modifier_changed)
+	stack_changed.emit()
+
+
+func move(old_index: int, new_index: int) -> void:
+	var modifier = stack.pop_at(old_index)
+	stack.insert(new_index, modifier)
+	stack_changed.emit()
+
+
+func remove(modifier: ScatterBaseModifier) -> void:
+	if stack.has(modifier):
+		stack.erase(modifier)
+		stack_changed.emit()
+
+
+func remove_at(index: int) -> void:
+	if stack.size() > index:
+		stack.remove_at(index)
+		stack_changed.emit()
+
+
+func duplicate_modifier(modifier: ScatterBaseModifier) -> void:
+	var index: int = stack.find(modifier)
+	if index != -1:
+		var copy = modifier.get_copy()
+		add(copy)
+		move(stack.size() - 1, index + 1)
+
+
+func get_copy():
+	var copy = get_script().new()
+	for modifier in stack:
+		copy.add(modifier.duplicate())
+	return copy
+
+
+func get_index(modifier: ScatterBaseModifier) -> int:
+	return stack.find(modifier)
+
+
+func is_using_edge_data() -> bool:
+	for modifier in stack:
+		if modifier.use_edge_data:
+			return true
+
+	return false
+
+
+# Returns true if at least one modifier does not require shapes in order to work.
+# (This is the case for the \"Add single item\" modifier for example)
+func does_not_require_shapes() -> bool:
+	for modifier in stack:
+		if modifier.warning_ignore_no_shape:
+			return true
+
+	return false
+
+
+func _on_modifier_changed() -> void:
+	stack_changed.emit()
+"
+
+[sub_resource type="GDScript" id="GDScript_nxmp7"]
+script/source = "@tool
+class_name ScatterBaseModifier
+extends Resource
+
+# Modifiers place transforms. They create, edit or remove transforms in a list,
+# before the next Modifier in the stack does the same.
+# All Modifiers must inherit from this class.
+# Transforms in the provided transforms list must be in global space.
+
+
+signal warning_changed
+signal modifier_changed
+
+const TransformList = preload(\"../common/transform_list.gd\")
+const Domain = preload(\"../common/domain.gd\")
+const DocumentationInfo = preload(\"../documentation/documentation_info.gd\")
+
+@export var enabled := true
+@export var override_global_seed := false
+@export var custom_seed := 0
+@export var restrict_height := false # Tells the modifier whether to constrain transforms to the local XY plane or not
+@export var reference_frame := 0
+
+var display_name: String = \"Base Modifier Name\"
+var category: String = \"None\"
+var documentation := DocumentationInfo.new()
+var warning: String = \"\"
+var warning_ignore_no_transforms := false
+var warning_ignore_no_shape := true
+var expanded := false
+var can_override_seed := false
+var can_restrict_height := true
+var global_reference_frame_available := true
+var local_reference_frame_available := false
+var individual_instances_reference_frame_available := false
+var use_edge_data := false
+var deprecated := false
+var deprecation_message: String
+var interrupt_update: bool = false
+
+
+func get_warning() -> String:
+	return warning
+
+
+func process_transforms(transforms: TransformList, domain: Domain, global_seed: int) -> void:
+	if not domain.get_root().is_inside_tree():
+		return
+
+	if Engine.is_editor_hint():
+		_clear_warning()
+
+		if deprecated:
+			warning += \"This modifier is deprecated.\\n\"
+			warning += deprecation_message + \"\\n\"
+
+		if not enabled:
+			warning_changed.emit()
+			return
+
+		if domain.is_empty() and not warning_ignore_no_shape:
+			warning += \"\"\"The Scatter node does not have a shape.
+			Add at least one ScatterShape node as a child.\\n\"\"\"
+
+		if transforms.is_empty() and not warning_ignore_no_transforms:
+			warning += \"\"\"There's no transforms to act on.
+			Make sure you have a Create modifier before this one.\\n
+			\"\"\"
+
+	var random_seed: int = global_seed
+	if can_override_seed and override_global_seed:
+		random_seed = custom_seed
+	interrupt_update = false
+
+	@warning_ignore(\"redundant_await\") # Not redundant as child classes could use the await keyword here.
+	await _process_transforms(transforms, domain, random_seed)
+
+	warning_changed.emit()
+
+
+func get_copy():
+	var script: Script = get_script()
+	var copy = script.new()
+	for p in get_property_list():
+		var value = get(p.name)
+		copy.set(p.name, value)
+	return copy
+
+
+## Notify the modifier it should stop updating as soon as it can.
+func interrupt() -> void:
+	interrupt_update = true
+
+
+func is_using_global_space() -> bool:
+	return reference_frame == 0
+
+
+func is_using_local_space() -> bool:
+	return reference_frame == 1
+
+
+func is_using_individual_instances_space() -> bool:
+	return reference_frame == 2
+
+
+func use_global_space_by_default() -> void:
+	reference_frame = 0
+
+
+func use_local_space_by_default() -> void:
+	reference_frame = 1
+
+
+func use_individual_instances_space_by_default() -> void:
+	reference_frame = 2
+
+
+func _clear_warning() -> void:
+	warning = \"\"
+	warning_changed.emit()
+
+
+# Override in inherited class
+func _process_transforms(_transforms: TransformList, _domain: Domain, _seed: int) -> void:
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_e5132"]
+script/source = "@tool
+extends \"base_modifier.gd\"
+
+
+@export var spacing := Vector3(2.0, 2.0, 2.0)
+
+var _min_spacing := 0.05
+
+
+func _init() -> void:
+	display_name = \"Create Inside (Grid)\"
+	category = \"Create\"
+	warning_ignore_no_transforms = true
+	warning_ignore_no_shape = false
+	can_restrict_height = true
+	restrict_height = true
+	global_reference_frame_available = true
+	local_reference_frame_available = true
+	individual_instances_reference_frame_available = false
+
+	documentation.add_paragraph(
+		\"Place transforms along the edges of the ScatterShapes\")
+
+	documentation.add_paragraph(
+		\"When [b]Local Space[/b] is enabled, the grid is aligned with the
+		Scatter root node. Otherwise, the grid is aligned with the global
+		axes.\"
+	)
+
+	var p = documentation.add_parameter(\"Spacing\")
+	p.set_type(\"vector3\")
+	p.set_description(
+		\"Defines the grid size along the 3 axes. A spacing of 1 means 1 unit
+		of space between each transform on this axis.\")
+	p.set_cost(3)
+	p.add_warning(
+		\"The smaller the value, the denser the resulting transforms list.
+		Use with care as the performance impact will go up quickly.\", 1)
+	p.add_warning(
+		\"A value of 0 would result in infinite transforms, so it's capped to 0.05
+		at least.\")
+
+
+func _process_transforms(transforms, domain, seed) -> void:
+	spacing.x = max(_min_spacing, spacing.x)
+	spacing.y = max(_min_spacing, spacing.y)
+	spacing.z = max(_min_spacing, spacing.z)
+
+	var gt: Transform3D = domain.get_local_transform()
+	var center: Vector3 = domain.bounds_local.center
+	var size: Vector3 = domain.bounds_local.size
+
+	var half_size := size * 0.5
+	var start_corner := center - half_size
+	var baseline: float = 0.0
+
+	var width := int(ceil(size.x / spacing.x))
+	var height := int(ceil(size.y / spacing.y))
+	var length := int(ceil(size.z / spacing.z))
+
+	if restrict_height:
+		height = 1
+		baseline = domain.bounds_local.max.y
+	else:
+		height = max(1, height) # Make sure height never gets below 1 or else nothing happens
+
+	var max_count: int = width * length * height
+	var new_transforms: Array[Transform3D] = []
+	new_transforms.resize(max_count)
+
+	var t: Transform3D
+	var pos: Vector3
+	var t_index := 0
+
+	for i in width * length:
+		for j in height:
+			t = Transform3D()
+			pos = Vector3.ZERO
+			pos.x = (i % width) * spacing.x
+			pos.y = (j * spacing.y) + baseline
+			pos.z = (i / width) * spacing.z
+			pos += start_corner
+
+			if is_using_global_space():
+				t.basis = gt.affine_inverse().basis
+				pos = t * pos
+
+			if domain.is_point_inside(pos):
+				t.origin = pos
+				new_transforms[t_index] = t
+				t_index += 1
+
+	if t_index != new_transforms.size():
+		new_transforms.resize(t_index)
+
+	transforms.append(new_transforms)
+	transforms.shuffle(seed)
+"
+
+[sub_resource type="Resource" id="Resource_xiuc4"]
+script = SubResource("GDScript_e5132")
+spacing = Vector3(0.05, 0.05, 0.05)
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 0
+
+[sub_resource type="GDScript" id="GDScript_4fqyh"]
+script/source = "@tool
+extends \"base_modifier.gd\"
+
+
+@export var rotation := Vector3(360.0, 360.0, 360.0)
+@export var snap_angle := Vector3.ZERO
+
+var _rng: RandomNumberGenerator
+
+
+func _init() -> void:
+	display_name = \"Randomize Rotation\"
+	category = \"Edit\"
+	can_override_seed = true
+	can_restrict_height = false
+	global_reference_frame_available = true
+	local_reference_frame_available = true
+	individual_instances_reference_frame_available = true
+	use_individual_instances_space_by_default()
+
+	documentation.add_paragraph(\"Randomly rotate every transforms individually.\")
+
+	var p := documentation.add_parameter(\"Rotation\")
+	p.set_type(\"Vector3\")
+	p.set_description(\"Rotation angle (in degrees) along each axes (X, Y, Z)\")
+
+	p = documentation.add_parameter(\"Snap angle\")
+	p.set_type(\"Vector3\")
+	p.set_description(
+		\"When set to any value above 0, the rotation will be done by increments
+		of the snap angle.\")
+	p.add_warning(
+		\"Example: When Snap Angle is set to 90, the possible random rotation
+		offsets around an axis will be among [0, 90, 180, 360].\")
+
+
+func _process_transforms(transforms, domain, random_seed) -> void:
+	_rng = RandomNumberGenerator.new()
+	_rng.set_seed(random_seed)
+
+	var t: Transform3D
+	var b: Basis
+
+	var gt: Transform3D = domain.get_global_transform()
+	var gb: Basis = gt.basis
+	var axis_x: Vector3 = Vector3.RIGHT
+	var axis_y: Vector3 = Vector3.UP
+	var axis_z: Vector3 = Vector3.FORWARD
+
+	if is_using_local_space():
+		axis_x = (Vector3.RIGHT * gb).normalized()
+		axis_y = (Vector3.UP * gb).normalized()
+		axis_z = (Vector3.FORWARD * gb).normalized()
+
+	for i in transforms.list.size():
+		t = transforms.list[i]
+		b = t.basis
+
+		if is_using_individual_instances_space():
+			axis_x = t.basis.x.normalized()
+			axis_y = t.basis.y.normalized()
+			axis_z = t.basis.z.normalized()
+
+		b = b.rotated(axis_x, _random_angle(rotation.x, snap_angle.x))
+		b = b.rotated(axis_y, _random_angle(rotation.y, snap_angle.y))
+		b = b.rotated(axis_z, _random_angle(rotation.z, snap_angle.z))
+
+		t.basis = b
+		transforms.list[i] = t
+
+
+func _random_vec3() -> Vector3:
+	var vec3 = Vector3.ZERO
+	vec3.x = _rng.randf_range(-1.0, 1.0)
+	vec3.y = _rng.randf_range(-1.0, 1.0)
+	vec3.z = _rng.randf_range(-1.0, 1.0)
+	return vec3
+
+
+func _random_angle(rot: float, snap: float) -> float:
+	return deg_to_rad(snapped(_rng.randf_range(-1.0, 1.0) * rot, snap))
+
+
+func _clamp_vector(vec3, vmin, vmax) -> Vector3:
+	vec3.x = clamp(vec3.x, vmin.x, vmax.x)
+	vec3.y = clamp(vec3.y, vmin.y, vmax.y)
+	vec3.z = clamp(vec3.z, vmin.z, vmax.z)
+	return vec3
+"
+
+[sub_resource type="Resource" id="Resource_8uatd"]
+script = SubResource("GDScript_4fqyh")
+rotation = Vector3(0, 360, 0)
+snap_angle = Vector3(0, 0, 0)
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 2
+
+[sub_resource type="GDScript" id="GDScript_ix4e1"]
+script/source = "@tool
+extends \"base_modifier.gd\"
+
+
+@export var position := Vector3.ZERO
+@export var rotation := Vector3.ZERO
+@export var scale := Vector3.ZERO
+
+var _rng: RandomNumberGenerator
+
+
+func _init() -> void:
+	display_name = \"Randomize Transforms\"
+	category = \"Edit\"
+	can_override_seed = true
+	can_restrict_height = false
+	global_reference_frame_available = true
+	local_reference_frame_available = true
+	individual_instances_reference_frame_available = true
+	use_individual_instances_space_by_default()
+
+
+func _process_transforms(transforms, domain, random_seed) -> void:
+	_rng = RandomNumberGenerator.new()
+	_rng.set_seed(random_seed)
+
+	var t: Transform3D
+	var global_t: Transform3D
+	var basis: Basis
+	var random_scale: Vector3
+	var random_position: Vector3
+	var s_gt: Transform3D = domain.get_global_transform()
+	var s_gt_inverse := s_gt.affine_inverse()
+
+	# Global rotation axis
+	var axis_x := Vector3.RIGHT
+	var axis_y := Vector3.UP
+	var axis_z := Vector3.DOWN
+
+	if is_using_global_space():
+		axis_x = (s_gt_inverse.basis * Vector3.RIGHT).normalized()
+		axis_y = (s_gt_inverse.basis * Vector3.UP).normalized()
+		axis_z = (s_gt_inverse.basis * Vector3.FORWARD).normalized()
+
+	for i in transforms.size():
+		t = transforms.list[i]
+		basis = t.basis
+
+		# Apply rotation
+		if is_using_individual_instances_space():
+			axis_x = basis.x.normalized()
+			axis_y = basis.y.normalized()
+			axis_z = basis.z.normalized()
+
+		basis = basis.rotated(axis_x, deg_to_rad(_random_float() * rotation.x))
+		basis = basis.rotated(axis_y, deg_to_rad(_random_float() * rotation.y))
+		basis = basis.rotated(axis_z, deg_to_rad(_random_float() * rotation.z))
+
+		# Apply scale
+		random_scale = Vector3.ONE + (_rng.randf() * scale)
+
+		if is_using_individual_instances_space():
+			basis.x *= random_scale.x
+			basis.y *= random_scale.y
+			basis.z *= random_scale.z
+
+		elif is_using_global_space():
+			global_t = s_gt * Transform3D(basis, Vector3.ZERO)
+			global_t = global_t.scaled(random_scale)
+			basis = (s_gt_inverse * global_t).basis
+
+		else:
+			basis = basis.scaled(random_scale)
+
+		# Apply position
+		random_position = _random_vec3() * position
+
+		if is_using_individual_instances_space():
+			random_position = t.basis * random_position
+
+		elif is_using_global_space():
+			random_position = s_gt_inverse.basis * random_position
+
+		t.origin += random_position
+		t.basis = basis
+
+		transforms.list[i] = t
+
+
+func _random_vec3() -> Vector3:
+	var vec3 = Vector3.ZERO
+	vec3.x = _rng.randf_range(-1.0, 1.0)
+	vec3.y = _rng.randf_range(-1.0, 1.0)
+	vec3.z = _rng.randf_range(-1.0, 1.0)
+	return vec3
+
+
+func _random_float() -> float:
+	return _rng.randf_range(-1.0, 1.0)
+
+
+func _clamp_vector(vec3, vmin, vmax) -> Vector3:
+	vec3.x = clamp(vec3.x, vmin.x, vmax.x)
+	vec3.y = clamp(vec3.y, vmin.y, vmax.y)
+	vec3.z = clamp(vec3.z, vmin.z, vmax.z)
+	return vec3
+"
+
+[sub_resource type="Resource" id="Resource_7cljv"]
+script = SubResource("GDScript_ix4e1")
+position = Vector3(0, 0.107, 0)
+rotation = Vector3(0, 360, 0)
+scale = Vector3(0.75, 0.75, 0.75)
+enabled = true
+override_global_seed = true
+custom_seed = 20
+restrict_height = false
+reference_frame = 2
+
+[sub_resource type="GDScript" id="GDScript_v50fx"]
+script/source = "@tool
+extends \"base_modifier.gd\"
+
+
+signal projection_completed
+
+
+const ProtonScatterPhysicsHelper := preload(\"res://addons/proton_scatter/src/common/physics_helper.gd\")
+
+
+@export var ray_direction := Vector3.DOWN
+@export var ray_length := 10.0
+@export var ray_offset := 1.0
+@export var remove_points_on_miss := true
+@export var align_with_collision_normal := false
+@export_range(0.0, 90.0) var max_slope = 90.0
+@export_flags_3d_physics var collision_mask = 1
+@export_flags_3d_physics var exclude_mask = 0
+
+
+func _init() -> void:
+	display_name = \"Project On Colliders\"
+	category = \"Edit\"
+	can_restrict_height = false
+	global_reference_frame_available = true
+	local_reference_frame_available = true
+	individual_instances_reference_frame_available = true
+	use_global_space_by_default()
+
+	documentation.add_paragraph(
+		\"Moves each transforms along the ray direction until they hit a collider.
+		This is useful to avoid floating objects on uneven terrain for example.\")
+
+	documentation.add_warning(
+		\"This modifier only works when physics bodies are around. It will ignore
+		simple MeshInstances nodes.\")
+
+	var p := documentation.add_parameter(\"Ray direction\")
+	p.set_type(\"Vector3\")
+	p.set_description(
+		\"In which direction we look for a collider. This default to the DOWN
+		direction by default (look at the ground).\")
+	p.add_warning(
+		\"This is relative to the transform is local space is enabled, or aligned
+		with the global axis if local space is disabled.\")
+
+	p = documentation.add_parameter(\"Ray length\")
+	p.set_type(\"float\")
+	p.set_description(\"How far we look for other physics objects.\")
+	p.set_cost(2)
+
+	p = documentation.add_parameter(\"Ray offset\")
+	p.set_type(\"Vector3\")
+	p.set_description(
+		\"Moves back the raycast origin point along the ray direction. This is
+		useful if the initial transform is slightly below the ground, which would
+		make the raycast miss the collider (since it would start inside).\")
+
+	p = documentation.add_parameter(\"Remove points on miss\")
+	p.set_type(\"bool\")
+	p.set_description(
+		\"When enabled, if the raycast didn't collide with anything, or collided
+		with a surface above the max slope setting, the transform is removed
+		from the list.
+		This is useful to avoid floating objects that are too far from the rest
+		of the scene's geometry.\")
+
+	p = documentation.add_parameter(\"Align with collision normal\")
+	p.set_type(\"bool\")
+	p.set_description(
+		\"Rotate the transform to align it with the collision normal in case
+		the ray cast hit a collider.\")
+
+	p = documentation.add_parameter(\"Max slope\")
+	p.set_type(\"float\")
+	p.set_description(
+		\"Angle (in degrees) after which the hit is considered invalid.
+		When a ray cast hit, the normal of the ray is compared against the
+		normal of the hit. If you set the slope to 0°, the ray and the hit
+		normal would have to be perfectly aligned to be valid. On the other
+		hand, setting the maximum slope to 90° treats every collisions as
+		valid regardless of their normals.\")
+
+	p = documentation.add_parameter(\"Mask\")
+	p.set_description(
+		\"Only collide with colliders on these layers. Disabled layers will
+		be ignored. It's useful to ignore players or npcs that might be on the
+		scene when you're editing it.\")
+
+	p = documentation.add_parameter(\"Exclude Mask\")
+	p.set_description(
+		\"Tests if the snapping would collide with the selected layers.
+		If it collides, the point will be excluded from the list.\")
+
+
+func _process_transforms(transforms, domain, _seed) -> void:
+	if transforms.is_empty():
+		return
+
+	# Create all the physics ray queries
+	var gt: Transform3D = domain.get_global_transform()
+	var gt_inverse := gt.affine_inverse()
+	var queries: Array[PhysicsRayQueryParameters3D] = []
+	var exclude_queries: Array[PhysicsRayQueryParameters3D] = []
+
+	for t in transforms.list:
+		var start = gt * t.origin
+		var end = start
+		var dir = ray_direction.normalized()
+
+		if is_using_individual_instances_space():
+			dir = t.basis * dir
+
+		elif is_using_local_space():
+			dir = gt.basis * dir
+
+		start -= ray_offset * dir
+		end += ray_length * dir
+
+		var ray_query := PhysicsRayQueryParameters3D.new()
+		ray_query.from = start
+		ray_query.to = end
+		ray_query.collision_mask = collision_mask
+
+		queries.push_back(ray_query)
+
+		var exclude_query := PhysicsRayQueryParameters3D.new()
+		exclude_query.from = start
+		exclude_query.to = end
+		exclude_query.collision_mask = exclude_mask
+		exclude_queries.push_back(exclude_query)
+
+	# Run the queries in the physics helper since we can't access the PhysicsServer
+	# from outside the _physics_process while also being in a separate thread.
+	var physics_helper: ProtonScatterPhysicsHelper = domain.get_root().get_physics_helper()
+
+	var ray_hits := await physics_helper.execute(queries)
+
+	if ray_hits.is_empty():
+		return
+
+	# Create queries from the hit points
+	var index := -1
+	for ray_hit in ray_hits:
+		index += 1
+		var hit : Dictionary = ray_hit
+		if hit.is_empty():
+			exclude_queries[index].collision_mask = 0 # this point is empty anyway, we dont care
+			continue
+		exclude_queries[index].to = hit.position # only cast up to hit point for correct ordering
+
+	var exclude_hits : Array[Dictionary] = []
+	if exclude_mask != 0: # Only cast the rays if it makes any sense
+		exclude_hits = await physics_helper.execute(exclude_queries)
+
+	# Apply the results
+	index = 0
+	var d: float
+	var t: Transform3D
+	var remapped_max_slope = remap(max_slope, 0.0, 90.0, 0.0, 1.0)
+	var is_point_valid := false
+	exclude_hits.reverse() # makes it possible to use pop_back which is much faster
+	var new_transforms_array : Array[Transform3D] = []
+
+	for hit in ray_hits:
+		is_point_valid = true
+
+		if hit.is_empty():
+			is_point_valid = false
+		else:
+			d = abs(Vector3.UP.dot(hit.normal))
+			is_point_valid = d >= (1.0 - remapped_max_slope)
+
+		var exclude_hit = exclude_hits.pop_back()
+		if exclude_hit != null:
+			if not exclude_hit.is_empty():
+				is_point_valid = false
+
+		t = transforms.list[index]
+		if is_point_valid:
+			if align_with_collision_normal:
+				t = _align_with(t, gt_inverse.basis * hit.normal)
+
+			t.origin = gt_inverse * hit.position
+			new_transforms_array.push_back(t)
+		elif not remove_points_on_miss:
+			new_transforms_array.push_back(t)
+
+		index += 1
+
+	# All done, store the transforms in the original array
+	transforms.list.clear()
+	transforms.list.append_array(new_transforms_array) # this avoids memory leak
+
+	if transforms.is_empty():
+		warning += \"\"\"Every points have been removed. Possible reasons include: \\n
+		+ No collider is close enough to the shapes.
+		+ Ray length is too short.
+		+ Ray direction is incorrect.
+		+ Collision mask is not set properly.
+		+ Max slope is too low.
+		\"\"\"
+
+
+func _align_with(t: Transform3D, normal: Vector3) -> Transform3D:
+	var n1 = t.basis.y.normalized()
+	var n2 = normal.normalized()
+
+	var cosa = n1.dot(n2)
+	var alpha = acos(cosa)
+	var axis = n1.cross(n2)
+
+	if axis == Vector3.ZERO:
+		return t
+
+	return t.rotated(axis.normalized(), alpha)
+"
+
+[sub_resource type="Resource" id="Resource_ukshp"]
+script = SubResource("GDScript_v50fx")
+ray_direction = Vector3(0, 0, 1)
+ray_length = 1.0
+ray_offset = 0.5
+remove_points_on_miss = true
+align_with_collision_normal = false
+max_slope = 90.0
+collision_mask = 1
+exclude_mask = 0
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_3lv2f"]
+script = SubResource("GDScript_ldr28")
+stack = Array[SubResource("GDScript_nxmp7")]([SubResource("Resource_xiuc4"), SubResource("Resource_8uatd"), SubResource("Resource_7cljv"), SubResource("Resource_ukshp")])
+
+[sub_resource type="GDScript" id="GDScript_p33lr"]
+script/source = "@tool
+extends Node3D
+
+
+const ScatterUtil := preload('./common/scatter_util.gd')
+
+
+@export_category(\"ScatterItem\")
+
+## Defines the relative frequency of this item in the scatter distribution.
+## For example, if item A has proportion 100 and item B has proportion 50,
+## item A will appear twice as often as item B in the final scattered result.
+## Higher values mean more instances of this item relative to other items.
+@export var proportion := 100:
+	set(val):
+		proportion = val
+		ScatterUtil.request_parent_to_rebuild(self)
+
+
+## Controls where the item to be scattered comes from. 
+## From current scene (0): Uses a node from the current scene as the source
+## From disk (1): Loads the source item from a saved scene file
+## This affects how the 'path' property is interpreted - either as a NodePath
+## or as a filesystem path to a scene file.
+@export_enum(\"From current scene:0\", \"From disk:1\") var source = 1:
+	set(val):
+		source = val
+		property_list_changed.emit()
+
+@export var custom_script: Script:
+	set(val):
+		custom_script = val
+		ScatterUtil.request_parent_to_rebuild(self)
+
+@export_group(\"Source options\", \"source_\")
+
+## Global scale multiplier applied to the source item before scattering.
+## A value of 1.0 keeps the original scale, 2.0 doubles the size, and 0.5 halves it.
+## This affects all instances of this scattered item uniformly, unlike random scale
+## modifiers which vary per instance.
+@export var source_scale_multiplier := 1.0:
+	set(val):
+		source_scale_multiplier = val
+		ScatterUtil.request_parent_to_rebuild(self)
+
+
+## If enabled, ignores the original position of the source item when scattering.
+## When true, each scattered instance uses only the position determined by the scatter
+## modifiers. When false, adds the source item's original position as an offset to
+## each scattered instance.
+@export var source_ignore_position := true:
+	set(val):
+		source_ignore_position = val
+		ScatterUtil.request_parent_to_rebuild(self)
+
+
+## If enabled, ignores the original rotation of the source item when scattering.
+## When true, each scattered instance uses only the rotation determined by the scatter
+## modifiers. When false, adds the source item's original rotation to each scattered
+## instance's rotation.
+@export var source_ignore_rotation := true:
+	set(val):
+		source_ignore_rotation = val
+		ScatterUtil.request_parent_to_rebuild(self)
+
+
+## If enabled, ignores the original scale of the source item when scattering.
+## When true, each scattered instance uses only the scale determined by the scatter
+## modifiers and scale_multiplier. When false, multiplies the source item's original
+## scale with the other scale modifications.
+@export var source_ignore_scale := true:
+	set(val):
+		source_ignore_scale = val
+		ScatterUtil.request_parent_to_rebuild(self)
+
+
+@export_group(\"Override options\", \"override_\")
+
+## Override the source item's original material.
+## When assigned, all scattered instances will use this material instead
+## of the source item's materials.
+@export var override_material: Material:
+	set(val):
+		override_material = val
+		ScatterUtil.request_parent_to_rebuild(self)
+
+
+## Only used when the ProtonScatter's render mode is set to \"Use Particles\".
+## When assigned, overrides the default static particle process material.
+@export var override_process_material: Material:
+	set(val):
+		override_process_material = val
+		ScatterUtil.request_parent_to_rebuild(self) # TODO - No need for a full rebuild here
+
+
+## Controls the shadow casting behavior of all scattered instances.
+## Overrides the original shadow casting settings from the source item.
+## Uses standard Godot shadow casting options
+@export var override_cast_shadow: GeometryInstance3D.ShadowCastingSetting = GeometryInstance3D.SHADOW_CASTING_SETTING_ON:
+	set(val):
+		override_cast_shadow = val
+		ScatterUtil.request_parent_to_rebuild(self) # TODO - Only change the multimesh flag instead
+
+@export_group(\"Visibility\", \"visibility\")
+
+## Specifies which 3D render layers the scattered instances will be visible on.
+## Uses the standard Godot layer system where each bit represents a layer.
+## Useful for controlling which instances are visible to different cameras.
+@export_flags_3d_render var visibility_layers: int = 1
+
+@export var visibility_range_begin : float = 0
+@export var visibility_range_begin_margin : float = 0
+@export var visibility_range_end : float = 0
+@export var visibility_range_end_margin : float = 0
+#TODO what is a nicer way to expose this?
+@export_enum(\"Disabled:0\", \"Self:1\") var visibility_range_fade_mode = 0
+
+@export_group(\"Level Of Detail\", \"lod_\")
+
+## Controls whether Level of Detail (LOD) variants are generated for scattered meshes.
+## When enabled, creates simplified versions of the source mesh for better performance
+## at a distance. LOD generation takes more processing time during scatter operations
+## but can significantly improve runtime performance with complex meshes.
+@export var lod_generate := true:
+	set(val):
+		lod_generate = val
+		ScatterUtil.request_parent_to_rebuild(self)
+		
+
+## Determines the angle threshold at which the mesh for a single ProtonScatterItem 
+## will be merged with other instances to create a lower polygon count version of the mesh.
+## Setting a lower lod_merge_angle value will result in more aggressive merging, reducing 
+## the overall number of mesh instances
+@export_range(0.0, 180.0) var lod_merge_angle := 25.0:
+	set(val):
+		lod_merge_angle = val
+		ScatterUtil.request_parent_to_rebuild(self)
+
+
+## determines the angle threshold at which the mesh for a single ProtonScatterItem 
+## will be split into a higher polygon count version of the mesh.
+## generally more useful for higher polygon count models.
+@export_range(0.0, 180.0) var lod_split_angle := 60.0:
+	set(val):
+		lod_split_angle = val
+		ScatterUtil.request_parent_to_rebuild(self)
+
+var path: String:
+	set(val):
+		path = val
+		source_data_ready = false
+		_target_scene = load(path) if source != 0 else null
+		ScatterUtil.request_parent_to_rebuild(self)
+
+var source_position: Vector3
+var source_rotation: Vector3
+var source_scale: Vector3
+var source_data_ready := false
+
+var _target_scene: PackedScene
+
+
+func _get_property_list() -> Array:
+	var list := []
+
+	if source == 0:
+		list.push_back({
+			name = \"path\",
+			type = TYPE_NODE_PATH,
+		})
+	else:
+		list.push_back({
+			name = \"path\",
+			type = TYPE_STRING,
+			hint = PROPERTY_HINT_FILE,
+		})
+
+	return list
+
+
+func get_item() -> Node3D:
+	if path.is_empty():
+		return null
+
+	var node: Node3D
+
+	if source == 0 and has_node(path):
+		node = get_node(path).duplicate() # Never expose the original node
+	elif source == 1:
+		node = _target_scene.instantiate()
+
+	if node:
+		_save_source_data(node)
+		return node
+
+	return null
+
+
+# Takes a transform in input, scale it based on the local scale multiplier
+# If the source transform is not ignored, also copy the source position, rotation and scale.
+# Returns the processed transform
+func process_transform(t: Transform3D) -> Transform3D:
+	if not source_data_ready:
+		_update_source_data()
+
+	var origin = t.origin
+	t.origin = Vector3.ZERO
+
+	t = t.scaled(Vector3.ONE * source_scale_multiplier)
+
+	if not source_ignore_scale:
+		t = t.scaled(source_scale)
+
+	if not source_ignore_rotation:
+		t = t.rotated(t.basis.x.normalized(), source_rotation.x)
+		t = t.rotated(t.basis.y.normalized(), source_rotation.y)
+		t = t.rotated(t.basis.z.normalized(), source_rotation.z)
+
+	t.origin = origin
+
+	if not source_ignore_position:
+		t.origin += source_position
+
+	return t
+
+
+func _save_source_data(node: Node3D) -> void:
+	if not node:
+		return
+
+	source_position = node.position
+	source_rotation = node.rotation
+	source_scale = node.scale
+	source_data_ready = true
+
+
+func _update_source_data() -> void:
+	var node = get_item()
+	if node:
+		node.queue_free()
+"
+
+[sub_resource type="GDScript" id="GDScript_fx1qu"]
+script/source = "@tool
+extends Node3D
+
+
+const ScatterUtil := preload('./common/scatter_util.gd')
+
+
+@export_category(\"ScatterShape\")
+
+## Determines whether the ScatterShape is used as an exclusion or inclusion zone.
+## This can be useful for creating holes, gaps, or non-uniform distributions within
+## the overall scatter area.
+@export var negative = false:
+	set(val):
+		negative = val
+		update_gizmos()
+		ScatterUtil.request_parent_to_rebuild(self)
+
+
+## The shape determines the boundaries and geometry that will be used to place
+## the transforms generated by the ProtonScatter node.
+## When the shape is changed, the `changed` signal is emitted, which triggers
+## a rebuild of the scatter output.
+@export var shape: ProtonScatterBaseShape:
+	set(val):
+		# Disconnect the previous shape if any
+		if shape and shape.changed.is_connected(_on_shape_changed):
+			shape.changed.disconnect(_on_shape_changed)
+
+		shape = val
+		if shape:
+			shape.changed.connect(_on_shape_changed)
+
+		update_gizmos()
+		ScatterUtil.request_parent_to_rebuild(self)
+
+var _ignore_transform_notification = false
+
+
+func _ready() -> void:
+	set_notify_transform(true)
+
+
+func _notification(what):
+	match what:
+		NOTIFICATION_TRANSFORM_CHANGED:
+			if _ignore_transform_notification:
+				_ignore_transform_notification = false
+				return
+			ScatterUtil.request_parent_to_rebuild(self)
+
+		NOTIFICATION_ENTER_WORLD:
+			_ignore_transform_notification = true
+
+
+func _set(property, _value):
+	if not Engine.is_editor_hint():
+		return false
+
+	# Workaround to detect when the node was duplicated from the editor.
+	if property == \"transform\":
+		_on_node_duplicated.call_deferred()
+
+	return false
+
+
+func _on_shape_changed() -> void:
+	update_gizmos()
+	ScatterUtil.request_parent_to_rebuild(self)
+
+
+func _on_node_duplicated() -> void:
+	shape = shape.get_copy() # Enfore uniqueness on duplicate, could be an option
+"
+
+[sub_resource type="GDScript" id="GDScript_38jjr"]
+script/source = "@tool
+class_name ProtonScatterBoxShape
+extends ProtonScatterBaseShape
+
+
+@export var size := Vector3.ONE:
+	set(val):
+		size = val
+		_half_size = size * 0.5
+		emit_changed()
+
+var _half_size := Vector3.ONE
+
+
+func get_copy():
+	var copy = get_script().new()
+	copy.size = size
+	return copy
+
+
+func is_point_inside(point: Vector3, global_transform: Transform3D) -> bool:
+	var local_point = global_transform.affine_inverse() * point
+	return AABB(-_half_size, size).has_point(local_point)
+
+
+func get_corners_global(gt: Transform3D) -> Array:
+	var res := []
+	var corners := [
+		Vector3(-1, -1, -1),
+		Vector3(-1, -1, 1),
+		Vector3(1, -1, 1),
+		Vector3(1, -1, -1),
+		Vector3(-1, 1, -1),
+		Vector3(-1, 1, 1),
+		Vector3(1, 1, 1),
+		Vector3(1, 1, -1),
+	]
+
+	for c in corners:
+		c *= size * 0.5
+		res.push_back(gt * c)
+
+	return res
+
+
+# Intersection between and box and a plane results in a polygon between 3 and 6
+# vertices.
+# Compute the intersection of each of the 12 edges to the plane, then recompute
+# the polygon from the positions found.
+func get_closed_edges(shape_t: Transform3D) -> Array[PackedVector2Array]:
+	var polygon := PackedVector2Array()
+
+	var plane := Plane(Vector3.UP, 0.0)
+
+	var box_edges := [
+		# Bottom square
+		[Vector3(-1, -1, -1), Vector3(-1, -1, 1)],
+		[Vector3(-1, -1, 1), Vector3(1, -1, 1)],
+		[Vector3(1, -1, 1), Vector3(1, -1, -1)],
+		[Vector3(1, -1, -1), Vector3(-1, -1, -1)],
+
+		# Top square
+		[Vector3(-1, 1, -1), Vector3(-1, 1, 1)],
+		[Vector3(-1, 1, 1), Vector3(1, 1, 1)],
+		[Vector3(1, 1, 1), Vector3(1, 1, -1)],
+		[Vector3(1, 1, -1), Vector3(-1, 1, -1)],
+
+		# Vertical lines
+		[Vector3(-1, -1, -1), Vector3(-1, 1, -1)],
+		[Vector3(-1, -1, 1), Vector3(-1, 1, 1)],
+		[Vector3(1, -1, 1), Vector3(1, 1, 1)],
+		[Vector3(1, -1, -1), Vector3(1, 1, -1)],
+	]
+
+	var intersection_points := PackedVector3Array()
+	var point
+	var shape_t_inverse := shape_t.affine_inverse()
+
+	for edge in box_edges:
+		var p1 = (edge[0] * _half_size) * shape_t_inverse
+		var p2 = (edge[1] * _half_size) * shape_t_inverse
+		point = plane.intersects_segment(p1, p2)
+		if point:
+			intersection_points.push_back(point)
+
+	if intersection_points.size() < 3:
+		return []
+
+	var points_unordered := PackedVector2Array()
+	for p in intersection_points:
+		points_unordered.push_back(Vector2(p.x, p.z))
+
+	polygon = Geometry2D.convex_hull(points_unordered)
+
+	return [polygon]
+"
+
+[sub_resource type="Resource" id="Resource_rrw6v"]
+script = SubResource("GDScript_38jjr")
+size = Vector3(0.795339, 0.675299, 0.847638)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5b53d"]
+points = PackedVector3Array(-6.27041e-05, 0.722709, 0.369824, 0.320214, 0.722709, 0.18484, 0.272185, 1.11245, 0.15711, -6.27041e-05, 1.11245, 0.314292, -0.272248, 1.11245, 0.15711, -0.320277, 0.722709, 0.18484, -0.102955, 1.60297e-31, 0.14415, -0.0734229, 1.60297e-31, 0.161164, 0.0882204, 1.60297e-31, 0.186939, 0.320214, 0.722709, -0.184984, 0.117753, 1.60297e-31, 0.169853, 0.176253, 1.60297e-31, 0.0170142, 0.272185, 1.11245, -0.157182, 0.136061, 1.22624, 0.078555, -6.27041e-05, 1.22624, 0.15711, -0.136124, 1.22624, 0.078555, -0.272248, 1.11245, -0.157182, -0.320277, 0.722709, -0.184984, -0.206098, 1.60297e-31, 0.0170142, -6.27041e-05, 0.722709, -0.369824, -6.27041e-05, 1.11245, -0.314365, 0.176253, 1.60297e-31, -0.0170866, 0.117753, 1.60297e-31, -0.169997, 0.136061, 1.22624, -0.0786274, -0.136124, 1.22624, -0.0786274, -0.102955, 1.60297e-31, -0.144223, -0.206098, 1.60297e-31, -0.0170866, 0.0882204, 1.60297e-31, -0.187012, -0.0734229, 1.60297e-31, -0.161237, -6.27041e-05, 1.22624, -0.157182)
+
+[sub_resource type="Curve3D" id="Curve3D_lvc2t"]
+
+[node name="FoliageSpawner" type="Node3D"]
+script = ExtResource("1_l8flg")
+
+[node name="tree_oak_dark" type="MeshInstance3D" parent="."]
+layers = 524289
+mesh = SubResource("ArrayMesh_l66w7")
+
+[node name="FoliageColShape" type="CollisionShape3D" parent="tree_oak_dark"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.384684, 0.260697, 0)
+script = ExtResource("4_lvc2t")
+metadata/_custom_type_script = "uid://day3d20b0dies"
+
+[node name="Mushrooms" type="Node3D" parent="tree_oak_dark"]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.751411, 0.850601, -0.986201)
+script = SubResource("GDScript_k22ku")
+dbg_disable_thread = true
+modifier_stack = SubResource("Resource_3lv2f")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(15, 15, 15)
+
+[node name="ScatterItem" type="Node3D" parent="tree_oak_dark/Mushrooms"]
+script = SubResource("GDScript_p33lr")
+source_scale_multiplier = 0.2
+path = "uid://cia3jakp3wj1d"
+
+[node name="ScatterShape" type="Node3D" parent="tree_oak_dark/Mushrooms"]
+transform = Transform3D(0.992366, 0, 0.123324, -0.00806148, 0.997861, 0.0648693, -0.12306, -0.0653683, 0.990244, -0.808379, 0.0478126, 0.87286)
+script = SubResource("GDScript_fx1qu")
+shape = SubResource("Resource_rrw6v")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="tree_oak_dark"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="tree_oak_dark/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_5b53d")
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_lvc2t")
