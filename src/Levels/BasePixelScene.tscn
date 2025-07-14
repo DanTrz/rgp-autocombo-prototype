@@ -323,7 +323,7 @@ points = PackedVector3Array(-0.5, -1, 0, -0.497651, -1, -0.0490407, -0.497651, -
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ynhhl"]
 _surfaces = [{
-"aabb": AABB(0.130096, -55.5843, -19.837, 7.93429, 57.0005, 19.9447),
+"aabb": AABB(0.130096, -30.579, -11.047, 4.60952, 31.9952, 11.1546),
 "attribute_data": PackedByteArray("/tlhTAAAAAAAAIA//tlhTAAAAAAAAAAA/tlhTAyklUAAAIA//tlhTAyklUAAAAAA/tlhTJGMR0EAAIA//tlhTJGMR0EAAAAA"),
 "format": 34359742495,
 "index_count": 18,
@@ -332,7 +332,7 @@ _surfaces = [{
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 6,
-"vertex_data": PackedByteArray("ADgFPjD8oD8Adtw9bjmfQFBWXsLR1pPBAJUOPpBHtT8A1oI8Um6lQJDrW8I0sp7B+JTWPiCypz8A+p89vwcBQXh5XMLymZbBxvF6iYJ6msTG8XqJgnqaxPfmJIJNaYq+9+Ykgk1pir6F3ueFsGPqvoXe54WwY+q+")
+"vertex_data": PackedByteArray("ADgFPjD8oD8Adtw9gxY1QMVC88HN8yPBAJUOPpBHtT8A1oI8DVE8QBAV8MGAwDDB+JTWPiCypz8A+p899qqXQL2h9MEwrCnBbu3WhtZzysJu7daG1nPKwjbgI388Y/q6NuAjfzxj+rq070mQqn3+x7TvSZCqff7H")
 }]
 
 [sub_resource type="Curve3D" id="Curve3D_h8kal"]
@@ -345,7 +345,7 @@ point_count = 3
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_wlawu"]
 _surfaces = [{
-"aabb": AABB(0.127464, -42.7134, -42.299, 24.615, 42.8026, 41.7757),
+"aabb": AABB(0.127464, -24.6994, -25.3338, 15.392, 24.7886, 24.8105),
 "attribute_data": PackedByteArray("/tlhTAAAAAAAAIA//tlhTAAAAAAAAAAA/tlhTEqkFUAAAIA//tlhTEqkFUAAAAAA/tlhTJqMx0AAAIA//tlhTJqMx0AAAAAA"),
 "format": 34359742495,
 "index_count": 18,
@@ -354,7 +354,7 @@ _surfaces = [{
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 6,
-"vertex_data": PackedByteArray("6IUCPgD7jb1g9wW/ywiNQYbaKsKMuRvC6OILPgC8tj1gbx2/uuyRQeJXHMI4MinC1DvVPgBsirzghg2/gPDFQawWH8LEWhnCnbu1bGRT7aedu7VsZFPtp5jIiXTRWLOvmMiJdNFYs6/neQtDSimklOd5C0NKKaSU")
+"vertex_data": PackedByteArray("6IUCPgD7jb1g9wW/8uciQcyIxMGqsrTB6OILPgC8tj1gbx2/DvUtQTciucGOq8rB1DvVPgBsirzghg2/3094QUiYxcGyGcDB2rY6aKhQ8aTatjpoqFDxpA7PeHguWzqzDs94eC5bOrNNb1hIySZkk01vWEjJJmST")
 }]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_00ydq"]
@@ -542,6 +542,7 @@ material_override = ExtResource("4_h8kal")
 multimesh = SubResource("MultiMesh_h8kal")
 
 [node name="Control" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -550,11 +551,16 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="Control"]
+visible = false
 material = SubResource("ShaderMaterial_vcwgk")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 9.0
+offset_right = 6.0
+offset_bottom = 9.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("ViewportTexture_rwce8")
@@ -578,7 +584,7 @@ collision_mask = 524289
 transform = Transform3D(1, 0, 0, 0, 0.866026, 0.5, 0, -0.5, 0.866026, 0.230505, 13.5293, 20.6874)
 projection = 1
 current = true
-size = 13.6625
+size = 15.0
 far = 100.0
 
 [node name="World" parent="SubViewport" instance=ExtResource("1_ijthh")]

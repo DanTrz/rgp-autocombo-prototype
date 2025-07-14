@@ -7,7 +7,7 @@ uniform sampler2D NORMAL_TEXTURE : hint_normal_roughness_texture, filter_nearest
 
 uniform bool shadows_enabled = true;
 uniform bool highlights_enabled = true;
-uniform float shadow_strength : hint_range(0.0, 1.0, 0.01) = 0.7;
+uniform float shadow_strength : hint_range(0.0, 1.0, 0.01) = 0.55;
 uniform float highlight_strength : hint_range(0.0, 1.0, 0.01) = 0.7;
 uniform vec3 highlight_color : source_color = vec3(1.0);
 uniform vec3 shadow_color  : source_color = vec3(0.0);

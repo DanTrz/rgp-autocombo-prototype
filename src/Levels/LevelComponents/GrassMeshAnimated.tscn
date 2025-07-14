@@ -37,7 +37,7 @@ shader_parameter/debug_test = 0
 
 [sub_resource type="QuadMesh" id="QuadMesh_bnv5h"]
 material = SubResource("ShaderMaterial_wlmg1")
-size = Vector2(0.5, 0.4)
+size = Vector2(0.5, 0.5)
 
 [node name="GrasMeshAnimated" type="Node3D" node_paths=PackedStringArray("meshInstance3D")]
 script = ExtResource("1_wlmg1")

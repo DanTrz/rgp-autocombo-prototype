@@ -18,6 +18,8 @@ public abstract partial class BaseCharacter : CharacterBody3D
 
     public virtual bool IsModel3D { get; set; } = false; //TODO: remove - this is just for testing the TEMP 3D Model
 
+    [Export] public Label _charStateDebug { get; set; }
+
 
     public virtual void TakeDamage(int amount)
     {

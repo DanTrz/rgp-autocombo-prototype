@@ -1,0 +1,509 @@
+[gd_scene load_steps=19 format=3 uid="uid://c3cxasrvb50k3"]
+
+[ext_resource type="Script" uid="uid://cfdcuysltp6qa" path="res://Temp/PixelProject/Assets/3D/fox/Fox.cs" id="1_pikwv"]
+[ext_resource type="ArrayMesh" uid="uid://bpl3c6j6clapn" path="res://Temp/PixelProject/Assets/3D/FoxUpdated/source/fox.res" id="2_5c5wx"]
+[ext_resource type="Shader" uid="uid://xyu6c57vn0ks" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight_waterUpdate.gdshader" id="2_qwcwh"]
+[ext_resource type="Shader" uid="uid://cmqagob15pcm3" path="res://Assets/Shaders/PixelShaders/flexible_toon_v4.gdshader" id="3_pikwv"]
+[ext_resource type="PackedScene" uid="uid://co43x2woraq8u" path="res://src/Characters/Player/PlayerStates/StateMachineManagerCS.tscn" id="5_0srfa"]
+[ext_resource type="Texture2D" uid="uid://bn3pkvin23sq7" path="res://Temp/PixelProject/Assets/3D/FoxUpdated/source/textures/T_Fox_BC.png" id="5_6tkhv"]
+[ext_resource type="Script" uid="uid://dtferwv00i1ha" path="res://src/Characters/Player/PlayerStates/FoxStates/FoxWalkState.cs" id="6_0srfa"]
+[ext_resource type="Script" uid="uid://5koqu0n5bvne" path="res://src/Characters/Player/PlayerStates/FoxStates/FoxIdleState.cs" id="7_yg4hu"]
+[ext_resource type="Script" uid="uid://bic3ld7c2irvu" path="res://src/Characters/Player/PlayerStates/FoxStates/FoxJumpState.cs" id="8_sssmq"]
+[ext_resource type="Script" uid="uid://dd25fpk7ktt0o" path="res://src/Characters/Player/PlayerStates/FoxStates/FoxFallState.cs" id="9_c55lm"]
+[ext_resource type="Animation" uid="uid://0fx75tno27s0" path="res://Temp/PixelProject/Assets/3D/FoxUpdated/source/animations/GodotAnim/fox_walk_in_place.res" id="11_mjrde"]
+[ext_resource type="Animation" uid="uid://blxeo0al33cum" path="res://Temp/PixelProject/Assets/3D/FoxUpdated/source/animations/GodotAnim/fox_idle.res" id="12_uq0k7"]
+[ext_resource type="Animation" uid="uid://bhbbn0dm2n50x" path="res://Temp/PixelProject/Assets/3D/FoxUpdated/source/animations/GodotAnim/fox_run_in_place.res" id="13_jsel2"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0srfa"]
+
+[sub_resource type="Skin" id="Skin_tw5h6"]
+resource_name = "Skin"
+bind_count = 39
+bind/0/name = &"Fox_Head"
+bind/0/bone = -1
+bind/0/pose = Transform3D(1.30766e-07, -0.866025, 0.5, 7.54979e-08, -0.5, -0.866025, 1, 1.50996e-07, 2.55175e-14, -9.76091, 6.52555, 3.27139e-05)
+bind/1/name = &"Fox_LEye"
+bind/1/bone = -1
+bind/1/pose = Transform3D(0.0871558, -0.996195, 1.49012e-07, 0.996195, 0.0871558, -1.37836e-07, 1.24324e-07, 1.60458e-07, 1, -6.61546, -1.28778, -11.5146)
+bind/2/name = &"Fox_Pelvis"
+bind/2/bone = -1
+bind/2/pose = Transform3D(1.68683e-07, -1, 6.12323e-17, 1.07284e-07, 1.80358e-14, -1, 1, 1.68683e-07, 1.07284e-07, 3.47874, 7.37925, -1.22642e-06)
+bind/3/name = &"Fox_Spine1"
+bind/3/bone = -1
+bind/3/pose = Transform3D(-4.8074e-06, -0.998526, -0.0542686, 6.02612e-07, 0.0542686, -0.998526, 1, -4.83302e-06, 3.40833e-07, 3.87408, 7.17959, 1.44498e-05)
+bind/4/name = &"Fox_Spine2"
+bind/4/bone = -1
+bind/4/pose = Transform3D(-4.71123e-06, -0.997845, 0.0656121, 4.15234e-08, -0.0656121, -0.997845, 1, -4.69835e-06, 3.50548e-07, -0.339449, 7.19064, 1.4362e-05)
+bind/5/name = &"Fox_UpperLEyelid"
+bind/5/bone = -1
+bind/5/pose = Transform3D(0.0940902, -0.858389, 0.504296, 0.992404, 0.121194, 0.0211316, -0.079257, 0.498477, 0.863272, -11.5424, -1.30355, -6.56373)
+bind/6/name = &"Fox_LowerLEyelid"
+bind/6/bone = -1
+bind/6/pose = Transform3D(0.111595, -0.814545, -0.569265, 0.992404, 0.121194, 0.0211316, 0.0517792, -0.567299, 0.821882, 1.07071, -1.30355, -13.2349)
+bind/7/name = &"Fox_Jaw"
+bind/7/bone = -1
+bind/7/pose = Transform3D(1.4189e-07, -0.939693, -0.34202, -5.16435e-08, 0.34202, -0.939693, 1, 1.50996e-07, 2.47524e-14, -3.54256, 11.4301, 3.29703e-05)
+bind/8/name = &"Fox_LEar1"
+bind/8/bone = -1
+bind/8/pose = Transform3D(0.314697, -0.113407, 0.942393, 0.625254, -0.722229, -0.295706, 0.714159, 0.682293, -0.156375, -14.2202, -0.8851, 3.49704)
+bind/9/name = &"Fox_Spine"
+bind/9/bone = -1
+bind/9/pose = Transform3D(3.11594e-08, -0.536521, 0.843887, -3.9155e-08, -0.843887, -0.536521, 1, -1.63247e-08, -4.73025e-08, -7.98172, 1.27038, 3.23437e-05)
+bind/10/name = &"Fox_Ribcage"
+bind/10/bone = -1
+bind/10/pose = Transform3D(6.16769e-08, -0.984808, 0.173648, 1.13245e-07, -0.173648, -0.984808, 1, 8.04047e-08, 1.00814e-07, -4.44953, 6.74711, 3.15556e-05)
+bind/11/name = &"Fox_F_LLeg1"
+bind/11/bone = -1
+bind/11/pose = Transform3D(-0.00572727, 0.346367, -0.938081, 0.0315993, -0.937566, -0.34637, -0.999484, -0.0316264, -0.00557527, 8.16872, -0.748564, 2.44161)
+bind/12/name = &"Fox_LEar2"
+bind/12/bone = -1
+bind/12/pose = Transform3D(0.36129, -0.167947, 0.917204, 0.599546, -0.711519, -0.366449, 0.714152, 0.682301, -0.156373, -15.8878, 0.322893, 3.49705)
+bind/13/name = &"Fox_F_LLeg2"
+bind/13/bone = -1
+bind/13/pose = Transform3D(-0.0829129, -0.224377, -0.970969, -0.099118, -0.967636, 0.232071, -0.991615, 0.115482, 0.0579897, 3.79996, -2.93634, 2.48814)
+bind/14/name = &"Fox_LLeg1"
+bind/14/bone = -1
+bind/14/pose = Transform3D(0.0335669, -0.197232, -0.979782, -0.0377849, -0.979884, 0.195958, -0.998722, 0.0304433, -0.040344, 7.85147, 2.03557, 2.11689)
+bind/15/name = &"Fox_F_LLegAnkle"
+bind/15/bone = -1
+bind/15/pose = Transform3D(1.47613e-05, -0.479833, -0.87736, -1.03827e-07, -0.87736, 0.479833, -1, -6.99185e-06, -1.30008e-05, -0.521323, -3.14531, 2.22018)
+bind/16/name = &"Fox_F_LLegDigit11"
+bind/16/bone = -1
+bind/16/pose = Transform3D(2.55923e-07, -1, 6.12323e-17, -8.74228e-08, -2.23123e-14, 1, -1, -2.55923e-07, -8.74228e-08, -3.58494, -0.194629, 2.22023)
+bind/17/name = &"Fox_LLeg2"
+bind/17/bone = -1
+bind/17/pose = Transform3D(-0.0159507, 0.960359, -0.278308, 0.196681, -0.269892, -0.94259, -0.980338, -0.069773, -0.18458, -1.55332, 3.98615, 2.91409)
+bind/18/name = &"Fox_LLegAnkle"
+bind/18/bone = -1
+bind/18/pose = Transform3D(-0.000578352, -0.401307, -0.915943, 2.57155e-07, -0.915943, 0.401307, -1, 0.000231862, 0.000529841, 4.98839, 3.54856, 2.00392)
+bind/19/name = &"Fox_LLegDigit11"
+bind/19/bone = -1
+bind/19/pose = Transform3D(2.55923e-07, -1, 6.12323e-17, -8.74228e-08, -2.23123e-14, 1, -1, -2.55923e-07, -8.74228e-08, 3.87486, -0.194628, 2.00493)
+bind/20/name = &"Fox_Tail1"
+bind/20/bone = -1
+bind/20/pose = Transform3D(-3.32645e-08, 0.99396, -0.109745, 1.02507e-07, 0.109745, 0.99396, 1, 2.1814e-08, -1.05538e-07, -4.19265, -8.63683, 9.69457e-07)
+bind/21/name = &"Fox_Tail2"
+bind/21/bone = -1
+bind/21/pose = Transform3D(-6.4163e-08, 0.995567, -0.0940509, 1.03489e-07, 0.0940509, 0.995567, 1, 5.41453e-08, -1.09065e-07, -7.00148, -8.52743, 7.45784e-07)
+bind/22/name = &"Fox_Tail3"
+bind/22/bone = -1
+bind/22/pose = Transform3D(-4.24968e-08, 0.999888, -0.0149784, 1.07466e-07, 0.0149784, 0.999888, 1, 4.08823e-08, -1.0809e-07, -9.73392, -7.78161, 8.68974e-07)
+bind/23/name = &"Fox_Tail4"
+bind/23/bone = -1
+bind/23/pose = Transform3D(-2.98793e-08, 0.999686, 0.0250556, 1.0825e-07, -0.0250556, 0.999686, 1, 3.25822e-08, -1.07468e-07, -12.244, -7.29737, 9.64319e-07)
+bind/24/name = &"Fox_Tail5"
+bind/24/bone = -1
+bind/24/pose = Transform3D(-1.17474e-08, 0.994697, 0.102847, 1.09244e-07, -0.102847, 0.994697, 1, 2.29206e-08, -1.07457e-07, -14.8001, -6.16328, 1.10035e-06)
+bind/25/name = &"Fox_Tail6"
+bind/25/bone = -1
+bind/25/pose = Transform3D(-1.70073e-10, 0.98819, 0.153235, 1.09568e-07, -0.153235, 0.98819, 1, 1.69577e-08, -1.08248e-07, -16.9119, -5.31118, 1.20135e-06)
+bind/26/name = &"Fox_REye"
+bind/26/bone = -1
+bind/26/pose = Transform3D(-0.0871555, -0.996195, 5.96046e-08, -0.996195, 0.0871555, -1.49012e-07, 1.4325e-07, -7.2365e-08, -1, -6.61547, -1.28784, 11.5146)
+bind/27/name = &"Fox_UpperREyelid"
+bind/27/bone = -1
+bind/27/pose = Transform3D(-0.0940899, -0.858389, 0.504296, -0.992404, 0.121194, 0.0211315, -0.0792568, -0.498477, -0.863272, -11.5424, -1.30361, 6.56372)
+bind/28/name = &"Fox_LowerREyelid"
+bind/28/bone = -1
+bind/28/pose = Transform3D(-0.111595, -0.814545, -0.569265, -0.992404, 0.121194, 0.0211315, 0.051779, 0.567299, -0.821882, 1.07071, -1.30361, 13.235)
+bind/29/name = &"Fox_REar1"
+bind/29/bone = -1
+bind/29/pose = Transform3D(-0.314697, -0.113406, 0.942393, -0.625259, -0.722225, -0.295706, 0.714155, -0.682297, 0.156374, -14.2202, -0.885139, -3.497)
+bind/30/name = &"Fox_F_RLeg1"
+bind/30/bone = -1
+bind/30/pose = Transform3D(0.00572753, 0.346366, -0.938082, -0.0315989, -0.937566, -0.346368, -0.999484, 0.0316262, 0.00557484, 8.16872, -0.748581, -2.44167)
+bind/31/name = &"Fox_REar2"
+bind/31/bone = -1
+bind/31/pose = Transform3D(-0.361292, -0.167951, 0.917203, -0.599535, -0.711528, -0.36645, 0.714161, -0.68229, 0.156377, -15.8879, 0.322873, -3.49699)
+bind/32/name = &"Fox_F_RLeg2"
+bind/32/bone = -1
+bind/32/pose = Transform3D(0.0828344, -0.224223, -0.97101, 0.0991598, -0.967671, 0.231911, -0.991618, -0.115495, -0.0579226, 3.8003, -2.93564, -2.48852)
+bind/33/name = &"Fox_RLeg1"
+bind/33/bone = -1
+bind/33/pose = Transform3D(-0.0335658, -0.197233, -0.979782, 0.0377913, -0.979884, 0.195958, -0.998722, -0.0304497, 0.0403443, 7.85148, 2.03558, -2.11687)
+bind/34/name = &"Fox_F_RLegAnkle"
+bind/34/bone = -1
+bind/34/pose = Transform3D(-1.4463e-05, -0.479833, -0.87736, 2.84749e-07, -0.87736, 0.479833, -1, 6.69e-06, 1.28259e-05, -0.521211, -3.14481, -2.2205)
+bind/35/name = &"Fox_F_RLegDigit11"
+bind/35/bone = -1
+bind/35/pose = Transform3D(2.55923e-07, -1, 6.12323e-17, -8.74228e-08, -2.23123e-14, 1, -1, -2.55923e-07, -8.74228e-08, -3.58444, -0.194485, -2.22055)
+bind/36/name = &"Fox_RLeg2"
+bind/36/bone = -1
+bind/36/pose = Transform3D(0.0159498, 0.960379, -0.278237, -0.19668, -0.269823, -0.942611, -0.980338, 0.069758, 0.184584, -1.55365, 3.98604, -2.91406)
+bind/37/name = &"Fox_RLegAnkle"
+bind/37/bone = -1
+bind/37/pose = Transform3D(0.000396733, -0.40119, -0.915995, 4.53828e-08, -0.915995, 0.40119, -1, -0.000159207, -0.000363387, 4.98776, 3.54918, -2.00483)
+bind/38/name = &"Fox_RLegDigit11"
+bind/38/bone = -1
+bind/38/pose = Transform3D(2.55923e-07, -1, 6.12323e-17, -8.74228e-08, -2.23123e-14, 1, -1, -2.55923e-07, -8.74228e-08, 3.8753, -0.194635, -2.00551)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qodvv"]
+render_priority = 0
+shader = ExtResource("2_qwcwh")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.55
+shader_parameter/highlight_strength = 0.0
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+shader_parameter/water_height = 0.0
+shader_parameter/water_fade_distance = 0.01
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kupfj"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_qodvv")
+shader = ExtResource("3_pikwv")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/Use_fake_ambient_light = false
+shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/use_repeat_nearest_texture = false
+shader_parameter/albedo_texture_repeat_nearest = ExtResource("5_6tkhv")
+shader_parameter/albedo_texture_clamp_linear = ExtResource("5_6tkhv")
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/albedo_uv_offset = Vector2(0, 0)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 1
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.05
+shader_parameter/billboard = false
+shader_parameter/normal_rotation_pitch = 0.0
+shader_parameter/normal_rotation_yaw = 0.0
+shader_parameter/normal_rotation_roll = 0.0
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1ddyf"]
+_data = {
+&"fox_idle": ExtResource("12_uq0k7"),
+&"fox_run_in_place": ExtResource("13_jsel2"),
+&"fox_walk_in_place": ExtResource("11_mjrde")
+}
+
+[node name="Fox" type="CharacterBody3D"]
+script = ExtResource("1_pikwv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.027311, -0.999627, 0, 0.999627, 0.027311, 0, 0.338697, 0)
+shape = SubResource("CapsuleShape3D_0srfa")
+
+[node name="Skin" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="FoxTransform" type="Node3D" parent="Skin"]
+transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, 0.1, 0, -0.1, -4.37114e-09, 0, 0, 0)
+
+[node name="Skeleton3D" type="Skeleton3D" parent="Skin/FoxTransform"]
+unique_name_in_owner = true
+bones/0/name = "Fox_Pelvis"
+bones/0/parent = -1
+bones/0/rest = Transform3D(5.96046e-08, 1.49012e-07, 1, -1, -1.19209e-07, 2.98023e-08, 1.49012e-07, -1, 1.78814e-07, -1.52061e-07, 3.47874, 7.37925)
+bones/0/enabled = true
+bones/0/position = Vector3(-1.52061e-07, 3.47874, 6.97897)
+bones/0/rotation = Quaternion(-0.473147, 0.525483, -0.473147, 0.525483)
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/name = "Fox_Tail1"
+bones/1/parent = 0
+bones/1/rest = Transform3D(-0.99396, -0.109745, 1.46869e-07, 0.109745, -0.99396, 2.12822e-07, 1.22625e-07, 2.27655e-07, 1, -1.63643, -0.745288, 2.84465e-07)
+bones/1/enabled = true
+bones/1/position = Vector3(-1.63643, -0.745288, 7.99576e-08)
+bones/1/rotation = Quaternion(-1.71681e-10, 1.0864e-07, 0.999778, 0.0210547)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/name = "Fox_Tail2"
+bones/2/parent = 1
+bones/2/rest = Transform3D(0.999876, -0.0157757, 3.25232e-08, 0.0157757, 0.999876, 4.23956e-11, -3.25198e-08, 4.70684e-10, 1, 2.67343, 1.12002e-07, -3.86917e-15)
+bones/2/enabled = true
+bones/2/position = Vector3(2.67343, 9.53674e-07, -1.13687e-13)
+bones/2/rotation = Quaternion(-1.56039e-08, -7.00805e-09, 0.0491765, 0.99879)
+bones/2/scale = Vector3(1, 1, 1)
+bones/3/name = "Fox_Tail3"
+bones/3/parent = 2
+bones/3/rest = Transform3D(0.996864, -0.0791283, -1.32959e-08, 0.0791283, 0.996864, -2.76889e-10, 1.32761e-08, -7.76061e-10, 1, 2.08617, 3.46956e-08, -7.60034e-15)
+bones/3/enabled = true
+bones/3/position = Vector3(2.08617, 0, -1.02318e-12)
+bones/3/rotation = Quaternion(2.91193e-09, -2.0152e-09, 0.0378971, 0.999282)
+bones/3/scale = Vector3(1, 1, 1)
+bones/4/name = "Fox_Tail4"
+bones/4/parent = 3
+bones/4/rest = Transform3D(0.999199, -0.0400265, -8.30852e-09, 0.0400265, 0.999199, 4.98135e-10, 8.28192e-09, -8.30297e-10, 1, 2.20822, 2.21344e-07, -3.75354e-14)
+bones/4/enabled = true
+bones/4/position = Vector3(2.20822, 0, 1.26192e-11)
+bones/4/rotation = Quaternion(1.03456e-08, -1.46474e-08, -0.0701666, 0.997535)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/name = "Fox_Tail5"
+bones/5/parent = 4
+bones/5/rest = Transform3D(0.996962, -0.0778923, -9.65827e-09, 0.0778923, 0.996962, 2.52874e-10, 9.60923e-09, -1.00441e-09, 1, 2.03105, 1.84469e-07, -1.81731e-14)
+bones/5/enabled = true
+bones/5/position = Vector3(2.03105, 4.76837e-07, -1.19599e-10)
+bones/5/rotation = Quaternion(4.91874e-10, -4.8019e-09, -0.0554992, 0.998459)
+bones/5/scale = Vector3(1, 1, 1)
+bones/6/name = "Fox_Tail6"
+bones/6/parent = 5
+bones/6/rest = Transform3D(0.998709, -0.0507896, -6.01263e-09, 0.0507896, 0.998709, -1.73656e-10, 6.01369e-09, -1.31948e-10, 1, 1.82019, 1.61531e-07, -1.26676e-14)
+bones/6/enabled = true
+bones/6/position = Vector3(1.82019, 0, 3.3026e-10)
+bones/6/rotation = Quaternion(-1.82703e-08, 2.01147e-08, -0.0310476, 0.999518)
+bones/6/scale = Vector3(1, 1, 1)
+bones/7/name = "Fox_Spine1"
+bones/7/parent = 0
+bones/7/rest = Transform3D(0.998527, -0.0542686, 5.0017e-06, 0.0542686, 0.998527, -2.33548e-07, -4.98166e-06, 5.0464e-07, 1, -4.44089e-16, 0, 0)
+bones/7/enabled = true
+bones/7/position = Vector3(0, 0, 0)
+bones/7/rotation = Quaternion(4.52934e-07, 2.33556e-06, 0.035666, 0.999364)
+bones/7/scale = Vector3(1, 1, 1)
+bones/8/name = "Fox_Spine2"
+bones/8/parent = 7
+bones/8/rest = Transform3D(0.992814, 0.119667, -1.34996e-07, -0.119667, 0.992814, -2.39237e-09, 1.33739e-07, 1.85297e-08, 1, 3.3506, 1.24451e-07, 6.74181e-13)
+bones/8/enabled = true
+bones/8/position = Vector3(3.3506, 0, 0)
+bones/8/rotation = Quaternion(5.29871e-09, 4.23792e-08, -0.157962, 0.987445)
+bones/8/scale = Vector3(1, 1, 1)
+bones/9/name = "Fox_Ribcage"
+bones/9/parent = 8
+bones/9/rest = Transform3D(0.994079, 0.108659, -4.78484e-06, -0.108659, 0.994079, -6.43494e-08, 4.74952e-06, 5.83884e-07, 1, 3.3506, 2.13267e-07, 1.90481e-12)
+bones/9/enabled = true
+bones/9/position = Vector3(3.3506, 0, 2.72848e-12)
+bones/9/rotation = Quaternion(5.01188e-07, -2.3848e-06, -0.107638, 0.99419)
+bones/9/scale = Vector3(1, 1, 1)
+bones/10/name = "Fox_F_LLeg1"
+bones/10/parent = 9
+bones/10/rest = Transform3D(-0.504002, 0.863175, 0.0301778, 0.863684, 0.503915, 0.0109823, -0.00572733, 0.0315992, -0.999484, 0.239977, 0.0423138, 2.51082)
+bones/10/enabled = true
+bones/10/position = Vector3(0.239977, 0.0423141, 2.51082)
+bones/10/rotation = Quaternion(0.498839, 0.864811, 0.0111768, 0.0559981)
+bones/10/scale = Vector3(1, 1, 1)
+bones/11/name = "Fox_F_LLeg2"
+bones/11/parent = 10
+bones/11/rest = Transform3D(0.833606, -0.552291, -0.00872054, 0.544063, 0.823708, -0.159692, 0.0953798, 0.128376, 0.987128, 3.40103, 4.19755e-05, 5.59211e-06)
+bones/11/enabled = true
+bones/11/position = Vector3(3.40103, 4.20809e-05, 5.48363e-06)
+bones/11/rotation = Quaternion(0.0667045, -0.0504304, 0.531672, 0.842812)
+bones/11/scale = Vector3(1, 0.999999, 1)
+bones/12/name = "Fox_F_LLegAnkle"
+bones/12/parent = 11
+bones/12/rest = Transform3D(0.959551, -0.269043, 0.0829271, 0.260692, 0.96032, 0.0991217, -0.106305, -0.0734939, 0.991614, 3.26986, 1.2713e-07, -1.00631e-08)
+bones/12/enabled = true
+bones/12/position = Vector3(3.26986, 0, 0)
+bones/12/rotation = Quaternion(0.0153853, 0.0629057, -0.110562, 0.991757)
+bones/12/scale = Vector3(1, 1, 1)
+bones/13/name = "Fox_F_LLegDigit11"
+bones/13/parent = 12
+bones/13/rest = Transform3D(0.479833, -0.87736, -1.45618e-05, 0.87736, 0.479833, 2.86416e-07, 6.73592e-06, -1.29133e-05, 1, 1.02812, 0.0933542, -2.94176e-05)
+bones/13/enabled = true
+bones/13/position = Vector3(1.02812, 0.0933542, -2.95639e-05)
+bones/13/rotation = Quaternion(0.00364911, 0.000746073, 0.4908, 0.871265)
+bones/13/scale = Vector3(1, 1, 1)
+bones/14/name = "Fox_Spine"
+bones/14/parent = 9
+bones/14/rest = Transform3D(0.67491, 0.7379, 6.95396e-08, -0.7379, 0.67491, 1.62664e-07, 7.30965e-08, -1.61097e-07, 1, 0, -8.88178e-16, 6.77626e-21)
+bones/14/enabled = true
+bones/14/position = Vector3(0, 0, 0)
+bones/14/rotation = Quaternion(-4.51038e-08, -1.11965e-07, -0.286026, 0.958222)
+bones/14/scale = Vector3(1, 1, 1)
+bones/15/name = "Fox_Head"
+bones/15/parent = 14
+bones/15/rest = Transform3D(0.886584, -0.462567, -4.9853e-08, 0.462567, 0.886584, -1.66578e-07, 1.21253e-07, 1.24625e-07, 1, 3.69065, -7.68884e-09, 1.64663e-12)
+bones/15/enabled = true
+bones/15/position = Vector3(3.69066, 2.38419e-07, 0)
+bones/15/rotation = Quaternion(-6.04208e-09, 3.06118e-08, 0.20653, 0.97844)
+bones/15/scale = Vector3(1, 1, 1)
+bones/16/name = "Fox_Jaw"
+bones/16/parent = 15
+bones/16/rest = Transform3D(0.642788, -0.766044, 3.65045e-15, 0.766044, 0.642788, 2.99104e-15, -4.63773e-15, 8.73809e-16, 1, 1.27219, 1.89216, -2.56313e-07)
+bones/16/enabled = true
+bones/16/position = Vector3(1.27219, 1.89216, -2.56314e-07)
+bones/16/rotation = Quaternion(-3.72672e-15, 1.47994e-14, 0.382683, 0.92388)
+bones/16/scale = Vector3(1, 1, 1)
+bones/17/name = "Fox_LEar1"
+bones/17/parent = 15
+bones/17/rest = Transform3D(0.56941, 0.477615, -0.669071, -0.759433, 0.617204, -0.205722, 0.314697, 0.625254, 0.714159, 1.0987, -3.00802, 2.53106)
+bones/17/enabled = true
+bones/17/position = Vector3(1.0987, -3.00802, 2.53106)
+bones/17/rotation = Quaternion(0.263555, -0.271036, -0.422375, 0.823819)
+bones/17/scale = Vector3(1, 1, 1)
+bones/18/name = "Fox_LEar2"
+bones/18/parent = 17
+bones/18/rest = Transform3D(0.99711, -0.0759716, -5.69993e-07, 0.0759717, 0.99711, -9.85341e-06, 1.31693e-06, 9.78163e-06, 1, 1.64627, -1.11702e-07, 2.19015e-08)
+bones/18/enabled = true
+bones/18/position = Vector3(1.64627, 2.38419e-06, -9.53674e-07)
+bones/18/rotation = Quaternion(-0.00027567, -0.000365695, 0.313497, 0.949589)
+bones/18/scale = Vector3(1, 1, 1)
+bones/19/name = "Fox_REar1"
+bones/19/parent = 15
+bones/19/rest = Transform3D(0.569409, 0.477612, 0.669074, -0.759434, 0.617202, 0.205725, -0.314697, -0.625259, 0.714155, 1.0987, -3.00802, -2.53106)
+bones/19/enabled = true
+bones/19/position = Vector3(1.0987, -3.00802, -2.53106)
+bones/19/rotation = Quaternion(-0.263555, 0.271036, -0.422375, 0.823819)
+bones/19/scale = Vector3(1, 1, 1)
+bones/20/name = "Fox_REar2"
+bones/20/parent = 19
+bones/20/rest = Transform3D(0.997109, -0.0759771, -4.05113e-07, 0.0759771, 0.99711, -9.83352e-06, 1.15106e-06, 9.77431e-06, 1, 1.64627, 1.49161e-07, -1.65532e-07)
+bones/20/enabled = true
+bones/20/position = Vector3(1.64627, -1.43051e-06, -7.15256e-07)
+bones/20/rotation = Quaternion(0.000275744, 0.000365608, 0.313497, 0.949589)
+bones/20/scale = Vector3(1, 1, 1)
+bones/21/name = "Fox_LEye"
+bones/21/parent = 15
+bones/21/rest = Transform3D(0.86273, -0.0754791, 0.5, 0.498097, -0.0435778, -0.866025, 0.0871557, 0.996195, 1.19209e-07, 1.60656, -0.207387, 1.85949)
+bones/21/enabled = true
+bones/21/position = Vector3(1.60656, -0.207386, 1.85949)
+bones/21/rotation = Quaternion(0.690345, 0.153046, 0.212631, 0.67438)
+bones/21/scale = Vector3(1, 1, 1)
+bones/22/name = "Fox_REye"
+bones/22/parent = 15
+bones/22/rest = Transform3D(0.86273, -0.0754791, -0.5, 0.498097, -0.0435777, 0.866025, -0.0871556, -0.996195, 1.78814e-07, 1.60656, -0.207387, -1.85949)
+bones/22/enabled = true
+bones/22/position = Vector3(1.60656, -0.207386, -1.85949)
+bones/22/rotation = Quaternion(-0.690345, -0.153046, 0.212631, 0.67438)
+bones/22/scale = Vector3(1, 1, 1)
+bones/23/name = "Fox_UpperLEyelid"
+bones/23/parent = 15
+bones/23/rest = Transform3D(0.995535, -0.0943915, -5.7824e-05, -0.00753858, -0.0788977, -0.996854, 0.09409, 0.992404, -0.079257, 1.60656, -0.207387, 1.85949)
+bones/23/enabled = true
+bones/23/position = Vector3(1.60656, -0.207386, 1.85949)
+bones/23/rotation = Quaternion(0.733773, -0.0347281, 0.0320372, 0.67775)
+bones/23/scale = Vector3(1, 1, 1)
+bones/24/name = "Fox_LowerLEyelid"
+bones/24/parent = 15
+bones/24/rest = Transform3D(0.420784, -0.0943915, 0.902237, 0.900271, -0.0788975, -0.428121, 0.111595, 0.992404, 0.0517792, 1.60656, -0.207387, 1.85949)
+bones/24/enabled = true
+bones/24/position = Vector3(1.60656, -0.207386, 1.85949)
+bones/24/rotation = Quaternion(0.619447, 0.3088, 0.394632, 0.604313)
+bones/24/scale = Vector3(1, 1, 1)
+bones/25/name = "Fox_UpperREyelid"
+bones/25/parent = 15
+bones/25/rest = Transform3D(0.995535, -0.0943915, 5.79245e-05, -0.00753867, -0.0788977, 0.996854, -0.09409, -0.992404, -0.079257, 1.60656, -0.207387, -1.85949)
+bones/25/enabled = true
+bones/25/position = Vector3(1.60656, -0.207387, -1.85949)
+bones/25/rotation = Quaternion(-0.733773, 0.0347281, 0.0320372, 0.67775)
+bones/25/scale = Vector3(1, 1, 1)
+bones/26/name = "Fox_LowerREyelid"
+bones/26/parent = 15
+bones/26/rest = Transform3D(0.420784, -0.0943915, -0.902237, 0.900271, -0.0788975, 0.428121, -0.111595, -0.992404, 0.0517792, 1.60656, -0.207387, -1.85949)
+bones/26/enabled = true
+bones/26/position = Vector3(1.60656, -0.207387, -1.85949)
+bones/26/rotation = Quaternion(-0.619447, -0.3088, 0.394631, 0.604313)
+bones/26/scale = Vector3(1, 1, 1)
+bones/27/name = "Fox_F_RLeg1"
+bones/27/parent = 9
+bones/27/rest = Transform3D(-0.504, 0.863176, -0.0301777, 0.863685, 0.503913, -0.0109821, 0.00572746, -0.031599, -0.999484, 0.239977, 0.0423137, -2.51082)
+bones/27/enabled = true
+bones/27/position = Vector3(0.239977, 0.0423136, -2.51082)
+bones/27/rotation = Quaternion(0.577135, 0.815774, 0.0365406, -0.00957687)
+bones/27/scale = Vector3(1, 1, 1)
+bones/28/name = "Fox_F_RLeg2"
+bones/28/parent = 27
+bones/28/rest = Transform3D(0.833701, -0.55215, 0.00865304, 0.543934, 0.823794, 0.159681, -0.0952965, -0.128419, 0.987131, 3.40103, 4.18765e-05, -5.66389e-06)
+bones/28/enabled = true
+bones/28/position = Vector3(3.40103, 4.19617e-05, -5.48363e-06)
+bones/28/rotation = Quaternion(-0.0742617, 0.0316227, 0.333287, 0.939364)
+bones/28/scale = Vector3(1, 0.999997, 1)
+bones/29/name = "Fox_F_RLegAnkle"
+bones/29/parent = 28
+bones/29/rest = Transform3D(0.959513, -0.269199, -0.0828485, 0.260849, 0.960274, -0.0991632, 0.106252, 0.0735376, 0.991616, 3.26986, -1.38869e-07, 6.98422e-08)
+bones/29/enabled = true
+bones/29/position = Vector3(3.26986, 2.38419e-07, 0)
+bones/29/rotation = Quaternion(0.067887, -0.084539, -0.0939343, 0.989657)
+bones/29/scale = Vector3(0.999997, 1, 1)
+bones/30/name = "Fox_F_RLegDigit11"
+bones/30/parent = 29
+bones/30/rest = Transform3D(0.479833, -0.87736, 1.46625e-05, 0.87736, 0.479833, -1.02161e-07, -6.94592e-06, 1.29133e-05, 1, 1.02812, 0.0933542, 2.92643e-05)
+bones/30/enabled = true
+bones/30/position = Vector3(1.02812, 0.0933542, 2.88486e-05)
+bones/30/rotation = Quaternion(-0.000447002, -0.00176115, 0.528162, 0.849142)
+bones/30/scale = Vector3(1, 1, 1)
+bones/31/name = "Fox_LLeg1"
+bones/31/parent = 0
+bones/31/rest = Transform3D(0.197232, 0.979884, -0.0304434, 0.979782, -0.195958, 0.0403439, 0.0335667, -0.0377851, -0.998722, 3.25144e-07, 2.06796e-07, 1.92755)
+bones/31/enabled = true
+bones/31/position = Vector3(0, 0, 1.92755)
+bones/31/rotation = Quaternion(0.666055, 0.745127, 0.0210071, -0.0267504)
+bones/31/scale = Vector3(1, 1, 1)
+bones/32/name = "Fox_LLeg2"
+bones/32/parent = 31
+bones/32/rest = Transform3D(0.0827318, 0.983365, 0.161703, -0.994975, 0.0723227, 0.0692415, 0.0563949, -0.166618, 0.984407, 3.58893, -8.30289e-06, 6.24191e-06)
+bones/32/enabled = true
+bones/32/position = Vector3(3.58893, -8.34465e-06, 6.4373e-06)
+bones/32/rotation = Quaternion(-0.0828709, 0.0347783, -0.653341, 0.75171)
+bones/32/scale = Vector3(1, 0.999999, 1)
+bones/33/name = "Fox_LLegAnkle"
+bones/33/parent = 32
+bones/33/rest = Transform3D(-0.130476, -0.991322, 0.016026, 0.971554, -0.131062, -0.197243, 0.197632, -0.0101653, 0.980224, 2.5832, -1.08604e-07, 2.0713e-08)
+bones/33/enabled = true
+bones/33/position = Vector3(2.5832, 0, 2.38419e-07)
+bones/33/rotation = Quaternion(0.111231, -0.046883, 0.539662, 0.833183)
+bones/33/scale = Vector3(1, 1, 1)
+bones/34/name = "Fox_LLegDigit11"
+bones/34/parent = 33
+bones/34/rest = Transform3D(0.401307, -0.915943, 0.000578535, 0.915943, 0.401307, -5.78002e-08, -0.000232118, 0.000529929, 1, 3.25395, 0.077513, 1.66994e-07)
+bones/34/enabled = true
+bones/34/position = Vector3(3.25395, 0.0775132, 0)
+bones/34/rotation = Quaternion(9.25723e-05, 0.000317309, 0.758215, 0.652004)
+bones/34/scale = Vector3(1, 1, 1)
+bones/35/name = "Fox_RLeg1"
+bones/35/parent = 0
+bones/35/rest = Transform3D(0.197232, 0.979884, 0.0304495, 0.979782, -0.195958, -0.0403444, -0.033566, 0.0377911, -0.998722, -3.25144e-07, -2.06796e-07, -1.92755)
+bones/35/enabled = true
+bones/35/position = Vector3(0, -4.76837e-07, -1.92755)
+bones/35/rotation = Quaternion(0.705506, 0.70725, 0.0329341, 0.0312146)
+bones/35/scale = Vector3(1, 1, 1)
+bones/36/name = "Fox_RLeg2"
+bones/36/parent = 35
+bones/36/rest = Transform3D(0.0826583, 0.98337, -0.161705, -0.994981, 0.0722495, -0.0692323, -0.056398, 0.166615, 0.984408, 3.58893, -8.24482e-06, -6.37731e-06)
+bones/36/enabled = true
+bones/36/position = Vector3(3.58893, -8.34465e-06, -5.96046e-06)
+bones/36/rotation = Quaternion(0.0809946, -0.0358027, -0.672577, 0.73471)
+bones/36/scale = Vector3(1, 0.999996, 1)
+bones/37/name = "Fox_RLegAnkle"
+bones/37/parent = 36
+bones/37/rest = Transform3D(-0.130425, -0.991329, -0.016002, 0.971599, -0.13101, 0.197065, -0.197453, 0.0101548, 0.980259, 2.5832, 1.71453e-07, 3.96168e-08)
+bones/37/enabled = true
+bones/37/position = Vector3(2.5832, 2.38419e-07, 2.38419e-07)
+bones/37/rotation = Quaternion(-0.0548385, 0.0592765, 0.574215, 0.814712)
+bones/37/scale = Vector3(0.999992, 1.00001, 1)
+bones/38/name = "Fox_RLegDigit11"
+bones/38/parent = 37
+bones/38/rest = Transform3D(0.40119, -0.915995, -0.00039655, 0.915995, 0.40119, 1.53945e-07, 0.000158951, -0.000363299, 1, 3.25395, 0.0775129, -8.52773e-08)
+bones/38/enabled = true
+bones/38/position = Vector3(3.25395, 0.0775132, 0)
+bones/38/rotation = Quaternion(-0.000101896, -0.000330891, 0.768149, 0.640271)
+bones/38/scale = Vector3(0.999988, 1.00001, 1)
+
+[node name="fox" type="MeshInstance3D" parent="Skin/FoxTransform/Skeleton3D"]
+mesh = ExtResource("2_5c5wx")
+skin = SubResource("Skin_tw5h6")
+surface_material_override/0 = SubResource("ShaderMaterial_kupfj")
+
+[node name="StateMachineManager" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("5_0srfa")]
+_initialState = NodePath("FoxIdleState")
+
+[node name="FoxWalkState" type="Node" parent="StateMachineManager"]
+script = ExtResource("6_0srfa")
+
+[node name="FoxIdleState" type="Node" parent="StateMachineManager"]
+script = ExtResource("7_yg4hu")
+
+[node name="FoxJumpState" type="Node" parent="StateMachineManager"]
+script = ExtResource("8_sssmq")
+
+[node name="FoxFallState" type="Node" parent="StateMachineManager"]
+script = ExtResource("9_c55lm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("../Skin")
+libraries = {
+&"": SubResource("AnimationLibrary_1ddyf")
+}
+autoplay = "fox_idle"
+blend_times = [&"fox_idle", &"fox_idle", 0.5, &"fox_idle", &"fox_run_in_place", 0.5, &"fox_idle", &"fox_walk_in_place", 0.5, &"fox_run_in_place", &"fox_idle", 0.25, &"fox_run_in_place", &"fox_walk_in_place", 0.25, &"fox_walk_in_place", &"fox_idle", 0.25, &"fox_walk_in_place", &"fox_run_in_place", 0.25, &"fox_walk_in_place", &"fox_walk_in_place", 0.25]

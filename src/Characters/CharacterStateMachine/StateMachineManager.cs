@@ -50,6 +50,11 @@ public partial class StateMachineManager : Node
         // {
         //     UpdatePlayerGlobals(_currentCharacter, delta);
         // }
+
+        if (_currentCharacter._charStateDebug != null)
+        {
+            _currentCharacter._charStateDebug.Text = CurrentState?.StateName.ToString();
+        }
     }
 
     public override void _PhysicsProcess(double delta)

@@ -1,6 +1,6 @@
 shader_type spatial;
 //render_mode blend_mix, cull_back; //blend_mix, cull_back; // unshaded, cull_back; //ORIGINAL LINE
-render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_toon, specular_toon, ambient_light_disabled;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_toon, specular_toon;
 //render_mode blend_mix, cull_back, ambient_light_disabled, diffuse_toon, specular_toon;//
 //render_mode ambient_light_disabled;
 
