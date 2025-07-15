@@ -1,4 +1,4 @@
-[gd_scene load_steps=311 format=4 uid="uid://d1fonqxidgbmt"]
+[gd_scene load_steps=281 format=4 uid="uid://d1fonqxidgbmt"]
 
 [ext_resource type="Shader" uid="uid://d7i4v6mk0aps" path="res://Temp/PixelProject/CloudManagerShader.gdshader" id="1_bnugo"]
 [ext_resource type="Script" uid="uid://tweefbwoi14v" path="res://Temp/PixelProject/CloudManager.cs" id="2_eb58x"]
@@ -63,7 +63,7 @@ noise = SubResource("FastNoiseLite_a4ruw")
 render_priority = 0
 shader = ExtResource("1_bnugo")
 shader_parameter/cloud_texture = SubResource("NoiseTexture2D_f2e7b")
-shader_parameter/cloud_alpha_scissor_threshold = 0.63
+shader_parameter/cloud_alpha_scissor_threshold = 0.62
 shader_parameter/cloud_color = Color(1, 1, 1, 1)
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 0.5
@@ -87,14 +87,14 @@ tonemap_mode = 3
 ssao_enabled = true
 ssil_enabled = true
 glow_enabled = true
+glow_intensity = 1.5
 fog_light_color = Color(0.908319, 0.924352, 0.652721, 1)
 fog_light_energy = 0.05
 fog_density = 0.005
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.005
-volumetric_fog_albedo = Color(1, 1, 0.866667, 1)
+volumetric_fog_albedo = Color(0.949294, 0.934792, 0, 1)
 volumetric_fog_gi_inject = 0.5
-volumetric_fog_length = 32.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_qodvv"]
 size = Vector2(30, 30)
@@ -102,7 +102,7 @@ subdivide_width = 50
 subdivide_depth = 50
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_38jjr"]
-viewport_path = NodePath("MainSubViewport/WaterToon/@SubViewport@24480")
+viewport_path = NodePath("MainSubViewport/WaterToon/@SubViewport@53931")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4hqal"]
 render_priority = 0
@@ -1179,7 +1179,7 @@ shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
-[sub_resource type="Resource" id="Resource_4ptn6"]
+[sub_resource type="Resource" id="Resource_38jjr"]
 script = ExtResource("28_fx1qu")
 amount = 50000
 enabled = true
@@ -1188,7 +1188,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_ts2wb"]
+[sub_resource type="Resource" id="Resource_a5jl2"]
 script = ExtResource("31_uciq2")
 ray_direction = Vector3(0, 0, -1)
 ray_length = 5.0
@@ -1204,7 +1204,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_kjonl"]
+[sub_resource type="Resource" id="Resource_005by"]
 script = ExtResource("30_yx5a4")
 position = Vector3(0.02, 0.05, 0.01)
 rotation = Vector3(0, 0, 0)
@@ -1215,9 +1215,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_7bgtq"]
+[sub_resource type="Resource" id="Resource_nnls0"]
 script = ExtResource("26_a5jl2")
-stack = Array[ExtResource("27_005by")]([SubResource("Resource_4ptn6"), SubResource("Resource_ts2wb"), SubResource("Resource_kjonl")])
+stack = Array[ExtResource("27_005by")]([SubResource("Resource_38jjr"), SubResource("Resource_a5jl2"), SubResource("Resource_005by")])
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k4f17"]
 load_path = "res://.godot/imported/Grass_3.png-6711f90f42818dba951396c8414e2150.ctex"
@@ -1262,7 +1262,7 @@ data = PackedVector3Array(-0.0587, -0.2, 0.0587, -0.0587, 0.1253, 0, -0.0415, 0.
 offsets = PackedFloat32Array(0, 0.155789, 0.353684, 0.402105, 0.932632)
 colors = PackedColorArray(0, 0, 0, 0, 0.819608, 0.819608, 0.819608, 0.0509804, 0.756863, 0.756863, 0.756863, 0.196078, 0.8, 0.8, 0.8, 0.258824, 0.741176, 0.741176, 0.741176, 0.313726)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_s703g"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_38jjr"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_5pwqe")
 
@@ -1270,7 +1270,7 @@ gradient = SubResource("Gradient_5pwqe")
 offsets = PackedFloat32Array(0.573394)
 colors = PackedColorArray(1, 1, 1, 0.333333)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_xgc4j"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a5jl2"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_i1ns1")
 
@@ -1278,7 +1278,7 @@ gradient = SubResource("Gradient_i1ns1")
 offsets = PackedFloat32Array(0.0321101, 0.0412844, 0.427368, 0.44, 0.866973)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.337255, 1, 1, 1, 0.501961, 1, 1, 1, 0.262327, 1, 1, 1, 0.227451)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_kymif"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_005by"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_x5wsi")
 
@@ -1290,11 +1290,12 @@ colors = PackedColorArray(1, 1, 1, 0.227451, 1, 1, 1, 0, 1, 1, 1, 0.227451)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_1d67n"]
 gradient = SubResource("Gradient_nw125")
 
-[sub_resource type="Gradient" id="Gradient_wwa6q"]
-colors = PackedColorArray(0.955782, 0.955782, 0.955782, 1, 1, 1, 1, 1)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_brkdl"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_bb7p3"]
-gradient = SubResource("Gradient_wwa6q")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_plo4g"]
+width = 48
+height = 48
+noise = SubResource("FastNoiseLite_brkdl")
 
 [sub_resource type="Gradient" id="Gradient_brkdl"]
 offsets = PackedFloat32Array(1)
@@ -1302,127 +1303,6 @@ colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_plo4g"]
 gradient = SubResource("Gradient_brkdl")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_g8mop"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_s703g")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_xgc4j")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_kymif")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_nfqn6"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_g8mop")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_qodvv"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_nfqn6")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_f0hk7"]
-size = Vector3(40, 1, 20)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_4fqyh"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ix4e1"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_v50fx"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p33lr"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_4fqyh")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_ix4e1")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_v50fx")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_fx1qu"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_p33lr")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_38jjr"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_fx1qu")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_a5jl2"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_005by"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_nnls0"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4680x"]
 resource_local_to_scene = true
@@ -1432,11 +1312,11 @@ shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
 shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
 shader_parameter/brightness = 1.0
 shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
+shader_parameter/fadeout_start_point = 0.0
 shader_parameter/fadeout_length = 0.008
 shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
 shader_parameter/shadow_detection_threshold = 0.2
 shader_parameter/noise_movement = 0.2
 shader_parameter/random_noise_movement = true
@@ -1444,12 +1324,12 @@ shader_parameter/enable_distributed_sampling = true
 shader_parameter/use_custom_data_position = true
 shader_parameter/sampling_offset = Vector3(0, 0, 0)
 shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
 shader_parameter/selected_gradient = 0.0
 shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_a5jl2")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_005by")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_nnls0")
+shader_parameter/gradient0 = SubResource("GradientTexture2D_38jjr")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_a5jl2")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_005by")
 shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
 shader_parameter/uv1_scale = Vector2(4, 0.1)
 shader_parameter/uv1_offset = Vector2(0, 0.85)
@@ -1471,949 +1351,8 @@ use_colors = true
 use_custom_data = true
 mesh = SubResource("CylinderMesh_yx5a4")
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_suci3"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_6uua0"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_4ptn6"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ts2wb"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_suci3")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_6uua0")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_4ptn6")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_kjonl"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_ts2wb")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_7bgtq"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_kjonl")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_fitdb"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_mrgm2"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ve45t"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p6edc"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_fitdb")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_mrgm2")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_ve45t")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_xg0fr"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_p6edc")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_h2701"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_xg0fr")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_sr11g"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_78dkk"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_lsyl2"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sfsku"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_sr11g")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_78dkk")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_lsyl2")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_fyjkp"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_sfsku")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_co5dq"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_fyjkp")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_raybq"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_vyk0w"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_m3ve4"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_atc8s"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_raybq")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_vyk0w")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_m3ve4")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_a70gp"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_atc8s")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_73pcf"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_a70gp")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_4iww1"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ml6ud"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_7h3v8"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ciamk"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_4iww1")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_ml6ud")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_7h3v8")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_fffmu"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_ciamk")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_37dyj"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_fffmu")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_m4bks"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1u1pc"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_0gusv"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hn54c"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_m4bks")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_1u1pc")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_0gusv")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_mstg1"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_hn54c")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_osdsu"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_mstg1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_riy84"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_e4rrl"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_iuok7"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qy75i"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_riy84")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_e4rrl")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_iuok7")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_kb6hh"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_qy75i")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_ryeyf"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_kb6hh")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_4tjy3"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_lfyyr"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_jcs3t"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qou1a"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_4tjy3")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_lfyyr")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_jcs3t")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_125sd"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_qou1a")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_k05aw"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_125sd")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_26rww"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1y8o4"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_op0bc"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_j3qrt"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_26rww")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_1y8o4")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_op0bc")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_310m4"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_j3qrt")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_vieey"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_310m4")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_gwwh3"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_e50xl"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_l26kf"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2k4j1"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_gwwh3")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_e50xl")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_l26kf")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_d8mi4"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_2k4j1")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_a1dcs"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_d8mi4")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_vyo3b"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_byljd"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_dorj8"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ia278"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_vyo3b")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_byljd")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_dorj8")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_0stf2"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_ia278")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_arvli"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_0stf2")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_lke3i"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ccnu8"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_fuxqh"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fuq1r"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_lke3i")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_ccnu8")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_fuxqh")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_d6lg4"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_fuq1r")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_4lxqr"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_d6lg4")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_myt8j"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_w7ywm"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tk4hu"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mxtbw"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_myt8j")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_w7ywm")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_tk4hu")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_1mju0"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_mxtbw")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_m7my6"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_1mju0")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ptlen"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_mxmrw"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_g5se4"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cixb7"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_ptlen")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_mxmrw")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_g5se4")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_jjvw1"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_cixb7")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_lnb2m"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_jjvw1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ldr28"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_nxmp7"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_e5132"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4fqyh"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_ldr28")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_nxmp7")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_e5132")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_ix4e1"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_4fqyh")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_v50fx"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_ix4e1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_p33lr"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_fx1qu"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_38jjr"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a5jl2"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("5_s703g")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.2
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_p33lr")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_fx1qu")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_38jjr")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_005by"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_a5jl2")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_nnls0"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_005by")
+[sub_resource type="BoxShape3D" id="BoxShape3D_suci3"]
+size = Vector3(30, 1, 25)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_4680x"]
 resource_local_to_scene = true
@@ -2435,11 +1374,11 @@ shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
 shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
 shader_parameter/brightness = 1.0
 shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
+shader_parameter/fadeout_start_point = 0.0
 shader_parameter/fadeout_length = 0.008
 shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
 shader_parameter/shadow_detection_threshold = 0.2
 shader_parameter/noise_movement = 0.2
 shader_parameter/random_noise_movement = true
@@ -2447,7 +1386,7 @@ shader_parameter/enable_distributed_sampling = true
 shader_parameter/use_custom_data_position = true
 shader_parameter/sampling_offset = Vector3(0, 0, 0)
 shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
 shader_parameter/selected_gradient = 0.0
 shader_parameter/random_gradient = true
 shader_parameter/gradient0 = SubResource("GradientTexture2D_4680x")
@@ -2494,11 +1433,11 @@ shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
 shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
 shader_parameter/brightness = 1.0
 shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
+shader_parameter/fadeout_start_point = 0.0
 shader_parameter/fadeout_length = 0.008
 shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
 shader_parameter/shadow_detection_threshold = 0.2
 shader_parameter/noise_movement = 0.2
 shader_parameter/random_noise_movement = true
@@ -2506,7 +1445,7 @@ shader_parameter/enable_distributed_sampling = true
 shader_parameter/use_custom_data_position = true
 shader_parameter/sampling_offset = Vector3(0, 0, 0)
 shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
 shader_parameter/selected_gradient = 0.0
 shader_parameter/random_gradient = true
 shader_parameter/gradient0 = SubResource("GradientTexture2D_ts2wb")
@@ -2553,11 +1492,11 @@ shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
 shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
 shader_parameter/brightness = 1.0
 shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
+shader_parameter/fadeout_start_point = 0.0
 shader_parameter/fadeout_length = 0.008
 shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
 shader_parameter/shadow_detection_threshold = 0.2
 shader_parameter/noise_movement = 0.2
 shader_parameter/random_noise_movement = true
@@ -2565,7 +1504,7 @@ shader_parameter/enable_distributed_sampling = true
 shader_parameter/use_custom_data_position = true
 shader_parameter/sampling_offset = Vector3(0, 0, 0)
 shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
 shader_parameter/selected_gradient = 0.0
 shader_parameter/random_gradient = true
 shader_parameter/gradient0 = SubResource("GradientTexture2D_p6edc")
@@ -2612,11 +1551,11 @@ shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
 shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
 shader_parameter/brightness = 1.0
 shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
+shader_parameter/fadeout_start_point = 0.0
 shader_parameter/fadeout_length = 0.008
 shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
 shader_parameter/shadow_detection_threshold = 0.2
 shader_parameter/noise_movement = 0.2
 shader_parameter/random_noise_movement = true
@@ -2624,7 +1563,7 @@ shader_parameter/enable_distributed_sampling = true
 shader_parameter/use_custom_data_position = true
 shader_parameter/sampling_offset = Vector3(0, 0, 0)
 shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
 shader_parameter/selected_gradient = 0.0
 shader_parameter/random_gradient = true
 shader_parameter/gradient0 = SubResource("GradientTexture2D_sfsku")
@@ -2671,11 +1610,11 @@ shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
 shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
 shader_parameter/brightness = 1.0
 shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
+shader_parameter/fadeout_start_point = 0.0
 shader_parameter/fadeout_length = 0.008
 shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
 shader_parameter/shadow_detection_threshold = 0.2
 shader_parameter/noise_movement = 0.2
 shader_parameter/random_noise_movement = true
@@ -2683,7 +1622,7 @@ shader_parameter/enable_distributed_sampling = true
 shader_parameter/use_custom_data_position = true
 shader_parameter/sampling_offset = Vector3(0, 0, 0)
 shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
 shader_parameter/selected_gradient = 0.0
 shader_parameter/random_gradient = true
 shader_parameter/gradient0 = SubResource("GradientTexture2D_atc8s")
@@ -2730,11 +1669,11 @@ shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
 shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
 shader_parameter/brightness = 1.0
 shader_parameter/alpha = 1.0
-shader_parameter/fadeout_start_point = 0.1
+shader_parameter/fadeout_start_point = 0.0
 shader_parameter/fadeout_length = 0.008
 shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 3.0
-shader_parameter/speed = 0.5
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
 shader_parameter/shadow_detection_threshold = 0.2
 shader_parameter/noise_movement = 0.2
 shader_parameter/random_noise_movement = true
@@ -2742,7 +1681,7 @@ shader_parameter/enable_distributed_sampling = true
 shader_parameter/use_custom_data_position = true
 shader_parameter/sampling_offset = Vector3(0, 0, 0)
 shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_bb7p3")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
 shader_parameter/selected_gradient = 0.0
 shader_parameter/random_gradient = true
 shader_parameter/gradient0 = SubResource("GradientTexture2D_ciamk")
@@ -2769,10 +1708,777 @@ use_colors = true
 use_custom_data = true
 mesh = SubResource("CylinderMesh_1u1pc")
 
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hn54c"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_5pwqe")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mstg1"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_i1ns1")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_osdsu"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_x5wsi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_riy84"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_s703g")
+shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 1.0
+shader_parameter/fadeout_start_point = 0.0
+shader_parameter/fadeout_length = 0.008
+shader_parameter/fade_from_bottom = false
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.2
+shader_parameter/random_noise_movement = true
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/use_custom_data_position = true
+shader_parameter/sampling_offset = Vector3(0, 0, 0)
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
+shader_parameter/selected_gradient = 0.0
+shader_parameter/random_gradient = true
+shader_parameter/gradient0 = SubResource("GradientTexture2D_hn54c")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_mstg1")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_osdsu")
+shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
+shader_parameter/max_world_bounds = Vector3(500, 500, 500)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_e4rrl"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_riy84")
+height = 1.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="MultiMesh" id="MultiMesh_iuok7"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("CylinderMesh_e4rrl")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qy75i"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_5pwqe")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kb6hh"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_i1ns1")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ryeyf"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_x5wsi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4tjy3"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_s703g")
+shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 1.0
+shader_parameter/fadeout_start_point = 0.0
+shader_parameter/fadeout_length = 0.008
+shader_parameter/fade_from_bottom = false
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.2
+shader_parameter/random_noise_movement = true
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/use_custom_data_position = true
+shader_parameter/sampling_offset = Vector3(0, 0, 0)
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
+shader_parameter/selected_gradient = 0.0
+shader_parameter/random_gradient = true
+shader_parameter/gradient0 = SubResource("GradientTexture2D_qy75i")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_kb6hh")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_ryeyf")
+shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
+shader_parameter/max_world_bounds = Vector3(500, 500, 500)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lfyyr"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_4tjy3")
+height = 1.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="MultiMesh" id="MultiMesh_jcs3t"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("CylinderMesh_lfyyr")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qou1a"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_5pwqe")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_125sd"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_i1ns1")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_k05aw"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_x5wsi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_26rww"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_s703g")
+shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 1.0
+shader_parameter/fadeout_start_point = 0.0
+shader_parameter/fadeout_length = 0.008
+shader_parameter/fade_from_bottom = false
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.2
+shader_parameter/random_noise_movement = true
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/use_custom_data_position = true
+shader_parameter/sampling_offset = Vector3(0, 0, 0)
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
+shader_parameter/selected_gradient = 0.0
+shader_parameter/random_gradient = true
+shader_parameter/gradient0 = SubResource("GradientTexture2D_qou1a")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_125sd")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_k05aw")
+shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
+shader_parameter/max_world_bounds = Vector3(500, 500, 500)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1y8o4"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_26rww")
+height = 1.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="MultiMesh" id="MultiMesh_op0bc"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("CylinderMesh_1y8o4")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_j3qrt"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_5pwqe")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_310m4"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_i1ns1")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vieey"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_x5wsi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gwwh3"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_s703g")
+shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 1.0
+shader_parameter/fadeout_start_point = 0.0
+shader_parameter/fadeout_length = 0.008
+shader_parameter/fade_from_bottom = false
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.2
+shader_parameter/random_noise_movement = true
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/use_custom_data_position = true
+shader_parameter/sampling_offset = Vector3(0, 0, 0)
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
+shader_parameter/selected_gradient = 0.0
+shader_parameter/random_gradient = true
+shader_parameter/gradient0 = SubResource("GradientTexture2D_j3qrt")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_310m4")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_vieey")
+shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
+shader_parameter/max_world_bounds = Vector3(500, 500, 500)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_e50xl"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_gwwh3")
+height = 1.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="MultiMesh" id="MultiMesh_l26kf"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("CylinderMesh_e50xl")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2k4j1"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_5pwqe")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d8mi4"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_i1ns1")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a1dcs"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_x5wsi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vyo3b"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_s703g")
+shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 1.0
+shader_parameter/fadeout_start_point = 0.0
+shader_parameter/fadeout_length = 0.008
+shader_parameter/fade_from_bottom = false
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.2
+shader_parameter/random_noise_movement = true
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/use_custom_data_position = true
+shader_parameter/sampling_offset = Vector3(0, 0, 0)
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
+shader_parameter/selected_gradient = 0.0
+shader_parameter/random_gradient = true
+shader_parameter/gradient0 = SubResource("GradientTexture2D_2k4j1")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_d8mi4")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_a1dcs")
+shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
+shader_parameter/max_world_bounds = Vector3(500, 500, 500)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_byljd"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_vyo3b")
+height = 1.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="MultiMesh" id="MultiMesh_dorj8"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("CylinderMesh_byljd")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ia278"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_5pwqe")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0stf2"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_i1ns1")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_arvli"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_x5wsi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lke3i"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_s703g")
+shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 1.0
+shader_parameter/fadeout_start_point = 0.0
+shader_parameter/fadeout_length = 0.008
+shader_parameter/fade_from_bottom = false
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.2
+shader_parameter/random_noise_movement = true
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/use_custom_data_position = true
+shader_parameter/sampling_offset = Vector3(0, 0, 0)
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
+shader_parameter/selected_gradient = 0.0
+shader_parameter/random_gradient = true
+shader_parameter/gradient0 = SubResource("GradientTexture2D_ia278")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_0stf2")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_arvli")
+shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
+shader_parameter/max_world_bounds = Vector3(500, 500, 500)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ccnu8"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_lke3i")
+height = 1.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="MultiMesh" id="MultiMesh_fuxqh"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("CylinderMesh_ccnu8")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fuq1r"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_5pwqe")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d6lg4"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_i1ns1")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4lxqr"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_x5wsi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_myt8j"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_s703g")
+shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 1.0
+shader_parameter/fadeout_start_point = 0.0
+shader_parameter/fadeout_length = 0.008
+shader_parameter/fade_from_bottom = false
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.2
+shader_parameter/random_noise_movement = true
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/use_custom_data_position = true
+shader_parameter/sampling_offset = Vector3(0, 0, 0)
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
+shader_parameter/selected_gradient = 0.0
+shader_parameter/random_gradient = true
+shader_parameter/gradient0 = SubResource("GradientTexture2D_fuq1r")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_d6lg4")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_4lxqr")
+shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
+shader_parameter/max_world_bounds = Vector3(500, 500, 500)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_w7ywm"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_myt8j")
+height = 1.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="MultiMesh" id="MultiMesh_tk4hu"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("CylinderMesh_w7ywm")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mxtbw"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_5pwqe")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1mju0"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_i1ns1")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m7my6"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_x5wsi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ptlen"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_s703g")
+shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 1.0
+shader_parameter/fadeout_start_point = 0.0
+shader_parameter/fadeout_length = 0.008
+shader_parameter/fade_from_bottom = false
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.2
+shader_parameter/random_noise_movement = true
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/use_custom_data_position = true
+shader_parameter/sampling_offset = Vector3(0, 0, 0)
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
+shader_parameter/selected_gradient = 0.0
+shader_parameter/random_gradient = true
+shader_parameter/gradient0 = SubResource("GradientTexture2D_mxtbw")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_1mju0")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_m7my6")
+shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
+shader_parameter/max_world_bounds = Vector3(500, 500, 500)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mxmrw"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_ptlen")
+height = 1.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="MultiMesh" id="MultiMesh_g5se4"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("CylinderMesh_mxmrw")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cixb7"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_5pwqe")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jjvw1"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_i1ns1")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lnb2m"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_x5wsi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_885nt"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_s703g")
+shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 1.0
+shader_parameter/fadeout_start_point = 0.0
+shader_parameter/fadeout_length = 0.008
+shader_parameter/fade_from_bottom = false
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.2
+shader_parameter/random_noise_movement = true
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/use_custom_data_position = true
+shader_parameter/sampling_offset = Vector3(0, 0, 0)
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
+shader_parameter/selected_gradient = 0.0
+shader_parameter/random_gradient = true
+shader_parameter/gradient0 = SubResource("GradientTexture2D_cixb7")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_jjvw1")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_lnb2m")
+shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
+shader_parameter/max_world_bounds = Vector3(500, 500, 500)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_t6oiy"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_885nt")
+height = 1.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="MultiMesh" id="MultiMesh_3fb23"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("CylinderMesh_t6oiy")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_chh6c"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_5pwqe")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6iabp"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_i1ns1")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4y7lx"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_x5wsi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vmm8c"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_s703g")
+shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 1.0
+shader_parameter/fadeout_start_point = 0.0
+shader_parameter/fadeout_length = 0.008
+shader_parameter/fade_from_bottom = false
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.2
+shader_parameter/random_noise_movement = true
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/use_custom_data_position = true
+shader_parameter/sampling_offset = Vector3(0, 0, 0)
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
+shader_parameter/selected_gradient = 0.0
+shader_parameter/random_gradient = true
+shader_parameter/gradient0 = SubResource("GradientTexture2D_chh6c")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_6iabp")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_4y7lx")
+shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
+shader_parameter/max_world_bounds = Vector3(500, 500, 500)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_a7n12"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_vmm8c")
+height = 1.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="MultiMesh" id="MultiMesh_ic87f"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("CylinderMesh_a7n12")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_veei5"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_5pwqe")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vr18t"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_i1ns1")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cm5wu"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_x5wsi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hrp3w"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_s703g")
+shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 1.0
+shader_parameter/fadeout_start_point = 0.0
+shader_parameter/fadeout_length = 0.008
+shader_parameter/fade_from_bottom = false
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.2
+shader_parameter/random_noise_movement = true
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/use_custom_data_position = true
+shader_parameter/sampling_offset = Vector3(0, 0, 0)
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
+shader_parameter/selected_gradient = 0.0
+shader_parameter/random_gradient = true
+shader_parameter/gradient0 = SubResource("GradientTexture2D_veei5")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_vr18t")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_cm5wu")
+shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
+shader_parameter/max_world_bounds = Vector3(500, 500, 500)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dj2ld"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_hrp3w")
+height = 1.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="MultiMesh" id="MultiMesh_osum3"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("CylinderMesh_dj2ld")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_17ril"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_5pwqe")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3vr74"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_i1ns1")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_taalx"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_x5wsi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q6jba"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_s703g")
+shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 1.0
+shader_parameter/fadeout_start_point = 0.0
+shader_parameter/fadeout_length = 0.008
+shader_parameter/fade_from_bottom = false
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.2
+shader_parameter/random_noise_movement = true
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/use_custom_data_position = true
+shader_parameter/sampling_offset = Vector3(0, 0, 0)
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
+shader_parameter/selected_gradient = 0.0
+shader_parameter/random_gradient = true
+shader_parameter/gradient0 = SubResource("GradientTexture2D_17ril")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_3vr74")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_taalx")
+shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
+shader_parameter/max_world_bounds = Vector3(500, 500, 500)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_aoyng"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_q6jba")
+height = 1.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="MultiMesh" id="MultiMesh_hrsj2"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("CylinderMesh_aoyng")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rsqnv"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_5pwqe")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_74st8"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_i1ns1")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_f07f6"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_x5wsi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hnw2w"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_s703g")
+shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture1D_plo4g")
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 1.0
+shader_parameter/fadeout_start_point = 0.0
+shader_parameter/fadeout_length = 0.008
+shader_parameter/fade_from_bottom = false
+shader_parameter/rim_power = 2.0
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.2
+shader_parameter/random_noise_movement = true
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/use_custom_data_position = true
+shader_parameter/sampling_offset = Vector3(0, 0, 0)
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_plo4g")
+shader_parameter/selected_gradient = 0.0
+shader_parameter/random_gradient = true
+shader_parameter/gradient0 = SubResource("GradientTexture2D_rsqnv")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_74st8")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_f07f6")
+shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
+shader_parameter/max_world_bounds = Vector3(500, 500, 500)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3v0vs"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_hnw2w")
+height = 1.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="MultiMesh" id="MultiMesh_hrpyb"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("CylinderMesh_3v0vs")
+
 [sub_resource type="Environment" id="Environment_1pnsr"]
 background_mode = 1
-background_color = Color(0.956863, 0.929412, 0.278431, 1)
-background_energy_multiplier = 2.0
+background_color = Color(0.896616, 0.844177, 0.415592, 1)
+background_energy_multiplier = 1.5
 ambient_light_source = 2
 ambient_light_color = Color(0.956863, 0.929412, 0.686275, 1)
 volumetric_fog_density = 5.0
@@ -2827,8 +2533,8 @@ mesh = SubResource("PlaneMesh_ntwum")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_ed8f5")
 script = ExtResource("2_eb58x")
-_alphaScissor = 0.58
-cloudTextureScale = 3.0
+_alphaScissor = 0.57
+cloudTextureScale = 2.0
 moveDirection = Vector2(0.901609, 0.432553)
 moveSpeedMultiplier = 0.01
 sunLight = NodePath("../MainSubViewport/DayLight")
@@ -2839,7 +2545,7 @@ environment = SubResource("Environment_pjemg")
 
 [node name="MainSubViewport" type="SubViewport" parent="."]
 handle_input_locally = false
-size = Vector2i(960, 540)
+size = Vector2i(640, 360)
 render_target_update_mode = 4
 
 [node name="Fox" parent="MainSubViewport" node_paths=PackedStringArray("_charStateDebug") instance=ExtResource("4_38jjr")]
@@ -3063,7 +2769,7 @@ process_mode = 3
 transform = Transform3D(1, -4.22006e-09, -3.95812e-09, -1.3737e-08, 1, 0, -1.62981e-09, -2.98023e-08, 1, -0.0580969, 1.08615, -0.282159)
 script = ExtResource("25_38jjr")
 dbg_disable_thread = true
-modifier_stack = SubResource("Resource_7bgtq")
+modifier_stack = SubResource("Resource_nnls0")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -3101,239 +2807,177 @@ size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="ShaftChunksSpawner" type="Node3D" parent="ShaftsViewPort" node_paths=PackedStringArray("_mainCamera", "sunLight")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 55, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 55, 18.3454)
 script = ExtResource("3_1pnsr")
 _mainCamera = NodePath("../../MainSubViewport/CameraRigYaw/MainCamera3D")
 sunLight = NodePath("../../MainSubViewport/DayLight")
-_activationRange = Vector2(30, 250)
+_activationRange = Vector2(20, 250)
 _chunkDensity = 10.0
 _minSpacing = 2.5
 _rotationType = 1
 _instancesRotationZ = -20.0
+_rimPower = 5.0
+_animationSpeed = 2.0
+_fadeOutStartPoint = 0.1
 
-[node name="ShaftChunkMMController" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-multimesh = SubResource("MultiMesh_qodvv")
-_collisionShape = NodePath("CollisionShape3D")
+[node name="ShaftChunkMMController" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+multimesh = SubResource("MultiMesh_uciq2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController10" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25.9642)
-multimesh = SubResource("MultiMesh_38jjr")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController10"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController11" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.6433, 0, 25.9642)
-multimesh = SubResource("MultiMesh_uciq2")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController11"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController12" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.2346, 0, 25.9642)
-multimesh = SubResource("MultiMesh_7bgtq")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController12"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController13" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.2346, 0, 48.3748)
-multimesh = SubResource("MultiMesh_h2701")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController13"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController14" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.06607, 0, 48.3748)
-multimesh = SubResource("MultiMesh_co5dq")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController14"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController15" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.6497, 0, 48.3748)
-multimesh = SubResource("MultiMesh_73pcf")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController15"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController16" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85.2975, 0, 48.3748)
-multimesh = SubResource("MultiMesh_37dyj")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController16"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController17" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85.2975, 0, 26.071)
-multimesh = SubResource("MultiMesh_osdsu")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController17"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController18" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85.2975, 0, -0.630428)
-multimesh = SubResource("MultiMesh_ryeyf")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController18"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController19" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85.2975, 0, -23.9999)
-multimesh = SubResource("MultiMesh_k05aw")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController19"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController20" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85.2975, 0, -47.2394)
-multimesh = SubResource("MultiMesh_vieey")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController20"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController21" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.2628, 0, -47.2394)
-multimesh = SubResource("MultiMesh_a1dcs")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController21"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController22" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.2628, 0, -21.0722)
-multimesh = SubResource("MultiMesh_arvli")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController22"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController23" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.2628, 0, 1.26125)
-multimesh = SubResource("MultiMesh_4lxqr")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController23"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController24" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.2628, 0, 25.7555)
-multimesh = SubResource("MultiMesh_m7my6")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController24"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController25" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.2628, 0, 48.2734)
-multimesh = SubResource("MultiMesh_lnb2m")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController25"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController3" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.0103, 0, 0)
-multimesh = SubResource("MultiMesh_v50fx")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController3"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController4" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.0103, 0, -22.7392)
-multimesh = SubResource("MultiMesh_nnls0")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController4"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController7" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.0103, 0, -46.7706)
+[node name="ShaftChunkMMController2" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5791, 0, 0)
 multimesh = SubResource("MultiMesh_4ptn6")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController7"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController8" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.737766, 0, -46.7706)
-multimesh = SubResource("MultiMesh_ve45t")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController8"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController9" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.7025, 0, -46.7706)
-multimesh = SubResource("MultiMesh_lsyl2")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController9"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController5" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.25, 0, -22.7392)
-multimesh = SubResource("MultiMesh_m3ve4")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController5"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController6" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.25, 0, 0.0415001)
-multimesh = SubResource("MultiMesh_7h3v8")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController6"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
-
-[node name="ShaftChunkMMController2" parent="ShaftsViewPort/ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_kphyu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22.3715)
-multimesh = SubResource("MultiMesh_0gusv")
-_collisionShape = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController2"]
-shape = SubResource("BoxShape3D_f0hk7")
-debug_color = Color(0.811765, 0.00392157, 0.984314, 1)
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController3" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.6298, 0, 0)
+multimesh = SubResource("MultiMesh_ve45t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController3"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController4" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.494, 0, 0)
+multimesh = SubResource("MultiMesh_lsyl2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController4"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController5" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.55, 0, 0)
+multimesh = SubResource("MultiMesh_m3ve4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController5"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController6" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -26.1261)
+multimesh = SubResource("MultiMesh_7h3v8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController6"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController7" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5791, 0, -26.1261)
+multimesh = SubResource("MultiMesh_0gusv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController7"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController8" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.6298, 0, -26.1261)
+multimesh = SubResource("MultiMesh_iuok7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController8"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController9" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.494, 0, -26.1261)
+multimesh = SubResource("MultiMesh_jcs3t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController9"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController10" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.55, 0, -26.1261)
+multimesh = SubResource("MultiMesh_op0bc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController10"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController11" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -52.8775)
+multimesh = SubResource("MultiMesh_l26kf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController11"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController12" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5791, 0, -52.8775)
+multimesh = SubResource("MultiMesh_dorj8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController12"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController13" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.6298, 0, -52.8775)
+multimesh = SubResource("MultiMesh_fuxqh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController13"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController14" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.494, 0, -52.8775)
+multimesh = SubResource("MultiMesh_tk4hu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController14"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController15" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.55, 0, -52.8775)
+multimesh = SubResource("MultiMesh_g5se4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController15"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController16" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -80.3521)
+multimesh = SubResource("MultiMesh_3fb23")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController16"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController17" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5791, 0, -80.3521)
+multimesh = SubResource("MultiMesh_ic87f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController17"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController18" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.6298, 0, -80.3521)
+multimesh = SubResource("MultiMesh_osum3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController18"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController19" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.494, 0, -80.3521)
+multimesh = SubResource("MultiMesh_hrsj2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController19"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
+
+[node name="ShaftChunkMMController20" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.55, 0, -80.3521)
+multimesh = SubResource("MultiMesh_hrpyb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController20"]
+shape = SubResource("BoxShape3D_suci3")
+debug_color = Color(0.952941, 0, 0, 1)
 
 [node name="CloneCamera3D" type="Camera3D" parent="ShaftsViewPort" node_paths=PackedStringArray("_mainCamera")]
 physics_interpolation_mode = 2

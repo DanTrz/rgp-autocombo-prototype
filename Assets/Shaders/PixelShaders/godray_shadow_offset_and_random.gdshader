@@ -11,7 +11,7 @@ uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_en
 uniform float brightness : hint_range(0.0, 5.0) = 1.0;
 uniform float alpha : hint_range(0.0, 1.0) = 0.5;
 // Where the fade begins (0.0 = bottom, 1.0 = top of the mesh)
-uniform float fadeout_start_point : hint_range(0.0, 1.00, 0.001) = 0.1;
+uniform float fadeout_start_point : hint_range(0.0, 1.00, 0.001) = 0.95;
 // How long the fade is. 0.1 is a short, sharp fade. 1.0 is a full, soft fade.
 uniform float fadeout_length : hint_range(0.00, 0.2, 0.001) = 0.008;
 // A switch to decide if we fade from the bottom up, or the top down.

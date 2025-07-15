@@ -30,6 +30,15 @@ public partial class ShaftChunksSpawner : Node3D
 	[Export] private float _randWidthMax { get; set; } = 1.5f;
 	[Export] private float _randWidthMin { get; set; } = 0.5f;
 
+	[ExportGroup("Shaft Material and Shader")]
+	[Export] private Color _albedoColor { get; set; } = new Color(0.99f, 0.99f, 0.57f, 1.0f); // 0.85albedo_color fffd93
+	[Export] private float _intialAlpha { get; set; } = 1.0f; //0.85albedo_color
+	[Export] private float _rimPower { get; set; } = 3.0f;
+	[Export] private float _animationSpeed { get; set; } = 1.0f;
+	[Export] private Vector2 _uvOffset { get; set; } = new Vector2(0.0f, 0.85f);
+	[Export] private float _fadeOutStartPoint { get; set; } = 0.0f;
+	[Export] private bool _useRandomGradient { get; set; } = true;
+
 
 	[ExportGroup("Debug")]
 	[Export] private bool _showDebugSpheres { get; set; } = false;
@@ -93,10 +102,15 @@ public partial class ShaftChunksSpawner : Node3D
 
 			chunkController.ShowDebugSpheres = _showDebugSpheres;
 			chunkController.ShowOnlyColliders = _showOnlyColliders;
-
+			SetupChunkMMMaterial(chunkController);
 			chunkController.IntialChunkSetup();
 
 		}
+	}
+
+	public override void _Process(double delta)
+	{
+		ManageChunks();
 	}
 
 	private void ManageChunks()
@@ -133,10 +147,35 @@ public partial class ShaftChunksSpawner : Node3D
 			}
 		}
 	}
-	public override void _Process(double delta)
+
+
+	private void SetupChunkMMMaterial(ShaftChunkMMController chunkController)
 	{
-		ManageChunks();
+		ShaderMaterial chunkMMMaterial = chunkController.Multimesh.Mesh.SurfaceGetMaterial(0) as ShaderMaterial;
+
+		if (chunkMMMaterial == null)
+		{
+			Log.Error($"ShaftChunksActivator error: Missing material references for {chunkController.Name}");
+			return;
+		}
+
+		chunkMMMaterial.SetShaderParameter("albedo_color", _albedoColor);
+		chunkMMMaterial.SetShaderParameter("alpha", _intialAlpha);
+		chunkMMMaterial.SetShaderParameter("rim_power", _rimPower);
+		chunkMMMaterial.SetShaderParameter("speed", _animationSpeed);
+		chunkMMMaterial.SetShaderParameter("uv1_offset", _uvOffset);
+		chunkMMMaterial.SetShaderParameter("fadeout_start_point", _fadeOutStartPoint);
+		chunkMMMaterial.SetShaderParameter("random_gradient", _useRandomGradient);
+
+		// [Export] private float _intialAlpha { get; set; } = 1.0f;
+		// [Export] private float _rimPower { get; set; } = 3.0f;
+		// [Export] private float _animationSpeed { get; set; } = 1.0f;
+		// [Export] private Vector2 _uvOffset { get; set; } = new Vector2(0.0f, 0.0f);
+		// [Export] private float _fadeOutStartPoint { get; set; } = 0.95f;
+		// [Export] private bool _useRandomGradient { get; set; } = true;
+
 	}
+
 
 	private Basis GetLight3DRotation()
 	{
