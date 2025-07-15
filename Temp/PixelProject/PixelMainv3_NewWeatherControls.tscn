@@ -102,7 +102,7 @@ subdivide_width = 50
 subdivide_depth = 50
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_38jjr"]
-viewport_path = NodePath("MainSubViewport/WaterToon/@SubViewport@368648")
+viewport_path = NodePath("MainSubViewport/WaterToon/@SubViewport@33654")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4hqal"]
 render_priority = 0
@@ -1179,7 +1179,7 @@ shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
-[sub_resource type="Resource" id="Resource_a5jl2"]
+[sub_resource type="Resource" id="Resource_4ptn6"]
 script = ExtResource("28_fx1qu")
 amount = 50000
 enabled = true
@@ -1188,7 +1188,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_005by"]
+[sub_resource type="Resource" id="Resource_ts2wb"]
 script = ExtResource("31_uciq2")
 ray_direction = Vector3(0, 0, -1)
 ray_length = 5.0
@@ -1204,7 +1204,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_nnls0"]
+[sub_resource type="Resource" id="Resource_kjonl"]
 script = ExtResource("30_yx5a4")
 position = Vector3(0.02, 0.05, 0.01)
 rotation = Vector3(0, 0, 0)
@@ -1215,9 +1215,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_yx5a4"]
+[sub_resource type="Resource" id="Resource_7bgtq"]
 script = ExtResource("26_a5jl2")
-stack = Array[ExtResource("27_005by")]([SubResource("Resource_a5jl2"), SubResource("Resource_005by"), SubResource("Resource_nnls0")])
+stack = Array[ExtResource("27_005by")]([SubResource("Resource_4ptn6"), SubResource("Resource_ts2wb"), SubResource("Resource_kjonl")])
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k4f17"]
 load_path = "res://.godot/imported/Grass_3.png-6711f90f42818dba951396c8414e2150.ctex"
@@ -2839,12 +2839,11 @@ environment = SubResource("Environment_pjemg")
 
 [node name="MainSubViewport" type="SubViewport" parent="."]
 handle_input_locally = false
-size = Vector2i(640, 360)
+size = Vector2i(960, 540)
 render_target_update_mode = 4
 
-[node name="Fox" parent="MainSubViewport" node_paths=PackedStringArray("_charStateDebug") instance=ExtResource("4_38jjr")]
+[node name="Fox" parent="MainSubViewport" instance=ExtResource("4_38jjr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-_charStateDebug = NodePath("../../DebugPanelLayer/DebugPanel/HBoxContainer/CharState")
 
 [node name="WaterToon" type="PlanarReflectorCPP" parent="MainSubViewport" node_paths=PackedStringArray("main_camera")]
 main_camera = NodePath("../CameraRigYaw/MainCamera3D")
@@ -3063,7 +3062,7 @@ process_mode = 3
 transform = Transform3D(1, -4.22006e-09, -3.95812e-09, -1.3737e-08, 1, 0, -1.62981e-09, -2.98023e-08, 1, -0.0580969, 1.08615, -0.282159)
 script = ExtResource("25_38jjr")
 dbg_disable_thread = true
-modifier_stack = SubResource("Resource_yx5a4")
+modifier_stack = SubResource("Resource_7bgtq")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -3369,13 +3368,13 @@ _secondRenderSprite = NodePath("ShaftRender")
 texture_filter = 2
 material = SubResource("ShaderMaterial_ro3v6")
 position = Vector2(-0.985153, 3.95636)
-scale = Vector2(2.95084, 2.94254)
+scale = Vector2(2.94776, 2.94254)
 texture = SubResource("ViewportTexture_gjs8b")
 centered = false
 
 [node name="ShaftRender" type="Sprite2D" parent="Display"]
 texture_filter = 2
 position = Vector2(-11.8218, -6.92363)
-scale = Vector2(1.00055, 1.001)
+scale = Vector2(0.985667, 0.998249)
 texture = SubResource("ViewportTexture_kphyu")
 centered = false

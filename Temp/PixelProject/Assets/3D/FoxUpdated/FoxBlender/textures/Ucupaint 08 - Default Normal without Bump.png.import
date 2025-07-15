@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3m1diiy4qcyu"
-path="res://.godot/imported/T_Fox_BC.png-fcae0e7ec870a90249b376910f1271d0.ctex"
+uid="uid://0al4eers7l20"
+path="res://.godot/imported/Ucupaint 08 - Default Normal without Bump.png-ce018e87674edb5cc962d4d535da8839.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Temp/PixelProject/Assets/3D/FoxUpdated/textures/T_Fox_BC.png"
-dest_files=["res://.godot/imported/T_Fox_BC.png-fcae0e7ec870a90249b376910f1271d0.ctex"]
+source_file="res://Temp/PixelProject/Assets/3D/FoxUpdated/FoxBlender/textures/Ucupaint 08 - Default Normal without Bump.png"
+dest_files=["res://.godot/imported/Ucupaint 08 - Default Normal without Bump.png-ce018e87674edb5cc962d4d535da8839.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
