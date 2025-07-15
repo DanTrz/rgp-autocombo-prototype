@@ -1,0 +1,82 @@
+[33m175ee5d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mBackupWorkingVesion[m[33m)[m Updates
+[33m1f823c3[m Updated FOX for toon like texture
+[33m789fda8[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Added fox for Demo SCene
+[33m1b94cf2[m Added: Foliage Shader option with cull_disable to show in the Planar Reflection (Only for Trees)
+[33ma379860[m Initial Demo Scene being created
+[33m31319e0[m Small Refactor of ShafChunkMMController
+[33m3d5a839[m Fixed: Light Shafts going in the LightDirection3D working
+[33m40cbf90[m Issues with Shaft Instance rotation on Lightdiretion rotation
+[33m6acc4d2[m Stable Weather with: Cloud, Water, Lights, Reflection (Good First Version)
+[33m3e04c5c[m Feature: Godray shafts as separate Subviewport working (BETA) + Updates to Alpha/Color control within MultiMesh
+[33m97188ff[m Commit before Shaft New HR SubViewport changes
+[33m72fe349[m Updated to ShaftChunkMMCOntroller and Spawner Refactor
+[33mdff1f60[m Fix: Small changes to new ShaftChunkMMController
+[33m369bde4[m First version of new ShaftChunkMMController without Area3D
+[33m4c2808e[m Commit: Ahead of Godray refactor of ShaftChunkController
+[33m1ff3c2b[m Updated some shaders to work better together
+[33mdbc5db1[m Commit
+[33mab67972[m Commit file organization
+[33m3fe9791[m Good cloud foliage version with animation and better colors
+[33m8d9b804[m Updated Foliage shader with Clouds adding back animations but weird colors.
+[33mee55410[m Fix to change Logger Class. Seems resolved issue with Reloading ASsemblies.
+[33m3d5f4a7[m Logger and ASsembly issues problems. Commit before changing Logger
+[33m66df587[m Good CLoud Shadow COntrol manager and Shaders (working with Scale and Animation)
+[33m9fcf606[m Clean Cloud Manager and System using StandardMaterial3D but with Scaling issues.
+[33m0bdb10d[m Cloud Shadow and Global Shadow Baseline Version (good for fallback)
+[33mc11a0f3[m Trying to make Gloval Shadows and Cloud texture shadows work together
+[33m6a77230[m Trying Cloud Approach with Global Uniforms
+[33mf5fec4d[m New Toon Outline shader for Underwater + new WATER SHADERS
+[33md7891e8[m New WaterShader for Planar reflector (v01 beta) more work needed. But good stable version
+[33m2a63557[m Commit before new water shader
+[33mf2874bd[m Update
+[33m2e3ac9b[m Added random witdht for ray controllers and scale
+[33mb4d0403[m Fix for the latest InstanceRotation Fix
+[33maa0f9e4[m Small fix for instance rotation on Ligth Shafts
+[33m8f3a3d9[m Commit updated code
+[33mb100334[m Added : Shaft Fade in and Fade out based on camera distance
+[33m78e690f[m Starting Chunk Management to Activate and Deactive them
+[33m5c2fe8e[m Camera fixes attempts - Light shaft issue of it being cut off, fading out when camera intersects still present And Godot crashing
+[33m79d3ca7[m Backup Commit: Saves before doing "Chunk" and Regions for Light Shaft Spawner
+[33mfe1a63e[m Updated MultiMesh Controller for Light Shaft to better handle Global vs Local Position
+[33m7411be6[m Initial working version with "MultiMesh" and Custom_data passed via Shader
+[33m0cf2bea[m Prototype for MultiMeshInstance3D with LightShaft + VAST IMPROVEMENTS TO LIGHT SHAFT SHADER
+[33m83972f9[m stuff
+[33m6d0e832[m Latest COde before new try with approach for Dual Depth Comparison
+[33m6f913ce[m Update: Separation logic for PlanarRefector script vs Shader improvements
+[33m89a3d6c[m Planar Reflection - Shader and GdScript logic more clear separated
+[33mf6c1a80[m Cleaned up PlanarReflectorOrtho - Good version with Offset Controls working
+[33m7c2a834[m Commit before Enhancements to Reflection OffsetPosition
+[33md028920[m Updated to Planar Shader and GdScript
+[33mdbab980[m Updates to Planar Reflection
+[33me24c1a5[m Solid Planar Reflection version
+[33mb5c8108[m Commit
+[33m16b3f15[m Commit - New Sprite2 Rendering Controls with Shadow
+[33m5172331[m Weird Jitter version
+[33me71e291[m WATER SHADER V2 - Much iimproved version and new Color Palette
+[33m9f6d27f[m Commit -Color Platette
+[33m20820a6[m Initial Weather COntroller
+[33mbab5eaf[m commit weird screen padding
+[33m20a490c[m Added : Dissolve shader to control clouds dissolving
+[33m29196f0[m New particule emitter with shading
+[33mb72a499[m Commit
+[33m6dded6e[m Feature: Added more Variations for God Ray Shaders
+[33m20c5a65[m[33m ([m[1;31morigin/OLD_BKUP[m[33m, [m[1;32mTEST_OLDER_BKUP[m[33m, [m[1;32mOLD_BKUP[m[33m)[m New Trees and Shader for TREE CANOPY
+[33m3e8f53d[m COmmit
+[33mdfc1cc2[m Updated textures
+[33m7649986[m FEATURE: Massive ToonShader Update
+[33m9f0b562[m Grass animation shader update + imported a log of 64 textures
+[33m43f6385[m Terrain3d Good POC version
+[33mc902692[m Added simple debugger and updates StateMachine
+[33mde5dc9b[m Terrain3D test
+[33m0cd20ec[m Cleanup and Shader updates and files organization
+[33maef7a45[m Added: Basic Grass Animation
+[33m5f69024[m Fix: STABLE VERSION - Full CSharp code for camera and pixel perfect smoothness
+[33m7208e7d[m Working CSharpt PixelPerfect Snap logic (Camera and Display)
+[33m06c42c0[m Stuff
+[33m6701727[m Commit
+[33m7d58283[m Tests
+[33m2847d61[m Updated
+[33m8470aa1[m Updated ComboManager => Using TUPLEs instead of Dictonaries for fake SkillCombo List
+[33md38acbc[m ComboManager Created and working for Prototype
+[33m5102a12[m commit
+[33ma7a39e1[m 1ST Commite
