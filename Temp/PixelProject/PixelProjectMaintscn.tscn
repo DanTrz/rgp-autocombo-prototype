@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="1_3re8p"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="1_28obu"]
-[ext_resource type="Script" uid="uid://buk1mdie3b2om" path="res://Temp/PixelProject/WeatherController.cs" id="1_40g6u"]
+[ext_resource type="Script" uid="uid://buk1mdie3b2om" path="res://Temp/PixelProject/WeatherControllerBKUP.cs" id="1_40g6u"]
 [ext_resource type="PackedScene" uid="uid://ctxbydiyp1okd" path="res://Temp/PixelProject/Assets/3D/lily_large_2.tscn" id="1_ehk3l"]
 [ext_resource type="Shader" uid="uid://md0oksqn1iqg" path="res://Temp/PixelProject/WaterShader.gdshader" id="1_kdpg5"]
 [ext_resource type="PackedScene" uid="uid://geceh0jd4ur7" path="res://Temp/PixelProject/GlobalDebuggerUI.tscn" id="1_r56na"]

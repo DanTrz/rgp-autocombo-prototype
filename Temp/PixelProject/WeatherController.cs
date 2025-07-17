@@ -1,295 +1,330 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Godot;
+
+[Tool]
 public partial class WeatherController : Node3D
 {
 
-	// [ExportToolButton("Start Cycle")]
-	// public Callable StartWeatherCycleBtn => Callable.From(StartWeatherStateCycle);
-
-	// [ExportToolButton("Reset Cycle")]
-	// public Callable ResetWeatherCycleBtn => Callable.From(ResetWeatherCycle);
 	[Export] private bool _isWeatherCycleActive { get; set; } = false;
-	[Export] private Node3D _lightDirectionNode { get; set; }
-	[Export] private DirectionalLight3D _dayLight { get; set; }
-	[Export] private DirectionalLight3D _nightLight { get; set; }
-	[Export] private MeshInstance3D _cloudsMesh { get; set; }
-	[Export] private Node3D _lightShafts { get; set; }
-	[Export] private string _initialState { get; set; }
-	[Export] private Timer _cycleDurationTimer { get; set; }
-
-	[Export] private Label _cycleState { get; set; }
-	[Export] private ProgressBar _cycleProgress { get; set; }
-
-	private bool _isDay = true;
-	public bool _isWetherCycleActive;
-
-	public bool _isLerping = false;
-	public float _lerpProgress = 0;
-	public float _lerpDuration = 0;
-
-	private ShaderMaterial _cloudsMaterial { get; set; }
-
-	public BaseWeatherState CurrentWeatherState { get; set; }
-	// public Dictionary<int, BaseWeatherState> WeatherStates = new()
-	// {
-	// 	{ 0, new SunriseState() },
-	// 	{ 1, new DayState() },
-	// 	{ 2, new SunsetState() },
-	// 	{ 3, new NightState() }
-	// };
-
-	public Dictionary<int, BaseWeatherState> WeatherStates = new()
+	[Export(PropertyHint.Range, "0.0,1.0,0.01")]
+	public float WeatherMasterValue
 	{
-		{ 0, new Sunrise() },
-		{ 1, new MiddayState() },
-		{ 2, new Daystate() },
-		{ 3, new SunsetState() },
-		{ 4, new NightState() },
-	};
+		get
+		{
+			return field;
+		}
+		set
+		{
+			field = value;
+			// if ((Engine.IsEditorHint() && !IsInsideTree())) return;
+			// // Callable.From(UpdateWeatherCycle).CallDeferred();
+			// UpdateWeatherCycle();
+		}
+	} = 0.65f;
 
-	//TODO:Steps to work on
-	//1. Create a logic to calculate % of time spent in each cycle (SunRise, Day, SunSet, Night)
-	//2. Future improvement, consider implementing a full state machine for the weather? ?//TODO 
-	//3. Implement Weather States as Resources???? (Not sure makes sense.)
+	private float _previousMaterValue = -0.1f;
+	[Export] private Camera3D _mainCamera { get; set; }
+
+	[ExportGroup("Shafts")]
+	[Export] private ShaftSpawner _shaftChunksSpawner { get; set; }
+	// private ShaftChunksSpawner _shaftChunksSpawner => field ?? GetNodeOrNull<ShaftChunksSpawner>("%ShaftChunksSpawner");
+	// private ShaftChunksSpawner _shaftChunksSpawner { get; set; }
+
+	[Export] private float _shaftAlphaMax { get; set; } = 0.8f;
+	[Export] private float _shaftAlphaMin { get; set; } = 0.0f;
+
+	//If WeatherMasterValue is Above this value we disable autoAlpha on shafts and set it manually on this script
+	[Export] private float _disableShaftAutoalphaThreshold { get; set; } = 0.8f;
+
+	[ExportGroup("Clouds")]
+	[Export] private CloudManager _cloudManager { get; set; }
+	[Export] private float _cloudAlphaScissorMax { get; set; } = 0.66f; //day
+	[Export] private float _cloudAlphaScissorMin { get; set; } = 0.4f; //nigh
+	[ExportGroup("Light")]
+	[Export] private DirectionalLight3D _directionalLight { get; set; }
+	[Export] private float _lightEnergyMax { get; set; } = 1.1f; //mid-day 
+	[Export] private float _lightEnergyMin { get; set; } = 0.9f; //night
+
+	[ExportGroup("Environment")]
+	[Export] private WorldEnvironment _worldEnvironment { get; set; }
+	[Export] private Color _fogAlbedoDay { get; set; } = new Color(1.0f, 1.0f, 0.6f); //day
+	[Export] private Color _fogAlbedoNight { get; set; } = new Color(0.34f, 0.41f, 0.43f); //night
+
+	[Export] private float _fogDensityMax { get; set; } = 0.005f; //day
+	[Export] private float _fogDensityMin { get; set; } = 0.01f; //night
+	[Export] private float _glowIntensityMax { get; set; } = 1.3f; //night
+	[Export] private float _glowIntensityMin { get; set; } = 1.0f; //day
+	[Export] private float _glowStrengthMax { get; set; } = 1.3f; //night
+	[Export] private float _glowStrengthMin { get; set; } = 0.8f; //day
+
+	private Label _cloudAlphaLbl => field ?? GetNodeOrNull<Label>("%AlphaScissorLbl");
+	private Label _directLightLbl => field ?? GetNodeOrNull<Label>("%SunLightLbl");
+
+	private Label _fogDensityLbl => field ?? GetNodeOrNull<Label>("%FogDensity");
+
+	private Label _glowIntensityLbl => field ?? GetNodeOrNull<Label>("%GlowIntensity");
+
+	private Label _glowStrenghtLbl => field ?? GetNodeOrNull<Label>("%GlowStrenght");
+
+
+
 
 	public override void _Ready()
 	{
-		if (Engine.IsEditorHint()) return;
-		_cycleDurationTimer.Timeout += CycleDurationTimerTimeout;
+		if (_shaftChunksSpawner == null) _shaftChunksSpawner = GetNodeOrNull<ShaftSpawner>("%ShaftChunksSpawner");
+		if (_cloudManager == null) _cloudManager = GetNodeOrNull<CloudManager>("%CloudManager");
+		if (_directionalLight == null) _directionalLight = GetNodeOrNull<DirectionalLight3D>("%DayLight");
+		if (_worldEnvironment == null) _worldEnvironment = GetNodeOrNull<WorldEnvironment>("%WorldEnvironment");
+		if (_mainCamera == null) _mainCamera = GetNodeOrNull<Camera3D>("%MainCamera3D");
 
-		CurrentWeatherState = WeatherStates[0];
-		if (_cloudsMesh.Mesh.SurfaceGetMaterial(0) is ShaderMaterial cloudsMaterial)
+
+		if (IsAnyReferenceNull().IsNull)
 		{
-			_cloudsMaterial = cloudsMaterial;
+			Log.Error($"ShaftChunksSpawner null reference {IsAnyReferenceNull().NullNodeName}");
+			return;
 		}
 
-		if (!_isWeatherCycleActive) return;
-		StartCycle(CurrentWeatherState);
-		_lightShafts.Visible = true;
-		// StartWeatherStateCycle();
+		Callable.From(UpdateWeatherCycle).CallDeferred();
 	}
 
-	#region  oldcode
-	// public void StartWeatherStateCycle()
-	// {
-	// 	StartAllShafts();
 
-	// 	// _isWetherCycleActive = true;
-	// 	// _dayNightCycleTimer.Timeout += DayNightCycleTimerTimeout;
-	// 	// _dayNightCycleTimer.Start();
-	// }
-
-	// private void StartAllShafts()
-	// {
-	// 	foreach (LightShaft shaft in _lightShafts.GetChildren())
-	// 	{
-	// 		shaft.StartExpandRadius = true;
-	// 	}
-	// }
-
-	// public void ResetWeatherCycle()
-	// {
-	// 	_dayLight.Position = new Vector3(0, 0, 0);
-	// 	_nightLight.Position = new Vector3(0, 0, 0);
-	// 	_lightShafts.Position = new Vector3(0, 0, 0);
-	// 	_cloudsMesh.Position = new Vector3(0, 0, 0);
-
-	// 	_dayLight.Rotation = new Vector3(Mathf.DegToRad(-90), 0, 0);
-	// 	_nightLight.Rotation = new Vector3(Mathf.DegToRad(-90), 0, 0);
-	// 	_lightShafts.Rotation = new Vector3(0, 0, 0);
-	// 	_cloudsMesh.Rotation = new Vector3(Mathf.DegToRad(-90), 0, 0);
-	// }
-
-	// private void DayNightCycleTimerTimeout()
-	// {
-
-	// }
-	#endregion oldcode
-
-	private void StartCycle(BaseWeatherState state)
+	/// <summary>
+	/// Returns a tuple with "isNull" and "nullNodeName" . Returns true if any reference is null, and the name of the null node
+	/// </summary>
+	private (bool IsNull, string NullNodeName) IsAnyReferenceNull()
 	{
-		_cycleDurationTimer.WaitTime = state.StateDuration;
-		_lerpProgress = 0;
-		_lerpDuration = state.StateDuration;
-		_isLerping = true;
-		_cycleDurationTimer.Start();
-		state.EnterState();
-	}
-
-	private void StateTransition(BaseWeatherState nextState)
-	{
-		if (CurrentWeatherState != nextState)
+		var nullChecks = new (object nodeReference, string nodeName)[]
 		{
+			(_shaftChunksSpawner, nameof(_shaftChunksSpawner)),
+			(_cloudManager, nameof(_cloudManager)),
+			(_directionalLight, nameof(_directionalLight)),
+			(_worldEnvironment, nameof(_worldEnvironment)),
+			(_mainCamera, nameof(_mainCamera))
+		};
 
-			CurrentWeatherState.ExitState();
-			CurrentWeatherState = nextState;
-			StartCycle(nextState);
-		}
-	}
-
-	private void CycleDurationTimerTimeout()
-	{
-		_cycleDurationTimer.Stop();
-		int currentStateKey = WeatherStates.FirstOrDefault(x => x.Value == CurrentWeatherState).Key;
-
-		int nextStateKey = currentStateKey + 1;
-
-		if (nextStateKey > WeatherStates.Count - 1)
+		foreach (var (nodeReference, nodeName) in nullChecks)
 		{
-			nextStateKey = 0;
+			if (nodeReference == null)
+				return (true, $"Reference '{nodeName}' is null.");
 		}
 
-		BaseWeatherState nextState = WeatherStates[nextStateKey]; ;
-		StateTransition(nextState);
+		return (false, "All reference nodes are valid.");
 	}
+
 
 	public override void _Process(double delta)
 	{
-		if (CurrentWeatherState == null || !_isWeatherCycleActive) return;
-		ManageState(CurrentWeatherState, (float)delta);
+		if (IsAnyReferenceNull().IsNull) return;
+		// Callable.From(UpdateWeatherCycle).CallDeferred();
 
-		//DEBUG CODE ONLY
-		_cycleState.Text = CurrentWeatherState.GetType().ToString();
-		_cycleProgress.Value = _cycleDurationTimer.TimeLeft / _cycleDurationTimer.WaitTime * 100;
+		if (WeatherMasterValue != _previousMaterValue)
+		{
+			_previousMaterValue = WeatherMasterValue;
+			UpdateWeatherCycle();
+		}
 	}
 
-	private void ManageState(BaseWeatherState state, float delta)
+	private void UpdateWeatherCycle()
 	{
-		if (_isLerping)
+		//TODO: Implement weather states, so we can blend values based on active state and others as part of "Base State"
+
+		if (_isWeatherCycleActive)
 		{
-			_lerpProgress += (float)delta;
-			float learpWeight = Mathf.Min(_lerpProgress / _lerpDuration, 1.0f);
-			//TODO: lerp the values// position.x = lerp(start_value, end_value, t)
+			//Set and update clouds
+			float alphaScissor = LerpRemap(WeatherMasterValue, 0.0f, 1.0f, _cloudAlphaScissorMin, _cloudAlphaScissorMax);
+			_cloudManager._alphaScissor = alphaScissor;
+			_cloudManager.UpdateCloudShadows();
 
-			var rotationX = Mathf.DegToRad(Mathf.Lerp(state.DirXRotationStart, state.DirXRotationEnd, learpWeight));
-			var rotationZ = Mathf.DegToRad(Mathf.Lerp(state.DirZRotationStart, state.DirZRotationEnd, learpWeight));
-			_lightDirectionNode.Rotation = new Vector3(rotationX, 0, rotationZ);
+			//Set and update lights
+			float lightEnergy = LerpRemap(WeatherMasterValue, 0.8f, 1.0f, _lightEnergyMin, _lightEnergyMax);
+			_directionalLight.LightEnergy = lightEnergy; //Blend only at certain WeatherMasterValue...
+
+			//Set and update envinronment
+			Color fogAlbedo = _fogAlbedoNight.Lerp(_fogAlbedoDay, WeatherMasterValue); //Night ONLY
+			float fogDensity = LerpRemap(WeatherMasterValue, 0.0f, 1.0f, _fogDensityMin, _fogDensityMax); //Night - DAY ONLY (no blend)
+			float glowIntensity = LerpRemap(WeatherMasterValue, 0.0f, 1.0f, _glowIntensityMin, _glowIntensityMax); //Night - DAY ONLY (no blend)
+			float glowStrength = LerpRemap(WeatherMasterValue, 0.0f, 1.0f, _glowStrengthMin, _glowStrengthMax); //Night - DAY ONLY (no blend)
+			_worldEnvironment.Environment.VolumetricFogAlbedo = fogAlbedo; //Night - DAY ONLY (no blend)
+			_worldEnvironment.Environment.VolumetricFogDensity = fogDensity; //Night - DAY ONLY (no blend)
+			_worldEnvironment.Environment.GlowIntensity = glowIntensity; //Night - DAY ONLY (no blend)
+			_worldEnvironment.Environment.GlowStrength = glowStrength; //Night - DAY ONLY (no blend)
 
 
-			var shaftAlphaValue = Mathf.Lerp(state.ShaftsAlphaValueStart, state.ShaftsAlphaValueEnd, learpWeight);
-			var shaftRadiusValue = Mathf.Lerp(state.ShaftsRadiusValueStart, state.ShaftsRadiusValueEnd, learpWeight);
-			GlobalEvents.WeatherEvents?.ShaftValueChanged?.Invoke(shaftAlphaValue, shaftRadiusValue);
-			Log.Debug($" Shaft Value: {shaftAlphaValue} // {shaftRadiusValue}");
+			if (WeatherMasterValue >= _disableShaftAutoalphaThreshold) // If the weather is close to max, we want to update shafts
+			{
+				FadeOutShaftMaterialAlpha();
+			}
+			else
+			{
+				EnableShaftMaterialAutoAlpha();
+			}
 
-			var cloudsValue = Mathf.Lerp(state.CloudsValueStart, state.CloudsValueEnd, learpWeight);
-			_cloudsMaterial.SetShaderParameter("dissolveSlider", cloudsValue);
+
+			// Log.Info($"""
+			// 				Weather Updated:
+			// 				Alpha Scissor: {alphaScissor}
+			// 				Fog Density: {fogDensity}
+			// 				Fog Albedo: {fogAlbedo}
+			// 				Light Energy: {lightEnergy}
+			// 				Glow Intensity: {glowIntensity}
+			// 				Glow Strength: {glowStrength}
+			// 				""");
+			_cloudAlphaLbl.Text = $"Cloud Alpha: {alphaScissor}";
+			_directLightLbl.Text = $"Light Energy: {lightEnergy}";
+			_fogDensityLbl.Text = $"Fog Density: {fogDensity}";
+			_glowStrenghtLbl.Text = $"Glow Strength: {glowStrength}";
+			_glowIntensityLbl.Text = $"Glow Intensity: {glowIntensity:F2}";
 
 		}
+	}
 
-		if (_lerpProgress >= _lerpDuration) _isLerping = false;
+	private void FadeOutShaftMaterialAlpha()
+	{
+		foreach (var node in _shaftChunksSpawner.GetChildren())
+		{
+			if (node is ShaftChunkMMController chunkController)
+			{
+				//get current alpha value from chunkController
+				ShaderMaterial chunkMMMaterial = chunkController.Multimesh.Mesh.SurfaceGetMaterial(0) as ShaderMaterial;
+				float currentAlpha = chunkController.GetMMShaftAlpha();       // chunkMMMaterial.GetShaderParameter("alpha").As<float>();
 
-		//LERP BETERRN THE VALUES FOR EACH USING THE STATEDURATION AS REFERENCE. 
+				//Set chunk to stop "AutoAlphaControls"
+				chunkController._autoAlphaControls = false; //Take over the alpha controls
+
+				//Calculate the new Alpha value as a Lerp from current alpha to zero (_shaftAlphaMin)
+				float shaftAlpha = LerpRemap(WeatherMasterValue, _disableShaftAutoalphaThreshold, 1.0f, currentAlpha, _shaftAlphaMin);
+
+				//Set the new alpha value to the chunkController shader
+				chunkController.SetMMShaftAlpha(shaftAlpha);
+			}
+		}
+	}
+
+	private void EnableShaftMaterialAutoAlpha()
+	{
+		Vector3 cameraPos = _mainCamera.GlobalTransform.Origin;
+		foreach (var node in _shaftChunksSpawner.GetChildren())
+		{
+			if (node is ShaftChunkMMController chunkController)
+			{
+				if (chunkController._autoAlphaControls == true) continue;
+
+				chunkController._autoAlphaControls = true; //Enable the auto alpha controls
+
+				float currentCamDistance = cameraPos.DistanceTo(chunkController._collisionShape.GlobalTransform.Origin);
+				chunkController.AutoUpdateInstanceAlpha(currentCamDistance); //Set the alpha to previous state before auto alpha controls were disabled
+			}
+
+		}
+	}
+
+
+	// TODO: REFACTOR THESE UTLIL FUNCTIONS TO A SEPARATE CLASS or extend MATHF classes
+
+	/// <summary>
+	/// Returns an output value by Linear interpolation between two input ranges.
+	/// </summary>
+	/// <param name="inputValue">The value to be monitored and checked against the input range (inputMin → inputMax).</param>
+	/// <param name="inputMin">The minimum value of the input range to affect the output.</param>
+	/// <param name="inputMin">The minimum value of the input range to affect the output.</param>
+	/// <param name="outputMin">The min value of the output range when inputValue = inputMin.</param>
+	/// <param name="outputMax">The max value of the output range when inputValue = inputMax.</param>
+	public float LerpRemap(float inputValue, float inputMin, float inputMax, float outputMin, float outputMax)
+	{
+		var result = Mathf.InverseLerp(inputMin, inputMax, inputValue);
+		return Mathf.Lerp(outputMin, outputMax, result);
+	}
+
+	/// <summary>
+	/// Performs a Triangle distribution ( 0 → 1 → 0) with Custom peak (outputMin → outputMax → outputMin).
+	/// Linear triangle interpolation over a given input range, where the output value increases from outputMin to outputMax as the input rises from 
+	/// inputMin to peak. Then it decreases back to outputMin as the input moves from peak to inputMax.
+	/// </summary>
+	/// <param name="inputValue">The value to be monitored and checked against the input range.</param>
+	/// <param name="inputMin">The minimum value of the input range to affect the output.</param>
+	/// <param name="peak">The input value at which the output reaches its maximum (forming the peak of the triangle).</param>
+	/// <param name="inputMin">The minimum value of the input range to affect the output.</param>
+	/// <param name="outputMin">The min output value on "either sides" of the peak (used at the base of the triangle).</param>
+	/// <param name="outputMax">The max output value when inputValue = peak (used at the Top of the triangle).</param>
+	/// <returns>Value from the Triangle distribution: (outputMin → outputMax → outputMin) </returns>
+	public float LerpTriangularRemap(float inputValue, float inputMin, float peak, float inputMax, float outputMin, float outputMax)
+	{
+		if (inputValue <= peak)
+		{
+			float result = Mathf.InverseLerp(inputMin, peak, inputValue);
+			return Mathf.Lerp(outputMin, outputMax, result);
+		}
+		else
+		{
+			float result = Mathf.InverseLerp(peak, inputMax, inputValue);
+			return Mathf.Lerp(outputMax, outputMin, result);
+		}
+	}
+
+
+	/// <summary>
+	/// Calculates a weight using a triangular distribution with a custom peak. 
+	/// The output is 0 at the min/max bounds and linearly interpolates to 1 at the peak.
+	/// </summary>
+	/// <param name="value">The input value to check.</param>
+	/// <param name="min">The lower bound of the range, where the weight is 0.</param>
+	/// <param name="max">The upper bound of the range, where the weight is 0.</param>
+	/// <param name="peak">The point between min and max where the weight is 1.</param>
+	/// <returns>A weight from 0.0 to 1.0.</returns>
+	public static float GetTriangularWeight(float value, float min, float max, float peak)
+	{
+		// Ensure the value is within the [min, max] range and parameters are valid.
+		if (value < min || value > max || min >= max || peak < min || peak > max)
+		{
+			return 0f;
+		}
+
+		// Calculate weight on the ascending slope (from min to peak)
+		if (value <= peak)
+		{
+			float denominator = peak - min;
+			// Avoid division by zero if the range has no width
+			if (Mathf.IsZeroApprox(denominator))
+			{
+				return 1f; // At the peak, so weight is 1
+			}
+			return (value - min) / denominator;
+		}
+		// Calculate weight on the descending slope (from peak to max)
+		else
+		{
+			float denominator = max - peak;
+			// Avoid division by zero if the range has no width
+			if (Mathf.IsZeroApprox(denominator))
+			{
+				return 1f; // At the peak, so weight is 1
+			}
+			return (max - value) / denominator;
+		}
+	}
+
+	/// <summary>
+	/// Calculates a weight using a symmetrical triangular distribution.
+	/// The output is 0 at the min/max bounds and 1 at the exact center.
+	/// </summary>
+	/// <param name="value">The input value to check.</param>
+	/// <param name="min">The lower bound of the range.</param>
+	/// <param name="max">The upper bound of the range.</param>
+	/// <returns>A weight from 0.0 to 1.0.</returns>
+	public static float GetTriangularWeight(float value, float min, float max)
+	{
+		if (min >= max) return 0f;
+
+		float mid = min + (max - min) * 0.5f;
+		float halfWidth = mid - min;
+
+		// Calculate weight, where 1 is at the mid-point and 0 is at the edges
+		float weight = 1.0f - Mathf.Abs((value - mid) / halfWidth);
+
+		// Clamp the result to ensure it's always within the [0, 1] range
+		return Mathf.Clamp(weight, 0f, 1f);
 	}
 }
 
 
-public abstract record BaseWeatherState
-{
-	public abstract float StateDuration { get; set; }
-	public abstract float DirXRotationStart { get; set; }
-	public abstract float DirXRotationEnd { get; set; }
-	public abstract float DirZRotationStart { get; set; }
-	public abstract float DirZRotationEnd { get; set; }
-	public abstract float ShaftsAlphaValueStart { get; set; }
-	public abstract float ShaftsAlphaValueEnd { get; set; }
-
-	public abstract float ShaftsRadiusValueStart { get; set; }
-	public abstract float ShaftsRadiusValueEnd { get; set; }
-	public abstract float CloudsValueStart { get; set; }
-	public abstract float CloudsValueEnd { get; set; }
-
-
-	public virtual void EnterState() { }// Make this abstract or virtual later.
-	public virtual void ExitState() { }
-}
-
-
-
-public record Sunrise : BaseWeatherState
-{
-	public override float StateDuration { get; set; } = 5.0f;
-	public override float DirXRotationStart { get; set; } = 20.0f;
-	public override float DirXRotationEnd { get; set; } = 5.0f;
-	public override float DirZRotationStart { get; set; } = 30.0f;
-	public override float DirZRotationEnd { get; set; } = 5.0f;
-	public override float ShaftsAlphaValueStart { get; set; } = 0.1f;
-	public override float ShaftsAlphaValueEnd { get; set; } = 0.4f;
-	public override float ShaftsRadiusValueStart { get; set; } = 0.8f;
-	public override float ShaftsRadiusValueEnd { get; set; } = 3.5f;
-	public override float CloudsValueStart { get; set; } = 0.35f;
-	public override float CloudsValueEnd { get; set; } = 0.85f;
-}
-
-public record MiddayState : BaseWeatherState
-{
-	public override float StateDuration { get; set; } = 5.0f;
-	public override float DirXRotationStart { get; set; } = 4.9f;
-	public override float DirXRotationEnd { get; set; } = -12.0f;
-	public override float DirZRotationStart { get; set; } = 4.9f;
-	public override float DirZRotationEnd { get; set; } = -15.0f;
-	public override float ShaftsAlphaValueStart { get; set; } = 0.3f;
-	public override float ShaftsAlphaValueEnd { get; set; } = 0.05f;
-	public override float ShaftsRadiusValueStart { get; set; } = 3.4f;
-	public override float ShaftsRadiusValueEnd { get; set; } = 1.5f;
-	public override float CloudsValueStart { get; set; } = 0.86f;
-	public override float CloudsValueEnd { get; set; } = 1.0f;
-}
-
-public record Daystate : BaseWeatherState
-{
-	public override float StateDuration { get; set; } = 10.0f;
-	public override float DirXRotationStart { get; set; } = -12.0f;
-	public override float DirXRotationEnd { get; set; } = -20.0f;
-	public override float DirZRotationStart { get; set; } = -15.0f;
-	public override float DirZRotationEnd { get; set; } = -22.0f;
-	public override float ShaftsAlphaValueStart { get; set; } = 0.05f;
-	public override float ShaftsAlphaValueEnd { get; set; } = 0.05f;
-	public override float ShaftsRadiusValueStart { get; set; } = 1.5f;
-	public override float ShaftsRadiusValueEnd { get; set; } = 0.5f;
-	public override float CloudsValueStart { get; set; } = 1.0f;
-	public override float CloudsValueEnd { get; set; } = 0.9f;
-}
-
-public record SunsetState : BaseWeatherState
-{
-	public override float StateDuration { get; set; } = 5.0f;
-	public override float DirXRotationStart { get; set; } = -20.0f;
-	public override float DirXRotationEnd { get; set; } = -25.0f;
-	public override float DirZRotationStart { get; set; } = -22.0f;
-	public override float DirZRotationEnd { get; set; } = -30.0f;
-	public override float ShaftsAlphaValueStart { get; set; } = 0.15f;
-	public override float ShaftsAlphaValueEnd { get; set; } = 0.0f;
-	public override float ShaftsRadiusValueStart { get; set; } = 1.0f;
-	public override float ShaftsRadiusValueEnd { get; set; } = 0.0f;
-	public override float CloudsValueStart { get; set; } = 0.89f;
-	public override float CloudsValueEnd { get; set; } = 0.0f;
-}
-
-public record NightState : BaseWeatherState
-{
-	public override float StateDuration { get; set; } = 2.0f;
-	public override float DirXRotationStart { get; set; } = 30.0f;
-	public override float DirXRotationEnd { get; set; } = 30.0f;
-	public override float DirZRotationStart { get; set; } = 40.0f;
-	public override float DirZRotationEnd { get; set; } = 40.0f;
-	public override float ShaftsAlphaValueStart { get; set; } = 0.0f;
-	public override float ShaftsAlphaValueEnd { get; set; } = 0.0f;
-	public override float ShaftsRadiusValueStart { get; set; } = 0.0f;
-	public override float ShaftsRadiusValueEnd { get; set; } = 0.0f;
-	public override float CloudsValueStart { get; set; } = 0.0f;
-	public override float CloudsValueEnd { get; set; } = 0.0f;
-}
-
-
-// public class SunsetState : BaseWeatherState
-// {
-// 	public override float StateDuration { get; set; } = 2.0f;
-// }
-
-// public class SunriseState : BaseWeatherState
-// {
-// 	public override float StateDuration { get; set; } = 2.0f;
-// }w

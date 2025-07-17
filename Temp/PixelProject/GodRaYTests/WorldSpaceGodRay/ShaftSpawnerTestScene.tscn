@@ -202,7 +202,7 @@ public partial class ShaftChunksSpawner2 : Node3D
 	}
 }"
 
-[sub_resource type="Shader" id="Shader_gb41b"]
+[sub_resource type="Shader" id="Shader_1v7uf"]
 resource_local_to_scene = true
 code = "shader_type spatial;
 render_mode blend_add, depth_draw_opaque, cull_back, diffuse_toon, specular_toon;
@@ -480,7 +480,7 @@ gradient = SubResource("Gradient_brkdl")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ofadk"]
 resource_local_to_scene = true
 render_priority = 0
-shader = SubResource("Shader_gb41b")
+shader = SubResource("Shader_1v7uf")
 shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
 shader_parameter/texture_albedo = SubResource("GradientTexture1D_ofadk")
 shader_parameter/brightness = 1.0
@@ -527,7 +527,7 @@ mesh = SubResource("CylinderMesh_usnyq")
 [sub_resource type="BoxShape3D" id="BoxShape3D_1t6qn"]
 size = Vector3(33.9113, 0.1, 14.4612)
 
-[sub_resource type="Shader" id="Shader_lfdt2"]
+[sub_resource type="Shader" id="Shader_gb41b"]
 resource_local_to_scene = true
 code = "shader_type spatial;
 render_mode blend_add, depth_draw_opaque, cull_back, diffuse_toon, specular_toon;
@@ -772,7 +772,7 @@ gradient = SubResource("Gradient_x5wsi")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1bdby"]
 resource_local_to_scene = true
 render_priority = 0
-shader = SubResource("Shader_lfdt2")
+shader = SubResource("Shader_gb41b")
 shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
 shader_parameter/texture_albedo = SubResource("GradientTexture1D_ofadk")
 shader_parameter/brightness = 1.0
@@ -816,7 +816,7 @@ use_colors = true
 use_custom_data = true
 mesh = SubResource("CylinderMesh_pjdk5")
 
-[sub_resource type="Shader" id="Shader_vti57"]
+[sub_resource type="Shader" id="Shader_lfdt2"]
 resource_local_to_scene = true
 code = "shader_type spatial;
 render_mode blend_add, depth_draw_opaque, cull_back, diffuse_toon, specular_toon;
@@ -1061,7 +1061,7 @@ gradient = SubResource("Gradient_x5wsi")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xxt2h"]
 resource_local_to_scene = true
 render_priority = 0
-shader = SubResource("Shader_vti57")
+shader = SubResource("Shader_lfdt2")
 shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
 shader_parameter/texture_albedo = SubResource("GradientTexture1D_ofadk")
 shader_parameter/brightness = 1.0
