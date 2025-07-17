@@ -154,16 +154,16 @@ public partial class CloudManager : MeshInstance3D
 			RenderingServer.GlobalShaderParameterSet("enable_directional_shadows", enableDirectionalShadows);
 			RenderingServer.GlobalShaderParameterSet("cloud_mesh_y", meshWorldPosition.Y);
 
-			Log.Debug("Cloud shadows updated!");
-			Log.Info($"Mesh World Position: {meshWorldPosition}");
-			Log.Debug($"Plane Size: {meshSize}");
-			Log.Debug($"Area Size: {autoAreaSize}");
-			Log.Debug($"Texture Scale: {cloudTextureScale}");
-			Log.Debug($"Is Moving: {isMoving}");
-			Log.Debug($"Move Speed: {moveDirection}");
-			Log.Debug($"Speed Multiplier: {moveSpeedMultiplier}");
-			Log.Debug($"Light Direction: {lightDirection}");
-			Log.Debug($"Directional Shadows: {enableDirectionalShadows}");
+			// Log.Debug("Cloud shadows updated!");
+			// Log.Info($"Mesh World Position: {meshWorldPosition}");
+			// Log.Debug($"Plane Size: {meshSize}");
+			// Log.Debug($"Area Size: {autoAreaSize}");
+			// Log.Debug($"Texture Scale: {cloudTextureScale}");
+			// Log.Debug($"Is Moving: {isMoving}");
+			// Log.Debug($"Move Speed: {moveDirection}");
+			// Log.Debug($"Speed Multiplier: {moveSpeedMultiplier}");
+			// Log.Debug($"Light Direction: {lightDirection}");
+			// Log.Debug($"Directional Shadows: {enableDirectionalShadows}");
 		}
 		catch (System.Exception e)
 		{

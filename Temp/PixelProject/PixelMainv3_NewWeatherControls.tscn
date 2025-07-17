@@ -40,7 +40,7 @@
 [ext_resource type="Script" uid="uid://yjm4m5smpqel" path="res://addons/proton_scatter/src/scatter_item.gd" id="32_suci3"]
 [ext_resource type="Script" uid="uid://ch5pxcue78c2l" path="res://addons/proton_scatter/src/scatter_shape.gd" id="33_6uua0"]
 [ext_resource type="Script" uid="uid://cog7ot0hv1bnj" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="34_4ptn6"]
-[ext_resource type="Script" uid="uid://bb02twtn1odyj" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/ShaftChunksSpawner.cs" id="36_a5jl2"]
+[ext_resource type="Script" uid="uid://ceoavjyc7sxmo" path="res://Temp/PixelProject/ShaftSpawner.cs" id="37_a5jl2"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ntwum"]
 size = Vector2(500, 500)
@@ -64,7 +64,7 @@ noise = SubResource("FastNoiseLite_a4ruw")
 render_priority = 0
 shader = ExtResource("1_bnugo")
 shader_parameter/cloud_texture = SubResource("NoiseTexture2D_f2e7b")
-shader_parameter/cloud_alpha_scissor_threshold = 0.71
+shader_parameter/cloud_alpha_scissor_threshold = 0.619
 shader_parameter/cloud_color = Color(1, 1, 1, 1)
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 0.5
@@ -88,14 +88,14 @@ tonemap_mode = 3
 ssao_enabled = true
 ssil_enabled = true
 glow_enabled = true
-glow_intensity = 1.3
-glow_strength = 1.3
+glow_intensity = 1.195
+glow_strength = 1.125
 fog_light_color = Color(0.908319, 0.924352, 0.652721, 1)
 fog_light_energy = 0.05
 fog_density = 0.005
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.005
-volumetric_fog_albedo = Color(1, 1, 0.6, 1)
+volumetric_fog_density = 0.00675
+volumetric_fog_albedo = Color(0.769, 0.7935, 0.5405, 1)
 volumetric_fog_length = 32.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_qodvv"]
@@ -104,7 +104,7 @@ subdivide_width = 50
 subdivide_depth = 50
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_a5jl2"]
-viewport_path = NodePath("MainSubViewport/WaterToon/@SubViewport@58699")
+viewport_path = NodePath("MainSubViewport/WaterToon/@SubViewport@82020")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4hqal"]
 render_priority = 0
@@ -2536,31 +2536,33 @@ layout_mode = 2
 [node name="AlphaScissorLbl" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/WeatherBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "A"
+text = "Cloud Alpha: 0.569"
 
 [node name="SunLightLbl" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/WeatherBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "B"
+text = "Light Energy: 0.7499999"
 
 [node name="FogDensity" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/WeatherBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "C"
+text = "Fog Density: 0.0067499997"
 
 [node name="GlowIntensity" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/WeatherBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "D"
+text = "Glow Intensity: 1.19"
 
 [node name="GlowStrenght" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/WeatherBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "E"
+text = "Glow Strength: 1.125"
 
-[node name="WeatherControllerUpdated" type="Node3D" parent="." node_paths=PackedStringArray("_cloudManager", "_directionalLight", "_worldEnvironment")]
+[node name="WeatherControllerUpdated" type="Node3D" parent="." node_paths=PackedStringArray("_mainCamera", "_shaftChunksSpawner", "_cloudManager", "_directionalLight", "_worldEnvironment")]
 script = ExtResource("2_a5jl2")
 _isWeatherCycleActive = true
+_mainCamera = NodePath("../MainSubViewport/CameraRigYaw/MainCamera3D")
+_shaftChunksSpawner = NodePath("../ShaftsViewPort/ShaftSpawner")
 _cloudManager = NodePath("CloudManager")
 _directionalLight = NodePath("DayLight")
 _worldEnvironment = NodePath("WorldEnvironment")
@@ -2574,7 +2576,7 @@ mesh = SubResource("PlaneMesh_ntwum")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_ed8f5")
 script = ExtResource("2_eb58x")
-_alphaScissor = 0.66
+_alphaScissor = 0.569
 cloudTextureScale = 2.0
 moveDirection = Vector2(0.901609, 0.432553)
 moveSpeedMultiplier = 0.01
@@ -2589,7 +2591,7 @@ environment = SubResource("Environment_pjemg")
 unique_name_in_owner = true
 transform = Transform3D(0.770746, 0.456309, -0.444671, 0.179378, 0.514278, 0.838655, 0.61137, -0.726154, 0.314526, 0, 6.95719, 0)
 layers = 786433
-light_energy = 1.1
+light_energy = 0.75
 shadow_enabled = true
 shadow_blur = 0.2
 directional_shadow_mode = 0
@@ -2861,172 +2863,171 @@ far = 350.0
 script = ExtResource("20_kphyu")
 _mainCamera = NodePath("../../MainSubViewport/CameraRigYaw/MainCamera3D")
 
-[node name="ShaftChunksSpawner" type="Node3D" parent="ShaftsViewPort" node_paths=PackedStringArray("_mainCamera", "sunLight")]
+[node name="ShaftSpawner" type="Node3D" parent="ShaftsViewPort" node_paths=PackedStringArray("_mainCamera", "sunLight")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 55, 18.3454)
-script = ExtResource("36_a5jl2")
+script = ExtResource("37_a5jl2")
 _mainCamera = NodePath("../../MainSubViewport/CameraRigYaw/MainCamera3D")
 sunLight = NodePath("../../WeatherControllerUpdated/DayLight")
-_activationRange = Vector2(20, 200)
+_activationRange = Vector2(25, 200)
 _rotationType = 1
-_uvOffset = Vector2(0, 0.95)
 
-[node name="ShaftChunkMMController" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 multimesh = SubResource("MultiMesh_uciq2")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController2" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController2" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5791, 0, 0)
 multimesh = SubResource("MultiMesh_4ptn6")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController2"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController3" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController3" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.6298, 0, 0)
 multimesh = SubResource("MultiMesh_ve45t")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController3"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController4" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController4" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.494, 0, 0)
 multimesh = SubResource("MultiMesh_lsyl2")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController4"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController5" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController5" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.55, 0, 0)
 multimesh = SubResource("MultiMesh_m3ve4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController5"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController6" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController6" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -26.1261)
 multimesh = SubResource("MultiMesh_7h3v8")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController6"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController6"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController7" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController7" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5791, 0, -26.1261)
 multimesh = SubResource("MultiMesh_0gusv")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController7"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController7"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController8" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController8" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.6298, 0, -26.1261)
 multimesh = SubResource("MultiMesh_iuok7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController8"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController8"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController9" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController9" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.494, 0, -26.1261)
 multimesh = SubResource("MultiMesh_jcs3t")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController9"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController9"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController10" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController10" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.55, 0, -26.1261)
 multimesh = SubResource("MultiMesh_op0bc")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController10"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController10"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController11" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController11" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -52.8775)
 multimesh = SubResource("MultiMesh_l26kf")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController11"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController11"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController12" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController12" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5791, 0, -52.8775)
 multimesh = SubResource("MultiMesh_dorj8")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController12"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController12"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController13" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController13" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.6298, 0, -52.8775)
 multimesh = SubResource("MultiMesh_fuxqh")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController13"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController13"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController14" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController14" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.494, 0, -52.8775)
 multimesh = SubResource("MultiMesh_tk4hu")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController14"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController14"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController15" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController15" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.55, 0, -52.8775)
 multimesh = SubResource("MultiMesh_g5se4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController15"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController15"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController16" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController16" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -80.3521)
 multimesh = SubResource("MultiMesh_3fb23")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController16"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController16"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController17" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController17" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5791, 0, -80.3521)
 multimesh = SubResource("MultiMesh_ic87f")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController17"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController17"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController18" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController18" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.6298, 0, -80.3521)
 multimesh = SubResource("MultiMesh_osum3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController18"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController18"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController19" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController19" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.494, 0, -80.3521)
 multimesh = SubResource("MultiMesh_hrsj2")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController19"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController19"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 
-[node name="ShaftChunkMMController20" parent="ShaftsViewPort/ShaftChunksSpawner" instance=ExtResource("4_kphyu")]
+[node name="ShaftChunkMMController20" parent="ShaftsViewPort/ShaftSpawner" instance=ExtResource("4_kphyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.55, 0, -80.3521)
 multimesh = SubResource("MultiMesh_hrpyb")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftChunksSpawner/ShaftChunkMMController20"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftsViewPort/ShaftSpawner/ShaftChunkMMController20"]
 shape = SubResource("BoxShape3D_suci3")
 debug_color = Color(0.952941, 0, 0, 1)
 

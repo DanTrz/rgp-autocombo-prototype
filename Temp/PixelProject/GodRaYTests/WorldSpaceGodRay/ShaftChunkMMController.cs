@@ -46,7 +46,26 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 	private List<InstanceCollider> _instanceList { get; set; } = new(); //int=IntanceID /--/ InstanceCollider=InstanaceInfo
 	private bool _hasCollidersMissing = true;
 
-	public bool _autoAlphaControls { get; set; } = true;
+
+	//Defines if we will use "auto" alpha controls or not
+	public bool _autoAlphaControls
+	{
+		get => field;
+		set
+		{
+			field = value;
+			if (value == false)
+			{
+				//TRacks the last alpha value used for the shaft material before auto alpha controls were disabled
+				_lastShaftAlpha = GetMMShaftAlpha();
+			}
+		}
+	} = true;
+
+
+
+	public float _lastShaftAlpha { get; set; } = 0.4f; //Last alpha value used for the shaft material beofre auto alpha controls were diabled
+
 	public float DistanceToCamera { get; set; }
 	MultiMesh _multiMesh;
 
@@ -252,37 +271,29 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 			// Log.Debug($"Instance {i} set to GlobalPos {centerGlobalWorldPos}, LocalPos {newLocalPos}");
 		}
 	}
-	public void UpdateInstanceColors(float cameraDistance)
+	public void AutoUpdateInstanceAlpha(float cameraDistance)
 	{
+		if (!_autoAlphaControls) return;
 		//Lerp between Colors.White and Colors.Black based on cameraDistance and ActivationRangeMax and ActivationRangeMin.
 		//THis creates a fade-in and fade-out effect 
 		float min = ActivationRangeMin;
 		float max = ActivationRangeMax;
 		float mid = (min + max) * 0.5f;
 
-		//Max "brightness color" value is halfpoint within _activationRangeMin and _activationRangeMax
 		//Triangle distribution: 0 → 1 → 0
 		float weight = 1.0f - Mathf.Abs((cameraDistance - mid) / (mid - min));
 		weight = Mathf.Clamp(weight, 0f, 1f);
 
-		//Set new color (Use this when updating individual instances)
-		// Color fadeColor = Colors.Black.Lerp(Colors.White, weight);
-		// for (int i = 0; i < _multiMesh.InstanceCount; i++)
-		// {
-		// 	_multiMesh.SetInstanceColor(i, fadeColor);
-		// }
-
 		//Set new alpha (Use this when updating all instances- directly using the Shader inside the MultiMesh mesh)
 		float alpha = Mathf.Lerp(0.0f, 0.8f, weight); // LLerp(Colors.White, weight);
 
-		if (_autoAlphaControls)
-			UpdateMMMeshShaderAlpha(alpha);
+		SetMMShaftAlpha(alpha);
 
 		// if (this.Name == "ShaftChunkMMController")
 		// 	Log.Info($"UpdateAlpha {alpha}");
 	}
 
-	public void UpdateMMMeshShaderAlpha(float value)
+	public void SetMMShaftAlpha(float value)
 	{
 		var material = _multiMesh.Mesh.SurfaceGetMaterial(0);
 		if (material is ShaderMaterial shaderMaterial)
@@ -290,6 +301,19 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 			shaderMaterial.SetShaderParameter("alpha", value);
 		}
 	}
+
+	public float GetMMShaftAlpha()
+	{
+		var material = _multiMesh.Mesh.SurfaceGetMaterial(0);
+		if (material is ShaderMaterial shaderMaterial)
+		{
+			return shaderMaterial.GetShaderParameter("alpha").As<float>();
+		}
+		return 0.4f; // Default value if no material or shader parameter found
+	}
+
+
+
 
 	private void SetInstancesCollision()
 	{

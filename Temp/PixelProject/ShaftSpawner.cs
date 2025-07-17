@@ -1,7 +1,8 @@
 using System;
 using Godot;
 
-public partial class ShaftChunksSpawner : Node3D
+[Tool]
+public partial class ShaftSpawner : Node3D
 {
 
 	[ExportGroup("Mandatory Node References")]
@@ -49,6 +50,9 @@ public partial class ShaftChunksSpawner : Node3D
 
 	public override void _Ready()
 	{
+		if (Engine.IsEditorHint()) return;
+
+
 		if (_mainCamera == null)
 		{
 			Log.Error($"ShaftChunksActivator error: Missing references for {nameof(_mainCamera)}");
@@ -77,6 +81,8 @@ public partial class ShaftChunksSpawner : Node3D
 
 	private void ChunkInitialization()
 	{
+		if (Engine.IsEditorHint()) return;
+
 		foreach (ShaftChunkMMController chunkController in _chunksArray)
 		{
 			_chunkState[(ShaftChunkMMController)chunkController] = false; // assume all start inactive
@@ -110,6 +116,7 @@ public partial class ShaftChunksSpawner : Node3D
 
 	public override void _Process(double delta)
 	{
+		if (Engine.IsEditorHint()) return;
 		ManageChunks();
 	}
 
@@ -123,7 +130,7 @@ public partial class ShaftChunksSpawner : Node3D
 			if (chunkController.DistanceToCamera != currentCamDistance)//Camera moved, then update chunk parameters
 			{
 				chunkController.DistanceToCamera = currentCamDistance;
-				chunkController.UpdateInstanceColors(currentCamDistance);
+				chunkController.AutoUpdateInstanceAlpha(currentCamDistance);
 				chunkController.ActivationRangeMax = _activationRange.Y;
 				chunkController.ActivationRangeMin = _activationRange.X;
 				chunkController.LightRotation = GetLight3DRotation();

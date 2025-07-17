@@ -7,7 +7,7 @@ public partial class WeatherControllerUpdated : Node3D
 {
 
 	[Export] private bool _isWeatherCycleActive { get; set; } = false;
-	[Export(PropertyHint.Range, "0.0,1.0,0.05")]
+	[Export(PropertyHint.Range, "0.0,1.0,0.01")]
 	public float WeatherMasterValue
 	{
 		get
@@ -17,23 +17,25 @@ public partial class WeatherControllerUpdated : Node3D
 		set
 		{
 			field = value;
-			if ((Engine.IsEditorHint() && !IsInsideTree())) return;
-			// Callable.From(UpdateWeatherCycle).CallDeferred();
-			UpdateWeatherCycle();
+			// if ((Engine.IsEditorHint() && !IsInsideTree())) return;
+			// // Callable.From(UpdateWeatherCycle).CallDeferred();
+			// UpdateWeatherCycle();
 		}
 	} = 0.65f;
 
-	private bool _isReady = false;
+	private float _previousMaterValue = -0.1f;
+	[Export] private Camera3D _mainCamera { get; set; }
 
 	[ExportGroup("Shafts")]
-	// [Export] private ShaftChunksSpawner _shaftChunksSpawner { get; set; }
+	[Export] private ShaftSpawner _shaftChunksSpawner { get; set; }
 	// private ShaftChunksSpawner _shaftChunksSpawner => field ?? GetNodeOrNull<ShaftChunksSpawner>("%ShaftChunksSpawner");
-	private ShaftChunksSpawner _shaftChunksSpawner { get; set; }
-
-	// private ShaftChunksSpawner _shaftChunksSpawner => field ?? GlobalUtil.GetAllChildNodesByType<ShaftChunksSpawner>(this).FirstOrDefault();
+	// private ShaftChunksSpawner _shaftChunksSpawner { get; set; }
 
 	[Export] private float _shaftAlphaMax { get; set; } = 0.8f;
 	[Export] private float _shaftAlphaMin { get; set; } = 0.0f;
+
+	//If WeatherMasterValue is Above this value we disable autoAlpha on shafts and set it manually on this script
+	[Export] private float _disableShaftAutoalphaThreshold { get; set; } = 0.8f;
 
 	[ExportGroup("Clouds")]
 	[Export] private CloudManager _cloudManager { get; set; }
@@ -70,70 +72,94 @@ public partial class WeatherControllerUpdated : Node3D
 
 	public override void _Ready()
 	{
-		if (_shaftChunksSpawner == null) _shaftChunksSpawner = GetNodeOrNull<ShaftChunksSpawner>("%ShaftChunksSpawner");
+		if (_shaftChunksSpawner == null) _shaftChunksSpawner = GetNodeOrNull<ShaftSpawner>("%ShaftChunksSpawner");
 		if (_cloudManager == null) _cloudManager = GetNodeOrNull<CloudManager>("%CloudManager");
 		if (_directionalLight == null) _directionalLight = GetNodeOrNull<DirectionalLight3D>("%DayLight");
 		if (_worldEnvironment == null) _worldEnvironment = GetNodeOrNull<WorldEnvironment>("%WorldEnvironment");
+		if (_mainCamera == null) _mainCamera = GetNodeOrNull<Camera3D>("%MainCamera3D");
 
-		if (_shaftChunksSpawner == null || _cloudManager == null || _directionalLight == null || _worldEnvironment == null)
+
+		if (IsAnyReferenceNull().IsNull)
 		{
-			Log.Error("ShaftChunksSpawner reference nodes are not assigned or found in the scene.");
+			Log.Error($"ShaftChunksSpawner null reference {IsAnyReferenceNull().NullNodeName}");
 			return;
 		}
 
-		_isReady = true;
 		Callable.From(UpdateWeatherCycle).CallDeferred();
+	}
+
+
+	/// <summary>
+	/// Returns a tuple with "isNull" and "nullNodeName" . Returns true if any reference is null, and the name of the null node
+	/// </summary>
+	private (bool IsNull, string NullNodeName) IsAnyReferenceNull()
+	{
+		var nullChecks = new (object nodeReference, string nodeName)[]
+		{
+			(_shaftChunksSpawner, nameof(_shaftChunksSpawner)),
+			(_cloudManager, nameof(_cloudManager)),
+			(_directionalLight, nameof(_directionalLight)),
+			(_worldEnvironment, nameof(_worldEnvironment)),
+			(_mainCamera, nameof(_mainCamera))
+		};
+
+		foreach (var (nodeReference, nodeName) in nullChecks)
+		{
+			if (nodeReference == null)
+				return (true, $"Reference '{nodeName}' is null.");
+		}
+
+		return (false, "All reference nodes are valid.");
 	}
 
 
 	public override void _Process(double delta)
 	{
+		if (IsAnyReferenceNull().IsNull) return;
+		// Callable.From(UpdateWeatherCycle).CallDeferred();
 
+		if (WeatherMasterValue != _previousMaterValue)
+		{
+			_previousMaterValue = WeatherMasterValue;
+			UpdateWeatherCycle();
+		}
 	}
 
 	private void UpdateWeatherCycle()
 	{
-		if (!_isReady || !IsInsideTree()) return;
-
 		//TODO: Implement weather states, so we can blend values based on active state and others as part of "Base State"
 
 		if (_isWeatherCycleActive)
 		{
 			//Set and update clouds
-			float alphaScissor = LerpRemap(0.0f, 1.0f, _cloudAlphaScissorMin, _cloudAlphaScissorMax, WeatherMasterValue);
+			float alphaScissor = LerpRemap(WeatherMasterValue, 0.0f, 1.0f, _cloudAlphaScissorMin, _cloudAlphaScissorMax);
 			_cloudManager._alphaScissor = alphaScissor;
 			_cloudManager.UpdateCloudShadows();
 
 			//Set and update lights
-			float lightEnergy = LerpRemap(0.8f, 1.0f, _lightEnergyMin, _lightEnergyMax, WeatherMasterValue);
+			float lightEnergy = LerpRemap(WeatherMasterValue, 0.8f, 1.0f, _lightEnergyMin, _lightEnergyMax);
 			_directionalLight.LightEnergy = lightEnergy; //Blend only at certain WeatherMasterValue...
 
 			//Set and update envinronment
 			Color fogAlbedo = _fogAlbedoNight.Lerp(_fogAlbedoDay, WeatherMasterValue); //Night ONLY
-			float fogDensity = LerpRemap(0.0f, 1.0f, _fogDensityMin, _fogDensityMax, WeatherMasterValue); //Night - DAY ONLY (no blend)
-			float glowIntensity = LerpRemap(0.0f, 1.0f, _glowIntensityMin, _glowIntensityMax, WeatherMasterValue); //Night - DAY ONLY (no blend)
-			float glowStrength = LerpRemap(0.0f, 1.0f, _glowStrengthMin, _glowStrengthMax, WeatherMasterValue); //Night - DAY ONLY (no blend)
+			float fogDensity = LerpRemap(WeatherMasterValue, 0.0f, 1.0f, _fogDensityMin, _fogDensityMax); //Night - DAY ONLY (no blend)
+			float glowIntensity = LerpRemap(WeatherMasterValue, 0.0f, 1.0f, _glowIntensityMin, _glowIntensityMax); //Night - DAY ONLY (no blend)
+			float glowStrength = LerpRemap(WeatherMasterValue, 0.0f, 1.0f, _glowStrengthMin, _glowStrengthMax); //Night - DAY ONLY (no blend)
 			_worldEnvironment.Environment.VolumetricFogAlbedo = fogAlbedo; //Night - DAY ONLY (no blend)
 			_worldEnvironment.Environment.VolumetricFogDensity = fogDensity; //Night - DAY ONLY (no blend)
 			_worldEnvironment.Environment.GlowIntensity = glowIntensity; //Night - DAY ONLY (no blend)
 			_worldEnvironment.Environment.GlowStrength = glowStrength; //Night - DAY ONLY (no blend)
 
 
-			//Shafts I need  custom Triangular distribution 
-			// When WeatherMasterValue is from 0.8 to 1.0, we want to start reducing the shafts alpha from whatever it is to _shaftAlphaMin
-			//When the WeatherMasterValue is <0.8, we want to start increasing the shafts alpha from _shaftAlphaMin to _shaftAlphaMax>
-
-			// float shaftAlpha = LerpTriangularRemap(WeatherMasterValue, 0f, 0.8f, 1f, _shaftAlphaMin, _shaftAlphaMax);
-			// UpdateMMShaftMaterials(_shaftAlphaMin);
-
-			if (WeatherMasterValue >= 0.9f) // If the weather is close to max, we want to update shafts
+			if (WeatherMasterValue >= _disableShaftAutoalphaThreshold) // If the weather is close to max, we want to update shafts
 			{
 				FadeOutShaftMaterialAlpha();
 			}
-			// else if (WeatherMasterValue <= 0.1f) // If the weather is close to min, we want to update shafts
-			// {
-			// 	UpdateMMShaftMaterials(_shaftAlphaMax);
-			// }
+			else
+			{
+				EnableShaftMaterialAutoAlpha();
+			}
+
 
 			// Log.Info($"""
 			// 				Weather Updated:
@@ -155,26 +181,42 @@ public partial class WeatherControllerUpdated : Node3D
 
 	private void FadeOutShaftMaterialAlpha()
 	{
-		foreach (ShaftChunkMMController chunkController in _shaftChunksSpawner.GetChildren())
+		foreach (var node in _shaftChunksSpawner.GetChildren())
 		{
-
-			if (chunkController is not ShaftChunkMMController) continue;
-
-			chunkController._autoAlphaControls = false; //Take over the alpha controls
-														//Check what is the Alpha at the moment. 
-			ShaderMaterial chunkMMMaterial = chunkController.Multimesh.Mesh.SurfaceGetMaterial(0) as ShaderMaterial;
-
-			if (chunkMMMaterial != null)
+			if (node is ShaftChunkMMController chunkController)
 			{
-				float currentAlpha = chunkMMMaterial.GetShaderParameter("alpha").As<float>();
-				//Calculate the new alpha based on the WeatherMasterValue
-				float shaftAlpha = LerpRemap(0.0f, 1.0f, currentAlpha, _shaftAlphaMin, WeatherMasterValue);
+				//get current alpha value from chunkController
+				ShaderMaterial chunkMMMaterial = chunkController.Multimesh.Mesh.SurfaceGetMaterial(0) as ShaderMaterial;
+				float currentAlpha = chunkController.GetMMShaftAlpha();       // chunkMMMaterial.GetShaderParameter("alpha").As<float>();
 
-				// float shaftAlpha = LerpRemap(0.0f, 1.0f, _shaftAlphaMin, _shaftAlphaMax, WeatherMasterValue);
-				chunkMMMaterial.SetShaderParameter("alpha", shaftAlpha);
+				//Set chunk to stop "AutoAlphaControls"
+				chunkController._autoAlphaControls = false; //Take over the alpha controls
+
+				//Calculate the new Alpha value as a Lerp from current alpha to zero (_shaftAlphaMin)
+				float shaftAlpha = LerpRemap(WeatherMasterValue, _disableShaftAutoalphaThreshold, 1.0f, currentAlpha, _shaftAlphaMin);
+
+				//Set the new alpha value to the chunkController shader
+				chunkController.SetMMShaftAlpha(shaftAlpha);
 			}
 		}
+	}
 
+	private void EnableShaftMaterialAutoAlpha()
+	{
+		Vector3 cameraPos = _mainCamera.GlobalTransform.Origin;
+		foreach (var node in _shaftChunksSpawner.GetChildren())
+		{
+			if (node is ShaftChunkMMController chunkController)
+			{
+				if (chunkController._autoAlphaControls == true) continue;
+
+				chunkController._autoAlphaControls = true; //Enable the auto alpha controls
+
+				float currentCamDistance = cameraPos.DistanceTo(chunkController._collisionShape.GlobalTransform.Origin);
+				chunkController.AutoUpdateInstanceAlpha(currentCamDistance); //Set the alpha to previous state before auto alpha controls were disabled
+			}
+
+		}
 	}
 
 
@@ -183,39 +225,39 @@ public partial class WeatherControllerUpdated : Node3D
 	/// <summary>
 	/// Returns an output value by Linear interpolation between two input ranges.
 	/// </summary>
-	/// <param name="iMin">The minimum value of the input range.</param>
-	/// <param name="iMax">The maximum value of the input range.</param>
-	/// <param name="oMin">The minimum value of the output range.</param>
-	/// <param name="oMax">The maximum value of the output range.</param>
-	/// <param name="valueWeight">The value used as weight to be interpolated.</param>
-	public float LerpRemap(float iMin, float iMax, float oMin, float oMax, float valueWeight)
+	/// <param name="inputValue">The value to be monitored and checked against the input range (inputMin → inputMax).</param>
+	/// <param name="inputMin">The minimum value of the input range to affect the output.</param>
+	/// <param name="inputMin">The minimum value of the input range to affect the output.</param>
+	/// <param name="outputMin">The min value of the output range when inputValue = inputMin.</param>
+	/// <param name="outputMax">The max value of the output range when inputValue = inputMax.</param>
+	public float LerpRemap(float inputValue, float inputMin, float inputMax, float outputMin, float outputMax)
 	{
-		var result = Mathf.InverseLerp(iMin, iMax, valueWeight);
-		return Mathf.Lerp(oMin, oMax, result);
+		var result = Mathf.InverseLerp(inputMin, inputMax, inputValue);
+		return Mathf.Lerp(outputMin, outputMax, result);
 	}
 
 	/// <summary>
-	/// Performs a Triangle distribution ( 0 → 1 → 0) with Custom peak (outputMin → outputMax → outputMin) 
+	/// Performs a Triangle distribution ( 0 → 1 → 0) with Custom peak (outputMin → outputMax → outputMin).
 	/// Linear triangle interpolation over a given input range, where the output value increases from outputMin to outputMax as the input rises from 
 	/// inputMin to peak. Then it decreases back to outputMin as the input moves from peak to inputMax.
 	/// </summary>
-	/// <param name="input">The input value to be remapped.</param>
-	/// <param name="inputMin">The minimum value of the input range.</param>
+	/// <param name="inputValue">The value to be monitored and checked against the input range.</param>
+	/// <param name="inputMin">The minimum value of the input range to affect the output.</param>
 	/// <param name="peak">The input value at which the output reaches its maximum (forming the peak of the triangle).</param>
-	/// <param name="inputMax">The maximum value of the input range.</param>
-	/// <param name="outputMin">The minimum output value (used at the base of the triangle).</param>
-	/// <param name="outputMax">The maximum output value (used at the peak of the triangle).</param>
+	/// <param name="inputMin">The minimum value of the input range to affect the output.</param>
+	/// <param name="outputMin">The min output value on "either sides" of the peak (used at the base of the triangle).</param>
+	/// <param name="outputMax">The max output value when inputValue = peak (used at the Top of the triangle).</param>
 	/// <returns>Value from the Triangle distribution: (outputMin → outputMax → outputMin) </returns>
-	public float LerpTriangularRemap(float input, float inputMin, float peak, float inputMax, float outputMin, float outputMax)
+	public float LerpTriangularRemap(float inputValue, float inputMin, float peak, float inputMax, float outputMin, float outputMax)
 	{
-		if (input <= peak)
+		if (inputValue <= peak)
 		{
-			float result = Mathf.InverseLerp(inputMin, peak, input);
+			float result = Mathf.InverseLerp(inputMin, peak, inputValue);
 			return Mathf.Lerp(outputMin, outputMax, result);
 		}
 		else
 		{
-			float result = Mathf.InverseLerp(peak, inputMax, input);
+			float result = Mathf.InverseLerp(peak, inputMax, inputValue);
 			return Mathf.Lerp(outputMax, outputMin, result);
 		}
 	}

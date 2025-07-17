@@ -292,4 +292,4 @@ public record NightState : BaseWeatherState
 // public class SunriseState : BaseWeatherState
 // {
 // 	public override float StateDuration { get; set; } = 2.0f;
-// }
+// }w
