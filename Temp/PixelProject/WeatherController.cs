@@ -208,19 +208,11 @@ public partial class WeatherController : Node3D
 			case MiddayState middayState:
 				break;
 			case AfternoonState afternoonState:
-				// if (masterWeatherCycle <= _disableShaftAutoalphaThreshold)
-				// {
-				// 	BlendShaftMaterialAlpha(masterWeatherCycle, _disableShaftAutoalphaThreshold, afternoonState.EndCycleTime, 0.2f);
-				// }
 				BlendShaftMaterialAlpha(masterWeatherCycle, afternoonState.StartTime, afternoonState.EndCycleTime, 0.2f);
 
 				break;
 			case NightState nightState:
 				fogAlbedo = _fogAlbedoNight;
-				// fogDensity = _fogDensityMin;
-				// glowIntensity = _glowIntensityMax;
-				// glowStrength = _glowStrengthMax;
-
 				fogDensity = LerpRemap(masterWeatherCycle, nightState.StartTime, nightState.EndCycleTime, _fogDensityDay, _fogDensityNight);
 				glowIntensity = LerpRemap(masterWeatherCycle, nightState.StartTime, nightState.EndCycleTime, _glowIntensityDay, _glowIntensityNight);
 				glowStrength = LerpRemap(masterWeatherCycle, nightState.StartTime, nightState.EndCycleTime, _glowStrengthDay, _glowStrengthNight);
