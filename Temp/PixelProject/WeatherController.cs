@@ -9,40 +9,21 @@ public partial class WeatherController : Node3D
 	[Export] private Camera3D _mainCamera { get; set; }
 
 	[ExportGroup("Weather Cycle")]
-
 	[Export] private bool _isAutoWeatherCycle { get; set; } = true;
-	// [Export] private bool _isManualWeatherCycle { get; set; } = false;
-
-
-	[Export(PropertyHint.Range, "0.0,1.0,0.01")]
-	public float MasterWeatherCycle
-	{
-		get
-		{
-			return field;
-		}
-		set
-		{
-			field = value;
-			// if ((Engine.IsEditorHint() && !IsInsideTree())) return;
-			// // Callable.From(UpdateWeatherCycle).CallDeferred();
-			// UpdateWeatherParameters(value);
-		}
-	} = 0.65f;
+	[Export(PropertyHint.Range, "0.0,1.0,0.01")] public float MasterWeatherCycle { get; set; } = 0.65f;
 	[Export] private Timer _cycleDurationTimer { get; set; }
+	[Export] private float _sunriseDuration { get; set; } = 1.0f;
+	[Export] private float _dayDuration { get; set; } = 1.0f;
+	[Export] private float _sunsetDuration { get; set; } = 1.0f;
+	[Export] private float _nightDuration { get; set; } = 1.0f;
 
 
 	[ExportGroup("Shafts")]
 	[Export] private ShaftSpawner _shaftChunksSpawner { get; set; }
-	// private ShaftChunksSpawner _shaftChunksSpawner => field ?? GetNodeOrNull<ShaftChunksSpawner>("%ShaftChunksSpawner");
-	// private ShaftChunksSpawner _shaftChunksSpawner { get; set; }
-
 	[Export] private float _shaftAlphaMax { get; set; } = 0.8f;
 	[Export] private float _shaftAlphaMin { get; set; } = 0.0f;
-
 	//If WeatherMasterValue is Above this value we disable autoAlpha on shafts and set it manually on this script
 	[Export] private float _disableShaftAutoalphaThreshold { get; set; } = 0.8f;
-
 	[ExportGroup("Clouds")]
 	[Export] private CloudManager _cloudManager { get; set; }
 	[Export] private float _cloudAlphaScissorMax { get; set; } = 0.66f; //day
@@ -51,12 +32,10 @@ public partial class WeatherController : Node3D
 	[Export] private DirectionalLight3D _directionalLight { get; set; }
 	[Export] private float _lightEnergyMax { get; set; } = 1.1f; //mid-day 
 	[Export] private float _lightEnergyMin { get; set; } = 0.9f; //night
-
 	[ExportGroup("Environment")]
 	[Export] private WorldEnvironment _worldEnvironment { get; set; }
 	[Export] private Color _fogAlbedoDay { get; set; } = new Color(1.0f, 1.0f, 0.6f); //day
 	[Export] private Color _fogAlbedoNight { get; set; } = new Color(0.34f, 0.41f, 0.43f); //night
-
 	[Export] private float _fogDensityMax { get; set; } = 0.005f; //day
 	[Export] private float _fogDensityMin { get; set; } = 0.01f; //night
 	[Export] private float _glowIntensityMax { get; set; } = 1.3f; //night
@@ -66,22 +45,14 @@ public partial class WeatherController : Node3D
 
 	private Label _cloudAlphaLbl => field ?? GetNodeOrNull<Label>("%AlphaScissorLbl");
 	private Label _directLightLbl => field ?? GetNodeOrNull<Label>("%SunLightLbl");
-
 	private Label _fogDensityLbl => field ?? GetNodeOrNull<Label>("%FogDensity");
-
 	private Label _glowIntensityLbl => field ?? GetNodeOrNull<Label>("%GlowIntensity");
-
 	private Label _glowStrenghtLbl => field ?? GetNodeOrNull<Label>("%GlowStrenght");
 
-
 	//Weather Cycle state variables
-	public Dictionary<int, WeatherState> WeatherStates = new()
-	{
-		{ 0, new SunriseState() },
-		{ 1, new DayState() },
-		{ 2, new SunsetState() },
-		{ 3, new NightState() },
-	};
+	public Dictionary<int, WeatherState> WeatherStates = new();
+
+
 
 	private WeatherState _currentWeatherState;
 
@@ -108,18 +79,27 @@ public partial class WeatherController : Node3D
 		}
 
 		//Prepare Weather Cycle
+		CreateWeatherStates();
 		_cycleDurationTimer.Timeout += CycleDurationTimerTimeout;
 		_currentWeatherState = WeatherStates[0]; // Start with Sunrise state
 
 		if (_isAutoWeatherCycle)
 			StartCycle(_currentWeatherState);
 
-		// Callable.From(() => UpdateWeatherParameters(MasterWeatherCycle)).CallDeferred();
 	}
+	private void CreateWeatherStates()
+	{
+		// Create and add weather states to the dictionary
+		WeatherStates.Add(0, new SunriseState(_sunriseDuration, this));
+		WeatherStates.Add(1, new DayState(_dayDuration, this));
+		WeatherStates.Add(2, new SunsetState(_sunsetDuration, this));
+		WeatherStates.Add(3, new NightState(_nightDuration, this));
+	}
+
 	public override void _Process(double delta)
 	{
+
 		if (IsAnyReferenceNull().IsNull) return;
-		// Callable.From(UpdateWeatherCycle).CallDeferred();
 
 		if (!_isAutoWeatherCycle)
 		{
@@ -132,13 +112,7 @@ public partial class WeatherController : Node3D
 		}
 		else if (_isAutoWeatherCycle && _isProgressing)
 		{
-			// // Manage the current weather state
 			ManageWeatherState(_currentWeatherState, (float)delta);
-
-			// if (_cycleDurationTimer.IsStopped())
-			// {
-			// 	CycleDurationTimerTimeout();
-			// }
 		}
 	}
 
@@ -153,9 +127,6 @@ public partial class WeatherController : Node3D
 		_cycleDurationTimer.Start();
 		state.EnterState();
 	}
-
-
-
 
 
 	private void StateTransition(WeatherState nextState)
@@ -203,9 +174,6 @@ public partial class WeatherController : Node3D
 	}
 
 
-
-
-
 	private void UpdateWeatherParameters(float masterWeatherCycle)
 	{
 		//TODO: Implement weather states, so we can blend values based on active state and others as part of "Base State"
@@ -240,23 +208,11 @@ public partial class WeatherController : Node3D
 			EnableShaftMaterialAutoAlpha();
 		}
 
-
-		// Log.Info($"""
-		// 				Weather Updated:
-		// 				Alpha Scissor: {alphaScissor}
-		// 				Fog Density: {fogDensity}
-		// 				Fog Albedo: {fogAlbedo}
-		// 				Light Energy: {lightEnergy}
-		// 				Glow Intensity: {glowIntensity}
-		// 				Glow Strength: {glowStrength}
-		// 				""");
 		_cloudAlphaLbl.Text = $"Cloud Alpha: {alphaScissor}";
 		_directLightLbl.Text = $"Light Energy: {lightEnergy}";
 		_fogDensityLbl.Text = $"Fog Density: {fogDensity}";
 		_glowStrenghtLbl.Text = $"Glow Strength: {glowStrength}";
 		_glowIntensityLbl.Text = $"Glow Intensity: {glowIntensity:F2}";
-
-
 	}
 
 	private void FadeOutShaftMaterialAlpha()
@@ -434,15 +390,16 @@ public partial class WeatherController : Node3D
 ////
 #region WeatherRecordsAndSupportingClasses
 
-public abstract record WeatherState
+public abstract record WeatherState()
 {
 	public abstract float StateDuration { get; set; }
 	public abstract float StartTime { get; set; }
 	public abstract float EndCycleTime { get; set; }
+	protected virtual WeatherController weatherControllerNode { get; set; }
+
 
 	public virtual void EnterState() { }// Make this abstract or virtual later.
 	public virtual void ExitState() { }
-
 }
 
 public record DayState : WeatherState
@@ -451,18 +408,35 @@ public record DayState : WeatherState
 	public override float StartTime { get; set; } = 0.51f;
 	public override float EndCycleTime { get; set; } = 1.0f;
 
-	// public DayState(float stateDuration, float startTime, float endCycleTime)
-	// {
-	// 	StateDuration = stateDuration;
-	// 	StartTime = startTime;
-	// 	EndCycleTime = endCycleTime;
-	// }
+	public DayState(float stateDuration, WeatherController weatherController)
+	{
+		StateDuration = stateDuration;
+		weatherControllerNode = weatherController;
+	}
+	public override void EnterState()
+	{
+		// // Custom logic for entering the Day state
+		// weatherControllerNode.IsPrintEnabled = true; // Enable printing for debugging
+		// weatherControllerNode.PrintMessage = "Entering Day State";
+	}
+	public override void ExitState()
+	{
+		// // Custom logic for exiting the Day state
+		// weatherControllerNode.IsPrintEnabled = false; // Disable printing for debugging
+		// weatherControllerNode.PrintMessage = "";
+	}
 }
 public record SunsetState : WeatherState
 {
 	public override float StateDuration { get; set; } = 1.0f;
 	public override float StartTime { get; set; } = 1.0f;
 	public override float EndCycleTime { get; set; } = 0.51f;
+
+	public SunsetState(float stateDuration, WeatherController weatherController)
+	{
+		StateDuration = stateDuration;
+		weatherControllerNode = weatherController;
+	}
 }
 
 public record NightState : WeatherState
@@ -470,6 +444,12 @@ public record NightState : WeatherState
 	public override float StateDuration { get; set; } = 1.0f;
 	public override float StartTime { get; set; } = 0.5f;
 	public override float EndCycleTime { get; set; } = 0.0f;
+
+	public NightState(float stateDuration, WeatherController weatherController)
+	{
+		StateDuration = stateDuration;
+		weatherControllerNode = weatherController;
+	}
 }
 
 public record SunriseState : WeatherState
@@ -477,12 +457,13 @@ public record SunriseState : WeatherState
 	public override float StateDuration { get; set; } = 1.0f;
 	public override float StartTime { get; set; } = 0.0f;
 	public override float EndCycleTime { get; set; } = 0.5f;
+
+	public SunriseState(float stateDuration, WeatherController weatherController)
+	{
+		StateDuration = stateDuration;
+		weatherControllerNode = weatherController;
+	}
 }
-
-
-
-
-
 
 
 
