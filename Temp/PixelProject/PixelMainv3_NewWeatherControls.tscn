@@ -1,6 +1,7 @@
-[gd_scene load_steps=282 format=4 uid="uid://d1fonqxidgbmt"]
+[gd_scene load_steps=283 format=4 uid="uid://d1fonqxidgbmt"]
 
 [ext_resource type="Shader" uid="uid://d7i4v6mk0aps" path="res://Temp/PixelProject/CloudManagerShader.gdshader" id="1_bnugo"]
+[ext_resource type="LabelSettings" uid="uid://cswfpemyeo4bm" path="res://Assets/DebugLabel.tres" id="2_005by"]
 [ext_resource type="Script" uid="uid://di5uor0ve6105" path="res://Temp/PixelProject/WeatherController.cs" id="2_a5jl2"]
 [ext_resource type="Script" uid="uid://tweefbwoi14v" path="res://Temp/PixelProject/CloudManager.cs" id="2_eb58x"]
 [ext_resource type="PackedScene" uid="uid://bok06l3ildw4l" path="res://src/Levels/LevelComponents/GrassMeshAnimated.tscn" id="4_1pnsr"]
@@ -64,7 +65,7 @@ noise = SubResource("FastNoiseLite_a4ruw")
 render_priority = 0
 shader = ExtResource("1_bnugo")
 shader_parameter/cloud_texture = SubResource("NoiseTexture2D_f2e7b")
-shader_parameter/cloud_alpha_scissor_threshold = 0.619
+shader_parameter/cloud_alpha_scissor_threshold = 0.71
 shader_parameter/cloud_color = Color(1, 1, 1, 1)
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 0.5
@@ -103,8 +104,8 @@ size = Vector2(30, 30)
 subdivide_width = 50
 subdivide_depth = 50
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_a5jl2"]
-viewport_path = NodePath("MainSubViewport/WaterToon/@SubViewport@37929")
+[sub_resource type="ViewportTexture" id="ViewportTexture_005by"]
+viewport_path = NodePath("MainSubViewport/WaterToon/@SubViewport@96003")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4hqal"]
 render_priority = 0
@@ -130,7 +131,7 @@ shader_parameter/master_time_scale = 0.25
 shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_a5jl2")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_005by")
 shader_parameter/reflection_strength = 1.0
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
@@ -2514,58 +2515,94 @@ script = ExtResource("23_s703g")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DebugPanelLayer/DebugPanel"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 83.0
+offset_bottom = 21.0
 
-[node name="GeneralItemsHBoxContainer" type="HBoxContainer" parent="DebugPanelLayer/DebugPanel/VBoxContainer"]
+[node name="Other" type="PanelContainer" parent="DebugPanelLayer/DebugPanel/VBoxContainer"]
 layout_mode = 2
 
-[node name="FpsCountLbl" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/GeneralItemsHBoxContainer"]
+[node name="GeneralItemsHBoxContainer" type="HBoxContainer" parent="DebugPanelLayer/DebugPanel/VBoxContainer/Other"]
+layout_mode = 2
+
+[node name="FpsCountLbl" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/Other/GeneralItemsHBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "FPS"
+label_settings = ExtResource("2_005by")
 
-[node name="CharState" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/GeneralItemsHBoxContainer"]
+[node name="CharState" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/Other/GeneralItemsHBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "FPS"
+text = "CharState"
+label_settings = ExtResource("2_005by")
 
-[node name="WeatherBoxContainer" type="HBoxContainer" parent="DebugPanelLayer/DebugPanel/VBoxContainer"]
+[node name="Weather" type="PanelContainer" parent="DebugPanelLayer/DebugPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="WeatherBoxContainer" type="VBoxContainer" parent="DebugPanelLayer/DebugPanel/VBoxContainer/Weather"]
 layout_mode = 2
 
-[node name="AlphaScissorLbl" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/WeatherBoxContainer"]
+[node name="WeatherStateLbl" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/Weather/WeatherBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Cloud Alpha: 0.569"
+text = "WeatherState: "
+label_settings = ExtResource("2_005by")
 
-[node name="SunLightLbl" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/WeatherBoxContainer"]
+[node name="MasterWeatherLbl" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/Weather/WeatherBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Light Energy: 0.7499999"
+text = "Master: 0.67"
+label_settings = ExtResource("2_005by")
 
-[node name="FogDensity" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/WeatherBoxContainer"]
+[node name="AlphaScissorLbl" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/Weather/WeatherBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Fog Density: 0.0067499997"
+text = "Cloud Alpha: 0.66"
+label_settings = ExtResource("2_005by")
 
-[node name="GlowIntensity" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/WeatherBoxContainer"]
+[node name="SunLightLbl" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/Weather/WeatherBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Glow Intensity: 1.19"
+text = "Light Energy: 1.10"
+label_settings = ExtResource("2_005by")
 
-[node name="GlowStrenght" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/WeatherBoxContainer"]
+[node name="FogDensity" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/Weather/WeatherBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Glow Strength: 1.125"
+text = "Fog Density:"
+label_settings = ExtResource("2_005by")
+
+[node name="GlowIntensity" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/Weather/WeatherBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Glow Intensity: "
+label_settings = ExtResource("2_005by")
+
+[node name="GlowStrenght" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/Weather/WeatherBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Glow Strength: "
+label_settings = ExtResource("2_005by")
 
 [node name="WeatherController" type="Node3D" parent="." node_paths=PackedStringArray("_mainCamera", "_cycleDurationTimer", "_shaftChunksSpawner", "_cloudManager", "_directionalLight", "_worldEnvironment")]
 script = ExtResource("2_a5jl2")
 _mainCamera = NodePath("../MainSubViewport/CameraRigYaw/MainCamera3D")
+_isAutoWeatherCycle = false
+MasterWeatherCycle = 1.0
 _cycleDurationTimer = NodePath("WeatherStateTimer")
+_dawnDuration = 2.0
+_morningDuration = 2.0
+_middayDuration = 4.0
+_afternoonDuration = 2.0
+_sunsetDuration = 2.0
+_nightDuration = 4.0
 _shaftChunksSpawner = NodePath("../ShaftsViewPort/ShaftSpawner")
 _cloudManager = NodePath("CloudManager")
 _directionalLight = NodePath("DayLight")
 _worldEnvironment = NodePath("WorldEnvironment")
+_fogDensityMin = 0.01
+_fogDensityMax = 0.005
 
 [node name="CloudManager" type="MeshInstance3D" parent="WeatherController" node_paths=PackedStringArray("sunLight")]
 unique_name_in_owner = true
@@ -2576,7 +2613,7 @@ mesh = SubResource("PlaneMesh_ntwum")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_ed8f5")
 script = ExtResource("2_eb58x")
-_alphaScissor = 0.569
+_alphaScissor = 0.66
 cloudTextureScale = 2.0
 moveDirection = Vector2(0.901609, 0.432553)
 moveSpeedMultiplier = 0.01
@@ -2591,7 +2628,7 @@ environment = SubResource("Environment_pjemg")
 unique_name_in_owner = true
 transform = Transform3D(0.770746, 0.456309, -0.444671, 0.179378, 0.514278, 0.838655, 0.61137, -0.726154, 0.314526, 0, 6.95719, 0)
 layers = 786433
-light_energy = 0.75
+light_energy = 1.1
 shadow_enabled = true
 shadow_blur = 0.2
 directional_shadow_mode = 0
@@ -2608,7 +2645,7 @@ render_target_update_mode = 4
 
 [node name="Fox" parent="MainSubViewport" node_paths=PackedStringArray("_charStateDebug") instance=ExtResource("4_38jjr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-_charStateDebug = NodePath("../../DebugPanelLayer/DebugPanel/VBoxContainer/GeneralItemsHBoxContainer/CharState")
+_charStateDebug = NodePath("../../DebugPanelLayer/DebugPanel/VBoxContainer/Other/GeneralItemsHBoxContainer/CharState")
 
 [node name="WaterToon" type="PlanarReflectorCPP" parent="MainSubViewport" node_paths=PackedStringArray("main_camera")]
 main_camera = NodePath("../CameraRigYaw/MainCamera3D")
