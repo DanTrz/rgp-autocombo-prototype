@@ -28,8 +28,8 @@ public partial class WeatherController : Node3D
 	[Export] private float _disableShaftAutoalphaThreshold { get; set; } = 0.8f;
 	[ExportGroup("Clouds")]
 	[Export] private CloudManager _cloudManager { get; set; }
-	[Export] private float _cloudAlphaScissorMax { get; set; } = 0.66f; //day
-	[Export] private float _cloudAlphaScissorMin { get; set; } = 0.4f; //nigh
+	[Export] private float _cloudAlphaScissorDayMax { get; set; } = 0.66f; //day
+	[Export] private float _cloudAlphaScissorNightMin { get; set; } = 0.4f; //nigh
 	[ExportGroup("Light")]
 	[Export] private DirectionalLight3D _directionalLight { get; set; }
 	[Export] private float _lightEnergyMax { get; set; } = 1.1f; //mid-day 
@@ -38,12 +38,12 @@ public partial class WeatherController : Node3D
 	[Export] private WorldEnvironment _worldEnvironment { get; set; }
 	[Export] private Color _fogAlbedoDay { get; set; } = new Color(1.0f, 1.0f, 0.6f); //day
 	[Export] private Color _fogAlbedoNight { get; set; } = new Color(0.34f, 0.41f, 0.43f); //night
-	[Export] private float _fogDensityMin { get; set; } = 0.005f; //day 
-	[Export] private float _fogDensityMax { get; set; } = 0.01f; //night
-	[Export] private float _glowIntensityMax { get; set; } = 1.3f; //night
-	[Export] private float _glowIntensityMin { get; set; } = 1.0f; //day
-	[Export] private float _glowStrengthMax { get; set; } = 1.3f; //night
-	[Export] private float _glowStrengthMin { get; set; } = 0.8f; //day
+	[Export] private float _fogDensityDay { get; set; } = 0.005f; //day 
+	[Export] private float _fogDensityNight { get; set; } = 0.01f; //night
+	[Export] private float _glowIntensityNight { get; set; } = 1.3f; //night
+	[Export] private float _glowIntensityDay { get; set; } = 1.0f; //day
+	[Export] private float _glowStrengthNight { get; set; } = 1.3f; //night
+	[Export] private float _glowStrengthDay { get; set; } = 0.8f; //day
 
 	private Label _weatherStateLbl => field ?? GetNodeOrNull<Label>("%WeatherStateLbl");
 	private Label _masterWeatherLbl => field ?? GetNodeOrNull<Label>("%MasterWeatherLbl");
@@ -176,9 +176,9 @@ public partial class WeatherController : Node3D
 
 		//Default values for the day
 		Color fogAlbedo = _fogAlbedoDay;
-		float fogDensity = _fogDensityMin;
-		float glowIntensity = _glowIntensityMin;
-		float glowStrength = _glowStrengthMin;
+		float fogDensity = _fogDensityDay;
+		float glowIntensity = _glowIntensityDay;
+		float glowStrength = _glowStrengthDay;
 
 		float currentFogDensity = _worldEnvironment.Environment.VolumetricFogDensity;
 		float currentGlowIntensity = _worldEnvironment.Environment.GlowIntensity;
@@ -190,9 +190,9 @@ public partial class WeatherController : Node3D
 		{
 			case DawnState sunriseState: //Revert the night values and prepare for the day
 				EnableShaftMaterialAutoAlpha();
-				fogDensity = LerpRemap(masterWeatherCycle, sunriseState.StartTime, sunriseState.EndCycleTime, currentFogDensity, _fogDensityMin);
-				glowIntensity = LerpRemap(masterWeatherCycle, sunriseState.StartTime, sunriseState.EndCycleTime, currentGlowIntensity, _glowIntensityMin);
-				glowStrength = LerpRemap(masterWeatherCycle, sunriseState.StartTime, sunriseState.EndCycleTime, currentGlowStrength, _glowStrengthMin);
+				fogDensity = LerpRemap(masterWeatherCycle, sunriseState.StartTime, sunriseState.EndCycleTime, _fogDensityNight, _fogDensityDay);
+				glowIntensity = LerpRemap(masterWeatherCycle, sunriseState.StartTime, sunriseState.EndCycleTime, _glowIntensityNight, _glowIntensityDay);
+				glowStrength = LerpRemap(masterWeatherCycle, sunriseState.StartTime, sunriseState.EndCycleTime, _glowStrengthNight, _glowStrengthDay);
 				// fogDensity = _fogDensityMax;
 				// glowIntensity = _glowIntensityMin;
 				// glowStrength = _glowIntensityMin;
@@ -208,10 +208,12 @@ public partial class WeatherController : Node3D
 			case MiddayState middayState:
 				break;
 			case AfternoonState afternoonState:
-				if (masterWeatherCycle <= _disableShaftAutoalphaThreshold)
-				{
-					BlendShaftMaterialAlpha(masterWeatherCycle, _disableShaftAutoalphaThreshold, afternoonState.EndCycleTime, 0.2f);
-				}
+				// if (masterWeatherCycle <= _disableShaftAutoalphaThreshold)
+				// {
+				// 	BlendShaftMaterialAlpha(masterWeatherCycle, _disableShaftAutoalphaThreshold, afternoonState.EndCycleTime, 0.2f);
+				// }
+				BlendShaftMaterialAlpha(masterWeatherCycle, afternoonState.StartTime, afternoonState.EndCycleTime, 0.2f);
+
 				break;
 			case NightState nightState:
 				fogAlbedo = _fogAlbedoNight;
@@ -219,9 +221,9 @@ public partial class WeatherController : Node3D
 				// glowIntensity = _glowIntensityMax;
 				// glowStrength = _glowStrengthMax;
 
-				fogDensity = LerpRemap(masterWeatherCycle, nightState.StartTime, nightState.EndCycleTime, currentFogDensity, _fogDensityMax);
-				glowIntensity = LerpRemap(masterWeatherCycle, nightState.StartTime, nightState.EndCycleTime, currentGlowIntensity, _glowIntensityMax);
-				glowStrength = LerpRemap(masterWeatherCycle, nightState.StartTime, nightState.EndCycleTime, currentGlowStrength, _glowStrengthMax);
+				fogDensity = LerpRemap(masterWeatherCycle, nightState.StartTime, nightState.EndCycleTime, _fogDensityDay, _fogDensityNight);
+				glowIntensity = LerpRemap(masterWeatherCycle, nightState.StartTime, nightState.EndCycleTime, _glowIntensityDay, _glowIntensityNight);
+				glowStrength = LerpRemap(masterWeatherCycle, nightState.StartTime, nightState.EndCycleTime, _glowStrengthDay, _glowStrengthNight);
 				break;
 			default:
 				break;
@@ -247,7 +249,7 @@ public partial class WeatherController : Node3D
 	private void UpdateBaseWeatherParams(float masterWeatherCycle)
 	{
 		//Set and update clouds
-		float alphaScissor = LerpRemap(masterWeatherCycle, 0.0f, 1.0f, _cloudAlphaScissorMin, _cloudAlphaScissorMax);
+		float alphaScissor = LerpRemap(masterWeatherCycle, 0.0f, 1.0f, _cloudAlphaScissorNightMin, _cloudAlphaScissorDayMax);
 		_cloudManager._alphaScissor = alphaScissor;
 		_cloudManager.UpdateCloudShadows();
 
