@@ -32,7 +32,7 @@ public partial class WeatherControllerBKUP : Node3D
 
 	private ShaderMaterial _cloudsMaterial { get; set; }
 
-	public BaseWeatherState CurrentWeatherState { get; set; }
+	public BaseWeatherStateBKUP CurrentWeatherState { get; set; }
 	// public Dictionary<int, BaseWeatherState> WeatherStates = new()
 	// {
 	// 	{ 0, new SunriseState() },
@@ -41,13 +41,13 @@ public partial class WeatherControllerBKUP : Node3D
 	// 	{ 3, new NightState() }
 	// };
 
-	public Dictionary<int, BaseWeatherState> WeatherStates = new()
+	public Dictionary<int, BaseWeatherStateBKUP> WeatherStates = new()
 	{
-		{ 0, new Sunrise() },
-		{ 1, new MiddayState() },
-		{ 2, new Daystate() },
-		{ 3, new SunsetState() },
-		{ 4, new NightState() },
+		{ 0, new SunriseBKUP() },
+		{ 1, new MiddayStateBKUP() },
+		{ 2, new DaystateBKUP() },
+		{ 3, new SunsetStateBKUP() },
+		{ 4, new NightStateBKUP() },
 	};
 
 	//TODO:Steps to work on
@@ -109,7 +109,7 @@ public partial class WeatherControllerBKUP : Node3D
 	// }
 	#endregion oldcode
 
-	private void StartCycle(BaseWeatherState state)
+	private void StartCycle(BaseWeatherStateBKUP state)
 	{
 		_cycleDurationTimer.WaitTime = state.StateDuration;
 		_lerpProgress = 0;
@@ -119,7 +119,7 @@ public partial class WeatherControllerBKUP : Node3D
 		state.EnterState();
 	}
 
-	private void StateTransition(BaseWeatherState nextState)
+	private void StateTransition(BaseWeatherStateBKUP nextState)
 	{
 		if (CurrentWeatherState != nextState)
 		{
@@ -142,7 +142,7 @@ public partial class WeatherControllerBKUP : Node3D
 			nextStateKey = 0;
 		}
 
-		BaseWeatherState nextState = WeatherStates[nextStateKey]; ;
+		BaseWeatherStateBKUP nextState = WeatherStates[nextStateKey]; ;
 		StateTransition(nextState);
 	}
 
@@ -156,7 +156,7 @@ public partial class WeatherControllerBKUP : Node3D
 		_cycleProgress.Value = _cycleDurationTimer.TimeLeft / _cycleDurationTimer.WaitTime * 100;
 	}
 
-	private void ManageState(BaseWeatherState state, float delta)
+	private void ManageState(BaseWeatherStateBKUP state, float delta)
 	{
 		if (_isLerping)
 		{
@@ -186,7 +186,7 @@ public partial class WeatherControllerBKUP : Node3D
 }
 
 
-public abstract record BaseWeatherState
+public abstract record BaseWeatherStateBKUP
 {
 	public abstract float StateDuration { get; set; }
 	public abstract float DirXRotationStart { get; set; }
@@ -208,7 +208,7 @@ public abstract record BaseWeatherState
 
 
 
-public record Sunrise : BaseWeatherState
+public record SunriseBKUP : BaseWeatherStateBKUP
 {
 	public override float StateDuration { get; set; } = 5.0f;
 	public override float DirXRotationStart { get; set; } = 20.0f;
@@ -223,7 +223,7 @@ public record Sunrise : BaseWeatherState
 	public override float CloudsValueEnd { get; set; } = 0.85f;
 }
 
-public record MiddayState : BaseWeatherState
+public record MiddayStateBKUP : BaseWeatherStateBKUP
 {
 	public override float StateDuration { get; set; } = 5.0f;
 	public override float DirXRotationStart { get; set; } = 4.9f;
@@ -238,7 +238,7 @@ public record MiddayState : BaseWeatherState
 	public override float CloudsValueEnd { get; set; } = 1.0f;
 }
 
-public record Daystate : BaseWeatherState
+public record DaystateBKUP : BaseWeatherStateBKUP
 {
 	public override float StateDuration { get; set; } = 10.0f;
 	public override float DirXRotationStart { get; set; } = -12.0f;
@@ -253,7 +253,7 @@ public record Daystate : BaseWeatherState
 	public override float CloudsValueEnd { get; set; } = 0.9f;
 }
 
-public record SunsetState : BaseWeatherState
+public record SunsetStateBKUP : BaseWeatherStateBKUP
 {
 	public override float StateDuration { get; set; } = 5.0f;
 	public override float DirXRotationStart { get; set; } = -20.0f;
@@ -268,7 +268,7 @@ public record SunsetState : BaseWeatherState
 	public override float CloudsValueEnd { get; set; } = 0.0f;
 }
 
-public record NightState : BaseWeatherState
+public record NightStateBKUP : BaseWeatherStateBKUP
 {
 	public override float StateDuration { get; set; } = 2.0f;
 	public override float DirXRotationStart { get; set; } = 30.0f;

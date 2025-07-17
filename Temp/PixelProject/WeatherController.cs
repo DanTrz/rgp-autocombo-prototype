@@ -1,14 +1,21 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
 [Tool]
 public partial class WeatherController : Node3D
 {
+	[Export] private Camera3D _mainCamera { get; set; }
 
-	[Export] private bool _isWeatherCycleActive { get; set; } = false;
+	[ExportGroup("Weather Cycle")]
+
+	[Export] private bool _isAutoWeatherCycle { get; set; } = true;
+	// [Export] private bool _isManualWeatherCycle { get; set; } = false;
+
+
 	[Export(PropertyHint.Range, "0.0,1.0,0.01")]
-	public float WeatherMasterValue
+	public float MasterWeatherCycle
 	{
 		get
 		{
@@ -19,12 +26,11 @@ public partial class WeatherController : Node3D
 			field = value;
 			// if ((Engine.IsEditorHint() && !IsInsideTree())) return;
 			// // Callable.From(UpdateWeatherCycle).CallDeferred();
-			// UpdateWeatherCycle();
+			// UpdateWeatherParameters(value);
 		}
 	} = 0.65f;
+	[Export] private Timer _cycleDurationTimer { get; set; }
 
-	private float _previousMaterValue = -0.1f;
-	[Export] private Camera3D _mainCamera { get; set; }
 
 	[ExportGroup("Shafts")]
 	[Export] private ShaftSpawner _shaftChunksSpawner { get; set; }
@@ -68,6 +74,22 @@ public partial class WeatherController : Node3D
 	private Label _glowStrenghtLbl => field ?? GetNodeOrNull<Label>("%GlowStrenght");
 
 
+	//Weather Cycle state variables
+	public Dictionary<int, WeatherState> WeatherStates = new()
+	{
+		{ 0, new SunriseState() },
+		{ 1, new DayState() },
+		{ 2, new SunsetState() },
+		{ 3, new NightState() },
+	};
+
+	private WeatherState _currentWeatherState;
+
+	private float _currentCycleProgress = 0.0f;
+	private float _currentCycleDuration = 0.0f;
+	private bool _isProgressing = false;
+	private float _previousMaterValue = -0.1f; // To track changes in MasterWeatherCycle	
+
 
 
 	public override void _Ready()
@@ -85,7 +107,196 @@ public partial class WeatherController : Node3D
 			return;
 		}
 
-		Callable.From(UpdateWeatherCycle).CallDeferred();
+		//Prepare Weather Cycle
+		_cycleDurationTimer.Timeout += CycleDurationTimerTimeout;
+		_currentWeatherState = WeatherStates[0]; // Start with Sunrise state
+
+		if (_isAutoWeatherCycle)
+			StartCycle(_currentWeatherState);
+
+		// Callable.From(() => UpdateWeatherParameters(MasterWeatherCycle)).CallDeferred();
+	}
+	public override void _Process(double delta)
+	{
+		if (IsAnyReferenceNull().IsNull) return;
+		// Callable.From(UpdateWeatherCycle).CallDeferred();
+
+		if (!_isAutoWeatherCycle)
+		{
+			//Log.Info($"Manual Weather Cycle started update: {MasterWeatherCycle}");
+			if (MasterWeatherCycle != _previousMaterValue)
+			{
+				_previousMaterValue = MasterWeatherCycle;
+				UpdateWeatherParameters(MasterWeatherCycle);
+			}
+		}
+		else if (_isAutoWeatherCycle && _isProgressing)
+		{
+			// // Manage the current weather state
+			ManageWeatherState(_currentWeatherState, (float)delta);
+
+			// if (_cycleDurationTimer.IsStopped())
+			// {
+			// 	CycleDurationTimerTimeout();
+			// }
+		}
+	}
+
+
+	private void StartCycle(WeatherState state)
+	{
+		_cycleDurationTimer.WaitTime = state.StateDuration;
+		_currentCycleProgress = 0;
+		_currentCycleDuration = state.StateDuration;
+		_isProgressing = true;
+
+		_cycleDurationTimer.Start();
+		state.EnterState();
+	}
+
+
+
+
+
+	private void StateTransition(WeatherState nextState)
+	{
+		if (_currentWeatherState != nextState)
+		{
+
+			_currentWeatherState.ExitState();
+			_currentWeatherState = nextState;
+			StartCycle(nextState);
+		}
+	}
+
+	private void ManageWeatherState(WeatherState state, float delta)
+	{
+		//Check how time passed and add to this weather state progress
+		_currentCycleProgress += (float)delta;
+
+		//Calculate a normalized 0 to 1 weight based on progress and duration
+		// float normalizedProgress = Mathf.Min(_currentCycleProgress / _currentCycleDuration, 1.0f);
+		float progressNormalized = (_currentCycleDuration > 0f) ? Mathf.Min(_currentCycleProgress / _currentCycleDuration, 1.0f) : 1.0f;
+
+		//Update the MasterWeatherCycle based on the current state and weight
+		//Blend from state to end cycle time based on the normalizedProgress
+		MasterWeatherCycle = Mathf.Lerp(state.StartTime, state.EndCycleTime, progressNormalized);
+		UpdateWeatherParameters(MasterWeatherCycle);
+	}
+
+
+	private void CycleDurationTimerTimeout()
+	{
+		_cycleDurationTimer.Stop();
+		int currentStateKey = WeatherStates.FirstOrDefault(x => x.Value == _currentWeatherState).Key;
+
+		//Find the next state key
+		int nextStateKey = currentStateKey + 1;
+
+		if (nextStateKey > WeatherStates.Count - 1)
+		{
+			nextStateKey = 0;
+		}
+
+		WeatherState nextState = WeatherStates[nextStateKey];
+		StateTransition(nextState);
+	}
+
+
+
+
+
+	private void UpdateWeatherParameters(float masterWeatherCycle)
+	{
+		//TODO: Implement weather states, so we can blend values based on active state and others as part of "Base State"
+
+
+		//Set and update clouds
+		float alphaScissor = LerpRemap(masterWeatherCycle, 0.0f, 1.0f, _cloudAlphaScissorMin, _cloudAlphaScissorMax);
+		_cloudManager._alphaScissor = alphaScissor;
+		_cloudManager.UpdateCloudShadows();
+
+		//Set and update lights
+		float lightEnergy = LerpRemap(masterWeatherCycle, 0.8f, 1.0f, _lightEnergyMin, _lightEnergyMax);
+		_directionalLight.LightEnergy = lightEnergy; //Blend only at certain WeatherMasterValue...
+
+		//Set and update envinronment
+		Color fogAlbedo = _fogAlbedoNight.Lerp(_fogAlbedoDay, masterWeatherCycle); //Night ONLY
+		float fogDensity = LerpRemap(masterWeatherCycle, 0.0f, 1.0f, _fogDensityMin, _fogDensityMax); //Night - DAY ONLY (no blend)
+		float glowIntensity = LerpRemap(masterWeatherCycle, 0.0f, 1.0f, _glowIntensityMin, _glowIntensityMax); //Night - DAY ONLY (no blend)
+		float glowStrength = LerpRemap(masterWeatherCycle, 0.0f, 1.0f, _glowStrengthMin, _glowStrengthMax); //Night - DAY ONLY (no blend)
+		_worldEnvironment.Environment.VolumetricFogAlbedo = fogAlbedo; //Night - DAY ONLY (no blend)
+		_worldEnvironment.Environment.VolumetricFogDensity = fogDensity; //Night - DAY ONLY (no blend)
+		_worldEnvironment.Environment.GlowIntensity = glowIntensity; //Night - DAY ONLY (no blend)
+		_worldEnvironment.Environment.GlowStrength = glowStrength; //Night - DAY ONLY (no blend)
+
+
+		if (masterWeatherCycle >= _disableShaftAutoalphaThreshold) // If the weather is close to max, we want to update shafts
+		{
+			FadeOutShaftMaterialAlpha();
+		}
+		else
+		{
+			EnableShaftMaterialAutoAlpha();
+		}
+
+
+		// Log.Info($"""
+		// 				Weather Updated:
+		// 				Alpha Scissor: {alphaScissor}
+		// 				Fog Density: {fogDensity}
+		// 				Fog Albedo: {fogAlbedo}
+		// 				Light Energy: {lightEnergy}
+		// 				Glow Intensity: {glowIntensity}
+		// 				Glow Strength: {glowStrength}
+		// 				""");
+		_cloudAlphaLbl.Text = $"Cloud Alpha: {alphaScissor}";
+		_directLightLbl.Text = $"Light Energy: {lightEnergy}";
+		_fogDensityLbl.Text = $"Fog Density: {fogDensity}";
+		_glowStrenghtLbl.Text = $"Glow Strength: {glowStrength}";
+		_glowIntensityLbl.Text = $"Glow Intensity: {glowIntensity:F2}";
+
+
+	}
+
+	private void FadeOutShaftMaterialAlpha()
+	{
+		foreach (var node in _shaftChunksSpawner.GetChildren())
+		{
+			if (node is ShaftChunkMMController chunkController)
+			{
+				//get current alpha value from chunkController
+				ShaderMaterial chunkMMMaterial = chunkController.Multimesh.Mesh.SurfaceGetMaterial(0) as ShaderMaterial;
+				float currentAlpha = chunkController.GetMMShaftAlpha();       // chunkMMMaterial.GetShaderParameter("alpha").As<float>();
+
+				//Set chunk to stop "AutoAlphaControls"
+				chunkController._autoAlphaControls = false; //Take over the alpha controls
+
+				//Calculate the new Alpha value as a Lerp from current alpha to zero (_shaftAlphaMin)
+				float shaftAlpha = LerpRemap(MasterWeatherCycle, _disableShaftAutoalphaThreshold, 1.0f, currentAlpha, _shaftAlphaMin);
+
+				//Set the new alpha value to the chunkController shader
+				chunkController.SetMMShaftAlpha(shaftAlpha);
+			}
+		}
+	}
+
+	private void EnableShaftMaterialAutoAlpha()
+	{
+		Vector3 cameraPos = _mainCamera.GlobalTransform.Origin;
+		foreach (var node in _shaftChunksSpawner.GetChildren())
+		{
+			if (node is ShaftChunkMMController chunkController)
+			{
+				if (chunkController._autoAlphaControls == true) continue;
+
+				chunkController._autoAlphaControls = true; //Enable the auto alpha controls
+
+				float currentCamDistance = cameraPos.DistanceTo(chunkController._collisionShape.GlobalTransform.Origin);
+				chunkController.AutoUpdateInstanceAlpha(currentCamDistance); //Set the alpha to previous state before auto alpha controls were disabled
+			}
+
+		}
 	}
 
 
@@ -110,113 +321,6 @@ public partial class WeatherController : Node3D
 		}
 
 		return (false, "All reference nodes are valid.");
-	}
-
-
-	public override void _Process(double delta)
-	{
-		if (IsAnyReferenceNull().IsNull) return;
-		// Callable.From(UpdateWeatherCycle).CallDeferred();
-
-		if (WeatherMasterValue != _previousMaterValue)
-		{
-			_previousMaterValue = WeatherMasterValue;
-			UpdateWeatherCycle();
-		}
-	}
-
-	private void UpdateWeatherCycle()
-	{
-		//TODO: Implement weather states, so we can blend values based on active state and others as part of "Base State"
-
-		if (_isWeatherCycleActive)
-		{
-			//Set and update clouds
-			float alphaScissor = LerpRemap(WeatherMasterValue, 0.0f, 1.0f, _cloudAlphaScissorMin, _cloudAlphaScissorMax);
-			_cloudManager._alphaScissor = alphaScissor;
-			_cloudManager.UpdateCloudShadows();
-
-			//Set and update lights
-			float lightEnergy = LerpRemap(WeatherMasterValue, 0.8f, 1.0f, _lightEnergyMin, _lightEnergyMax);
-			_directionalLight.LightEnergy = lightEnergy; //Blend only at certain WeatherMasterValue...
-
-			//Set and update envinronment
-			Color fogAlbedo = _fogAlbedoNight.Lerp(_fogAlbedoDay, WeatherMasterValue); //Night ONLY
-			float fogDensity = LerpRemap(WeatherMasterValue, 0.0f, 1.0f, _fogDensityMin, _fogDensityMax); //Night - DAY ONLY (no blend)
-			float glowIntensity = LerpRemap(WeatherMasterValue, 0.0f, 1.0f, _glowIntensityMin, _glowIntensityMax); //Night - DAY ONLY (no blend)
-			float glowStrength = LerpRemap(WeatherMasterValue, 0.0f, 1.0f, _glowStrengthMin, _glowStrengthMax); //Night - DAY ONLY (no blend)
-			_worldEnvironment.Environment.VolumetricFogAlbedo = fogAlbedo; //Night - DAY ONLY (no blend)
-			_worldEnvironment.Environment.VolumetricFogDensity = fogDensity; //Night - DAY ONLY (no blend)
-			_worldEnvironment.Environment.GlowIntensity = glowIntensity; //Night - DAY ONLY (no blend)
-			_worldEnvironment.Environment.GlowStrength = glowStrength; //Night - DAY ONLY (no blend)
-
-
-			if (WeatherMasterValue >= _disableShaftAutoalphaThreshold) // If the weather is close to max, we want to update shafts
-			{
-				FadeOutShaftMaterialAlpha();
-			}
-			else
-			{
-				EnableShaftMaterialAutoAlpha();
-			}
-
-
-			// Log.Info($"""
-			// 				Weather Updated:
-			// 				Alpha Scissor: {alphaScissor}
-			// 				Fog Density: {fogDensity}
-			// 				Fog Albedo: {fogAlbedo}
-			// 				Light Energy: {lightEnergy}
-			// 				Glow Intensity: {glowIntensity}
-			// 				Glow Strength: {glowStrength}
-			// 				""");
-			_cloudAlphaLbl.Text = $"Cloud Alpha: {alphaScissor}";
-			_directLightLbl.Text = $"Light Energy: {lightEnergy}";
-			_fogDensityLbl.Text = $"Fog Density: {fogDensity}";
-			_glowStrenghtLbl.Text = $"Glow Strength: {glowStrength}";
-			_glowIntensityLbl.Text = $"Glow Intensity: {glowIntensity:F2}";
-
-		}
-	}
-
-	private void FadeOutShaftMaterialAlpha()
-	{
-		foreach (var node in _shaftChunksSpawner.GetChildren())
-		{
-			if (node is ShaftChunkMMController chunkController)
-			{
-				//get current alpha value from chunkController
-				ShaderMaterial chunkMMMaterial = chunkController.Multimesh.Mesh.SurfaceGetMaterial(0) as ShaderMaterial;
-				float currentAlpha = chunkController.GetMMShaftAlpha();       // chunkMMMaterial.GetShaderParameter("alpha").As<float>();
-
-				//Set chunk to stop "AutoAlphaControls"
-				chunkController._autoAlphaControls = false; //Take over the alpha controls
-
-				//Calculate the new Alpha value as a Lerp from current alpha to zero (_shaftAlphaMin)
-				float shaftAlpha = LerpRemap(WeatherMasterValue, _disableShaftAutoalphaThreshold, 1.0f, currentAlpha, _shaftAlphaMin);
-
-				//Set the new alpha value to the chunkController shader
-				chunkController.SetMMShaftAlpha(shaftAlpha);
-			}
-		}
-	}
-
-	private void EnableShaftMaterialAutoAlpha()
-	{
-		Vector3 cameraPos = _mainCamera.GlobalTransform.Origin;
-		foreach (var node in _shaftChunksSpawner.GetChildren())
-		{
-			if (node is ShaftChunkMMController chunkController)
-			{
-				if (chunkController._autoAlphaControls == true) continue;
-
-				chunkController._autoAlphaControls = true; //Enable the auto alpha controls
-
-				float currentCamDistance = cameraPos.DistanceTo(chunkController._collisionShape.GlobalTransform.Origin);
-				chunkController.AutoUpdateInstanceAlpha(currentCamDistance); //Set the alpha to previous state before auto alpha controls were disabled
-			}
-
-		}
 	}
 
 
@@ -326,5 +430,92 @@ public partial class WeatherController : Node3D
 		return Mathf.Clamp(weight, 0f, 1f);
 	}
 }
+
+////
+#region WeatherRecordsAndSupportingClasses
+
+public abstract record WeatherState
+{
+	public abstract float StateDuration { get; set; }
+	public abstract float StartTime { get; set; }
+	public abstract float EndCycleTime { get; set; }
+
+	public virtual void EnterState() { }// Make this abstract or virtual later.
+	public virtual void ExitState() { }
+
+}
+
+public record DayState : WeatherState
+{
+	public override float StateDuration { get; set; } = 1.0f;
+	public override float StartTime { get; set; } = 0.51f;
+	public override float EndCycleTime { get; set; } = 1.0f;
+
+	// public DayState(float stateDuration, float startTime, float endCycleTime)
+	// {
+	// 	StateDuration = stateDuration;
+	// 	StartTime = startTime;
+	// 	EndCycleTime = endCycleTime;
+	// }
+}
+public record SunsetState : WeatherState
+{
+	public override float StateDuration { get; set; } = 1.0f;
+	public override float StartTime { get; set; } = 1.0f;
+	public override float EndCycleTime { get; set; } = 0.51f;
+}
+
+public record NightState : WeatherState
+{
+	public override float StateDuration { get; set; } = 1.0f;
+	public override float StartTime { get; set; } = 0.5f;
+	public override float EndCycleTime { get; set; } = 0.0f;
+}
+
+public record SunriseState : WeatherState
+{
+	public override float StateDuration { get; set; } = 1.0f;
+	public override float StartTime { get; set; } = 0.0f;
+	public override float EndCycleTime { get; set; } = 0.5f;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#endregion WeatherRecordsAndSupportingClasses
 
 
