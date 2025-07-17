@@ -45,6 +45,8 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 	[Export] public bool ShowOnlyColliders { get; set; } = true;
 	private List<InstanceCollider> _instanceList { get; set; } = new(); //int=IntanceID /--/ InstanceCollider=InstanaceInfo
 	private bool _hasCollidersMissing = true;
+
+	public bool _autoAlphaControls { get; set; } = true;
 	public float DistanceToCamera { get; set; }
 	MultiMesh _multiMesh;
 
@@ -272,7 +274,9 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 
 		//Set new alpha (Use this when updating all instances- directly using the Shader inside the MultiMesh mesh)
 		float alpha = Mathf.Lerp(0.0f, 0.8f, weight); // LLerp(Colors.White, weight);
-		UpdateMMMeshShaderAlpha(alpha);
+
+		if (_autoAlphaControls)
+			UpdateMMMeshShaderAlpha(alpha);
 
 		// if (this.Name == "ShaftChunkMMController")
 		// 	Log.Info($"UpdateAlpha {alpha}");

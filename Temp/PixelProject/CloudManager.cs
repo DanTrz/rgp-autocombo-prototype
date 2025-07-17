@@ -89,7 +89,7 @@ public partial class CloudManager : MeshInstance3D
 		// }
 	}
 
-	private void UpdateCloudShadows()
+	public void UpdateCloudShadows()
 	{
 		try
 		{
