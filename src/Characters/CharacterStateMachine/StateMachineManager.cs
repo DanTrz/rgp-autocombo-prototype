@@ -17,7 +17,7 @@ public partial class StateMachineManager : Node
         // Log.Info("State Machine Manager Created");
     }
 
-    public override void _Ready()
+    public async override void _Ready()
     {
         // Log.Info($"{GetOwner().Name} : State Machine Manager READY");
 
@@ -33,7 +33,7 @@ public partial class StateMachineManager : Node
         if (_initialState != null)
         {
             CurrentState = _initialState;
-            CurrentState.Enter();
+            await CurrentState.Enter();
         }
 
         //GlobalEvents.OnBattleEnded += OnBattleEnded;
@@ -42,9 +42,9 @@ public partial class StateMachineManager : Node
 
     }
 
-    public override void _Process(double delta)
+    public async override void _Process(double delta)
     {
-        CurrentState?.ProcessUpdate(delta);
+        await CurrentState?.ProcessUpdate(delta);
 
         // if (_currentCharacter != null)
         // {
@@ -57,9 +57,9 @@ public partial class StateMachineManager : Node
         }
     }
 
-    public override void _PhysicsProcess(double delta)
+    public async override void _PhysicsProcess(double delta)
     {
-        CurrentState?.PhysicsUpdate(delta);
+        await CurrentState?.PhysicsUpdate(delta);
     }
 
     private void OnCharacterStateTransition(CharacterBaseState currentState, Const.CharactersEnums.States newStateName, BaseCharacter character)

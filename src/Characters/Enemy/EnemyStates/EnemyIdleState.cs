@@ -1,10 +1,11 @@
+using System.Threading.Tasks;
 using Godot;
 
 public partial class EnemyIdleState : EnemyBaseState, ICharacterState
 {
     public override Const.CharactersEnums.States StateName { get; set; } = Const.CharactersEnums.States.ENEMY_IDLE_STATE;
 
-    public override void Enter()
+    public async override Task Enter()
     {
         Log.Info($" {_charMainNode.Name} - Idle State Entered");
 
@@ -14,17 +15,17 @@ public partial class EnemyIdleState : EnemyBaseState, ICharacterState
         }
     }
 
-    public override void Exit()
+    public async override Task Exit()
     {
 
     }
 
-    public override void ProcessUpdate(double delta)
+    public async override Task ProcessUpdate(double delta)
     {
 
     }
 
-    public override void PhysicsUpdate(double delta)
+    public async override Task PhysicsUpdate(double delta)
     {
         ManageIdleState(delta);
     }

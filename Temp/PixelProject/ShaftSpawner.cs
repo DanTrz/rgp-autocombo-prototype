@@ -36,7 +36,7 @@ public partial class ShaftSpawner : Node3D
 	[Export] private float _intialAlpha { get; set; } = 1.0f; //0.85albedo_color
 	[Export] private float _rimPower { get; set; } = 3.0f;
 	[Export] private float _animationSpeed { get; set; } = 1.0f;
-	[Export] private Vector2 _uvOffset { get; set; } = new Vector2(0.0f, 0.85f);
+	[Export] private Vector2 _uvOffset { get; set; } = new Vector2(0.0f, 0.95f);
 	[Export] private float _fadeOutStartPoint { get; set; } = 0.0f;
 	[Export] private bool _useRandomGradient { get; set; } = true;
 

@@ -1,6 +1,8 @@
 {
   "workbench.colorCustomizations": {
-    "editor.background": "#1b1919"
+    "editor.background": "#1b1919",
+    "editorHint.foreground": "#ffd900",
+    "editorHint.border": "#ffffff",
   },
 
   "theme-by-language.themes": {

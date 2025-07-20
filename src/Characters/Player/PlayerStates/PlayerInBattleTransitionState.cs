@@ -1,25 +1,27 @@
+using System.Threading.Tasks;
+
 public partial class PlayerInBattleTransitionState : PlayerBaseState, ICharacterState
 {
 
     public override Const.CharactersEnums.States StateName { get; set; } = Const.CharactersEnums.States.IN_PREBATTLE_STATE;
 
-    public override void Enter()
+    public async override Task Enter()
     {
         Log.Info("CS BatteTransition State Entered");
 
     }
 
-    public override void Exit()
+    public async override Task Exit()
     {
 
     }
 
-    public override void ProcessUpdate(double delta)
+    public async override Task ProcessUpdate(double delta)
     {
 
     }
 
-    public override void PhysicsUpdate(double delta)
+    public async override Task PhysicsUpdate(double delta)
     {
 
     }

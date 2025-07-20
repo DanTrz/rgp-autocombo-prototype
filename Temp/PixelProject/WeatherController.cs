@@ -117,7 +117,7 @@ public partial class WeatherController : Node3D
 				UpdateBaseWeatherParams(MasterWeatherCycle);
 			}
 		}
-		else if (_isAutoWeatherCycle && _isProgressing)
+		else if ((_isAutoWeatherCycle && _isProgressing) && !Engine.IsEditorHint())
 		{
 			ManageWeatherState(_currentWeatherState, (float)delta);
 		}

@@ -36,6 +36,8 @@ uniform int cuts : hint_range(1, 20) = 2; // Use 1 cut for more traditional Toon
 uniform float wrap : hint_range(-2.0f, 2.0f) = 0.0f;
 uniform float steepness : hint_range(1.0f, 8.0f) = 1.0f;
 uniform bool use_attenuation = true;
+//uniform float alpha_scis_thres : hint_range(0.1f, 1.0f) = 1.0f;
+
 
 // Specular controls
 uniform bool use_specular = false;
@@ -132,6 +134,7 @@ void fragment() {
 		: texture(albedo_texture_repeat_nearest, transformed_uv);
 
 	ALBEDO = albedo_color.rgb * tex_color.rgb;
+	//ALPHA_SCISSOR_THRESHOLD = alpha_scis_thres;
 }
 
 void light() {

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgwk417omf1er"
-path.s3tc="res://.godot/imported/Ucupaint 08 - Default Normal.png-5de3483a1f732bb6af513f1ce5c5cbcb.s3tc.ctex"
+uid="uid://cdnssd5duq152"
+path.s3tc="res://.godot/imported/circle_1.png-dd443d863ffa69178245446702795aeb.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Temp/PixelProject/Assets/3D/FoxUpdated/FoxBlender/textures/Ucupaint 08 - Default Normal.png"
-dest_files=["res://.godot/imported/Ucupaint 08 - Default Normal.png-5de3483a1f732bb6af513f1ce5c5cbcb.s3tc.ctex"]
+source_file="res://Temp/PixelProject/Rain/circle_1.png"
+dest_files=["res://.godot/imported/circle_1.png-dd443d863ffa69178245446702795aeb.s3tc.ctex"]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=1
+compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1

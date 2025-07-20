@@ -11,7 +11,7 @@ public partial class PlayerJumpState : PlayerBaseState, ICharacterState
 
     private Vector3 _initialHorizontalVelocity = Vector3.Zero;
 
-    public override void Enter()
+    public async override Task Enter()
     {
 
         _initialHorizontalVelocity = new Vector3(_charMainNode.Velocity.X, 0, _charMainNode.Velocity.Z);
@@ -35,17 +35,17 @@ public partial class PlayerJumpState : PlayerBaseState, ICharacterState
         GD.Print($"1 -Velocity AT VERY END of Enter: {_charMainNode.Velocity}");
     }
 
-    public override void Exit()
+    public async override Task Exit()
     {
 
     }
 
-    public override void ProcessUpdate(double delta)
+    public async override Task ProcessUpdate(double delta)
     {
 
     }
 
-    public override void PhysicsUpdate(double delta)
+    public async override Task PhysicsUpdate(double delta)
     {
         ManageJumpState(delta);
     }

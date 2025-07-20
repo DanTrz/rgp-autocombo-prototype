@@ -76,7 +76,7 @@ shader_parameter/gradient1 = SubResource("GradientTexture2D_xjech")
 shader_parameter/gradient2 = SubResource("GradientTexture2D_red84")
 shader_parameter/gradient3 = SubResource("GradientTexture2D_1d67n")
 shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
+shader_parameter/uv1_offset = Vector2(0, 0.95)
 shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
 shader_parameter/max_world_bounds = Vector3(500, 500, 500)
 

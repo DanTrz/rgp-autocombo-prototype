@@ -1,9 +1,11 @@
+using System.Threading.Tasks;
+
 public interface ICharacterState
 {
-    public void Enter();
-    public void Exit();
-    public void ProcessUpdate(double delta);
-    public void PhysicsUpdate(double delta);
+    public Task Enter();
+    public Task Exit();
+    public Task ProcessUpdate(double delta);
+    public Task PhysicsUpdate(double delta);
 
 }
 

@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Godot;
 
 public partial class FoxWalkState : PlayerBaseState, ICharacterState
@@ -10,7 +11,7 @@ public partial class FoxWalkState : PlayerBaseState, ICharacterState
     [Export] public float WalkAcceleration = 10;
 
     bool _isCharWalking = false;
-    public override void Enter()
+    public async override Task Enter()
     {
         _charSpeed = WalkSpeed;
         _charRotationSpeed = WalkRotationSpeed;
@@ -20,18 +21,18 @@ public partial class FoxWalkState : PlayerBaseState, ICharacterState
 
     }
 
-    public override void Exit()
+    public async override Task Exit()
     {
         _isCharWalking = false;
 
     }
 
-    public override void ProcessUpdate(double delta)
+    public async override Task ProcessUpdate(double delta)
     {
 
     }
 
-    public override void PhysicsUpdate(double delta)
+    public async override Task PhysicsUpdate(double delta)
     {
         ManageWalkState(delta);
     }

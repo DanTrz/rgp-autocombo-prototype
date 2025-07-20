@@ -29,6 +29,9 @@ uniform vec3 emission_color : source_color = vec3(1.0);
 // Ambient light controls (RESTORED)
 uniform bool disable_ambient_light = false;
 uniform vec3 fake_ambient_light : source_color = vec3(0.8);
+uniform bool use_alpha_scissors = false;
+uniform float alpha_scissors : hint_range(0.0, 1.0) = 0.5;
+
 
 // ===== SINGLE SHADOW CONTROL SYSTEM (CLOUD - PROTECTED) =====
 group_uniforms Shadows;
@@ -223,6 +226,12 @@ void fragment() {
 
         ALBEDO = tex.rgb * albedo_color.rgb;
         ALPHA = tex.a * albedo_color.a;
+		
+		if(use_alpha_scissors)
+		{
+			ALPHA_SCISSOR_THRESHOLD = alpha_scissors;
+		}
+		
 
         if (ALPHA < 0.1) {
             discard;

@@ -51,7 +51,7 @@ uniform sampler2D gradient3 : source_color, hint_default_black, filter_linear_mi
 
 group_uniforms OtherandUtil;
 uniform vec2 uv1_scale = vec2(4.0, 0.1);
-uniform vec2 uv1_offset = vec2(0.0, 0.85);
+uniform vec2 uv1_offset = vec2(0.0, 0.95);
 uniform vec3 min_world_bounds = vec3(-500, -500, -500);
 uniform vec3 max_world_bounds = vec3(500, 500, 500);
 

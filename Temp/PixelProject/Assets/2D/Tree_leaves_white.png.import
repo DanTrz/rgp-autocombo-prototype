@@ -2,20 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcdqkbprjdcje"
-path="res://.godot/imported/Ucupaint 08 - Default Displacement.png-5f52aaa973d60dd8a3da1fa7706d7c8b.ctex"
+uid="uid://by1th7e7exieo"
+path.s3tc="res://.godot/imported/Tree_leaves_white.png-b4ef30909f538ab3a9167892430255ce.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://Temp/PixelProject/Assets/3D/FoxUpdated/FoxBlender/textures/Ucupaint 08 - Default Displacement.png"
-dest_files=["res://.godot/imported/Ucupaint 08 - Default Displacement.png-5f52aaa973d60dd8a3da1fa7706d7c8b.ctex"]
+source_file="res://Temp/PixelProject/Assets/2D/Tree_leaves_white.png"
+dest_files=["res://.godot/imported/Tree_leaves_white.png-b4ef30909f538ab3a9167892430255ce.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
@@ -31,4 +32,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

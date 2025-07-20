@@ -1,10 +1,10 @@
-[gd_scene load_steps=18 format=4 uid="uid://ceuqgja4ownk6"]
+[gd_scene load_steps=20 format=4 uid="uid://ceuqgja4ownk6"]
 
 [ext_resource type="Script" uid="uid://dofp8cf2j0tol" path="res://Temp/PixelProject/TreeLeafParticuleEmitter.cs" id="1_j1kbm"]
 [ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_ot7g1"]
 [ext_resource type="Shader" uid="uid://xyu6c57vn0ks" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight_waterUpdate.gdshader" id="3_8x41d"]
 [ext_resource type="Shader" uid="uid://bhr41rldkpotm" path="res://Temp/PixelProject/MultiLeaf_ParticuleShader_v2.gdshader" id="4_ot7g1"]
-[ext_resource type="Shader" uid="uid://csdekka4own2p" path="res://Assets/Shaders/PixelShaders/FoliageAnimation_v3_CloudSupport_v2_BillBoardFix.gdshader" id="5_8x41d"]
+[ext_resource type="Shader" uid="uid://bqg1tvhvo8t3d" path="res://Assets/Shaders/PixelShaders/FoliageAnimation_v4_Ultimate.gdshader" id="5_8x41d"]
 [ext_resource type="Texture2D" uid="uid://1b2dh6hbyfpm" path="res://Temp/PixelProject/Assets/Tree_LoD_GPUParticule.png" id="6_8x41d"]
 
 [sub_resource type="Gradient" id="Gradient_o6o0y"]
@@ -147,10 +147,19 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_fjmk2")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ot7g1"]
+[sub_resource type="Gradient" id="Gradient_8x41d"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xyerj"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_8x41d")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5oxuo"]
 resource_local_to_scene = true
 shader = ExtResource("4_ot7g1")
-shader_parameter/color_ramp_texture = SubResource("GradientTexture1D_wq7mf")
+shader_parameter/color_ramp_texture = SubResource("GradientTexture1D_xyerj")
 shader_parameter/target_color_direction = Vector3(0, 1, 0)
 shader_parameter/color_spread = 0.5
 shader_parameter/color_noise = 0.1
@@ -164,14 +173,14 @@ shader_parameter/lifetime_randomness = 0.0
 shader_parameter/color_value = Color(1, 1, 1, 1)
 shader_parameter/gravity = Vector3(0, 0, 0)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fjmk2"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8x41d"]
 load_path = "res://.godot/imported/Leafd.png-5242864aff212dc7c789c89694e87f11.s3tc.ctex"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rqk0u"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xyerj"]
 resource_local_to_scene = true
 render_priority = 1
 shader = ExtResource("5_8x41d")
-shader_parameter/albedo_tex = SubResource("CompressedTexture2D_fjmk2")
+shader_parameter/albedo_tex = SubResource("CompressedTexture2D_8x41d")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
 shader_parameter/billboard = true
 shader_parameter/use_vertex_color = true
@@ -179,6 +188,9 @@ shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/disable_ambient_light = false
 shader_parameter/fake_ambient_light = Color(0.8, 0.8, 0.8, 1)
+shader_parameter/use_alpha_scissors = true
+shader_parameter/alpha_scissors = 0.5
+shader_parameter/albedo_uv_scale = Vector2(1, 1)
 shader_parameter/override_global_shadow = false
 shader_parameter/real_shadow_threshold = 0.99
 shader_parameter/enable_cloud_shadows = true
@@ -196,9 +208,9 @@ shader_parameter/sway_from_bottom = false
 shader_parameter/debug_mode = false
 shader_parameter/debug_test = 0
 
-[sub_resource type="QuadMesh" id="QuadMesh_ot7g1"]
+[sub_resource type="QuadMesh" id="QuadMesh_5oxuo"]
 resource_local_to_scene = true
-material = SubResource("ShaderMaterial_rqk0u")
+material = SubResource("ShaderMaterial_xyerj")
 size = Vector2(0.5, 0.7)
 
 [node name="TreeMultiLeafGPUParticule" type="Node3D" node_paths=PackedStringArray("_particleEmitter", "_treeMesh", "_restartParticulesTime")]
@@ -224,8 +236,8 @@ amount = 500
 lifetime = 1e+07
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource("ShaderMaterial_ot7g1")
-draw_pass_1 = SubResource("QuadMesh_ot7g1")
+process_material = SubResource("ShaderMaterial_5oxuo")
+draw_pass_1 = SubResource("QuadMesh_5oxuo")
 
 [node name="LodTree" type="Sprite3D" parent="."]
 transform = Transform3D(0.875, 0, 0, 0, 1.05, 0, 0, 0, 0.875, 0, 1.77052, 0)

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 
 public partial class FoxFallState : PlayerBaseState, ICharacterState
@@ -7,23 +8,23 @@ public partial class FoxFallState : PlayerBaseState, ICharacterState
 
 
     [Export] public float fallSpeed = 5.0f;
-    public override void Enter()
+    public async override Task Enter()
     {
 
 
     }
 
-    public override void Exit()
+    public async override Task Exit()
     {
 
     }
 
-    public override void ProcessUpdate(double delta)
+    public async override Task ProcessUpdate(double delta)
     {
 
     }
 
-    public override void PhysicsUpdate(double delta)
+    public async override Task PhysicsUpdate(double delta)
     {
         ManageFallState(delta);
 

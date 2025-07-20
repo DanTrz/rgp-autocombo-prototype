@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 
 public abstract partial class CharacterBaseState : Node, ICharacterState //TODO : Check if there is a better way to use this INterface, doe snothing at the moment. 
@@ -23,20 +24,20 @@ public abstract partial class CharacterBaseState : Node, ICharacterState //TODO 
     public void EmitStateTransition(CharacterBaseState currentState, Const.CharactersEnums.States nextStateName, BaseCharacter character) => OnStateTransition?.Invoke(currentState, nextStateName, character);
 
 
-    public virtual void Enter()
+    public async virtual Task Enter()
     {
     }
 
-    public virtual void Exit()
+    public async virtual Task Exit()
     {
     }
 
-    public virtual void ProcessUpdate(double delta)
+    public async virtual Task ProcessUpdate(double delta)
     {
 
     }
 
-    public virtual void PhysicsUpdate(double delta)
+    public async virtual Task PhysicsUpdate(double delta)
     {
     }
 
