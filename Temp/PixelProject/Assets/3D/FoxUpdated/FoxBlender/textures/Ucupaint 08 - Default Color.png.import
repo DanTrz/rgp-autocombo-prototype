@@ -2,17 +2,18 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6q8adcjecvt2"
-path.s3tc="res://.godot/imported/hatch.png-11b7d6661885e6627f4b82770c902988.s3tc.ctex"
+uid="uid://d14scfakodolp"
+path.s3tc="res://.godot/imported/Ucupaint 08 - Default Color.png-d1a9d9f411e6d96a78eb95fbd16f7da4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={}
 
 [deps]
 
-source_file="res://assets/shaders/PixelShaders/ShaderSupportingAssets/hatch.png"
-dest_files=["res://.godot/imported/hatch.png-11b7d6661885e6627f4b82770c902988.s3tc.ctex"]
+source_file="res://Temp/PixelProject/Assets/3D/FoxUpdated/FoxBlender/textures/Ucupaint 08 - Default Color.png"
+dest_files=["res://.godot/imported/Ucupaint 08 - Default Color.png-d1a9d9f411e6d96a78eb95fbd16f7da4.s3tc.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b1wq3xhiw4aog"
-path.s3tc="res://.godot/imported/GrassAnimation_48PX_SpriteSheet.png-1fdd8217b380d26228e4c5c184c16950.s3tc.ctex"
+path.s3tc="res://.godot/imported/GrassAnimation_48PX_SpriteSheet.png-3513c1457a5f15c004b511cdb718a39f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Sprites/GrassAnimation_48PX_SpriteSheet.png"
-dest_files=["res://.godot/imported/GrassAnimation_48PX_SpriteSheet.png-1fdd8217b380d26228e4c5c184c16950.s3tc.ctex"]
+source_file="res://assets/Sprites/GrassAnimation_48PX_SpriteSheet.png"
+dest_files=["res://.godot/imported/GrassAnimation_48PX_SpriteSheet.png-3513c1457a5f15c004b511cdb718a39f.s3tc.ctex"]
 
 [params]
 

@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyvkt6qqdrepj"
+uid="uid://cnt2abwxlbkjh"
 path.s3tc="res://.godot/imported/Rocks_castle-colour-palette.png-0bded8c5fd1f413da32efad12911bd66.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "3ca9b4f8b21af022b4179d1a5f0b0849"
 }
 
 [deps]

@@ -1,16 +1,16 @@
 [gd_scene load_steps=301 format=4 uid="uid://d1fonqxidgbmt"]
 
 [ext_resource type="Shader" uid="uid://d7i4v6mk0aps" path="res://Temp/PixelProject/CloudManagerShader.gdshader" id="1_bnugo"]
-[ext_resource type="LabelSettings" uid="uid://cswfpemyeo4bm" path="res://Assets/DebugLabel.tres" id="2_005by"]
+[ext_resource type="LabelSettings" uid="uid://cswfpemyeo4bm" path="res://assets/DebugLabel.tres" id="2_005by"]
 [ext_resource type="Script" uid="uid://di5uor0ve6105" path="res://Temp/PixelProject/WeatherController.cs" id="2_a5jl2"]
 [ext_resource type="Script" uid="uid://tweefbwoi14v" path="res://Temp/PixelProject/CloudManager.cs" id="2_eb58x"]
 [ext_resource type="PackedScene" uid="uid://bok06l3ildw4l" path="res://src/Levels/LevelComponents/GrassMeshAnimated.tscn" id="4_1pnsr"]
 [ext_resource type="PackedScene" uid="uid://c3cxasrvb50k3" path="res://Temp/PixelProject/Assets/3D/FoxUpdated/FoxScene.tscn" id="4_38jjr"]
 [ext_resource type="PackedScene" uid="uid://cnoal853hd07d" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/ShaftChunkMM.tscn" id="4_kphyu"]
-[ext_resource type="Shader" uid="uid://dpwmhlausv7b8" path="res://Assets/Shaders/PixelShaders/water_toon_planar_reflection.gdshader" id="4_kymif"]
+[ext_resource type="Shader" uid="uid://dpwmhlausv7b8" path="res://assets/shaders/PixelShaders/water_toon_planar_reflection.gdshader" id="4_kymif"]
 [ext_resource type="Texture2D" uid="uid://cwopgjiunh5xc" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterDistortion.png" id="5_g8mop"]
 [ext_resource type="PackedScene" uid="uid://be8vp1ovkxhey" path="res://Temp/PixelProject/Assets/3D/MushRooms.tscn" id="5_kphyu"]
-[ext_resource type="Shader" uid="uid://cmwatuur0pfiv" path="res://Assets/Shaders/PixelShaders/godray_shadow_offset_and_random.gdshader" id="5_s703g"]
+[ext_resource type="Shader" uid="uid://cmwatuur0pfiv" path="res://assets/shaders/PixelShaders/godray_shadow_offset_and_random.gdshader" id="5_s703g"]
 [ext_resource type="Texture2D" uid="uid://dixqstxe6b56r" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterLinear.png" id="6_nfqn6"]
 [ext_resource type="Texture2D" uid="uid://3sbqf0bf1n4s" path="res://Temp/PixelProject/Assets/2D/Textures/WhiteTextures/Blank64px.png" id="6_s703g"]
 [ext_resource type="Texture2D" uid="uid://vsslbgh1tge3" path="res://Temp/PixelProject/Assets/2D/Textures/WhiteTextures/white_dirty_01.png" id="7_xgc4j"]
@@ -18,24 +18,24 @@
 [ext_resource type="Texture2D" uid="uid://mg0ws3yv815j" path="res://Temp/PixelProject/Assets/2D/Textures/WhiteTextures/White_rocks_5..png" id="9_g8mop"]
 [ext_resource type="Texture2D" uid="uid://ds3svmdomxbob" path="res://Temp/PixelProject/Assets/2D/Textures/WhiteTextures/white_grass_basic_1 - Copy.png" id="10_nfqn6"]
 [ext_resource type="Texture2D" uid="uid://cgevqdb47vav6" path="res://Temp/PixelProject/Assets/3D/BolderRockv2_Ucupaint BolderRock Color.png" id="11_qodvv"]
-[ext_resource type="Shader" uid="uid://bqg1tvhvo8t3d" path="res://Assets/Shaders/PixelShaders/FoliageAnimation_v4_Ultimate.gdshader" id="12_4680x"]
-[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="12_f0hk7"]
-[ext_resource type="Shader" uid="uid://cmqagob15pcm3" path="res://Assets/Shaders/PixelShaders/flexible_toon_v4.gdshader" id="13_bnugo"]
+[ext_resource type="Shader" uid="uid://bqg1tvhvo8t3d" path="res://assets/shaders/PixelShaders/FoliageAnimation_v4_Ultimate.gdshader" id="12_4680x"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://assets/shaders/PixelShaders/3dOutlineHighlight.gdshader" id="12_f0hk7"]
+[ext_resource type="Shader" uid="uid://cmqagob15pcm3" path="res://assets/shaders/PixelShaders/flexible_toon_v4.gdshader" id="13_bnugo"]
 [ext_resource type="PackedScene" uid="uid://ceuqgja4ownk6" path="res://Temp/PixelProject/TreeMultiLeafGPUParticule.tscn" id="14_k22ku"]
 [ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="15_ldr28"]
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="16_nxmp7"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="17_e5132"]
 [ext_resource type="Script" uid="uid://c1k442kuarm6s" path="res://Temp/PixelProject/CloneCamera3d.cs" id="20_kphyu"]
 [ext_resource type="Texture2D" uid="uid://bxm7edcf6jwv1" path="res://Temp/PixelProject/Assets/3D/shrine_nagon_texture.png" id="21_nfqn6"]
-[ext_resource type="Shader" uid="uid://xyu6c57vn0ks" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight_waterUpdate.gdshader" id="22_nfqn6"]
+[ext_resource type="Shader" uid="uid://xyu6c57vn0ks" path="res://assets/shaders/PixelShaders/3dOutlineHighlight_waterUpdate.gdshader" id="22_nfqn6"]
 [ext_resource type="PackedScene" uid="uid://bth1pg1lmmsm0" path="res://Temp/PixelProject/Assets/3D/FlowerGrassDeco.tscn" id="23_f0hk7"]
 [ext_resource type="Script" uid="uid://dtju7x6roocwx" path="res://Temp/PixelProject/DebugPanel.cs" id="23_s703g"]
-[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="24_4hqal"]
+[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://assets/shaders/PixelShaders/flexible_toon_v3.gdshader" id="24_4hqal"]
 [ext_resource type="Script" uid="uid://dueylivw53n8w" path="res://addons/proton_scatter/src/scatter.gd" id="25_38jjr"]
 [ext_resource type="Script" uid="uid://60kixpx2dmm2" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="26_a5jl2"]
 [ext_resource type="Script" uid="uid://crdykjpd7js67" path="res://addons/proton_scatter/src/modifiers/base_modifier.gd" id="27_005by"]
 [ext_resource type="Script" uid="uid://6qnfbxmeycg5" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="28_fx1qu"]
-[ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="28_qodvv"]
+[ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://assets/shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="28_qodvv"]
 [ext_resource type="Script" uid="uid://btbp4w8dt5rqm" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="30_yx5a4"]
 [ext_resource type="Script" uid="uid://008xqa3l2d21" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="31_uciq2"]
 [ext_resource type="Script" uid="uid://yjm4m5smpqel" path="res://addons/proton_scatter/src/scatter_item.gd" id="32_suci3"]
@@ -65,7 +65,7 @@ noise = SubResource("FastNoiseLite_a4ruw")
 render_priority = 0
 shader = ExtResource("1_bnugo")
 shader_parameter/cloud_texture = SubResource("NoiseTexture2D_f2e7b")
-shader_parameter/cloud_alpha_scissor_threshold = 0.606
+shader_parameter/cloud_alpha_scissor_threshold = 0.6372
 shader_parameter/cloud_color = Color(1, 1, 1, 1)
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 0.5
@@ -109,7 +109,7 @@ subdivide_width = 50
 subdivide_depth = 50
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_4680x"]
-viewport_path = NodePath("MainSubViewport/WaterToon/editor_reflect_viewport")
+viewport_path = NodePath("MainSubViewport/WaterToon/@SubViewport@24934")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4hqal"]
 render_priority = 0
@@ -2696,13 +2696,13 @@ label_settings = ExtResource("2_005by")
 [node name="AlphaScissorLbl" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/Weather/WeatherBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Cloud Alpha: 0.56"
+text = "Cloud Alpha: 0.59"
 label_settings = ExtResource("2_005by")
 
 [node name="SunLightLbl" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/Weather/WeatherBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Light Energy: 0.75"
+text = "Light Energy: 0.88"
 label_settings = ExtResource("2_005by")
 
 [node name="FogDensity" type="Label" parent="DebugPanelLayer/DebugPanel/VBoxContainer/Weather/WeatherBoxContainer"]
@@ -2727,6 +2727,7 @@ label_settings = ExtResource("2_005by")
 script = ExtResource("2_a5jl2")
 _mainCamera = NodePath("../MainSubViewport/Fox/CameraRigYaw/MainCamera3D")
 _isAutoWeatherCycle = false
+MasterWeatherCycle = 0.78
 _cycleDurationTimer = NodePath("WeatherStateTimer")
 _dawnDuration = 6.0
 _morningDuration = 10.0
@@ -2743,14 +2744,13 @@ _worldEnvironment = NodePath("WorldEnvironment")
 [node name="CloudManager" type="MeshInstance3D" parent="WeatherController" node_paths=PackedStringArray("sunLight")]
 unique_name_in_owner = true
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 1, 26.6114, 66.5002, 36.5307)
-visible = false
 layers = 786433
 gi_mode = 0
 mesh = SubResource("PlaneMesh_ntwum")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_ed8f5")
 script = ExtResource("2_eb58x")
-_alphaScissor = 0.556
+_alphaScissor = 0.5872
 cloudTextureScale = 2.0
 isMoving = true
 moveDirection = Vector2(0.901609, 0.432553)
@@ -2762,7 +2762,7 @@ enableDirectionalShadows = true
 unique_name_in_owner = true
 transform = Transform3D(0.770746, 0.456309, -0.444671, 0.179378, 0.514278, 0.838655, 0.61137, -0.726154, 0.314526, 0, 6.95719, 0)
 layers = 786433
-light_energy = 0.75
+light_energy = 0.88
 shadow_enabled = true
 shadow_blur = 0.2
 directional_shadow_mode = 0
@@ -2877,7 +2877,7 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_gjs8b")
 
 [node name="BolderRockv16" type="MeshInstance3D" parent="MainSubViewport/Objects"]
-transform = Transform3D(0.284007, 0.946473, 0.15339, -0.953832, 0.262588, 0.145783, 0.0977015, -0.187711, 0.977353, -15.0416, -0.474378, -16.6306)
+transform = Transform3D(0.284007, 0.946473, 0.15339, -0.953832, 0.262588, 0.145783, 0.0977015, -0.187711, 0.977353, -14.0416, -0.474378, -16.6306)
 layers = 524289
 mesh = SubResource("ArrayMesh_ro3v6")
 skeleton = NodePath("")

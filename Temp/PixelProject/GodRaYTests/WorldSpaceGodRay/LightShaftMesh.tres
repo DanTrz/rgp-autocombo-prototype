@@ -1,6 +1,6 @@
 [gd_resource type="CylinderMesh" load_steps=15 format=3 uid="uid://5owtsxpfxgp6"]
 
-[ext_resource type="Shader" uid="uid://cmwatuur0pfiv" path="res://Assets/Shaders/PixelShaders/godray_shadow_offset_and_random.gdshader" id="1_brkdl"]
+[ext_resource type="Shader" uid="uid://cmwatuur0pfiv" path="res://assets/shaders/PixelShaders/godray_shadow_offset_and_random.gdshader" id="1_brkdl"]
 
 [sub_resource type="Gradient" id="Gradient_5pwqe"]
 offsets = PackedFloat32Array(0, 0.155789, 0.353684, 0.402105, 0.932632)

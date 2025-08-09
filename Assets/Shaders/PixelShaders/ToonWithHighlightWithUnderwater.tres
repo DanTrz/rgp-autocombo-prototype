@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cg03su2nb8jw2"]
 
-[ext_resource type="Shader" uid="uid://xyu6c57vn0ks" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight_waterUpdate.gdshader" id="1_8u6v1"]
-[ext_resource type="Shader" uid="uid://cmqagob15pcm3" path="res://Assets/Shaders/PixelShaders/flexible_toon_v4.gdshader" id="2_8u6v1"]
+[ext_resource type="Shader" uid="uid://xyu6c57vn0ks" path="res://assets/shaders/PixelShaders/3dOutlineHighlight_waterUpdate.gdshader" id="1_8u6v1"]
+[ext_resource type="Shader" uid="uid://cmqagob15pcm3" path="res://assets/shaders/PixelShaders/flexible_toon_v4.gdshader" id="2_8u6v1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_03ca8"]
 render_priority = 0
