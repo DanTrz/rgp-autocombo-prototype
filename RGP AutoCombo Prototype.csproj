@@ -8,7 +8,7 @@
 		<PublishAot>true</PublishAot>
 
 		<!--ONly needed for Roslynator Packages-->
-		 <EnableNETAnalyzers>true</EnableNETAnalyzers>
+		 <!-- <EnableNETAnalyzers>true</EnableNETAnalyzers> -->
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -17,9 +17,9 @@
 		<TrimmerRootAssembly Include="$(TargetName)" />
 
 			<!-- Roslyn analysers -->
-		<PackageReference Include="Roslynator.CodeFixes" Version="4.13.1" />
+		<!-- <PackageReference Include="Roslynator.CodeFixes" Version="4.13.1" />
 		<PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="4.13.1" />
 		<PackageReference Include="Roslynator.Formatting.Analyzers" Version="4.13.1" />
-		<PackageReference Include="Roslynator.Analyzers" Version="4.13.1" />
+		<PackageReference Include="Roslynator.Analyzers" Version="4.13.1" /> -->
 	</ItemGroup>
 </Project>

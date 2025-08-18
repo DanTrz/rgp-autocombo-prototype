@@ -195,6 +195,13 @@ void light() {
 		DIFFUSE_LIGHT += diffuse;
 	}
 
+	float NdotLRound = (round(NdotL * float(2))/ float(2));
+	float shadows = 0.0;
+	if(LIGHT_IS_DIRECTIONAL){
+		shadows += floor(ATTENUATION);
+		DIFFUSE_LIGHT +=  NdotLRound * ALBEDO * (LIGHT_COLOR) * shadows + (LIGHT_COLOR / PI);
+	}
+
 	// Fixed: Simplified emission to prevent double multiplication
 	if(use_emission) {
 		DIFFUSE_LIGHT += ALBEDO.rgb * emission_color * LIGHT_COLOR * ATTENUATION;

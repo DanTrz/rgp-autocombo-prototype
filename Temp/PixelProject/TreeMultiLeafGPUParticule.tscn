@@ -1,10 +1,10 @@
-[gd_scene load_steps=20 format=4 uid="uid://ceuqgja4ownk6"]
+[gd_scene load_steps=18 format=4 uid="uid://ceuqgja4ownk6"]
 
 [ext_resource type="Script" uid="uid://dofp8cf2j0tol" path="res://Temp/PixelProject/TreeLeafParticuleEmitter.cs" id="1_j1kbm"]
-[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_ot7g1"]
-[ext_resource type="Shader" uid="uid://xyu6c57vn0ks" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight_waterUpdate.gdshader" id="3_8x41d"]
+[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://assets/shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_ot7g1"]
+[ext_resource type="Shader" uid="uid://xyu6c57vn0ks" path="res://assets/shaders/PixelShaders/3dOutlineHighlight_waterUpdate.gdshader" id="3_8x41d"]
 [ext_resource type="Shader" uid="uid://bhr41rldkpotm" path="res://Temp/PixelProject/MultiLeaf_ParticuleShader_v2.gdshader" id="4_ot7g1"]
-[ext_resource type="Shader" uid="uid://bqg1tvhvo8t3d" path="res://Assets/Shaders/PixelShaders/FoliageAnimation_v4_Ultimate.gdshader" id="5_8x41d"]
+[ext_resource type="Shader" uid="uid://bqg1tvhvo8t3d" path="res://assets/shaders/PixelShaders/FoliageAnimation_v4_Ultimate.gdshader" id="5_8x41d"]
 [ext_resource type="Texture2D" uid="uid://1b2dh6hbyfpm" path="res://Temp/PixelProject/Assets/Tree_LoD_GPUParticule.png" id="6_8x41d"]
 
 [sub_resource type="Gradient" id="Gradient_o6o0y"]
@@ -147,19 +147,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_fjmk2")
 
-[sub_resource type="Gradient" id="Gradient_8x41d"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_xyerj"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_8x41d")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5oxuo"]
 resource_local_to_scene = true
 shader = ExtResource("4_ot7g1")
-shader_parameter/color_ramp_texture = SubResource("GradientTexture1D_xyerj")
+shader_parameter/color_ramp_texture = SubResource("GradientTexture1D_wq7mf")
 shader_parameter/target_color_direction = Vector3(0, 1, 0)
 shader_parameter/color_spread = 0.5
 shader_parameter/color_noise = 0.1
@@ -196,6 +187,7 @@ shader_parameter/real_shadow_threshold = 0.99
 shader_parameter/enable_cloud_shadows = true
 shader_parameter/cloud_shadow_intensity = 0.5
 shader_parameter/use_granular_shadows = false
+shader_parameter/use_per_vertex_shadows = false
 shader_parameter/white_shadow_intensity = 0.0
 shader_parameter/gray_shadow_intensity = 0.5
 shader_parameter/black_shadow_intensity = 0.5
