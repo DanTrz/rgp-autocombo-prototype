@@ -46,6 +46,7 @@ inv_depth_step_thresh = 0.9
 inv_depth_scale = 10.0
 normal_threshold = 0.2
 offset_scale = 0.0001
+roughness_ignore_threshold = 0.95
 water_mask_enabled = true
 water_y_height = 0.0
 water_feather = 2.0
@@ -399,8 +400,8 @@ size = Vector2(10, 20)
 subdivide_width = 50
 subdivide_depth = 50
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_rov3t"]
-viewport_path = NodePath("meshes/3d scene4/WaterToon/@SubViewport@33347")
+[sub_resource type="ViewportTexture" id="ViewportTexture_thto2"]
+viewport_path = NodePath("meshes/3d scene4/WaterToon/@SubViewport@34940")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j7yen"]
 render_priority = 0
@@ -426,7 +427,7 @@ shader_parameter/master_time_scale = 0.25
 shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_rov3t")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_thto2")
 shader_parameter/reflection_strength = 1.0
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0

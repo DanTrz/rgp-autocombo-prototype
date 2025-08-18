@@ -1,45 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://bok06l3ildw4l"]
+[gd_scene load_steps=7 format=3 uid="uid://bok06l3ildw4l"]
 
 [ext_resource type="PackedScene" uid="uid://cnhr158fl1b4f" path="res://src/Levels/LevelComponents/GrassSingleSpriteShaderMesh.tscn" id="1_e8dsl"]
 [ext_resource type="Script" uid="uid://bho2n2ejru0fu" path="res://src/Levels/LevelComponents/GrassMeshAnimated.cs" id="1_wlmg1"]
-[ext_resource type="Shader" uid="uid://osv6ambcbili" path="res://Assets/Shaders/PixelShaders/FoliageAnimation_v3_CloudSupport_v2.gdshader" id="3_wlmg1"]
-[ext_resource type="Shader" uid="uid://bqg1tvhvo8t3d" path="res://Assets/Shaders/PixelShaders/FoliageAnimation_v4_Ultimate.gdshader" id="4_jfcxj"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wlmg1"]
-render_priority = -1
-shader = ExtResource("3_wlmg1")
-shader_parameter/dayColor = Color(1, 1, 1, 1)
-shader_parameter/nightColor = Color(0.1, 0.2, 0.4, 1)
-shader_parameter/nightTime = 0.0
-shader_parameter/alphaThreshold = 0.8
-shader_parameter/billboard = true
-shader_parameter/override_global_shadow = false
-shader_parameter/enable_cloud_shadows = true
-shader_parameter/cloud_shadow_intensity = 1.0
-shader_parameter/use_granular_shadows = false
-shader_parameter/white_shadow_intensity = 0.0
-shader_parameter/gray_shadow_intensity = 0.5
-shader_parameter/black_shadow_intensity = 1.0
-shader_parameter/color_threshold = 0.2
-shader_parameter/windSpeed = 0.2
-shader_parameter/windStrength = 0.1
-shader_parameter/use_vertex_color = false
-shader_parameter/use_emission = false
-shader_parameter/emission_color = Color(1, 1, 1, 1)
-shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.8, 0.8, 0.8, 1)
-
-[sub_resource type="QuadMesh" id="QuadMesh_bnv5h"]
-material = SubResource("ShaderMaterial_wlmg1")
-size = Vector2(0.5, 0.4)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a4ruw"]
-load_path = "res://.godot/imported/Grass_3.png-6711f90f42818dba951396c8414e2150.ctex"
+[ext_resource type="Shader" uid="uid://bqg1tvhvo8t3d" path="res://assets/shaders/PixelShaders/FoliageAnimation_v4_Ultimate.gdshader" id="4_jfcxj"]
+[ext_resource type="Texture2D" uid="uid://fuykfqp6i8" path="res://Temp/PixelProject/Assets/2D/Grass_leafs.png" id="5_bnv5h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bnv5h"]
 render_priority = -1
 shader = ExtResource("4_jfcxj")
-shader_parameter/albedo_tex = SubResource("CompressedTexture2D_a4ruw")
+shader_parameter/albedo_tex = ExtResource("5_bnv5h")
 shader_parameter/albedo_color = Color(0.0627451, 0.631373, 0.117647, 1)
 shader_parameter/billboard = true
 shader_parameter/use_vertex_color = false
@@ -67,6 +36,10 @@ shader_parameter/wind_time_offset = 0.0
 shader_parameter/sway_from_bottom = false
 shader_parameter/debug_mode = false
 shader_parameter/debug_test = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_bnv5h"]
+material = SubResource("ShaderMaterial_bnv5h")
+size = Vector2(0.5, 0.4)
 
 [node name="GrasMeshAnimated" type="Node3D" node_paths=PackedStringArray("meshInstance3D")]
 script = ExtResource("1_wlmg1")

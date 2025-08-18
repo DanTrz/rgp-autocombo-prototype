@@ -7,11 +7,11 @@ layout(set = 0, binding = 0, std430) readonly buffer Params {
     // raster_size.xy = internal 3D render resolution
     vec2 raster_size;
 
-    // reserved.x = roughness_ignore_threshold (set from GDScript params[2])
+    // reserved.x = roughness_show_threshold (set from GDScript params[2])
     // reserved.y = (unused)
     vec2 reserved;
 
-    // inverse projection (to reconstruct view-space position)
+    // inverse projection (to reconstruct view-space/world Y for water cut)
     mat4 inv_proj_mat;
 
     // tune0: x=line_highlight, y=line_shadow, z=depth_smooth_low, w=depth_smooth_high
@@ -31,37 +31,42 @@ layout(set = 0, binding = 3) uniform sampler2D normal_texture;
 // -----------------------------------------------------------------------------
 // Helpers
 // -----------------------------------------------------------------------------
-float GetLinearDepth(vec2 uv, float mask) {
-    // NOTE: depth is multiplied by 'mask' so ignored materials contribute 0
-    float raw_depth = texture(depth_texture, uv).r * mask;
+float DecodeRoughness01FromAlpha(float a) {
+    float r = a;
+    if (r > 0.5) {
+        r = 1.0 - r;
+    }
+    r = r / (127.0 / 255.0);
+    return clamp(r, 0.0, 1.0);
+}
+
+float GetLinearDepth(vec2 uv, float mask_center) {
+    float raw_depth = texture(depth_texture, uv).r * mask_center;
     vec3 ndc = vec3(uv * 2.0 - 1.0, raw_depth);
     vec4 view = params.inv_proj_mat * vec4(ndc, 1.0);
     view.xyz /= view.w;
     return -view.z;
 }
 
-vec4 GetNormal(vec2 uv, float mask){
-    // Tiny UV nudge kept identical to your original (tune1.w)
-    vec2 offset = vec2(params.tune1.w);
-    return texture(normal_texture, uv + offset) * mask;
+vec4 GetNormalRaw(vec2 uv){
+    vec2 offs = vec2(params.tune1.w);
+    return texture(normal_texture, uv + offs);
 }
 
 vec4 NormalRoughnessCompatibility(vec4 p_normal_roughness) {
     float roughness = p_normal_roughness.w;
-    if (roughness > 0.5) {
-        roughness = 1.0 - roughness;
-    }
+    if (roughness > 0.5) roughness = 1.0 - roughness;
     roughness /= (127.0 / 255.0);
     vec4 normal_comp = vec4(normalize(p_normal_roughness.xyz * 2.0 - 1.0) * 0.5 + 0.5, roughness);
     normal_comp = normal_comp * 2.0 - 1.0;
     return normal_comp;
 }
 
-float NormalEdgeIndicator(vec3 normal_edge_bias, vec3 normal, vec3 neighbor_normal, float depth_difference){
-    float normal_difference = dot(normal - neighbor_normal, normal_edge_bias);
-    float normal_indicator = clamp(smoothstep(-.01, .01, normal_difference), 0.0, 1.0);
-    float depth_indicator  = clamp(sign(depth_difference * .25 + .0025), 0.0, 1.0);
-    return (1.0 - dot(normal, neighbor_normal)) * depth_indicator * normal_indicator;
+float NormalEdgeIndicator(vec3 normal_edge_bias, vec3 n0, vec3 n1, float depth_difference){
+    float n_diff = dot(n0 - n1, normal_edge_bias);
+    float n_indicator = clamp(smoothstep(-.01, .01, n_diff), 0.0, 1.0);
+    float d_indicator = clamp(sign(depth_difference * .25 + .0025), 0.0, 1.0);
+    return (1.0 - dot(n0, n1)) * d_indicator * n_indicator;
 }
 
 // -----------------------------------------------------------------------------
@@ -87,58 +92,67 @@ void main() {
     uv_offsets[2] = uv_normalized + vec2( 1.0,  0.0) * texel_size + offset_uv;
     uv_offsets[3] = uv_normalized + vec2(-1.0,  0.0) * texel_size + offset_uv;
 
-    // -------------------------------------------------------------------------
-    // MATERIAL-LEVEL IGNORE via ROUGHNESS threshold
-    // - We read roughness from normal_roughness.a (as Godot packs it).
-    // - If roughness < threshold, 'mask' becomes 0 → no depth/normal contribution.
-    //   threshold is provided from GDScript in params.reserved.x
-    // -------------------------------------------------------------------------
-    float roughness = texture(normal_texture, uv_normalized + offset_uv).a;
-    float roughness_ignore_threshold = params.reserved.x;
-    // mask = 1 if roughness >= threshold, else 0
-    float mask = step(roughness_ignore_threshold, roughness);
+    // Presence mask from depth
+    float raw_depth = texture(depth_texture, uv_normalized).r;
+    float present_mask = step(raw_depth, 0.99999); // 1 if geometry, else 0
 
-    // Tunables (kept identical to your original)
-    float line_highlight = params.tune0.x;   // e.g. 0.3
-    float line_shadow    = params.tune0.y;   // e.g. 0.65
-    float depth_l        = params.tune0.z;   // 0.45
-    float depth_h        = params.tune0.w;   // 0.50
+    // Roughness-based SHOW (your requested inversion):
+    // show when roughness >= threshold, ignore when roughness < threshold
+    float rough_th = params.reserved.x; // from GDScript
+    float rough01  = DecodeRoughness01FromAlpha(GetNormalRaw(uv_normalized).a);
 
-    float inv_step       = params.tune1.x;   // 0.90
-    float inv_scale      = params.tune1.y;   // 10.0
-    float normal_thr     = params.tune1.z;   // 0.20
+    // CHANGED LINES ↓↓↓
+    float line_enable = step(rough_th, rough01); // 1 if rough01 >= threshold
+    float mask_center = present_mask * line_enable;
+    // CHANGED LINES ↑↑↑
 
-    // ---- Depth-based outlines ------------------------------------------------
+    if (mask_center <= 0.0) {
+        vec4 orig = imageLoad(color_image, uv);
+        imageStore(color_image, uv, orig);
+        return;
+    }
+
+    // Tunables
+    float line_highlight = params.tune0.x;
+    float line_shadow    = params.tune0.y;
+    float depth_l        = params.tune0.z;
+    float depth_h        = params.tune0.w;
+
+    float inv_step       = params.tune1.x;
+    float inv_scale      = params.tune1.y;
+    float normal_thr     = params.tune1.z;
+
+    // Depth-based outlines
     float depth_difference     = 0.0;
     float inv_depth_difference = 0.5;
-    float depth                = GetLinearDepth(uv_normalized + offset_uv, mask);
+    float depth_center         = GetLinearDepth(uv_normalized + offset_uv, mask_center);
 
     for (int i = 0; i < K; i++){
-        float dOff = GetLinearDepth(uv_offsets[i], mask);
-        depth_difference     += clamp(dOff - depth, 0.0, 1.0);
-        inv_depth_difference += depth - dOff;
+        float dOff = GetLinearDepth(uv_offsets[i], mask_center);
+        depth_difference     += clamp(dOff - depth_center, 0.0, 1.0);
+        inv_depth_difference += depth_center - dOff;
     }
 
     inv_depth_difference = clamp(inv_depth_difference, 0.0, 1.0);
     inv_depth_difference = clamp(smoothstep(inv_step, inv_step, inv_depth_difference) * inv_scale, 0.0, 1.0);
     depth_difference     = smoothstep(depth_l, depth_h, depth_difference);
 
-    // ---- Normal-based inner lines -------------------------------------------
+    // Normal-based inner lines
     float normal_difference = 0.0;
     vec3  normal_edge_bias  = vec3(1.0, 1.0, 1.0);
-    vec3  normal_center     = NormalRoughnessCompatibility(GetNormal(uv_normalized, mask)).rgb;
+    vec3  n_center          = NormalRoughnessCompatibility(GetNormalRaw(uv_normalized)).rgb;
 
     for (int i = 0; i < K; i++){
-        vec3 n_offset = NormalRoughnessCompatibility(GetNormal(uv_offsets[i], mask)).rgb;
-        normal_difference += NormalEdgeIndicator(normal_edge_bias, normal_center, n_offset, depth_difference);
+        vec3 n_off = NormalRoughnessCompatibility(GetNormalRaw(uv_offsets[i])).rgb;
+        normal_difference += NormalEdgeIndicator(normal_edge_bias, n_center, n_off, depth_difference);
     }
     normal_difference = smoothstep(normal_thr, normal_thr, normal_difference);
     normal_difference = clamp(normal_difference - inv_depth_difference, 0.0, 1.0);
 
-    // ---- Water cutoff (unchanged from your latest) ---------------------------
+    // Water cutoff (unchanged)
     float water_factor = 1.0;
     if (params.water0.x > 0.5) {
-        vec3 ndc2 = vec3(uv_normalized * 2.0 - 1.0, texture(depth_texture, uv_normalized).r);
+        vec3 ndc2 = vec3(uv_normalized * 2.0 - 1.0, raw_depth);
         vec4 view2 = params.inv_proj_mat * vec4(ndc2, 1.0);
         view2.xyz /= view2.w;
         float world_y = view2.y;
@@ -156,9 +170,8 @@ void main() {
     depth_difference  *= water_factor;
     normal_difference *= water_factor;
 
-    // ---- Composite (unchanged) ----------------------------------------------
+    // Composite
     vec4 color = imageLoad(color_image, uv);
-
     vec3 outline   = vec3(depth_difference);
     vec3 innerline = vec3(normal_difference) - outline;
     innerline = clamp(innerline, vec3(0.0), vec3(1.0));
@@ -170,6 +183,8 @@ void main() {
 
     imageStore(color_image, uv, color_with_lines);
 }
+
+
 
 
 
