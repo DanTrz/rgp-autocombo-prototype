@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://cnhr158fl1b4f" path="res://src/Levels/LevelComponents/GrassSingleSpriteShaderMesh.tscn" id="1_e8dsl"]
 [ext_resource type="Script" uid="uid://bho2n2ejru0fu" path="res://src/Levels/LevelComponents/GrassMeshAnimated.cs" id="1_wlmg1"]
-[ext_resource type="Shader" uid="uid://bqg1tvhvo8t3d" path="res://assets/shaders/PixelShaders/FoliageAnimation_v4_Ultimate.gdshader" id="4_jfcxj"]
+[ext_resource type="Shader" uid="uid://dxiaahd4hvj3s" path="res://assets/shaders/PixelShaders/FoliageAnimation_v5_roughness.gdshader" id="3_jfcxj"]
 [ext_resource type="Texture2D" uid="uid://fuykfqp6i8" path="res://Temp/PixelProject/Assets/2D/Grass_leafs.png" id="5_bnv5h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bnv5h"]
 render_priority = -1
-shader = ExtResource("4_jfcxj")
+shader = ExtResource("3_jfcxj")
 shader_parameter/albedo_tex = ExtResource("5_bnv5h")
 shader_parameter/albedo_color = Color(0.0627451, 0.631373, 0.117647, 1)
 shader_parameter/billboard = true
@@ -19,6 +19,7 @@ shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
 shader_parameter/use_alpha_scissors = false
 shader_parameter/alpha_scissors = 0.1
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/roughness = 1.0
 shader_parameter/override_global_shadow = false
 shader_parameter/real_shadow_threshold = 0.99
 shader_parameter/enable_cloud_shadows = true
@@ -49,4 +50,3 @@ meshInstance3D = NodePath("GrassMeshAnimatedMesh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.207983, 0)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_bnv5h")
-surface_material_override/0 = SubResource("ShaderMaterial_bnv5h")

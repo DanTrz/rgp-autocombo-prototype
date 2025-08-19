@@ -82,7 +82,7 @@ void vertex() {
 	view_normal = (MODELVIEW_MATRIX * vec4(NORMAL, 0.0)).xyz;
 	noise_uv = UV * surface_noise_tiling;
 	distort_uv = UV;
-	
+
 	// Simple wave animation for vertex movement (optional)
 	float animated_time = TIME * master_time_scale * wave_animation_speed;
 	float wave = sin(global_position.x * 2.0 + animated_time * 2.0) * 0.05;
@@ -94,87 +94,87 @@ void vertex() {
 void fragment() {
 	// Get depth texture and calculate water depth
 	float depth_tex = texture(depth_texture, SCREEN_UV).r;
-	
+
 	// Convert depth to world space for better orthogonal handling
 	vec3 ndc = vec3(SCREEN_UV * 2.0 - 1.0, depth_tex);
 	vec4 world_pos = INV_VIEW_MATRIX * INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
 	world_pos.xyz /= world_pos.w;
-	
+
 	// Calculate depth in a way that works well with orthogonal cameras
 	float vertex_y = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).y;
 	float depth = vertex_y - world_pos.y;
-	
+
 	// Apply orthogonal depth compensation
 	if (is_orthogonal_camera) {
 		depth *= ortho_depth_scale;
 	}
-	
+
 	// Beer's law absorption - properly clamped
 	float depth_fade = 1.0 - exp(-abs(depth) * beer_factor);
 	depth_fade = clamp(depth_fade, 0.0, 1.0);
-	
+
 	// Calculate existing surface normal for foam edge detection
 	vec4 view_pos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, depth_tex, 1.0);
 	view_pos /= view_pos.w;
 	vec3 existing_normal = normalize(cross(dFdx(view_pos.xyz), dFdy(view_pos.xyz)));
-	
+
 	float normal_dot = clamp(dot(existing_normal.xyz, view_normal), 0.0, 1.0);
 	float foam_distance_calc = mix(foam_max_distance, foam_min_distance, normal_dot);
-	
+
 	// Apply orthogonal foam compensation
 	if (is_orthogonal_camera) {
 		foam_distance_calc *= ortho_foam_compensation;
 	}
-	
+
 	// Calculate foam
 	float foam_depth = clamp(depth / foam_distance_calc, 0.0, 1.0);
 	float surface_noise_cutoff_value = foam_depth * surface_noise_cutoff;
-	
+
 	// Sample distortion noise
 	vec4 distort_noise_sample = texture(distort_noise, distort_uv);
 	vec2 distort_amount = (distort_noise_sample.xy * 2.0 - 1.0) * surface_distortion_amount;
-	
+
 	// Calculate animated noise UV
 	float surface_time = TIME * master_time_scale;
 	vec2 noise_uv_animated = vec2(
 		(noise_uv.x + surface_time * surface_noise_scroll.x) + distort_amount.x,
 		(noise_uv.y + surface_time * surface_noise_scroll.y + distort_amount.y)
 	);
-	
+
 	// Sample surface noise for foam
 	float surface_noise_sample = texture(surface_noise, noise_uv_animated).r;
 	float surface_noise_amount = smoothstep(
-		surface_noise_cutoff_value - SMOOTHSTEP_AA, 
-		surface_noise_cutoff_value + SMOOTHSTEP_AA, 
+		surface_noise_cutoff_value - SMOOTHSTEP_AA,
+		surface_noise_cutoff_value + SMOOTHSTEP_AA,
 		surface_noise_sample
 	);
-	
+
 	// PLANAR REFLECTION DISTORTION
 	vec2 reflection_distortion = vec2(0.0);
 	vec2 warped_uv = SCREEN_UV;
-	
+
 	if (reflection_strength > 0.0) {
 		// Use the distortion and wave amount for reflection
 		reflection_distortion = distort_amount * 0.02 * reflection_distortion_scale;
-		
+
 		// Add wave influence
 		reflection_distortion += vec2(vertex_wave_amount) * 0.1 * reflection_distortion_scale;
-		
+
 		// Add time-based wobble
 		float wobble_time = TIME * master_time_scale * reflection_wobble_speed;
 		reflection_distortion += vec2(
 			sin(wobble_time * 2.0 + global_position.x * 0.5),
 			cos(wobble_time * 1.5 + global_position.z * 0.5)
 		) * 0.003 * reflection_distortion_scale;
-		
+
 		// Add foam influence to reflection
 		if (surface_noise_amount > 0.0) {
 			float foam_time = TIME * master_time_scale * foam_animation_speed;
 			reflection_distortion += vec2(surface_noise_amount * 0.02) * sin(foam_time * 8.0);
 		}
-		
+
 		warped_uv = SCREEN_UV + reflection_distortion;
-		
+
 		// Handle orthogonal camera mode
 		if (is_orthogonal_camera) {
 			vec2 center = vec2(0.5);
@@ -182,75 +182,76 @@ void fragment() {
 		}
 		warped_uv = clamp(warped_uv, 0.0, 1.0);
 	}
-	
+
 	// Calculate water color based on depth
 	float water_depth = clamp(depth / depth_max_distance, 0.0, 1.0) * depth_factor;
 	vec4 water_color = mix(depth_gradient_shallow, depth_gradient_deep, water_depth);
-	
+
 	// Increase water opacity based on depth
 	water_color.a = mix(water_color.a, 1.0, depth_fade);
-	
+
 	// Setup foam color
 	vec4 surface_noise_color = foam_color;
 	surface_noise_color.a *= surface_noise_amount;
-	
+
 	// Blend foam with water
 	vec4 color = alpha_blend(surface_noise_color, water_color);
-	
+
 	// Apply planar reflection if enabled
 	if (reflection_strength > 0.0) {
 		vec4 reflection_tex = texture(reflection_screen_texture, warped_uv);
-		
+
 		// Calculate reflection mask based on depth
 		float reflection_mask = 1.0;
-		
+
 		if (enable_reflection_depth_mask) {
 			// Check if there's an object above the water surface that should block reflection
 			if (depth < reflection_depth_threshold) {
 				// Object is at or above water surface - fade out reflection
 				reflection_mask = smoothstep(0.0, reflection_depth_fade, depth / reflection_depth_threshold);
 			}
-			
+
 			// Also check the depth at the reflection sample point
 			float reflection_depth_tex = texture(depth_texture, warped_uv).r;
 			vec3 reflection_ndc = vec3(warped_uv * 2.0 - 1.0, reflection_depth_tex);
 			vec4 reflection_world_pos = INV_VIEW_MATRIX * INV_PROJECTION_MATRIX * vec4(reflection_ndc, 1.0);
 			reflection_world_pos.xyz /= reflection_world_pos.w;
-			
+
 			float reflection_point_depth = vertex_y - reflection_world_pos.y;
-			
+
 			// If the reflection sample point has an object very close to water surface, reduce reflection
 			if (reflection_point_depth < reflection_depth_threshold) {
 				float point_mask = smoothstep(0.0, reflection_depth_fade, reflection_point_depth / reflection_depth_threshold);
 				reflection_mask *= point_mask;
 			}
 		}
-		
+
 		// Reduce reflection strength in foam areas and apply depth mask
 		float reflection_factor = reflection_strength * (1.0 - surface_noise_amount * 0.5) * (1.0 - water_depth * 0.3) * reflection_mask;
 		color.rgb = mix(color.rgb, reflection_tex.rgb, reflection_factor);
 	}
-	
+
 	// Apply screen texture refraction for underwater objects
 	if (depth > 0.01) {
 		vec2 refraction_offset = distort_amount * 0.01 * (1.0 - water_depth);
 		vec2 refracted_uv = SCREEN_UV + refraction_offset;
 		refracted_uv = clamp(refracted_uv, 0.0, 1.0);
-		
+
 		vec3 screen_color = texture(screen_texture, refracted_uv).rgb;
-		
+
 		// Apply depth-based fading to underwater objects
 		float underwater_visibility = 1.0 - depth_fade;
-		
+
 		// Tint and fade the underwater objects based on depth
 		screen_color = mix(screen_color, water_color.rgb, depth_fade * 0.8);
-		
+
 		// Blend with water based on both alpha and depth
 		color.rgb = mix(screen_color * underwater_visibility, color.rgb, color.a * (0.3 + depth_fade * 0.7));
 	}
-	
+
 	ALBEDO = color.rgb;
 	ALPHA = color.a;
 	ROUGHNESS = roughness;
 	SPECULAR = specular;
+
 }

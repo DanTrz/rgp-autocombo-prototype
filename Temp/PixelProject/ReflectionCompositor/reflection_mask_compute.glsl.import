@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://cjxiw0nbyd1n8"
+path="res://.godot/imported/reflection_mask_compute.glsl-9bece16ab466024be8f6ff1dcad627d9.res"
+
+[deps]
+
+source_file="res://Temp/PixelProject/ReflectionCompositor/reflection_mask_compute.glsl"
+dest_files=["res://.godot/imported/reflection_mask_compute.glsl-9bece16ab466024be8f6ff1dcad627d9.res"]
+
+[params]
+

@@ -14,6 +14,8 @@ var sampler_rid: RID
 # ------------------------------------------------------------------------------
 # Artist-facing tunables (unchanged semantics)
 # ------------------------------------------------------------------------------
+# These variables are exposed to the editor and control the look of the edge detection.
+# You can tweak these to change the visual style, or add more parameters for new effects.
 @export_range(0.0, 1.0, 0.01) var line_highlight: float = 0.3
 @export_range(0.0, 1.0, 0.01) var line_shadow: float   = 0.65
 @export_range(0.0, 1.0, 0.01) var depth_smooth_low:  float = 0.45
@@ -38,6 +40,7 @@ var sampler_rid: RID
 func _init() -> void:
 	effect_callback_type = EFFECT_CALLBACK_TYPE_POST_TRANSPARENT
 	rd = RenderingServer.get_rendering_device()
+	# The following runs on the render thread, which is required for GPU resource setup.
 	RenderingServer.call_on_render_thread(_initialize_compute)
 
 	# STORAGE BUFFER LAYOUT (std430):
@@ -49,6 +52,8 @@ func _init() -> void:
 	# 28..31  : vec4  water0
 	# 32..47  : mat4  inv_view_mat  (NEW)
 	# total = 48 floats
+	# This buffer is sent to the shader every frame. If you want to add more parameters,
+	# increase the buffer size and update the layout here and in the shader.
 	var data := PackedFloat32Array()
 	data.resize(48)
 	data.fill(0.0)
@@ -56,6 +61,7 @@ func _init() -> void:
 	parameter_storage_buffer = rd.storage_buffer_create(parameter_data.size(), parameter_data)
 
 func _notification(what: int) -> void:
+	# Clean up GPU resources when the node is deleted.
 	if what == NOTIFICATION_PREDELETE:
 		if sampler_rid.is_valid():
 			rd.free_rid(sampler_rid)
@@ -74,13 +80,16 @@ func _initialize_compute() -> void:
 	if not rd:
 		return
 
+	# Load and compile the compute shader from SPIR-V.
+	# To use a different shader, change the path below.
 	var shader_file := load("res://3DPixelCompositorDemo/Shaders/edge_detection_shader_updated_water.glsl")
 	var shader_spirv: RDShaderSPIRV = shader_file.get_spirv()
 	shader = rd.shader_create_from_spirv(shader_spirv)
 	if shader.is_valid():
 		pipeline = rd.compute_pipeline_create(shader)
 
-	# One persistent sampler (nearest for pixel-crisp lines)
+	# Create a persistent sampler for nearest-neighbor sampling.
+	# If you want smoother lines, change the filter to LINEAR.
 	var s := RDSamplerState.new()
 	s.min_filter = RenderingDevice.SAMPLER_FILTER_NEAREST
 	s.mag_filter = RenderingDevice.SAMPLER_FILTER_NEAREST
@@ -91,8 +100,10 @@ func _initialize_compute() -> void:
 # Render callback (on render thread)
 # ------------------------------------------------------------------------------
 func _render_callback(p_effect_callback_type: EffectCallbackType, p_render_data: RenderData) -> void:
+	# Only run for the correct callback type.
 	if p_effect_callback_type != EFFECT_CALLBACK_TYPE_POST_TRANSPARENT:
 		return
+	# Make sure all resources are valid before proceeding.
 	if not rd or not shader.is_valid() or not pipeline.is_valid() or not sampler_rid.is_valid():
 		return
 
@@ -104,12 +115,15 @@ func _render_callback(p_effect_callback_type: EffectCallbackType, p_render_data:
 	if size.x == 0 or size.y == 0:
 		return
 
-	# Workgroup count for 8x8 local size
+	# Calculate the number of workgroups for the compute shader.
+	# If you change the local size in the shader, update these calculations.
 	var x_groups: int = int((size.x + 7) / 8)
 	var y_groups: int = int((size.y + 7) / 8)
 
 	var view_count: int = rsb.get_view_count()
 	for view in view_count:
+		# Get the input textures for color, depth, and normal/roughness.
+		# You can add more inputs here if your shader needs them.
 		var input_image: RID  = rsb.get_color_layer(view)
 		var input_depth: RID  = rsb.get_depth_layer(view)
 		var input_normal: RID = rsb.get_texture("forward_clustered", "normal_roughness")
@@ -117,6 +131,8 @@ func _render_callback(p_effect_callback_type: EffectCallbackType, p_render_data:
 			continue
 
 		# ------------- Build param payload (48 floats) ------------------------
+		# This array holds all the parameters sent to the shader.
+		# If you want to add new features, add new fields here and in the shader.
 		var params := PackedFloat32Array()
 		params.resize(48)
 
@@ -164,9 +180,12 @@ func _render_callback(p_effect_callback_type: EffectCallbackType, p_render_data:
 		params[44] = cam_xform.origin.x;  params[45] = cam_xform.origin.y;  params[46] = cam_xform.origin.z;  params[47] = 1.0
 
 		var parameter_data := params.to_byte_array()
+		# Update the buffer with the new parameters for this frame.
 		rd.buffer_update(parameter_storage_buffer, 0, parameter_data.size(), parameter_data)
 
 		# ---------------- Uniform set -----------------------------------------
+		# Set up uniforms for the compute shader.
+		# If you want to pass more textures or buffers, add more RDUniforms here.
 		var u_params := RDUniform.new()
 		u_params.uniform_type = RenderingDevice.UNIFORM_TYPE_STORAGE_BUFFER
 		u_params.binding = 0
@@ -190,6 +209,8 @@ func _render_callback(p_effect_callback_type: EffectCallbackType, p_render_data:
 		u_normal.add_id(input_normal)
 
 		var uniforms := [u_params, u_color, u_depth, u_normal]
+		# UniformSetCacheRD helps reuse uniform sets for performance.
+		# If you add new uniforms, update the cache key and array.
 		var uniform_set := UniformSetCacheRD.get_cache(shader, 0, uniforms)
 		if not uniform_set.is_valid():
 			uniform_set = rd.uniform_set_create(uniforms, shader, 0)
@@ -197,6 +218,8 @@ func _render_callback(p_effect_callback_type: EffectCallbackType, p_render_data:
 				continue
 
 		# ---------------- Dispatch --------------------------------------------
+		# Begin a compute list, bind pipeline and uniforms, and dispatch the shader.
+		# If you want to add post-processing steps, you can chain more compute passes here.
 		var cl := rd.compute_list_begin()
 		rd.compute_list_bind_compute_pipeline(cl, pipeline)
 		rd.compute_list_bind_uniform_set(cl, uniform_set, 0)

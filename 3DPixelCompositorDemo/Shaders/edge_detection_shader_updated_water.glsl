@@ -39,8 +39,8 @@ layout(set = 0, binding = 3) uniform sampler2D normal_texture;
 Helpers
 ==============================================================================*/
 
-// Godot packs normal.xyz (octa or xyz) & *roughness* in .w into normal_roughness.
-// The roughness encoding uses a mirror trick; this re-normalizes it to 0..1.
+// Decodes roughness from the alpha channel of the normal texture.
+// If you want to change how roughness is encoded, modify this function.
 float DecodeRoughness01FromAlpha(float a) {
     float r = a;
     if (r > 0.5) {
@@ -50,13 +50,15 @@ float DecodeRoughness01FromAlpha(float a) {
     return clamp(r, 0.0, 1.0);
 }
 
-// Sample the raw normal/roughness at UV with the tiny offset for stability.
+// Samples the normal texture at a given UV, with a small offset for stability.
+// You can adjust the offset via params.tune1.w in GDScript for different effects.
 vec4 GetNormalRaw(vec2 uv){
     vec2 offs = vec2(params.tune1.w);
     return texture(normal_texture, uv + offs);
 }
 
-// Convert packed normal to consistent -1..1 space (kept from your original).
+// Converts packed normal to -1..1 space for compatibility.
+// If you change the normal packing in Godot, update this function accordingly.
 vec4 NormalRoughnessCompatibility(vec4 p_normal_roughness) {
     float roughness = p_normal_roughness.w;
     if (roughness > 0.5) roughness = 1.0 - roughness;
@@ -66,7 +68,8 @@ vec4 NormalRoughnessCompatibility(vec4 p_normal_roughness) {
     return normal_comp;
 }
 
-// Hard-edged normal difference with a tiny slope (your original feel).
+// Computes an edge indicator based on normal difference and depth difference.
+// You can tweak the normal_edge_bias or the smoothstep parameters for different edge sensitivity.
 float NormalEdgeIndicator(vec3 normal_edge_bias, vec3 n0, vec3 n1, float depth_difference){
     float n_diff = dot(n0 - n1, normal_edge_bias);
     float n_indicator = clamp(smoothstep(-.01, .01, n_diff), 0.0, 1.0);
@@ -74,7 +77,8 @@ float NormalEdgeIndicator(vec3 normal_edge_bias, vec3 n0, vec3 n1, float depth_d
     return (1.0 - dot(n0, n1)) * d_indicator * n_indicator;
 }
 
-// Convert UV+depth → view-space Z (kept from your original outlines).
+// Converts UV and depth to view-space Z.
+// If you want to use a different depth encoding, modify this function.
 float GetLinearDepth(vec2 uv, float mask_center) {
     float raw_depth = texture(depth_texture, uv).r * mask_center;
     vec3 ndc = vec3(uv * 2.0 - 1.0, raw_depth);
@@ -86,6 +90,8 @@ float GetLinearDepth(vec2 uv, float mask_center) {
 /* Reconstruct true world-space position from depth.
    - inv_proj_mat : NDC→view
    - inv_view_mat : view→world  (passed from GDScript)
+   If you want to use this for other effects (e.g. fog, water, etc.), you can
+   use the world position returned here.
 */
 vec3 ReconstructWorld(vec2 uv) {
     float raw_depth = texture(depth_texture, uv).r;
@@ -102,15 +108,18 @@ Main
 void main() {
     vec2  size = params.raster_size;
     ivec2 uv   = ivec2(gl_GlobalInvocationID.xy);
+    // Early exit if outside the render area.
     if (uv.x >= int(size.x) || uv.y >= int(size.y)) {
         return;
     }
 
+    // Normalize UV coordinates for texture sampling.
     vec2 uv_normalized = vec2(uv) / size;
     vec2 texel_size    = 1.0 / size.xy;
     vec2 offset_uv     = vec2(params.tune1.w);
 
-    // 4-neighborhood (exactly as you had it)
+    // 4-neighborhood offsets for edge detection.
+    // If you want to use a larger kernel (e.g. 8-neighborhood), add more offsets here.
     const int K = 4;
     vec2 uv_offsets[K];
     uv_offsets[0] = uv_normalized + vec2( 0.0, -1.0) * texel_size + offset_uv;
@@ -118,25 +127,26 @@ void main() {
     uv_offsets[2] = uv_normalized + vec2( 1.0,  0.0) * texel_size + offset_uv;
     uv_offsets[3] = uv_normalized + vec2(-1.0,  0.0) * texel_size + offset_uv;
 
-    // 1 if geometry exists at this pixel, else 0
+    // Check if geometry exists at this pixel (based on depth).
     float raw_depth    = texture(depth_texture, uv_normalized).r;
     float present_mask = step(raw_depth, 0.99999);
 
-    // Roughness SHOW gate (your requested inversion):
-    //   show when roughness >= threshold; ignore when roughness < threshold
+    // Only show outlines if roughness is above threshold.
+    // You can adjust the threshold in GDScript via params.reserved.x.
     float rough_th = params.reserved.x;
     float rough01  = DecodeRoughness01FromAlpha(GetNormalRaw(uv_normalized).a);
     float line_enable = step(rough_th, rough01); // 1 when rough01 >= rough_th
     float mask_center = present_mask * line_enable;
 
+    // If no geometry or roughness below threshold, keep original color.
     if (mask_center <= 0.0) {
-        // No outlines here — keep color as-is to preserve crisp pass-through
         vec4 orig = imageLoad(color_image, uv);
         imageStore(color_image, uv, orig);
         return;
     }
 
-    // Tunables (unchanged)
+    // Tunable parameters for outline appearance.
+    // You can tweak these in GDScript for different visual styles.
     float line_highlight = params.tune0.x;
     float line_shadow    = params.tune0.y;
     float depth_l        = params.tune0.z;
@@ -146,7 +156,9 @@ void main() {
     float inv_scale      = params.tune1.y;
     float normal_thr     = params.tune1.z;
 
-    // ---------------- Depth-based outlines (as before) -----------------------
+    // ---------------- Depth-based outlines -----------------------
+    // Computes outline strength based on depth differences with neighbors.
+    // To change the outline thickness or sensitivity, adjust depth_l and depth_h.
     float depth_difference     = 0.0;
     float inv_depth_difference = 0.5;
     float depth_center         = GetLinearDepth(uv_normalized + offset_uv, mask_center);
@@ -161,7 +173,9 @@ void main() {
     inv_depth_difference = clamp(smoothstep(inv_step, inv_step, inv_depth_difference) * inv_scale, 0.0, 1.0);
     depth_difference     = smoothstep(depth_l, depth_h, depth_difference);
 
-    // ---------------- Normal-based innerlines (as before) --------------------
+    // ---------------- Normal-based innerlines  --------------------
+    // Computes innerline strength based on normal differences with neighbors.
+    // You can adjust normal_thr for more or less sensitivity to normal changes.
     float normal_difference = 0.0;
     vec3  normal_edge_bias  = vec3(1.0, 1.0, 1.0);
     vec3  n_center          = NormalRoughnessCompatibility(GetNormalRaw(uv_normalized)).rgb;
@@ -174,6 +188,8 @@ void main() {
     normal_difference = clamp(normal_difference - inv_depth_difference, 0.0, 1.0);
 
     // ---------------- Water cutoff using TRUE WORLD-SPACE Y ------------------
+    // Optionally hides or fades outlines below a water plane.
+    // You can enable/disable this feature and set the water height/feather in GDScript.
     float water_factor = 1.0;
     if (params.water0.x > 0.5) {
         vec3 world_pos = ReconstructWorld(uv_normalized);
@@ -190,10 +206,13 @@ void main() {
         }
     }
 
+    // Apply water cutoff to both outline and innerline.
     depth_difference  *= water_factor;
     normal_difference *= water_factor;
 
-    // ---------------- Composite (unchanged) ----------------------------------
+    // ---------------- Composite  ----------------------------------
+    // Combines the computed outlines and innerlines with the original color.
+    // To add more effects (e.g. color tint, glow), modify this section.
     vec4 color = imageLoad(color_image, uv);
     vec3 outline   = vec3(depth_difference);
     vec3 innerline = vec3(normal_difference) - outline;
