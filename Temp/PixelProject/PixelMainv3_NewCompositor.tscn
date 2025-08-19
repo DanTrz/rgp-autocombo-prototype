@@ -12,7 +12,7 @@
 [ext_resource type="Shader" uid="uid://dpwmhlausv7b8" path="res://assets/shaders/PixelShaders/water_toon_planar_reflection.gdshader" id="9_8slyf"]
 [ext_resource type="Texture2D" uid="uid://cwopgjiunh5xc" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterDistortion.png" id="10_h0sqy"]
 [ext_resource type="Texture2D" uid="uid://dixqstxe6b56r" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterLinear.png" id="11_vjsio"]
-[ext_resource type="Shader" uid="uid://bqg1tvhvo8t3d" path="res://assets/shaders/PixelShaders/FoliageAnimation_v4_Ultimate.gdshader" id="12_drjym"]
+[ext_resource type="Shader" uid="uid://dxiaahd4hvj3s" path="res://assets/shaders/PixelShaders/FoliageAnimation_v5_roughness.gdshader" id="13_s3s4k"]
 [ext_resource type="Texture2D" uid="uid://fuykfqp6i8" path="res://Temp/PixelProject/Assets/2D/Grass_leafs.png" id="13_wtjko"]
 [ext_resource type="PackedScene" uid="uid://bok06l3ildw4l" path="res://src/Levels/LevelComponents/GrassMeshAnimated.tscn" id="14_2nilq"]
 [ext_resource type="PackedScene" uid="uid://be8vp1ovkxhey" path="res://Temp/PixelProject/Assets/3D/MushRooms.tscn" id="15_0xvfo"]
@@ -121,9 +121,9 @@ inv_depth_scale = 10.0
 normal_threshold = 0.2
 offset_scale = 0.0001
 roughness_ignore_threshold = 0.98
-water_mask_enabled = false
+water_mask_enabled = true
 water_y_height = 0.0
-water_feather = 2.0
+water_feather = 1.0
 water_mode = 1
 metadata/_custom_type_script = "uid://b0apiig1n0oxp"
 
@@ -135,8 +135,8 @@ size = Vector2(30, 30)
 subdivide_width = 50
 subdivide_depth = 50
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_x6dqg"]
-viewport_path = NodePath("MainSubViewport/WaterToon/@SubViewport@78945")
+[sub_resource type="ViewportTexture" id="ViewportTexture_s3s4k"]
+viewport_path = NodePath("MainSubViewport/WaterToon/@SubViewport@24542")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4hqal"]
 render_priority = 0
@@ -162,7 +162,7 @@ shader_parameter/master_time_scale = 0.25
 shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_x6dqg")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_s3s4k")
 shader_parameter/reflection_strength = 1.0
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
@@ -226,7 +226,7 @@ auto_shader = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xh5bt"]
 render_priority = -1
-shader = ExtResource("12_drjym")
+shader = ExtResource("13_s3s4k")
 shader_parameter/albedo_tex = ExtResource("13_wtjko")
 shader_parameter/albedo_color = Color(0.0627451, 0.631373, 0.117647, 1)
 shader_parameter/billboard = true
@@ -238,6 +238,7 @@ shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
 shader_parameter/use_alpha_scissors = false
 shader_parameter/alpha_scissors = 0.1
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/roughness = 0.98
 shader_parameter/override_global_shadow = false
 shader_parameter/real_shadow_threshold = 0.99
 shader_parameter/enable_cloud_shadows = true
@@ -341,7 +342,7 @@ albedo_color = Color(0.666667, 0.470588, 0.380392, 1)
 albedo_texture = ExtResource("17_bweap")
 normal_texture = SubResource("ImageTexture_pm78i")
 ao_strength = 0.0
-roughness = 1.0
+roughness = 0.98
 uv_scale = 1.0
 
 [sub_resource type="Image" id="Image_x6dqg"]
@@ -362,7 +363,7 @@ id = 1
 albedo_color = Color(1.2514e-05, 0.739282, 0.058553, 1)
 albedo_texture = ExtResource("17_bweap")
 normal_texture = SubResource("ImageTexture_3o2o4")
-roughness = 1.0
+roughness = 0.98
 uv_scale = 1.0
 
 [sub_resource type="Image" id="Image_uuoge"]
@@ -383,7 +384,7 @@ id = 2
 albedo_color = Color(0.654902, 0.482353, 0.356863, 1)
 albedo_texture = ExtResource("18_jxvog")
 normal_texture = SubResource("ImageTexture_viqks")
-roughness = 1.0
+roughness = 0.98
 uv_scale = 0.7
 detiling_rotation = 0.1
 
@@ -405,7 +406,7 @@ id = 3
 albedo_color = Color(0.654902, 0.482353, 0.356863, 1)
 albedo_texture = ExtResource("19_g3egv")
 normal_texture = SubResource("ImageTexture_am1ms")
-roughness = 1.0
+roughness = 0.975
 uv_scale = 0.85
 detiling_rotation = 0.1
 
@@ -427,7 +428,7 @@ id = 4
 albedo_color = Color(0.654902, 0.482353, 0.356863, 1)
 albedo_texture = ExtResource("20_m4pyg")
 normal_texture = SubResource("ImageTexture_sc0ui")
-roughness = 1.0
+roughness = 0.98
 uv_scale = 0.381
 
 [sub_resource type="Image" id="Image_8slyf"]
@@ -448,7 +449,7 @@ id = 5
 albedo_color = Color(0.647059, 0.592157, 0.537255, 1)
 albedo_texture = ExtResource("20_m4pyg")
 normal_texture = SubResource("ImageTexture_6tc5x")
-roughness = 1.0
+roughness = 0.98
 uv_scale = 0.75
 
 [sub_resource type="Image" id="Image_h0sqy"]
@@ -469,7 +470,7 @@ id = 6
 albedo_color = Color(0.541176, 0.690196, 0.376471, 1)
 albedo_texture = ExtResource("21_bn4s0")
 normal_texture = SubResource("ImageTexture_xh5bt")
-roughness = 1.0
+roughness = 0.98
 uv_scale = 1.0
 detiling_rotation = 0.1
 
@@ -490,6 +491,7 @@ name = "Blank64px"
 id = 7
 albedo_texture = ExtResource("17_bweap")
 normal_texture = SubResource("ImageTexture_v0kvh")
+roughness = 0.98
 uv_scale = 2.0
 
 [sub_resource type="Image" id="Image_drjym"]
@@ -510,6 +512,7 @@ id = 8
 albedo_color = Color(0, 0.451831, 0.878228, 1)
 albedo_texture = ExtResource("17_bweap")
 normal_texture = SubResource("ImageTexture_wktjo")
+roughness = 0.98
 
 [sub_resource type="Terrain3DAssets" id="Terrain3DAssets_ro3v6"]
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_xh5bt"), SubResource("Terrain3DMeshAsset_3dntl"), SubResource("Terrain3DMeshAsset_6tc5x"), SubResource("Terrain3DMeshAsset_ny6f7"), SubResource("Terrain3DMeshAsset_edkn3")])
@@ -860,7 +863,7 @@ load_path = "res://.godot/imported/Leafd.png-5242864aff212dc7c789c89694e87f11.s3
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_drjym"]
 resource_local_to_scene = true
 render_priority = 1
-shader = ExtResource("12_drjym")
+shader = ExtResource("13_s3s4k")
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_8x41d")
 shader_parameter/albedo_color = Color(0.0539388, 0.612713, 0.100537, 1)
 shader_parameter/billboard = true
@@ -872,6 +875,7 @@ shader_parameter/fake_ambient_light = Color(0.8, 0.8, 0.8, 1)
 shader_parameter/use_alpha_scissors = true
 shader_parameter/alpha_scissors = 0.5
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/roughness = 0.5
 shader_parameter/override_global_shadow = false
 shader_parameter/real_shadow_threshold = 0.99
 shader_parameter/enable_cloud_shadows = true
@@ -987,7 +991,7 @@ shader_parameter/gravity = Vector3(0, 0, 0)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bweap"]
 resource_local_to_scene = true
 render_priority = 1
-shader = ExtResource("12_drjym")
+shader = ExtResource("13_s3s4k")
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_8x41d")
 shader_parameter/albedo_color = Color(0.0539388, 0.612713, 0.100537, 1)
 shader_parameter/billboard = true
@@ -999,6 +1003,7 @@ shader_parameter/fake_ambient_light = Color(0.8, 0.8, 0.8, 1)
 shader_parameter/use_alpha_scissors = true
 shader_parameter/alpha_scissors = 0.5
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/roughness = 0.5
 shader_parameter/override_global_shadow = false
 shader_parameter/real_shadow_threshold = 0.99
 shader_parameter/enable_cloud_shadows = true
@@ -1114,7 +1119,7 @@ shader_parameter/gravity = Vector3(0, 0, 0)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sp6ew"]
 resource_local_to_scene = true
 render_priority = 1
-shader = ExtResource("12_drjym")
+shader = ExtResource("13_s3s4k")
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_8x41d")
 shader_parameter/albedo_color = Color(0.0539388, 0.612713, 0.100537, 1)
 shader_parameter/billboard = true
@@ -1126,6 +1131,7 @@ shader_parameter/fake_ambient_light = Color(0.8, 0.8, 0.8, 1)
 shader_parameter/use_alpha_scissors = true
 shader_parameter/alpha_scissors = 0.5
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/roughness = 0.5
 shader_parameter/override_global_shadow = false
 shader_parameter/real_shadow_threshold = 0.99
 shader_parameter/enable_cloud_shadows = true
@@ -1241,7 +1247,7 @@ shader_parameter/gravity = Vector3(0, 0, 0)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o1d12"]
 resource_local_to_scene = true
 render_priority = 1
-shader = ExtResource("12_drjym")
+shader = ExtResource("13_s3s4k")
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_8x41d")
 shader_parameter/albedo_color = Color(0.0539388, 0.612713, 0.100537, 1)
 shader_parameter/billboard = true
@@ -1253,6 +1259,7 @@ shader_parameter/fake_ambient_light = Color(0.8, 0.8, 0.8, 1)
 shader_parameter/use_alpha_scissors = true
 shader_parameter/alpha_scissors = 0.5
 shader_parameter/albedo_uv_scale = Vector2(1, 1)
+shader_parameter/roughness = 0.5
 shader_parameter/override_global_shadow = false
 shader_parameter/real_shadow_threshold = 0.99
 shader_parameter/enable_cloud_shadows = true
@@ -1863,7 +1870,7 @@ stack = Array[ExtResource("32_txqs7")]([SubResource("Resource_yx5a4"), SubResour
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6uua0"]
 render_priority = 1
-shader = ExtResource("12_drjym")
+shader = ExtResource("13_s3s4k")
 shader_parameter/albedo_tex = ExtResource("28_id5bu")
 shader_parameter/albedo_color = Color(0.380763, 0.000947598, 0.992377, 1)
 shader_parameter/billboard = true
@@ -1875,6 +1882,7 @@ shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
 shader_parameter/use_alpha_scissors = false
 shader_parameter/alpha_scissors = 0.5
 shader_parameter/albedo_uv_scale = Vector2(0.5, 0.5)
+shader_parameter/roughness = 0.5
 shader_parameter/override_global_shadow = false
 shader_parameter/real_shadow_threshold = 0.99
 shader_parameter/enable_cloud_shadows = true
@@ -1905,7 +1913,7 @@ data = PackedVector3Array(-0.0587, -0.2, 0.0587, -0.0587, 0.1253, 0, -0.0415, 0.
 diffuse_mode = 3
 specular_mode = 1
 albedo_color = Color(0, 0.509804, 0, 1)
-roughness = 0.97
+roughness = 0.98
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nnls0"]
 load_path = "res://.godot/imported/Tree_leaves_white.png-b4ef30909f538ab3a9167892430255ce.s3tc.ctex"
@@ -3377,7 +3385,6 @@ _worldEnvironment = NodePath("../WorldEnvironment")
 [node name="CloudManager" type="MeshInstance3D" parent="WeatherController" node_paths=PackedStringArray("sunLight")]
 unique_name_in_owner = true
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 1, 26.6114, 66.5002, 36.5307)
-visible = false
 layers = 786433
 gi_mode = 0
 mesh = SubResource("PlaneMesh_ntwum")
