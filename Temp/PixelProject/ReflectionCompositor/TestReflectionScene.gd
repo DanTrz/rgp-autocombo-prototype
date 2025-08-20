@@ -4,7 +4,7 @@ extends Node3D
 @onready var main_viewport: SubViewport = %MainSubViewport
 @onready var reflect_viewport: SubViewport = %ReflectionViewPort
 @onready var reflect_camera: Camera3D = %ReflectionCamera3D
-@onready var main_cam: Camera3D = %Camera3DMain
+@onready var main_cam: Camera3D = %Camera3DGameCam
 
 func _ready() -> void:
 	intial_setup()

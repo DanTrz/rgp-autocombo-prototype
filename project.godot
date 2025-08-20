@@ -41,6 +41,7 @@ enabled=PackedStringArray("res://addons/PlanarReflectorCpp/plugin.cfg", "res://a
 character=""
 snap=""
 snap_objects=""
+planar_reflectors=""
 
 [input]
 

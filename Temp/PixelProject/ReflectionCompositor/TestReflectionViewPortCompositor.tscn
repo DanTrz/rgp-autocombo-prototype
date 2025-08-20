@@ -1,7 +1,9 @@
-[gd_scene load_steps=32 format=3 uid="uid://bs7eandi53lee"]
+[gd_scene load_steps=34 format=3 uid="uid://bs7eandi53lee"]
 
 [ext_resource type="Script" uid="uid://daf3b0vh4gnw6" path="res://Temp/PixelProject/ReflectionCompositor/TestReflectionScene.gd" id="1_s7b13"]
 [ext_resource type="Shader" uid="uid://bh6mj2l6w8vci" path="res://planar_reflection_base.gdshader" id="2_mpl6x"]
+[ext_resource type="Script" uid="uid://b0apiig1n0oxp" path="res://3DPixelCompositorDemo/Scripts/edge_detect_update_water.gd" id="2_wekhp"]
+[ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="3_7ohl8"]
 [ext_resource type="Script" uid="uid://crcf0kde5loeg" path="res://Temp/PixelProject/ReflectionCompositor/ReflectionCompositor.gd" id="3_32ujw"]
 [ext_resource type="Script" uid="uid://cluvukmm23a2m" path="res://Temp/PixelProject/ReflectionCompositor/PlanarReflectorGDSCriptCompositor.gd" id="3_sodl7"]
 [ext_resource type="Shader" uid="uid://dpwmhlausv7b8" path="res://assets/shaders/PixelShaders/water_toon_planar_reflection.gdshader" id="3_wx45x"]
@@ -20,6 +22,32 @@ background_mode = 2
 sky = SubResource("Sky_mpl6x")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_7ohl8"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = true
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = true
+script = ExtResource("2_wekhp")
+line_highlight = 0.3
+line_shadow = 0.65
+depth_smooth_low = 0.45
+depth_smooth_high = 0.5
+inv_depth_step_thresh = 0.9
+inv_depth_scale = 10.0
+normal_threshold = 0.2
+offset_scale = 0.0001
+roughness_ignore_threshold = 0.95
+water_mask_enabled = true
+water_y_height = 0.0
+water_feather = 0.0
+water_mode = 1
+metadata/_custom_type_script = "uid://b0apiig1n0oxp"
+
+[sub_resource type="Compositor" id="Compositor_n4mug"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_7ohl8")])
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_32ujw"]
 viewport_path = NodePath("ReflectionViewPort")
@@ -312,8 +340,8 @@ void fragment() {
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cc7wm"]
 load_path = "res://.godot/imported/WaterDistortion.png-cb386057d205e074c37cb5d2f89129d7.s3tc.ctex"
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_sodl7"]
-viewport_path = NodePath("ReflectionViewPort")
+[sub_resource type="ViewportTexture" id="ViewportTexture_7ohl8"]
+viewport_path = NodePath("SubViewportContainer/MainSubViewport/FakeWaterPlane/ReflectionViewPort")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sodl7"]
 load_path = "res://.godot/imported/WaterLinear.png-34fa18c64cb4d871c707bdf028df877b.s3tc.ctex"
@@ -343,7 +371,7 @@ shader_parameter/master_time_scale = 0.25
 shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_sodl7")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_7ohl8")
 shader_parameter/reflection_strength = 1.0
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
@@ -361,8 +389,8 @@ size = Vector2(20, 8)
 subdivide_width = 50
 subdivide_depth = 50
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_8d00o"]
-viewport_path = NodePath("MainSubViewport/WaterToon/@SubViewport@44913")
+[sub_resource type="ViewportTexture" id="ViewportTexture_n4mug"]
+viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@25404")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n4mug"]
 resource_local_to_scene = true
@@ -389,7 +417,7 @@ shader_parameter/master_time_scale = 0.25
 shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_8d00o")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_n4mug")
 shader_parameter/reflection_strength = 1.0
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
@@ -423,14 +451,8 @@ metadata/_custom_type_script = "uid://crcf0kde5loeg"
 [sub_resource type="Compositor" id="Compositor_cc7wm"]
 compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_wx45x")])
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_v7wd6"]
-viewport_path = NodePath("MainSubViewport")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_s7b13"]
-viewport_path = NodePath("ReflectionViewPort")
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_mpl6x"]
-viewport_path = NodePath("MainSubViewport")
+viewport_path = NodePath("SubViewportContainer/MainSubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_0t0kn"]
 viewport_path = NodePath("ReflectionViewPort")
@@ -440,62 +462,84 @@ script = ExtResource("1_s7b13")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0t0kn")
+compositor = SubResource("Compositor_n4mug")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0.467214, -0.878899, 0.0961639, 0.178085, 0.200084, 0.963458, 0, 0, 0)
 shadow_enabled = true
 
-[node name="MainSubViewport" type="SubViewport" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="MainSubViewport" type="SubViewport" parent="SubViewportContainer"]
 unique_name_in_owner = true
 handle_input_locally = false
-size = Vector2i(640, 360)
+size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="Camera3DMain" type="Camera3D" parent="MainSubViewport"]
+[node name="CameraRigYaw" type="Node3D" parent="SubViewportContainer/MainSubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 49, 70)
+script = ExtResource("3_7ohl8")
+CameraSpeed = 10.0
+RotationPivotPoint = NodePath("../FakeWaterPlane")
+MainCamera = NodePath("Camera3DGameCam")
+
+[node name="Camera3DGameCam" type="Camera3D" parent="SubViewportContainer/MainSubViewport/CameraRigYaw"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 8, 17)
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, -41, -53)
 cull_mask = 524287
 projection = 1
 current = true
 size = 10.0
 far = 400.0
 
-[node name="SimplePlanar" type="MeshInstance3D" parent="MainSubViewport"]
+[node name="SimplePlanar" type="MeshInstance3D" parent="SubViewportContainer/MainSubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.32142)
 visible = false
 mesh = SubResource("PlaneMesh_v7wd6")
 
-[node name="FakeWaterPlane" type="MeshInstance3D" parent="MainSubViewport" node_paths=PackedStringArray("main_camera")]
+[node name="FakeWaterPlane" type="MeshInstance3D" parent="SubViewportContainer/MainSubViewport" node_paths=PackedStringArray("main_camera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.32142)
 mesh = SubResource("PlaneMesh_v7wd6")
 surface_material_override/0 = SubResource("ShaderMaterial_wekhp")
 script = ExtResource("3_sodl7")
-main_camera = NodePath("../Camera3DMain")
-reflection_camera_resolution = Vector2i(640, 360)
+main_camera = NodePath("../CameraRigYaw/Camera3DGameCam")
 custom_environment = SubResource("Environment_sodl7")
 
-[node name="WaterToon" type="PlanarReflectorCPP" parent="MainSubViewport" node_paths=PackedStringArray("main_camera")]
-main_camera = NodePath("../Camera3DMain")
+[node name="WaterToon" type="PlanarReflectorCPP" parent="SubViewportContainer/MainSubViewport" node_paths=PackedStringArray("main_camera")]
+main_camera = NodePath("../CameraRigYaw/Camera3DGameCam")
 reflection_camera_resolution = Vector2i(640, 360)
 use_lod = false
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.79386)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.410889, -4.79386)
 visible = false
 mesh = SubResource("PlaneMesh_wekhp")
 surface_material_override/0 = SubResource("ShaderMaterial_n4mug")
 
-[node name="CylinderPink1" type="CSGCylinder3D" parent="MainSubViewport"]
+[node name="CylinderPink1" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport"]
 transform = Transform3D(0.948024, 0.318198, 0, -0.315189, 0.939059, -0.137203, -0.0436576, 0.130071, 0.990543, 0, 1.0178, -4.99085)
 material = SubResource("StandardMaterial3D_v7wd6")
 
-[node name="CylinderYellow1" type="CSGCylinder3D" parent="MainSubViewport/CylinderPink1"]
+[node name="CylinderYellow1" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport/CylinderPink1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.96642, 0)
 material = SubResource("StandardMaterial3D_s7b13")
 
-[node name="CylinderPink2" type="CSGCylinder3D" parent="MainSubViewport"]
+[node name="CylinderPink2" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport"]
 transform = Transform3D(0.968934, -0.244639, 0.0363215, 0.24732, 0.958428, -0.142298, 0, 0.14686, 0.989157, 4.51002, 0.951785, -4.99085)
 material = SubResource("StandardMaterial3D_v7wd6")
 
-[node name="CylinderYellow2" type="CSGCylinder3D" parent="MainSubViewport"]
+[node name="CylinderYellow2" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport"]
 transform = Transform3D(0.978924, -0.204223, 0, 0.201104, 0.963975, -0.174095, 0.0355542, 0.170426, 0.984729, -2.75464, -0.429322, -4.99085)
 height = 5.0
 material = SubResource("StandardMaterial3D_s7b13")
@@ -505,12 +549,13 @@ unique_name_in_owner = true
 transparent_bg = true
 handle_input_locally = false
 msaa_3d = 2
-size = Vector2i(640, 360)
+size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="ReflectionCamera3D" type="Camera3D" parent="ReflectionViewPort"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, -0.34202, 0.939693, 0, -8, 17)
+visible = false
 cull_mask = 524287
 environment = SubResource("Environment_s7b13")
 compositor = SubResource("Compositor_cc7wm")
@@ -519,39 +564,12 @@ current = true
 size = 10.0
 far = 400.0
 
-[node name="Display" type="Control" parent="."]
-clip_contents = true
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.01507, 1.01103)
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 2
-
-[node name="MainScene" type="Sprite2D" parent="Display"]
-texture_filter = 2
-position = Vector2(39.4062, 218.589)
-scale = Vector2(0.932817, 1.32978)
-texture = SubResource("ViewportTexture_v7wd6")
-centered = false
-
-[node name="Reflection" type="Sprite2D" parent="Display"]
-texture_filter = 2
-position = Vector2(644.291, 231.447)
-scale = Vector2(0.96976, 1.27208)
-texture = SubResource("ViewportTexture_s7b13")
-centered = false
-
 [node name="MainSceneSprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.67811, 2.57581, -8.44728)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.31362, 2.57581, -8.44728)
 layers = 524288
 texture = SubResource("ViewportTexture_mpl6x")
 
 [node name="Reflection" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.43637, 2.57581, -8.44728)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.74561, 2.57581, -8.44728)
 layers = 524288
 texture = SubResource("ViewportTexture_0t0kn")
