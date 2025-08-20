@@ -66,22 +66,6 @@ func _ready() -> void:
 	setup_reflection_environment()
 	update_offset_cache()
 
-func find_editor_helper() -> void:
-	if Engine.is_editor_hint():
-		if Engine.has_singleton("PlanarReflectorEditorHelper"):
-			editor_helper = Engine.get_singleton("PlanarReflectorEditorHelper")
-
-func set_editor_camera(viewport_camera: Camera3D) -> void:
-	editor_camera = viewport_camera
-	printt("GDSCript SET Editor Camera: ", editor_camera.name)
-	update_viewport()
-	update_reflection_camera()
-
-func get_is_active() -> bool:
-	return true
-
-func get_active_camera() -> Camera3D:
-	return main_camera
 
 func _process(_delta: float) -> void:
 	update_viewport()
@@ -253,3 +237,24 @@ func update_offset_cache() -> void:
 		last_offset_position = reflection_offset_position
 		last_offset_rotation = reflection_offset_rotation
 
+#Region - EDITOR AND PLUGIN HELPER METHODS
+#EDITOR HELPER METHOS
+func find_editor_helper() -> void:
+	if Engine.is_editor_hint():
+		if Engine.has_singleton("PlanarReflectorEditorHelper"):
+			editor_helper = Engine.get_singleton("PlanarReflectorEditorHelper")
+
+func set_editor_camera(viewport_camera: Camera3D) -> void:
+	editor_camera = viewport_camera
+	printt("GDSCript SET Editor Camera: ", editor_camera.name)
+	update_viewport()
+	update_reflection_camera()
+
+func get_is_active() -> bool:
+	return true
+
+func get_active_camera() -> Camera3D:
+	return main_camera
+
+
+#endregion

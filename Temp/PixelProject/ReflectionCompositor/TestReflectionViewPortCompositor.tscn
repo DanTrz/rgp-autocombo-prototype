@@ -351,7 +351,7 @@ resource_local_to_scene = true
 render_priority = 0
 shader = SubResource("Shader_32ujw")
 shader_parameter/depth_gradient_shallow = Color(0.325, 0.807, 0.971, 0.725)
-shader_parameter/depth_gradient_deep = Color(0.325, 0.807, 0.971, 0.725)
+shader_parameter/depth_gradient_deep = Color(0.32549, 0.807843, 0.972549, 1)
 shader_parameter/depth_max_distance = 0.0
 shader_parameter/depth_factor = 1.0
 shader_parameter/beer_factor = 3.0
@@ -375,7 +375,7 @@ shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_7ohl8"
 shader_parameter/reflection_strength = 1.0
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
-shader_parameter/reflection_distortion_scale = 0.5
+shader_parameter/reflection_distortion_scale = 0.0
 shader_parameter/enable_reflection_depth_mask = false
 shader_parameter/reflection_depth_threshold = 0.1
 shader_parameter/reflection_depth_fade = 0.25
@@ -390,7 +390,7 @@ subdivide_width = 50
 subdivide_depth = 50
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_n4mug"]
-viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@28934")
+viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@38128")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n4mug"]
 resource_local_to_scene = true
@@ -536,11 +536,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.96642, 0)
 material = SubResource("StandardMaterial3D_s7b13")
 
 [node name="CylinderPink2" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport"]
-transform = Transform3D(0.968934, -0.244639, 0.0363215, 0.24732, 0.958428, -0.142298, 0, 0.14686, 0.989157, 4.51002, 0.951785, -4.99085)
+transform = Transform3D(0.903096, -0.424784, 0.0630676, 0.429439, 0.893304, -0.132629, 2.275e-09, 0.14686, 0.989157, 4.51002, 0.951785, -4.99085)
 material = SubResource("StandardMaterial3D_v7wd6")
 
 [node name="CylinderYellow2" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport"]
-transform = Transform3D(0.978924, -0.204223, 0, 0.201104, 0.963975, -0.174095, 0.0355542, 0.170426, 0.984729, -2.75464, -0.429322, -4.99085)
+transform = Transform3D(0.978924, -0.204223, 3.04007e-09, 0.203454, 0.975238, 0.0867037, -0.0177068, -0.0848763, 0.996235, -2.75464, -0.429322, -4.99085)
 height = 5.0
 material = SubResource("StandardMaterial3D_s7b13")
 
@@ -569,7 +569,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.31362, 2.57581, -8.44728)
 layers = 524288
 texture = SubResource("ViewportTexture_mpl6x")
 
-[node name="Reflection" type="Sprite3D" parent="."]
+[node name="ReflectionSprite" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.74561, 2.57581, -8.44728)
 layers = 524288
 texture = SubResource("ViewportTexture_0t0kn")
