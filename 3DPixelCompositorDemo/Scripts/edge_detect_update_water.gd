@@ -31,7 +31,7 @@ var sampler_rid: RID
 # Water cutoff (now using true world-space Y)
 @export var water_mask_enabled: bool = false
 @export var water_y_height: float = 0.0
-@export_range(0.0, 10.0, 0.1) var water_feather: float = 2.0
+@export_range(0.0, 10.0, 0.1) var water_feather: float = 0.2
 @export_enum("Binary:0", "Fade:1") var water_mode: int = 1
 
 # ------------------------------------------------------------------------------

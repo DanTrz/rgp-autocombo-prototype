@@ -83,9 +83,10 @@ func setup_reflection_camera_and_viewport() -> void:
 	add_child(reflect_viewport)
 	reflect_viewport.size = reflection_camera_resolution
 	reflect_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
-	reflect_viewport.msaa_3d = Viewport.MSAA_4X
+	reflect_viewport.msaa_3d = Viewport.MSAA_DISABLED
 	reflect_viewport.positional_shadow_atlas_size = 2048
 	reflect_viewport.own_world_3d = false
+	reflect_viewport.transparent_bg = true
 
 	#Setup the reflection camera
 	reflect_camera = Camera3D.new()
@@ -113,28 +114,17 @@ func setup_reflection_camera_and_viewport() -> void:
 
 func setup_reflection_environment() -> void:
 	#Prepare or copy the environment for the reflection camera
+	var reflection_env: Environment = Environment.new()
 	if use_custom_environment:
-		var reflection_env: Environment = Environment.new()
 		if custom_environment:
 			reflection_env = custom_environment
-		else:
-			reflection_env.background_mode = Environment.BG_CLEAR_COLOR
-			if main_camera and main_camera.environment:
-				if main_camera.environment.ambient_light_source == Environment.AMBIENT_SOURCE_SKY:
-					reflection_env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-					reflection_env.ambient_light_color = Color(0.4, 0.4, 0.4)
-					reflection_env.ambient_light_energy = 0.3
-				else:
-					reflection_env.ambient_light_source = main_camera.environment.ambient_light_source
-					reflection_env.ambient_light_color = main_camera.environment.ambient_light_color
-					reflection_env.ambient_light_energy = main_camera.environment.ambient_light_energy
-				if main_camera.environment.has_method("get_fog_enabled"):
-					reflection_env.fog_enabled = false
-		
-		#Set the reflection camera environment
-		reflect_camera.environment = reflection_env
 	else:
-		reflect_camera.environment = main_camera.environment if main_camera else null
+		reflection_env.background_mode = Environment.BG_CLEAR_COLOR
+		reflection_env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+		reflection_env.ambient_light_color = Color.LIGHT_GRAY
+		reflection_env.ambient_light_energy = 1
+	
+	reflect_camera.environment = reflection_env
 
 func calculate_reflection_plane() -> Plane:
 	var reflection_transform: Transform3D = global_transform * Transform3D().rotated(Vector3.RIGHT, PI/2)

@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://cluvukmm23a2m" path="res://Temp/PixelProject/ReflectionCompositor/PlanarReflectorGDSCriptCompositor.gd" id="3_sodl7"]
 [ext_resource type="Shader" uid="uid://dpwmhlausv7b8" path="res://assets/shaders/PixelShaders/water_toon_planar_reflection.gdshader" id="3_wx45x"]
 [ext_resource type="Texture2D" uid="uid://cwopgjiunh5xc" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterDistortion.png" id="4_8d00o"]
+[ext_resource type="Shader" uid="uid://ye083wcg0jsd" path="res://3DPixelCompositorDemo/Shaders/water_planar_toon_compositor_mask.gdshader" id="5_r4ywp"]
 [ext_resource type="Texture2D" uid="uid://dixqstxe6b56r" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterLinear.png" id="5_sodl7"]
 [ext_resource type="Shader" uid="uid://bvr8hx2obykjm" path="res://3DPixelCompositorDemo/Shaders/cel_shading_simple.gdshader" id="9_n4mug"]
 
@@ -43,7 +44,7 @@ offset_scale = 0.0001
 roughness_ignore_threshold = 0.95
 water_mask_enabled = true
 water_y_height = 0.0
-water_feather = 0.0
+water_feather = 0.2
 water_mode = 1
 metadata/_custom_type_script = "uid://b0apiig1n0oxp"
 
@@ -78,270 +79,10 @@ shader_parameter/refraction_texture_channel = Vector4(1, 0, 0, 0)
 material = SubResource("ShaderMaterial_wx45x")
 size = Vector2(15, 7)
 
-[sub_resource type="Shader" id="Shader_32ujw"]
-resource_local_to_scene = true
-code = "//LATEST WATER SHADER CODE
-shader_type spatial;
-render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_toon,specular_toon;
-
-// Constants
-const float SMOOTHSTEP_AA = 0.01;
-
-// Toon Water Core Uniforms
-group_uniforms toon_water;
-uniform vec4 depth_gradient_shallow: source_color = vec4(0.325, 0.807, 0.971, 0.725);
-uniform vec4 depth_gradient_deep: source_color = vec4(0.086, 0.407, 1, 0.749);
-uniform float depth_max_distance: hint_range(0, 50) = 10.0;
-uniform float depth_factor: hint_range(0.1, 5.0) = 1.0;
-uniform float beer_factor: hint_range(0.1, 3.0) = 1.5;
-
-// Foam Settings
-group_uniforms foam;
-uniform vec4 foam_color: source_color = vec4(1.0);
-uniform float foam_distance: hint_range(0.001, 0.1) = 0.01;
-uniform float foam_max_distance: hint_range(0.1, 1.0) = 0.4;
-uniform float foam_min_distance: hint_range(0.01, 0.5) = 0.04;
-
-// Surface Noise
-group_uniforms surface_effects;
-uniform sampler2D surface_noise: filter_linear_mipmap, repeat_enable;
-uniform sampler2D distort_noise: filter_linear_mipmap, repeat_enable;
-uniform vec2 surface_noise_tiling = vec2(1.0, 4.0);
-uniform vec3 surface_noise_scroll = vec3(0.03, 0.03, 0.0);
-uniform float surface_noise_cutoff: hint_range(0, 1) = 0.777;
-uniform float surface_distortion_amount: hint_range(0, 2) = 0.27;
-// Material Properties
-uniform float roughness : hint_range(0.0, 1.0, 0.01) = 0.15;
-uniform float specular : hint_range(0.0, 1.0, 0.01) = 0.25;
-
-// Animation Speed Controls
-group_uniforms animation_speeds;
-uniform float master_time_scale: hint_range(0.0, 2.0) = 1.0; // Global time multiplier
-uniform float wave_animation_speed: hint_range(0.0, 2.0) = 1.0; // Vertex wave speed
-uniform float reflection_wobble_speed: hint_range(0.0, 2.0) = 1.0; // Reflection distortion speed
-uniform float foam_animation_speed: hint_range(0.0, 2.0) = 1.0; // Foam reflection influence speed
-
-
-
-// PLANAR REFLECTION UNIFORMS
-group_uniforms planar_reflection;
-uniform sampler2D reflection_screen_texture : source_color, filter_linear_mipmap, repeat_enable;
-uniform float reflection_strength : hint_range(0.0, 1.0) = 0.5;
-uniform bool is_orthogonal_camera = false;
-uniform float ortho_uv_scale : hint_range(0.1, 3.0) = 1.0;
-uniform float reflection_distortion_scale : hint_range(0.0, 2.0, 0.01) = 1.0;
-
-// Reflection Depth Masking
-uniform bool enable_reflection_depth_mask = true;
-uniform float reflection_depth_threshold : hint_range(0.0, 2.0, 0.01) = 0.1;
-uniform float reflection_depth_fade : hint_range(0.0, 2.0, 0.01) = 0.25;
-
-// ORTHOGONAL CAMERA FIXES
-group_uniforms orthogonal_fixes;
-uniform float ortho_depth_scale : hint_range(0.1, 10.0, 0.1) = 1.0;
-uniform float ortho_foam_compensation : hint_range(0.5, 2.0, 0.1) = 1.0;
-
-// Required textures
-uniform sampler2D screen_texture: hint_screen_texture, filter_linear_mipmap, repeat_disable;
-uniform sampler2D depth_texture: hint_depth_texture, filter_linear_mipmap, repeat_disable;
-
-// Varyings
-varying vec2 noise_uv;
-varying vec2 distort_uv;
-varying vec3 view_normal;
-varying vec3 global_position;
-varying float vertex_wave_amount;
-
-// Alpha blending function for foam
-vec4 alpha_blend(vec4 top, vec4 bottom) {
-	vec3 color = (top.rgb * top.a) + (bottom.rgb * (1.0 - top.a));
-	float alpha = top.a + bottom.a * (1.0 - top.a);
-	return vec4(color, alpha);
-}
-
-void vertex() {
-	global_position = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	view_normal = (MODELVIEW_MATRIX * vec4(NORMAL, 0.0)).xyz;
-	noise_uv = UV * surface_noise_tiling;
-	distort_uv = UV;
-
-	// Simple wave animation for vertex movement (optional)
-	float animated_time = TIME * master_time_scale * wave_animation_speed;
-	float wave = sin(global_position.x * 2.0 + animated_time * 2.0) * 0.05;
-	wave += cos(global_position.z * 2.0 + animated_time * 1.5) * 0.05;
-	VERTEX.y += wave;
-	vertex_wave_amount = wave;
-}
-
-void fragment() {
-	// Get depth texture and calculate water depth
-	float depth_tex = texture(depth_texture, SCREEN_UV).r;
-
-	// Convert depth to world space for better orthogonal handling
-	vec3 ndc = vec3(SCREEN_UV * 2.0 - 1.0, depth_tex);
-	vec4 world_pos = INV_VIEW_MATRIX * INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
-	world_pos.xyz /= world_pos.w;
-
-	// Calculate depth in a way that works well with orthogonal cameras
-	float vertex_y = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).y;
-	float depth = vertex_y - world_pos.y;
-
-	// Apply orthogonal depth compensation
-	if (is_orthogonal_camera) {
-		depth *= ortho_depth_scale;
-	}
-
-	// Beer's law absorption - properly clamped
-	float depth_fade = 1.0 - exp(-abs(depth) * beer_factor);
-	depth_fade = clamp(depth_fade, 0.0, 1.0);
-
-	// Calculate existing surface normal for foam edge detection
-	vec4 view_pos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, depth_tex, 1.0);
-	view_pos /= view_pos.w;
-	vec3 existing_normal = normalize(cross(dFdx(view_pos.xyz), dFdy(view_pos.xyz)));
-
-	float normal_dot = clamp(dot(existing_normal.xyz, view_normal), 0.0, 1.0);
-	float foam_distance_calc = mix(foam_max_distance, foam_min_distance, normal_dot);
-
-	// Apply orthogonal foam compensation
-	if (is_orthogonal_camera) {
-		foam_distance_calc *= ortho_foam_compensation;
-	}
-
-	// Calculate foam
-	float foam_depth = clamp(depth / foam_distance_calc, 0.0, 1.0);
-	float surface_noise_cutoff_value = foam_depth * surface_noise_cutoff;
-
-	// Sample distortion noise
-	vec4 distort_noise_sample = texture(distort_noise, distort_uv);
-	vec2 distort_amount = (distort_noise_sample.xy * 2.0 - 1.0) * surface_distortion_amount;
-
-	// Calculate animated noise UV
-	float surface_time = TIME * master_time_scale;
-	vec2 noise_uv_animated = vec2(
-		(noise_uv.x + surface_time * surface_noise_scroll.x) + distort_amount.x,
-		(noise_uv.y + surface_time * surface_noise_scroll.y + distort_amount.y)
-	);
-
-	// Sample surface noise for foam
-	float surface_noise_sample = texture(surface_noise, noise_uv_animated).r;
-	float surface_noise_amount = smoothstep(
-		surface_noise_cutoff_value - SMOOTHSTEP_AA,
-		surface_noise_cutoff_value + SMOOTHSTEP_AA,
-		surface_noise_sample
-	);
-
-	// PLANAR REFLECTION DISTORTION
-	vec2 reflection_distortion = vec2(0.0);
-	vec2 warped_uv = SCREEN_UV;
-
-	if (reflection_strength > 0.0) {
-		// Use the distortion and wave amount for reflection
-		reflection_distortion = distort_amount * 0.02 * reflection_distortion_scale;
-
-		// Add wave influence
-		reflection_distortion += vec2(vertex_wave_amount) * 0.1 * reflection_distortion_scale;
-
-		// Add time-based wobble
-		float wobble_time = TIME * master_time_scale * reflection_wobble_speed;
-		reflection_distortion += vec2(
-			sin(wobble_time * 2.0 + global_position.x * 0.5),
-			cos(wobble_time * 1.5 + global_position.z * 0.5)
-		) * 0.003 * reflection_distortion_scale;
-
-		// Add foam influence to reflection
-		if (surface_noise_amount > 0.0) {
-			float foam_time = TIME * master_time_scale * foam_animation_speed;
-			reflection_distortion += vec2(surface_noise_amount * 0.02) * sin(foam_time * 8.0);
-		}
-
-		warped_uv = SCREEN_UV + reflection_distortion;
-
-		// Handle orthogonal camera mode
-		if (is_orthogonal_camera) {
-			vec2 center = vec2(0.5);
-			warped_uv = center + (warped_uv - center) * ortho_uv_scale;
-		}
-		warped_uv = clamp(warped_uv, 0.0, 1.0);
-	}
-
-	// Calculate water color based on depth
-	float water_depth = clamp(depth / depth_max_distance, 0.0, 1.0) * depth_factor;
-	vec4 water_color = mix(depth_gradient_shallow, depth_gradient_deep, water_depth);
-
-	// Increase water opacity based on depth
-	water_color.a = mix(water_color.a, 1.0, depth_fade);
-
-	// Setup foam color
-	vec4 surface_noise_color = foam_color;
-	surface_noise_color.a *= surface_noise_amount;
-
-	// Blend foam with water
-	vec4 color = alpha_blend(surface_noise_color, water_color);
-
-	// Apply planar reflection if enabled
-	if (reflection_strength > 0.0) {
-		vec4 reflection_tex = texture(reflection_screen_texture, warped_uv);
-
-		// Calculate reflection mask based on depth
-		float reflection_mask = 1.0;
-
-		if (enable_reflection_depth_mask) {
-			// Check if there's an object above the water surface that should block reflection
-			if (depth < reflection_depth_threshold) {
-				// Object is at or above water surface - fade out reflection
-				reflection_mask = smoothstep(0.0, reflection_depth_fade, depth / reflection_depth_threshold);
-			}
-
-			// Also check the depth at the reflection sample point
-			float reflection_depth_tex = texture(depth_texture, warped_uv).r;
-			vec3 reflection_ndc = vec3(warped_uv * 2.0 - 1.0, reflection_depth_tex);
-			vec4 reflection_world_pos = INV_VIEW_MATRIX * INV_PROJECTION_MATRIX * vec4(reflection_ndc, 1.0);
-			reflection_world_pos.xyz /= reflection_world_pos.w;
-
-			float reflection_point_depth = vertex_y - reflection_world_pos.y;
-
-			// If the reflection sample point has an object very close to water surface, reduce reflection
-			if (reflection_point_depth < reflection_depth_threshold) {
-				float point_mask = smoothstep(0.0, reflection_depth_fade, reflection_point_depth / reflection_depth_threshold);
-				reflection_mask *= point_mask;
-			}
-		}
-
-		// Reduce reflection strength in foam areas and apply depth mask
-		float reflection_factor = reflection_strength * (1.0 - surface_noise_amount * 0.5) * (1.0 - water_depth * 0.3) * reflection_mask;
-		color.rgb = mix(color.rgb, reflection_tex.rgb, reflection_factor);
-	}
-
-	// Apply screen texture refraction for underwater objects
-	if (depth > 0.01) {
-		vec2 refraction_offset = distort_amount * 0.01 * (1.0 - water_depth);
-		vec2 refracted_uv = SCREEN_UV + refraction_offset;
-		refracted_uv = clamp(refracted_uv, 0.0, 1.0);
-
-		vec3 screen_color = texture(screen_texture, refracted_uv).rgb;
-
-		// Apply depth-based fading to underwater objects
-		float underwater_visibility = 1.0 - depth_fade;
-
-		// Tint and fade the underwater objects based on depth
-		screen_color = mix(screen_color, water_color.rgb, depth_fade * 0.8);
-
-		// Blend with water based on both alpha and depth
-		color.rgb = mix(screen_color * underwater_visibility, color.rgb, color.a * (0.3 + depth_fade * 0.7));
-	}
-
-	ALBEDO = color.rgb;
-	ALPHA = color.a;
-	ROUGHNESS = roughness;
-	SPECULAR = specular;
-
-}"
-
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cc7wm"]
 load_path = "res://.godot/imported/WaterDistortion.png-cb386057d205e074c37cb5d2f89129d7.s3tc.ctex"
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_7ohl8"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_r4ywp"]
 viewport_path = NodePath("SubViewportContainer/MainSubViewport/FakeWaterPlane/ReflectionViewPort")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sodl7"]
@@ -350,15 +91,15 @@ load_path = "res://.godot/imported/WaterLinear.png-34fa18c64cb4d871c707bdf028df8
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wekhp"]
 resource_local_to_scene = true
 render_priority = 0
-shader = SubResource("Shader_32ujw")
-shader_parameter/depth_gradient_shallow = Color(0.325, 0.807, 0.971, 0.725)
-shader_parameter/depth_gradient_deep = Color(0.32549, 0.807843, 0.972549, 1)
-shader_parameter/depth_max_distance = 0.0
+shader = ExtResource("5_r4ywp")
+shader_parameter/depth_gradient_shallow = Color(0.0666667, 0.466667, 0.584314, 0.878431)
+shader_parameter/depth_gradient_deep = Color(0.0862745, 0.737255, 1, 0.866667)
+shader_parameter/depth_max_distance = 0.5
 shader_parameter/depth_factor = 1.0
-shader_parameter/beer_factor = 3.0
+shader_parameter/beer_factor = 1.5
 shader_parameter/foam_color = Color(1, 1, 1, 1)
 shader_parameter/foam_distance = 0.01
-shader_parameter/foam_max_distance = 0.3
+shader_parameter/foam_max_distance = 0.4
 shader_parameter/foam_min_distance = 0.04
 shader_parameter/surface_noise = SubResource("CompressedTexture2D_sodl7")
 shader_parameter/distort_noise = SubResource("CompressedTexture2D_cc7wm")
@@ -368,30 +109,32 @@ shader_parameter/surface_noise_cutoff = 0.7
 shader_parameter/surface_distortion_amount = 0.27
 shader_parameter/roughness = 1.0
 shader_parameter/specular = 0.25
-shader_parameter/master_time_scale = 0.25
+shader_parameter/master_time_scale = 0.2
 shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_7ohl8")
-shader_parameter/reflection_strength = 1.0
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_r4ywp")
+shader_parameter/reflection_strength = 0.85
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
-shader_parameter/reflection_distortion_scale = 0.0
+shader_parameter/reflection_distortion_scale = 1.0
 shader_parameter/enable_reflection_depth_mask = false
-shader_parameter/reflection_depth_threshold = 0.1
-shader_parameter/reflection_depth_fade = 0.25
+shader_parameter/reflection_depth_threshold = 2.0
+shader_parameter/reflection_depth_fade = 2.0
 shader_parameter/ortho_depth_scale = 1.0
 shader_parameter/ortho_foam_compensation = 1.0
 
-[sub_resource type="Environment" id="Environment_sodl7"]
+[sub_resource type="Environment" id="Environment_r4ywp"]
+ambient_light_source = 2
+ambient_light_color = Color(0.99558, 0.99558, 0.99558, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_wekhp"]
 size = Vector2(20, 8)
 subdivide_width = 50
 subdivide_depth = 50
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_n4mug"]
-viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@61690")
+[sub_resource type="ViewportTexture" id="ViewportTexture_lkarq"]
+viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@106726")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n4mug"]
 resource_local_to_scene = true
@@ -418,7 +161,7 @@ shader_parameter/master_time_scale = 0.25
 shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_n4mug")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_lkarq")
 shader_parameter/reflection_strength = 1.0
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
@@ -524,6 +267,8 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_g1j4y")
 
 [sub_resource type="Environment" id="Environment_s7b13"]
+ambient_light_source = 2
+ambient_light_color = Color(0.67069, 0.67069, 0.67069, 1)
 
 [sub_resource type="CompositorEffect" id="CompositorEffect_n4mug"]
 resource_local_to_scene = false
@@ -600,11 +345,12 @@ mesh = SubResource("PlaneMesh_v7wd6")
 
 [node name="FakeWaterPlane" type="MeshInstance3D" parent="SubViewportContainer/MainSubViewport" node_paths=PackedStringArray("main_camera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.32142)
+cast_shadow = 0
 mesh = SubResource("PlaneMesh_v7wd6")
 surface_material_override/0 = SubResource("ShaderMaterial_wekhp")
 script = ExtResource("3_sodl7")
 main_camera = NodePath("../CameraRigYaw/Camera3DGameCam")
-custom_environment = SubResource("Environment_sodl7")
+custom_environment = SubResource("Environment_r4ywp")
 
 [node name="WaterToon" type="PlanarReflectorCPP" parent="SubViewportContainer/MainSubViewport" node_paths=PackedStringArray("main_camera")]
 main_camera = NodePath("../CameraRigYaw/Camera3DGameCam")
@@ -616,7 +362,7 @@ mesh = SubResource("PlaneMesh_wekhp")
 surface_material_override/0 = SubResource("ShaderMaterial_n4mug")
 
 [node name="CylinderPink1" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport"]
-transform = Transform3D(0.948024, 0.318198, 0, -0.315189, 0.939059, -0.137203, -0.0436576, 0.130071, 0.990543, 2.99612, 1.44239, -4.98968)
+transform = Transform3D(0.948024, 0.318198, 0, -0.315189, 0.939059, -0.137203, -0.0436576, 0.130071, 0.990543, 2.99612, 1.3885, -4.98968)
 material = SubResource("StandardMaterial3D_v7wd6")
 
 [node name="CylinderYellow1" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport/CylinderPink1"]
@@ -628,12 +374,12 @@ transform = Transform3D(0.903096, -0.424784, 0.0630676, 0.429439, 0.893304, -0.1
 material = SubResource("StandardMaterial3D_v7wd6")
 
 [node name="CylinderYellow2" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport"]
-transform = Transform3D(0.978924, -0.204223, 3.04007e-09, 0.203454, 0.975238, 0.0867037, -0.0177068, -0.0848763, 0.996235, 1.00717, -0.429322, -4.99085)
+transform = Transform3D(0.978924, -0.204223, 2.36888e-09, 0.203713, 0.976479, -0.0706445, 0.0144273, 0.0691556, 0.997502, 0.857672, -0.429322, -4.99085)
 height = 5.0
 material = SubResource("StandardMaterial3D_s7b13")
 
 [node name="trees" type="MeshInstance3D" parent="SubViewportContainer/MainSubViewport" groups=["snap", "snap_objects"]]
-transform = Transform3D(0.475486, -0.273726, 0.0719828, 0.15435, 0.868502, -0.193913, -0.00943812, 0.413254, 0.45521, -6.08349, 3.62382, -1.93831)
+transform = Transform3D(0.475486, -0.273726, 0.0719828, 0.15435, 0.868502, -0.193913, -0.00943812, 0.413254, 0.45521, -6.08349, 3.10441, -1.93831)
 layers = 786433
 mesh = SubResource("ArrayMesh_lkarq")
 skeleton = NodePath("")
