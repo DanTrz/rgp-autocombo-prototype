@@ -28,8 +28,9 @@ var editor_camera: Camera3D = null
 @export var lod_distance_far: float = 30.0
 @export var lod_resolution_multiplier: float = 0.45
 
-#TEST #DEBUG 
-@onready var local_test_reflect_cam: Camera3D = %ReflectionCamera3D
+#TODO:
+#1 - add a export bool under Reflection Layers and Environment" to enable CompositorEffect "WaterMask"
+#2 Add exporrt variables to be passed to the CompositorEffect: EffectEnabled, WaterHeight, etc. # Need to make sure this are constantly synced (in Process) as we can change water height in the editor
 
 var editor_helper: Node = null
 var active_shader_material: ShaderMaterial = null
