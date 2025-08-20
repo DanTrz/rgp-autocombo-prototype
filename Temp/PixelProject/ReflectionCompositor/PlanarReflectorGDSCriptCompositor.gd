@@ -47,25 +47,9 @@ var last_offset_rotation: Vector3 = Vector3.ZERO
 func _ready() -> void:
 	add_to_group("planar_reflectors")
 	find_editor_helper()
-	reflect_viewport = SubViewport.new()
-	reflect_viewport.name = "ReflectionViewPort"
-	add_child(reflect_viewport)
-	reflect_viewport.size = reflection_camera_resolution
-	reflect_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
-	reflect_viewport.msaa_3d = Viewport.MSAA_4X
-	reflect_viewport.positional_shadow_atlas_size = 2048
-	reflect_viewport.own_world_3d = false
-	reflect_camera = Camera3D.new()
-	reflect_viewport.add_child(reflect_camera)
-	setup_reflection_layers()
-	if main_camera:
-		reflect_camera.attributes = main_camera.attributes
-		reflect_camera.doppler_tracking = main_camera.doppler_tracking
-	reflect_camera.current = true
-	reflect_camera.make_current()
+	setup_reflection_camera_and_viewport()
 	setup_reflection_environment()
 	update_offset_cache()
-
 
 func _process(_delta: float) -> void:
 	update_viewport()
@@ -88,12 +72,34 @@ func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		update_reflection_camera()
 
-func setup_reflection_layers() -> void:
+func setup_reflection_camera_and_viewport() -> void:
+	#Setup the reflection viewport
+	reflect_viewport = SubViewport.new()
+	reflect_viewport.name = "ReflectionViewPort"
+	add_child(reflect_viewport)
+	reflect_viewport.size = reflection_camera_resolution
+	reflect_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	reflect_viewport.msaa_3d = Viewport.MSAA_4X
+	reflect_viewport.positional_shadow_atlas_size = 2048
+	reflect_viewport.own_world_3d = false
+
+	#Setup the reflection camera
+	reflect_camera = Camera3D.new()
+	reflect_viewport.add_child(reflect_camera)
+	
+	#Setup the reflection camera cull mask / layers
 	var cull_mask: int = reflection_layers
 	reflect_camera.cull_mask = cull_mask
 	is_layer_one_active = bool(cull_mask & (1 << 0))
 	if not is_layer_one_active:
 		print("Layer 1 not active, make sure to add the layers to the scene Lights cull masks")
+	
+	#copy main camera properties to reflection camera
+	if main_camera:
+		reflect_camera.attributes = main_camera.attributes
+		reflect_camera.doppler_tracking = main_camera.doppler_tracking
+	reflect_camera.current = true
+	reflect_camera.make_current()
 
 func setup_reflection_environment() -> void:
 	if use_custom_environment:
@@ -237,7 +243,7 @@ func update_offset_cache() -> void:
 		last_offset_position = reflection_offset_position
 		last_offset_rotation = reflection_offset_rotation
 
-#Region - EDITOR AND PLUGIN HELPER METHODS
+#region - EDITOR AND PLUGIN HELPER METHODS
 #EDITOR HELPER METHOS
 func find_editor_helper() -> void:
 	if Engine.is_editor_hint():
@@ -255,6 +261,11 @@ func get_is_active() -> bool:
 
 func get_active_camera() -> Camera3D:
 	return main_camera
+
+
+#endregion
+
+#region- REFLECTION COMPOSITOR AND REFLECTION MASK METHODS
 
 
 #endregion
