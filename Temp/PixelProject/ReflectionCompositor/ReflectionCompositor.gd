@@ -10,7 +10,7 @@ var parameter_storage_buffer: RID
 var sampler_rid: RID
 
 # --- Controls (v1: simple flat plane) ---
-@export var effect_enabled: bool = true
+@export var user_intersect_effect: bool = true
 @export var intersect_height: float = 0.0
 
 # Storage buffer layout (std430), float count:
@@ -73,7 +73,7 @@ func _initialize_compute() -> void:
 func _render_callback(p_effect_callback_type: EffectCallbackType, p_render_data: RenderData) -> void:
 	if p_effect_callback_type != EFFECT_CALLBACK_TYPE_POST_TRANSPARENT:
 		return
-	if not effect_enabled:
+	if not user_intersect_effect:
 		return
 	if not rd or not shader.is_valid() or not pipeline.is_valid() or not sampler_rid.is_valid():
 		return

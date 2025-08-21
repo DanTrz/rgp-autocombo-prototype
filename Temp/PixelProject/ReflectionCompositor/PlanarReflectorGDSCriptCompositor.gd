@@ -13,8 +13,11 @@ var editor_camera: Camera3D = null
 @export var auto_detect_camera_mode: bool = true
 @export_group("Reflection Layers and Environment")
 @export_flags_3d_render var reflection_layers: int = 1
-@export var use_custom_environment: bool = true
+@export var use_custom_environment: bool = false
 @export var custom_environment: Environment = null
+@export var use_custom_compositor: bool = false
+@export var custom_compositor: Compositor = null
+
 #NEW EXPORTS
 @export_group("Reflection Intersection masking")
 @export var hide_intersect_reflections: bool = true
@@ -40,6 +43,8 @@ var editor_camera: Camera3D = null
 #3 Merge/Pass the Updates from this script to the CPP version and push the latest WaterShader to my projects
 #debug test
 @onready var test_camera: Camera3D = %ReflectionCamera3D
+@onready var test_sprite: Sprite3D = %MainSceneSprite3D
+
 
 var editor_helper: Node = null
 var active_shader_material: ShaderMaterial = null
@@ -108,6 +113,8 @@ func setup_reflection_camera_and_viewport() -> void:
 	reflect_viewport.positional_shadow_atlas_size = 2048
 	reflect_viewport.own_world_3d = false
 	reflect_viewport.transparent_bg = true
+	reflect_viewport.handle_input_locally = false
+
 
 	#Setup the reflection camera
 	reflect_camera = Camera3D.new()
@@ -200,6 +207,8 @@ func update_shader_parameters() -> void:
 	if material == null:
 		return
 	material.set_shader_parameter("reflection_screen_texture", reflect_viewport.get_texture())
+	#debug #todo: remove this
+	test_sprite.texture = reflect_viewport.get_texture()
 	var is_orthogonal: bool = false
 	if Engine.is_editor_hint():
 		is_orthogonal = reflect_camera.projection == Camera3D.PROJECTION_ORTHOGONAL
@@ -305,6 +314,12 @@ func get_active_camera() -> Camera3D:
 
 #region- REFLECTION COMPOSITOR AND REFLECTION MASK METHODS
 func setup_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
+	# If we use a Custom Compositor (Local Exported Node), we set it to the camera
+	if use_custom_compositor and custom_compositor:
+		reflect_cam.compositor = custom_compositor
+		return
+	
+	#If we don't use a Custom Compositor (Local Exported Node), we create a new one
 	if reflect_cam.compositor == null:
 		if reflect_cam.compositor:
 			clear_compositor_reflection_effect(reflect_cam)
@@ -315,29 +330,26 @@ func setup_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
 	if active_reflection_effect != null:
 		# print("Compositor Effect already exist: ", reflect_cam.name)
 		update_compositor_reflection_effect(active_reflection_effect)
-		# active_reflection_effect.effect_enabled = true
-		# active_reflection_effect.needs_normal_roughness = true
-		# active_reflection_effect.intersect_height = global_transform.origin.y
 		# if override_YAxis_height:
 		# 	active_reflection_effect.intersect_height = new_YAxis_height
 	else:
 		# print("Creating Compositor Effect for camera: ", reflect_cam.name)
 		reflection_compositor_effect = ReflectionCompositor.new()
 		update_compositor_reflection_effect(reflection_compositor_effect)
-		# reflection_compositor_effect.effect_enabled = true
-		# reflection_compositor_effect.needs_normal_roughness = true
-		# reflection_compositor_effect.intersect_height = global_transform.origin.y
 		reflect_cam.compositor.set_compositor_effects([reflection_compositor_effect])
 	
 
 func update_compositor_reflection_effect(comp_effect: CompositorEffect) -> void:
+	if use_custom_compositor and custom_compositor and reflect_camera:
+		reflect_camera.compositor = custom_compositor
+		return
+	
 	if comp_effect:
 		comp_effect.effect_enabled = true
 		comp_effect.needs_normal_roughness = true
 		comp_effect.intersect_height = global_transform.origin.y
 		if override_YAxis_height:
 			comp_effect.intersect_height = new_YAxis_height
-
 
 func clear_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
 	if reflect_cam.compositor:

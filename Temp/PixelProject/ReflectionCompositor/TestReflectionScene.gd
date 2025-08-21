@@ -17,9 +17,11 @@ func intial_setup():
 	#Setup reflect viewport
 	reflect_viewport.size = main_viewport.size
 	reflect_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
-	reflect_viewport.msaa_3d = Viewport.MSAA_4X
+	reflect_viewport.msaa_3d = Viewport.MSAA_DISABLED
 	reflect_viewport.positional_shadow_atlas_size = 2048
 	reflect_viewport.own_world_3d = false
+	reflect_viewport.transparent_bg = true
+	reflect_viewport.handle_input_locally = false
 
 	sync_cameras()
 
