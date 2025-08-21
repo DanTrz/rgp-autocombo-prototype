@@ -134,7 +134,7 @@ subdivide_width = 50
 subdivide_depth = 50
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_lkarq"]
-viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@45925")
+viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@37039")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n4mug"]
 resource_local_to_scene = true
@@ -279,7 +279,7 @@ needs_motion_vectors = false
 needs_normal_roughness = true
 script = ExtResource("3_32ujw")
 effect_enabled = true
-water_height = 0.0
+intersect_height = 0.0
 
 [sub_resource type="Compositor" id="Compositor_c3384"]
 compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_fhsug")])
@@ -344,7 +344,7 @@ visible = false
 mesh = SubResource("PlaneMesh_v7wd6")
 
 [node name="FakeWaterPlane" type="MeshInstance3D" parent="SubViewportContainer/MainSubViewport" node_paths=PackedStringArray("main_camera")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.32142)
+transform = Transform3D(1, 0, 0, 0, 0.986292, -0.165013, 0, 0.165013, 0.986292, 0, 0.302428, -5)
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_v7wd6")
 surface_material_override/0 = SubResource("ShaderMaterial_wekhp")
@@ -362,7 +362,7 @@ mesh = SubResource("PlaneMesh_wekhp")
 surface_material_override/0 = SubResource("ShaderMaterial_n4mug")
 
 [node name="CylinderPink1" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport"]
-transform = Transform3D(0.948024, 0.318198, 0, -0.315189, 0.939059, -0.137203, -0.0436576, 0.130071, 0.990543, 2.99612, 1.3885, -4.98968)
+transform = Transform3D(0.948024, 0.318198, 0, -0.315189, 0.939059, -0.137203, -0.0436576, 0.130071, 0.990543, 2.99612, 1.25357, -4.98968)
 material = SubResource("StandardMaterial3D_v7wd6")
 
 [node name="CylinderYellow1" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport/CylinderPink1"]
@@ -370,7 +370,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.96642, 0)
 material = SubResource("StandardMaterial3D_s7b13")
 
 [node name="CylinderPink2" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport"]
-transform = Transform3D(0.903096, -0.424784, 0.0630676, 0.429439, 0.893304, -0.132629, 2.275e-09, 0.14686, 0.989157, 5.68749, 0.951785, -4.99085)
+transform = Transform3D(0.903096, -0.424784, 0.0630676, 0.429439, 0.893304, -0.132629, 2.275e-09, 0.14686, 0.989157, 5.68749, 0.951785, -4.03256)
 material = SubResource("StandardMaterial3D_v7wd6")
 
 [node name="CylinderYellow2" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport"]

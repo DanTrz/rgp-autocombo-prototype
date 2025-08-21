@@ -11,11 +11,11 @@ var sampler_rid: RID
 
 # --- Controls (v1: simple flat plane) ---
 @export var effect_enabled: bool = true
-@export var water_height: float = 0.0
+@export var intersect_height: float = 0.0
 
 # Storage buffer layout (std430), float count:
 #  0..1   : vec2  raster_size
-#  2      : float water_height
+#  2      : float intersect_height
 #  3      : float pad0
 #  4..19  : mat4  inv_proj_mat
 # 20..35  : mat4  inv_view_mat
@@ -105,8 +105,8 @@ func _render_callback(p_effect_callback_type: EffectCallbackType, p_render_data:
 		params[0] = float(size.x)
 		params[1] = float(size.y)
 
-		# 2..3 : water_height + pad
-		params[2] = water_height
+		# 2..3 : intersect_height + pad
+		params[2] = intersect_height
 		params[3] = 0.0
 
 		# 4..19 : inv_proj_mat

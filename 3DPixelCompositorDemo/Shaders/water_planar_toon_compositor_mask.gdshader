@@ -229,7 +229,7 @@ void fragment() {
 		// Reduce reflection strength in foam areas and apply depth mask
 		//float reflection_factor = reflection_strength * (1.0 - surface_noise_amount * 0.5) * (1.0 - water_depth * 0.3) * reflection_mask;
 		//color.rgb = mix(color.rgb, reflection_tex.rgb, reflection_factor);
-		
+
 		float reflection_factor = reflection_strength
                         * (1.0 - surface_noise_amount * 0.5)
                         * (1.0 - water_depth * 0.3)
