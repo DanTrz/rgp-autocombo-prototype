@@ -1,4 +1,3 @@
-//LATEST WATER SHADER CODE
 shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_toon,specular_toon;
 
@@ -8,60 +7,60 @@ const float SMOOTHSTEP_AA = 0.01;
 // Toon Water Core Uniforms
 group_uniforms toon_water;
 uniform vec4 depth_gradient_shallow: source_color = vec4(0.325, 0.807, 0.971, 0.725);
-uniform vec4 depth_gradient_deep: source_color = vec4(0.086, 0.407, 1, 0.749);
+uniform vec4 depth_gradient_deep:    source_color = vec4(0.086, 0.407, 1, 0.749);
 uniform float depth_max_distance: hint_range(0, 50) = 1.0;
-uniform float depth_factor: hint_range(0.1, 5.0) = 1.0;
-uniform float beer_factor: hint_range(0.1, 3.0) = 1.5;
+uniform float depth_factor:       hint_range(0.1, 5.0) = 1.0;
+uniform float beer_factor:        hint_range(0.1, 5.0) = 1.5;
 
 // Foam Settings
 group_uniforms foam;
-uniform vec4 foam_color: source_color = vec4(1.0);
-uniform float foam_distance: hint_range(0.001, 0.1) = 0.01;
-uniform float foam_max_distance: hint_range(0.1, 1.0) = 0.4;
-uniform float foam_min_distance: hint_range(0.01, 0.5) = 0.04;
+uniform vec4  foam_color: source_color = vec4(1.0);
+uniform float foam_distance:      hint_range(0.001, 0.1) = 0.01;
+uniform float foam_max_distance:  hint_range(0.1, 1.0)   = 0.4;
+uniform float foam_min_distance:  hint_range(0.01, 0.5)  = 0.04;
 
 // Surface Noise
 group_uniforms surface_effects;
-uniform sampler2D surface_noise: filter_linear_mipmap, repeat_enable;
-uniform sampler2D distort_noise: filter_linear_mipmap, repeat_enable;
-uniform vec2 surface_noise_tiling = vec2(1.0, 4.0);
-uniform vec3 surface_noise_scroll = vec3(0.03, 0.03, 0.0);
-uniform float surface_noise_cutoff: hint_range(0, 1) = 0.777;
+uniform sampler2D surface_noise:  filter_linear_mipmap, repeat_enable;
+uniform sampler2D distort_noise:  filter_linear_mipmap, repeat_enable;
+uniform vec2  surface_noise_tiling = vec2(1.0, 4.0);
+uniform vec3  surface_noise_scroll = vec3(0.03, 0.03, 0.0);
+uniform float surface_noise_cutoff:      hint_range(0, 1) = 0.777;
 uniform float surface_distortion_amount: hint_range(0, 2) = 0.27;
+
 // Material Properties
 uniform float roughness : hint_range(0.0, 1.0, 0.01) = 0.15;
-uniform float specular : hint_range(0.0, 1.0, 0.01) = 0.25;
+uniform float specular  : hint_range(0.0, 1.0, 0.01) = 0.25;
 
 // Animation Speed Controls
 group_uniforms animation_speeds;
-uniform float master_time_scale: hint_range(0.0, 2.0) = 1.0; // Global time multiplier
-uniform float wave_animation_speed: hint_range(0.0, 2.0) = 1.0; // Vertex wave speed
-uniform float reflection_wobble_speed: hint_range(0.0, 2.0) = 1.0; // Reflection distortion speed
-uniform float foam_animation_speed: hint_range(0.0, 2.0) = 1.0; // Foam reflection influence speed
-
-
+uniform float master_time_scale:       hint_range(0.0, 2.0) = 1.0;
+uniform float wave_animation_speed:    hint_range(0.0, 2.0) = 1.0;
+uniform float reflection_wobble_speed: hint_range(0.0, 2.0) = 1.0;
+uniform float foam_animation_speed:    hint_range(0.0, 2.0) = 1.0;
 
 // PLANAR REFLECTION UNIFORMS
 group_uniforms planar_reflection;
 uniform sampler2D reflection_screen_texture : source_color, filter_linear_mipmap, repeat_enable;
-uniform float reflection_strength : hint_range(0.0, 2.0) = 0.5;
-uniform bool is_orthogonal_camera = false;
-uniform float ortho_uv_scale : hint_range(0.1, 3.0) = 1.0;
+uniform float reflection_strength : hint_range(0.0, 2.0) = 1.0;
+uniform bool reflection_on_top = true; //allow reflection to be applied last (on top)
+uniform bool  is_orthogonal_camera = false;
+uniform float ortho_uv_scale       : hint_range(0.1, 3.0) = 1.0;
 uniform float reflection_distortion_scale : hint_range(0.0, 2.0, 0.01) = 1.0;
 
 // Reflection Depth Masking
-uniform bool enable_reflection_depth_mask = false;
+uniform bool  enable_reflection_depth_mask = false;
 uniform float reflection_depth_threshold : hint_range(0.0, 2.0, 0.01) = 0.1;
-uniform float reflection_depth_fade : hint_range(0.0, 2.0, 0.01) = 0.25;
+uniform float reflection_depth_fade      : hint_range(0.0, 2.0, 0.01) = 0.25;
 
 // ORTHOGONAL CAMERA FIXES
 group_uniforms orthogonal_fixes;
-uniform float ortho_depth_scale : hint_range(0.1, 10.0, 0.1) = 1.0;
-uniform float ortho_foam_compensation : hint_range(0.5, 2.0, 0.1) = 1.0;
+uniform float ortho_depth_scale       : hint_range(0.1, 10.0, 0.1) = 1.0;
+uniform float ortho_foam_compensation : hint_range(0.5, 2.0, 0.1)  = 1.0;
 
 // Required textures
 uniform sampler2D screen_texture: hint_screen_texture, filter_linear_mipmap, repeat_disable;
-uniform sampler2D depth_texture: hint_depth_texture, filter_linear_mipmap, repeat_disable;
+uniform sampler2D depth_texture:  hint_depth_texture,  filter_linear_mipmap, repeat_disable;
 
 // Varyings
 varying vec2 noise_uv;
@@ -197,7 +196,13 @@ void fragment() {
 	// Blend foam with water
 	vec4 color = alpha_blend(surface_noise_color, water_color);
 
-	// Apply planar reflection if enabled
+	// --- reflection carry-over (for optional late overlay) ---
+	vec4  reflection_tex_cache = vec4(0.0);
+	float reflection_factor_cache = 0.0;
+	float reflection_alpha_weight_cache = 0.0;
+	bool  reflection_ready = false;
+
+	// Apply planar reflection (or cache it)
 	if (reflection_strength > 0.0) {
 		vec4 reflection_tex = texture(reflection_screen_texture, warped_uv);
 
@@ -207,7 +212,6 @@ void fragment() {
 		if (enable_reflection_depth_mask) {
 			// Check if there's an object above the water surface that should block reflection
 			if (depth < reflection_depth_threshold) {
-				// Object is at or above water surface - fade out reflection
 				reflection_mask = smoothstep(0.0, reflection_depth_fade, depth / reflection_depth_threshold);
 			}
 
@@ -219,26 +223,30 @@ void fragment() {
 
 			float reflection_point_depth = vertex_y - reflection_world_pos.y;
 
-			// If the reflection sample point has an object very close to water surface, reduce reflection
 			if (reflection_point_depth < reflection_depth_threshold) {
 				float point_mask = smoothstep(0.0, reflection_depth_fade, reflection_point_depth / reflection_depth_threshold);
 				reflection_mask *= point_mask;
 			}
 		}
 
-		// Reduce reflection strength in foam areas and apply depth mask
-		//float reflection_factor = reflection_strength * (1.0 - surface_noise_amount * 0.5) * (1.0 - water_depth * 0.3) * reflection_mask;
-		//color.rgb = mix(color.rgb, reflection_tex.rgb, reflection_factor);
-
 		float reflection_factor = reflection_strength
-                        * (1.0 - surface_noise_amount * 0.5)
-                        * (1.0 - water_depth * 0.3)
-                        * reflection_mask;
+		                        * (1.0 - surface_noise_amount * 0.5)
+		                        * (1.0 - water_depth * 0.3)
+		                        * reflection_mask;
 
-		// NEW: weight the blend by the reflection alpha (masked by the compositor)
-		// This tightens edges and improves clarity with almost no visual side effects.
 		float alpha_weight = reflection_tex.a;
-		color.rgb = mix(color.rgb, reflection_tex.rgb, clamp(reflection_factor * alpha_weight, 0.0, 1.0));
+
+		// Cache for possible late application
+		reflection_tex_cache = reflection_tex;
+		reflection_factor_cache = reflection_factor;
+		reflection_alpha_weight_cache = alpha_weight;
+		reflection_ready = true;
+
+		// If NOT overlaying, apply now (original order)
+		if (!reflection_on_top) {
+			color.rgb = mix(color.rgb, reflection_tex.rgb,
+			                clamp(reflection_factor * alpha_weight, 0.0, 1.0));
+		}
 	}
 
 	// Apply screen texture refraction for underwater objects
@@ -259,9 +267,15 @@ void fragment() {
 		color.rgb = mix(screen_color * underwater_visibility, color.rgb, color.a * (0.3 + depth_fade * 0.7));
 	}
 
-	ALBEDO = color.rgb;
-	ALPHA = color.a;
-	ROUGHNESS = roughness;
-	SPECULAR = specular;
+	// Optional overlay: draw reflection last (on top)
+	if (reflection_on_top && reflection_ready) {
+		color.rgb = mix(color.rgb,
+		                reflection_tex_cache.rgb,
+		                clamp(reflection_factor_cache * reflection_alpha_weight_cache, 0.0, 1.0));
+	}
 
+	ALBEDO = color.rgb;
+	ALPHA  = color.a;
+	ROUGHNESS = roughness;
+	SPECULAR  = specular;
 }

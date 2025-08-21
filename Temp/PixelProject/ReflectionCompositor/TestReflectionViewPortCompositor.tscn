@@ -92,11 +92,11 @@ load_path = "res://.godot/imported/WaterLinear.png-34fa18c64cb4d871c707bdf028df8
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("5_r4ywp")
-shader_parameter/depth_gradient_shallow = Color(0.0666667, 0.466667, 0.584314, 0.878431)
-shader_parameter/depth_gradient_deep = Color(0.0862745, 0.737255, 1, 0.866667)
-shader_parameter/depth_max_distance = 0.5
+shader_parameter/depth_gradient_shallow = Color(0.0666667, 0.466667, 0.584314, 0.811765)
+shader_parameter/depth_gradient_deep = Color(0.0862745, 0.737255, 1, 0.823529)
+shader_parameter/depth_max_distance = 0.0
 shader_parameter/depth_factor = 1.0
-shader_parameter/beer_factor = 1.5
+shader_parameter/beer_factor = 5.0
 shader_parameter/foam_color = Color(1, 1, 1, 1)
 shader_parameter/foam_distance = 0.01
 shader_parameter/foam_max_distance = 0.4
@@ -114,13 +114,14 @@ shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
 shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_r4ywp")
-shader_parameter/reflection_strength = 0.85
+shader_parameter/reflection_strength = 1.0
+shader_parameter/reflection_on_top = true
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
 shader_parameter/reflection_distortion_scale = 1.0
 shader_parameter/enable_reflection_depth_mask = false
 shader_parameter/reflection_depth_threshold = 2.0
-shader_parameter/reflection_depth_fade = 2.0
+shader_parameter/reflection_depth_fade = 0.5
 shader_parameter/ortho_depth_scale = 1.0
 shader_parameter/ortho_foam_compensation = 1.0
 
@@ -134,7 +135,7 @@ subdivide_width = 50
 subdivide_depth = 50
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_lkarq"]
-viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@37039")
+viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@57689")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n4mug"]
 resource_local_to_scene = true
@@ -279,7 +280,7 @@ needs_motion_vectors = false
 needs_normal_roughness = true
 script = ExtResource("3_32ujw")
 effect_enabled = true
-intersect_height = 0.0
+intersect_height = -0.909979
 
 [sub_resource type="Compositor" id="Compositor_c3384"]
 compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_fhsug")])
@@ -344,13 +345,14 @@ visible = false
 mesh = SubResource("PlaneMesh_v7wd6")
 
 [node name="FakeWaterPlane" type="MeshInstance3D" parent="SubViewportContainer/MainSubViewport" node_paths=PackedStringArray("main_camera")]
-transform = Transform3D(1, 0, 0, 0, 0.986292, -0.165013, 0, 0.165013, 0.986292, 0, 0.302428, -5)
+transform = Transform3D(1, 0, 0, 0, 0.986292, -0.165013, 0, 0.165013, 0.986292, -0.0565529, -0.314789, -4.97156)
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_v7wd6")
 surface_material_override/0 = SubResource("ShaderMaterial_wekhp")
 script = ExtResource("3_sodl7")
 main_camera = NodePath("../CameraRigYaw/Camera3DGameCam")
 custom_environment = SubResource("Environment_r4ywp")
+use_lod = false
 
 [node name="WaterToon" type="PlanarReflectorCPP" parent="SubViewportContainer/MainSubViewport" node_paths=PackedStringArray("main_camera")]
 main_camera = NodePath("../CameraRigYaw/Camera3DGameCam")
@@ -362,7 +364,7 @@ mesh = SubResource("PlaneMesh_wekhp")
 surface_material_override/0 = SubResource("ShaderMaterial_n4mug")
 
 [node name="CylinderPink1" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport"]
-transform = Transform3D(0.948024, 0.318198, 0, -0.315189, 0.939059, -0.137203, -0.0436576, 0.130071, 0.990543, 2.99612, 1.25357, -4.98968)
+transform = Transform3D(0.948024, 0.318198, 0, -0.315189, 0.939059, -0.137203, -0.0436576, 0.130071, 0.990543, 2.99612, 0.708343, -4.98968)
 material = SubResource("StandardMaterial3D_v7wd6")
 
 [node name="CylinderYellow1" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport/CylinderPink1"]
@@ -374,12 +376,12 @@ transform = Transform3D(0.903096, -0.424784, 0.0630676, 0.429439, 0.893304, -0.1
 material = SubResource("StandardMaterial3D_v7wd6")
 
 [node name="CylinderYellow2" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport"]
-transform = Transform3D(0.978924, -0.204223, 2.36888e-09, 0.203713, 0.976479, -0.0706445, 0.0144273, 0.0691556, 0.997502, 0.857672, -0.429322, -4.99085)
+transform = Transform3D(0.978924, -0.204223, -1.5996e-09, 0.194133, 0.930558, -0.310444, 0.0634, 0.303901, 0.950592, 0.868536, -0.492249, -4.94581)
 height = 5.0
 material = SubResource("StandardMaterial3D_s7b13")
 
 [node name="trees" type="MeshInstance3D" parent="SubViewportContainer/MainSubViewport" groups=["snap", "snap_objects"]]
-transform = Transform3D(0.475486, -0.273726, 0.0719828, 0.15435, 0.868502, -0.193913, -0.00943812, 0.413254, 0.45521, -6.08349, 3.10441, -1.93831)
+transform = Transform3D(0.475486, -0.273726, 0.0719828, 0.15435, 0.868502, -0.193913, -0.00943812, 0.413254, 0.45521, -6.08349, 3.08701, -1.93831)
 layers = 786433
 mesh = SubResource("ArrayMesh_lkarq")
 skeleton = NodePath("")
