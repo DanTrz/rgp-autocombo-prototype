@@ -134,7 +134,7 @@ subdivide_width = 50
 subdivide_depth = 50
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_lkarq"]
-viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@106726")
+viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@45925")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n4mug"]
 resource_local_to_scene = true
@@ -270,7 +270,7 @@ shadow_mesh = SubResource("ArrayMesh_g1j4y")
 ambient_light_source = 2
 ambient_light_color = Color(0.67069, 0.67069, 0.67069, 1)
 
-[sub_resource type="CompositorEffect" id="CompositorEffect_n4mug"]
+[sub_resource type="CompositorEffect" id="CompositorEffect_fhsug"]
 resource_local_to_scene = false
 resource_name = ""
 enabled = true
@@ -281,8 +281,8 @@ script = ExtResource("3_32ujw")
 effect_enabled = true
 water_height = 0.0
 
-[sub_resource type="Compositor" id="Compositor_r4ywp"]
-compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_n4mug")])
+[sub_resource type="Compositor" id="Compositor_c3384"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_fhsug")])
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_mpl6x"]
 viewport_path = NodePath("SubViewportContainer/MainSubViewport")
@@ -403,7 +403,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, -0.34202, 0.939693, 0, -8, 17)
 cull_mask = 524287
 environment = SubResource("Environment_s7b13")
-compositor = SubResource("Compositor_r4ywp")
+compositor = SubResource("Compositor_c3384")
 projection = 1
 current = true
 size = 10.0

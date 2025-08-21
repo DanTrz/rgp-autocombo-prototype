@@ -29,18 +29,20 @@ func _init() -> void:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_PREDELETE:
-		RenderingServer.call_on_render_thread(_free_gpu)
+		if is_instance_valid(self):
+			RenderingServer.call_on_render_thread(_free_gpu)
 
 func _free_gpu() -> void:
-	if rd:
-		if sampler_rid.is_valid():
-			rd.free_rid(sampler_rid)
-		if parameter_storage_buffer.is_valid():
-			rd.free_rid(parameter_storage_buffer)
-		if pipeline.is_valid():
-			rd.free_rid(pipeline)
-		if shader.is_valid():
-			rd.free_rid(shader)
+	if not rd:
+		return
+	if sampler_rid.is_valid():
+		rd.free_rid(sampler_rid)
+	if parameter_storage_buffer.is_valid():
+		rd.free_rid(parameter_storage_buffer)
+	if pipeline.is_valid():
+		rd.free_rid(pipeline)
+	if shader.is_valid():
+		rd.free_rid(shader)
 
 func _initialize_compute() -> void:
 	rd = RenderingServer.get_rendering_device()

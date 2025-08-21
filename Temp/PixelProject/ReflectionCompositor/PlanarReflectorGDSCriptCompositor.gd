@@ -15,6 +15,12 @@ var editor_camera: Camera3D = null
 @export_flags_3d_render var reflection_layers: int = 1
 @export var use_custom_environment: bool = true
 @export var custom_environment: Environment = null
+#NEW EXPORTS
+@export_group("Reflection Intersection masking")
+@export var hide_intersect_reflections: bool = true
+@export var override_YAxis_height: bool = false
+@export var new_YAxis_height: float = 0.0
+
 @export_group("Reflection Offset Control")
 @export var enable_reflection_offset: bool = false
 @export var reflection_offset_position: Vector3 = Vector3(0.0, 0.0, 0.0)
@@ -31,6 +37,9 @@ var editor_camera: Camera3D = null
 #TODO:
 #1 - add a export bool under Reflection Layers and Environment" to enable CompositorEffect "WaterMask"
 #2 Add exporrt variables to be passed to the CompositorEffect: EffectEnabled, WaterHeight, etc. # Need to make sure this are constantly synced (in Process) as we can change water height in the editor
+#3 Merge/Pass the Updates from this script to the CPP version and push the latest WaterShader to my projects
+#debug test
+@onready var test_camera: Camera3D = %ReflectionCamera3D
 
 var editor_helper: Node = null
 var active_shader_material: ShaderMaterial = null
@@ -107,11 +116,20 @@ func setup_reflection_camera_and_viewport() -> void:
 	reflect_camera.current = true
 	reflect_camera.make_current()
 
+	#TODO: CHECK IF THE CODE BELOW NEEDS TO BE IN THIS METHOD THAT RUNS IN "PROCCESS" OR JUST IN THE INTIIAL SETUP
+	#debug
+
 	#after camera setup, we can set the camera environment
 	setup_reflection_environment()
 
 	#Setup the reflection camera CompositorEffect
-	setup_compositor_reflection_effect(reflect_camera)
+	if hide_intersect_reflections:
+		setup_compositor_reflection_effect(reflect_camera)
+		setup_compositor_reflection_effect(test_camera) # debug test
+	else:
+		clear_compositor_reflection_effect(reflect_camera)
+		clear_compositor_reflection_effect(test_camera)# debug test
+
 
 func setup_reflection_environment() -> void:
 	#Prepare or copy the environment for the reflection camera
@@ -266,7 +284,7 @@ func set_editor_camera(viewport_camera: Camera3D) -> void:
 	update_reflect_viewport_size()
 	set_reflection_camera_transform()
 
-func get_is_active() -> bool:
+func is_planar_reflector_active() -> bool:
 	return true
 
 func get_active_camera() -> Camera3D:
@@ -279,24 +297,29 @@ func get_active_camera() -> Camera3D:
 func setup_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
 
 	if reflect_cam.compositor == null or reflect_cam.compositor.compositor_effects.size() == 0:
-		print("Setting up CompositorEffect for reflection camera: ", reflect_cam.name)
+		print("Setting up Compositor Node for reflection camera: ", reflect_cam.name)
 		if reflect_cam.compositor:
-			# reflect_cam.compositor.free()
-			reflect_cam.compositor = null
+			clear_compositor_reflection_effect(reflect_cam)
 		reflect_cam.compositor = Compositor.new()
-		print("Compositor Size: ", reflect_cam.compositor.compositor_effects.size())
+		print("Compositor Node Size: ", reflect_cam.compositor.compositor_effects.size())
 	else:
-		print("Compositor already set for reflection camera: ", reflect_cam.name)
+		print("Compositor Node already set for reflection camera: ", reflect_cam.name)
 
 
 	if reflect_cam.compositor.compositor_effects.size() == 0:
-		print("Creating ReflectionCompositor effect for camera: ", reflect_cam.name)
+		print("Creating Compositor Effect for camera: ", reflect_cam.name)
 		var reflection_compositor_effect: ReflectionCompositor = ReflectionCompositor.new()
 		reflect_cam.compositor.set_compositor_effects([reflection_compositor_effect])
 		reflection_compositor_effect.effect_enabled = true
 		reflection_compositor_effect.needs_normal_roughness = true
 	else:
-		print("Comp Efect already set for reflection camera: ", reflect_cam.name)
+		print("Compositor Effect already set for reflection camera: ", reflect_cam.name)
 
-		
+func clear_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
+	if reflect_cam.compositor:
+		# reflect_cam.compositor.free()
+		reflect_cam.compositor.compositor_effects.clear()	
+		reflect_cam.compositor = null
+		print("Compositor Set to null for: ", reflect_cam.name)
+
 #endregion
