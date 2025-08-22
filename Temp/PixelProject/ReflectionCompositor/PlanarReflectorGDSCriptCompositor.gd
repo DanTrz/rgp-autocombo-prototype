@@ -314,6 +314,7 @@ func get_active_camera() -> Camera3D:
 
 #region- REFLECTION COMPOSITOR AND REFLECTION MASK METHODS
 
+# LATEST VERSION to WORK WITH THE ReflectionPrePass.gd
 func setup_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
 	if reflect_cam.compositor == null:
 		reflect_cam.compositor = Compositor.new()
@@ -353,7 +354,7 @@ func get_reflection_effect(comp: Compositor) -> Variant:
 
 #endregion
 
-#BPREVIOUS VERSION
+# PREVIOUS VERSION to WORK WITH THE ReflectionCompositor.gd
 # #region- REFLECTION COMPOSITOR AND REFLECTION MASK METHODS
 # func setup_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
 # 	# If we use a Custom Compositor (Local Exported Node), we set it to the camera

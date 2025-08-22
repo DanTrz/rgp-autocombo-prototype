@@ -1,16 +1,18 @@
-[gd_scene load_steps=44 format=4 uid="uid://bs7eandi53lee"]
+[gd_scene load_steps=47 format=4 uid="uid://bs7eandi53lee"]
 
 [ext_resource type="Script" uid="uid://daf3b0vh4gnw6" path="res://Temp/PixelProject/ReflectionCompositor/TestReflectionScene.gd" id="1_s7b13"]
 [ext_resource type="Shader" uid="uid://bh6mj2l6w8vci" path="res://planar_reflection_base.gdshader" id="2_mpl6x"]
 [ext_resource type="Script" uid="uid://b0apiig1n0oxp" path="res://3DPixelCompositorDemo/Scripts/edge_detect_update_water.gd" id="2_wekhp"]
 [ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="3_7ohl8"]
+[ext_resource type="Script" uid="uid://dtju7x6roocwx" path="res://Temp/PixelProject/DebugPanel.cs" id="3_fhsug"]
 [ext_resource type="Script" uid="uid://cluvukmm23a2m" path="res://Temp/PixelProject/ReflectionCompositor/PlanarReflectorGDSCriptCompositor.gd" id="3_sodl7"]
 [ext_resource type="Shader" uid="uid://dpwmhlausv7b8" path="res://assets/shaders/PixelShaders/water_toon_planar_reflection.gdshader" id="3_wx45x"]
 [ext_resource type="Texture2D" uid="uid://cwopgjiunh5xc" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterDistortion.png" id="4_8d00o"]
+[ext_resource type="LabelSettings" uid="uid://cswfpemyeo4bm" path="res://assets/DebugLabel.tres" id="4_c3384"]
 [ext_resource type="Shader" uid="uid://ye083wcg0jsd" path="res://3DPixelCompositorDemo/Shaders/water_planar_toon_compositor_mask.gdshader" id="5_r4ywp"]
 [ext_resource type="Texture2D" uid="uid://dixqstxe6b56r" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterLinear.png" id="5_sodl7"]
 [ext_resource type="Shader" uid="uid://bvr8hx2obykjm" path="res://3DPixelCompositorDemo/Shaders/cel_shading_simple.gdshader" id="9_n4mug"]
-[ext_resource type="Script" uid="uid://cpqr3m5qtqqdt" path="res://Temp/PixelProject/ReflectionCompositor/ReflectionPrePass.gd" id="11_lkarq"]
+[ext_resource type="Script" uid="uid://cpqr3m5qtqqdt" path="res://Temp/PixelProject/ReflectionCompositor/ReflectionPrePass.gd" id="13_fhsug"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s7b13"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -82,7 +84,7 @@ size = Vector2(15, 7)
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cc7wm"]
 load_path = "res://.godot/imported/WaterDistortion.png-cb386057d205e074c37cb5d2f89129d7.s3tc.ctex"
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_r4ywp"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_fhsug"]
 viewport_path = NodePath("SubViewportContainer/MainSubViewport/FakeWaterPlane/ReflectionViewPort")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sodl7"]
@@ -94,7 +96,7 @@ render_priority = 0
 shader = ExtResource("5_r4ywp")
 shader_parameter/depth_gradient_shallow = Color(0.0666667, 0.466667, 0.584314, 0.811765)
 shader_parameter/depth_gradient_deep = Color(0.0862745, 0.737255, 1, 0.823529)
-shader_parameter/depth_max_distance = 0.0
+shader_parameter/depth_max_distance = 0.1
 shader_parameter/depth_factor = 1.0
 shader_parameter/beer_factor = 5.0
 shader_parameter/foam_color = Color(1, 1, 1, 1)
@@ -113,9 +115,9 @@ shader_parameter/master_time_scale = 0.2
 shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_r4ywp")
-shader_parameter/reflection_strength = 1.0
-shader_parameter/reflection_on_top = false
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_fhsug")
+shader_parameter/reflection_strength = 1.25
+shader_parameter/reflection_on_top = true
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
 shader_parameter/reflection_distortion_scale = 1.0
@@ -129,7 +131,7 @@ shader_parameter/ortho_foam_compensation = 1.0
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 
-[sub_resource type="CompositorEffect" id="CompositorEffect_r4ywp"]
+[sub_resource type="CompositorEffect" id="CompositorEffect_c3384"]
 resource_local_to_scene = false
 resource_name = ""
 enabled = true
@@ -138,25 +140,25 @@ access_resolved_color = false
 access_resolved_depth = false
 needs_motion_vectors = false
 needs_normal_roughness = false
-script = ExtResource("11_lkarq")
+script = ExtResource("13_fhsug")
 effect_enabled = true
 intersect_height = 0.0
-fill_enabled = true
 reflect_gap_fill = 0.0025
+fill_enabled = true
 fill_radius_px = 48.0
 fill_aggressiveness = 1.0
 metadata/_custom_type_script = "uid://cpqr3m5qtqqdt"
 
-[sub_resource type="Compositor" id="Compositor_r4ywp"]
-compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_r4ywp")])
+[sub_resource type="Compositor" id="Compositor_4210g"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_c3384")])
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_wekhp"]
 size = Vector2(20, 8)
 subdivide_width = 50
 subdivide_depth = 50
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_fhsug"]
-viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@55366")
+[sub_resource type="ViewportTexture" id="ViewportTexture_c3384"]
+viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@32149")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n4mug"]
 resource_local_to_scene = true
@@ -183,7 +185,7 @@ shader_parameter/master_time_scale = 0.25
 shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_fhsug")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_c3384")
 shader_parameter/reflection_strength = 1.0
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
@@ -291,12 +293,15 @@ shadow_mesh = SubResource("ArrayMesh_g1j4y")
 [sub_resource type="QuadMesh" id="QuadMesh_fhsug"]
 size = Vector2(5, 5)
 
+[sub_resource type="QuadMesh" id="QuadMesh_r4ywp"]
+size = Vector2(5, 15)
+
 [sub_resource type="Environment" id="Environment_s7b13"]
 background_color = Color(1, 1, 1, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.695503, 0.695503, 0.695503, 1)
 
-[sub_resource type="CompositorEffect" id="CompositorEffect_c3384"]
+[sub_resource type="CompositorEffect" id="CompositorEffect_4210g"]
 resource_local_to_scene = false
 resource_name = ""
 enabled = true
@@ -305,16 +310,16 @@ access_resolved_color = false
 access_resolved_depth = false
 needs_motion_vectors = false
 needs_normal_roughness = false
-script = ExtResource("11_lkarq")
+script = ExtResource("13_fhsug")
 effect_enabled = true
 intersect_height = 0.0
-fill_enabled = true
 reflect_gap_fill = 0.0025
-fill_radius_px = 16.0
+fill_enabled = true
+fill_radius_px = 48.0
 fill_aggressiveness = 1.0
 
-[sub_resource type="Compositor" id="Compositor_4210g"]
-compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_c3384")])
+[sub_resource type="Compositor" id="Compositor_6pjtc"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_4210g")])
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_lkarq"]
 viewport_path = NodePath("ReflectionViewPort")
@@ -345,6 +350,32 @@ grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
+[node name="DebugPanelLayer" type="CanvasLayer" parent="SubViewportContainer"]
+
+[node name="DebugPanel" type="Control" parent="SubViewportContainer/DebugPanelLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_fhsug")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/DebugPanelLayer/DebugPanel"]
+layout_mode = 0
+offset_right = 83.0
+offset_bottom = 21.0
+
+[node name="Other" type="PanelContainer" parent="SubViewportContainer/DebugPanelLayer/DebugPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="GeneralItemsHBoxContainer" type="HBoxContainer" parent="SubViewportContainer/DebugPanelLayer/DebugPanel/VBoxContainer/Other"]
+layout_mode = 2
+
+[node name="FpsCountLbl" type="Label" parent="SubViewportContainer/DebugPanelLayer/DebugPanel/VBoxContainer/Other/GeneralItemsHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "FPS"
+label_settings = ExtResource("4_c3384")
+
 [node name="MainSubViewport" type="SubViewport" parent="SubViewportContainer"]
 unique_name_in_owner = true
 handle_input_locally = false
@@ -361,6 +392,7 @@ MainCamera = NodePath("Camera3DGameCam")
 [node name="Camera3DGameCam" type="Camera3D" parent="SubViewportContainer/MainSubViewport/CameraRigYaw"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, -41, -53)
+visible = false
 cull_mask = 524287
 projection = 1
 current = true
@@ -382,8 +414,10 @@ main_camera = NodePath("../CameraRigYaw/Camera3DGameCam")
 use_custom_environment = true
 custom_environment = SubResource("Environment_r4ywp")
 use_custom_compositor = true
-custom_compositor = SubResource("Compositor_r4ywp")
+custom_compositor = SubResource("Compositor_4210g")
 use_lod = false
+lod_distance_near = 30.0
+lod_distance_far = 60.0
 
 [node name="WaterToon" type="PlanarReflectorCPP" parent="SubViewportContainer/MainSubViewport" node_paths=PackedStringArray("main_camera")]
 main_camera = NodePath("../CameraRigYaw/Camera3DGameCam")
@@ -395,7 +429,7 @@ mesh = SubResource("PlaneMesh_wekhp")
 surface_material_override/0 = SubResource("ShaderMaterial_n4mug")
 
 [node name="CylinderPink1" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport"]
-transform = Transform3D(0.930115, 0.367198, -0.00722369, -0.364665, 0.921004, -0.137013, -0.0436576, 0.130071, 0.990543, 2.99612, 1.17065, -4.98968)
+transform = Transform3D(0.930115, 0.367198, -0.00722369, -0.364665, 0.921004, -0.137013, -0.0436576, 0.130071, 0.990543, 2.99612, 0.892025, -4.98968)
 material = SubResource("StandardMaterial3D_v7wd6")
 
 [node name="CylinderYellow1" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport/CylinderPink1"]
@@ -436,6 +470,11 @@ skeleton = NodePath("")
 transform = Transform3D(-0.399879, 0.60732, 0.686482, -0.881155, -0.0485458, -0.470329, -0.252315, -0.792972, 0.554556, -2.71808, 0.688251, -4.25088)
 mesh = SubResource("QuadMesh_fhsug")
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="SubViewportContainer/MainSubViewport"]
+transform = Transform3D(0.0821377, -0.994566, 0.063967, 0.835331, 0.0336956, -0.548714, 0.543577, 0.0985028, 0.833559, 3.02054, 1.59923, -8.35167)
+mesh = SubResource("QuadMesh_r4ywp")
+skeleton = NodePath("../MeshInstance3D")
+
 [node name="ReflectionViewPort" type="SubViewport" parent="."]
 unique_name_in_owner = true
 transparent_bg = true
@@ -448,7 +487,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, -0.34202, 0.939693, 0, -8, 17)
 cull_mask = 524287
 environment = SubResource("Environment_s7b13")
-compositor = SubResource("Compositor_4210g")
+compositor = SubResource("Compositor_6pjtc")
 projection = 1
 current = true
 size = 10.0
@@ -458,7 +497,7 @@ far = 400.0
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6376, 5.42789, -11.6188)
 layers = 524288
-texture = SubResource("ViewportTexture_r4ywp")
+texture = SubResource("ViewportTexture_fhsug")
 
 [node name="ReflectionSprite" type="Sprite3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.29038, 5.81686, -9.13727)

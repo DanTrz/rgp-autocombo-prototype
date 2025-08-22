@@ -7,13 +7,12 @@ const CB_TYPE := EFFECT_CALLBACK_TYPE_POST_OPAQUE
 # --- Controls ---
 @export var effect_enabled: bool = true
 @export var intersect_height: float = 0.0
-
+@export var reflect_gap_fill: float = 0.0025
 
 # Hole handling
 @export var fill_enabled: bool = true
-@export_range(0.000, 5.0, 0.000) var reflect_gap_fill: float = 0.0025
-@export_range(1, 48, 1) var fill_radius_px: float = 16 # how far we look for valid above-water pixels (bigger radius = more robust fill, but slower).
-@export_range(0.0, 2.0, 0.01) var fill_aggressiveness: float = 1.0 # feather strength # 0.0 → hard fill (fastest) -> 1.0 → stronger softening
+@export_range(1, 128, 1) var fill_radius_px: float = 48
+@export_range(0.0, 2.0, 0.01) var fill_aggressiveness: float = 1.0
 
 # --- RD resources ---
 var rd: RenderingDevice
@@ -21,6 +20,8 @@ var shader: RID
 var pipeline: RID
 var sampler_rid: RID
 var parameter_storage_buffer: RID
+var temp_image: RID        # scratch image (same size/format as color)
+var temp_sampler: RID
 
 # std430 buffer layout:
 #  0..1   : vec2  raster_size
@@ -31,7 +32,8 @@ var parameter_storage_buffer: RID
 # 36      : float fill_enable (0/1)
 # 37      : float fill_radius_px
 # 38      : float fill_aggressiveness (0..1)
-const PARAM_FLOATS := 39
+# 39      : float pass_dir  (0 = horizontal, 1 = vertical)
+const PARAM_FLOATS := 40
 
 func _init() -> void:
 	effect_callback_type = CB_TYPE
@@ -57,13 +59,20 @@ func _initialize_compute() -> void:
 	if shader.is_valid():
 		pipeline = rd.compute_pipeline_create(shader)
 
-	# Common sampler (nearest; we don't want cross-bleed while classifying)
+	# Samplers
 	var s := RDSamplerState.new()
 	s.min_filter = RenderingDevice.SAMPLER_FILTER_NEAREST
 	s.mag_filter = RenderingDevice.SAMPLER_FILTER_NEAREST
 	s.mip_filter = RenderingDevice.SAMPLER_FILTER_NEAREST
 	sampler_rid = rd.sampler_create(s)
 
+	var s_lin := RDSamplerState.new()
+	s_lin.min_filter = RenderingDevice.SAMPLER_FILTER_LINEAR
+	s_lin.mag_filter = RenderingDevice.SAMPLER_FILTER_LINEAR
+	s_lin.mip_filter = RenderingDevice.SAMPLER_FILTER_LINEAR
+	temp_sampler = rd.sampler_create(s_lin)
+
+	# Param buffer
 	var data := PackedFloat32Array()
 	data.resize(PARAM_FLOATS)
 	var bytes := data.to_byte_array()
@@ -72,6 +81,10 @@ func _initialize_compute() -> void:
 func _free_gpu() -> void:
 	if rd == null:
 		return
+	if temp_image.is_valid():
+		rd.free_rid(temp_image)
+	if temp_sampler.is_valid():
+		rd.free_rid(temp_sampler)
 	if sampler_rid.is_valid():
 		rd.free_rid(sampler_rid)
 	if parameter_storage_buffer.is_valid():
@@ -80,6 +93,28 @@ func _free_gpu() -> void:
 		rd.free_rid(pipeline)
 	if shader.is_valid():
 		rd.free_rid(shader)
+
+func _ensure_temp_image(size: Vector2i, like_color: RID) -> void:
+	# Create a same-format storage+sampled image for the separable pass
+	if temp_image.is_valid():
+		var info := rd.texture_get_format(temp_image)
+		if info.width == size.x and info.height == size.y:
+			return
+		rd.free_rid(temp_image)
+
+	var fmt := rd.texture_get_format(like_color)
+	var tf := RDTextureFormat.new()
+	tf.width = size.x
+	tf.height = size.y
+	tf.depth = 1
+	tf.array_layers = 1
+	tf.mipmaps = 1
+	tf.samples = RenderingDevice.TEXTURE_SAMPLES_1
+	tf.texture_type = RenderingDevice.TEXTURE_TYPE_2D
+	tf.format = fmt.format
+	tf.usage_bits = RenderingDevice.TEXTURE_USAGE_SAMPLING_BIT | RenderingDevice.TEXTURE_USAGE_STORAGE_BIT
+	temp_image = rd.texture_create(tf, RDTextureView.new(), [])
+	# No need to initialize contents; we fully overwrite.
 
 func _render_callback(p_effect_callback_type: EffectCallbackType, p_render_data: RenderData) -> void:
 	if p_effect_callback_type != CB_TYPE:
@@ -102,18 +137,18 @@ func _render_callback(p_effect_callback_type: EffectCallbackType, p_render_data:
 
 	var view_count: int = rsb.get_view_count()
 	for view in range(view_count):
-		var color_tex: RID = rsb.get_color_layer(view) # read/write as image2D
-		var depth_tex: RID = rsb.get_depth_layer(view) # sampled depth
+		var color_tex: RID = rsb.get_color_layer(view)
+		var depth_tex: RID = rsb.get_depth_layer(view)
 		if not color_tex.is_valid() or not depth_tex.is_valid():
 			continue
 
-		# -------- pack params --------
+		_ensure_temp_image(size, color_tex)
+
+		# Base params (shared by both passes)
 		var params := PackedFloat32Array()
 		params.resize(PARAM_FLOATS)
-
 		params[0] = float(size.x)
 		params[1] = float(size.y)
-
 		params[2] = intersect_height
 		params[3] = reflect_gap_fill
 
@@ -133,19 +168,20 @@ func _render_callback(p_effect_callback_type: EffectCallbackType, p_render_data:
 		params[37] = float(fill_radius_px)
 		params[38] = clamp(fill_aggressiveness, 0.0, 1.0)
 
-		var param_bytes := params.to_byte_array()
-		rd.buffer_update(parameter_storage_buffer, 0, param_bytes.size(), param_bytes)
+		# ---------- PASS 1: horizontal -> write temp_image ----------
+		params[39] = 0.0  # pass_dir = horizontal
+		var bytes1 := params.to_byte_array()
+		rd.buffer_update(parameter_storage_buffer, 0, bytes1.size(), bytes1)
 
-		# -------- uniforms --------
 		var u_params := RDUniform.new()
 		u_params.uniform_type = RenderingDevice.UNIFORM_TYPE_STORAGE_BUFFER
 		u_params.binding = 0
 		u_params.add_id(parameter_storage_buffer)
 
-		var u_color_img := RDUniform.new()
-		u_color_img.uniform_type = RenderingDevice.UNIFORM_TYPE_IMAGE
-		u_color_img.binding = 1
-		u_color_img.add_id(color_tex)        # write target
+		var u_color_write_dummy := RDUniform.new()
+		u_color_write_dummy.uniform_type = RenderingDevice.UNIFORM_TYPE_IMAGE
+		u_color_write_dummy.binding = 1
+		u_color_write_dummy.add_id(temp_image) # not written in pass1, but layout keeps binding points stable
 
 		var u_depth := RDUniform.new()
 		u_depth.uniform_type = RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE
@@ -153,19 +189,46 @@ func _render_callback(p_effect_callback_type: EffectCallbackType, p_render_data:
 		u_depth.add_id(sampler_rid)
 		u_depth.add_id(depth_tex)
 
-		# READ-ONLY sampler view of the SAME color texture (safe snapshot for this pass)
-		var u_color_src := RDUniform.new()
-		u_color_src.uniform_type = RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE
-		u_color_src.binding = 3
-		u_color_src.add_id(sampler_rid)
-		u_color_src.add_id(color_tex)
+		var u_src_color := RDUniform.new()
+		u_src_color.uniform_type = RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE
+		u_src_color.binding = 3
+		u_src_color.add_id(sampler_rid)
+		u_src_color.add_id(color_tex)
 
-		var uniforms: Array[RDUniform] = [u_params, u_color_img, u_depth, u_color_src]
-		var set: RID = rd.uniform_set_create(uniforms, shader, 0)
+		var u_temp_image := RDUniform.new()
+		u_temp_image.uniform_type = RenderingDevice.UNIFORM_TYPE_IMAGE
+		u_temp_image.binding = 4
+		u_temp_image.add_id(temp_image)
 
-		# -------- dispatch --------
-		var cl := rd.compute_list_begin()
-		rd.compute_list_bind_compute_pipeline(cl, pipeline)
-		rd.compute_list_bind_uniform_set(cl, set, 0)
-		rd.compute_list_dispatch(cl, x_groups, y_groups, 1)
+		var u_temp_sampler := RDUniform.new()
+		u_temp_sampler.uniform_type = RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE
+		u_temp_sampler.binding = 5
+		u_temp_sampler.add_id(temp_sampler)
+		u_temp_sampler.add_id(temp_image)
+
+		var set1: RID = rd.uniform_set_create([u_params, u_color_write_dummy, u_depth, u_src_color, u_temp_image, u_temp_sampler], shader, 0)
+
+		var cl1 := rd.compute_list_begin()
+		rd.compute_list_bind_compute_pipeline(cl1, pipeline)
+		rd.compute_list_bind_uniform_set(cl1, set1, 0)
+		rd.compute_list_dispatch(cl1, x_groups, y_groups, 1)
+		rd.compute_list_end()
+
+		# ---------- PASS 2: vertical -> read temp, write color ----------
+		params[39] = 1.0  # pass_dir = vertical
+		var bytes2 := params.to_byte_array()
+		rd.buffer_update(parameter_storage_buffer, 0, bytes2.size(), bytes2)
+
+		var u_color_write := RDUniform.new()
+		u_color_write.uniform_type = RenderingDevice.UNIFORM_TYPE_IMAGE
+		u_color_write.binding = 1
+		u_color_write.add_id(color_tex)
+
+		# reuse other uniforms; only binding[1] changes
+		var set2: RID = rd.uniform_set_create([u_params, u_color_write, u_depth, u_src_color, u_temp_image, u_temp_sampler], shader, 0)
+
+		var cl2 := rd.compute_list_begin()
+		rd.compute_list_bind_compute_pipeline(cl2, pipeline)
+		rd.compute_list_bind_uniform_set(cl2, set2, 0)
+		rd.compute_list_dispatch(cl2, x_groups, y_groups, 1)
 		rd.compute_list_end()
