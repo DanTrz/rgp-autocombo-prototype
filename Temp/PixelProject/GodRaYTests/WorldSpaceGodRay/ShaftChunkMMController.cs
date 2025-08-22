@@ -125,7 +125,7 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 		SetProcess(true);
 		_isShaftMMActive = true;
 
-		Log.Debug($"Activated chunk: {Name}");
+		// Log.Debug($"Activated chunk: {Name}");
 		// Future: trigger shader fade-in
 	}
 
@@ -138,12 +138,12 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 		SetProcess(false);
 		_isShaftMMActive = false;
 
-		Log.Debug($"Deactivated chunk: {Name}");
+		// Log.Debug($"Deactivated chunk: {Name}");
 		// Future: trigger shader fade-out
 	}
 	private List<Vector3> GenerateGridPositions(Vector3 bounds)
 	{
-		Log.Debug("GenerateGridPositions started");
+		// Log.Debug("GenerateGridPositions started");
 		float area = bounds.X * bounds.Z;
 		int count = UseFixedCount
 			? FixeCountValue
@@ -181,7 +181,7 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 
 	private List<Vector3> GenerateRandomPositions(Vector3 bounds)
 	{
-		Log.Debug("GenerateRandomPositions started");
+		// Log.Debug("GenerateRandomPositions started");
 		// Calculate the maximum number of positions that can fit in the bounds
 		// taking into account the minimum spacing between positions.
 		// The area of a single position is the minimum spacing squared.
@@ -238,7 +238,7 @@ public partial class ShaftChunkMMController : MultiMeshInstance3D
 	#region MultiMeshSpwaning Controls
 	public void SpawnInstances(List<Vector3> positions) //List<Vector3>
 	{
-		Log.Debug($"{this.Name} SpawnInstances called: {positions.Count}");
+		// Log.Debug($"{this.Name} SpawnInstances called: {positions.Count}");
 		MultiMesh Multimesh = this.Multimesh;
 		//Reset the MultiMesh
 		Multimesh.InstanceCount = 0;

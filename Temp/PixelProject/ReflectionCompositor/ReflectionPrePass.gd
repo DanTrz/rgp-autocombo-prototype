@@ -11,7 +11,7 @@ const CB_TYPE := EFFECT_CALLBACK_TYPE_POST_OPAQUE
 
 # Hole handling
 @export var fill_enabled: bool = true
-@export_range(1, 96, 1) var fill_radius_px: float = 48
+@export_range(1, 96, 1) var fill_radius_px: float = 24
 @export_range(0.0, 2.0, 0.01) var fill_aggressiveness: float = 1.0
 
 # --- RD resources ---

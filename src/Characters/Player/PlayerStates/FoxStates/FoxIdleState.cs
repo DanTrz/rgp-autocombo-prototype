@@ -111,7 +111,7 @@ public partial class FoxIdleState : PlayerBaseState, ICharacterState
         {
 
             _animPlayer.Play(idleAnimation);
-            Log.Info($"Fox: Playing Animation: {idleAnimation}");
+            // Log.Info($"Fox: Playing Animation: {idleAnimation}");
         }
     }
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://bs7eandi53lee"]
+[gd_scene load_steps=48 format=4 uid="uid://bs7eandi53lee"]
 
 [ext_resource type="Script" uid="uid://daf3b0vh4gnw6" path="res://Temp/PixelProject/ReflectionCompositor/TestReflectionScene.gd" id="1_s7b13"]
 [ext_resource type="Shader" uid="uid://bh6mj2l6w8vci" path="res://planar_reflection_base.gdshader" id="2_mpl6x"]
@@ -56,7 +56,7 @@ compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_7ohl
 [sub_resource type="ViewportTexture" id="ViewportTexture_32ujw"]
 viewport_path = NodePath("ReflectionViewPort")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wx45x"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c3384"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_mpl6x")
@@ -78,16 +78,16 @@ shader_parameter/refraction = 0.0
 shader_parameter/refraction_texture_channel = Vector4(1, 0, 0, 0)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_v7wd6"]
-material = SubResource("ShaderMaterial_wx45x")
+material = SubResource("ShaderMaterial_c3384")
 size = Vector2(15, 7)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cc7wm"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4210g"]
 load_path = "res://.godot/imported/WaterDistortion.png-cb386057d205e074c37cb5d2f89129d7.s3tc.ctex"
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_fhsug"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_gfm1f"]
 viewport_path = NodePath("SubViewportContainer/MainSubViewport/FakeWaterPlane/ReflectionViewPort")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sodl7"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6pjtc"]
 load_path = "res://.godot/imported/WaterLinear.png-34fa18c64cb4d871c707bdf028df877b.s3tc.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wekhp"]
@@ -103,8 +103,8 @@ shader_parameter/foam_color = Color(1, 1, 1, 1)
 shader_parameter/foam_distance = 0.01
 shader_parameter/foam_max_distance = 0.4
 shader_parameter/foam_min_distance = 0.04
-shader_parameter/surface_noise = SubResource("CompressedTexture2D_sodl7")
-shader_parameter/distort_noise = SubResource("CompressedTexture2D_cc7wm")
+shader_parameter/surface_noise = SubResource("CompressedTexture2D_6pjtc")
+shader_parameter/distort_noise = SubResource("CompressedTexture2D_4210g")
 shader_parameter/surface_noise_tiling = Vector2(5, 25)
 shader_parameter/surface_noise_scroll = Vector3(0, 0, 0)
 shader_parameter/surface_noise_cutoff = 0.7
@@ -115,7 +115,7 @@ shader_parameter/master_time_scale = 0.2
 shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_fhsug")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_gfm1f")
 shader_parameter/reflection_strength = 1.25
 shader_parameter/reflection_on_top = true
 shader_parameter/is_orthogonal_camera = false
@@ -142,10 +142,10 @@ needs_motion_vectors = false
 needs_normal_roughness = false
 script = ExtResource("13_fhsug")
 effect_enabled = true
-intersect_height = 0.0
+intersect_height = -0.3
 reflect_gap_fill = 0.0025
 fill_enabled = true
-fill_radius_px = 48.0
+fill_radius_px = 24.0
 fill_aggressiveness = 1.0
 metadata/_custom_type_script = "uid://cpqr3m5qtqqdt"
 
@@ -157,8 +157,8 @@ size = Vector2(20, 8)
 subdivide_width = 50
 subdivide_depth = 50
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_c3384"]
-viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@26673")
+[sub_resource type="ViewportTexture" id="ViewportTexture_05eyo"]
+viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@27449")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n4mug"]
 resource_local_to_scene = true
@@ -185,7 +185,7 @@ shader_parameter/master_time_scale = 0.25
 shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_c3384")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_05eyo")
 shader_parameter/reflection_strength = 1.0
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
@@ -321,6 +321,9 @@ fill_aggressiveness = 1.0
 [sub_resource type="Compositor" id="Compositor_gfm1f"]
 compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_4210g")])
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_fhsug"]
+viewport_path = NodePath("SubViewportContainer/MainSubViewport/FakeWaterPlane/ReflectionViewPort")
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_lkarq"]
 viewport_path = NodePath("ReflectionViewPort")
 
@@ -415,6 +418,7 @@ use_custom_environment = true
 custom_environment = SubResource("Environment_r4ywp")
 use_custom_compositor = true
 custom_compositor = SubResource("Compositor_c3384")
+lod_resolution_multiplier = 0.45
 
 [node name="WaterToon" type="PlanarReflectorCPP" parent="SubViewportContainer/MainSubViewport" node_paths=PackedStringArray("main_camera")]
 main_camera = NodePath("../CameraRigYaw/Camera3DGameCam")

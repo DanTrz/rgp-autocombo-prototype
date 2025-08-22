@@ -35,15 +35,15 @@ var editor_camera: Camera3D = null
 @export var use_lod: bool = true
 @export var lod_distance_near: float = 8.0
 @export var lod_distance_far: float = 24.0
-@export var lod_resolution_multiplier: float = 0.45
+@export var lod_resolution_multiplier: float = 0.65
 
 #TODO:
 #1 - add a export bool under Reflection Layers and Environment" to enable CompositorEffect "WaterMask"
 #2 Add exporrt variables to be passed to the CompositorEffect: EffectEnabled, WaterHeight, etc. # Need to make sure this are constantly synced (in Process) as we can change water height in the editor
 #3 Merge/Pass the Updates from this script to the CPP version and push the latest WaterShader to my projects
 #debug test
-@onready var test_camera: Camera3D = %ReflectionCamera3D
-@onready var test_sprite: Sprite3D = %MainSceneSprite3D
+# @onready var test_camera: Camera3D = %ReflectionCamera3D
+# @onready var test_sprite: Sprite3D = %MainSceneSprite3D
 
 var editor_helper: Node = null
 var active_shader_material: ShaderMaterial = null
@@ -152,10 +152,10 @@ func setup_reflection_camera_and_viewport() -> void:
 	#Setup the reflection camera CompositorEffect
 	if hide_intersect_reflections:
 		setup_compositor_reflection_effect(reflect_camera)
-		setup_compositor_reflection_effect(test_camera) # debug test
+		# setup_compositor_reflection_effect(test_camera) # debug test
 	else:
 		clear_compositor_reflection_effect(reflect_camera)
-		clear_compositor_reflection_effect(test_camera)# debug test
+		# clear_compositor_reflection_effect(test_camera)# debug test
 
 func setup_reflection_environment() -> void:
 	#Prepare or copy the environment for the reflection camera
@@ -244,8 +244,8 @@ func update_shader_parameters() -> void:
 			material.set_shader_parameter(param_name, new_value)
 			cached_shader_params[param_name] = new_value
 	
-	#debug #todo: remove this
-	test_sprite.texture = reflection_texture
+	# #debug #todo: remove this
+	# test_sprite.texture = reflection_texture
 
 func update_camera_projection() -> void:
 	var active_cam: Camera3D = editor_camera if Engine.is_editor_hint() else main_camera

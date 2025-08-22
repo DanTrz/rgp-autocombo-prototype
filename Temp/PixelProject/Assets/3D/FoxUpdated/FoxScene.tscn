@@ -1010,6 +1010,7 @@ bones/38/scale = Vector3(1, 1, 1)
 
 [node name="fox" type="MeshInstance3D" parent="Skin/FoxTransform/Skeleton3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 2.84217e-14, 0, -2.84217e-14, 1, -0.294403, 0.0513506, 0.316301)
+layers = 524289
 mesh = ExtResource("2_5c5wx")
 skin = SubResource("Skin_tw5h6")
 surface_material_override/0 = SubResource("ShaderMaterial_kupfj")
