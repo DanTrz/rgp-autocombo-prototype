@@ -2,89 +2,87 @@
 #version 450
 layout(local_size_x = 8, local_size_y = 8, local_size_z = 1) in;
 
-/* ---- Param buffer (unchanged packing from your GDScript) ---- */
+/* ---- Param buffer ---- */
 layout(set = 0, binding = 0, std430) readonly buffer Params {
-    vec2  raster_size;        // 0..1
-    float intersect_height;   // 2
-    float reflect_gap_fill;   // 3
-    mat4  inv_proj_mat;       // 4..19
-    mat4  inv_view_mat;       // 20..35
-    float fill_enable;        // 36 (0/1)
-    float fill_radius_px;     // 37 (we’ll use as max ray steps)
-    float fill_aggressiveness;// 38 (0..1)
+    vec2  raster_size;        
+    float intersect_height;   
+    float reflect_gap_fill;   
+    mat4  inv_proj_mat;       
+    mat4  inv_view_mat;       
+    float fill_enable;        
+    float fill_radius_px;     
+    float fill_aggressiveness;
 } P;
 
-/* I/O (same bindings as before) */
 layout(rgba16f, set = 0, binding = 1) uniform image2D color_image;
 layout(set = 0, binding = 2) uniform sampler2D depth_tex;
 
-/* ---------- helpers ---------- */
-bool is_sky(vec2 uv) {
-    return texture(depth_tex, uv).r >= 0.99999;
+/* ---------- Optimized helpers ---------- */
+
+// Faster depth check using single sample
+bool is_sky_fast(vec2 uv) {
+    return textureLod(depth_tex, uv, 0.0).r >= 0.99999;
 }
 
-vec3 world_from_uv(vec2 uv) {
-    float z = texture(depth_tex, uv).r;
-    vec3 ndc = vec3(uv * 2.0 - 1.0, z);
+// Cache world position calculation components
+vec3 world_from_uv_fast(vec2 uv, float depth) {
+    vec3 ndc = vec3(uv * 2.0 - 1.0, depth);
     vec4 view = P.inv_proj_mat * vec4(ndc, 1.0);
-    view.xyz /= max(view.w, 1e-6);
-    vec4 world = P.inv_view_mat * vec4(view.xyz, 1.0);
-    return world.xyz;
+    view.xyz /= view.w;
+    return (P.inv_view_mat * vec4(view.xyz, 1.0)).xyz;
 }
 
-bool is_above_water(vec3 w) {
-    return w.y >= (P.intersect_height + P.reflect_gap_fill);
+bool is_above_water_with_gap(float world_y) {
+    return world_y >= (P.intersect_height + P.reflect_gap_fill);
 }
 
-float hash12(vec2 p) {
-    // tiny hash for per-pixel rotation to avoid directional banding
-    vec3 p3 = fract(vec3(p.xyx) * 0.1031);
-    p3 += dot(p3, p3.yzx + 33.33);
-    return fract((p3.x + p3.y) * p3.z);
+// Simplified hash for rotation
+float quick_hash(vec2 p) {
+    return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
 }
 
-/* March along a direction up to max_steps (≈ pixels), return first valid donor.
-   Valid = not sky AND above water AND alpha>0. */
-bool find_donor(vec2 uv, vec2 dir_px, int max_steps, out vec3 rgb, out float a) {
-    vec2 texel = 1.0 / P.raster_size;
-    vec2 dir_uv = dir_px * texel;
-
+/* Optimized donor search with early exits and fewer directions */
+bool find_donor_optimized(vec2 uv, vec2 dir_uv, int max_steps, out vec3 rgb, out float a) {
     vec2 cur = uv;
+    
     for (int s = 1; s <= max_steps; ++s) {
         cur += dir_uv;
-        if (cur.x <= 0.0 || cur.y <= 0.0 || cur.x >= 1.0 || cur.y >= 1.0)
-            break;
+        
+        // Early boundary check
+        if (any(lessThanEqual(cur, vec2(0.0))) || any(greaterThanEqual(cur, vec2(1.0))))
+            return false;
 
-        if (is_sky(cur)) continue;
+        // Sample depth once and reuse
+        float depth = textureLod(depth_tex, cur, 0.0).r;
+        if (depth >= 0.99999) continue; // is sky
 
-        vec3 w = world_from_uv(cur);
-        if (!is_above_water(w)) continue;
+        // Quick world Y check without full world position
+        vec3 ndc = vec3(cur * 2.0 - 1.0, depth);
+        vec4 view = P.inv_proj_mat * vec4(ndc, 1.0);
+        view.xyz /= view.w;
+        float world_y = (P.inv_view_mat * vec4(view.xyz, 1.0)).y;
+        
+        if (!is_above_water_with_gap(world_y)) continue;
 
+        // Sample color
         ivec2 ip = ivec2(cur * P.raster_size);
         vec4 src = imageLoad(color_image, ip);
         if (src.a <= 0.001) continue;
 
-        // un-premultiply for averaging
-        a   = src.a;
+        // Found valid donor
+        a = src.a;
         rgb = src.rgb / max(a, 1e-6);
         return true;
     }
     return false;
 }
 
-/* 12 fixed directions + a tiny per-pixel rotation prevents coherent streaks.
-   You can raise DIRS to 16 or 24 if you still need more robustness. */
-const int DIRS = 12;
+/* Reduced direction set - 8 directions instead of 12 */
+const int DIRS = 8;
 vec2 base_dirs[DIRS] = vec2[](
     vec2( 1, 0), vec2( 0, 1), vec2(-1, 0), vec2( 0,-1),
-    vec2( 1, 1), vec2(-1, 1), vec2(-1,-1), vec2( 1,-1),
-    vec2( 2, 1), vec2(-2, 1), vec2(-2,-1), vec2( 2,-1)
+    vec2( 1, 1), vec2(-1, 1), vec2(-1,-1), vec2( 1,-1)
 );
-
-mat2 rot(float a) {
-    float c = cos(a), s = sin(a);
-    return mat2(c,-s,s,c);
-}
 
 void main() {
     ivec2 ip = ivec2(gl_GlobalInvocationID.xy);
@@ -92,70 +90,87 @@ void main() {
 
     vec2 uv = (vec2(ip) + vec2(0.5)) / P.raster_size;
 
-    // Keep sky as-is (and premultiply)
-    if (is_sky(uv)) {
+    // Pre-sample depth once
+    float depth = textureLod(depth_tex, uv, 0.0).r;
+
+    // Keep sky as-is
+    if (depth >= 0.99999) {
         vec4 keep = imageLoad(color_image, ip);
         keep.rgb *= keep.a;
         imageStore(color_image, ip, keep);
         return;
     }
 
-    vec3 w0 = world_from_uv(uv);
-    bool above = is_above_water(w0);
+    // Calculate world Y only once
+    vec3 ndc = vec3(uv * 2.0 - 1.0, depth);
+    vec4 view = P.inv_proj_mat * vec4(ndc, 1.0);
+    view.xyz /= view.w;
+    float world_y = (P.inv_view_mat * vec4(view.xyz, 1.0)).y;
+    
+    bool above = is_above_water_with_gap(world_y);
 
     vec4 cur = imageLoad(color_image, ip);
 
     if (above) {
-        // Leave above-water untouched (premultiplied)
+        // Above water - premultiply and store
         cur.rgb *= cur.a;
         imageStore(color_image, ip, cur);
         return;
     }
 
-    // Underwater:
+    // Underwater processing
     if (P.fill_enable < 0.5) {
         imageStore(color_image, ip, vec4(0.0));
         return;
     }
 
-    int max_steps = max(1, int(P.fill_radius_px)); // your “radius” now controls reach
+    int max_steps = max(1, int(P.fill_radius_px));
     float agg = clamp(P.fill_aggressiveness, 0.0, 1.0);
 
-    // Rotate the direction set a bit per pixel to avoid structured patterns
-    float theta = hash12(uv * P.raster_size) * 6.2831853; // 2*pi
-    mat2 R = rot(theta);
+    // Lighter rotation
+    float theta = quick_hash(uv * P.raster_size) * 6.2831853;
+    float cos_t = cos(theta);
+    float sin_t = sin(theta);
 
     vec3 acc_rgb = vec3(0.0);
-    float acc_a  = 0.0;
-    int   hits   = 0;
+    float acc_a = 0.0;
+    int hits = 0;
+    
+    vec2 texel = 1.0 / P.raster_size;
 
-    // Try each direction, stop early if we already have several donors
-    for (int i = 0; i < DIRS; ++i) {
-        vec2 d = normalize(R * base_dirs[i]); // unit in px
-        vec3 rgb; float a;
-        if (find_donor(uv, d, max_steps, rgb, a)) {
+    // Process fewer directions with early exit
+    for (int i = 0; i < DIRS && hits < 4; ++i) {
+        // Manual 2D rotation (faster than mat2)
+        vec2 base = base_dirs[i];
+        vec2 rotated = vec2(
+            base.x * cos_t - base.y * sin_t,
+            base.x * sin_t + base.y * cos_t
+        );
+        
+        vec2 dir_uv = normalize(rotated) * texel;
+        
+        vec3 rgb; 
+        float a;
+        if (find_donor_optimized(uv, dir_uv, max_steps, rgb, a)) {
             acc_rgb += rgb;
-            acc_a   += a;
+            acc_a += a;
             hits++;
-            if (hits >= 6) break; // early-out: we have enough donors
         }
     }
 
     if (hits == 0) {
-        // Nothing usable around → leave it transparent (no black edges)
         imageStore(color_image, ip, vec4(0.0));
         return;
     }
 
-    // Average donors (straight space), average alpha
-    vec3 avg_rgb = acc_rgb / float(hits);
-    float avg_a  = clamp(acc_a / float(hits), 0.0, 1.0);
+    // Compute result
+    float inv_hits = 1.0 / float(hits);
+    vec3 avg_rgb = acc_rgb * inv_hits;
+    float avg_a = clamp(acc_a * inv_hits, 0.0, 1.0);
 
-    // Blend strength controlled by aggressiveness
     vec3 out_rgb = mix(vec3(0.0), avg_rgb, agg);
-    float out_a  = mix(0.0,        avg_a,  agg);
+    float out_a = mix(0.0, avg_a, agg);
 
-    // Premultiply on write
     imageStore(color_image, ip, vec4(out_rgb * out_a, out_a));
 }
 

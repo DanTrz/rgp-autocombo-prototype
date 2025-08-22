@@ -145,7 +145,7 @@ effect_enabled = true
 intersect_height = 0.0
 reflect_gap_fill = 0.0025
 fill_enabled = true
-fill_radius_px = 48.0
+fill_radius_px = 64.0
 fill_aggressiveness = 1.0
 metadata/_custom_type_script = "uid://cpqr3m5qtqqdt"
 
@@ -158,7 +158,7 @@ subdivide_width = 50
 subdivide_depth = 50
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_c3384"]
-viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@32149")
+viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@36457")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n4mug"]
 resource_local_to_scene = true
@@ -301,7 +301,7 @@ background_color = Color(1, 1, 1, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.695503, 0.695503, 0.695503, 1)
 
-[sub_resource type="CompositorEffect" id="CompositorEffect_4210g"]
+[sub_resource type="CompositorEffect" id="CompositorEffect_fhsug"]
 resource_local_to_scene = false
 resource_name = ""
 enabled = true
@@ -317,9 +317,10 @@ reflect_gap_fill = 0.0025
 fill_enabled = true
 fill_radius_px = 48.0
 fill_aggressiveness = 1.0
+metadata/_custom_type_script = "uid://cpqr3m5qtqqdt"
 
-[sub_resource type="Compositor" id="Compositor_6pjtc"]
-compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_4210g")])
+[sub_resource type="Compositor" id="Compositor_c3384"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_fhsug")])
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_lkarq"]
 viewport_path = NodePath("ReflectionViewPort")
@@ -487,7 +488,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, -0.34202, 0.939693, 0, -8, 17)
 cull_mask = 524287
 environment = SubResource("Environment_s7b13")
-compositor = SubResource("Compositor_6pjtc")
+compositor = SubResource("Compositor_c3384")
 projection = 1
 current = true
 size = 10.0
