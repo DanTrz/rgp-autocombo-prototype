@@ -11,7 +11,7 @@ const CB_TYPE := EFFECT_CALLBACK_TYPE_POST_OPAQUE
 
 # Hole handling
 @export var fill_enabled: bool = true
-@export_range(1, 128, 1) var fill_radius_px: float = 48
+@export_range(1, 96, 1) var fill_radius_px: float = 48
 @export_range(0.0, 2.0, 0.01) var fill_aggressiveness: float = 1.0
 
 # --- RD resources ---
@@ -22,6 +22,13 @@ var sampler_rid: RID
 var parameter_storage_buffer: RID
 var temp_image: RID        # scratch image (same size/format as color)
 var temp_sampler: RID
+
+# Performance optimization caches
+var cached_uniform_sets: Dictionary = {}
+var last_params: PackedFloat32Array = []
+var cached_matrix_data: PackedFloat32Array = []
+var last_inv_proj_matrix: Projection = Projection()
+var last_cam_transform: Transform3D = Transform3D()
 
 # std430 buffer layout:
 #  0..1   : vec2  raster_size
@@ -77,10 +84,21 @@ func _initialize_compute() -> void:
 	data.resize(PARAM_FLOATS)
 	var bytes := data.to_byte_array()
 	parameter_storage_buffer = rd.storage_buffer_create(bytes.size(), bytes)
+	
+	# Initialize cache arrays
+	cached_matrix_data.resize(32) # For both matrices (16 floats each)
 
 func _free_gpu() -> void:
 	if rd == null:
 		return
+	
+	# Free cached uniform sets
+	for key in cached_uniform_sets:
+		var uniform_set_rid = cached_uniform_sets[key]
+		if uniform_set_rid.is_valid():
+			rd.free_rid(uniform_set_rid)
+	cached_uniform_sets.clear()
+	
 	if temp_image.is_valid():
 		rd.free_rid(temp_image)
 	if temp_sampler.is_valid():
@@ -115,6 +133,106 @@ func _ensure_temp_image(size: Vector2i, like_color: RID) -> void:
 	tf.usage_bits = RenderingDevice.TEXTURE_USAGE_SAMPLING_BIT | RenderingDevice.TEXTURE_USAGE_STORAGE_BIT
 	temp_image = rd.texture_create(tf, RDTextureView.new(), [])
 	# No need to initialize contents; we fully overwrite.
+
+func _get_or_create_uniform_set(color_tex: RID, depth_tex: RID, pass_type: int, temp_image_rid: RID) -> RID:
+	# Create a unique key for this combination
+	var key = str(color_tex.get_id()) + "_" + str(depth_tex.get_id()) + "_" + str(pass_type) + "_" + str(temp_image_rid.get_id())
+	
+	if key in cached_uniform_sets:
+		return cached_uniform_sets[key]
+	
+	# Create new uniform set
+	var u_params := RDUniform.new()
+	u_params.uniform_type = RenderingDevice.UNIFORM_TYPE_STORAGE_BUFFER
+	u_params.binding = 0
+	u_params.add_id(parameter_storage_buffer)
+
+	var u_color_write := RDUniform.new()
+	u_color_write.uniform_type = RenderingDevice.UNIFORM_TYPE_IMAGE
+	u_color_write.binding = 1
+	if pass_type == 1: # vertical pass writes to color
+		u_color_write.add_id(color_tex)
+	else: # horizontal pass dummy binding
+		u_color_write.add_id(temp_image_rid)
+
+	var u_depth := RDUniform.new()
+	u_depth.uniform_type = RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE
+	u_depth.binding = 2
+	u_depth.add_id(sampler_rid)
+	u_depth.add_id(depth_tex)
+
+	var u_src_color := RDUniform.new()
+	u_src_color.uniform_type = RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE
+	u_src_color.binding = 3
+	u_src_color.add_id(sampler_rid)
+	u_src_color.add_id(color_tex)
+
+	var u_temp_image := RDUniform.new()
+	u_temp_image.uniform_type = RenderingDevice.UNIFORM_TYPE_IMAGE
+	u_temp_image.binding = 4
+	u_temp_image.add_id(temp_image_rid)
+
+	var u_temp_sampler := RDUniform.new()
+	u_temp_sampler.uniform_type = RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE
+	u_temp_sampler.binding = 5
+	u_temp_sampler.add_id(temp_sampler)
+	u_temp_sampler.add_id(temp_image_rid)
+
+	var uniform_set: RID = rd.uniform_set_create([u_params, u_color_write, u_depth, u_src_color, u_temp_image, u_temp_sampler], shader, 0)
+	cached_uniform_sets[key] = uniform_set
+	return uniform_set
+
+func _update_params_if_changed(new_params: PackedFloat32Array) -> bool:
+	# Quick check if parameters have changed
+	if last_params.size() == new_params.size():
+		var changed = false
+		for i in range(new_params.size()):
+			if abs(last_params[i] - new_params[i]) > 0.0001: # Small epsilon for float comparison
+				changed = true
+				break
+		if not changed:
+			return false
+	
+	# Parameters changed, update buffer
+	var bytes = new_params.to_byte_array()
+	rd.buffer_update(parameter_storage_buffer, 0, bytes.size(), bytes)
+	last_params = new_params.duplicate()
+	return true
+
+func _cache_matrix_data(inv_proj: Projection, cam_xform: Transform3D) -> bool:
+	# Check if matrices have changed significantly
+	var proj_changed = false
+	var transform_changed = false
+	
+	if last_inv_proj_matrix != inv_proj:
+		last_inv_proj_matrix = inv_proj
+		proj_changed = true
+		
+		# Cache inverse projection matrix data
+		cached_matrix_data[0]  = inv_proj.x.x; cached_matrix_data[1]  = inv_proj.x.y
+		cached_matrix_data[2]  = inv_proj.x.z; cached_matrix_data[3]  = inv_proj.x.w
+		cached_matrix_data[4]  = inv_proj.y.x; cached_matrix_data[5]  = inv_proj.y.y
+		cached_matrix_data[6]  = inv_proj.y.z; cached_matrix_data[7]  = inv_proj.y.w
+		cached_matrix_data[8]  = inv_proj.z.x; cached_matrix_data[9]  = inv_proj.z.y
+		cached_matrix_data[10] = inv_proj.z.z; cached_matrix_data[11] = inv_proj.z.w
+		cached_matrix_data[12] = inv_proj.w.x; cached_matrix_data[13] = inv_proj.w.y
+		cached_matrix_data[14] = inv_proj.w.z; cached_matrix_data[15] = inv_proj.w.w
+	
+	if not last_cam_transform.is_equal_approx(cam_xform):
+		last_cam_transform = cam_xform
+		transform_changed = true
+		
+		# Cache camera transform data
+		cached_matrix_data[16] = cam_xform.basis.x.x; cached_matrix_data[17] = cam_xform.basis.x.y
+		cached_matrix_data[18] = cam_xform.basis.x.z; cached_matrix_data[19] = 0.0
+		cached_matrix_data[20] = cam_xform.basis.y.x; cached_matrix_data[21] = cam_xform.basis.y.y
+		cached_matrix_data[22] = cam_xform.basis.y.z; cached_matrix_data[23] = 0.0
+		cached_matrix_data[24] = cam_xform.basis.z.x; cached_matrix_data[25] = cam_xform.basis.z.y
+		cached_matrix_data[26] = cam_xform.basis.z.z; cached_matrix_data[27] = 0.0
+		cached_matrix_data[28] = cam_xform.origin.x;  cached_matrix_data[29] = cam_xform.origin.y
+		cached_matrix_data[30] = cam_xform.origin.z;  cached_matrix_data[31] = 1.0
+	
+	return proj_changed or transform_changed
 
 func _render_callback(p_effect_callback_type: EffectCallbackType, p_render_data: RenderData) -> void:
 	if p_effect_callback_type != CB_TYPE:
@@ -152,17 +270,15 @@ func _render_callback(p_effect_callback_type: EffectCallbackType, p_render_data:
 		params[2] = intersect_height
 		params[3] = reflect_gap_fill
 
+		# Optimized: Use cached matrix data and only recalculate if changed
 		var inv_proj := p_render_data.get_render_scene_data().get_cam_projection().inverse()
-		params[4]  = inv_proj.x.x; params[5]  = inv_proj.x.y; params[6]  = inv_proj.x.z; params[7]  = inv_proj.x.w
-		params[8]  = inv_proj.y.x; params[9]  = inv_proj.y.y; params[10] = inv_proj.y.z; params[11] = inv_proj.y.w
-		params[12] = inv_proj.z.x; params[13] = inv_proj.z.y; params[14] = inv_proj.z.z; params[15] = inv_proj.z.w
-		params[16] = inv_proj.w.x; params[17] = inv_proj.w.y; params[18] = inv_proj.w.z; params[19] = inv_proj.w.w
-
 		var cam_xform: Transform3D = p_render_data.get_render_scene_data().get_cam_transform()
-		params[20] = cam_xform.basis.x.x; params[21] = cam_xform.basis.x.y; params[22] = cam_xform.basis.x.z; params[23] = 0.0
-		params[24] = cam_xform.basis.y.x; params[25] = cam_xform.basis.y.y; params[26] = cam_xform.basis.y.z; params[27] = 0.0
-		params[28] = cam_xform.basis.z.x; params[29] = cam_xform.basis.z.y; params[30] = cam_xform.basis.z.z; params[31] = 0.0
-		params[32] = cam_xform.origin.x;  params[33] = cam_xform.origin.y;  params[34] = cam_xform.origin.z;  params[35] = 1.0
+		
+		var matrices_changed = _cache_matrix_data(inv_proj, cam_xform)
+		
+		# Copy cached matrix data to params array
+		for i in range(32):
+			params[4 + i] = cached_matrix_data[i]
 
 		params[36] = 1.0 if fill_enabled else 0.0
 		params[37] = float(fill_radius_px)
@@ -170,65 +286,31 @@ func _render_callback(p_effect_callback_type: EffectCallbackType, p_render_data:
 
 		# ---------- PASS 1: horizontal -> write temp_image ----------
 		params[39] = 0.0  # pass_dir = horizontal
-		var bytes1 := params.to_byte_array()
-		rd.buffer_update(parameter_storage_buffer, 0, bytes1.size(), bytes1)
-
-		var u_params := RDUniform.new()
-		u_params.uniform_type = RenderingDevice.UNIFORM_TYPE_STORAGE_BUFFER
-		u_params.binding = 0
-		u_params.add_id(parameter_storage_buffer)
-
-		var u_color_write_dummy := RDUniform.new()
-		u_color_write_dummy.uniform_type = RenderingDevice.UNIFORM_TYPE_IMAGE
-		u_color_write_dummy.binding = 1
-		u_color_write_dummy.add_id(temp_image) # not written in pass1, but layout keeps binding points stable
-
-		var u_depth := RDUniform.new()
-		u_depth.uniform_type = RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE
-		u_depth.binding = 2
-		u_depth.add_id(sampler_rid)
-		u_depth.add_id(depth_tex)
-
-		var u_src_color := RDUniform.new()
-		u_src_color.uniform_type = RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE
-		u_src_color.binding = 3
-		u_src_color.add_id(sampler_rid)
-		u_src_color.add_id(color_tex)
-
-		var u_temp_image := RDUniform.new()
-		u_temp_image.uniform_type = RenderingDevice.UNIFORM_TYPE_IMAGE
-		u_temp_image.binding = 4
-		u_temp_image.add_id(temp_image)
-
-		var u_temp_sampler := RDUniform.new()
-		u_temp_sampler.uniform_type = RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE
-		u_temp_sampler.binding = 5
-		u_temp_sampler.add_id(temp_sampler)
-		u_temp_sampler.add_id(temp_image)
-
-		var set1: RID = rd.uniform_set_create([u_params, u_color_write_dummy, u_depth, u_src_color, u_temp_image, u_temp_sampler], shader, 0)
+		
+		# Optimized: Only update buffer if parameters actually changed
+		var params_changed = _update_params_if_changed(params)
+		
+		# Get or create cached uniform set for horizontal pass
+		var uniform_set_h: RID = _get_or_create_uniform_set(color_tex, depth_tex, 0, temp_image)
 
 		var cl1 := rd.compute_list_begin()
 		rd.compute_list_bind_compute_pipeline(cl1, pipeline)
-		rd.compute_list_bind_uniform_set(cl1, set1, 0)
+		rd.compute_list_bind_uniform_set(cl1, uniform_set_h, 0)
 		rd.compute_list_dispatch(cl1, x_groups, y_groups, 1)
 		rd.compute_list_end()
 
 		# ---------- PASS 2: vertical -> read temp, write color ----------
 		params[39] = 1.0  # pass_dir = vertical
+		
+		# Update buffer for vertical pass (only pass_dir changed)
 		var bytes2 := params.to_byte_array()
 		rd.buffer_update(parameter_storage_buffer, 0, bytes2.size(), bytes2)
 
-		var u_color_write := RDUniform.new()
-		u_color_write.uniform_type = RenderingDevice.UNIFORM_TYPE_IMAGE
-		u_color_write.binding = 1
-		u_color_write.add_id(color_tex)
-
-		# reuse other uniforms; only binding[1] changes
-		var set2: RID = rd.uniform_set_create([u_params, u_color_write, u_depth, u_src_color, u_temp_image, u_temp_sampler], shader, 0)
+		# Get or create cached uniform set for vertical pass
+		var uniform_set_v: RID = _get_or_create_uniform_set(color_tex, depth_tex, 1, temp_image)
 
 		var cl2 := rd.compute_list_begin()
 		rd.compute_list_bind_compute_pipeline(cl2, pipeline)
-		rd.compute_list_bind_uniform_set(cl2, set2, 0)
+		rd.compute_list_bind_uniform_set(cl2, uniform_set_v, 0)
 		rd.compute_list_dispatch(cl2, x_groups, y_groups, 1)
 		rd.compute_list_end()

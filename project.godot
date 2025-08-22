@@ -13,7 +13,7 @@ config_version=5
 config/name="RGP AutoCombo Prototype"
 run/main_scene="uid://d1fonqxidgbmt"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
-run/max_fps=60
+run/max_fps=200
 config/icon="res://icon.svg"
 
 [autoload]

@@ -31,10 +31,10 @@ var editor_camera: Camera3D = null
 @export var reflection_offset_scale: float = 1.0
 @export var offset_blend_mode: int = 0
 @export_group("Performance Controls")
-@export var update_frequency: int = 1
+@export var update_frequency: int = 2
 @export var use_lod: bool = true
-@export var lod_distance_near: float = 10.0
-@export var lod_distance_far: float = 30.0
+@export var lod_distance_near: float = 8.0
+@export var lod_distance_far: float = 24.0
 @export var lod_resolution_multiplier: float = 0.45
 
 #TODO:
@@ -44,7 +44,6 @@ var editor_camera: Camera3D = null
 #debug test
 @onready var test_camera: Camera3D = %ReflectionCamera3D
 @onready var test_sprite: Sprite3D = %MainSceneSprite3D
-
 
 var editor_helper: Node = null
 var active_shader_material: ShaderMaterial = null
@@ -62,6 +61,14 @@ var is_layer_one_active: bool = true
 var cached_offset_transform: Transform3D = Transform3D.IDENTITY
 var last_offset_position: Vector3 = Vector3.ZERO
 var last_offset_rotation: Vector3 = Vector3.ZERO
+
+# Performance optimization caches
+var cached_viewport_size: Vector2i = Vector2i.ZERO
+var last_viewport_check_frame: int = -1
+var cached_shader_params: Dictionary = {}
+var shader_params_dirty: bool = true
+var last_distance_check: float = -1.0
+var cached_lod_factor: float = 1.0
 
 func _ready() -> void:
 	intial_setup()
@@ -92,15 +99,18 @@ func _process(_delta: float) -> void:
 		if active_cam:
 			var current_pos: Vector3 = active_cam.global_transform.origin
 			var current_basis: Basis = active_cam.global_transform.basis
+			
+			# Optimized: Use is_equal_approx for faster comparison
 			if last_camera_position != Vector3.ZERO:
-				var pos_diff: float = current_pos.distance_to(last_camera_position)
-				var rot_diff: float = current_basis.get_euler().distance_to(last_camera_rotation.get_euler())
-				if pos_diff < position_threshold and rot_diff < rotation_threshold:
-					return
+				if current_pos.is_equal_approx(last_camera_position):
+					var current_euler = current_basis.get_euler()
+					var last_euler = last_camera_rotation.get_euler()
+					if current_euler.is_equal_approx(last_euler):
+						return
+			
 			last_camera_position = current_pos
 			last_camera_rotation = current_basis
 			set_reflection_camera_transform()
-
 
 func setup_reflection_camera_and_viewport() -> void:
 	#Setup the reflection viewport
@@ -114,7 +124,6 @@ func setup_reflection_camera_and_viewport() -> void:
 	reflect_viewport.own_world_3d = false
 	reflect_viewport.transparent_bg = true
 	reflect_viewport.handle_input_locally = false
-
 
 	#Setup the reflection camera
 	reflect_camera = Camera3D.new()
@@ -206,22 +215,37 @@ func update_shader_parameters() -> void:
 	var material: ShaderMaterial = active_shader_material
 	if material == null:
 		return
-	material.set_shader_parameter("reflection_screen_texture", reflect_viewport.get_texture())
-	#debug #todo: remove this
-	test_sprite.texture = reflect_viewport.get_texture()
+	
+	# Optimized: Batch shader parameter updates and cache values
+	var reflection_texture = reflect_viewport.get_texture()
 	var is_orthogonal: bool = false
 	if Engine.is_editor_hint():
 		is_orthogonal = reflect_camera.projection == Camera3D.PROJECTION_ORTHOGONAL
 	else:
 		is_orthogonal = (main_camera and main_camera.projection == Camera3D.PROJECTION_ORTHOGONAL)
-	material.set_shader_parameter("is_orthogonal_camera", is_orthogonal)
-	material.set_shader_parameter("ortho_uv_scale", ortho_uv_scale)
-	material.set_shader_parameter("reflection_offset_enabled", enable_reflection_offset)
-	material.set_shader_parameter("reflection_offset_position", reflection_offset_position)
-	material.set_shader_parameter("reflection_offset_scale", reflection_offset_scale)
-	material.set_shader_parameter("reflection_plane_normal", cached_reflection_plane.normal)
-	material.set_shader_parameter("reflection_plane_distance", cached_reflection_plane.d)
-	material.set_shader_parameter("planar_surface_y", global_transform.origin.y)
+	
+	# Prepare all parameters in a dictionary
+	var new_params = {
+		"reflection_screen_texture": reflection_texture,
+		"is_orthogonal_camera": is_orthogonal,
+		"ortho_uv_scale": ortho_uv_scale,
+		"reflection_offset_enabled": enable_reflection_offset,
+		"reflection_offset_position": reflection_offset_position,
+		"reflection_offset_scale": reflection_offset_scale,
+		"reflection_plane_normal": cached_reflection_plane.normal,
+		"reflection_plane_distance": cached_reflection_plane.d,
+		"planar_surface_y": global_transform.origin.y
+	}
+	
+	# Only update changed parameters
+	for param_name in new_params:
+		var new_value = new_params[param_name]
+		if not cached_shader_params.has(param_name) or cached_shader_params[param_name] != new_value:
+			material.set_shader_parameter(param_name, new_value)
+			cached_shader_params[param_name] = new_value
+	
+	#debug #todo: remove this
+	test_sprite.texture = reflection_texture
 
 func update_camera_projection() -> void:
 	var active_cam: Camera3D = editor_camera if Engine.is_editor_hint() else main_camera
@@ -235,6 +259,11 @@ func update_camera_projection() -> void:
 		reflect_camera.fov = active_cam.fov
 
 func update_reflect_viewport_size() -> void:
+	# Optimized: Check viewport size less frequently
+	if frame_counter - last_viewport_check_frame < 5: # Check every 5 frames instead of every frame
+		return
+	last_viewport_check_frame = frame_counter
+	
 	var target_size: Vector2i
 
 	if Engine.is_editor_hint() and editor_helper and editor_helper.has_method("get_editor_viewport_size"):
@@ -248,15 +277,24 @@ func update_reflect_viewport_size() -> void:
 	
 	if use_lod and active_cam:
 		var distance: float = global_transform.origin.distance_to(active_cam.global_transform.origin)
-		var lod_factor: float = 1.0
-		if distance > lod_distance_near:
-			var lerp_factor: float = clamp((distance - lod_distance_near) / (lod_distance_far - lod_distance_near), 0.0, 1.0)
-			lod_factor = lerp(1.0, lod_resolution_multiplier, lerp_factor)
-		target_size = Vector2i(target_size * lod_factor)
+		
+		# Optimized: Cache LOD calculations when distance hasn't changed much
+		if abs(distance - last_distance_check) > 1.0: # Only recalculate if distance changed significantly
+			var lod_factor: float = 1.0
+			if distance > lod_distance_near:
+				var lerp_factor: float = clamp((distance - lod_distance_near) / (lod_distance_far - lod_distance_near), 0.0, 1.0)
+				lod_factor = lerp(1.0, lod_resolution_multiplier, lerp_factor)
+			cached_lod_factor = lod_factor
+			last_distance_check = distance
+		
+		target_size = Vector2i(target_size * cached_lod_factor)
 		target_size.x = max(target_size.x, 128)
 		target_size.y = max(target_size.y, 128)
 	
-	reflect_viewport.size = target_size
+	# Only update if size actually changed
+	if cached_viewport_size != target_size:
+		reflect_viewport.size = target_size
+		cached_viewport_size = target_size
 
 func apply_reflection_offset(base_transform: Transform3D) -> Transform3D:
 	if not enable_reflection_offset:
@@ -281,14 +319,19 @@ func update_offset_cache() -> void:
 	if not enable_reflection_offset:
 		cached_offset_transform = Transform3D.IDENTITY
 		return
-	if (last_offset_position != reflection_offset_position or last_offset_rotation != reflection_offset_rotation):
-		var offset_basis: Basis = Basis()
-		offset_basis = offset_basis.rotated(Vector3.RIGHT, deg_to_rad(reflection_offset_rotation.x))
-		offset_basis = offset_basis.rotated(Vector3.UP, deg_to_rad(reflection_offset_rotation.y))
-		offset_basis = offset_basis.rotated(Vector3.FORWARD, deg_to_rad(reflection_offset_rotation.z))
-		cached_offset_transform = Transform3D(offset_basis, reflection_offset_position * reflection_offset_scale)
-		last_offset_position = reflection_offset_position
-		last_offset_rotation = reflection_offset_rotation
+	
+	# Optimized: Only recalculate if values actually changed
+	if (last_offset_position.is_equal_approx(reflection_offset_position) and 
+		last_offset_rotation.is_equal_approx(reflection_offset_rotation)):
+		return
+		
+	var offset_basis: Basis = Basis()
+	offset_basis = offset_basis.rotated(Vector3.RIGHT, deg_to_rad(reflection_offset_rotation.x))
+	offset_basis = offset_basis.rotated(Vector3.UP, deg_to_rad(reflection_offset_rotation.y))
+	offset_basis = offset_basis.rotated(Vector3.FORWARD, deg_to_rad(reflection_offset_rotation.z))
+	cached_offset_transform = Transform3D(offset_basis, reflection_offset_position * reflection_offset_scale)
+	last_offset_position = reflection_offset_position
+	last_offset_rotation = reflection_offset_rotation
 
 #region - EDITOR AND PLUGIN HELPER METHODS
 #EDITOR HELPER METHOS
@@ -309,7 +352,6 @@ func is_planar_reflector_active() -> bool:
 func get_active_camera() -> Camera3D:
 	return main_camera
 
-
 #endregion
 
 #region- REFLECTION COMPOSITOR AND REFLECTION MASK METHODS
@@ -323,7 +365,6 @@ func setup_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
 	prepass.intersect_height = global_transform.origin.y
 
 	reflect_cam.compositor.set_compositor_effects([prepass])
-	
 
 func update_compositor_reflection_effect(comp_effect: CompositorEffect) -> void:
 	if use_custom_compositor and custom_compositor and reflect_camera:
@@ -351,8 +392,6 @@ func get_reflection_effect(comp: Compositor) -> Variant:
 		if effect is ReflectionCompositor:
 			return effect
 	return null
-
-#endregion
 
 # PREVIOUS VERSION to WORK WITH THE ReflectionCompositor.gd
 # #region- REFLECTION COMPOSITOR AND REFLECTION MASK METHODS
