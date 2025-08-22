@@ -1,16 +1,16 @@
-[gd_scene load_steps=42 format=4 uid="uid://bs7eandi53lee"]
+[gd_scene load_steps=44 format=4 uid="uid://bs7eandi53lee"]
 
 [ext_resource type="Script" uid="uid://daf3b0vh4gnw6" path="res://Temp/PixelProject/ReflectionCompositor/TestReflectionScene.gd" id="1_s7b13"]
 [ext_resource type="Shader" uid="uid://bh6mj2l6w8vci" path="res://planar_reflection_base.gdshader" id="2_mpl6x"]
 [ext_resource type="Script" uid="uid://b0apiig1n0oxp" path="res://3DPixelCompositorDemo/Scripts/edge_detect_update_water.gd" id="2_wekhp"]
 [ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="3_7ohl8"]
-[ext_resource type="Script" uid="uid://crcf0kde5loeg" path="res://Temp/PixelProject/ReflectionCompositor/ReflectionCompositor.gd" id="3_32ujw"]
 [ext_resource type="Script" uid="uid://cluvukmm23a2m" path="res://Temp/PixelProject/ReflectionCompositor/PlanarReflectorGDSCriptCompositor.gd" id="3_sodl7"]
 [ext_resource type="Shader" uid="uid://dpwmhlausv7b8" path="res://assets/shaders/PixelShaders/water_toon_planar_reflection.gdshader" id="3_wx45x"]
 [ext_resource type="Texture2D" uid="uid://cwopgjiunh5xc" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterDistortion.png" id="4_8d00o"]
 [ext_resource type="Shader" uid="uid://ye083wcg0jsd" path="res://3DPixelCompositorDemo/Shaders/water_planar_toon_compositor_mask.gdshader" id="5_r4ywp"]
 [ext_resource type="Texture2D" uid="uid://dixqstxe6b56r" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterLinear.png" id="5_sodl7"]
 [ext_resource type="Shader" uid="uid://bvr8hx2obykjm" path="res://3DPixelCompositorDemo/Shaders/cel_shading_simple.gdshader" id="9_n4mug"]
+[ext_resource type="Script" uid="uid://cpqr3m5qtqqdt" path="res://Temp/PixelProject/ReflectionCompositor/ReflectionPrePass.gd" id="11_lkarq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s7b13"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -82,7 +82,7 @@ size = Vector2(15, 7)
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cc7wm"]
 load_path = "res://.godot/imported/WaterDistortion.png-cb386057d205e074c37cb5d2f89129d7.s3tc.ctex"
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_fhsug"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_r4ywp"]
 viewport_path = NodePath("SubViewportContainer/MainSubViewport/FakeWaterPlane/ReflectionViewPort")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sodl7"]
@@ -113,7 +113,7 @@ shader_parameter/master_time_scale = 0.2
 shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_fhsug")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_r4ywp")
 shader_parameter/reflection_strength = 1.0
 shader_parameter/reflection_on_top = false
 shader_parameter/is_orthogonal_camera = false
@@ -133,13 +133,19 @@ ambient_light_color = Color(1, 1, 1, 1)
 resource_local_to_scene = false
 resource_name = ""
 enabled = true
-effect_callback_type = 4
+effect_callback_type = 1
+access_resolved_color = false
+access_resolved_depth = false
 needs_motion_vectors = false
 needs_normal_roughness = false
-script = ExtResource("3_32ujw")
-user_intersect_effect = true
+script = ExtResource("11_lkarq")
+effect_enabled = true
 intersect_height = 0.0
-metadata/_custom_type_script = "uid://crcf0kde5loeg"
+fill_enabled = true
+reflect_gap_fill = 0.0025
+fill_radius_px = 48.0
+fill_aggressiveness = 1.0
+metadata/_custom_type_script = "uid://cpqr3m5qtqqdt"
 
 [sub_resource type="Compositor" id="Compositor_r4ywp"]
 compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_r4ywp")])
@@ -149,8 +155,8 @@ size = Vector2(20, 8)
 subdivide_width = 50
 subdivide_depth = 50
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_r4ywp"]
-viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@128956")
+[sub_resource type="ViewportTexture" id="ViewportTexture_fhsug"]
+viewport_path = NodePath("SubViewportContainer/MainSubViewport/WaterToon/@SubViewport@55366")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n4mug"]
 resource_local_to_scene = true
@@ -177,7 +183,7 @@ shader_parameter/master_time_scale = 0.25
 shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_r4ywp")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_fhsug")
 shader_parameter/reflection_strength = 1.0
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
@@ -290,6 +296,26 @@ background_color = Color(1, 1, 1, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.695503, 0.695503, 0.695503, 1)
 
+[sub_resource type="CompositorEffect" id="CompositorEffect_c3384"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = true
+effect_callback_type = 1
+access_resolved_color = false
+access_resolved_depth = false
+needs_motion_vectors = false
+needs_normal_roughness = false
+script = ExtResource("11_lkarq")
+effect_enabled = true
+intersect_height = 0.0
+fill_enabled = true
+reflect_gap_fill = 0.0025
+fill_radius_px = 16.0
+fill_aggressiveness = 1.0
+
+[sub_resource type="Compositor" id="Compositor_4210g"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_c3384")])
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_lkarq"]
 viewport_path = NodePath("ReflectionViewPort")
 
@@ -347,7 +373,7 @@ visible = false
 mesh = SubResource("PlaneMesh_v7wd6")
 
 [node name="FakeWaterPlane" type="MeshInstance3D" parent="SubViewportContainer/MainSubViewport" node_paths=PackedStringArray("main_camera")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.972)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0335083, 0, -4.972)
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_v7wd6")
 surface_material_override/0 = SubResource("ShaderMaterial_wekhp")
@@ -369,7 +395,7 @@ mesh = SubResource("PlaneMesh_wekhp")
 surface_material_override/0 = SubResource("ShaderMaterial_n4mug")
 
 [node name="CylinderPink1" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport"]
-transform = Transform3D(0.948024, 0.318198, 0, -0.315189, 0.939059, -0.137203, -0.0436576, 0.130071, 0.990543, 2.99612, 0.708343, -4.98968)
+transform = Transform3D(0.930115, 0.367198, -0.00722369, -0.364665, 0.921004, -0.137013, -0.0436576, 0.130071, 0.990543, 2.99612, 1.17065, -4.98968)
 material = SubResource("StandardMaterial3D_v7wd6")
 
 [node name="CylinderYellow1" type="CSGCylinder3D" parent="SubViewportContainer/MainSubViewport/CylinderPink1"]
@@ -407,7 +433,7 @@ mesh = SubResource("ArrayMesh_c3384")
 skeleton = NodePath("")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/MainSubViewport"]
-transform = Transform3D(-0.472828, 0.0904691, 0.876498, -0.881155, -0.0485458, -0.470329, -9.63744e-10, -0.994715, 0.102671, -3.2652, 0.688251, -2.76593)
+transform = Transform3D(-0.399879, 0.60732, 0.686482, -0.881155, -0.0485458, -0.470329, -0.252315, -0.792972, 0.554556, -2.71808, 0.688251, -4.25088)
 mesh = SubResource("QuadMesh_fhsug")
 
 [node name="ReflectionViewPort" type="SubViewport" parent="."]
@@ -422,7 +448,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -0.939693, -0.34202, 0, -0.34202, 0.939693, 0, -8, 17)
 cull_mask = 524287
 environment = SubResource("Environment_s7b13")
-compositor = SubResource("Compositor_r4ywp")
+compositor = SubResource("Compositor_4210g")
 projection = 1
 current = true
 size = 10.0
@@ -432,7 +458,7 @@ far = 400.0
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6376, 5.42789, -11.6188)
 layers = 524288
-texture = SubResource("ViewportTexture_fhsug")
+texture = SubResource("ViewportTexture_r4ywp")
 
 [node name="ReflectionSprite" type="Sprite3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.29038, 5.81686, -9.13727)

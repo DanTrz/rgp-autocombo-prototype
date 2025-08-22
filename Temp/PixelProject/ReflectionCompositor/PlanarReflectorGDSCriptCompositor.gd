@@ -313,30 +313,15 @@ func get_active_camera() -> Camera3D:
 #endregion
 
 #region- REFLECTION COMPOSITOR AND REFLECTION MASK METHODS
-func setup_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
-	# If we use a Custom Compositor (Local Exported Node), we set it to the camera
-	if use_custom_compositor and custom_compositor:
-		reflect_cam.compositor = custom_compositor
-		return
-	
-	#If we don't use a Custom Compositor (Local Exported Node), we create a new one
-	if reflect_cam.compositor == null:
-		if reflect_cam.compositor:
-			clear_compositor_reflection_effect(reflect_cam)
-		reflect_cam.compositor = Compositor.new()
 
-	#Check if the compositor already has the Compositor effect required "ReflectionCompositor". We update the params if it exists. Create new if it does not
-	var active_reflection_effect = get_reflection_effect(reflect_cam.compositor)
-	if active_reflection_effect != null:
-		# print("Compositor Effect already exist: ", reflect_cam.name)
-		update_compositor_reflection_effect(active_reflection_effect)
-		# if override_YAxis_height:
-		# 	active_reflection_effect.intersect_height = new_YAxis_height
-	else:
-		# print("Creating Compositor Effect for camera: ", reflect_cam.name)
-		reflection_compositor_effect = ReflectionCompositor.new()
-		update_compositor_reflection_effect(reflection_compositor_effect)
-		reflect_cam.compositor.set_compositor_effects([reflection_compositor_effect])
+func setup_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
+	if reflect_cam.compositor == null:
+		reflect_cam.compositor = Compositor.new()
+	
+	var prepass := ReflectionPrePass.new()
+	prepass.intersect_height = global_transform.origin.y
+
+	reflect_cam.compositor.set_compositor_effects([prepass])
 	
 
 func update_compositor_reflection_effect(comp_effect: CompositorEffect) -> void:
@@ -367,3 +352,60 @@ func get_reflection_effect(comp: Compositor) -> Variant:
 	return null
 
 #endregion
+
+#BPREVIOUS VERSION
+# #region- REFLECTION COMPOSITOR AND REFLECTION MASK METHODS
+# func setup_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
+# 	# If we use a Custom Compositor (Local Exported Node), we set it to the camera
+# 	if use_custom_compositor and custom_compositor:
+# 		reflect_cam.compositor = custom_compositor
+# 		return
+	
+# 	#If we don't use a Custom Compositor (Local Exported Node), we create a new one
+# 	if reflect_cam.compositor == null:
+# 		if reflect_cam.compositor:
+# 			clear_compositor_reflection_effect(reflect_cam)
+# 		reflect_cam.compositor = Compositor.new()
+
+# 	#Check if the compositor already has the Compositor effect required "ReflectionCompositor". We update the params if it exists. Create new if it does not
+# 	var active_reflection_effect = get_reflection_effect(reflect_cam.compositor)
+# 	if active_reflection_effect != null:
+# 		# print("Compositor Effect already exist: ", reflect_cam.name)
+# 		update_compositor_reflection_effect(active_reflection_effect)
+# 		# if override_YAxis_height:
+# 		# 	active_reflection_effect.intersect_height = new_YAxis_height
+# 	else:
+# 		# print("Creating Compositor Effect for camera: ", reflect_cam.name)
+# 		reflection_compositor_effect = ReflectionCompositor.new()
+# 		update_compositor_reflection_effect(reflection_compositor_effect)
+# 		reflect_cam.compositor.set_compositor_effects([reflection_compositor_effect])
+	
+
+# func update_compositor_reflection_effect(comp_effect: CompositorEffect) -> void:
+# 	if use_custom_compositor and custom_compositor and reflect_camera:
+# 		reflect_camera.compositor = custom_compositor
+# 		return
+	
+# 	if comp_effect:
+# 		comp_effect.effect_enabled = true
+# 		comp_effect.needs_normal_roughness = true
+# 		comp_effect.intersect_height = global_transform.origin.y
+# 		if override_YAxis_height:
+# 			comp_effect.intersect_height = new_YAxis_height
+
+# func clear_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
+# 	if reflect_cam.compositor:
+# 		# reflect_cam.compositor.free()
+# 		reflect_cam.compositor.compositor_effects.clear()	
+# 		reflect_cam.compositor = null
+# 		print("Compositor Set to null for: ", reflect_cam.name)
+
+# func get_reflection_effect(comp: Compositor) -> Variant:
+# 	if comp == null:
+# 		return false
+# 	for effect in comp.compositor_effects:
+# 		if effect is ReflectionCompositor:
+# 			return effect
+# 	return null
+
+# #endregion

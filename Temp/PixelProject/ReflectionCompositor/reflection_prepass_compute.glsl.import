@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://can8nvkioe70e"
+path="res://.godot/imported/reflection_prepass_compute.glsl-d185eed54869d520014039a5cc464695.res"
+
+[deps]
+
+source_file="res://Temp/PixelProject/ReflectionCompositor/reflection_prepass_compute.glsl"
+dest_files=["res://.godot/imported/reflection_prepass_compute.glsl-d185eed54869d520014039a5cc464695.res"]
+
+[params]
+
