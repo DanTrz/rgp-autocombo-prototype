@@ -6,7 +6,12 @@ var reflect_camera: Camera3D
 var reflect_viewport: SubViewport
 var editor_camera: Camera3D = null
 @export var main_camera: Camera3D = null
-@export var reflection_camera_resolution: Vector2i = Vector2i(1920, 1080)
+@export var reflection_camera_resolution: Vector2i = Vector2i(1920, 1080):
+	set(value):
+		reflection_camera_resolution = value
+		if is_inside_tree():
+			update_reflect_viewport_size()
+
 @export_group("Camera Controls")
 @export var ortho_scale_multiplier: float = 1.0
 @export var ortho_uv_scale: float = 1.0
@@ -15,14 +20,43 @@ var editor_camera: Camera3D = null
 @export_flags_3d_render var reflection_layers: int = 1
 @export var use_custom_environment: bool = false
 @export var custom_environment: Environment = null
-@export var use_custom_compositor: bool = false
-@export var custom_compositor: Compositor = null
 
 #NEW EXPORTS
-@export_group("Reflection Intersection masking")
-@export var hide_intersect_reflections: bool = true
-@export var override_YAxis_height: bool = false
-@export var new_YAxis_height: float = 0.0
+@export_group("Reflection Compositor Effects")
+@export var use_custom_compositor: bool = false:
+	set(value):
+		use_custom_compositor = value
+		if is_inside_tree():
+			setup_compositor_reflection_effect(reflect_camera)
+
+@export var custom_compositor: Compositor = null
+@export var hide_intersect_reflections: bool = true:
+	set(value):
+		hide_intersect_reflections = value
+		if value == true:
+			setup_compositor_reflection_effect(reflect_camera)
+		else:
+			clear_compositor_reflection_effect(reflect_camera)
+
+
+@export var override_YAxis_height: bool = false:
+	set(value):
+		use_custom_compositor = value
+		if is_inside_tree():
+			setup_compositor_reflection_effect(reflect_camera)
+
+@export var new_YAxis_height: float = 0.0:
+	set(value):
+		use_custom_compositor = value
+		if is_inside_tree():
+			setup_compositor_reflection_effect(reflect_camera)
+
+@export var fill_reflection: bool = false:
+	set(value):
+		use_custom_compositor = value
+		if is_inside_tree():
+			setup_compositor_reflection_effect(reflect_camera)
+
 
 @export_group("Reflection Offset Control")
 @export var enable_reflection_offset: bool = false
@@ -76,7 +110,7 @@ func _ready() -> void:
 func _notification(what):
 	if what == NOTIFICATION_TRANSFORM_CHANGED:
 		if reflect_camera and reflect_camera.compositor:
-			update_compositor_reflection_effect(get_reflection_effect(reflect_camera.compositor))
+			set_reflection_effect(get_reflection_effect(reflect_camera.compositor))
 
 func intial_setup() -> void:
 	#Core Setup
@@ -358,25 +392,35 @@ func get_active_camera() -> Camera3D:
 
 # LATEST VERSION to WORK WITH THE ReflectionPrePass.gd
 func setup_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
-	if reflect_cam.compositor == null:
-		reflect_cam.compositor = Compositor.new()
-	
-	var prepass := ReflectionPrePass.new()
-	prepass.intersect_height = global_transform.origin.y
+	if use_custom_compositor and custom_compositor:
+		reflect_cam.compositor = custom_compositor
+		var active_effect = reflect_cam.compositor.compositor_effects[0] 
+		if active_effect is ReflectionPrePass:
+			reflect_cam.compositor.set_compositor_effects([set_reflection_effect(active_effect)])
+	else:
+		if reflect_cam.compositor == null:
+			create_new_compositor_effect(reflect_cam)
 
-	reflect_cam.compositor.set_compositor_effects([prepass])
 
-func update_compositor_reflection_effect(comp_effect: CompositorEffect) -> void:
-	if use_custom_compositor and custom_compositor and reflect_camera:
-		reflect_camera.compositor = custom_compositor
-		return
+func create_new_compositor_effect(reflect_cam: Camera3D) -> void:
+	if reflect_cam.compositor:
+		clear_compositor_reflection_effect(reflect_cam)
 	
-	if comp_effect:
+	reflect_cam.compositor = Compositor.new()
+	
+	var prepass_effect := ReflectionPrePass.new() # TODO and questions: dOes this class need to exist in the CPP version? How?? Can CPP see GDScript Classes? Or would we need this CompositorEffect in CPP as well?
+
+	reflect_cam.compositor.set_compositor_effects([set_reflection_effect(prepass_effect)])
+	
+
+func set_reflection_effect(comp_effect: CompositorEffect) -> CompositorEffect:
+	if comp_effect is ReflectionPrePass:
+		comp_effect.intersect_height = new_YAxis_height if override_YAxis_height else global_transform.origin.y
 		comp_effect.effect_enabled = true
-		comp_effect.needs_normal_roughness = true
-		comp_effect.intersect_height = global_transform.origin.y
-		if override_YAxis_height:
-			comp_effect.intersect_height = new_YAxis_height
+		comp_effect.fill_enabled = fill_reflection
+		return comp_effect
+	return null
+		
 
 func clear_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
 	if reflect_cam.compositor:
@@ -411,17 +455,17 @@ func get_reflection_effect(comp: Compositor) -> Variant:
 # 	var active_reflection_effect = get_reflection_effect(reflect_cam.compositor)
 # 	if active_reflection_effect != null:
 # 		# print("Compositor Effect already exist: ", reflect_cam.name)
-# 		update_compositor_reflection_effect(active_reflection_effect)
+# 		set_reflection_effect(active_reflection_effect)
 # 		# if override_YAxis_height:
 # 		# 	active_reflection_effect.intersect_height = new_YAxis_height
 # 	else:
 # 		# print("Creating Compositor Effect for camera: ", reflect_cam.name)
 # 		reflection_compositor_effect = ReflectionCompositor.new()
-# 		update_compositor_reflection_effect(reflection_compositor_effect)
+# 		set_reflection_effect(reflection_compositor_effect)
 # 		reflect_cam.compositor.set_compositor_effects([reflection_compositor_effect])
 	
 
-# func update_compositor_reflection_effect(comp_effect: CompositorEffect) -> void:
+# func set_reflection_effect(comp_effect: CompositorEffect) -> void:
 # 	if use_custom_compositor and custom_compositor and reflect_camera:
 # 		reflect_camera.compositor = custom_compositor
 # 		return
