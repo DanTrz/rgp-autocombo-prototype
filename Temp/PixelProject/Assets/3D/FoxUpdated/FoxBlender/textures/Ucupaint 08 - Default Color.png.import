@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dybr8igknacd4"
-path.s3tc="res://.godot/imported/nagon_texture.png-62aa732b06dcb532087173a8a20e890a.s3tc.ctex"
+uid="uid://cvnd1igqc3mm3"
+path.s3tc="res://.godot/imported/Ucupaint 08 - Default Color.png-d1a9d9f411e6d96a78eb95fbd16f7da4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Temp/PixelProject/Assets/3D/textures/nagon_texture.png"
-dest_files=["res://.godot/imported/nagon_texture.png-62aa732b06dcb532087173a8a20e890a.s3tc.ctex"]
+source_file="res://Temp/PixelProject/Assets/3D/FoxUpdated/FoxBlender/textures/Ucupaint 08 - Default Color.png"
+dest_files=["res://.godot/imported/Ucupaint 08 - Default Color.png-d1a9d9f411e6d96a78eb95fbd16f7da4.s3tc.ctex"]
 
 [params]
 

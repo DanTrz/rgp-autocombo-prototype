@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxb4g7mxsnofi"
-path="res://.godot/imported/T_Fox_Normal.png-567d67e0556dfa54a2048a525173766c.ctex"
+uid="uid://jwbnt6onsmqe"
+path="res://.godot/imported/BaseLayer.png-8897caace71c99af35e136fb75dc8092.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Temp/PixelProject/Assets/3D/FoxUpdated/textures/T_Fox_Normal.png"
-dest_files=["res://.godot/imported/T_Fox_Normal.png-567d67e0556dfa54a2048a525173766c.ctex"]
+source_file="res://Temp/PixelProject/Assets/3D/FoxUpdated/FoxBlender/textures/BaseLayer.png"
+dest_files=["res://.godot/imported/BaseLayer.png-8897caace71c99af35e136fb75dc8092.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

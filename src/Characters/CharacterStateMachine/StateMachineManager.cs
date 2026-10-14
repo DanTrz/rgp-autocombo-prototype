@@ -51,7 +51,7 @@ public partial class StateMachineManager : Node
         //     UpdatePlayerGlobals(_currentCharacter, delta);
         // }
 
-        if (_currentCharacter._charStateDebug != null)
+        if (_currentCharacter != null && _currentCharacter._charStateDebug != null)
         {
             _currentCharacter._charStateDebug.Text = CurrentState?.StateName.ToString();
         }
