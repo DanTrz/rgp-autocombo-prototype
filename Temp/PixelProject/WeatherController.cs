@@ -350,6 +350,7 @@ public partial class WeatherController : Node3D
 
 	// TODO: REFACTOR THESE UTLIL FUNCTIONS TO A SEPARATE CLASS or extend MATHF classes
 
+	//TODO: Replace LerpMap with built in Mathf.Remap()
 	/// <summary>
 	/// Returns an output value by Linear interpolation between two input ranges.
 	/// </summary>
@@ -471,6 +472,7 @@ public abstract record WeatherState()
 	public virtual void UpdateStateParams(float masterWeatherCycle) { }
 
 }
+
 
 
 public record DawnState : WeatherState
