@@ -1,8 +1,8 @@
-[gd_scene load_steps=14 format=4 uid="uid://dyklcvnx3gyl5"]
+[gd_scene format=4 uid="uid://dyklcvnx3gyl5"]
 
 [ext_resource type="Script" uid="uid://dofp8cf2j0tol" path="res://Temp/PixelProject/TreeLeafParticuleEmitter.cs" id="1_v1eim"]
-[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_onnrw"]
-[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="3_n1y25"]
+[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://assets/shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_onnrw"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://assets/shaders/PixelShaders/3dOutlineHighlight.gdshader" id="3_n1y25"]
 [ext_resource type="Material" uid="uid://cvs3pnsy48y3i" path="res://Temp/PixelProject/TreeParticleProcessMaterialBKUP.tres" id="4_0maje"]
 [ext_resource type="Shader" uid="uid://110tg26lml2i" path="res://Temp/PixelProject/FoliageAnimation_v1.gdshader" id="5_u6mku"]
 
@@ -147,7 +147,7 @@ shader_parameter/fake_ambient_light = Color(0.4, 0.4, 0.4, 1)
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_a38gw")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
 shader_parameter/darkness_variation = 0.0
-shader_parameter/use_vertex_color = true
+shader_parameter/use_vertex_color = false
 shader_parameter/use_emission = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/billboard = true
@@ -162,30 +162,28 @@ resource_local_to_scene = true
 material = SubResource("ShaderMaterial_rqk0u")
 size = Vector2(0.5, 0.5)
 
-[node name="TreeSingleLeafGPUParticule" type="Node3D" node_paths=PackedStringArray("_particleEmitter", "_treeMesh", "_restartParticulesTime")]
+[node name="TreeSingleLeafGPUParticule" type="Node3D" unique_id=1102632698 node_paths=PackedStringArray("_particleEmitter", "_treeMesh", "_restartParticulesTime")]
 script = ExtResource("1_v1eim")
 _particleEmitter = NodePath("tree_oak_dark/GPUParticles3D")
 _treeMesh = NodePath("tree_oak_dark")
-_totalParticulesCount = 500
 _colorNoise = 0.1
 _restartParticulesTime = NodePath("RestartParticulesTime")
 
-[node name="tree_oak_dark" type="MeshInstance3D" parent="."]
+[node name="tree_oak_dark" type="MeshInstance3D" parent="." unique_id=790893806]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
 mesh = SubResource("ArrayMesh_a38gw")
-skeleton = NodePath("")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="tree_oak_dark"]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="tree_oak_dark" unique_id=1702830793]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.951338, 0)
 cast_shadow = 0
 amount = 500
-lifetime = 1e+07
+lifetime = 10000000.0
 one_shot = true
 explosiveness = 1.0
 process_material = ExtResource("4_0maje")
 draw_pass_1 = SubResource("QuadMesh_2akgg")
 
-[node name="RestartParticulesTime" type="Timer" parent="."]
+[node name="RestartParticulesTime" type="Timer" parent="." unique_id=65524095]
 unique_name_in_owner = true
 wait_time = 800.0
 autostart = true

@@ -1,4 +1,4 @@
-[gd_resource type="GradientTexture2D" load_steps=2 format=3 uid="uid://dopp767dqs0l4"]
+[gd_resource type="GradientTexture2D" format=3 uid="uid://dopp767dqs0l4"]
 
 [sub_resource type="Gradient" id="Gradient_akt2r"]
 resource_local_to_scene = true

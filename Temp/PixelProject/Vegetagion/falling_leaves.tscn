@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://2y25hpxtk3ow"]
+[gd_scene format=4 uid="uid://2y25hpxtk3ow"]
 
 [sub_resource type="Curve" id="Curve_lhlax"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.705224, 0.991432), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -70,7 +70,7 @@ _surfaces = [{
 }]
 shadow_mesh = SubResource("ArrayMesh_2oxcc")
 
-[node name="FallingLeaves" type="GPUParticles3D"]
+[node name="FallingLeaves" type="GPUParticles3D" unique_id=870028887]
 amount = 32
 lifetime = 8.0
 randomness = 1.0

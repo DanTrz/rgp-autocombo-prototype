@@ -6,6 +6,7 @@ using Godot;
 [Tool]
 public partial class WeatherController : Node3D
 {
+
 	[Export] private Camera3D _mainCamera { get; set; }
 
 	[ExportGroup("Weather Cycle")]

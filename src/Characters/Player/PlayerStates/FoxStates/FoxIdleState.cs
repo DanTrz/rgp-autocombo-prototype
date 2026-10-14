@@ -52,7 +52,7 @@ public partial class FoxIdleState : PlayerBaseState, ICharacterState
                 PlayIdleAnimation("fox_sit");
 
                 // Log.Info("Fox:  Sit Started");
-                float animationTime = _animPlayer.GetAnimation("fox_sit").Length;
+                float animationTime = (float)_animPlayer.GetAnimation("fox_sit").Length;
                 await ToSignal(GetTree().CreateTimer(animationTime), Timer.SignalName.Timeout);
                 // Log.Info("Fox: Sitting for 4 seconds completed");
                 _isSitted = true;

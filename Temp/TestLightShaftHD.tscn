@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dxmr6povjeiuy"]
+[gd_scene format=3 uid="uid://dxmr6povjeiuy"]
 
 [ext_resource type="Shader" uid="uid://becuk8cg3rnlv" path="res://Temp/PixelProject/godray_lightshaft.gdshader" id="4_pn7ud"]
 
@@ -41,7 +41,7 @@ radial_segments = 12
 cap_top = false
 cap_bottom = false
 
-[node name="GodRayHD" type="TextureRect"]
+[node name="GodRayHD" type="TextureRect" unique_id=811211741]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -51,26 +51,26 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 texture = SubResource("ViewportTexture_jupot")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=209973685]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="QuadLightShaftSkin" type="MeshInstance3D" parent="SubViewport"]
+[node name="QuadLightShaftSkin" type="MeshInstance3D" parent="SubViewport" unique_id=370414219]
 transform = Transform3D(0.632422, -0.774626, 0, 0.774626, 0.632423, 0, 0, 0, 1, 0, 19.0952, 0)
 visible = false
 cast_shadow = 0
 mesh = SubResource("QuadMesh_jupot")
 surface_material_override/0 = SubResource("ShaderMaterial_tvoi7")
 
-[node name="CylinderLightShaftSkin" type="MeshInstance3D" parent="SubViewport"]
+[node name="CylinderLightShaftSkin" type="MeshInstance3D" parent="SubViewport" unique_id=1168374739]
 transform = Transform3D(0.607141, -0.794597, 0, 0.794596, 0.607141, 0, 0, 0, 1, 0, 18.9685, 0)
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_jupot")
 surface_material_override/0 = SubResource("ShaderMaterial_tvoi7")
 
-[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+[node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=6810881]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0930195, 18.7483, 40.8543)
 projection = 1
 current = true

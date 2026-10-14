@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccspmm8kgjnt7"]
+[gd_scene format=3 uid="uid://ccspmm8kgjnt7"]
 
 [ext_resource type="Texture2D" uid="uid://dt58pf3vx4qtg" path="res://Temp/PixelProject/Assets/2D/Leaf.png" id="2_h64ir"]
 
@@ -73,7 +73,7 @@ shader_parameter/sway_from_bottom = false
 material = SubResource("ShaderMaterial_ans1i")
 size = Vector2(0.5, 0.5)
 
-[node name="GrassSingleSpriteShaderMesh" type="MeshInstance3D"]
+[node name="GrassSingleSpriteShaderMesh" type="MeshInstance3D" unique_id=1911139596]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = SubResource("QuadMesh_ms8ko")
 skeleton = NodePath("../..")

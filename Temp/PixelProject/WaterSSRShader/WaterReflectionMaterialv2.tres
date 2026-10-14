@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://db7eucpucym4u"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://db7eucpucym4u"]
 
 [ext_resource type="Shader" uid="uid://cvxcr0jtbovg1" path="res://Temp/PixelProject/WaterSSRShader/waterSSR_reflection.gdshader" id="1_goj3t"]
 [ext_resource type="Texture2D" uid="uid://stensn7vpvqw" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/Water_SurfaceNormalsA.tres" id="2_av8wu"]

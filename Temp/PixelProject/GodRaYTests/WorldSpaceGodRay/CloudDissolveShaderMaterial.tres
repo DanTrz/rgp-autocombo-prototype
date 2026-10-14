@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b7qfafv58aeph"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://b7qfafv58aeph"]
 
 [ext_resource type="Shader" uid="uid://p8l4gns07mpy" path="res://Temp/PixelProject/DissolveShader_CloudFocused_v2.gdshader" id="1_u3ayt"]
 [ext_resource type="Texture2D" uid="uid://drcpoknu322m8" path="res://Temp/PixelProject/Assets/2D/Textures/Cloud/caustic_distort_noise_invert.png" id="2_2ol4v"]

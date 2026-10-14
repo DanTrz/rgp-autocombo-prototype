@@ -1,19 +1,19 @@
-[gd_scene load_steps=50 format=3 uid="uid://bvo1eggwbdo8u"]
+[gd_scene format=3 uid="uid://bvo1eggwbdo8u"]
 
 [ext_resource type="Script" uid="uid://b7o5064b45yqm" path="res://Temp/CSharpPixelPerfect/RotatingCube.cs" id="5_fr5cx"]
-[ext_resource type="Shader" uid="uid://cair4uoxj5lif" path="res://Assets/Shaders/OtherShadersRepo/Outline3D.gdshader" id="7_uxmec"]
+[ext_resource type="Shader" uid="uid://cair4uoxj5lif" path="res://assets/shaders/OtherShadersRepo/Outline3D.gdshader" id="7_uxmec"]
 [ext_resource type="PackedScene" uid="uid://cedw1iorowriy" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.tscn" id="8_35hy6"]
-[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="8_y14fl"]
-[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/OtherShadersRepo/flexible_toon_v2.gdshader" id="9_3bxx4"]
-[ext_resource type="Shader" uid="uid://im2pcdmdj31a" path="res://Assets/Shaders/OtherShadersRepo/DepthInLineWithNormals.gdshader" id="10_rur1f"]
-[ext_resource type="Material" uid="uid://bhs5wo5aw14xm" path="res://Assets/Materials/PixelToonAndHighlightShader.tres" id="11_mjapo"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://assets/shaders/PixelShaders/3dOutlineHighlight.gdshader" id="8_y14fl"]
+[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://assets/shaders/OtherShadersRepo/flexible_toon_v2.gdshader" id="9_3bxx4"]
+[ext_resource type="Shader" uid="uid://im2pcdmdj31a" path="res://assets/shaders/OtherShadersRepo/DepthInLineWithNormals.gdshader" id="10_rur1f"]
+[ext_resource type="Material" uid="uid://bhs5wo5aw14xm" path="res://assets/Materials/PixelToonAndHighlightShader.tres" id="11_mjapo"]
 [ext_resource type="Shader" uid="uid://c3j14atbm7u6e" path="res://Temp/CSharpPixelPerfect/Assets/fixed_colors_outline_and_edge.gdshader" id="12_gbt38"]
 [ext_resource type="Terrain3DMaterial" uid="uid://rrojnnulormj" path="res://Temp/TempTestTerrain3D/TestTerrain3DFlexibleBlendMaterial.tres" id="12_ul7ag"]
 [ext_resource type="Terrain3DAssets" uid="uid://ba70e4aca171v" path="res://Temp/TempTestTerrain3D/48px/48pxTerrain3dTest.tres" id="12_vxcqp"]
 [ext_resource type="Script" uid="uid://yyk7v6dy4cgt" path="res://src/DisplayAndCamera/CameraRig.cs" id="14_7jgnk"]
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="15_axyva"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="16_fob81"]
-[ext_resource type="Shader" uid="uid://d4q5ai1l6seh" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale.gdshader" id="17_eok1q"]
+[ext_resource type="Shader" uid="uid://d4q5ai1l6seh" path="res://assets/shaders/PixelShaders/pixel_art_upscale.gdshader" id="17_eok1q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cmp7w"]
 render_priority = 0
@@ -334,273 +334,272 @@ shader = ExtResource("17_eok1q")
 [sub_resource type="ViewportTexture" id="ViewportTexture_fr5cx"]
 viewport_path = NodePath("SubViewport")
 
-[node name="Terrain3DTest" type="Node3D"]
+[node name="Terrain3DTest" type="Node3D" unique_id=39171408]
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=538975103]
 handle_input_locally = false
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="AllObjects" type="Node3D" parent="SubViewport"]
+[node name="AllObjects" type="Node3D" parent="SubViewport" unique_id=136732951]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
-[node name="Objects" type="Node3D" parent="SubViewport/AllObjects"]
+[node name="Objects" type="Node3D" parent="SubViewport/AllObjects" unique_id=2132150672]
 
-[node name="BOX4" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" groups=["snap"]]
+[node name="BOX4" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" unique_id=1319561713 groups=["snap"]]
 transform = Transform3D(0.601272, -0.577648, -0.552083, 0.692798, 0.721132, 0, 0.398124, -0.382482, 0.833789, -0.46332, 0.585743, -6.79222)
 mesh = SubResource("BoxMesh_cxecb")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOX4"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOX4" unique_id=664672130]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOX4/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOX4/StaticBody3D" unique_id=670675797]
 shape = SubResource("ConvexPolygonShape3D_516lm")
 
-[node name="BOXEX" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" groups=["snap"]]
+[node name="BOXEX" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" unique_id=834449643 groups=["snap"]]
 transform = Transform3D(0.989589, 0, -0.143924, -0.000165789, 0.999999, -0.00113992, 0.143924, 0.00115192, 0.989588, -4.4869, 0.622586, -3.75354)
 mesh = SubResource("BoxMesh_qj4bg")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOXEX"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOXEX" unique_id=1850937231]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOXEX/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOXEX/StaticBody3D" unique_id=388615589]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_v1lyv")
 
-[node name="BOX2" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects/BOXEX"]
+[node name="BOX2" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects/BOXEX" unique_id=1652018330]
 transform = Transform3D(0.943616, 0, 0.331041, 0, 1, 0, -0.331041, 0, 0.943616, -0.460284, 1, -0.0321122)
 mesh = SubResource("BoxMesh_qj4bg")
 skeleton = NodePath("../../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOXEX/BOX2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOXEX/BOX2" unique_id=429409734]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOXEX/BOX2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOXEX/BOX2/StaticBody3D" unique_id=1726237223]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_v1lyv")
 
-[node name="BOX3" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects/BOXEX/BOX2"]
+[node name="BOX3" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects/BOXEX/BOX2" unique_id=997804735]
 transform = Transform3D(0.705921, 0, 0.708291, 0, 1, 0, -0.708291, 0, 0.705921, 0.0710177, 0.776454, 0.100634)
 mesh = SubResource("BoxMesh_bc8qb")
 skeleton = NodePath("../../../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOXEX/BOX2/BOX3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOXEX/BOX2/BOX3" unique_id=1984610114]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOXEX/BOX2/BOX3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOXEX/BOX2/BOX3/StaticBody3D" unique_id=756137016]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_37gmq")
 
-[node name="BOXEX3" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" groups=["snap"]]
+[node name="BOXEX3" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" unique_id=1520498635 groups=["snap"]]
 transform = Transform3D(0.925494, 0.353883, -0.135014, -0.350354, 0.935289, 0.0498661, 0.143924, 0.00115193, 0.989588, -8.88799, -0.162165, 0.751513)
 mesh = SubResource("BoxMesh_vbmmd")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOXEX3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOXEX3" unique_id=1710016805]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOXEX3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOXEX3/StaticBody3D" unique_id=1549637498]
 shape = SubResource("ConvexPolygonShape3D_xjlno")
 
-[node name="BOXEX4" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" groups=["snap"]]
+[node name="BOXEX4" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" unique_id=322630720 groups=["snap"]]
 transform = Transform3D(0.8734, 0.48564, -0.0364264, -0.486208, 0.873804, -0.00823203, 0.0278318, 0.0249006, 0.999302, -10.5384, 0.579666, 0.516242)
 mesh = SubResource("BoxMesh_vbmmd")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOXEX4"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOXEX4" unique_id=1632817039]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOXEX4/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOXEX4/StaticBody3D" unique_id=1579335174]
 shape = SubResource("ConvexPolygonShape3D_qgfme")
 
-[node name="BOXEX2" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" groups=["snap"]]
+[node name="BOXEX2" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" unique_id=1894169512 groups=["snap"]]
 transform = Transform3D(0.989589, 0, -0.143924, -0.000165789, 0.999999, -0.00113992, 0.143924, 0.00115192, 0.989588, 6.65598, 0.622586, 5.2508)
 mesh = SubResource("BoxMesh_qj4bg")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOXEX2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOXEX2" unique_id=1185659844]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOXEX2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOXEX2/StaticBody3D" unique_id=2139142212]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_v1lyv")
 
-[node name="BOX2" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects/BOXEX2"]
+[node name="BOX2" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects/BOXEX2" unique_id=1418179886]
 transform = Transform3D(0.943616, 0, 0.331041, 0, 1, 0, -0.331041, 0, 0.943616, -0.460284, 1, -0.0321122)
 mesh = SubResource("BoxMesh_qj4bg")
 skeleton = NodePath("../../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOXEX2/BOX2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOXEX2/BOX2" unique_id=726327878]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOXEX2/BOX2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOXEX2/BOX2/StaticBody3D" unique_id=1313022669]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_v1lyv")
 
-[node name="BOX3" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects/BOXEX2/BOX2"]
+[node name="BOX3" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects/BOXEX2/BOX2" unique_id=827258942]
 transform = Transform3D(0.705921, 0, 0.708291, 0, 1, 0, -0.708291, 0, 0.705921, 0.0710177, 0.776454, 0.100634)
 mesh = SubResource("BoxMesh_bc8qb")
 skeleton = NodePath("../../../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOXEX2/BOX2/BOX3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/BOXEX2/BOX2/BOX3" unique_id=816868685]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOXEX2/BOX2/BOX3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/BOXEX2/BOX2/BOX3/StaticBody3D" unique_id=1443810552]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_37gmq")
 
-[node name="Cilinder" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" groups=["snap"]]
+[node name="Cilinder" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" unique_id=1401975682 groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80516, 1.08574, -10.3156)
 mesh = SubResource("CylinderMesh_gpoje")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder" unique_id=798020567]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder/StaticBody3D" unique_id=678156395]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_m2snq")
 
-[node name="Cilinder2" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" groups=["snap"]]
+[node name="Cilinder2" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" unique_id=846587179 groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.04593, 3.08574, -10.8822)
 mesh = SubResource("CylinderMesh_gpoje")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder2" unique_id=894694270]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder2/StaticBody3D" unique_id=766103148]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_m2snq")
 
-[node name="Cilinder3" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" groups=["snap"]]
+[node name="Cilinder3" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" unique_id=690026406 groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.23336, 1, 8.88758)
 mesh = SubResource("CylinderMesh_gpoje")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder3" unique_id=2103680960]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder3/StaticBody3D" unique_id=78576257]
 shape = SubResource("ConvexPolygonShape3D_m2snq")
 
-[node name="Cilinder5" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" groups=["snap"]]
+[node name="Cilinder5" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" unique_id=1849124489 groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.00631, 1, 6.06384)
 mesh = SubResource("CylinderMesh_leqaq")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder5"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder5" unique_id=731616524]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder5/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder5/StaticBody3D" unique_id=5152825]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_m2snq")
 
-[node name="Cilinder6" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" groups=["snap"]]
+[node name="Cilinder6" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" unique_id=600021403 groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.91824, 1, 11.009)
 mesh = SubResource("CylinderMesh_6d0ja")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder6"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder6" unique_id=1615721987]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder6/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder6/StaticBody3D" unique_id=739299939]
 visible = false
 shape = SubResource("ConvexPolygonShape3D_m2snq")
 
-[node name="Cilinder4" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" groups=["snap"]]
+[node name="Cilinder4" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" unique_id=1168151423 groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5599, 1.08574, 2.28488)
 mesh = SubResource("CylinderMesh_gpoje")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder4"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder4" unique_id=1971234793]
 visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder4/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder4/StaticBody3D" unique_id=1425487211]
 shape = SubResource("ConvexPolygonShape3D_m2snq")
 
-[node name="Cilinder8" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" groups=["snap"]]
+[node name="Cilinder8" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" unique_id=1290770391 groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5599, 3.09117, 2.28488)
 mesh = SubResource("CylinderMesh_gpoje")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder8"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder8" unique_id=449822336]
 visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder8/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder8/StaticBody3D" unique_id=1448078012]
 shape = SubResource("ConvexPolygonShape3D_m2snq")
 
-[node name="Cilinder9" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" groups=["snap"]]
+[node name="Cilinder9" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" unique_id=910115244 groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3991, 1.08574, 2.67647)
 mesh = SubResource("CylinderMesh_gpoje")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder9"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder9" unique_id=794529622]
 visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder9/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder9/StaticBody3D" unique_id=751504281]
 shape = SubResource("ConvexPolygonShape3D_m2snq")
 
-[node name="Cilinder10" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" groups=["snap"]]
+[node name="Cilinder10" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" unique_id=1792881205 groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3991, 3.09117, 2.67647)
 mesh = SubResource("CylinderMesh_gpoje")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder10"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder10" unique_id=1757679324]
 visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder10/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder10/StaticBody3D" unique_id=1389619291]
 shape = SubResource("ConvexPolygonShape3D_m2snq")
 
-[node name="Cilinder7" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" groups=["snap"]]
+[node name="Cilinder7" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" unique_id=1536674074 groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.4602, 1.08574, -5.76433)
 mesh = SubResource("CylinderMesh_gpoje")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder7"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/AllObjects/Objects/Cilinder7" unique_id=1266677076]
 visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder7/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/AllObjects/Objects/Cilinder7/StaticBody3D" unique_id=1455193996]
 shape = SubResource("ConvexPolygonShape3D_m2snq")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" groups=["snap"]]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/AllObjects/Objects" unique_id=1615392847 groups=["snap"]]
 transform = Transform3D(0.016542, 0.709292, -0.704721, -0.999728, 0.0233155, 0, 0.0164309, 0.704529, 0.709485, 3.89777, 1.0913, -5.06937)
 extra_cull_margin = 2.0
 mesh = SubResource("TorusMesh_5io52")
 skeleton = NodePath("../../..")
 
-[node name="RotatingCube" type="Node3D" parent="SubViewport/AllObjects"]
+[node name="RotatingCube" type="Node3D" parent="SubViewport/AllObjects" unique_id=1132163361]
 script = ExtResource("5_fr5cx")
 
-[node name="MovingCube" type="MeshInstance3D" parent="SubViewport/AllObjects/RotatingCube" groups=["snap"]]
+[node name="MovingCube" type="MeshInstance3D" parent="SubViewport/AllObjects/RotatingCube" unique_id=1641164009 groups=["snap"]]
 transform = Transform3D(0.76446, 0, -0.644671, 0, 1, 0, 0.644671, 0, 0.76446, 0, 1, 2.5)
 material_override = SubResource("ShaderMaterial_vxcqp")
 mesh = SubResource("BoxMesh_auivj")
-skeleton = NodePath("")
 
-[node name="RotatingClouds" type="Node3D" parent="SubViewport/AllObjects"]
+[node name="RotatingClouds" type="Node3D" parent="SubViewport/AllObjects" unique_id=1274645177]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 32.1216, 0, -8.24338)
 script = ExtResource("5_fr5cx")
 Speed = 1.0
 
-[node name="CloudShadoe" type="MeshInstance3D" parent="SubViewport/AllObjects/RotatingClouds"]
+[node name="CloudShadoe" type="MeshInstance3D" parent="SubViewport/AllObjects/RotatingClouds" unique_id=481390637]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.1319, 21.8855, -0.674785)
 mesh = SubResource("CylinderMesh_24o52")
 
-[node name="CloudShadoe2" type="MeshInstance3D" parent="SubViewport/AllObjects/RotatingClouds"]
+[node name="CloudShadoe2" type="MeshInstance3D" parent="SubViewport/AllObjects/RotatingClouds" unique_id=2025758138]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.8277, 21.8855, 1.46834)
 mesh = SubResource("CylinderMesh_24o52")
 
-[node name="CloudShadoe3" type="MeshInstance3D" parent="SubViewport/AllObjects/RotatingClouds"]
+[node name="CloudShadoe3" type="MeshInstance3D" parent="SubViewport/AllObjects/RotatingClouds" unique_id=114247437]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.1554, 21.8855, 3.4163)
 mesh = SubResource("CylinderMesh_24o52")
 
-[node name="CloudShadoe5" type="MeshInstance3D" parent="SubViewport/AllObjects/RotatingClouds"]
+[node name="CloudShadoe5" type="MeshInstance3D" parent="SubViewport/AllObjects/RotatingClouds" unique_id=352034345]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.3121, 21.8855, 1.2846)
 mesh = SubResource("CylinderMesh_24o52")
 
-[node name="CloudShadoe4" type="MeshInstance3D" parent="SubViewport/AllObjects/RotatingClouds"]
+[node name="CloudShadoe4" type="MeshInstance3D" parent="SubViewport/AllObjects/RotatingClouds" unique_id=747456411]
 transform = Transform3D(0.999997, 0.00249582, 0, -0.00249582, 0.999997, 0, 0, 0, 1, -32.0545, 21.8855, 1.6456)
 mesh = SubResource("CylinderMesh_24o52")
 
-[node name="TemplPlayer3dModel" parent="SubViewport" groups=["snap"] instance=ExtResource("8_35hy6")]
+[node name="TemplPlayer3dModel" parent="SubViewport" unique_id=40955596 groups=["snap"] instance=ExtResource("8_35hy6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75053, 1.17881, 1.56188)
 floor_constant_speed = true
 floor_snap_length = 1.0
 
-[node name="CameraRig" type="Node3D" parent="SubViewport/TemplPlayer3dModel"]
+[node name="CameraRig" type="Node3D" parent="SubViewport/TemplPlayer3dModel" unique_id=779712421]
 transform = Transform3D(1, 0, 0, 0, 0.866026, 0.5, 0, -0.5, 0.866026, 0.230505, -0.151859, -1.56188)
 script = ExtResource("14_7jgnk")
 
-[node name="Camera3D" type="Camera3D" parent="SubViewport/TemplPlayer3dModel/CameraRig"]
+[node name="Camera3D" type="Camera3D" parent="SubViewport/TemplPlayer3dModel/CameraRig" unique_id=131722497]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.96407, 40.0982)
 projection = 1
 current = true
@@ -608,7 +607,7 @@ size = 15.0
 far = 100.0
 script = ExtResource("15_axyva")
 
-[node name="Terrain3D" type="Terrain3D" parent="SubViewport"]
+[node name="Terrain3D" type="Terrain3D" parent="SubViewport" unique_id=1991764859]
 data_directory = "res://Temp/TempTestTerrain3D/TerrainData"
 material = ExtResource("12_ul7ag")
 assets = ExtResource("12_vxcqp")
@@ -617,14 +616,14 @@ collision_mode = 3
 top_level = true
 metadata/_edit_lock_ = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport" unique_id=1083303920]
 environment = SubResource("Environment_dquqp")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport" unique_id=886615901]
 transform = Transform3D(-0.504636, -0.488626, 0.71175, 0.861663, -0.336303, 0.380048, 0.0536626, 0.805074, 0.590742, 0, 6.11667, 0.443011)
 shadow_enabled = true
 
-[node name="Display" type="Control" parent="." node_paths=PackedStringArray("_viewPort", "_mainRendereSprite")]
+[node name="Display" type="Control" parent="." unique_id=1076154737 node_paths=PackedStringArray("_mainRendereSprite")]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 15
@@ -634,10 +633,9 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.01507, 1.01103)
 script = ExtResource("16_fob81")
-_viewPort = NodePath("../SubViewport")
 _mainRendereSprite = NodePath("Sprite2D")
 
-[node name="Sprite2D" type="Sprite2D" parent="Display"]
+[node name="Sprite2D" type="Sprite2D" parent="Display" unique_id=91935667]
 texture_filter = 2
 material = SubResource("ShaderMaterial_lx4mn")
 position = Vector2(11.8219, 12.8582)

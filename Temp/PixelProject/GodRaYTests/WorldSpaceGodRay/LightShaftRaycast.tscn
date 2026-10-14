@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b3vej5yd5cpjo"]
+[gd_scene format=3 uid="uid://b3vej5yd5cpjo"]
 
 [ext_resource type="Script" uid="uid://0j7sbald6lcv" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftRaycast.cs" id="1_ekalw"]
 [ext_resource type="Shader" uid="uid://ynltn072st6h" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/godray_shadow_occlusion_multi_point_sample_offset.gdshader" id="2_56qro"]
@@ -84,7 +84,7 @@ height = 0.1
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ekalw"]
 albedo_color = Color(0.47451, 1, 0, 1)
 
-[node name="LightShaftRaycast" type="Node3D" node_paths=PackedStringArray("_raycastMesh", "_debugCollisionSphere", "_originMarker")]
+[node name="LightShaftRaycast" type="Node3D" unique_id=1202190617 node_paths=PackedStringArray("_raycastMesh", "_debugCollisionSphere", "_originMarker")]
 script = ExtResource("1_ekalw")
 _raycastMesh = NodePath("LightShaftSkin")
 _debugCollisionSphere = NodePath("DebugCollisionSphere")
@@ -92,7 +92,7 @@ _originMarker = NodePath("Origin")
 CollisionLayers = 1
 _gradientTextures = Array[GradientTexture2D]([SubResource("GradientTexture2D_ri41u"), SubResource("GradientTexture2D_83kr6"), SubResource("GradientTexture2D_fa4m2"), ExtResource("5_qq6hr")])
 
-[node name="LightShaftSkin" type="MeshInstance3D" parent="."]
+[node name="LightShaftSkin" type="MeshInstance3D" parent="." unique_id=1486307322]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0411672, 0.0819349, -0.0134847)
 extra_cull_margin = 16384.0
 ignore_occlusion_culling = true
@@ -101,15 +101,15 @@ mesh = SubResource("CylinderMesh_ekalw")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_ip4c0")
 
-[node name="DebugCollisionSphere" type="MeshInstance3D" parent="."]
+[node name="DebugCollisionSphere" type="MeshInstance3D" parent="." unique_id=836303855]
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_hooab")
 surface_material_override/0 = SubResource("StandardMaterial3D_v6gh4")
 
-[node name="Origin" type="Marker3D" parent="."]
+[node name="Origin" type="Marker3D" parent="." unique_id=792419901]
 transform = Transform3D(1, 2.98023e-08, 0, -2.98023e-08, 1, 0, 0, 0, 1, 6.70552e-07, 22.5, 0)
 
-[node name="OriginDebugger" type="MeshInstance3D" parent="Origin"]
+[node name="OriginDebugger" type="MeshInstance3D" parent="Origin" unique_id=645648499]
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_56qro")
 skeleton = NodePath("../..")

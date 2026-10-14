@@ -1,9 +1,9 @@
-[gd_scene load_steps=13 format=4 uid="uid://cje6soji7qi4k"]
+[gd_scene format=4 uid="uid://cje6soji7qi4k"]
 
-[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="1_pf148"]
-[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_hil3m"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://assets/shaders/PixelShaders/3dOutlineHighlight.gdshader" id="1_pf148"]
+[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://assets/shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_hil3m"]
 [ext_resource type="Texture2D" uid="uid://bn68wamoyf7f7" path="res://Temp/PixelProject/Assets/2D/Textures/whiteTerrain_1_Height.png" id="3_6lm74"]
-[ext_resource type="Gradient" uid="uid://cul0xese4g3dd" path="res://Assets/Shaders/PixelShaders/ShaderSupportingAssets/GradientBaseColors.tres" id="4_igo0p"]
+[ext_resource type="Gradient" uid="uid://cul0xese4g3dd" path="res://assets/shaders/PixelShaders/ShaderSupportingAssets/GradientBaseColors.tres" id="4_igo0p"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vgwty"]
 resource_name = "leafsDark"
@@ -149,8 +149,7 @@ shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
-[node name="tree_oak_dark" type="MeshInstance3D"]
+[node name="tree_oak_dark" type="MeshInstance3D" unique_id=580058433]
 mesh = SubResource("ArrayMesh_evxjx")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_wjrta")
 surface_material_override/1 = SubResource("ShaderMaterial_rxh2c")

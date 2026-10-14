@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://ceuqgja4ownk6"]
+[gd_scene format=4 uid="uid://ceuqgja4ownk6"]
 
 [ext_resource type="Script" uid="uid://dofp8cf2j0tol" path="res://Temp/PixelProject/TreeLeafParticuleEmitter.cs" id="1_j1kbm"]
 [ext_resource type="Shader" uid="uid://co252xtybyrf0" path="res://assets/shaders/PixelShaders/flexible_toon_v5.gdshader" id="2_1wsyu"]
@@ -196,7 +196,7 @@ resource_local_to_scene = true
 material = SubResource("ShaderMaterial_xyerj")
 size = Vector2(0.5, 0.7)
 
-[node name="TreeMultiLeafGPUParticule" type="Node3D" node_paths=PackedStringArray("_particleEmitter", "_treeMesh", "_restartParticulesTime")]
+[node name="TreeMultiLeafGPUParticule" type="Node3D" unique_id=1109265897 node_paths=PackedStringArray("_particleEmitter", "_treeMesh", "_restartParticulesTime")]
 script = ExtResource("1_j1kbm")
 _particleEmitter = NodePath("tree_oak_dark/GPUParticles3D")
 _treeMesh = NodePath("tree_oak_dark")
@@ -206,23 +206,23 @@ _colorShadingRamp = SubResource("GradientTexture1D_wq7mf")
 _colorNoise = 0.1
 _restartParticulesTime = NodePath("RestartParticulesTime")
 
-[node name="tree_oak_dark" type="MeshInstance3D" parent="."]
+[node name="tree_oak_dark" type="MeshInstance3D" parent="." unique_id=1873794870]
 transform = Transform3D(2.5, 0, 0, 0, 3, 0, 0, 0, 2.5, 0, 0, 0)
 layers = 524289
 mesh = SubResource("ArrayMesh_a38gw")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="tree_oak_dark"]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="tree_oak_dark" unique_id=1369114298]
 transform = Transform3D(0.4, 0, 0, 0, 0.284668, -0.281006, 0, 0.281006, 0.284668, -0.0165017, 0.880646, 0)
 layers = 524289
 cast_shadow = 0
 amount = 500
-lifetime = 1e+07
+lifetime = 10000000.0
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ShaderMaterial_5oxuo")
 draw_pass_1 = SubResource("QuadMesh_5oxuo")
 
-[node name="LodTree" type="Sprite3D" parent="."]
+[node name="LodTree" type="Sprite3D" parent="." unique_id=1563153142]
 transform = Transform3D(0.875, 0, 0, 0, 1.05, 0, 0, 0, 0.875, 0, 1.77052, 0)
 visible = false
 layers = 524288
@@ -230,7 +230,7 @@ modulate = Color(0.389392, 0.46852, 0.181399, 1)
 billboard = 2
 texture = ExtResource("6_8x41d")
 
-[node name="RestartParticulesTime" type="Timer" parent="."]
+[node name="RestartParticulesTime" type="Timer" parent="." unique_id=990384850]
 unique_name_in_owner = true
 wait_time = 800.0
 autostart = true

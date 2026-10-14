@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://dtj5i7dqwh10t"]
+[gd_scene format=4 uid="uid://dtj5i7dqwh10t"]
 
 [ext_resource type="Script" uid="uid://c6d435n2mqlt5" path="res://cloud_sky.gd" id="1_0kjta"]
 
@@ -39,509 +39,473 @@ shadow_mesh = SubResource("ArrayMesh_67wck")
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hhlqa"]
 points = PackedVector3Array(0.821778, -0.05, 0.584092, 0.801829, 0.05, 0.564228, 0.742464, -0.05, 0.722652, 0.821778, -0.05, 0.00982553, 0.78204, 0.05, 0.564228, 0.683099, 0.0382341, 0.742516, 0.722675, 0.0382341, 0.702951, 0.801829, 0.05, 0.0296896, 0.702887, -0.05, 0.76238, 0.78204, -0.05, -0.128897, 0.762252, 0.05, -0.109033, 0.188068, 0.0382341, 0.702951, 0.544419, 0.0382341, 0.742516, -0.267386, 0.05, 0.148385, 0.524631, -0.05, 0.76238, 0.742464, -0.05, -0.208028, 0.722675, 0.05, -0.188164, -0.326751, 0.0382341, 0.465233, -0.3467, -0.05, 0.485097, 0.168279, -0.05, 0.722652, -0.683263, 0.05, -0.0297397, 0.702887, -0.05, -0.267457, 0.683099, 0.05, -0.247593, -0.524796, 0.0382341, 0.326673, -0.544584, -0.05, 0.346375, -0.742629, 0.0382341, 0.148385, -0.72284, 0.05, -0.0694678, 0.623734, -0.05, -0.346588, 0.603784, 0.05, -0.326886, -0.762417, -0.05, 0.168249, -0.802155, 0.0382341, 0.0493909, -0.802155, 0.05, -0.307022, 0.366163, -0.05, -0.584305, 0.346375, 0.05, -0.564441, -0.821782, -0.05, 0.0692549, -0.802155, 0.05, -0.326886, 0.108754, -0.05, -0.802158, 0.0889652, 0.05, -0.782294, -0.821782, -0.05, -0.346588, -0.762417, 0.05, -0.425881, -0.782205, -0.05, -0.445582, -0.128868, -0.05, -0.90099, -0.148656, 0.05, -0.881289, -0.72284, 0.05, -0.505012, -0.762417, -0.05, -0.48531, -0.287175, -0.05, -0.90099, -0.267386, 0.05, -0.881289, -0.663475, 0.05, -0.564441, -0.742629, -0.05, -0.524876, -0.366489, -0.05, -0.841724, -0.3467, 0.05, -0.821859, -0.683263, -0.05, -0.584305)
 
-[node name="CloudSky" type="Node3D"]
+[node name="CloudSky" type="Node3D" unique_id=571854125]
 script = ExtResource("1_0kjta")
 
-[node name="CloudLarge-1" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-1" type="MeshInstance3D" parent="." unique_id=146250786]
 transform = Transform3D(5.29349, 0, 0.307082, 0, 1, 0, -0.530414, 0, 3.06465, 0.274011, 3.7078, 1.67812)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-1"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-1" unique_id=1222897107]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-1/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-1/StaticBody3D" unique_id=1824642231]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-2" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-2" type="MeshInstance3D" parent="." unique_id=1768095696]
 transform = Transform3D(5.32, 0, 0, 0, 1, 0, 0, 0, 3.08, -10.148, 0, 0)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-2" unique_id=511280243]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-2/StaticBody3D" unique_id=457598457]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-3" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-3" type="MeshInstance3D" parent="." unique_id=670518050]
 transform = Transform3D(5.32, 0, 0, 0, 1, 0, 0, 0, 3.08, -10.148, 0, 5.79396)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-3" unique_id=635051850]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-3/StaticBody3D" unique_id=1239639397]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-4" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-4" type="MeshInstance3D" parent="." unique_id=666041713]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, 0.48598, 0, -9.27421)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-4"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-4" unique_id=1841998272]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-4/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-4/StaticBody3D" unique_id=980093072]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-5" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-5" type="MeshInstance3D" parent="." unique_id=1870347073]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, 7.26352, 3.7078, 6.94013)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-5"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-5" unique_id=1274969010]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-5/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-5/StaticBody3D" unique_id=1569518211]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-6" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-6" type="MeshInstance3D" parent="." unique_id=1257055360]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, 9.09511, 3.7078, 1.41165)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-6"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-6" unique_id=249957757]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-6/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-6/StaticBody3D" unique_id=149134322]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-7" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-7" type="MeshInstance3D" parent="." unique_id=1091163253]
 transform = Transform3D(5.29349, 0, 0.307082, 0, 1, 0, -0.530414, 0, 3.06465, 9.63, 3.7078, -5.66288)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-7"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-7" unique_id=1669907867]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-7/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-7/StaticBody3D" unique_id=428152133]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-8" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-8" type="MeshInstance3D" parent="." unique_id=356217009]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, -0.614753, 3.7078, -6.7416)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-8"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-8" unique_id=89217813]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-8/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-8/StaticBody3D" unique_id=2075279303]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-9" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-9" type="MeshInstance3D" parent="." unique_id=163874522]
 transform = Transform3D(4.93968, 0, 1.14361, 0, 1, 0, -1.97533, 0, 2.85982, -12.379, 0, -7.77894)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-9"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-9" unique_id=1446427190]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-9/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-9/StaticBody3D" unique_id=1567108246]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-10" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-10" type="MeshInstance3D" parent="." unique_id=1521054663]
 transform = Transform3D(5.29349, 0, 0.307082, 0, 1, 0, -0.530414, 0, 3.06465, 5.14376, 5.40175, 1.88449)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-10"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-10" unique_id=2012827122]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-10/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-10/StaticBody3D" unique_id=225683754]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-11" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-11" type="MeshInstance3D" parent="." unique_id=2138418621]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, -3.43403, 5.40175, -16.5417)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-11"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-11" unique_id=791304613]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-11/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-11/StaticBody3D" unique_id=1864695182]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-12" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-12" type="MeshInstance3D" parent="." unique_id=1328859743]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, -7.1335, 5.40175, 5.19009)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-12"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-12" unique_id=1204620817]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-12/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-12/StaticBody3D" unique_id=1441125920]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-13" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-13" type="MeshInstance3D" parent="." unique_id=1245673660]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, -17.9107, 5.40175, 3.35546)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-13"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-13" unique_id=589613625]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-13/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-13/StaticBody3D" unique_id=1415838449]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-14" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-14" type="MeshInstance3D" parent="." unique_id=174652285]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, 11.9041, 5.40175, 8.43091)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-14"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-14" unique_id=1181218509]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-14/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-14/StaticBody3D" unique_id=497112186]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-15" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-15" type="MeshInstance3D" parent="." unique_id=853463949]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, 13.7357, 5.40175, 2.90243)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-15"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-15" unique_id=444854057]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-15/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-15/StaticBody3D" unique_id=1115003257]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-16" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-16" type="MeshInstance3D" parent="." unique_id=316401998]
 transform = Transform3D(5.29349, 0, 0.307082, 0, 1, 0, -0.530414, 0, 3.06465, 13.9729, 5.40175, -10.7143)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-16"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-16" unique_id=854960540]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-16/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-16/StaticBody3D" unique_id=542907628]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-17" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-17" type="MeshInstance3D" parent="." unique_id=1971010493]
 transform = Transform3D(5.29349, 0, 0.307082, 0, 1, 0, -0.530414, 0, 3.06465, 3.61384, 5.40175, -4.36573)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-17"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-17" unique_id=2069628313]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-17/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-17/StaticBody3D" unique_id=1809141653]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-18" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-18" type="MeshInstance3D" parent="." unique_id=1711406404]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, -5.80112, 5.40175, -10.3042)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-18"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-18" unique_id=110196695]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-18/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-18/StaticBody3D" unique_id=109238295]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-19" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-19" type="MeshInstance3D" parent="." unique_id=559002218]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, -0.602725, 0, 2.92926)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-19"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-19" unique_id=59218535]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-19/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-19/StaticBody3D" unique_id=144754859]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-20" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-20" type="MeshInstance3D" parent="." unique_id=1242902290]
 transform = Transform3D(5.32, 0, 0, 0, 1, 0, 0, 0, 3.08, -16.5214, 0, 3.16007)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-20"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-20" unique_id=912222010]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-20/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-20/StaticBody3D" unique_id=104429046]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-21" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-21" type="MeshInstance3D" parent="." unique_id=1730270438]
 transform = Transform3D(5.32, 0, 0, 0, 1, 0, 0, 0, 3.08, -10.148, 0, 11.4644)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-21"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-21" unique_id=682107236]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-21/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-21/StaticBody3D" unique_id=1190523748]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-22" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-22" type="MeshInstance3D" parent="." unique_id=1042731395]
 transform = Transform3D(5.32, 0, 0, 0, 1, 0, 0, 0, 3.08, -0.974702, 0, 8.95403)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-22"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-22" unique_id=1723042119]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-22/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-22/StaticBody3D" unique_id=1849578582]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-23" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-23" type="MeshInstance3D" parent="." unique_id=1402534408]
 transform = Transform3D(5.32, 0, 0, 0, 1, 0, 0, 0, 3.08, 9.16345, 0, 8.95403)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-23"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-23" unique_id=1568075734]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-23/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-23/StaticBody3D" unique_id=1326167759]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-24" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-24" type="MeshInstance3D" parent="." unique_id=1289797965]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, 8.5648, 3.7078, 4.52691)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-24"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-24" unique_id=1839350869]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-24/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-24/StaticBody3D" unique_id=781134048]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-25" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-25" type="MeshInstance3D" parent="." unique_id=508988254]
 transform = Transform3D(5.29349, 0, 0.307082, 0, 1, 0, -0.530414, 0, 3.06465, 9.94507, 3.7078, -2.51856)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-25"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-25" unique_id=269462572]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-25/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-25/StaticBody3D" unique_id=1719353732]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-26" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-26" type="MeshInstance3D" parent="." unique_id=1332428451]
 transform = Transform3D(5.31989, 0, -0.0201585, 0, 1, 0, 0.0348191, 0, 3.07993, -1.14507, 3.7078, -3.62634)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-26"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-26" unique_id=1127783559]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-26/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-26/StaticBody3D" unique_id=772164255]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-27" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-27" type="MeshInstance3D" parent="." unique_id=813865824]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, -17.2878, 0, -6.37435)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-27"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-27" unique_id=883069553]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-27/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-27/StaticBody3D" unique_id=302348864]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-28" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-28" type="MeshInstance3D" parent="." unique_id=103740751]
 transform = Transform3D(4.93968, 0, 1.14361, 0, 1, 0, -1.97533, 0, 2.85982, -10.9773, 5.40175, -0.112895)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-28"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-28" unique_id=1967112347]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-28/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-28/StaticBody3D" unique_id=2017884961]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-29" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-29" type="MeshInstance3D" parent="." unique_id=544952057]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, -8.13228, 5.40175, 11.0572)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-29"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-29" unique_id=1313160038]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-29/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-29/StaticBody3D" unique_id=690788312]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-30" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-30" type="MeshInstance3D" parent="." unique_id=375236539]
 transform = Transform3D(5.03363, 0, 0.996903, 0, 1, 0, -1.72192, 0, 2.9142, -5.32308, 1.69395, 9.6449)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-30"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-30" unique_id=409491546]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-30/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-30/StaticBody3D" unique_id=1990017242]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-31" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-31" type="MeshInstance3D" parent="." unique_id=311915135]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, 1.37938, 5.40175, 9.8448)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-31"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-31" unique_id=652026528]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-31/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-31/StaticBody3D" unique_id=1392121720]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-32" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-32" type="MeshInstance3D" parent="." unique_id=1197605139]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, 10.518, 5.40175, 16.5731)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-32"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-32" unique_id=1938359294]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-32/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-32/StaticBody3D" unique_id=1180346195]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-33" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-33" type="MeshInstance3D" parent="." unique_id=97875351]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, 19.0897, 5.40175, 7.0194)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-33"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-33" unique_id=786482312]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-33/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-33/StaticBody3D" unique_id=338057164]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-34" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-34" type="MeshInstance3D" parent="." unique_id=1586162113]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, 14.881, 5.40175, -3.82584)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-34"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-34" unique_id=577604611]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-34/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-34/StaticBody3D" unique_id=2007058506]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-35" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-35" type="MeshInstance3D" parent="." unique_id=2020296927]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, -16.3249, 5.40175, -5.50964)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-35"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-35" unique_id=1021494209]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-35/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-35/StaticBody3D" unique_id=1923795975]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CloudLarge-36" type="MeshInstance3D" parent="."]
+[node name="CloudLarge-36" type="MeshInstance3D" parent="." unique_id=1693682665]
 transform = Transform3D(5.24455, 0, -0.516881, 0, 1, 0, 0.892794, 0, 3.03632, -6.8907, 5.40175, -3.90363)
 mesh = SubResource("ArrayMesh_2yktp")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-36"]
+[node name="StaticBody3D" type="StaticBody3D" parent="CloudLarge-36" unique_id=757185841]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-36/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CloudLarge-36/StaticBody3D" unique_id=1751279095]
 shape = SubResource("ConvexPolygonShape3D_hhlqa")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true

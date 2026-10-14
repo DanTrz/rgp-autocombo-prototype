@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://b1pult2m3pjhn"]
+
+[ext_resource type="Texture2D" uid="uid://bi4eyu7qxetwa" path="res://Temp/PixelProject/Assets/2D/Textures/Soil_1.png" id="1_1ey0d"]
+[ext_resource type="Texture2D" uid="uid://cmd7f4jasjerw" path="res://Temp/Node3D/Heightmap_0_0.res" id="1_i78j7"]
+[ext_resource type="Texture2D" uid="uid://x8msnihv7hgt" path="res://Temp/PixelProject/Assets/2D/Textures/Grass_1_Height.png" id="2_earp3"]
+[ext_resource type="Texture2D" uid="uid://og17e75qh8j1" path="res://Temp/PixelProject/Assets/2D/Textures/Grass_1_Normal.png" id="3_tl6hm"]
+[ext_resource type="Texture2D" uid="uid://bwqngfc2c7gi1" path="res://Temp/PixelProject/Assets/2D/Textures/Grass_1_Roughness.png" id="4_ad6mg"]
+[ext_resource type="Texture2D" uid="uid://bsosnrpobxqi2" path="res://Temp/PixelProject/Assets/2D/Textures/Grass_2.png" id="5_tl6hm"]
+[ext_resource type="Texture2D" uid="uid://fuykfqp6i8" path="res://Temp/PixelProject/Assets/2D/Grass_leafs.png" id="6_qghbx"]
+[ext_resource type="Texture2D" uid="uid://bkwuffgps8wca" path="res://Temp/Node3D/Splatmap_0_0_0.res" id="7_ad6mg"]
+[ext_resource type="Texture2D" uid="uid://mm5wrkpf8l2b" path="res://Temp/Node3D/Foliage_0_0_0.res" id="7_jr7ar"]
+[ext_resource type="PackedScene" uid="uid://bok06l3ildw4l" path="res://src/Levels/LevelComponents/GrassMeshAnimated.tscn" id="7_okf7r"]
+[ext_resource type="Texture2D" uid="uid://dxv5u6idsc6vg" path="res://Temp/Node3D/Object_0_0_0.res" id="10_okf7r"]
+[ext_resource type="Texture2D" uid="uid://bkpnj8lwx2l0v" path="res://Temp/Node3D/Water_0_0.res" id="12_xtvse"]
+
+[sub_resource type="TextureSetResource" id="TextureSetResource_qghbx"]
+name = "SOIL"
+albedoTexture = ExtResource("1_1ey0d")
+normalTexture = ExtResource("3_tl6hm")
+roughnessTexture = ExtResource("4_ad6mg")
+heightTexture = ExtResource("2_earp3")
+
+[sub_resource type="TextureSetResource" id="TextureSetResource_jr7ar"]
+name = "GRASS"
+albedoTexture = ExtResource("5_tl6hm")
+normalTexture = ExtResource("3_tl6hm")
+roughnessTexture = ExtResource("4_ad6mg")
+heightTexture = ExtResource("2_earp3")
+textureDetail = 50
+
+[sub_resource type="TextureSetsResource" id="TextureSetsResource_okf7r"]
+textureSets = Array[TextureSetResource]([SubResource("TextureSetResource_qghbx"), SubResource("TextureSetResource_jr7ar")])
+
+[sub_resource type="QuadMesh" id="QuadMesh_okf7r"]
+
+[sub_resource type="FoliageDefinitionResource" id="FoliageDefinitionResource_xtvse"]
+mesh = SubResource("QuadMesh_okf7r")
+meshScale = Vector3(1, 2, 1)
+windStrength = 2.0
+noiseTexture = ExtResource("6_qghbx")
+albedo = Color(0.54509807, 1, 0, 1)
+albedoTextures = Array[Texture2D]([ExtResource("6_qghbx")])
+nearestTextureFilter = true
+castShadow = true
+useBrushScale = false
+
+[sub_resource type="FoliageResource" id="FoliageResource_qyscq"]
+definition = SubResource("FoliageDefinitionResource_xtvse")
+
+[sub_resource type="ObjectDefinitionResource" id="ObjectDefinitionResource_xtvse"]
+objectFrequency = 1
+objectScenes = Array[PackedScene]([ExtResource("7_okf7r")])
+
+[sub_resource type="ObjectResource" id="ObjectResource_qyscq"]
+definition = SubResource("ObjectDefinitionResource_xtvse")
+
+[sub_resource type="WaterResource" id="WaterResource_okf7r"]
+waterColor = Color(0, 0.5282765, 0.5301659, 1)
+waterFresnelColor = Color(9.241105e-06, 0.86223763, 0.87128234, 1)
+waterColorDeep = Color(0, 0.23921569, 1, 1)
+waterColorShallow = Color(0.83137256, 1, 1, 1)
+waterBeersLaw = 5.0
+waterDepthOffset = 0.1
+
+[sub_resource type="ZoneResource" id="ZoneResource_a8ds1"]
+heightMapTexture = ExtResource("1_i78j7")
+splatmapsTexture = Array[ImageTexture]([ExtResource("7_ad6mg")])
+foliagesTexture = Array[ImageTexture]([ExtResource("7_jr7ar")])
+objectsTexture = Array[ImageTexture]([ExtResource("10_okf7r")])
+waterTexture = ExtResource("12_xtvse")
+
+[sub_resource type="ZonesResource" id="ZonesResource_hww1v"]
+zones = Array[ZoneResource]([SubResource("ZoneResource_a8ds1")])
+
+[node name="Node3D" type="Node3D" unique_id=984773983]
+
+[node name="TerraBrush" type="TerraBrush" parent="." unique_id=1978707421]
+dataPath = "res://Temp/Node3D"
+zonesSize = 64
+textureSets = SubResource("TextureSetsResource_okf7r")
+textureDetail = 20
+nearestTextureFilter = true
+useSharpTransitions = true
+foliages = Array[FoliageResource]([SubResource("FoliageResource_qyscq")])
+objects = Array[ObjectResource]([SubResource("ObjectResource_qyscq")])
+waterDefinition = SubResource("WaterResource_okf7r")
+terrainZones = SubResource("ZonesResource_hww1v")
+metadata/_edit_lock_ = true

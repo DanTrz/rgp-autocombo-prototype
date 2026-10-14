@@ -1,0 +1,13 @@
+[gd_resource type="TML3D_TileMapLayerSettings" format=3 uid="uid://dhh6b234kfuot"]
+
+[ext_resource type="TileSet" uid="uid://cxfdtx2lvxcv6" path="res://addons/tilemap_layer_3d_cpp/demo_scene/temp_tileset/Demo_TileSet_v03.res" id="1_uok2n"]
+[ext_resource type="Texture2D" uid="uid://cx4j7g2ipla75" path="res://addons/tilemap_layer_3d_cpp/demo_scene/temp_tileset/Demo_texture_v03.png" id="2_nx087"]
+
+[resource]
+_settings_format_version = 1
+tileset_texture = ExtResource("2_nx087")
+active_terrain = 1
+autotile_tileset = ExtResource("1_uok2n")
+autotile_active_terrain = 1
+sculpt_brush_type = 1
+sculpt_brush_size = 4.0

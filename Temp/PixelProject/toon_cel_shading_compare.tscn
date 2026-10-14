@@ -1,11 +1,10 @@
-[gd_scene load_steps=41 format=4 uid="uid://yfsr7wt2g87r"]
+[gd_scene format=4 uid="uid://yfsr7wt2g87r"]
 
 [ext_resource type="Shader" uid="uid://bmpoulxhbs4wu" path="res://assets/shaders/PixelShaders/cel_shading_simple.gdshader" id="1_6jkqa"]
-[ext_resource type="Script" uid="uid://b0apiig1n0oxp" path="res://3DPixelCompositorDemo/Scripts/edge_detect_update_water.gd" id="1_thto2"]
 [ext_resource type="PackedScene" uid="uid://ce4ri2215s6ua" path="res://3DPixelCompositorDemo/Assets/cloud.glb" id="2_6jkqa"]
-[ext_resource type="Shader" uid="uid://co252xtybyrf0" path="res://assets/shaders/PixelShaders/flexible_toon_v5.gdshader" id="2_l52mk"]
 [ext_resource type="Shader" uid="uid://c124bd51ron1g" path="res://3DPixelCompositorDemo/Shaders/clouds.gdshader" id="3_l52mk"]
 [ext_resource type="Shader" uid="uid://dpwmhlausv7b8" path="res://assets/shaders/PixelShaders/water_toon_planar_reflection.gdshader" id="3_sm4y1"]
+[ext_resource type="Shader" uid="uid://bxdsyysxbu431" path="res://assets/shaders/PixelShaders/flexible_toon_v6.gdshader" id="3_thto2"]
 [ext_resource type="Texture2D" uid="uid://dnbldkcba3nhk" path="res://3DPixelCompositorDemo/Assets/noise.tres" id="4_lcd42"]
 [ext_resource type="Texture2D" uid="uid://cwopgjiunh5xc" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterDistortion.png" id="4_thto2"]
 [ext_resource type="Texture2D" uid="uid://dixqstxe6b56r" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterLinear.png" id="5_4bq0p"]
@@ -37,20 +36,6 @@ enabled = true
 effect_callback_type = 4
 needs_motion_vectors = false
 needs_normal_roughness = true
-script = ExtResource("1_thto2")
-line_highlight = 0.3
-line_shadow = 0.65
-depth_smooth_low = 0.45
-depth_smooth_high = 0.5
-inv_depth_step_thresh = 0.9
-inv_depth_scale = 10.0
-normal_threshold = 0.2
-offset_scale = 0.0001
-roughness_ignore_threshold = 0.95
-water_mask_enabled = true
-water_y_height = 0.0
-water_feather = 2.0
-water_mode = 1
 metadata/_custom_type_script = "uid://b0apiig1n0oxp"
 
 [sub_resource type="Compositor" id="Compositor_pjo3g"]
@@ -108,7 +93,7 @@ shader_parameter/useRim = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l52mk"]
 render_priority = 0
-shader = ExtResource("2_l52mk")
+shader = ExtResource("3_thto2")
 shader_parameter/albedo_color = Color(0.00784314, 0.537255, 0.211765, 1)
 shader_parameter/use_texture = true
 shader_parameter/roughness = 1.0
@@ -245,7 +230,7 @@ shadow_mesh = SubResource("ArrayMesh_lmvv3")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4bq0p"]
 render_priority = 0
-shader = ExtResource("2_l52mk")
+shader = ExtResource("3_thto2")
 shader_parameter/albedo_color = Color(0.0424526, 0.551329, 0.323193, 1)
 shader_parameter/use_texture = true
 shader_parameter/roughness = 1.0
@@ -400,8 +385,8 @@ size = Vector2(10, 20)
 subdivide_width = 50
 subdivide_depth = 50
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_thto2"]
-viewport_path = NodePath("meshes/3d scene4/WaterToon/@SubViewport@34940")
+[sub_resource type="ViewportTexture" id="ViewportTexture_4bq0p"]
+viewport_path = NodePath("meshes/3d scene4/WaterToon/@SubViewport@27128")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j7yen"]
 render_priority = 0
@@ -427,7 +412,7 @@ shader_parameter/master_time_scale = 0.25
 shader_parameter/wave_animation_speed = 1.0
 shader_parameter/reflection_wobble_speed = 1.0
 shader_parameter/foam_animation_speed = 1.0
-shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_thto2")
+shader_parameter/reflection_screen_texture = SubResource("ViewportTexture_4bq0p")
 shader_parameter/reflection_strength = 1.0
 shader_parameter/is_orthogonal_camera = false
 shader_parameter/ortho_uv_scale = 1.0
@@ -446,9 +431,9 @@ shader_parameter/roughness = 0.0
 shader_parameter/lightSteps = 4.0
 shader_parameter/noise = ExtResource("4_lcd42")
 
-[node name="ToonCelShadingCompare" type="Node3D"]
+[node name="ToonCelShadingCompare" type="Node3D" unique_id=268217448]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=384279245]
 transform = Transform3D(-0.0970234, 0.524036, 0.846152, 0.0301156, -0.848227, 0.528775, 0.994826, 0.076786, 0.0665162, 5.85244, 6.7486, 0)
 light_color = Color(1, 0.97674, 0.813859, 1)
 light_energy = 2.0
@@ -458,128 +443,115 @@ shadow_blur = 0.2
 directional_shadow_mode = 0
 directional_shadow_max_distance = 500.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=715831873]
 environment = SubResource("Environment_7glpj")
 compositor = SubResource("Compositor_pjo3g")
 
-[node name="meshes" type="Node3D" parent="." groups=["snap"]]
+[node name="meshes" type="Node3D" parent="." unique_id=1787642262 groups=["snap"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.06809, 0)
 
-[node name="Trees" type="Node3D" parent="meshes"]
+[node name="Trees" type="Node3D" parent="meshes" unique_id=887236269]
 transform = Transform3D(0.934472, 0, 0.356037, 0, 1, 0, -0.356037, 0, 0.934472, -4.21629, 0, -11.0706)
 
-[node name="tower-base" type="MeshInstance3D" parent="meshes/Trees"]
+[node name="tower-base" type="MeshInstance3D" parent="meshes/Trees" unique_id=1910934888]
 transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, -2.12034, 2.93578, 0.227984)
 layers = 786433
 cast_shadow = 0
 mesh = SubResource("ArrayMesh_qy0rb")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_sm4y1")
 
-[node name="tower-base3" type="MeshInstance3D" parent="meshes/Trees"]
+[node name="tower-base3" type="MeshInstance3D" parent="meshes/Trees" unique_id=2057140094]
 transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, -5.05835, 2.92277, 1.85443)
 layers = 786433
 cast_shadow = 0
 mesh = SubResource("ArrayMesh_qy0rb")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_l52mk")
 
-[node name="TreeFullToon" type="MeshInstance3D" parent="meshes/Trees"]
+[node name="TreeFullToon" type="MeshInstance3D" parent="meshes/Trees" unique_id=1852342762]
 transform = Transform3D(0.135468, -0.0400836, -1.99523, -0.151428, 2.99087, -0.0369862, 1.98965, 0.230358, 0.133033, 1.31453, 2.83606, 2.22641)
 layers = 786433
 cast_shadow = 0
 mesh = SubResource("ArrayMesh_5ylpy")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_l52mk")
 
-[node name="TreeFullToon2" type="MeshInstance3D" parent="meshes/Trees"]
+[node name="TreeFullToon2" type="MeshInstance3D" parent="meshes/Trees" unique_id=1117845510]
 transform = Transform3D(0.135468, -0.0400836, -1.99523, -0.151428, 2.99087, -0.0369862, 1.98965, 0.230358, 0.133033, 2.56602, 0.0824862, 2.70324)
 layers = 786433
 cast_shadow = 0
 mesh = SubResource("ArrayMesh_5ylpy")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_l52mk")
 
-[node name="TreeSimpleToon" type="MeshInstance3D" parent="meshes/Trees"]
+[node name="TreeSimpleToon" type="MeshInstance3D" parent="meshes/Trees" unique_id=1194668715]
 transform = Transform3D(0.135468, -0.0400836, -1.99523, -0.151428, 2.99087, -0.0369862, 1.98965, 0.230358, 0.133033, -0.93255, 3.10481, 0.644619)
 layers = 786433
 cast_shadow = 0
 mesh = SubResource("ArrayMesh_5ylpy")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_sm4y1")
 
-[node name="tower-base2" type="Node3D" parent="meshes"]
+[node name="tower-base2" type="Node3D" parent="meshes" unique_id=2000370170]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3757, 4.18744, 0.845192)
 
-[node name="3d scene" type="Node3D" parent="meshes"]
+[node name="3d scene" type="Node3D" parent="meshes" unique_id=1296084454]
 transform = Transform3D(1.86924, 0, 0.355646, 0, 1, 0, -0.711293, 0, 0.934621, 0, 1.74839, 0)
 
-[node name="grass" type="MeshInstance3D" parent="meshes/3d scene" groups=["snap", "snap_objects"]]
+[node name="grass" type="MeshInstance3D" parent="meshes/3d scene" unique_id=1679138604 groups=["snap", "snap_objects"]]
 transform = Transform3D(5.8431, 0.0194768, -0.00646681, -0.31517, 0.360786, -0.23986, -0.00646687, 0.0148228, 5.84668, 0, 0, 0)
 mesh = SubResource("ArrayMesh_thto2")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_4bq0p")
 
-[node name="dirt" type="MeshInstance3D" parent="meshes/3d scene" groups=["snap", "snap_objects"]]
+[node name="dirt" type="MeshInstance3D" parent="meshes/3d scene" unique_id=244164374 groups=["snap", "snap_objects"]]
 transform = Transform3D(5.85159, 0.000119468, -0.000514746, -0.0019333, 0.361615, -0.00141616, 0.000514269, 8.75227e-05, 5.85159, 0, 0, 0)
 mesh = SubResource("ArrayMesh_7glpj")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_e5xfp")
 surface_material_override/1 = SubResource("ShaderMaterial_pjo3g")
 surface_material_override/2 = SubResource("ShaderMaterial_nuv31")
 
-[node name="3d scene2" type="Node3D" parent="meshes"]
+[node name="3d scene2" type="Node3D" parent="meshes" unique_id=84497882]
 transform = Transform3D(1.86924, 0, 0.355646, 0, 1, 0, -0.711293, 0, 0.934621, -10.8333, 1.74839, -5.03242)
 
-[node name="grass" type="MeshInstance3D" parent="meshes/3d scene2" groups=["snap", "snap_objects"]]
+[node name="grass" type="MeshInstance3D" parent="meshes/3d scene2" unique_id=241897165 groups=["snap", "snap_objects"]]
 transform = Transform3D(5.8516, 0, -5.96046e-08, 0, 0.361615, 0, 2.38419e-07, 0, 5.8516, 4.72819, 0, -6.02976)
 mesh = SubResource("ArrayMesh_thto2")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_4bq0p")
 
-[node name="dirt" type="MeshInstance3D" parent="meshes/3d scene2" groups=["snap", "snap_objects"]]
+[node name="dirt" type="MeshInstance3D" parent="meshes/3d scene2" unique_id=1488894927 groups=["snap", "snap_objects"]]
 transform = Transform3D(5.85159, 0.000119468, -0.000514805, -0.0019333, 0.361615, -0.00141616, 0.000514507, 8.75227e-05, 5.85159, 0.532705, 0.159068, -2.79984)
 mesh = SubResource("ArrayMesh_7glpj")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_e5xfp")
 surface_material_override/1 = SubResource("ShaderMaterial_pjo3g")
 surface_material_override/2 = SubResource("ShaderMaterial_nuv31")
 
-[node name="3d scene3" type="Node3D" parent="meshes"]
+[node name="3d scene3" type="Node3D" parent="meshes" unique_id=758760370]
 transform = Transform3D(-0.432336, 0, 0.976356, 0, 1, 0, -1.95271, 0, -0.216168, -13.5382, 1.74839, 0.121191)
 
-[node name="grass" type="MeshInstance3D" parent="meshes/3d scene3" groups=["snap", "snap_objects"]]
+[node name="grass" type="MeshInstance3D" parent="meshes/3d scene3" unique_id=19159548 groups=["snap", "snap_objects"]]
 transform = Transform3D(5.8516, 0, 0, 0, 0.361615, 0, 0, 0, 5.8516, 0, 0, 0)
 mesh = SubResource("ArrayMesh_thto2")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_4bq0p")
 
-[node name="dirt" type="MeshInstance3D" parent="meshes/3d scene3" groups=["snap", "snap_objects"]]
+[node name="dirt" type="MeshInstance3D" parent="meshes/3d scene3" unique_id=281514966 groups=["snap", "snap_objects"]]
 transform = Transform3D(5.85159, 0.000119468, -0.000514746, -0.0019333, 0.361615, -0.00141616, 0.000514269, 8.75227e-05, 5.85159, 0, 0, 0)
 mesh = SubResource("ArrayMesh_7glpj")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_e5xfp")
 surface_material_override/1 = SubResource("ShaderMaterial_pjo3g")
 surface_material_override/2 = SubResource("ShaderMaterial_nuv31")
 
-[node name="3d scene4" type="Node3D" parent="meshes"]
+[node name="3d scene4" type="Node3D" parent="meshes" unique_id=2129494961]
 transform = Transform3D(-0.432336, 0, 0.976356, 0, 1, 0, -1.95271, 0, -0.216168, 4.18172, 1.74839, -8.89742)
 
-[node name="grass" type="MeshInstance3D" parent="meshes/3d scene4" groups=["snap", "snap_objects"]]
+[node name="grass" type="MeshInstance3D" parent="meshes/3d scene4" unique_id=1858048725 groups=["snap", "snap_objects"]]
 transform = Transform3D(5.8516, 0, 0, 0, 0.361615, 0, 0, 0, 5.8516, 0, 0, 0)
 mesh = SubResource("ArrayMesh_thto2")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_4bq0p")
 
-[node name="dirt" type="MeshInstance3D" parent="meshes/3d scene4" groups=["snap", "snap_objects"]]
+[node name="dirt" type="MeshInstance3D" parent="meshes/3d scene4" unique_id=1219313974 groups=["snap", "snap_objects"]]
 transform = Transform3D(5.85159, 0.000119468, -0.000514746, -0.0019333, 0.361615, -0.00141616, 0.000514269, 8.75227e-05, 5.85159, 0, 0, 0)
 mesh = SubResource("ArrayMesh_7glpj")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_e5xfp")
 surface_material_override/1 = SubResource("ShaderMaterial_pjo3g")
 surface_material_override/2 = SubResource("ShaderMaterial_nuv31")
 
-[node name="WaterToon" type="PlanarReflectorCPP" parent="meshes/3d scene4" node_paths=PackedStringArray("main_camera")]
+[node name="WaterToon" type="PlanarReflectorCPP" parent="meshes/3d scene4" unique_id=404505145 node_paths=PackedStringArray("main_camera")]
 main_camera = NodePath("../../../MainCamera3D")
 reflection_camera_resolution = Vector2i(640, 360)
 reflection_layers = 524288
@@ -589,36 +561,36 @@ cast_shadow = 0
 mesh = SubResource("PlaneMesh_7glpj")
 surface_material_override/0 = SubResource("ShaderMaterial_j7yen")
 
-[node name="clouds" type="Node3D" parent="meshes"]
+[node name="clouds" type="Node3D" parent="meshes" unique_id=1419236621]
 
-[node name="cloud" parent="meshes/clouds" instance=ExtResource("2_6jkqa")]
+[node name="cloud" parent="meshes/clouds" unique_id=1411317730 instance=ExtResource("2_6jkqa")]
 transform = Transform3D(-0.761191, -0.0993477, 0, 0.0993477, -0.761191, 0, 0, 0, 0.767647, -4.84968, -4.09805, -14.8325)
 
-[node name="Sphere" parent="meshes/clouds/cloud" index="0"]
+[node name="Sphere" parent="meshes/clouds/cloud" index="0" unique_id=1486403986]
 transform = Transform3D(0.636773, 7.45058e-09, 0, 0, 0.636773, 0, 0, 0, 0.636773, 0, 0, 0)
 surface_material_override/0 = SubResource("ShaderMaterial_mdsc5")
 
-[node name="cloud2" parent="meshes/clouds" instance=ExtResource("2_6jkqa")]
+[node name="cloud2" parent="meshes/clouds" unique_id=819245847 instance=ExtResource("2_6jkqa")]
 transform = Transform3D(0.581273, -0.012195, 0.0305446, -0.00763847, 0.392895, 0.239289, -0.0414255, -0.243563, 0.384471, 8.93968, -4.58713, -14.8325)
 
-[node name="Sphere" parent="meshes/clouds/cloud2" index="0"]
+[node name="Sphere" parent="meshes/clouds/cloud2" index="0" unique_id=1486403986]
 transform = Transform3D(1, -1.86265e-09, -3.72529e-09, 0, 1, -2.98023e-08, -7.45058e-09, 0, 1, -1.43022, 0.0476599, -0.123909)
 surface_material_override/0 = SubResource("ShaderMaterial_mdsc5")
 
-[node name="cloud3" parent="meshes/clouds" instance=ExtResource("2_6jkqa")]
+[node name="cloud3" parent="meshes/clouds" unique_id=2039974058 instance=ExtResource("2_6jkqa")]
 transform = Transform3D(-0.483247, -0.0701216, 0.000287572, 0.0720071, -0.45387, -0.0876048, 0.0139772, -0.0861573, 0.461261, 5.48563, -11.7638, -14.8325)
 
-[node name="Sphere" parent="meshes/clouds/cloud3" index="0"]
+[node name="Sphere" parent="meshes/clouds/cloud3" index="0" unique_id=1486403986]
 surface_material_override/0 = SubResource("ShaderMaterial_mdsc5")
 
-[node name="cloud4" parent="meshes/clouds" instance=ExtResource("2_6jkqa")]
+[node name="cloud4" parent="meshes/clouds" unique_id=1412767737 instance=ExtResource("2_6jkqa")]
 transform = Transform3D(0.21754, 0.0165193, -0.00296701, -0.0164069, 0.204396, 0.039004, 0.00624099, -0.0384702, 0.205958, -6.29093, -11.7638, -17.4237)
 
-[node name="Sphere" parent="meshes/clouds/cloud4" index="0"]
+[node name="Sphere" parent="meshes/clouds/cloud4" index="0" unique_id=1486403986]
 transform = Transform3D(1.72586, 1.49012e-08, -3.72529e-09, 2.79397e-09, 1.72586, 0, -7.45058e-09, 0, 1.72586, 0, 0, 0)
 surface_material_override/0 = SubResource("ShaderMaterial_mdsc5")
 
-[node name="MainCamera3D" type="Camera3D" parent="."]
+[node name="MainCamera3D" type="Camera3D" parent="." unique_id=883770527]
 unique_name_in_owner = true
 physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, -1.25911, 6.67345, -1.1127)

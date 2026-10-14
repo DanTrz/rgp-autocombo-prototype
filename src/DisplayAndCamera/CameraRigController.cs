@@ -13,7 +13,7 @@ public partial class CameraRigController : Node3D
 
 	[Export] public Node3D RotationPivotPoint;
 
-
+	[Export] private CollisionShape3D _collisionShape3D4 { get; set; }
 	[Export] public Camera3D MainCamera;
 
 

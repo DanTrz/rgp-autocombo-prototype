@@ -1,11 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://cedw1iorowriy"]
+[gd_scene format=3 uid="uid://cedw1iorowriy"]
 
 [ext_resource type="Script" uid="uid://cyycitd6e0er0" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.cs" id="1_gsf8r"]
 [ext_resource type="ArrayMesh" uid="uid://bfshqh0tvekd" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_SHIRT_002.res" id="1_t7jms"]
-[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="2_nkn45"]
-[ext_resource type="AnimationLibrary" uid="uid://c2y1lqlv4bprp" path="res://Assets/AnimLib/AnimPack_1.res" id="2_sug53"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://assets/shaders/PixelShaders/3dOutlineHighlight.gdshader" id="2_nkn45"]
+[ext_resource type="AnimationLibrary" uid="uid://c2y1lqlv4bprp" path="res://assets/AnimLib/AnimPack_1.res" id="2_sug53"]
 [ext_resource type="PackedScene" uid="uid://co43x2woraq8u" path="res://src/Characters/Player/PlayerStates/StateMachineManagerCS.tscn" id="3_8hc65"]
-[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/OtherShadersRepo/flexible_toon_v2.gdshader" id="3_utqhd"]
+[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://assets/shaders/OtherShadersRepo/flexible_toon_v2.gdshader" id="3_utqhd"]
 [ext_resource type="Texture2D" uid="uid://fwiagu5cgeau" path="res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_Ucupaint SHIRT Color.png" id="4_23k1y"]
 [ext_resource type="Script" uid="uid://djucnayndubaf" path="res://src/Characters/Player/PlayerStates/PlayerWalkState.cs" id="4_gsf8r"]
 [ext_resource type="Script" uid="uid://0bc13py14r7o" path="res://src/Characters/Player/PlayerStates/PlayerIdleState.cs" id="5_8ula1"]
@@ -279,19 +279,19 @@ shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
-[node name="TemplPlayer3dModel" type="CharacterBody3D"]
+[node name="TemplPlayer3dModel" type="CharacterBody3D" unique_id=1990623397]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 script = ExtResource("1_gsf8r")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=628263858]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.109437, 1.38954, 1.90735e-06)
 shape = SubResource("CapsuleShape3D_sug53")
 
-[node name="Skin" type="Node3D" parent="."]
+[node name="Skin" type="Node3D" parent="." unique_id=4051330]
 unique_name_in_owner = true
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 
-[node name="GeneralSkeleton" type="Skeleton3D" parent="Skin"]
+[node name="GeneralSkeleton" type="Skeleton3D" parent="Skin" unique_id=1912353916]
 unique_name_in_owner = true
 motion_scale = 9.05348
 bones/0/name = "Hips"
@@ -512,10 +512,11 @@ bones/30/position = Vector3(4.2784, -10.1331, 0.262068)
 bones/30/rotation = Quaternion(-0.0419027, 0, 0.999122, 0)
 bones/30/scale = Vector3(1, 1, 1)
 
-[node name="JOINT_CLOTHED_BASED_MODEL" type="MeshInstance3D" parent="Skin/GeneralSkeleton"]
+[node name="JOINT_CLOTHED_BASED_MODEL" type="MeshInstance3D" parent="Skin/GeneralSkeleton" unique_id=1145610067]
 material_overlay = SubResource("ShaderMaterial_fba3b")
 mesh = ExtResource("1_t7jms")
 skin = SubResource("Skin_alh28")
+skeleton = NodePath("..")
 surface_material_override/0 = SubResource("ShaderMaterial_w2sbi")
 surface_material_override/1 = SubResource("ShaderMaterial_76yau")
 surface_material_override/2 = SubResource("ShaderMaterial_7dnui")
@@ -523,30 +524,28 @@ surface_material_override/3 = SubResource("ShaderMaterial_0m67w")
 surface_material_override/4 = SubResource("ShaderMaterial_nkn45")
 surface_material_override/5 = SubResource("ShaderMaterial_u2d7s")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"AnimPack_1": ExtResource("2_sug53")
-}
-autoplay = "AnimPack_1/T-Pose (No Animation)"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=150151492]
+libraries/AnimPack_1 = ExtResource("2_sug53")
+autoplay = &"AnimPack_1/T-Pose (No Animation)"
 speed_scale = 1.5
 
-[node name="StateMachineManager" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("3_8hc65")]
+[node name="StateMachineManager" parent="." unique_id=274874162 node_paths=PackedStringArray("_initialState") instance=ExtResource("3_8hc65")]
 _initialState = NodePath("PlayerIdleState")
 
-[node name="PlayerWalkState" type="Node" parent="StateMachineManager"]
+[node name="PlayerWalkState" type="Node" parent="StateMachineManager" unique_id=1964799290]
 script = ExtResource("4_gsf8r")
 WalkSpeed = 15.0
 WalkRotationSpeed = 200.0
 WalkAcceleration = 1.0
 
-[node name="PlayerIdleState" type="Node" parent="StateMachineManager"]
+[node name="PlayerIdleState" type="Node" parent="StateMachineManager" unique_id=234546628]
 script = ExtResource("5_8ula1")
 
-[node name="PlayerJumpState" type="Node" parent="StateMachineManager"]
+[node name="PlayerJumpState" type="Node" parent="StateMachineManager" unique_id=816076685]
 script = ExtResource("6_utqhd")
 
-[node name="PlayerFallState" type="Node" parent="StateMachineManager"]
+[node name="PlayerFallState" type="Node" parent="StateMachineManager" unique_id=1184839734]
 script = ExtResource("7_23k1y")
 
-[node name="DebuggerUI" parent="." node_paths=PackedStringArray("character") instance=ExtResource("17_u2d7s")]
+[node name="DebuggerUI" parent="." unique_id=1624092354 node_paths=PackedStringArray("character") instance=ExtResource("17_u2d7s")]
 character = NodePath("..")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://kefeh2qihsjg"]
+[gd_scene format=3 uid="uid://kefeh2qihsjg"]
 
 [ext_resource type="Script" uid="uid://dqqn4iqk11gcv" path="res://addons/color-palette/ColorPaletteManager.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://bwajt3g5v3a3y" path="res://addons/color-palette/icons/Add.svg" id="3"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://24l4ev42u5wa" path="res://addons/color-palette/icons/Override.svg" id="5"]
 [ext_resource type="Texture2D" uid="uid://8wt1n0xolyao" path="res://addons/color-palette/icons/Filesystem.svg" id="6"]
 
-[node name="ColorPaletteManager" type="MarginContainer"]
+[node name="ColorPaletteManager" type="MarginContainer" unique_id=69870494]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -14,56 +14,56 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=213846117]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ColorPaletteContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="ColorPaletteContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1929484868]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="OptionsContainer" type="HBoxContainer" parent="HBoxContainer/ColorPaletteContainer"]
+[node name="OptionsContainer" type="HBoxContainer" parent="HBoxContainer/ColorPaletteContainer" unique_id=412923936]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="HBoxContainer/ColorPaletteContainer/OptionsContainer"]
+[node name="Title" type="Label" parent="HBoxContainer/ColorPaletteContainer/OptionsContainer" unique_id=909455213]
 layout_mode = 2
 text = "Palettes Directory"
 
-[node name="PaletteDirectoryLineEdit" type="LineEdit" parent="HBoxContainer/ColorPaletteContainer/OptionsContainer"]
+[node name="PaletteDirectoryLineEdit" type="LineEdit" parent="HBoxContainer/ColorPaletteContainer/OptionsContainer" unique_id=1979490273]
 unique_name_in_owner = true
 layout_mode = 2
 text = "res://addons/color-palette/_palettes/"
 placeholder_text = "Palette Directory"
 expand_to_text_length = true
 
-[node name="OpenPaletteDirectoryButton" type="Button" parent="HBoxContainer/ColorPaletteContainer/OptionsContainer"]
+[node name="OpenPaletteDirectoryButton" type="Button" parent="HBoxContainer/ColorPaletteContainer/OptionsContainer" unique_id=1950012963]
 unique_name_in_owner = true
 layout_mode = 2
 icon = ExtResource("6")
 
-[node name="Spacer" type="Control" parent="HBoxContainer/ColorPaletteContainer/OptionsContainer"]
+[node name="Spacer" type="Control" parent="HBoxContainer/ColorPaletteContainer/OptionsContainer" unique_id=1653192811]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NewPaletteNameLineEdit" type="LineEdit" parent="HBoxContainer/ColorPaletteContainer/OptionsContainer"]
+[node name="NewPaletteNameLineEdit" type="LineEdit" parent="HBoxContainer/ColorPaletteContainer/OptionsContainer" unique_id=1096633999]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "New Palette Name"
 expand_to_text_length = true
 select_all_on_focus = true
 
-[node name="NewPaletteButton" type="Button" parent="HBoxContainer/ColorPaletteContainer/OptionsContainer"]
+[node name="NewPaletteButton" type="Button" parent="HBoxContainer/ColorPaletteContainer/OptionsContainer" unique_id=227384970]
 unique_name_in_owner = true
 layout_mode = 2
 icon = ExtResource("3")
 
-[node name="RefreshListButton" type="Button" parent="HBoxContainer/ColorPaletteContainer/OptionsContainer"]
+[node name="RefreshListButton" type="Button" parent="HBoxContainer/ColorPaletteContainer/OptionsContainer" unique_id=1438976042]
 unique_name_in_owner = true
 layout_mode = 2
 icon = ExtResource("4")
 
-[node name="PaletteList" type="TabContainer" parent="HBoxContainer/ColorPaletteContainer"]
+[node name="PaletteList" type="TabContainer" parent="HBoxContainer/ColorPaletteContainer" unique_id=231492440]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -71,73 +71,77 @@ size_flags_vertical = 3
 current_tab = 0
 drag_to_rearrange_enabled = true
 
-[node name="ColorEditorContainer" type="MarginContainer" parent="HBoxContainer"]
+[node name="ColorEditorContainer" type="MarginContainer" parent="HBoxContainer" unique_id=840771610]
 layout_mode = 2
 focus_mode = 2
 
-[node name="Scroll" type="ScrollContainer" parent="HBoxContainer/ColorEditorContainer"]
+[node name="Scroll" type="ScrollContainer" parent="HBoxContainer/ColorEditorContainer" unique_id=1560684616]
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="ColorPickerContainer" type="VBoxContainer" parent="HBoxContainer/ColorEditorContainer/Scroll"]
+[node name="ColorPickerContainer" type="VBoxContainer" parent="HBoxContainer/ColorEditorContainer/Scroll" unique_id=234319400]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="SelectedColorLabel" type="Label" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer"]
+[node name="SelectedColorLabel" type="Label" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer" unique_id=623134867]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Select a palette or color..."
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer" unique_id=1104242399]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer/HBoxContainer2" unique_id=16081158]
 layout_mode = 2
 text = "Color name:"
 
-[node name="ColorNameLineEdit" type="LineEdit" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer/HBoxContainer2"]
+[node name="ColorNameLineEdit" type="LineEdit" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer/HBoxContainer2" unique_id=1444699493]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Unnamed"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer" unique_id=1741361662]
 layout_mode = 2
 
-[node name="SelectedColorRect" type="ColorRect" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer/HBoxContainer"]
+[node name="SelectedColorRect" type="ColorRect" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer/HBoxContainer" unique_id=949497329]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer/HBoxContainer" unique_id=7203560]
 layout_mode = 2
 text = ">"
 
-[node name="NewColorRect" type="ColorRect" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer/HBoxContainer"]
+[node name="NewColorRect" type="ColorRect" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer/HBoxContainer" unique_id=60028963]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ApplyChangesButton" type="Button" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer/HBoxContainer"]
+[node name="ApplyChangesButton" type="Button" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer/HBoxContainer" unique_id=1881968821]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Apply changes"
 icon = ExtResource("5")
 
-[node name="AddNewColorButton" type="Button" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer/HBoxContainer"]
+[node name="AddNewColorButton" type="Button" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer/HBoxContainer" unique_id=1214455494]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Add new Color"
 icon = ExtResource("3")
 
-[node name="ColorPicker" type="ColorPicker" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer"]
+[node name="ColorPicker" type="ColorPicker" parent="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer" unique_id=1225370609]
 unique_name_in_owner = true
 layout_mode = 2
 can_add_swatches = false
 presets_visible = false
 
+[connection signal="focus_entered" from="HBoxContainer/ColorPaletteContainer/PaletteList/Apollo" to="HBoxContainer/ColorPaletteContainer/PaletteList/Apollo" method="_on_focus_entered"]
+[connection signal="focus_entered" from="HBoxContainer/ColorPaletteContainer/PaletteList/cc-29" to="HBoxContainer/ColorPaletteContainer/PaletteList/cc-29" method="_on_focus_entered"]
 [connection signal="focus_entered" from="HBoxContainer/ColorPaletteContainer/PaletteList/Godot Icon Colors" to="HBoxContainer/ColorPaletteContainer/PaletteList/Godot Icon Colors" method="_on_focus_entered"]
+[connection signal="focus_entered" from="HBoxContainer/ColorPaletteContainer/PaletteList/PixelPalette" to="HBoxContainer/ColorPaletteContainer/PaletteList/PixelPalette" method="_on_focus_entered"]
+[connection signal="focus_entered" from="HBoxContainer/ColorPaletteContainer/PaletteList/Pixel_Plus_CC29" to="HBoxContainer/ColorPaletteContainer/PaletteList/Pixel_Plus_CC29" method="_on_focus_entered"]
 [connection signal="text_submitted" from="HBoxContainer/ColorEditorContainer/Scroll/ColorPickerContainer/HBoxContainer2/ColorNameLineEdit" to="." method="_on_color_name_line_edit_text_submitted"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c0vp8bbpb2ceg"]
+[gd_scene format=3 uid="uid://c0vp8bbpb2ceg"]
 
 [ext_resource type="Script" uid="uid://d225n8raais2e" path="res://Temp/PixelProject/LightShaft.cs" id="2_0ef8x"]
 [ext_resource type="Shader" uid="uid://becuk8cg3rnlv" path="res://Temp/PixelProject/godray_lightshaft.gdshader" id="2_q8dxd"]
@@ -38,24 +38,24 @@ shader_parameter/emission_energy = 0.5
 shader_parameter/uv1_scale = Vector2(4, 0.1)
 shader_parameter/uv1_offset = Vector2(0, 0.85)
 
-[node name="LightShaft" type="Node3D" node_paths=PackedStringArray("_lightShaftSkin")]
+[node name="LightShaft" type="Node3D" unique_id=2077507328 node_paths=PackedStringArray("_lightShaftSkin")]
 script = ExtResource("2_0ef8x")
 _lightShaftSkin = NodePath("LightShaftSkin")
 
-[node name="LightShaftSkin" type="MeshInstance3D" parent="."]
+[node name="LightShaftSkin" type="MeshInstance3D" parent="." unique_id=598018913]
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_q8dxd")
 skeleton = NodePath("../../../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_0ef8x")
 
-[node name="LightShaftSkin2" type="MeshInstance3D" parent="."]
+[node name="LightShaftSkin2" type="MeshInstance3D" parent="." unique_id=494984541]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9982, 0, 0)
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_q8dxd")
 skeleton = NodePath("../../../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_0ef8x")
 
-[node name="LightShaftSkin3" type="MeshInstance3D" parent="."]
+[node name="LightShaftSkin3" type="MeshInstance3D" parent="." unique_id=1013018590]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.7073, 0, 0)
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_q8dxd")

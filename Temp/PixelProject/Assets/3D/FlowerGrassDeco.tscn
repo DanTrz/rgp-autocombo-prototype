@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=4 uid="uid://bth1pg1lmmsm0"]
+[gd_scene format=4 uid="uid://bth1pg1lmmsm0"]
 
-[ext_resource type="Shader" uid="uid://cmqagob15pcm3" path="res://Assets/Shaders/PixelShaders/flexible_toon_v4.gdshader" id="2_elpdy"]
+[ext_resource type="Shader" uid="uid://cmqagob15pcm3" path="res://assets/shaders/PixelShaders/flexible_toon_v4.gdshader" id="2_elpdy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5ct2s"]
 render_priority = 0
@@ -118,8 +118,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_icxr0")
 
-[node name="flower_purpleB" type="MeshInstance3D"]
+[node name="flower_purpleB" type="MeshInstance3D" unique_id=607826291]
 mesh = SubResource("ArrayMesh_87dc4")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_5ct2s")
 surface_material_override/1 = SubResource("ShaderMaterial_s6ycy")

@@ -1,4 +1,4 @@
-[gd_resource type="CylinderMesh" load_steps=15 format=3 uid="uid://5owtsxpfxgp6"]
+[gd_resource type="CylinderMesh" format=3 uid="uid://5owtsxpfxgp6"]
 
 [ext_resource type="Shader" uid="uid://cmwatuur0pfiv" path="res://assets/shaders/PixelShaders/godray_shadow_offset_and_random.gdshader" id="1_brkdl"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bealq7sbapnjw"]
+[gd_scene format=3 uid="uid://bealq7sbapnjw"]
 
 [ext_resource type="PackedScene" uid="uid://bok06l3ildw4l" path="res://src/Levels/LevelComponents/GrassMeshAnimated.tscn" id="1_7sx1e"]
 
@@ -19,9 +19,9 @@ domain_warp_fractal_lacunarity = 1.5
 domain_warp_fractal_gain = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_msgp3"]
-seamless = true
-color_ramp = SubResource("Gradient_r4j7w")
 noise = SubResource("FastNoiseLite_7sx1e")
+color_ramp = SubResource("Gradient_r4j7w")
+seamless = true
 
 [sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_t6g20"]
 _shader_parameters = {
@@ -80,9 +80,9 @@ mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_0tkxi"), 
 
 [sub_resource type="Environment" id="Environment_7sx1e"]
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" unique_id=1333381170]
 
-[node name="Terrain3D" type="Terrain3D" parent="."]
+[node name="Terrain3D" type="Terrain3D" parent="." unique_id=1363928290]
 material = SubResource("Terrain3DMaterial_t6g20")
 assets = SubResource("Terrain3DAssets_44fvh")
 save_16_bit = true
@@ -90,10 +90,10 @@ show_checkered = true
 top_level = true
 metadata/_edit_lock_ = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2123897271]
 environment = SubResource("Environment_7sx1e")
 
-[node name="DayLight" type="DirectionalLight3D" parent="."]
+[node name="DayLight" type="DirectionalLight3D" parent="." unique_id=1971084712]
 transform = Transform3D(0.923217, -0.317767, -0.216091, 0.35328, 0.480568, 0.802651, -0.15121, -0.817361, 0.555929, -5.38748, 4.03484, 2.44282)
 light_color = Color(0.999999, 0.987262, 0.778071, 1)
 light_energy = 1.4

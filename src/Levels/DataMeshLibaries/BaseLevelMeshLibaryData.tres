@@ -1,4 +1,4 @@
-[gd_resource type="MeshLibrary" load_steps=10 format=4 uid="uid://dpc30nqlmnep2"]
+[gd_resource type="MeshLibrary" format=4 uid="uid://dpc30nqlmnep2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kev28"]
 

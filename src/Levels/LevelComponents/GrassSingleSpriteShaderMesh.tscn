@@ -1,14 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnhr158fl1b4f"]
+[gd_scene format=3 uid="uid://cnhr158fl1b4f"]
 
-[ext_resource type="Shader" uid="uid://csdekka4own2p" path="res://Assets/Shaders/PixelShaders/FoliageAnimation_v3_CloudSupport_v2_BillBoardFix.gdshader" id="1_4elv1"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k4f17"]
-load_path = "res://.godot/imported/Grass_3.png-6711f90f42818dba951396c8414e2150.ctex"
+[ext_resource type="Shader" uid="uid://csdekka4own2p" path="res://assets/shaders/PixelShaders/FoliageAnimation_v3_CloudSupport_v2_BillBoardFix.gdshader" id="1_4elv1"]
+[ext_resource type="Texture2D" uid="uid://fuykfqp6i8" path="res://Temp/PixelProject/Assets/2D/Grass_leafs.png" id="2_k4f17"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kp10v"]
 render_priority = 1
 shader = ExtResource("1_4elv1")
-shader_parameter/albedo_tex = SubResource("CompressedTexture2D_k4f17")
+shader_parameter/albedo_tex = ExtResource("2_k4f17")
 shader_parameter/albedo_color = Color(0.414024, 0.231667, 1, 1)
 shader_parameter/billboard = true
 shader_parameter/use_vertex_color = false
@@ -16,6 +14,8 @@ shader_parameter/use_emission = true
 shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/disable_ambient_light = false
 shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
+shader_parameter/use_alpha_scissors = false
+shader_parameter/alpha_scissors = 0.5
 shader_parameter/override_global_shadow = false
 shader_parameter/real_shadow_threshold = 0.99
 shader_parameter/enable_cloud_shadows = true
@@ -37,7 +37,7 @@ shader_parameter/debug_test = 0
 material = SubResource("ShaderMaterial_kp10v")
 size = Vector2(0.75, 0.75)
 
-[node name="GrassSingleSpriteShaderMesh" type="MeshInstance3D"]
+[node name="GrassSingleSpriteShaderMesh" type="MeshInstance3D" unique_id=355952912]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.330619, 0)
 mesh = SubResource("QuadMesh_kp10v")
 skeleton = NodePath("../..")

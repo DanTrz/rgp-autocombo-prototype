@@ -1,8 +1,8 @@
-[gd_scene load_steps=93 format=4 uid="uid://6o8sq0n0p8rn"]
+[gd_scene format=4 uid="uid://6o8sq0n0p8rn"]
 
 [ext_resource type="Shader" uid="uid://d7i4v6mk0aps" path="res://Temp/PixelProject/CloudManagerShader.gdshader" id="1_f2e7b"]
 [ext_resource type="PackedScene" uid="uid://bok06l3ildw4l" path="res://src/Levels/LevelComponents/GrassMeshAnimated.tscn" id="2_hdqrt"]
-[ext_resource type="Shader" uid="uid://osv6ambcbili" path="res://Assets/Shaders/PixelShaders/FoliageAnimation_v3_CloudSupport_v2.gdshader" id="2_pjemg"]
+[ext_resource type="Shader" uid="uid://osv6ambcbili" path="res://assets/shaders/PixelShaders/FoliageAnimation_v3_CloudSupport_v2.gdshader" id="2_pjemg"]
 [ext_resource type="PackedScene" uid="uid://be8vp1ovkxhey" path="res://Temp/PixelProject/Assets/3D/MushRooms.tscn" id="3_pjemg"]
 [ext_resource type="Texture2D" uid="uid://3sbqf0bf1n4s" path="res://Temp/PixelProject/Assets/2D/Textures/WhiteTextures/Blank64px.png" id="4_iloe7"]
 [ext_resource type="Texture2D" uid="uid://vsslbgh1tge3" path="res://Temp/PixelProject/Assets/2D/Textures/WhiteTextures/white_dirty_01.png" id="5_2muod"]
@@ -12,11 +12,11 @@
 [ext_resource type="Script" uid="uid://tweefbwoi14v" path="res://Temp/PixelProject/CloudManager.cs" id="9_hdqrt"]
 [ext_resource type="PackedScene" uid="uid://ceuqgja4ownk6" path="res://Temp/PixelProject/TreeMultiLeafGPUParticule.tscn" id="10_44b81"]
 [ext_resource type="Texture2D" uid="uid://cgevqdb47vav6" path="res://Temp/PixelProject/Assets/3D/BolderRockv2_Ucupaint BolderRock Color.png" id="11_f2e7b"]
-[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="12_ed8f5"]
-[ext_resource type="Shader" uid="uid://c8ynu5hrg8bbx" path="res://Assets/Shaders/OtherShadersRepo/flexible_toon_v3_Testing.gdshader" id="13_3sbtr"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://assets/shaders/PixelShaders/3dOutlineHighlight.gdshader" id="12_ed8f5"]
+[ext_resource type="Shader" uid="uid://c8ynu5hrg8bbx" path="res://assets/shaders/OtherShadersRepo/flexible_toon_v3_Testing.gdshader" id="13_3sbtr"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="15_3sbtr"]
 [ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="15_ro3v6"]
-[ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="16_a4ruw"]
+[ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://assets/shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="16_a4ruw"]
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="16_gjs8b"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ntwum"]
@@ -33,9 +33,9 @@ colors = PackedColorArray(0, 0, 0, 0.729412, 1, 1, 1, 0.447059)
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f2e7b"]
 width = 2048
 height = 2048
-seamless_blend_skirt = 0.5
-color_ramp = SubResource("Gradient_3sbtr")
 noise = SubResource("FastNoiseLite_a4ruw")
+color_ramp = SubResource("Gradient_3sbtr")
+seamless_blend_skirt = 0.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ed8f5"]
 render_priority = 0
@@ -55,9 +55,9 @@ subdivide_width = 100
 subdivide_depth = 100
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ro3v6"]
-seamless_blend_skirt = 0.5
-color_ramp = SubResource("Gradient_3sbtr")
 noise = SubResource("FastNoiseLite_a4ruw")
+color_ramp = SubResource("Gradient_3sbtr")
+seamless_blend_skirt = 0.5
 
 [sub_resource type="Gradient" id="Gradient_gjs8b"]
 offsets = PackedFloat32Array(0.00671141, 0.580537, 0.996644, 1)
@@ -66,9 +66,9 @@ colors = PackedColorArray(0, 0, 0, 0, 0.341176, 0.341176, 0.341176, 1, 0.114865,
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_3paja"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_olqhf"]
-seamless_blend_skirt = 0.0
-color_ramp = SubResource("Gradient_gjs8b")
 noise = SubResource("FastNoiseLite_3paja")
+color_ramp = SubResource("Gradient_gjs8b")
+seamless_blend_skirt = 0.0
 
 [sub_resource type="Gradient" id="Gradient_ntwum"]
 colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
@@ -76,8 +76,8 @@ colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_e700e"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8wq2b"]
-color_ramp = SubResource("Gradient_ntwum")
 noise = SubResource("FastNoiseLite_e700e")
+color_ramp = SubResource("Gradient_ntwum")
 
 [sub_resource type="Gradient" id="Gradient_axtr7"]
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
@@ -85,8 +85,8 @@ colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ex5wb"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jmgik"]
-color_ramp = SubResource("Gradient_axtr7")
 noise = SubResource("FastNoiseLite_ex5wb")
+color_ramp = SubResource("Gradient_axtr7")
 
 [sub_resource type="Gradient" id="Gradient_js72x"]
 offsets = PackedFloat32Array(0, 0.738255, 1)
@@ -95,8 +95,8 @@ colors = PackedColorArray(0, 0, 0, 1, 0.724832, 0.724832, 0.724832, 1, 1, 1, 1, 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_wm4bk"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6vst4"]
-color_ramp = SubResource("Gradient_js72x")
 noise = SubResource("FastNoiseLite_wm4bk")
+color_ramp = SubResource("Gradient_js72x")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ytxpn"]
 transparency = 2
@@ -163,9 +163,9 @@ domain_warp_fractal_lacunarity = 1.5
 domain_warp_fractal_gain = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3o2o4"]
-seamless = true
-color_ramp = SubResource("Gradient_rwiob")
 noise = SubResource("FastNoiseLite_edkn3")
+color_ramp = SubResource("Gradient_rwiob")
+seamless = true
 
 [sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_3sbtr"]
 _shader_parameters = {
@@ -197,22 +197,15 @@ world_background = 0
 texture_filtering = 1
 auto_shader = true
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a4ruw"]
-load_path = "res://.godot/imported/Grass_3.png-6711f90f42818dba951396c8414e2150.ctex"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xh5bt"]
 render_priority = -1
 shader = ExtResource("2_pjemg")
-shader_parameter/albedo_tex = SubResource("CompressedTexture2D_a4ruw")
-shader_parameter/albedo_color = Color(0.0627451, 0.631373, 0.117647, 1)
+shader_parameter/dayColor = Color(1, 1, 1, 1)
+shader_parameter/nightColor = Color(0.1, 0.2, 0.4, 1)
+shader_parameter/nightTime = 0.0
+shader_parameter/alphaThreshold = 0.8
 shader_parameter/billboard = true
-shader_parameter/use_vertex_color = false
-shader_parameter/use_emission = false
-shader_parameter/emission_color = Color(1, 1, 1, 1)
-shader_parameter/disable_ambient_light = false
-shader_parameter/fake_ambient_light = Color(0.8, 0.8, 0.8, 1)
 shader_parameter/override_global_shadow = false
-shader_parameter/real_shadow_threshold = 0.99
 shader_parameter/enable_cloud_shadows = true
 shader_parameter/cloud_shadow_intensity = 1.0
 shader_parameter/use_granular_shadows = true
@@ -220,13 +213,13 @@ shader_parameter/white_shadow_intensity = 0.0
 shader_parameter/gray_shadow_intensity = 0.5
 shader_parameter/black_shadow_intensity = 0.5
 shader_parameter/color_threshold = 0.5
-shader_parameter/wind_sway_strength = 0.1
-shader_parameter/wind_sway_speed = 1.0
-shader_parameter/wind_time_scale = 1.0
-shader_parameter/wind_time_offset = 0.0
-shader_parameter/sway_from_bottom = false
-shader_parameter/debug_mode = false
-shader_parameter/debug_test = 2
+shader_parameter/windSpeed = 0.2
+shader_parameter/windStrength = 0.1
+shader_parameter/use_vertex_color = false
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/disable_ambient_light = false
+shader_parameter/fake_ambient_light = Color(0.8, 0.8, 0.8, 1)
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_xh5bt"]
 name = "GrassMeshAnimated"
@@ -575,14 +568,14 @@ shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
-[sub_resource type="Gradient" id="Gradient_f2e7b"]
+[sub_resource type="Gradient" id="Gradient_jmgik"]
 resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
 colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ed8f5"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_js72x"]
 resource_local_to_scene = true
-gradient = SubResource("Gradient_f2e7b")
+gradient = SubResource("Gradient_jmgik")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ro3v6"]
 shader = ExtResource("16_a4ruw")
@@ -595,13 +588,12 @@ shader_parameter/light_boost = 1.0
 [sub_resource type="ViewportTexture" id="ViewportTexture_gjs8b"]
 viewport_path = NodePath("SubViewport")
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" unique_id=773135197]
 
-[node name="CloudManager" type="MeshInstance3D" parent="." node_paths=PackedStringArray("sunLight")]
+[node name="CloudManager" type="MeshInstance3D" parent="." unique_id=1288731746 node_paths=PackedStringArray("sunLight")]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 1, 8.79243, 60.3229, 26.8065)
 gi_mode = 0
 mesh = SubResource("PlaneMesh_ntwum")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_ed8f5")
 script = ExtResource("9_hdqrt")
 _alphaScissor = 0.57
@@ -611,20 +603,19 @@ moveSpeedMultiplier = 0.01
 sunLight = NodePath("../SubViewport/DayLight")
 enableDirectionalShadows = true
 
-[node name="CloudManagerBKUP" type="MeshInstance3D" parent="."]
+[node name="CloudManagerBKUP" type="MeshInstance3D" parent="." unique_id=1315128361]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 1, 10.3542, 60.3229, -10.2735)
 visible = false
 gi_mode = 0
 mesh = SubResource("PlaneMesh_ed8f5")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_ytxpn")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=263637520]
 handle_input_locally = false
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="DayLight" type="DirectionalLight3D" parent="SubViewport"]
+[node name="DayLight" type="DirectionalLight3D" parent="SubViewport" unique_id=1025017594]
 transform = Transform3D(0.737188, 0.0156268, -0.675507, 0.273955, 0.906962, 0.319952, 0.617658, -0.420923, 0.664321, 0, 6.95719, 0)
 layers = 524289
 shadow_enabled = true
@@ -633,10 +624,10 @@ directional_shadow_mode = 0
 directional_shadow_split_1 = 0.9
 directional_shadow_split_2 = 1.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport" unique_id=146807880]
 environment = SubResource("Environment_pjemg")
 
-[node name="Terrain3DPixel" type="Terrain3D" parent="SubViewport"]
+[node name="Terrain3DPixel" type="Terrain3D" parent="SubViewport" unique_id=419810958]
 data_directory = "res://Temp/PixelProject/Terrain3DDataV3"
 material = SubResource("Terrain3DMaterial_3sbtr")
 assets = SubResource("Terrain3DAssets_ro3v6")
@@ -644,37 +635,35 @@ collision_mode = 4
 top_level = true
 metadata/_edit_lock_ = true
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Terrain3DPixel"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Terrain3DPixel" unique_id=1537519033]
 top_level = true
 
-[node name="BolderRockv11" type="MeshInstance3D" parent="SubViewport"]
+[node name="BolderRockv11" type="MeshInstance3D" parent="SubViewport" unique_id=1411392054]
 transform = Transform3D(0.954509, 0.29567, -0.0386311, -0.281722, 0.936666, 0.20806, 0.0977015, -0.187711, 0.977353, -7.94751, -0.340172, -1.38716)
 layers = 524289
 mesh = SubResource("ArrayMesh_ro3v6")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_gjs8b")
 
-[node name="BolderRockv12" type="MeshInstance3D" parent="SubViewport"]
+[node name="BolderRockv12" type="MeshInstance3D" parent="SubViewport" unique_id=263209186]
 transform = Transform3D(0.954509, 0.29567, -0.0386311, -0.281722, 0.936666, 0.20806, 0.0977015, -0.187711, 0.977353, -21.4406, -0.931051, 1.82716)
 layers = 524289
 mesh = SubResource("ArrayMesh_ro3v6")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_gjs8b")
 
-[node name="TreeMultiLeafGPUParticule" parent="SubViewport" instance=ExtResource("10_44b81")]
+[node name="TreeMultiLeafGPUParticule" parent="SubViewport" unique_id=1358080177 instance=ExtResource("10_44b81")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 8.45463, 0, -2.02145)
 _mainParticuleColor = Color(0.0539388, 0.612713, 0.100537, 1)
 _internalMeshColorAdjust = Color(0.0803656, 0.965508, 0.16877, 1)
 _useVertexColors = false
-_colorShadingRamp = SubResource("GradientTexture1D_ed8f5")
+_colorShadingRamp = SubResource("GradientTexture1D_js72x")
 
-[node name="CameraRigYaw" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
+[node name="CameraRigYaw" type="Node3D" parent="SubViewport" unique_id=1480034028 node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 70)
 script = ExtResource("15_ro3v6")
 RotationPivotPoint = NodePath("WorldCentralPivot")
 MainCamera = NodePath("Camera3D")
 
-[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw"]
+[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw" unique_id=2059818406]
 unique_name_in_owner = true
 physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0, 0)
@@ -687,9 +676,9 @@ far = 275.0
 script = ExtResource("16_gjs8b")
 SnapObjects = false
 
-[node name="WorldCentralPivot" type="Node3D" parent="SubViewport/CameraRigYaw"]
+[node name="WorldCentralPivot" type="Node3D" parent="SubViewport/CameraRigYaw" unique_id=961203119]
 
-[node name="Display" type="Control" parent="." node_paths=PackedStringArray("_viewport", "_mainRendereSprite")]
+[node name="Display" type="Control" parent="." unique_id=1177900868 node_paths=PackedStringArray("_mainRendereSprite")]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 15
@@ -702,10 +691,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("15_3sbtr")
-_viewport = NodePath("../SubViewport")
 _mainRendereSprite = NodePath("MainRenderSprite")
 
-[node name="MainRenderSprite" type="Sprite2D" parent="Display"]
+[node name="MainRenderSprite" type="Sprite2D" parent="Display" unique_id=112399262]
 texture_filter = 2
 material = SubResource("ShaderMaterial_ro3v6")
 position = Vector2(-0.985153, 3.95636)

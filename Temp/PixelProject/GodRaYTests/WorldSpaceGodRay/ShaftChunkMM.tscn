@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnoal853hd07d"]
+[gd_scene format=3 uid="uid://cnoal853hd07d"]
 
 [ext_resource type="CylinderMesh" uid="uid://5owtsxpfxgp6" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftMesh.tres" id="1_xtxnn"]
 [ext_resource type="Script" uid="uid://bcg2px4q72n21" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/ShaftChunkMMController.cs" id="2_hknp4"]
@@ -29,14 +29,14 @@ use_colors = true
 use_custom_data = true
 mesh = SubResource("SphereMesh_1bdby")
 
-[node name="ShaftChunkMMController" type="MultiMeshInstance3D" node_paths=PackedStringArray("_debuggerSphere")]
+[node name="ShaftChunkMMController" type="MultiMeshInstance3D" unique_id=26864971 node_paths=PackedStringArray("_debuggerSphere")]
 layers = 262144
 cast_shadow = 0
 multimesh = SubResource("MultiMesh_1v7uf")
 script = ExtResource("2_hknp4")
 _debuggerSphere = NodePath("SphereDebugVisualizer")
 
-[node name="SphereDebugVisualizer" type="MultiMeshInstance3D" parent="."]
+[node name="SphereDebugVisualizer" type="MultiMeshInstance3D" parent="." unique_id=562813355]
 layers = 262145
 cast_shadow = 0
 multimesh = SubResource("MultiMesh_lfdt2")

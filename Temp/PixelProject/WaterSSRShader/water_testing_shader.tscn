@@ -1,10 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://d4ih2npe2ba44"]
+[gd_scene format=3 uid="uid://d4ih2npe2ba44"]
 
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="2_s5fk6"]
 [ext_resource type="Shader" uid="uid://dcwsr43gaiw4m" path="res://water_gd_planar_reflections/planar_reflection_ortho_working.gdshader" id="3_qvv8d"]
 [ext_resource type="Script" uid="uid://b66hrw8ajguo0" path="res://water_gd_planar_reflections/PlanarReflection.gd" id="3_s5fk6"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="5_qvv8d"]
-[ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="6_0bfsn"]
+[ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://assets/shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="6_0bfsn"]
 [ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="6_g8b4f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lgx2c"]
@@ -31,25 +31,25 @@ viewport_path = NodePath("PlanarReflector2/@SubViewport@24413")
 seed = 10
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0bfsn"]
+noise = SubResource("FastNoiseLite_qvv8d")
 seamless = true
 as_normal_map = true
-noise = SubResource("FastNoiseLite_qvv8d")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_hukoa"]
 seed = 10
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mvp1u"]
+noise = SubResource("FastNoiseLite_hukoa")
 seamless = true
 as_normal_map = true
-noise = SubResource("FastNoiseLite_hukoa")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_hhrhu"]
 seed = 10
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g8b4f"]
+noise = SubResource("FastNoiseLite_hhrhu")
 seamless = true
 as_normal_map = true
-noise = SubResource("FastNoiseLite_hhrhu")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4tqjt"]
 resource_local_to_scene = true
@@ -96,44 +96,43 @@ shader_parameter/light_boost = 1.05
 [sub_resource type="ViewportTexture" id="ViewportTexture_mvp1u"]
 viewport_path = NodePath("SubViewport")
 
-[node name="WaterTestingShader" type="Node3D"]
+[node name="WaterTestingShader" type="Node3D" unique_id=877974876]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=972816950]
 environment = SubResource("Environment_7nu6e")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=451261175]
 transform = Transform3D(0.798917, -0.18291, -0.572953, 0.430893, -0.49054, 0.757431, -0.419598, -0.852006, -0.313086, -8.09849, 4.9777, 4.89715)
 shadow_enabled = true
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=2053654119]
 handle_input_locally = false
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="Objects" type="Node3D" parent="SubViewport"]
+[node name="Objects" type="Node3D" parent="SubViewport" unique_id=806856240]
 transform = Transform3D(0.745822, 0.069073, -0.662555, 0.594207, -0.518565, 0.614823, -0.30111, -0.852244, -0.427801, 2.23352, 3.01102, 3.67148)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="SubViewport/Objects"]
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewport/Objects" unique_id=70186714]
 transform = Transform3D(0.931212, 0.256767, -0.258681, 0.197281, -0.951856, -0.23463, -0.306472, 0.167458, -0.937034, -3.05231, 4.14097, 2.79288)
 size = Vector3(1, 3, 1)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewport/Objects"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewport/Objects" unique_id=1166256006]
 transform = Transform3D(0.977745, 0.155711, 0.140607, 0.190255, -0.375589, -0.907048, -0.0884272, 0.913612, -0.396855, -0.560704, 3.20795, -0.176818)
 size = Vector3(1, 3, 1)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=285125699]
 transform = Transform3D(0.968675, -0.228646, -0.0969101, 0.213088, 0.564882, 0.797184, -0.12753, -0.792862, 0.595909, -0.318842, 7.89844, 3.56345)
 mesh = SubResource("CylinderMesh_lgx2c")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_s3kyq")
 
-[node name="CameraRigYaw" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
+[node name="CameraRigYaw" type="Node3D" parent="SubViewport" unique_id=122188337 node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0425911, 22.9374, 61.8745)
 script = ExtResource("6_g8b4f")
 RotationPivotPoint = NodePath("Camera3D/WorldCentralPivot")
 MainCamera = NodePath("Camera3D")
 
-[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw"]
+[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw" unique_id=1005448384]
 unique_name_in_owner = true
 physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0, -32.0503)
@@ -144,16 +143,16 @@ far = 100.0
 script = ExtResource("2_s5fk6")
 SnapObjects = false
 
-[node name="WorldCentralPivot" type="Node3D" parent="SubViewport/CameraRigYaw/Camera3D"]
+[node name="WorldCentralPivot" type="Node3D" parent="SubViewport/CameraRigYaw/Camera3D" unique_id=1898167751]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0998, -38.7519)
 
-[node name="PlanarReflector" type="MeshInstance3D" parent="SubViewport" node_paths=PackedStringArray("main_cam")]
+[node name="PlanarReflector" type="MeshInstance3D" parent="SubViewport" unique_id=1370586503 node_paths=PackedStringArray("main_cam")]
 mesh = SubResource("PlaneMesh_ndy57")
 script = ExtResource("3_s5fk6")
 main_cam = NodePath("../CameraRigYaw/Camera3D")
 reflection_camera_resolution = Vector2i(640, 360)
 
-[node name="Display" type="Control" parent="." node_paths=PackedStringArray("_viewport", "_mainRendereSprite")]
+[node name="Display" type="Control" parent="." unique_id=774081827 node_paths=PackedStringArray("_mainRendereSprite")]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 15
@@ -166,10 +165,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("5_qvv8d")
-_viewport = NodePath("../SubViewport")
 _mainRendereSprite = NodePath("MainRenderSprite")
 
-[node name="MainRenderSprite" type="Sprite2D" parent="Display"]
+[node name="MainRenderSprite" type="Sprite2D" parent="Display" unique_id=1615301748]
 texture_filter = 2
 material = SubResource("ShaderMaterial_hukoa")
 position = Vector2(-0.985153, 3.95636)

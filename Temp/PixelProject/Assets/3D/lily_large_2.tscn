@@ -1,7 +1,7 @@
-[gd_scene load_steps=13 format=4 uid="uid://ctxbydiyp1okd"]
+[gd_scene format=4 uid="uid://ctxbydiyp1okd"]
 
-[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="1_l1eae"]
-[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_67si0"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://assets/shaders/PixelShaders/3dOutlineHighlight.gdshader" id="1_l1eae"]
+[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://assets/shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_67si0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s8orf"]
 resource_name = "leafsGreen"
@@ -212,15 +212,14 @@ shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
-[node name="lily_large2" type="Node3D"]
+[node name="lily_large2" type="Node3D" unique_id=876721189]
 transform = Transform3D(1, 0, 0, 0, 2.5, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="tmpParent" type="Node3D" parent="."]
+[node name="tmpParent" type="Node3D" parent="." unique_id=532527161]
 
-[node name="lily_large" type="MeshInstance3D" parent="tmpParent"]
+[node name="lily_large" type="MeshInstance3D" parent="tmpParent" unique_id=632984389]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 mesh = SubResource("ArrayMesh_othnu")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_keioy")
 surface_material_override/1 = SubResource("ShaderMaterial_l1eae")
 surface_material_override/2 = SubResource("ShaderMaterial_77cro")

@@ -1,10 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://c3h70ofd8ip63"]
+[gd_scene format=3 uid="uid://c3h70ofd8ip63"]
 
 [ext_resource type="ArrayMesh" uid="uid://blkkhoc2hdbor" path="res://Temp/PixelProject/Assets/3D/bridge_Cube_551.res" id="1_m2863"]
 
-[node name="bridge" type="Node3D"]
+[node name="bridge" type="Node3D" unique_id=985007217]
 
-[node name="Cube_214" type="MeshInstance3D" parent="."]
+[node name="Cube_214" type="MeshInstance3D" parent="." unique_id=1902899205]
 transform = Transform3D(0.896923, 0, 0.442187, 0, 1, 0, -0.442187, 0, 0.896923, 0, 0, 0)
 mesh = ExtResource("1_m2863")
-skeleton = NodePath("")

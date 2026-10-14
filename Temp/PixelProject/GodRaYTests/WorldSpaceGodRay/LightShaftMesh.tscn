@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cxcbfbeuyxjnd"]
+[gd_scene format=3 uid="uid://cxcbfbeuyxjnd"]
 
 [ext_resource type="CylinderMesh" uid="uid://5owtsxpfxgp6" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/LightShaftMesh.tres" id="1_5pwqe"]
 
-[node name="LightShaftMesh" type="Node3D"]
+[node name="LightShaftMesh" type="Node3D" unique_id=1364495450]
 
-[node name="LightShaftSkin" type="MeshInstance3D" parent="."]
+[node name="LightShaftSkin" type="MeshInstance3D" parent="." unique_id=2689756]
 layers = 262144
 extra_cull_margin = 16384.0
 ignore_occlusion_culling = true

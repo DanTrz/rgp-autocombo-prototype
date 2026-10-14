@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://1nbihtdf4hnv"]
+[gd_scene format=3 uid="uid://1nbihtdf4hnv"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yeau7"]
 emission_shape = 3
@@ -65,9 +65,9 @@ albedo_texture = SubResource("GradientTexture2D_lh0c0")
 material = SubResource("StandardMaterial3D_pwl4w")
 size = Vector2(1, 1)
 
-[node name="Rain1" type="Node3D"]
+[node name="Rain1" type="Node3D" unique_id=354514454]
 
-[node name="Droplets" type="GPUParticles3D" parent="."]
+[node name="Droplets" type="GPUParticles3D" parent="." unique_id=1786164142]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 amount = 240
 sub_emitter = NodePath("../Ripples")
@@ -75,7 +75,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_yeau7")
 draw_pass_1 = SubResource("QuadMesh_r2rct")
 
-[node name="Ripples" type="GPUParticles3D" parent="."]
+[node name="Ripples" type="GPUParticles3D" parent="." unique_id=1375373611]
 lifetime = 0.5
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_kmy1d")

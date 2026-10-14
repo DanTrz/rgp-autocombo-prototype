@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cssv3lgd2hg3c"]
+[gd_scene format=3 uid="uid://cssv3lgd2hg3c"]
 
 [ext_resource type="Script" uid="uid://dvcsi0tbns7fh" path="res://Temp/PixelProject/GodRaYTests/GodRayPostProcessing.cs" id="1_2iff8"]
 [ext_resource type="Script" uid="uid://crky164vil5h7" path="res://Temp/PixelProject/GodRaYTests/OccluderCamera.cs" id="1_7dhwe"]
@@ -47,25 +47,25 @@ subdivide_depth = 25
 [sub_resource type="BoxMesh" id="BoxMesh_gdkye"]
 size = Vector3(40, 0.1, 12)
 
-[node name="GodRayProcessingScene" type="Node3D"]
+[node name="GodRayProcessingScene" type="Node3D" unique_id=113360696]
 script = ExtResource("1_2iff8")
 
-[node name="world_env" type="WorldEnvironment" parent="."]
+[node name="world_env" type="WorldEnvironment" parent="." unique_id=1586604498]
 environment = SubResource("Environment_gdkye")
 
-[node name="MainDirectionalLight" type="DirectionalLight3D" parent="."]
+[node name="MainDirectionalLight" type="DirectionalLight3D" parent="." unique_id=903707206]
 transform = Transform3D(-0.843185, -0.0558643, 0.534714, 0.535519, 0.000645788, 0.844522, -0.047524, 0.998438, 0.0293719, -1.91464, 10.1127, -0.116671)
 layers = 524289
 light_bake_mode = 0
 shadow_enabled = true
 
-[node name="OccluderViewport" type="SubViewport" parent="."]
+[node name="OccluderViewport" type="SubViewport" parent="." unique_id=531450589]
 transparent_bg = true
 canvas_cull_mask = 4293918720
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="OccluderCamera" type="Camera3D" parent="OccluderViewport"]
+[node name="OccluderCamera" type="Camera3D" parent="OccluderViewport" unique_id=340904732]
 transform = Transform3D(1, 0, 0, 0, 0.975111, 0.221719, 0, -0.221719, 0.975111, -0.135998, 8.7536, 12.1073)
 cull_mask = 524288
 projection = 1
@@ -74,55 +74,48 @@ size = 15.0
 script = ExtResource("1_7dhwe")
 MainCameraPath = NodePath("../../MainCamera3D")
 
-[node name="CUBE" type="MeshInstance3D" parent="OccluderViewport"]
+[node name="CUBE" type="MeshInstance3D" parent="OccluderViewport" unique_id=445751547]
 transform = Transform3D(0.666389, 0, -0.745604, 0, 1, 0, 0.745604, 0, 0.666389, -0.0693507, 6.22793, 0)
 layers = 524288
 mesh = SubResource("BoxMesh_eofbl")
-skeleton = NodePath("")
 
-[node name="CUBE5" type="MeshInstance3D" parent="OccluderViewport"]
+[node name="CUBE5" type="MeshInstance3D" parent="OccluderViewport" unique_id=9597727]
 transform = Transform3D(0.666389, 0, -0.745604, 0, 1, 0, 0.745604, 0, 0.666389, -0.0693507, 10.8879, 0)
 layers = 524288
 mesh = SubResource("BoxMesh_eofbl")
-skeleton = NodePath("")
 
-[node name="CUBE2" type="MeshInstance3D" parent="OccluderViewport"]
+[node name="CUBE2" type="MeshInstance3D" parent="OccluderViewport" unique_id=26120071]
 transform = Transform3D(0.666389, 0, -0.745604, 0, 1, 0, 0.745604, 0, 0.666389, -9.42911, 6.22793, -3.85425)
 layers = 524288
 mesh = SubResource("BoxMesh_eofbl")
-skeleton = NodePath("")
 
-[node name="CUBE3" type="MeshInstance3D" parent="OccluderViewport"]
+[node name="CUBE3" type="MeshInstance3D" parent="OccluderViewport" unique_id=1120816153]
 transform = Transform3D(0.666389, 0, -0.745604, 0, 1, 0, 0.745604, 0, 0.666389, -5.39967, 3.85121, -2.67586)
 layers = 524288
 mesh = SubResource("BoxMesh_eofbl")
-skeleton = NodePath("")
 
-[node name="CUBE4" type="MeshInstance3D" parent="OccluderViewport"]
+[node name="CUBE4" type="MeshInstance3D" parent="OccluderViewport" unique_id=921377382]
 transform = Transform3D(0.666389, 0, -0.745604, 0, 1, 0, 0.745604, 0, 0.666389, 4.676, 3.85121, -1.19861)
 layers = 524288
 mesh = SubResource("CylinderMesh_2iff8")
-skeleton = NodePath("")
 
-[node name="CUBE6" type="MeshInstance3D" parent="OccluderViewport"]
+[node name="CUBE6" type="MeshInstance3D" parent="OccluderViewport" unique_id=187230066]
 transform = Transform3D(0.666389, 0, -0.745604, 0, 1, 0, 0.745604, 0, 0.666389, -4.95998, 10.7141, 0.496851)
 layers = 524288
 mesh = SubResource("CylinderMesh_2iff8")
-skeleton = NodePath("")
 
-[node name="CUBE7" type="MeshInstance3D" parent="OccluderViewport"]
+[node name="CUBE7" type="MeshInstance3D" parent="OccluderViewport" unique_id=1716165738]
 transform = Transform3D(0.666389, 0, -0.745604, 0, 1, 0, 0.745604, 0, 0.666389, 2.83736, 10.7141, -0.0980551)
 layers = 524288
 mesh = SubResource("CylinderMesh_2iff8")
-skeleton = NodePath("")
 
-[node name="MainCamera3D" type="Camera3D" parent="."]
+[node name="MainCamera3D" type="Camera3D" parent="." unique_id=1193055599]
 transform = Transform3D(1, 0, 0, 0, 0.975111, 0.221719, 0, -0.221719, 0.975111, -0.135998, 8.7536, 12.1073)
 projection = 1
 current = true
 size = 15.0
 
-[node name="GodRayOverlay" type="MeshInstance3D" parent="MainCamera3D"]
+[node name="GodRayOverlay" type="MeshInstance3D" parent="MainCamera3D" unique_id=171256106]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.661612, -5.80002)
 mesh = SubResource("QuadMesh_gdkye")
 script = ExtResource("3_i8ax1")
@@ -130,8 +123,7 @@ OccluderSubViewportPath = NodePath("../../OccluderViewport")
 MainLightPath = NodePath("../../MainDirectionalLight")
 MainCameraPath = NodePath("..")
 
-[node name="Floor" type="MeshInstance3D" parent="."]
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=1148765521]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.76917)
 layers = 524289
 mesh = SubResource("BoxMesh_gdkye")
-skeleton = NodePath("")

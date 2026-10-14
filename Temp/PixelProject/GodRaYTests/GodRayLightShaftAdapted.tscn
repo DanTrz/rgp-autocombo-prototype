@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=4 uid="uid://4j6six2ljdfr"]
+[gd_scene format=4 uid="uid://4j6six2ljdfr"]
 
 [ext_resource type="Script" uid="uid://6suh0pl1s2ra" path="res://Temp/PixelProject/GodRaYTests/GodRayLightShaftAdapted.gd" id="1_8osrw"]
 [ext_resource type="Material" uid="uid://dqgh45ow7ygkh" path="res://Temp/PixelProject/GodRaYTests/light_shafts/default_light_shaft.material" id="1_db5n4"]
@@ -17,8 +17,8 @@ ambient_light_source = 1
 [sub_resource type="ArrayMesh" id="ArrayMesh_q5on4"]
 resource_local_to_scene = true
 _surfaces = [{
-"aabb": AABB(-0.948239, -0.404235, -100.94, 2.26422, 0.622838, 102.088),
-"attribute_data": PackedByteArray("/uWXTAAAAAAAAIA//uWXTAAAAAAAAAAA/uWXTMWxZD0AAIA//uWXTMWxZD0AAAAA/uWXTJp3Jz4AAIA//uWXTJp3Jz4AAAAA/uWXTPZueD4AAIA//uWXTPZueD4AAAAA/uWXTFdTrj4AAIA//uWXTFdTrj4AAAAA/uWXTOZ+5z4AAIA//uWXTOZ+5z4AAAAA/uWXTGlMAj8AAIA//uWXTGlMAj8AAAAA/uWXTKy7Ez8AAIA//uWXTKy7Ez8AAAAA/uWXTKPGHz8AAIA//uWXTKPGHz8AAAAA/uWXTDWNNz8AAIA//uWXTDWNNz8AAAAA/uWXTH60Uj8AAIA//uWXTH60Uj8AAAAA/uWXTAY9ZD8AAIA//uWXTAY9ZD8AAAAA/uWXTN4rbz8AAIA//uWXTN4rbz8AAAAA"),
+"aabb": AABB(-0.6440978, -12.371574, -1.8706983, 7.153233, 11.904923, 3.4542775),
+"attribute_data": PackedByteArray("/uWXTAAAAAAAAIA//uWXTAAAAAAAAAAA/uWXTMexZD0AAIA//uWXTMexZD0AAAAA/uWXTJ53Jz4AAIA//uWXTJ53Jz4AAAAA/uWXTP9ueD4AAIA//uWXTP9ueD4AAAAA/uWXTFlTrj4AAIA//uWXTFlTrj4AAAAA/uWXTOx+5z4AAIA//uWXTOx+5z4AAAAA/uWXTGxMAj8AAIA//uWXTGxMAj8AAAAA/uWXTLC7Ez8AAIA//uWXTLC7Ez8AAAAA/uWXTKfGHz8AAIA//uWXTKfGHz8AAAAA/uWXTDmNNz8AAIA//uWXTDmNNz8AAAAA/uWXTIO0Uj8AAIA//uWXTIO0Uj8AAAAA/uWXTAs9ZD8AAIA//uWXTAs9ZD8AAAAA/uWXTOQrbz8AAIA//uWXTOQrbz8AAAAA"),
 "format": 34359742495,
 "index_count": 78,
 "index_data": PackedByteArray("AAABAAIAAQADAAIAAgADAAQAAwAFAAQABAAFAAYABQAHAAYABgAHAAgABwAJAAgACAAJAAoACQALAAoACgALAAwACwANAAwADAANAA4ADQAPAA4ADgAPABAADwARABAAEAARABIAEQATABIAEgATABQAEwAVABQAFAAVABYAFQAXABYAFgAXABgAFwAZABgAGAAZAAAAGQABAAAA"),
@@ -26,7 +26,7 @@ _surfaces = [{
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 26,
-"vertex_data": PackedByteArray("RkFUvwVvSD0/v4S9RkFUvwVvSD0wIcjCaW4Rv5RMzj2ELca+aW4Rv5RMzj0uxsjCpRqhPYMTEb7jjE2/pRqhPYMTEb4am8nCAwUiPzXocDwFhnC/AwUiPzXocDwM4cnC6WWgP1+3uL7Bq1W/6WWgP1+3uL5Yq8nCCHKoPyZXgb4EXwe8CHKoPyZXgb47BMjC7pSeP+T3zr7jb8M+7pSeP+T3zr6QPMfC6bV5PwmWGb09RR4/6bV5PwmWGb12w8bCIGA1P/ascL2Szlg/IGA1P/ascL1jTsbC+qQpPfb/ODgOSoQ/+qQpPfb/ODjY7sXCnYA+v/b/ODiwA5M/nYA+v/b/ODjxs8XCCoFYv3fZXz7GMTI/CoFYv3fZXz6cm8bCy79yv/q3Kz60kcs+y79yv/q3Kz5uNMfC3XgiB4cHjcPdeCIHhweNw7hsRxMbFmLJuGxHExsWYslM0rGt0moQ00zSsa3SahDTF30X/fgCi74XfRf9+AKLvpycYuOfInDNnJxi458icM2clGHr1Rf+yZyUYevVF/7JfJ+B4Kgmks58n4HgqCaSzryEQvvpBFzCvIRC++kEXMLMiTH2jArexMyJMfaMCt7E3H/c/yIA7b/cf9z/IgDtv/1/AQABAADA/X8BAAEAAMC1ZUoaah96zLVlShpqH3rMw2w8EwwWXcnDbDwTDBZdyQ==")
+"vertex_data": PackedByteArray("KO6DP+DlIr9Pcpa/7jjLQGY4QcGaGgO/PBOPP0CjFb9AGEW/1krQQNXYQsEgOci9TJCEP8CxU78ATrC7x8zLQIa4RMF01Cg/KFBLPzCpK794CAM//onHQPjxRcE6WZg/AIalPjjkhb/oy20/zGOyQFlqRcG4sso/gBe4vnAYcL/IHes+qh2bQKknQsGO3o0/CGQdv2h0i7+QLh4+yueOQAs8QMHEsUk/gDMivzAGOb+w4ku+/CiTQHqWP8GICug+mOMkv6B3Pr/86Ay/9GWRQBllPsFAR8U9oNC9vgBqL79G7Je/t+eZQPUxPcEihAq/gPwFPfBpL78Lc++/dtClQG0ePMGjSJ2/IMDlPuDs7r4tOdW/YWC4QCFEPsGZcIC/0NU+P9B+BL+Rdse/ASPCQKpdP8FCGGW/ZR7EPC5QtMNlHsQ8LlC0wx0apDHjTkC1HRqkMeNOQLVwCuYIKXZ1inAK5ggpdnWKk+o6y7y0cKyT6jrLvLRwrO3MnKS3ZH/O7cycpLdkf84cpOiU3VnHpByk6JTdWcek2YhrijZ2bIrZiGuKNnZsiqRnWnppmeuMpGdaemmZ64zXVXhwRq1VnNdVeHBGrVWc0j8+ZHGm+cXSPz5kcab5xUwwoFu7en/TTDCgW7t6f9ObJYJPcWd2z5slgk9xZ3bPWiIPRy5euMtaIg9HLl64yw==")
 }]
 
 [sub_resource type="Curve3D" id="Curve3D_3j0yl"]
@@ -281,19 +281,19 @@ shader_parameter/alpha_factor = 0.2
 shader_parameter/hGradient = SubResource("GradientTexture2D_2yiix")
 shader_parameter/vGradient = SubResource("GradientTexture2D_1klfv")
 
-[node name="GodRayLightAdapted" type="Node3D"]
+[node name="GodRayLightAdapted" type="Node3D" unique_id=1565541867]
 script = ExtResource("1_8osrw")
 
-[node name="world_env" type="WorldEnvironment" parent="."]
+[node name="world_env" type="WorldEnvironment" parent="." unique_id=1352283056]
 environment = SubResource("Environment_ij3v0")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=603748741]
 transform = Transform3D(0.978068, -0.00710046, -0.208164, 0.0466056, 0.981539, 0.185498, 0.203004, -0.191131, 0.960343, -5.56263, 6.57225, 10.9638)
 projection = 1
 size = 12.0
 far = 100.0
 
-[node name="light_shaft_3d" type="MeshInstance3D" parent="." node_paths=PackedStringArray("outline", "origin")]
+[node name="light_shaft_3d" type="MeshInstance3D" parent="." unique_id=2101748189 node_paths=PackedStringArray("outline", "origin")]
 transform = Transform3D(0.987837, -0.154304, -0.0191375, 0.155223, 0.971524, 0.179025, -0.00903174, -0.179819, 0.983657, -8.71382, 10.8168, -0.0952792)
 mesh = SubResource("ArrayMesh_q5on4")
 script = ExtResource("2_tk7ux")
@@ -305,84 +305,84 @@ color = Color(0.999999, 0.89832, 0.592351, 0.3)
 collision_mask = 524290
 metadata/_custom_type_script = "uid://bslqtjuwuelro"
 
-[node name="outline" type="Path3D" parent="light_shaft_3d" node_paths=PackedStringArray("parent")]
+[node name="outline" type="Path3D" parent="light_shaft_3d" unique_id=1953563948 node_paths=PackedStringArray("parent")]
 transform = Transform3D(-0.627583, 0, -0.77855, 0, 1, 0, 0.77855, 0, -0.627583, 0.4599, -0.685254, -0.57053)
 curve = SubResource("Curve3D_3j0yl")
 script = ExtResource("3_unthy")
 parent = NodePath("..")
 
-[node name="origin" type="Marker3D" parent="light_shaft_3d" node_paths=PackedStringArray("parent")]
+[node name="origin" type="Marker3D" parent="light_shaft_3d" unique_id=2042514622 node_paths=PackedStringArray("parent")]
 transform = Transform3D(-0.190371, 0.886816, -0.42109, -0.0316435, 0.423168, 0.905499, 0.981202, 0.185705, -0.0524969, -3.07804, 6.61894, -0.383737)
 script = ExtResource("3_unthy")
 parent = NodePath("..")
 
-[node name="directionalLight" type="DirectionalLight3D" parent="light_shaft_3d"]
+[node name="directionalLight" type="DirectionalLight3D" parent="light_shaft_3d" unique_id=1227873632]
 transform = Transform3D(-0.913216, -0.0556656, -0.403655, -0.400991, -0.0532521, 0.914533, -0.0724036, 0.997028, 0.0263092, -0.661751, 0.830414, -0.400645)
 light_bake_mode = 0
 shadow_enabled = true
 
-[node name="World" type="Node3D" parent="."]
+[node name="World" type="Node3D" parent="." unique_id=455574863]
 metadata/_edit_lock_ = true
 
-[node name="Floor" type="MeshInstance3D" parent="World"]
+[node name="Floor" type="MeshInstance3D" parent="World" unique_id=191944271]
 layers = 524290
 mesh = SubResource("BoxMesh_4trax")
 
-[node name="CilinderBlue" type="MeshInstance3D" parent="World"]
+[node name="CilinderBlue" type="MeshInstance3D" parent="World" unique_id=1358988470]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.86889, 6.25811, 0)
 layers = 2
 mesh = SubResource("CylinderMesh_8osrw")
 
-[node name="CilinderSmallGreen" type="MeshInstance3D" parent="World"]
+[node name="CilinderSmallGreen" type="MeshInstance3D" parent="World" unique_id=1513520196]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.63451, 4.69344, 0.484313)
 layers = 2
 mesh = SubResource("CylinderMesh_unthy")
 
-[node name="CilinderSmallGreen2" type="MeshInstance3D" parent="World"]
+[node name="CilinderSmallGreen2" type="MeshInstance3D" parent="World" unique_id=433500520]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.13308, 4.74708, -0.434557)
 layers = 2
 mesh = SubResource("CylinderMesh_unthy")
 
-[node name="CilinderPink" type="MeshInstance3D" parent="World"]
+[node name="CilinderPink" type="MeshInstance3D" parent="World" unique_id=1443087855]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.52761, 2.29336, 0.484313)
 layers = 524288
 mesh = SubResource("CylinderMesh_db5n4")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="World/CilinderPink"]
+[node name="StaticBody3D" type="StaticBody3D" parent="World/CilinderPink" unique_id=563916745]
 collision_layer = 524288
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/CilinderPink/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/CilinderPink/StaticBody3D" unique_id=1271047360]
 shape = SubResource("ConvexPolygonShape3D_8osrw")
 
-[node name="BOX1_COLLISION" type="MeshInstance3D" parent="World"]
+[node name="BOX1_COLLISION" type="MeshInstance3D" parent="World" unique_id=538265802]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.67679, 5.67676, 0)
 layers = 2
 mesh = SubResource("BoxMesh_joy2t")
 
-[node name="BOX1_COLLISION2" type="MeshInstance3D" parent="World"]
+[node name="BOX1_COLLISION2" type="MeshInstance3D" parent="World" unique_id=587628991]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.47273, 5.79362, 0)
 layers = 2
 mesh = SubResource("BoxMesh_joy2t")
 
-[node name="BOX2" type="MeshInstance3D" parent="World"]
+[node name="BOX2" type="MeshInstance3D" parent="World" unique_id=812898091]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0504, 7.1726, 0)
 layers = 524290
 mesh = SubResource("BoxMesh_joy2t")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="World/BOX2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="World/BOX2" unique_id=2117341724]
 collision_layer = 524289
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/BOX2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/BOX2/StaticBody3D" unique_id=390982936]
 shape = SubResource("ConvexPolygonShape3D_db5n4")
 
-[node name="GodRaysMultipleVersions" type="Node3D" parent="."]
+[node name="GodRaysMultipleVersions" type="Node3D" parent="." unique_id=383471897]
 
-[node name="ShaderV1_MyVersion" type="MeshInstance3D" parent="GodRaysMultipleVersions"]
+[node name="ShaderV1_MyVersion" type="MeshInstance3D" parent="GodRaysMultipleVersions" unique_id=1182725054]
 transform = Transform3D(1, 0, 8.9407e-08, 0, 1, 0, -8.9407e-08, 0, 1, 18.9208, 10, 0)
 mesh = SubResource("CylinderMesh_faoo7")
 surface_material_override/0 = SubResource("ShaderMaterial_lld8s")
 
-[node name="ShaderV1_MyVersion_Oclusion" type="MeshInstance3D" parent="GodRaysMultipleVersions" node_paths=PackedStringArray("_detectionArea")]
+[node name="ShaderV1_MyVersion_Oclusion" type="MeshInstance3D" parent="GodRaysMultipleVersions" unique_id=853036330 node_paths=PackedStringArray("_detectionArea")]
 transform = Transform3D(0.999857, -1.30385e-08, 0.016877, 7.45058e-09, 0.999999, 0, -0.016877, 0, 0.999858, 25.0947, 5.14434, 0)
 mesh = SubResource("CylinderMesh_vr6xd")
 skeleton = NodePath("../../../..")
@@ -392,37 +392,37 @@ _maxHeight = 10.0
 _maxRadius = 100.0
 _detectionArea = NodePath("Area3D")
 
-[node name="Area3D" type="Area3D" parent="GodRaysMultipleVersions/ShaderV1_MyVersion_Oclusion"]
+[node name="Area3D" type="Area3D" parent="GodRaysMultipleVersions/ShaderV1_MyVersion_Oclusion" unique_id=510865836]
 transform = Transform3D(1, -2.26017e-12, 0, 2.792e-09, 1, 1.01847e-10, 1.86265e-08, 1.63005e-10, 1, 0.00600719, -3.6999, 5.96046e-08)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GodRaysMultipleVersions/ShaderV1_MyVersion_Oclusion/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GodRaysMultipleVersions/ShaderV1_MyVersion_Oclusion/Area3D" unique_id=407410331]
 shape = SubResource("SphereShape3D_nfqaq")
 
-[node name="ShaderV1_MyVersion2" type="MeshInstance3D" parent="GodRaysMultipleVersions"]
+[node name="ShaderV1_MyVersion2" type="MeshInstance3D" parent="GodRaysMultipleVersions" unique_id=2070497536]
 transform = Transform3D(1, -9.31323e-10, 8.9407e-08, 9.31323e-10, 1, 5.55112e-17, -8.9407e-08, 0, 1, 11.5754, 10.0688, 0)
 mesh = SubResource("CylinderMesh_dugoc")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_nfqaq")
 
-[node name="ShaderV1_MyVersion3" type="MeshInstance3D" parent="GodRaysMultipleVersions"]
+[node name="ShaderV1_MyVersion3" type="MeshInstance3D" parent="GodRaysMultipleVersions" unique_id=1211852813]
 transform = Transform3D(1, -9.31323e-10, 1.19209e-07, 9.31323e-10, 1, 0, -1.19209e-07, 0, 1, 13.8012, 10.048, 0)
 mesh = SubResource("CylinderMesh_nr5bx")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_k8se1")
 
-[node name="ShaderV1_MyVersion4" type="MeshInstance3D" parent="GodRaysMultipleVersions"]
+[node name="ShaderV1_MyVersion4" type="MeshInstance3D" parent="GodRaysMultipleVersions" unique_id=2036505571]
 transform = Transform3D(1, -9.31323e-10, 1.49012e-07, 9.31323e-10, 1, 0, -1.49012e-07, 0, 1, 8.67504, 10.096, 0)
 mesh = SubResource("CylinderMesh_nr5bx")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_h0hd3")
 
-[node name="ShaderV1_MyVersion5" type="MeshInstance3D" parent="GodRaysMultipleVersions"]
+[node name="ShaderV1_MyVersion5" type="MeshInstance3D" parent="GodRaysMultipleVersions" unique_id=1311744242]
 transform = Transform3D(1, -9.31323e-10, 1.78814e-07, 9.31323e-10, 1, 1.11022e-16, -1.78814e-07, 0, 1, 5.89039, 10.1221, 0)
 mesh = SubResource("CylinderMesh_k8se1")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_yn5i4")
 
-[node name="ShaderV1_MyVersionOriginal" type="MeshInstance3D" parent="GodRaysMultipleVersions"]
+[node name="ShaderV1_MyVersionOriginal" type="MeshInstance3D" parent="GodRaysMultipleVersions" unique_id=1680248714]
 transform = Transform3D(1, -9.31323e-10, 8.9407e-08, 9.31323e-10, 1, 5.55112e-17, -8.9407e-08, 0, 1, 16.6055, 10.0217, 0)
 mesh = SubResource("CylinderMesh_i8ktn")
 skeleton = NodePath("../../../..")

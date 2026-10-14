@@ -1,0 +1,20 @@
+[configuration]
+
+entry_symbol = "terrabrush_library_init"
+compatibility_minimum = "4.1"
+reloadable = true
+
+[icons]
+
+TerraBrush = "res://addons/terrabrush/icon.png"
+
+[libraries]
+
+windows.debug.x86_64 = "res://addons/terrabrush/bin/terrabrush.windows.template_debug.x86_64.dll"
+windows.release.x86_64 = "res://addons/terrabrush/bin/terrabrush.windows.template_debug.x86_64.dll"
+
+linux.debug.x86_64 = "res://addons/terrabrush/bin/libterrabrush.linux.template_debug.x86_64.so"
+linux.release.x86_64 = "res://addons/terrabrush/bin/libterrabrush.linux.template_debug.x86_64.so"
+
+web.debug = "res://addons/terrabrush/bin/terrabrush.web.template_debug.wasm32.wasm"
+web.release = "res://addons/terrabrush/bin/terrabrush.web.template_debug.wasm32.wasm"

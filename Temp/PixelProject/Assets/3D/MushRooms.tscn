@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=4 uid="uid://be8vp1ovkxhey"]
+[gd_scene format=4 uid="uid://be8vp1ovkxhey"]
 
-[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="1_itmhg"]
-[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_ampbf"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://assets/shaders/PixelShaders/3dOutlineHighlight.gdshader" id="1_itmhg"]
+[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://assets/shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_ampbf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tiouo"]
 render_priority = 0
@@ -131,10 +131,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_itmhg")
 
-[node name="mushroom_redGroup9" type="MeshInstance3D"]
+[node name="mushroom_redGroup9" type="MeshInstance3D" unique_id=936605991]
 transform = Transform3D(1.20782, 0.469926, 0.755222, -0.223046, 1.3929, -0.509996, -0.86107, 0.298354, 1.19145, 0, 0, 0)
 cast_shadow = 0
 mesh = SubResource("ArrayMesh_l2wlu")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_2ujm1")
 surface_material_override/1 = SubResource("ShaderMaterial_8ncxe")

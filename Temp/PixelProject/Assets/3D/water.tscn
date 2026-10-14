@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://df4eyka0erqws"]
+[gd_scene format=4 uid="uid://df4eyka0erqws"]
 
 [ext_resource type="Shader" uid="uid://cy0yrj1mgwewy" path="res://Temp/PixelProject/WaterSSRShader/ocean_no_reflection.gdshader" id="1_2aes8"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="1_lgx2c"]
@@ -8,9 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://cwopgjiunh5xc" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterDistortion.png" id="4_4bpg8"]
 [ext_resource type="Texture2D" uid="uid://cspgmsd72voka" path="res://Temp/PixelProject/Assets/3D/pillar_dungeon_texture.png" id="5_a8fnq"]
 [ext_resource type="Texture2D" uid="uid://b6cx8vug6xhx0" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/WaterPerlinNoise.png" id="5_mu541"]
-[ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="5_oal72"]
-[ext_resource type="Shader" uid="uid://dbhnb5q3r31tb" path="res://Assets/Shaders/OtherShadersRepo/3dOutlineHighlight_Test.gdshader" id="6_2aes8"]
-[ext_resource type="Shader" uid="uid://c8ynu5hrg8bbx" path="res://Assets/Shaders/OtherShadersRepo/flexible_toon_v3_Testing.gdshader" id="7_elpo0"]
+[ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://assets/shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="5_oal72"]
+[ext_resource type="Shader" uid="uid://dbhnb5q3r31tb" path="res://assets/shaders/OtherShadersRepo/3dOutlineHighlight_Test.gdshader" id="6_2aes8"]
+[ext_resource type="Shader" uid="uid://c8ynu5hrg8bbx" path="res://assets/shaders/OtherShadersRepo/flexible_toon_v3_Testing.gdshader" id="7_elpo0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uix6f"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -39,9 +39,9 @@ fractal_octaves = 1
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4bpg8"]
 resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_khfff")
 seamless = true
 seamless_blend_skirt = 0.325
-noise = SubResource("FastNoiseLite_khfff")
 
 [sub_resource type="Gradient" id="Gradient_6hkn2"]
 offsets = PackedFloat32Array(0, 0.286275)
@@ -430,21 +430,21 @@ albedo_color = Color(1, 0.372549, 1, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2aes8"]
 albedo_color = Color(1, 1, 0.145098, 1)
 
-[node name="Water" type="Node3D"]
+[node name="Water" type="Node3D" unique_id=168097913]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=319214986]
 environment = SubResource("Environment_lgx2c")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1398972265]
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.75, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="SubViewportMain" type="SubViewport" parent="."]
+[node name="SubViewportMain" type="SubViewport" parent="." unique_id=1053308546]
 handle_input_locally = false
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="OceanShaderWater" type="MeshInstance3D" parent="SubViewportMain"]
+[node name="OceanShaderWater" type="MeshInstance3D" parent="SubViewportMain" unique_id=1130226877]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 0.999999, 0, -0.999999, -4.37114e-08, 0, 0, 0)
 visible = false
 layers = 3
@@ -452,14 +452,14 @@ mesh = SubResource("QuadMesh_elpo0")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_wte4x")
 
-[node name="WaterFloor" type="MeshInstance3D" parent="SubViewportMain"]
+[node name="WaterFloor" type="MeshInstance3D" parent="SubViewportMain" unique_id=397667525]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 0.999999, 0, -0.999999, -4.37114e-08, 0, -0.999552, 0)
 visible = false
 layers = 3
 mesh = SubResource("QuadMesh_uix6f")
 skeleton = NodePath("../../..")
 
-[node name="ToonWater" type="MeshInstance3D" parent="SubViewportMain"]
+[node name="ToonWater" type="MeshInstance3D" parent="SubViewportMain" unique_id=1574545813]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 0.999999, 0, -0.999999, -4.37114e-08, 0, 0, 0)
 visible = false
 layers = 3
@@ -467,49 +467,48 @@ mesh = SubResource("QuadMesh_uix6f")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_yw2bn")
 
-[node name="ToonV2Water" type="MeshInstance3D" parent="SubViewportMain"]
+[node name="ToonV2Water" type="MeshInstance3D" parent="SubViewportMain" unique_id=1223260651]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 0.999999, 0, -0.999999, -4.37114e-08, 0, 0, 0)
 layers = 3
 mesh = SubResource("QuadMesh_wte4x")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_mu541")
 
-[node name="Objects" type="Node3D" parent="SubViewportMain"]
+[node name="Objects" type="Node3D" parent="SubViewportMain" unique_id=2053608586]
 transform = Transform3D(0.745822, 0.069073, -0.662555, 0.594207, -0.518565, 0.614823, -0.30111, -0.852243, -0.427801, 2.23352, 4.25721, 3.67148)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="SubViewportMain/Objects"]
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewportMain/Objects" unique_id=1285208316]
 transform = Transform3D(0.935137, 0.250402, -0.250635, 0.191634, -0.952515, -0.236628, -0.297985, 0.17325, -0.938717, -2.43949, 5.35126, 1.43421)
 layers = 2
 size = Vector3(1, 3, 1)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewportMain/Objects"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewportMain/Objects" unique_id=1651549987]
 transform = Transform3D(0.977745, 0.155711, 0.140607, 0.190255, -0.375589, -0.907048, -0.088427, 0.913612, -0.396855, -1.6717, 3.50178, -2.45794)
 size = Vector3(1, 3, 1)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportMain/Objects"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportMain/Objects" unique_id=2034784889]
 transform = Transform3D(0.968674, -0.228646, -0.0969102, 0.213088, 0.564882, 0.797184, -0.12753, -0.792862, 0.595909, -5.566, 2.30878, 0.447103)
 mesh = SubResource("CylinderMesh_uix6f")
 skeleton = NodePath("../../OceanShaderWater")
 surface_material_override/0 = SubResource("StandardMaterial3D_mfl67")
 
-[node name="column7" type="MeshInstance3D" parent="SubViewportMain/Objects"]
+[node name="column7" type="MeshInstance3D" parent="SubViewportMain/Objects" unique_id=711437980]
 transform = Transform3D(0.552027, -0.54498, -1.35586, 1.37844, 0.583586, 0.476778, 0.21257, -2.36906, 0.429352, 0.163355, 6.19322, 0.0442403)
 mesh = SubResource("ArrayMesh_a8fnq")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_elpo0")
 
-[node name="CameraRigYaw" type="Node3D" parent="SubViewportMain"]
+[node name="CameraRigYaw" type="Node3D" parent="SubViewportMain" unique_id=786301401]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.94318, 9.87068)
 script = ExtResource("2_7nu6e")
 
-[node name="Camera3D" type="Camera3D" parent="SubViewportMain/CameraRigYaw"]
+[node name="Camera3D" type="Camera3D" parent="SubViewportMain/CameraRigYaw" unique_id=877962415]
 physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0, 0)
 projection = 1
 current = true
 size = 12.0
 
-[node name="Display" type="Control" parent="." node_paths=PackedStringArray("_viewport", "_mainRendereSprite")]
+[node name="Display" type="Control" parent="." unique_id=399657717 node_paths=PackedStringArray("_mainRendereSprite")]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 15
@@ -522,10 +521,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("1_lgx2c")
-_viewport = NodePath("../SubViewportMain")
 _mainRendereSprite = NodePath("MainRenderSprite")
 
-[node name="MainRenderSprite" type="Sprite2D" parent="Display"]
+[node name="MainRenderSprite" type="Sprite2D" parent="Display" unique_id=890828220]
 texture_filter = 2
 material = SubResource("ShaderMaterial_7nu6e")
 position = Vector2(-0.985153, 3.95636)
@@ -533,23 +531,22 @@ scale = Vector2(2.93853, 2.96452)
 texture = SubResource("ViewportTexture_oal72")
 centered = false
 
-[node name="pillar2" type="MeshInstance3D" parent="."]
+[node name="pillar2" type="MeshInstance3D" parent="." unique_id=537075026]
 transform = Transform3D(1.03767, 0.306443, -0.550589, -0.438944, 1.32327, -0.355896, 0.413011, 0.636438, 1.00508, 1.48909, -1.87965, -4.01445)
 layers = 524291
 mesh = SubResource("ArrayMesh_wte4x")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_4bpg8")
 
-[node name="CylinderTwoCOlors" type="CSGCombiner3D" parent="."]
+[node name="CylinderTwoCOlors" type="CSGCombiner3D" parent="." unique_id=121293219]
 transform = Transform3D(0.966569, 0.231934, -0.109323, -0.256407, 0.874312, -0.41211, 0, 0.426363, 0.904552, 0, -1.03552, 4.47515)
 
-[node name="Pink" type="CSGCylinder3D" parent="CylinderTwoCOlors"]
+[node name="Pink" type="CSGCylinder3D" parent="CylinderTwoCOlors" unique_id=1525687324]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4781, 0)
 height = 1.0
 material = SubResource("StandardMaterial3D_a8fnq")
 metadata/_edit_lock_ = true
 
-[node name="Yellow" type="CSGCylinder3D" parent="CylinderTwoCOlors"]
+[node name="Yellow" type="CSGCylinder3D" parent="CylinderTwoCOlors" unique_id=1601390805]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.485296, 0)
 height = 1.0
 material = SubResource("StandardMaterial3D_2aes8")

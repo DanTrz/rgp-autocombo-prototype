@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8j415thw0glv"]
+[gd_scene format=3 uid="uid://b8j415thw0glv"]
 
 [ext_resource type="PackedScene" uid="uid://bo3ecfxeulprb" path="res://Temp/PixelProject/Assets/3D/column-damaged.glb" id="1_cl78m"]
-[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_fqntg"]
+[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://assets/shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_fqntg"]
 
 [sub_resource type="Shader" id="Shader_k125l"]
 code = "shader_type spatial;
@@ -154,7 +154,7 @@ shader_parameter/normal_rotation_pitch = 0.0
 shader_parameter/normal_rotation_yaw = 0.0
 shader_parameter/normal_rotation_roll = 0.0
 
-[node name="column-damaged2" instance=ExtResource("1_cl78m")]
+[node name="column-damaged2" unique_id=1837161447 instance=ExtResource("1_cl78m")]
 
-[node name="column-damaged" parent="." index="0"]
+[node name="column-damaged" parent="." index="0" unique_id=67951246]
 surface_material_override/0 = SubResource("ShaderMaterial_5jrp4")

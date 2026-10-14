@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://biaog6mroxjei"]
+[gd_scene format=3 uid="uid://biaog6mroxjei"]
 
 [ext_resource type="Script" uid="uid://cacru6rngrblp" path="res://src/Characters/Player/Player.cs" id="1_g8w1u"]
 [ext_resource type="PackedScene" uid="uid://co43x2woraq8u" path="res://src/Characters/Player/PlayerStates/StateMachineManagerCS.tscn" id="2_srx6x"]
@@ -469,34 +469,32 @@ _data = {
 &"walk_west": SubResource("Animation_0pajg")
 }
 
-[node name="Enemy" type="CharacterBody3D" groups=["character"]]
+[node name="Enemy" type="CharacterBody3D" unique_id=508057959 groups=["character"]]
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_g8w1u")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1159387491]
 shape = SubResource("CapsuleShape3D_fxi4e")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=892038686]
 unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_buopq")
-}
+libraries/ = SubResource("AnimationLibrary_buopq")
 playback_auto_capture_ease_type = 2
 playback_default_blend_time = 0.01
 next/idle_east = &"run_east"
 blend_times = [&"walk_south", &"idle_east", 0.5, &"walk_south", &"idle_north", 0.5, &"walk_south", &"idle_north_east", 0.5, &"walk_south", &"idle_north_west", 0.5, &"walk_south", &"idle_south", 0.5, &"walk_south", &"idle_south_east", 0.5, &"walk_south", &"idle_south_west", 0.5, &"walk_south", &"idle_west", 0.5, &"walk_south", &"run_east", 0.5, &"walk_south", &"run_north", 0.5, &"walk_south", &"run_north_east", 0.5, &"walk_south", &"run_north_west", 0.5, &"walk_south", &"run_south", 0.5, &"walk_south", &"run_south_east", 0.5, &"walk_south", &"run_south_west", 0.5, &"walk_south", &"run_west", 0.5]
 
-[node name="StateMachineManager" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("2_srx6x")]
+[node name="StateMachineManager" parent="." unique_id=744769424 node_paths=PackedStringArray("_initialState") instance=ExtResource("2_srx6x")]
 _initialState = NodePath("EnemyIdleState")
 
-[node name="EnemyIdleState" type="Node" parent="StateMachineManager"]
+[node name="EnemyIdleState" type="Node" parent="StateMachineManager" unique_id=2006884860]
 script = ExtResource("3_e4ifr")
 
-[node name="EnemyFallState" type="Node" parent="StateMachineManager"]
+[node name="EnemyFallState" type="Node" parent="StateMachineManager" unique_id=1797905669]
 script = ExtResource("4_g1k0j")
 
-[node name="Sprite2DWorld" type="Sprite3D" parent="."]
+[node name="Sprite2DWorld" type="Sprite3D" parent="." unique_id=289633953]
 unique_name_in_owner = true
 modulate = Color(1, 0, 0, 1)
 billboard = 1

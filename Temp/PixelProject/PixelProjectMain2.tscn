@@ -1,4 +1,4 @@
-[gd_scene load_steps=301 format=4 uid="uid://c5imcubvi8vyl"]
+[gd_scene format=4 uid="uid://c5imcubvi8vyl"]
 
 [ext_resource type="Texture2D" uid="uid://3sbqf0bf1n4s" path="res://Temp/PixelProject/Assets/2D/Textures/WhiteTextures/Blank64px.png" id="1_edkn3"]
 [ext_resource type="Shader" uid="uid://dttitqg6gttav" path="res://assets/shaders/OtherShadersRepo/DissolveShader_CloudFocused_v3_bands.gdshader" id="1_nn52y"]
@@ -61,9 +61,9 @@ colors = PackedColorArray(0, 0, 0, 0.729412, 1, 1, 1, 0.447059)
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_nn52y"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2ujm1"]
-seamless_blend_skirt = 0.5
-color_ramp = SubResource("Gradient_tbgg4")
 noise = SubResource("FastNoiseLite_nn52y")
+color_ramp = SubResource("Gradient_tbgg4")
+seamless_blend_skirt = 0.5
 
 [sub_resource type="Gradient" id="Gradient_8ncxe"]
 offsets = PackedFloat32Array(0.00671141, 0.580537, 0.996644, 1)
@@ -72,9 +72,9 @@ colors = PackedColorArray(0, 0, 0, 0, 0.341176, 0.341176, 0.341176, 1, 0.114865,
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_v0kvh"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_57bhg"]
-seamless_blend_skirt = 0.0
-color_ramp = SubResource("Gradient_8ncxe")
 noise = SubResource("FastNoiseLite_v0kvh")
+color_ramp = SubResource("Gradient_8ncxe")
+seamless_blend_skirt = 0.0
 
 [sub_resource type="Gradient" id="Gradient_2ujm1"]
 colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
@@ -82,8 +82,8 @@ colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_8ncxe"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6qhxi"]
-color_ramp = SubResource("Gradient_2ujm1")
 noise = SubResource("FastNoiseLite_8ncxe")
+color_ramp = SubResource("Gradient_2ujm1")
 
 [sub_resource type="Gradient" id="Gradient_l2wlu"]
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
@@ -91,8 +91,8 @@ colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_rfdoi"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8ncxe"]
-color_ramp = SubResource("Gradient_l2wlu")
 noise = SubResource("FastNoiseLite_rfdoi")
+color_ramp = SubResource("Gradient_l2wlu")
 
 [sub_resource type="Gradient" id="Gradient_6qhxi"]
 offsets = PackedFloat32Array(0, 0.738255, 1)
@@ -101,8 +101,8 @@ colors = PackedColorArray(0, 0, 0, 1, 0.724832, 0.724832, 0.724832, 1, 1, 1, 1, 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_57bhg"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g26fm"]
-color_ramp = SubResource("Gradient_6qhxi")
 noise = SubResource("FastNoiseLite_57bhg")
+color_ramp = SubResource("Gradient_6qhxi")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crfu6"]
 transparency = 2
@@ -140,9 +140,9 @@ colors = PackedColorArray(0, 0, 0, 0.729412, 1, 1, 1, 0.447059)
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_g26fm"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4jv0r"]
-seamless_blend_skirt = 0.5
-color_ramp = SubResource("Gradient_57bhg")
 noise = SubResource("FastNoiseLite_g26fm")
+color_ramp = SubResource("Gradient_57bhg")
+seamless_blend_skirt = 0.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xknqr"]
 render_priority = 0
@@ -159,9 +159,9 @@ colors = PackedColorArray(0, 0, 0, 0.729412, 1, 1, 1, 0.447059)
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4jv0r"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lywnj"]
-seamless_blend_skirt = 0.5
-color_ramp = SubResource("Gradient_g26fm")
 noise = SubResource("FastNoiseLite_4jv0r")
+color_ramp = SubResource("Gradient_g26fm")
+seamless_blend_skirt = 0.5
 
 [sub_resource type="Gradient" id="Gradient_s2tjp"]
 offsets = PackedFloat32Array(0.00671141, 0.580537, 0.996644, 1)
@@ -170,9 +170,9 @@ colors = PackedColorArray(0, 0, 0, 0, 0.341176, 0.341176, 0.341176, 1, 0.114865,
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_lv3bb"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_o27vv"]
-seamless_blend_skirt = 0.0
-color_ramp = SubResource("Gradient_s2tjp")
 noise = SubResource("FastNoiseLite_lv3bb")
+color_ramp = SubResource("Gradient_s2tjp")
+seamless_blend_skirt = 0.0
 
 [sub_resource type="Gradient" id="Gradient_wwc5q"]
 colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
@@ -180,8 +180,8 @@ colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ytopk"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4nyb2"]
-color_ramp = SubResource("Gradient_wwc5q")
 noise = SubResource("FastNoiseLite_ytopk")
+color_ramp = SubResource("Gradient_wwc5q")
 
 [sub_resource type="Gradient" id="Gradient_gqjdg"]
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
@@ -189,8 +189,8 @@ colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7doji"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p7e4i"]
-color_ramp = SubResource("Gradient_gqjdg")
 noise = SubResource("FastNoiseLite_7doji")
+color_ramp = SubResource("Gradient_gqjdg")
 
 [sub_resource type="Gradient" id="Gradient_j3anv"]
 offsets = PackedFloat32Array(0, 0.738255, 1)
@@ -199,8 +199,8 @@ colors = PackedColorArray(0, 0, 0, 1, 0.724832, 0.724832, 0.724832, 1, 1, 1, 1, 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_op4r1"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6kl7h"]
-color_ramp = SubResource("Gradient_j3anv")
 noise = SubResource("FastNoiseLite_op4r1")
+color_ramp = SubResource("Gradient_j3anv")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_stvcm"]
 transparency = 2
@@ -284,9 +284,9 @@ domain_warp_fractal_lacunarity = 1.5
 domain_warp_fractal_gain = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3o2o4"]
-seamless = true
-color_ramp = SubResource("Gradient_rwiob")
 noise = SubResource("FastNoiseLite_edkn3")
+color_ramp = SubResource("Gradient_rwiob")
+seamless = true
 
 [sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_pm78i"]
 _shader_parameters = {
@@ -319,7 +319,6 @@ texture_filtering = 1
 auto_shader = true
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wktjo"]
-load_path = "res://.godot/imported/Grass_3.png-6711f90f42818dba951396c8414e2150.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xh5bt"]
 render_priority = -1
@@ -717,266 +716,77 @@ size = Vector2(40, 40)
 subdivide_width = 50
 subdivide_depth = 50
 
-[sub_resource type="Gradient" id="Gradient_72eyv"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_crfu6"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_72eyv")
-
-[sub_resource type="Gradient" id="Gradient_crfu6"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_nn52y"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_crfu6")
-
-[sub_resource type="Gradient" id="Gradient_03ca8"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_v0kvh"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_03ca8")
-
-[sub_resource type="Gradient" id="Gradient_nn52y"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_w7rph"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_nn52y")
-
-[sub_resource type="Gradient" id="Gradient_rfdoi"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_m1ir8"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_rfdoi")
-
-[sub_resource type="Gradient" id="Gradient_v0kvh"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_uxcup"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_v0kvh")
-
-[sub_resource type="Gradient" id="Gradient_urvk5"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_03ca8"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_urvk5")
-
-[sub_resource type="Gradient" id="Gradient_xknqr"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_rfdoi"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_xknqr")
-
-[sub_resource type="Gradient" id="Gradient_2ouqh"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_urvk5"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_2ouqh")
-
-[sub_resource type="Gradient" id="Gradient_w7rph"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_2ouqh"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_w7rph")
-
-[sub_resource type="Gradient" id="Gradient_oembb"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_oembb"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_oembb")
-
-[sub_resource type="Gradient" id="Gradient_m1ir8"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_3cdp3"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_m1ir8")
-
-[sub_resource type="Gradient" id="Gradient_i3mlt"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_c1pun"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i3mlt")
-
 [sub_resource type="Gradient" id="Gradient_uxcup"]
 resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
 colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_llsuo"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_372we"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_uxcup")
-
-[sub_resource type="Gradient" id="Gradient_372we"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_o6o0y"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_372we")
 
 [sub_resource type="Gradient" id="Gradient_3cdp3"]
 resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
 colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_l2wlu"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_x3inu"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_3cdp3")
-
-[sub_resource type="Gradient" id="Gradient_x3inu"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_57bhg"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x3inu")
 
 [sub_resource type="Gradient" id="Gradient_c1pun"]
 resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
 colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_4jv0r"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mysmy"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_c1pun")
-
-[sub_resource type="Gradient" id="Gradient_mysmy"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_s2tjp"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_mysmy")
 
 [sub_resource type="Gradient" id="Gradient_a067y"]
 resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
 colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_o27vv"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_crlll"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_a067y")
-
-[sub_resource type="Gradient" id="Gradient_crlll"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_gqjdg"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_crlll")
 
 [sub_resource type="Gradient" id="Gradient_qbqq8"]
 resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
 colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_op4r1"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_y8n5w"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_qbqq8")
-
-[sub_resource type="Gradient" id="Gradient_y8n5w"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ov0jn"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_y8n5w")
 
 [sub_resource type="Gradient" id="Gradient_llsuo"]
 resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
 colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_xknqr"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xteob"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_llsuo")
-
-[sub_resource type="Gradient" id="Gradient_xteob"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_8qlts"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_xteob")
 
 [sub_resource type="Gradient" id="Gradient_o6o0y"]
 resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
 colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_2ujm1"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g4edd"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_o6o0y")
-
-[sub_resource type="Gradient" id="Gradient_g4edd"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_6qhxi"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_g4edd")
 
 [sub_resource type="Gradient" id="Gradient_2ts2w"]
 resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
 colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_lywnj"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8qlts"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_2ts2w")
-
-[sub_resource type="Gradient" id="Gradient_8qlts"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
-colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_lv3bb"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_8qlts")
 
 [sub_resource type="Gradient" id="Gradient_dqia4"]
 resource_local_to_scene = true
@@ -986,6 +796,195 @@ colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_tbgg4"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_dqia4")
+
+[sub_resource type="Gradient" id="Gradient_4jv0r"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lywnj"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_4jv0r")
+
+[sub_resource type="Gradient" id="Gradient_lv3bb"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o27vv"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_lv3bb")
+
+[sub_resource type="Gradient" id="Gradient_ytopk"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4nyb2"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_ytopk")
+
+[sub_resource type="Gradient" id="Gradient_7doji"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_p7e4i"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_7doji")
+
+[sub_resource type="Gradient" id="Gradient_op4r1"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6kl7h"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_op4r1")
+
+[sub_resource type="Gradient" id="Gradient_stvcm"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lgq53"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_stvcm")
+
+[sub_resource type="Gradient" id="Gradient_ov0jn"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7qybu"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_ov0jn")
+
+[sub_resource type="Gradient" id="Gradient_rplex"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_uexxd"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_rplex")
+
+[sub_resource type="Gradient" id="Gradient_ppliy"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_w8ren"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_ppliy")
+
+[sub_resource type="Gradient" id="Gradient_og766"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5kq0b"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_og766")
+
+[sub_resource type="Gradient" id="Gradient_hwypv"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5kq54"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_hwypv")
+
+[sub_resource type="Gradient" id="Gradient_ptvrv"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cqfif"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_ptvrv")
+
+[sub_resource type="Gradient" id="Gradient_3orm3"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_iha72"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_3orm3")
+
+[sub_resource type="Gradient" id="Gradient_i3hg4"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_j2lif"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_i3hg4")
+
+[sub_resource type="Gradient" id="Gradient_lp0na"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_831f8"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_lp0na")
+
+[sub_resource type="Gradient" id="Gradient_fwgj0"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_772j7"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_fwgj0")
+
+[sub_resource type="Gradient" id="Gradient_woky7"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mfn7a"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_woky7")
+
+[sub_resource type="Gradient" id="Gradient_pa1sg"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a0m1c"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_pa1sg")
+
+[sub_resource type="Gradient" id="Gradient_w1p8h"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7efsj"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_w1p8h")
+
+[sub_resource type="Gradient" id="Gradient_3rv8n"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mcv8u"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_3rv8n")
+
+[sub_resource type="Gradient" id="Gradient_ivll7"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.168224, 0.175926, 0.810219, 0.814599, 1)
+colors = PackedColorArray(0.844022, 0.90602, 0.549829, 1, 0.891231, 0.941117, 0.678361, 1, 0.488039, 0.826746, 0.514533, 1, 0.526875, 0.865675, 0.552035, 1, 0.392259, 0.701558, 0.418398, 1, 0.321569, 0.592157, 0.345098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kqkud"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_ivll7")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ide7"]
 resource_name = "colormap"
@@ -2621,53 +2620,50 @@ shader_parameter/light_boost = 1.1
 [sub_resource type="ViewportTexture" id="ViewportTexture_co7l2"]
 viewport_path = NodePath("SubViewport")
 
-[node name="PixelProjectMain2" type="Node3D"]
+[node name="PixelProjectMain2" type="Node3D" unique_id=233622635]
 
-[node name="CloudsTest" type="MeshInstance3D" parent="."]
+[node name="CloudsTest" type="MeshInstance3D" parent="." unique_id=343283868]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 1, 0, 67.36, 0)
 gi_mode = 0
 mesh = SubResource("PlaneMesh_v0kvh")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_crfu6")
 
-[node name="CloudsTestDithering" type="MeshInstance3D" parent="."]
+[node name="CloudsTestDithering" type="MeshInstance3D" parent="." unique_id=703748112]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 1, 35.2496, 74.1415, -6.999)
 visible = false
 cast_shadow = 3
 gi_mode = 0
 mesh = SubResource("PlaneMesh_nn52y")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_xknqr")
 
-[node name="CloudsFakeNoShadow" type="MeshInstance3D" parent="." node_paths=PackedStringArray("sunLight")]
+[node name="CloudsFakeNoShadow" type="MeshInstance3D" parent="." unique_id=969452697 node_paths=PackedStringArray("sunLight")]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 1, -1.33559, 67.3596, 1.70251)
 cast_shadow = 0
 gi_mode = 0
 mesh = SubResource("PlaneMesh_nn52y")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_stvcm")
 script = ExtResource("2_nn52y")
 sunLight = NodePath("../SubViewport/WeatherController/LightDirection/DayLight")
 enableDirectionalShadows = true
 
-[node name="CloudsDissolveShader" type="MeshInstance3D" parent="."]
+[node name="CloudsDissolveShader" type="MeshInstance3D" parent="." unique_id=1776467412]
 transform = Transform3D(0.999999, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 73.1725, 0)
 visible = false
 mesh = SubResource("QuadMesh_rfdoi")
 surface_material_override/0 = SubResource("ShaderMaterial_v0kvh")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=710938291]
 handle_input_locally = false
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="CameraRigYaw" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
+[node name="CameraRigYaw" type="Node3D" parent="SubViewport" unique_id=43712163 node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.467, 27.2367, 29.3537)
 script = ExtResource("8_0swlf")
 RotationPivotPoint = NodePath("WorldCentralPivot")
 MainCamera = NodePath("Camera3D")
 
-[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw"]
+[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw" unique_id=1906592391]
 unique_name_in_owner = true
 physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0, 0)
@@ -2679,12 +2675,12 @@ far = 300.0
 script = ExtResource("9_lxxm7")
 SnapObjects = false
 
-[node name="WorldCentralPivot" type="Node3D" parent="SubViewport/CameraRigYaw"]
+[node name="WorldCentralPivot" type="Node3D" parent="SubViewport/CameraRigYaw" unique_id=2075816942]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport" unique_id=496578558]
 environment = SubResource("Environment_ehfos")
 
-[node name="Terrain3DPixel" type="Terrain3D" parent="SubViewport"]
+[node name="Terrain3DPixel" type="Terrain3D" parent="SubViewport" unique_id=292594441]
 data_directory = "res://Temp/PixelProject/Terrain3DDataV2"
 material = SubResource("Terrain3DMaterial_pm78i")
 assets = SubResource("Terrain3DAssets_3o2o4")
@@ -2692,10 +2688,10 @@ collision_mode = 4
 top_level = true
 metadata/_edit_lock_ = true
 
-[node name="WaterSRROption2" type="Node3D" parent="SubViewport"]
+[node name="WaterSRROption2" type="Node3D" parent="SubViewport" unique_id=971477079]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44502, 0)
 
-[node name="WaterCaustic" type="PlanarReflectorCPP" parent="SubViewport/WaterSRROption2" node_paths=PackedStringArray("main_camera")]
+[node name="WaterCaustic" type="PlanarReflectorCPP" parent="SubViewport/WaterSRROption2" unique_id=1931110257 node_paths=PackedStringArray("main_camera")]
 main_camera = NodePath("../../CameraRigYaw/Camera3D")
 reflection_camera_resolution = Vector2i(640, 360)
 reflection_layers = 524288
@@ -2705,7 +2701,7 @@ visible = false
 material_override = SubResource("ShaderMaterial_crfu6")
 mesh = SubResource("PlaneMesh_03ca8")
 
-[node name="WaterToon" type="PlanarReflectorCPP" parent="SubViewport/WaterSRROption2" node_paths=PackedStringArray("main_camera")]
+[node name="WaterToon" type="PlanarReflectorCPP" parent="SubViewport/WaterSRROption2" unique_id=1192360543 node_paths=PackedStringArray("main_camera")]
 main_camera = NodePath("../../CameraRigYaw/Camera3D")
 reflection_camera_resolution = Vector2i(640, 360)
 reflection_layers = 524288
@@ -2714,7 +2710,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.214, 0, 0)
 mesh = SubResource("PlaneMesh_crfu6")
 surface_material_override/0 = SubResource("ShaderMaterial_urvk5")
 
-[node name="OceanShaderWater" type="MeshInstance3D" parent="SubViewport/WaterSRROption2"]
+[node name="OceanShaderWater" type="MeshInstance3D" parent="SubViewport/WaterSRROption2" unique_id=694774911]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 0.999999, 0, -0.999999, -4.37114e-08, 32.0773, -0.538731, -5.22149)
 visible = false
 layers = 3
@@ -2722,17 +2718,17 @@ mesh = SubResource("QuadMesh_ny6f7")
 skeleton = NodePath("../../..")
 surface_material_override/0 = ExtResource("13_3dntl")
 
-[node name="WeatherController" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("_lightDirectionNode", "_dayLight", "_cycleDurationTimer")]
+[node name="WeatherController" type="Node3D" parent="SubViewport" unique_id=1058308399 node_paths=PackedStringArray("_lightDirectionNode", "_dayLight", "_cycleDurationTimer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.9686, 0)
 script = ExtResource("5_yww70")
 _lightDirectionNode = NodePath("LightDirection")
 _dayLight = NodePath("LightDirection/DayLight")
 _cycleDurationTimer = NodePath("LightDirection/CycleDurationTimer")
 
-[node name="LightDirection" type="Node3D" parent="SubViewport/WeatherController"]
+[node name="LightDirection" type="Node3D" parent="SubViewport/WeatherController" unique_id=1485425342]
 transform = Transform3D(0.754995, 0.513563, 0.407718, -0.450263, 0.858048, -0.247018, -0.476701, 0.00291711, 0.879061, 20.1006, 0.141859, 8.35347)
 
-[node name="DayLight" type="DirectionalLight3D" parent="SubViewport/WeatherController/LightDirection"]
+[node name="DayLight" type="DirectionalLight3D" parent="SubViewport/WeatherController/LightDirection" unique_id=1870835130]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 layers = 524289
 shadow_enabled = true
@@ -2741,231 +2737,78 @@ directional_shadow_mode = 0
 directional_shadow_split_1 = 0.9
 directional_shadow_split_2 = 1.0
 
-[node name="CycleDurationTimer" type="Timer" parent="SubViewport/WeatherController/LightDirection"]
+[node name="CycleDurationTimer" type="Timer" parent="SubViewport/WeatherController/LightDirection" unique_id=691354628]
 wait_time = 4.0
 one_shot = true
 
-[node name="Trees" type="Node3D" parent="SubViewport"]
+[node name="Trees" type="Node3D" parent="SubViewport" unique_id=1781995210]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.2416, 2.05357, 0)
 
-[node name="TreeMultiLeafGPUParticule10" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
+[node name="TreeMultiLeafGPUParticule10" parent="SubViewport/Trees" unique_id=229951696 instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.19173, 0, -0.14067, 0, 1.5, 0, 0.14067, 0, -1.19173, -9.53461, 0, -4.97964)
 _totalParticulesCount = 400
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_crfu6")
+_colorShadingRamp = SubResource("GradientTexture1D_372we")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
 _colorNoise = 0.26
 
-[node name="TreeMultiLeafGPUParticule11" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
+[node name="TreeMultiLeafGPUParticule11" parent="SubViewport/Trees" unique_id=774182502 instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.19173, 0, -0.14067, 0, 1.5, 0, 0.14067, 0, -1.19173, -7.29414, 0, -1.55343)
 _totalParticulesCount = 400
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_nn52y")
+_colorShadingRamp = SubResource("GradientTexture1D_x3inu")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
 _colorNoise = 0.26
 
-[node name="TreeMultiLeafGPUParticule12" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
+[node name="TreeMultiLeafGPUParticule12" parent="SubViewport/Trees" unique_id=683123747 instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.19173, 0, -0.14067, 0, 1.5, 0, 0.14067, 0, -1.19173, -6.15445, 0, -10.9148)
 _totalParticulesCount = 400
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_v0kvh")
+_colorShadingRamp = SubResource("GradientTexture1D_mysmy")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
 _colorNoise = 0.26
 
-[node name="TreeMultiLeafGPUParticule19" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
+[node name="TreeMultiLeafGPUParticule19" parent="SubViewport/Trees" unique_id=1412545884 instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.19173, 0, -0.14067, 0, 1.5, 0, 0.14067, 0, -1.19173, -0.556705, 0, -10.7724)
 _totalParticulesCount = 400
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_w7rph")
+_colorShadingRamp = SubResource("GradientTexture1D_crlll")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
 _colorNoise = 0.26
 
-[node name="TreeMultiLeafGPUParticule20" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
+[node name="TreeMultiLeafGPUParticule20" parent="SubViewport/Trees" unique_id=472190713 instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.19173, 0, -0.14067, 0, 1.5, 0, 0.14067, 0, -1.19173, -2.82217, 0, -9.32161)
 _totalParticulesCount = 400
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_m1ir8")
+_colorShadingRamp = SubResource("GradientTexture1D_y8n5w")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
 _colorNoise = 0.26
 
-[node name="TreeMultiLeafGPUParticule21" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
+[node name="TreeMultiLeafGPUParticule21" parent="SubViewport/Trees" unique_id=1940802476 instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.19173, 0, -0.14067, 0, 1.5, 0, 0.14067, 0, -1.19173, -2.82217, 0, -6.00986)
 _totalParticulesCount = 400
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_uxcup")
+_colorShadingRamp = SubResource("GradientTexture1D_xteob")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
 _colorNoise = 0.26
 
-[node name="TreeMultiLeafGPUParticule14" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
+[node name="TreeMultiLeafGPUParticule14" parent="SubViewport/Trees" unique_id=577034928 instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.15737, 0, -0.317011, 0, 1.5, 0, 0.317011, 0, -1.15737, 15.3742, 2.11082, -23.6718)
 _totalParticulesCount = 400
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_03ca8")
+_colorShadingRamp = SubResource("GradientTexture1D_g4edd")
 _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
 _colorNoise = 0.26
 
-[node name="TreeMultiLeafGPUParticule15" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
+[node name="TreeMultiLeafGPUParticule15" parent="SubViewport/Trees" unique_id=766645188 instance=ExtResource("10_viqks")]
 transform = Transform3D(-1.15737, 0, -0.317011, 0, 1.5, 0, 0.317011, 0, -1.15737, 14.3699, 2.11082, -30.3234)
-_totalParticulesCount = 400
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_rfdoi")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule16" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(-1.15737, 0, -0.317011, 0, 1.5, 0, 0.317011, 0, -1.15737, 12.1312, 2.11082, -27.4731)
-_totalParticulesCount = 400
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_urvk5")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule17" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(-1.15737, 0, -0.317011, 0, 1.5, 0, 0.317011, 0, -1.15737, 15.5043, 2.11082, -27.7739)
-_totalParticulesCount = 400
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_2ouqh")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule18" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(-1.15737, 0, -0.317011, 0, 1.5, 0, 0.317011, 0, -1.15737, 11.0131, 2.11082, -31.1031)
-_totalParticulesCount = 400
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_oembb")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule22" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, 15.9669, -1.12288, -36.3037)
-_totalParticulesCount = 1000
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_3cdp3")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule23" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, 10.6589, -1.12288, -36.3037)
-_totalParticulesCount = 1000
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_c1pun")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule26" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, 0.0735931, -1.12288, -36.3037)
-_totalParticulesCount = 1000
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_llsuo")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule27" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, -5.11756, -1.12288, -36.3037)
-_totalParticulesCount = 1000
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_o6o0y")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule30" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, -15.2418, -1.12288, -35.9413)
-_totalParticulesCount = 1000
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_l2wlu")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule32" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, -25.2394, -0.414064, -36.0772)
-_totalParticulesCount = 1000
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_57bhg")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule33" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, -27.3954, -0.294972, -37.6737)
-_totalParticulesCount = 1000
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_4jv0r")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule34" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, -22.7292, -0.294972, -37.6737)
-_totalParticulesCount = 1000
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_s2tjp")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule35" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, -17.9926, -0.294972, -37.6737)
-_totalParticulesCount = 1000
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_o27vv")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule37" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, -10.946, -0.294972, -37.6737)
-_totalParticulesCount = 1000
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_gqjdg")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule39" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, 2.37683, -0.294972, -37.6737)
-_totalParticulesCount = 1000
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_op4r1")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule41" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, 8.15771, -0.294972, -37.6737)
-_totalParticulesCount = 1000
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_ov0jn")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule13" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(-1.19173, 0, -0.14067, 0, 1.5, 0, 0.14067, 0, -1.19173, -10.062, 0, -9.01639)
-_totalParticulesCount = 400
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_xknqr")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule25" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(1.40043, 0, 0.335282, 0, 2.25, 0, -0.335282, 0, 1.40043, -4.16359, 0, 21.0718)
 _totalParticulesCount = 400
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
 _colorShadingRamp = SubResource("GradientTexture1D_8qlts")
@@ -2973,45 +2816,8 @@ _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
 _colorNoise = 0.26
 
-[node name="TreeMultiLeafGPUParticule40" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(1.43727, 0.114148, -0.0502921, -0.0730103, 2.2471, 0.00255473, 0.050357, 0, 1.43913, 10.6872, -0.163968, -11.723)
-_totalParticulesCount = 400
-_mainParticuleColor = Color(0.641934, 0.641934, 0.641934, 1)
-_internalMeshColorAdjust = Color(0.545746, 0.881154, 0.515493, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_2ujm1")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.53
-_colorNoise = 0.25
-
-[node name="TreeMultiLeafGPUParticule42" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(1.40043, 0, 0.335282, 0, 2.25, 0, -0.335282, 0, 1.40043, -8.96122, 0, -13.4393)
-_totalParticulesCount = 400
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_6qhxi")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule44" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(1.40043, 0, 0.335282, 0, 2.25, 0, -0.335282, 0, 1.40043, -5.67123, 0, -7.34606)
-_totalParticulesCount = 400
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_lywnj")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule45" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(1.40043, 0, 0.335282, 0, 2.25, 0, -0.335282, 0, 1.40043, -9.0865, 0, 4.57093)
-_totalParticulesCount = 400
-_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
-_colorShadingRamp = SubResource("GradientTexture1D_lv3bb")
-_colorShadingDirection = Vector3(-1, 0, 0)
-_colorSpread = 0.69
-_colorNoise = 0.26
-
-[node name="TreeMultiLeafGPUParticule28" parent="SubViewport/Trees" instance=ExtResource("10_viqks")]
-transform = Transform3D(1.40043, 0, 0.335282, 0, 2.25, 0, -0.335282, 0, 1.40043, -3.00651, 0, 17.5708)
+[node name="TreeMultiLeafGPUParticule16" parent="SubViewport/Trees" unique_id=287855120 instance=ExtResource("10_viqks")]
+transform = Transform3D(-1.15737, 0, -0.317011, 0, 1.5, 0, 0.317011, 0, -1.15737, 12.1312, 2.11082, -27.4731)
 _totalParticulesCount = 400
 _internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
 _colorShadingRamp = SubResource("GradientTexture1D_tbgg4")
@@ -3019,639 +2825,747 @@ _colorShadingDirection = Vector3(-1, 0, 0)
 _colorSpread = 0.69
 _colorNoise = 0.26
 
-[node name="Objects" type="Node3D" parent="SubViewport"]
+[node name="TreeMultiLeafGPUParticule17" parent="SubViewport/Trees" unique_id=841895461 instance=ExtResource("10_viqks")]
+transform = Transform3D(-1.15737, 0, -0.317011, 0, 1.5, 0, 0.317011, 0, -1.15737, 15.5043, 2.11082, -27.7739)
+_totalParticulesCount = 400
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_lywnj")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule18" parent="SubViewport/Trees" unique_id=681060324 instance=ExtResource("10_viqks")]
+transform = Transform3D(-1.15737, 0, -0.317011, 0, 1.5, 0, 0.317011, 0, -1.15737, 11.0131, 2.11082, -31.1031)
+_totalParticulesCount = 400
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_o27vv")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule22" parent="SubViewport/Trees" unique_id=1192267878 instance=ExtResource("10_viqks")]
+transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, 15.9669, -1.12288, -36.3037)
+_totalParticulesCount = 1000
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_4nyb2")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule23" parent="SubViewport/Trees" unique_id=1806441710 instance=ExtResource("10_viqks")]
+transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, 10.6589, -1.12288, -36.3037)
+_totalParticulesCount = 1000
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_p7e4i")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule26" parent="SubViewport/Trees" unique_id=1566417411 instance=ExtResource("10_viqks")]
+transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, 0.0735931, -1.12288, -36.3037)
+_totalParticulesCount = 1000
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_6kl7h")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule27" parent="SubViewport/Trees" unique_id=1670778300 instance=ExtResource("10_viqks")]
+transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, -5.11756, -1.12288, -36.3037)
+_totalParticulesCount = 1000
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_lgq53")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule30" parent="SubViewport/Trees" unique_id=292896250 instance=ExtResource("10_viqks")]
+transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, -15.2418, -1.12288, -35.9413)
+_totalParticulesCount = 1000
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_7qybu")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule32" parent="SubViewport/Trees" unique_id=1741805319 instance=ExtResource("10_viqks")]
+transform = Transform3D(-2.41119, 0, -0.660439, -0.0852331, 2.47909, 0.311176, 0.654916, 0.322638, -2.39102, -25.2394, -0.414064, -36.0772)
+_totalParticulesCount = 1000
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_uexxd")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule33" parent="SubViewport/Trees" unique_id=23886299 instance=ExtResource("10_viqks")]
+transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, -27.3954, -0.294972, -37.6737)
+_totalParticulesCount = 1000
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_w8ren")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule34" parent="SubViewport/Trees" unique_id=736884017 instance=ExtResource("10_viqks")]
+transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, -22.7292, -0.294972, -37.6737)
+_totalParticulesCount = 1000
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_5kq0b")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule35" parent="SubViewport/Trees" unique_id=1331772201 instance=ExtResource("10_viqks")]
+transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, -17.9926, -0.294972, -37.6737)
+_totalParticulesCount = 1000
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_5kq54")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule37" parent="SubViewport/Trees" unique_id=1852189665 instance=ExtResource("10_viqks")]
+transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, -10.946, -0.294972, -37.6737)
+_totalParticulesCount = 1000
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_cqfif")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule39" parent="SubViewport/Trees" unique_id=896511358 instance=ExtResource("10_viqks")]
+transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, 2.37683, -0.294972, -37.6737)
+_totalParticulesCount = 1000
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_iha72")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule41" parent="SubViewport/Trees" unique_id=772393604 instance=ExtResource("10_viqks")]
+transform = Transform3D(-2.41119, -6.70552e-08, -0.660439, 0.200477, 2.85845, -0.731918, 0.629277, -0.910653, -2.29742, 8.15771, -0.294972, -37.6737)
+_totalParticulesCount = 1000
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_j2lif")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule13" parent="SubViewport/Trees" unique_id=963750562 instance=ExtResource("10_viqks")]
+transform = Transform3D(-1.19173, 0, -0.14067, 0, 1.5, 0, 0.14067, 0, -1.19173, -10.062, 0, -9.01639)
+_totalParticulesCount = 400
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_831f8")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule25" parent="SubViewport/Trees" unique_id=1058131767 instance=ExtResource("10_viqks")]
+transform = Transform3D(1.40043, 0, 0.335282, 0, 2.25, 0, -0.335282, 0, 1.40043, -4.16359, 0, 21.0718)
+_totalParticulesCount = 400
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_772j7")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule40" parent="SubViewport/Trees" unique_id=897728372 instance=ExtResource("10_viqks")]
+transform = Transform3D(1.43727, 0.114148, -0.0502921, -0.0730103, 2.2471, 0.00255473, 0.050357, 0, 1.43913, 10.6872, -0.163968, -11.723)
+_totalParticulesCount = 400
+_mainParticuleColor = Color(0.641934, 0.641934, 0.641934, 1)
+_internalMeshColorAdjust = Color(0.545746, 0.881154, 0.515493, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_mfn7a")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.53
+_colorNoise = 0.25
+
+[node name="TreeMultiLeafGPUParticule42" parent="SubViewport/Trees" unique_id=2053814581 instance=ExtResource("10_viqks")]
+transform = Transform3D(1.40043, 0, 0.335282, 0, 2.25, 0, -0.335282, 0, 1.40043, -8.96122, 0, -13.4393)
+_totalParticulesCount = 400
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_a0m1c")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule44" parent="SubViewport/Trees" unique_id=703074020 instance=ExtResource("10_viqks")]
+transform = Transform3D(1.40043, 0, 0.335282, 0, 2.25, 0, -0.335282, 0, 1.40043, -5.67123, 0, -7.34606)
+_totalParticulesCount = 400
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_7efsj")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule45" parent="SubViewport/Trees" unique_id=1371277138 instance=ExtResource("10_viqks")]
+transform = Transform3D(1.40043, 0, 0.335282, 0, 2.25, 0, -0.335282, 0, 1.40043, -9.0865, 0, 4.57093)
+_totalParticulesCount = 400
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_mcv8u")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="TreeMultiLeafGPUParticule28" parent="SubViewport/Trees" unique_id=464224081 instance=ExtResource("10_viqks")]
+transform = Transform3D(1.40043, 0, 0.335282, 0, 2.25, 0, -0.335282, 0, 1.40043, -3.00651, 0, 17.5708)
+_totalParticulesCount = 400
+_internalMeshColorAdjust = Color(0.320257, 0.590043, 0.343726, 1)
+_colorShadingRamp = SubResource("GradientTexture1D_kqkud")
+_colorShadingDirection = Vector3(-1, 0, 0)
+_colorSpread = 0.69
+_colorNoise = 0.26
+
+[node name="Objects" type="Node3D" parent="SubViewport" unique_id=1082736441]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 3.65295, 0)
 
-[node name="overworldRocksBlend" parent="SubViewport/Objects" instance=ExtResource("23_crfu6")]
+[node name="overworldRocksBlend" parent="SubViewport/Objects" unique_id=681317927 instance=ExtResource("23_crfu6")]
 transform = Transform3D(-0.299799, 0, 0.0109774, 0, 0.1, 0, -0.0109774, 0, -0.299799, 3.07654, 6.35395, 29.3987)
 
-[node name="campfire" type="Node3D" parent="SubViewport/Objects"]
+[node name="campfire" type="Node3D" parent="SubViewport/Objects" unique_id=1997185801]
 transform = Transform3D(0.666666, 0, 0.0008843, 0, 0.466667, 0, -0.0008843, 0, 0.666666, 5.59782, 0.396495, -16.5565)
 
-[node name="Columns" type="Node3D" parent="SubViewport/Objects"]
+[node name="Columns" type="Node3D" parent="SubViewport/Objects" unique_id=1667970545]
 
-[node name="column" type="MeshInstance3D" parent="SubViewport/Objects/Columns"]
+[node name="column" type="MeshInstance3D" parent="SubViewport/Objects/Columns" unique_id=133198646]
 transform = Transform3D(1.28229, 0, -0.778295, 0, 2.5, 0, 0.778295, 0, 1.28229, 2.96738, -1.34764, -1.14953)
 mesh = SubResource("ArrayMesh_crlll")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="column6" type="MeshInstance3D" parent="SubViewport/Objects/Columns"]
+[node name="column6" type="MeshInstance3D" parent="SubViewport/Objects/Columns" unique_id=143732522]
 transform = Transform3D(1.29623, 0.374271, -0.720669, -0.0977149, 2.44993, 0.282288, 0.748494, -0.32832, 1.2849, 24.1361, -1.30461, 4.02299)
 layers = 524289
 mesh = SubResource("ArrayMesh_crlll")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="column9" type="MeshInstance3D" parent="SubViewport/Objects/Columns"]
+[node name="column9" type="MeshInstance3D" parent="SubViewport/Objects/Columns" unique_id=1427927547]
 transform = Transform3D(1.4092, 0.854475, 0.0365578, -0.495693, 2.21232, 0.492266, 0.1359, -0.790908, 1.41646, 23.0128, -2.84385, -0.294863)
 mesh = SubResource("ArrayMesh_v0kvh")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("41_nn52y")
 
-[node name="column4" type="MeshInstance3D" parent="SubViewport/Objects/Columns" groups=["snap"]]
+[node name="column4" type="MeshInstance3D" parent="SubViewport/Objects/Columns" unique_id=1693623442 groups=["snap"]]
 transform = Transform3D(0.545642, -2.25785, -0.342119, 1.39471, 0.917014, 0.0456894, 0.0842252, -0.55787, 1.45975, 23.1298, -1.65263, 4.45863)
 layers = 524289
 mesh = SubResource("ArrayMesh_crlll")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="column5" type="MeshInstance3D" parent="SubViewport/Objects/Columns" groups=["snap"]]
+[node name="column5" type="MeshInstance3D" parent="SubViewport/Objects/Columns" unique_id=929082271 groups=["snap"]]
 transform = Transform3D(1.49119, 0.191439, -0.114698, -0.130438, 2.46464, -0.214905, 0.0966169, 0.372694, 1.48009, 19.3602, -1.97618, 3.82663)
 layers = 524289
 mesh = SubResource("ArrayMesh_crlll")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="column2" type="MeshInstance3D" parent="SubViewport/Objects/Columns" groups=["snap"]]
+[node name="column2" type="MeshInstance3D" parent="SubViewport/Objects/Columns" unique_id=1839770728 groups=["snap"]]
 transform = Transform3D(0.786067, 4.09652e-08, -1.27754, 0.430569, 2.35373, 0.264928, 1.2028, -0.842574, 0.740077, 2.76903, -1.26268, 0.460001)
 mesh = SubResource("ArrayMesh_crlll")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="column3" type="Node3D" parent="SubViewport/Objects/Columns" groups=["snap"]]
+[node name="column3" type="Node3D" parent="SubViewport/Objects/Columns" unique_id=690849753 groups=["snap"]]
 transform = Transform3D(0.666667, 0, 0, 0, 0.666667, 0, 0, 0, 0.666667, 20.867, -1.10828, -2.12297)
 
-[node name="column" type="MeshInstance3D" parent="SubViewport/Objects/Columns/column3" groups=["snap"]]
+[node name="column" type="MeshInstance3D" parent="SubViewport/Objects/Columns/column3" unique_id=1526955974 groups=["snap"]]
 transform = Transform3D(1.20712, 0, -0.890423, 0, 2, 0, 0.890423, 0, 1.20712, -31.5738, 0, 4.28445)
 mesh = SubResource("ArrayMesh_ub0pa")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="column8" type="Node3D" parent="SubViewport/Objects/Columns"]
+[node name="column8" type="Node3D" parent="SubViewport/Objects/Columns" unique_id=2007624401]
 transform = Transform3D(0.666667, 0, 0, 0, 0.666667, 0, 0, 0, 0.666667, 22.8593, -1.10828, -2.12297)
 
-[node name="column-damaged3" parent="SubViewport/Objects/Columns" instance=ExtResource("21_da4iu")]
+[node name="column-damaged3" parent="SubViewport/Objects/Columns" unique_id=1799787652 instance=ExtResource("21_da4iu")]
 transform = Transform3D(1.12211, 0, -0.995419, -0.102546, 1.98936, -0.115598, 0.990123, 0.206036, 1.11614, 12.6758, 0.0176337, -8.92572)
 
-[node name="column-damaged" parent="SubViewport/Objects/Columns/column-damaged3" index="0"]
+[node name="column-damaged" parent="SubViewport/Objects/Columns/column-damaged3" index="0" unique_id=67951246]
 transform = Transform3D(0.998321, 0.0578955, -0.00189242, -0.0578958, 0.99619, -0.0652645, -0.00189272, 0.0652641, 0.997867, -2.32089, -0.0758277, 0.271662)
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="column-damaged3" type="MeshInstance3D" parent="SubViewport/Objects/Columns/column-damaged3"]
+[node name="column-damaged3" type="MeshInstance3D" parent="SubViewport/Objects/Columns/column-damaged3" unique_id=1971928498]
 transform = Transform3D(0.998321, 0.0578955, -0.00189242, -0.0578958, 0.99619, -0.0652645, -0.00189272, 0.0652641, 0.997867, -2.32089, -0.0758277, 0.271662)
 mesh = SubResource("ArrayMesh_e3w8i")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="column-damaged2" type="MeshInstance3D" parent="SubViewport/Objects/Columns/column-damaged3"]
+[node name="column-damaged2" type="MeshInstance3D" parent="SubViewport/Objects/Columns/column-damaged3" unique_id=1620876358]
 transform = Transform3D(-0.389509, -0.0655796, -0.918685, 0.0937336, 0.989463, -0.110374, 0.916241, -0.129104, -0.379257, -0.314246, -0.138054, -1.85055)
 mesh = SubResource("ArrayMesh_2ouqh")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="pillar" type="Node3D" parent="SubViewport/Objects/Columns"]
+[node name="pillar" type="Node3D" parent="SubViewport/Objects/Columns" unique_id=1026904638]
 transform = Transform3D(0.666667, 0, 0, 0, 0.666667, 0, 0, 0, 0.666667, 19.5627, -1.08456, -0.622293)
 
-[node name="pillar" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar"]
+[node name="pillar" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar" unique_id=1559899148]
 transform = Transform3D(1.05489, 0.0374714, -0.571234, 0, 1.49794, 0.0628868, 0.57202, -0.0691028, 1.05344, 7.42586, -0.026109, -8.14669)
 layers = 524289
 mesh = SubResource("ArrayMesh_6vmpx")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="pillar" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar"]
+[node name="pillar" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar" unique_id=228435082]
 transform = Transform3D(1.05489, 0.0374714, -0.571234, -1.11759e-08, 1.49794, 0.0628868, 0.57202, -0.0691028, 1.05344, -64.8608, 3.19609, -86.3219)
 layers = 524289
 mesh = SubResource("ArrayMesh_6vmpx")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="pillar2" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar"]
+[node name="pillar2" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar" unique_id=1569663475]
 transform = Transform3D(1.05489, 0.0374714, -0.571234, -1.11759e-08, 1.49794, 0.0628868, 0.57202, -0.0691028, 1.05344, -79.7983, 4.95541, -128.228)
 layers = 524289
 mesh = SubResource("ArrayMesh_6vmpx")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="pillar3" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar"]
+[node name="pillar3" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar" unique_id=235328143]
 transform = Transform3D(1.05489, 0.0374714, -0.571234, -1.11759e-08, 1.49794, 0.0628868, 0.57202, -0.0691028, 1.05344, -84.2345, 4.85456, -125.826)
 layers = 524289
 mesh = SubResource("ArrayMesh_6vmpx")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="pillar4" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar"]
+[node name="pillar4" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar" unique_id=1095850615]
 transform = Transform3D(1.05489, 0.0374714, -0.571234, -1.11759e-08, 1.49794, 0.0628868, 0.57202, -0.0691028, 1.05344, -89.7542, 4.72907, -122.837)
 layers = 524289
 mesh = SubResource("ArrayMesh_6vmpx")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="pillar5" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar"]
+[node name="pillar5" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar" unique_id=978329207]
 transform = Transform3D(1.05489, 0.0374714, -0.571234, -1.11759e-08, 1.49794, 0.0628868, 0.57202, -0.0691028, 1.05344, -107.279, 6.08399, -155.111)
 layers = 524289
 mesh = SubResource("ArrayMesh_6vmpx")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="pillar6" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar"]
+[node name="pillar6" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar" unique_id=1701579434]
 transform = Transform3D(1.05489, 0.0374714, -0.571234, -1.11759e-08, 1.49794, 0.0628868, 0.57202, -0.0691028, 1.05344, -103.686, 6.16567, -157.056)
 layers = 524289
 mesh = SubResource("ArrayMesh_6vmpx")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="pillar7" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar"]
+[node name="pillar7" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar" unique_id=1765317991]
 transform = Transform3D(1.05489, 0.0374714, -0.571234, -1.11759e-08, 1.49794, 0.0628868, 0.57202, -0.0691028, 1.05344, -100.853, 6.23008, -158.59)
 layers = 524289
 mesh = SubResource("ArrayMesh_6vmpx")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="pillar8" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar"]
+[node name="pillar8" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar" unique_id=535788823]
 transform = Transform3D(1.05489, 0.0374714, -0.571234, -1.11759e-08, 1.49794, 0.0628868, 0.57202, -0.0691028, 1.05344, -97.4754, 6.30686, -160.419)
 layers = 524289
 mesh = SubResource("ArrayMesh_6vmpx")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="pillar9" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar"]
+[node name="pillar9" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar" unique_id=1331522496]
 transform = Transform3D(1.05489, 0.0374714, -0.571234, -1.11759e-08, 1.49794, 0.0628868, 0.57202, -0.0691028, 1.05344, -109.513, 6.03319, -153.901)
 layers = 524289
 mesh = SubResource("ArrayMesh_6vmpx")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="pillar10" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar"]
+[node name="pillar10" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar/pillar" unique_id=2051881063]
 transform = Transform3D(1.05489, 0.0374714, -0.571234, -1.11759e-08, 1.49794, 0.0628868, 0.57202, -0.0691028, 1.05344, -113.7, 5.93802, -151.634)
 layers = 524289
 mesh = SubResource("ArrayMesh_6vmpx")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="pillar2" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar"]
+[node name="pillar2" type="MeshInstance3D" parent="SubViewport/Objects/Columns/pillar" unique_id=1465638841]
 transform = Transform3D(1.03767, 0.306443, -0.550589, -0.189848, 1.46674, 0.164665, 0.57202, -0.0691028, 1.05344, -6.11031, -1.29722, -8.9796)
 layers = 524289
 mesh = SubResource("ArrayMesh_6vmpx")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="shrine" type="Node3D" parent="SubViewport/Objects/Columns"]
+[node name="shrine" type="Node3D" parent="SubViewport/Objects/Columns" unique_id=59407406]
 transform = Transform3D(0.666667, 0, 0, 0, 0.666667, 0, 0, 0, 0.666667, 14.3751, -0.635295, 0.03044)
 
-[node name="shrine" type="MeshInstance3D" parent="SubViewport/Objects/Columns/shrine"]
+[node name="shrine" type="MeshInstance3D" parent="SubViewport/Objects/Columns/shrine" unique_id=318304356]
 transform = Transform3D(0.676303, 0, -0.736624, 0, 1.5, 0, 0.736624, 0, 0.676303, 9.8725, -0.471496, -5.75964)
 layers = 524291
 mesh = SubResource("ArrayMesh_2f7sf")
-skeleton = NodePath("")
 
-[node name="Plants" type="Node3D" parent="SubViewport/Objects"]
+[node name="Plants" type="Node3D" parent="SubViewport/Objects" unique_id=331508768]
 
-[node name="log_stack2" type="MeshInstance3D" parent="SubViewport/Objects/Plants"]
+[node name="log_stack2" type="MeshInstance3D" parent="SubViewport/Objects/Plants" unique_id=44391009]
 transform = Transform3D(1.13138, 0, -0.98488, 0, 1.5, 0, 0.98488, 0, 1.13138, 8.30852, -1.08944, -1.65265)
 layers = 524289
 mesh = SubResource("ArrayMesh_8qlts")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_dqia4")
 surface_material_override/1 = SubResource("StandardMaterial3D_tbgg4")
 
-[node name="log_stack3" type="MeshInstance3D" parent="SubViewport/Objects/Plants"]
+[node name="log_stack3" type="MeshInstance3D" parent="SubViewport/Objects/Plants" unique_id=2128208376]
 transform = Transform3D(0.141735, 0, 1.49329, 0, 1.5, 0, -1.49329, 0, 0.141735, 6.02378, 0.309098, -19.7756)
 layers = 524289
 mesh = SubResource("ArrayMesh_8qlts")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_dqia4")
 surface_material_override/1 = SubResource("StandardMaterial3D_tbgg4")
 
-[node name="log_stack6" type="MeshInstance3D" parent="SubViewport/Objects/Plants"]
+[node name="log_stack6" type="MeshInstance3D" parent="SubViewport/Objects/Plants" unique_id=1612230799]
 transform = Transform3D(0.728539, 0, -0.685005, 0, 1.2, 0, 0.685005, 0, 0.728539, 6.3063, 0.309098, -14.9406)
 layers = 524289
 mesh = SubResource("ArrayMesh_8qlts")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_dqia4")
 surface_material_override/1 = SubResource("StandardMaterial3D_tbgg4")
 
-[node name="log_stack4" type="MeshInstance3D" parent="SubViewport/Objects/Plants"]
+[node name="log_stack4" type="MeshInstance3D" parent="SubViewport/Objects/Plants" unique_id=536316076]
 transform = Transform3D(0.744825, 0, -1.30201, 0, 1.5, 0, 1.30201, 0, 0.744825, 8.20965, -0.637825, -1.93276)
 layers = 524289
 mesh = SubResource("ArrayMesh_8qlts")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_dqia4")
 surface_material_override/1 = SubResource("StandardMaterial3D_tbgg4")
 
-[node name="log_stack5" type="MeshInstance3D" parent="SubViewport/Objects/Plants"]
+[node name="log_stack5" type="MeshInstance3D" parent="SubViewport/Objects/Plants" unique_id=1378570600]
 transform = Transform3D(0.378079, 0, -1.45157, 0, 1.5, 0, 1.45157, 0, 0.378079, 7.9929, -1.15106, -2.14185)
 layers = 524289
 mesh = SubResource("ArrayMesh_8qlts")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_dqia4")
 surface_material_override/1 = SubResource("StandardMaterial3D_tbgg4")
 
-[node name="mushroom_redGroup8" type="MeshInstance3D" parent="SubViewport/Objects/Plants"]
+[node name="mushroom_redGroup8" type="MeshInstance3D" parent="SubViewport/Objects/Plants" unique_id=1871852508]
 transform = Transform3D(0.0161124, 0.517974, 1.40764, -0.223046, 1.3929, -0.509996, -1.48324, -0.203834, 0.091983, 13.2122, -1.06862, 2.31051)
 mesh = SubResource("ArrayMesh_l2wlu")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_2ujm1")
 surface_material_override/1 = SubResource("ShaderMaterial_8ncxe")
 
-[node name="mushroom_redGroup9" parent="SubViewport/Objects/Plants" instance=ExtResource("15_0swlf")]
+[node name="mushroom_redGroup9" parent="SubViewport/Objects/Plants" unique_id=111029727 instance=ExtResource("15_0swlf")]
 transform = Transform3D(1.20782, 0.469925, 0.755221, -0.223046, 1.3929, -0.509995, -0.86107, 0.298355, 1.19145, 13.7943, -1.06862, 2.14198)
 surface_material_override/0 = null
 surface_material_override/1 = null
 
-[node name="mushroom_redGroup11" type="MeshInstance3D" parent="SubViewport/Objects/Plants"]
+[node name="mushroom_redGroup11" type="MeshInstance3D" parent="SubViewport/Objects/Plants" unique_id=1475191053]
 transform = Transform3D(0.537237, 0.556574, 1.28515, -0.223046, 1.3929, -0.509996, -1.38262, -0.00843936, 0.581637, 16.7555, -1.06862, 1.48673)
 mesh = SubResource("ArrayMesh_l2wlu")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_2ujm1")
 surface_material_override/1 = SubResource("ShaderMaterial_8ncxe")
 
-[node name="mushroom_redGroup12" type="MeshInstance3D" parent="SubViewport/Objects/Plants"]
+[node name="mushroom_redGroup12" type="MeshInstance3D" parent="SubViewport/Objects/Plants" unique_id=1772004481]
 transform = Transform3D(1.43363, 0.334812, 0.287442, -0.223046, 1.3929, -0.509996, -0.380752, 0.444687, 1.38105, 17.3597, -1.06862, 1.53389)
 mesh = SubResource("ArrayMesh_l2wlu")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_2ujm1")
 surface_material_override/1 = SubResource("ShaderMaterial_8ncxe")
 
-[node name="mushroom_redGroup13" type="MeshInstance3D" parent="SubViewport/Objects/Plants"]
+[node name="mushroom_redGroup13" type="MeshInstance3D" parent="SubViewport/Objects/Plants" unique_id=723535296]
 transform = Transform3D(0.537237, 0.556574, 1.28515, -0.223046, 1.3929, -0.509996, -1.38262, -0.00843936, 0.581637, 1.54653, -1.06236, -1.87854)
 mesh = SubResource("ArrayMesh_l2wlu")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_2ujm1")
 surface_material_override/1 = SubResource("ShaderMaterial_8ncxe")
 
-[node name="mushroom_redGroup14" type="MeshInstance3D" parent="SubViewport/Objects/Plants"]
+[node name="mushroom_redGroup14" type="MeshInstance3D" parent="SubViewport/Objects/Plants" unique_id=1699095558]
 transform = Transform3D(1.43363, 0.334812, 0.287442, -0.223046, 1.3929, -0.509996, -0.380752, 0.444687, 1.38105, 2.15066, -1.06236, -1.83137)
 mesh = SubResource("ArrayMesh_l2wlu")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_2ujm1")
 surface_material_override/1 = SubResource("ShaderMaterial_8ncxe")
 
-[node name="mushroom_redGroup10" type="MeshInstance3D" parent="SubViewport/Objects/Plants"]
+[node name="mushroom_redGroup10" type="MeshInstance3D" parent="SubViewport/Objects/Plants" unique_id=1517057535]
 transform = Transform3D(1.20782, 0.469926, 0.755222, -0.223046, 1.3929, -0.509996, -0.86107, 0.298354, 1.19145, 13.843, -1.06862, 0.497735)
 mesh = SubResource("ArrayMesh_l2wlu")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_2ujm1")
 surface_material_override/1 = SubResource("ShaderMaterial_8ncxe")
 
-[node name="lily_large2" parent="SubViewport/Objects/Plants" instance=ExtResource("22_72eyv")]
+[node name="lily_large2" parent="SubViewport/Objects/Plants" unique_id=1172561169 instance=ExtResource("22_72eyv")]
 transform = Transform3D(3.333, 0, 0, 0, 5.99883, -0.0659044, 0, 0.11864, 3.33235, 5.63238, -1.10261, 7.18511)
 
-[node name="lily_large5" parent="SubViewport/Objects/Plants" instance=ExtResource("22_72eyv")]
+[node name="lily_large5" parent="SubViewport/Objects/Plants" unique_id=2036933704 instance=ExtResource("22_72eyv")]
 transform = Transform3D(1.89492, -0.0976004, -2.74139, 2.46692e-16, 5.99883, -0.0659044, 2.74193, 0.0674508, 1.89455, 9.67085, -1.10261, 5.99698)
 
-[node name="lily_large6" parent="SubViewport/Objects/Plants" instance=ExtResource("22_72eyv")]
+[node name="lily_large6" parent="SubViewport/Objects/Plants" unique_id=704237675 instance=ExtResource("22_72eyv")]
 transform = Transform3D(0.419525, -0.117696, -3.30585, 0, 5.99883, -0.0659044, 3.30649, 0.0149332, 0.419443, 11.2827, -1.10261, 8.34969)
 
-[node name="lily_large8" parent="SubViewport/Objects/Plants" instance=ExtResource("22_72eyv")]
+[node name="lily_large8" parent="SubViewport/Objects/Plants" unique_id=177388156 instance=ExtResource("22_72eyv")]
 transform = Transform3D(0.419525, -0.117696, -3.30585, 0, 5.99883, -0.0659044, 3.30649, 0.0149332, 0.419443, 11.2827, -1.10261, 8.34969)
 
-[node name="lily_large9" parent="SubViewport/Objects/Plants" groups=["snap"] instance=ExtResource("22_72eyv")]
+[node name="lily_large9" parent="SubViewport/Objects/Plants" unique_id=1469924625 groups=["snap"] instance=ExtResource("22_72eyv")]
 transform = Transform3D(-2.0727, -0.0929092, -2.60963, 0, 5.99883, -0.0659044, 2.61013, -0.0737789, -2.0723, 21.1021, -1.10659, 6.85436)
 
-[node name="lily_large10" parent="SubViewport/Objects/Plants" groups=["snap"] instance=ExtResource("22_72eyv")]
+[node name="lily_large10" parent="SubViewport/Objects/Plants" unique_id=1073463087 groups=["snap"] instance=ExtResource("22_72eyv")]
 transform = Transform3D(-2.0727, -0.0929092, -2.60963, 0, 5.99883, -0.0659044, 2.61013, -0.0737789, -2.0723, 22.0143, -1.07595, 8.55456)
 
-[node name="lily_large11" parent="SubViewport/Objects/Plants" groups=["snap"] instance=ExtResource("22_72eyv")]
+[node name="lily_large11" parent="SubViewport/Objects/Plants" unique_id=2090312505 groups=["snap"] instance=ExtResource("22_72eyv")]
 transform = Transform3D(-2.85027, 0.0614977, 1.72734, 0, 5.99883, -0.0659044, -1.72768, -0.101457, -2.84971, 17.5887, -1.10659, 7.83034)
 
-[node name="lily_large12" parent="SubViewport/Objects/Plants" instance=ExtResource("22_72eyv")]
+[node name="lily_large12" parent="SubViewport/Objects/Plants" unique_id=1032257975 instance=ExtResource("22_72eyv")]
 transform = Transform3D(-2.85027, 0.0614977, 1.72734, 0, 5.99883, -0.0659044, -1.72768, -0.101457, -2.84971, 17.5887, -1.10659, 7.83034)
 
-[node name="lily_large7" parent="SubViewport/Objects/Plants" groups=["snap"] instance=ExtResource("22_72eyv")]
+[node name="lily_large7" parent="SubViewport/Objects/Plants" unique_id=1914122226 groups=["snap"] instance=ExtResource("22_72eyv")]
 transform = Transform3D(-3.06189, 0.0468686, 1.31644, 0, 5.99883, -0.0659044, -1.3167, -0.10899, -3.0613, 8.81893, -1.10261, 8.61244)
 
-[node name="lily_large4" parent="SubViewport/Objects/Plants" instance=ExtResource("22_72eyv")]
+[node name="lily_large4" parent="SubViewport/Objects/Plants" unique_id=623200804 instance=ExtResource("22_72eyv")]
 transform = Transform3D(3.33264, -0.087623, 0.00114708, 0.0486786, 5.99373, -0.144387, 0.000962723, 0.259925, 3.32987, 7.75446, -1.12204, 6.68575)
 
-[node name="lily_large3" parent="SubViewport/Objects/Plants" instance=ExtResource("22_72eyv")]
+[node name="lily_large3" parent="SubViewport/Objects/Plants" unique_id=2099795828 instance=ExtResource("22_72eyv")]
 transform = Transform3D(-1.13814, -0.0876473, 3.13228, 0.0453177, 5.99819, 0.068259, -3.13233, 0.118627, -1.13713, 4.26848, -1.1425, 8.37386)
 
-[node name="Rocks" type="Node3D" parent="SubViewport/Objects"]
+[node name="Rocks" type="Node3D" parent="SubViewport/Objects" unique_id=2099347653]
 
-[node name="rock_tallG4" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="rock_tallG4" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=625666461]
 transform = Transform3D(-0.417024, -0.0009799, 1.95604, 0.287704, 1.97822, 0.0623287, -1.93477, 0.294376, -0.41234, 14.9799, 0.144433, -17.3341)
 layers = 524289
 mesh = SubResource("ArrayMesh_6qhxi")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 surface_material_override/2 = SubResource("ShaderMaterial_57bhg")
 
-[node name="rock_tallG5" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="rock_tallG5" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=862583735]
 transform = Transform3D(1.58703, -0.192948, -1.20171, 0.287704, 1.97822, 0.0623287, 1.18261, -0.222327, 1.5975, 15.9428, 0.144433, -18.6371)
 layers = 524289
 mesh = SubResource("ArrayMesh_6qhxi")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 surface_material_override/2 = SubResource("ShaderMaterial_57bhg")
 
-[node name="rock_tallG6" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="rock_tallG6" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=1898233186]
 transform = Transform3D(-0.686127, 0.200316, 1.86792, 0.29768, 1.97507, -0.102464, -1.8549, 0.242868, -0.707386, 17.0395, 0.144433, -17.7516)
 layers = 524289
 mesh = SubResource("ArrayMesh_6qhxi")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 surface_material_override/2 = SubResource("ShaderMaterial_57bhg")
 
-[node name="rock_tallG3" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="rock_tallG3" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=653695053]
 transform = Transform3D(-1.93016, -0.491441, 0.181524, -0.511955, 1.91644, -0.255291, -0.11121, -0.292843, -1.97531, -21.0155, -0.05, 1.75562)
 mesh = SubResource("ArrayMesh_6qhxi")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_g26fm")
 surface_material_override/1 = SubResource("ShaderMaterial_4jv0r")
 surface_material_override/2 = SubResource("ShaderMaterial_lywnj")
 
-[node name="BolderRockv4" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv4" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=2119582753]
 transform = Transform3D(0.497315, -0.0517522, 0, 0.0517522, 0.497315, 0, 0, 0, 0.5, -22.2092, 0, 5.34237)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_lv3bb")
 
-[node name="BolderRockv6" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv6" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=225808978]
 transform = Transform3D(0.497315, -0.0517522, 0, 0.0517522, 0.497315, 0, 0, 0, 0.5, -17.2667, 0, 5.34237)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_o27vv")
 
-[node name="BolderRockv9" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv9" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=305045500]
 transform = Transform3D(-0.0374072, 0.398247, 0, -0.398247, -0.0374072, 0, 0, 0, 0.4, 16.6218, 0.64619, -13.7374)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv13" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv13" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=855115607]
 transform = Transform3D(-0.0374072, 0.398247, 0, -0.398247, -0.0374072, 0, 0, 0, 0.4, 3.16057, 0.59236, -19.0648)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv19" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv19" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=1057495476]
 transform = Transform3D(-0.0187036, 0.199124, 0, -0.199124, -0.0187036, 0, 0, 0, 0.2, 0.592695, 0.59236, -13.8621)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv22" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv22" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=968026458]
 transform = Transform3D(-0.0140277, 0.149343, 0, -0.149343, -0.0140277, 0, 0, 0, 0.1, 5.15954, 0.400681, -15.1029)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv23" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv23" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=1743554540]
 transform = Transform3D(-0.0132579, 0.141148, -0.0326707, -0.149343, -0.0140277, 0, -0.00458294, 0.0487912, 0.0945126, 6.65863, 0.400681, -14.956)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv24" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv24" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=88651617]
 transform = Transform3D(0.00420864, -0.0448063, 0.0953932, -0.149343, -0.0140277, 7.00114e-10, 0.0133815, -0.142463, -0.0300023, 6.61099, 0.400681, -15.4235)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv25" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv25" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=70468241]
 transform = Transform3D(-0.00718194, 0.0764609, 0.0858996, -0.149343, -0.0140277, 5.04585e-10, 0.0120497, -0.128285, 0.0511983, 6.1047, 0.400681, -13.9861)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv26" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv26" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=1677264042]
 transform = Transform3D(-0.00902808, 0.0961153, -0.0765371, -0.149343, -0.0140277, 0, -0.0107364, 0.114303, 0.0643589, 5.55898, 0.400681, -15.944)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv27" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv27" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=587676275]
 transform = Transform3D(0.00936123, -0.0996621, 0.0744754, -0.149343, -0.0140277, -2.31871e-10, 0.0104472, -0.111224, -0.0667339, 7.19695, 0.400681, -14.0673)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv28" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv28" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=438067615]
 transform = Transform3D(-0.00753316, 0.0802, 0.084357, -0.149343, -0.0140277, 9.26405e-10, 0.0118334, -0.125981, 0.053702, 6.73849, 0.400681, -15.0395)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv29" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv29" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=404408352]
 transform = Transform3D(-0.0125008, 0.133087, -0.0453711, -0.149343, -0.0140277, -2.28681e-10, -0.00636452, 0.0677583, 0.0891149, 5.43257, 0.400681, -14.7804)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv20" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv20" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=1918686527]
 transform = Transform3D(-0.0049168, 0.0523455, -0.192966, -0.199124, -0.0187036, 0, -0.0180458, 0.19212, 0.0525759, 0.592695, 0.59236, -12.9793)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv21" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv21" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=1835113081]
 transform = Transform3D(-0.0049168, 0.0523455, -0.192966, -0.199124, -0.0187036, 0, -0.0180458, 0.19212, 0.0525759, 0.527208, 0.59236, -13.6284)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv14" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv14" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=1631832260]
 transform = Transform3D(-0.00568406, 0.060514, -0.395355, -0.398247, -0.0374072, 0, -0.0369728, 0.393623, 0.0607804, 8.09652, 0.59236, -19.6608)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv18" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv18" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=544957475]
 transform = Transform3D(-0.384067, -0.00158455, 0.167651, 0.0479788, 0.720188, 0.251134, -0.100948, 0.34832, -0.518484, -0.501772, -0.75017, -14.5977)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv10" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv10" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=255339320]
 transform = Transform3D(-0.0443691, 0.339076, -0.364773, -0.0211613, -0.367171, -0.33873, -0.497578, -0.0146202, 0.0469325, -5.83393, 0.754917, 1.16215)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv11" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv11" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=700397235]
 transform = Transform3D(-0.0109586, 0.981789, 0.189659, -0.0977015, 0.187711, -0.977353, -0.995156, -0.0292404, 0.0938651, -2.43189, -0.346625, -5.93255)
 layers = 524289
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv16" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv16" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=920148428]
 transform = Transform3D(0.0909601, 0.0884755, 0.991917, -0.0373087, 0.995649, -0.0853866, -0.995156, -0.0292404, 0.0938651, -3.06717, -0.346625, -8.96025)
 layers = 524289
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv17" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv17" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=660525723]
 transform = Transform3D(0.967529, 0.245611, -0.0596865, -0.249676, 0.96547, -0.0743561, 0.039363, 0.0868446, 0.995444, -3.55233, -1.48921, -5.88507)
 layers = 524289
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv15" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv15" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=1025186108]
 transform = Transform3D(-0.751292, 0.630154, 0.196131, 0.0848608, 0.386953, -0.918186, -0.654492, -0.673182, -0.34419, -0.958242, -0.873932, -7.2924)
 layers = 524289
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="BolderRockv5" type="MeshInstance3D" parent="SubViewport/Objects/Rocks"]
+[node name="BolderRockv5" type="MeshInstance3D" parent="SubViewport/Objects/Rocks" unique_id=730672981]
 transform = Transform3D(0.497315, -0.0517522, 0, 0.0517522, 0.497315, 0, 0, 0, 0.5, -26.3478, 0, 5.34237)
 mesh = SubResource("ArrayMesh_s2tjp")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("20_lymdg")
 
-[node name="Rocks" type="Node3D" parent="SubViewport/Objects/Rocks"]
+[node name="Rocks" type="Node3D" parent="SubViewport/Objects/Rocks" unique_id=160624260]
 transform = Transform3D(0.666667, 0, 0, 0, 0.666667, 0, 0, 0, 0.666667, 14.2678, -0.359106, -1.88474)
 
-[node name="Mossy_Rock_Group_Env_02_001" type="MeshInstance3D" parent="SubViewport/Objects/Rocks/Rocks"]
+[node name="Mossy_Rock_Group_Env_02_001" type="MeshInstance3D" parent="SubViewport/Objects/Rocks/Rocks" unique_id=48947419]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.879687, 0)
 mesh = SubResource("ArrayMesh_sh1qa")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="Mossy_Rock_Group_Env_02_002" type="MeshInstance3D" parent="SubViewport/Objects/Rocks/Rocks"]
+[node name="Mossy_Rock_Group_Env_02_002" type="MeshInstance3D" parent="SubViewport/Objects/Rocks/Rocks" unique_id=1873925908]
 transform = Transform3D(1.15828, 1.0683, -1.23171, -1.48087, 1.32147, -0.246435, 0.682205, 1.05473, 1.55633, 5.25571, -2.5958, 0.584421)
 mesh = SubResource("ArrayMesh_sh1qa")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("41_nn52y")
 
-[node name="Buildings" type="Node3D" parent="SubViewport/Objects"]
+[node name="Buildings" type="Node3D" parent="SubViewport/Objects" unique_id=1313881366]
 
-[node name="tower-square-arch2" parent="SubViewport/Objects/Buildings" instance=ExtResource("24_03ca8")]
+[node name="tower-square-arch2" parent="SubViewport/Objects/Buildings" unique_id=134939793 instance=ExtResource("24_03ca8")]
 transform = Transform3D(4.50219, 0, -1.22803, 0, 3.33333, 0, 1.22803, 0, 4.50219, -5.88474, 1.58126, -17.0332)
 
-[node name="tower-square-arch" parent="SubViewport/Objects/Buildings/tower-square-arch2" index="0"]
+[node name="tower-square-arch" parent="SubViewport/Objects/Buildings/tower-square-arch2" index="0" unique_id=809122064]
 transform = Transform3D(0.988292, 5.31815e-10, 0.152572, -0.00285177, 0.999825, 0.0184726, -0.152545, -0.0186913, 0.98812, 0.100822, -0.725218, 6.50401)
 surface_material_override/0 = SubResource("ShaderMaterial_y8n5w")
 
-[node name="camp" type="Node3D" parent="SubViewport/Objects/Buildings/tower-square-arch2"]
+[node name="camp" type="Node3D" parent="SubViewport/Objects/Buildings/tower-square-arch2" unique_id=303094833]
 transform = Transform3D(0.142857, 0, 0, 0, 0.2, 0, 0, 0, 0.142857, 0.30595, -0.000515819, -0.14884)
 
-[node name="camp" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="camp" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=523658600]
 transform = Transform3D(0.0479809, 0, 0.998848, 0, 1, 0, -0.998848, 0, 0.0479809, 0, 0, 0)
 mesh = SubResource("ArrayMesh_hur1o")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_gwg7d")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp/camp"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp/camp" unique_id=847794540]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp/camp/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp/camp/StaticBody3D" unique_id=135607023]
 shape = SubResource("ConcavePolygonShape3D_x28mb")
 
-[node name="arrow_051" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="arrow_051" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=258424]
 transform = Transform3D(0.0436917, 0.990205, 0.132608, 0.41328, 0.102931, -0.904768, -0.909555, 0.0943349, -0.404734, 3.26437, 4.35226, -1.94234)
 mesh = SubResource("ArrayMesh_j8k4t")
-skeleton = NodePath("")
 
-[node name="arrow_052" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="arrow_052" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=991581887]
 transform = Transform3D(0.0103715, 0.997742, 0.0663594, -0.976357, 0.0244342, -0.21478, -0.215917, -0.0625627, 0.974405, 3.27364, 4.27986, -2.13519)
 mesh = SubResource("ArrayMesh_lqj5v")
-skeleton = NodePath("")
 
-[node name="arrow_053" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="arrow_053" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=1437420235]
 transform = Transform3D(-0.0474876, 0.993222, 0.106088, -0.143029, -0.111874, 0.983375, 0.988579, 0.0315246, 0.147372, 3.21085, 4.10128, -2.02466)
 mesh = SubResource("ArrayMesh_6tsbp")
-skeleton = NodePath("")
 
-[node name="arrow_054" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="arrow_054" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=1156588820]
 transform = Transform3D(0.0436916, 0.990205, 0.132608, 0.41328, 0.102931, -0.904768, -0.909555, 0.0943349, -0.404734, 3.06726, 5.54258, -1.9518)
 mesh = SubResource("ArrayMesh_ofhkx")
-skeleton = NodePath("")
 
-[node name="arrow_055" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="arrow_055" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=957470582]
 transform = Transform3D(0.0832643, 0.993142, 0.0820784, -0.973626, 0.0986307, -0.205731, -0.212415, -0.0627837, 0.975161, 3.04736, 5.77042, -2.14606)
 mesh = SubResource("ArrayMesh_selyq")
-skeleton = NodePath("")
 
-[node name="arrow_056" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="arrow_056" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=817617723]
 transform = Transform3D(-0.0474876, 0.993222, 0.106088, -0.143029, -0.111874, 0.983375, 0.988579, 0.0315246, 0.147372, 3.05537, 5.32913, -2.0321)
 mesh = SubResource("ArrayMesh_33dwo")
-skeleton = NodePath("")
 
-[node name="arrow_057" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="arrow_057" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=101125017]
 transform = Transform3D(0.0436916, 0.990205, 0.132608, 0.41328, 0.102931, -0.904768, -0.909555, 0.0943349, -0.404734, 2.85152, 3.44572, 2.53937)
 mesh = SubResource("ArrayMesh_e7cxt")
-skeleton = NodePath("")
 
-[node name="arrow_058" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="arrow_058" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=350737870]
 transform = Transform3D(0.0832643, 0.993142, 0.0820784, -0.973626, 0.0986307, -0.205731, -0.212415, -0.0627837, 0.975161, 2.83369, 5.38131, 2.30193)
 mesh = SubResource("ArrayMesh_i0r6j")
-skeleton = NodePath("")
 
-[node name="arrow_059" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="arrow_059" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=892078327]
 transform = Transform3D(-0.0239011, 0.997149, 0.0715684, -0.867099, -0.0563076, 0.494944, 0.497563, -0.0502272, 0.865973, 2.84137, 3.18904, 2.42308)
 mesh = SubResource("ArrayMesh_jsfk4")
-skeleton = NodePath("")
 
-[node name="arrow_060" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="arrow_060" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=1351998531]
 transform = Transform3D(0.0436916, 0.990205, 0.132608, 0.41328, 0.102931, -0.904768, -0.909555, 0.0943349, -0.404734, 3.06139, 2.28561, -1.82945)
 mesh = SubResource("ArrayMesh_gk67s")
-skeleton = NodePath("")
 
-[node name="arrow_061" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="arrow_061" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=603930380]
 transform = Transform3D(0.0832643, 0.993142, 0.0820784, -0.973626, 0.0986307, -0.205731, -0.212415, -0.0627837, 0.975161, 3.04149, 2.51345, -2.0237)
 mesh = SubResource("ArrayMesh_a2d8x")
-skeleton = NodePath("")
 
-[node name="arrow_062" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="arrow_062" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=410387817]
 transform = Transform3D(-0.0306794, 0.996616, 0.0762516, -0.76887, -0.0722761, 0.635307, 0.638669, -0.0391367, 0.768486, 3.05573, 1.57497, -2.03931)
 mesh = SubResource("ArrayMesh_r0qs5")
-skeleton = NodePath("")
 
-[node name="axe_1handed_007" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="axe_1handed_007" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=387265329]
 transform = Transform3D(-0.26764, -0.609819, 0.745983, 0.915691, -0.401882, -1.78814e-07, 0.299797, 0.68309, 0.665965, 0.813187, 7.0578, -0.847061)
 mesh = SubResource("ArrayMesh_lfy2r")
-skeleton = NodePath("")
 
-[node name="axe_1handed_008" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="axe_1handed_008" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=435342437]
 transform = Transform3D(-0.433269, -0.388585, 0.813191, 0.869815, -0.41656, 0.264385, 0.236007, 0.821875, 0.51848, 14.5315, -1.1561, -7.61065)
 mesh = SubResource("ArrayMesh_lfy2r")
-skeleton = NodePath("")
 
-[node name="axe_2handed_005" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="axe_2handed_005" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=1575848306]
 transform = Transform3D(0.878324, -0.369366, 0.303507, 0.435754, 0.357419, -0.826057, 0.196638, 0.8578, 0.474882, -1.37569, 6.54108, 0.0900574)
 mesh = SubResource("ArrayMesh_2yfle")
-skeleton = NodePath("")
 
-[node name="Cylinder_040" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="Cylinder_040" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=333508951]
 transform = Transform3D(-0.10956, 0, 0.99398, 0, 1, 0, -0.99398, 0, -0.10956, -1.68317, 6.58726, 1.10704)
 mesh = SubResource("ArrayMesh_x711r")
-skeleton = NodePath("")
 
-[node name="Cylinder_041" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="Cylinder_041" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=488769863]
 transform = Transform3D(-0.884492, 0, -0.466556, 0, 1, 0, 0.466556, 0, -0.884492, 1.51019, 6.53423, -1.33371)
 mesh = SubResource("ArrayMesh_y6xqd")
-skeleton = NodePath("")
 
-[node name="target_006" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp"]
+[node name="target_006" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/tower-square-arch2/camp" unique_id=1560135462]
 transform = Transform3D(0.0479809, 0, 0.998848, 0, 1, 0, -0.998848, 0, 0.0479809, 2.73885, 4.26056, -2.02316)
 mesh = SubResource("ArrayMesh_p00rp")
-skeleton = NodePath("")
 
-[node name="bridge" type="Node3D" parent="SubViewport/Objects/Buildings"]
+[node name="bridge" type="Node3D" parent="SubViewport/Objects/Buildings" unique_id=1268482025]
 transform = Transform3D(0.052266, 0, -0.144787, 0, 0.3, 0, 0.19305, 0, 0.0391995, 8.79411, -0.106164, -7.57308)
 
-[node name="Cube_214" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/bridge" groups=["snap"]]
+[node name="Cube_214" type="MeshInstance3D" parent="SubViewport/Objects/Buildings/bridge" unique_id=974442439 groups=["snap"]]
 transform = Transform3D(0.951122, 0, 0.848995, 0, 1.2, 0, -1.52819, 0, 0.528401, 77.4195, -3.77434, -8.96281)
 layers = 524289
 mesh = ExtResource("26_il5i8")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_gwg7d")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1455862687]
 
-[node name="DebugPanel" type="Control" parent="CanvasLayer"]
+[node name="DebugPanel" type="Control" parent="CanvasLayer" unique_id=1194126730]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("43_crfu6")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/DebugPanel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/DebugPanel" unique_id=2049897820]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="FpsCountLbl" type="Label" parent="CanvasLayer/DebugPanel/HBoxContainer"]
+[node name="FpsCountLbl" type="Label" parent="CanvasLayer/DebugPanel/HBoxContainer" unique_id=1258191054]
 unique_name_in_owner = true
 layout_mode = 2
 text = "FPS"
 
-[node name="Display" type="Control" parent="." node_paths=PackedStringArray("_mainRendereSprite")]
+[node name="Display" type="Control" parent="." unique_id=1822300514 node_paths=PackedStringArray("_mainRendereSprite")]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 15
@@ -3666,7 +3580,7 @@ mouse_filter = 2
 script = ExtResource("2_pm78i")
 _mainRendereSprite = NodePath("MainRenderSprite")
 
-[node name="MainRenderSprite" type="Sprite2D" parent="Display"]
+[node name="MainRenderSprite" type="Sprite2D" parent="Display" unique_id=308359963]
 texture_filter = 2
 material = SubResource("ShaderMaterial_dr6v6")
 position = Vector2(-0.985153, 3.95636)

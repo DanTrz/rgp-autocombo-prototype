@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://cnuan21r3remy"]
+[gd_scene format=4 uid="uid://cnuan21r3remy"]
 
 [ext_resource type="Shader" uid="uid://bmpoulxhbs4wu" path="res://assets/shaders/PixelShaders/cel_shading_simple.gdshader" id="1_4haw6"]
 [ext_resource type="PackedScene" uid="uid://ce4ri2215s6ua" path="res://3DPixelCompositorDemo/Assets/cloud.glb" id="3_xf8s4"]
@@ -576,9 +576,9 @@ _data = {
 &"planet": SubResource("Animation_34m0v")
 }
 
-[node name="World" type="Node3D"]
+[node name="World" type="Node3D" unique_id=1743736481]
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=541187081]
 texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -588,89 +588,82 @@ grow_vertical = 2
 stretch = true
 stretch_shrink = 3
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=2128211408]
 handle_input_locally = false
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="meshes" type="Node3D" parent="SubViewportContainer/SubViewport"]
+[node name="meshes" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=1848312284]
 
-[node name="3d scene" type="Node3D" parent="SubViewportContainer/SubViewport/meshes"]
-transform = Transform3D(0.705926, 0, 0.268622, 0, 0.755307, 0, -0.268622, 0, 0.705926, 0, 1.74839, 0)
+[node name="3d scene" type="Node3D" parent="SubViewportContainer/SubViewport/meshes" unique_id=1428183669]
+transform = Transform3D(0.70592606, 0, 0.26862195, 0, 0.755307, 0, -0.26862195, 0, 0.70592606, 0, 1.74839, 0)
 
-[node name="grass" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes/3d scene"]
+[node name="grass" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes/3d scene" unique_id=1917238066]
 transform = Transform3D(5.8516, 0, 0, 0, 0.361615, 0, 0, 0, 5.8516, 0, 0, 0)
 mesh = SubResource("ArrayMesh_h25a7")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_e03jb")
 
-[node name="dirt" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes/3d scene"]
+[node name="dirt" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes/3d scene" unique_id=2045632140]
 transform = Transform3D(5.85159, 0.000119468, -0.000514746, -0.0019333, 0.361615, -0.00141616, 0.000514269, 8.75227e-05, 5.85159, 0, 0, 0)
 mesh = SubResource("ArrayMesh_e3wq8")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_nlj40")
 surface_material_override/1 = SubResource("ShaderMaterial_02xpe")
 surface_material_override/2 = SubResource("ShaderMaterial_idx2o")
 
-[node name="flatstones" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes/3d scene"]
+[node name="flatstones" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes/3d scene" unique_id=125955021]
 transform = Transform3D(-0.988271, 0, 1.3384, 0, 1.08529, 0, -1.3384, 0, -0.988271, -3.29977, 0.0207045, 2.82202)
 mesh = SubResource("ArrayMesh_twglo")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_76gsb")
 
-[node name="trunks" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes/3d scene"]
+[node name="trunks" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes/3d scene" unique_id=282976494]
 transform = Transform3D(0.176584, -0.0493212, 0.00338978, 0.0104334, 0.853191, -0.0160187, -0.00244934, 0.0785365, 0.17615, -0.0244328, 2.63408, 1.34404)
 mesh = SubResource("ArrayMesh_kjwg4")
-skeleton = NodePath("")
 
-[node name="trees" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes/3d scene"]
+[node name="trees" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes/3d scene" unique_id=1520041746]
 transform = Transform3D(0.840778, -0.0484079, 0.0161399, 0.0496771, 0.837393, -0.0762705, -0.0116622, 0.0770823, 0.83871, -0.165511, 5.07456, 1.56869)
 mesh = SubResource("ArrayMesh_msmp1")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_rp2op")
 
-[node name="stones" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes/3d scene"]
+[node name="stones" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes/3d scene" unique_id=2070458319]
 transform = Transform3D(0.332201, 0.0614175, -0.757174, -0.69527, -0.30839, -0.330056, -0.306078, 0.76718, -0.0720593, 2.48614, -4.29281, -2.92286)
 mesh = SubResource("ArrayMesh_yo87u")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_0r40h")
 
-[node name="clouds" type="Node3D" parent="SubViewportContainer/SubViewport/meshes"]
+[node name="clouds" type="Node3D" parent="SubViewportContainer/SubViewport/meshes" unique_id=2102673654]
 
-[node name="cloud" parent="SubViewportContainer/SubViewport/meshes/clouds" instance=ExtResource("3_xf8s4")]
+[node name="cloud" parent="SubViewportContainer/SubViewport/meshes/clouds" unique_id=675690318 instance=ExtResource("3_xf8s4")]
 transform = Transform3D(-0.761191, -0.0993477, 0, 0.0993477, -0.761191, 0, 0, 0, 0.767647, -4.84968, -4.09805, -14.8325)
 
-[node name="Sphere" parent="SubViewportContainer/SubViewport/meshes/clouds/cloud" index="0"]
+[node name="Sphere" parent="SubViewportContainer/SubViewport/meshes/clouds/cloud" index="0" unique_id=1486403986]
 transform = Transform3D(0.636773, 7.45058e-09, 0, 0, 0.636773, 0, 0, 0, 0.636773, 0, 0, 0)
 surface_material_override/0 = SubResource("ShaderMaterial_hh47q")
 
-[node name="cloud2" parent="SubViewportContainer/SubViewport/meshes/clouds" instance=ExtResource("3_xf8s4")]
+[node name="cloud2" parent="SubViewportContainer/SubViewport/meshes/clouds" unique_id=1137402651 instance=ExtResource("3_xf8s4")]
 transform = Transform3D(0.581273, -0.012195, 0.0305446, -0.00763847, 0.392895, 0.239289, -0.0414255, -0.243563, 0.384471, 8.93968, -4.58713, -14.8325)
 
-[node name="Sphere" parent="SubViewportContainer/SubViewport/meshes/clouds/cloud2" index="0"]
+[node name="Sphere" parent="SubViewportContainer/SubViewport/meshes/clouds/cloud2" index="0" unique_id=1486403986]
 transform = Transform3D(1, -1.86265e-09, -3.72529e-09, 0, 1, -2.98023e-08, -7.45058e-09, 0, 1, -1.43022, 0.0476599, -0.123909)
 surface_material_override/0 = SubResource("ShaderMaterial_hh47q")
 
-[node name="cloud3" parent="SubViewportContainer/SubViewport/meshes/clouds" instance=ExtResource("3_xf8s4")]
+[node name="cloud3" parent="SubViewportContainer/SubViewport/meshes/clouds" unique_id=414109093 instance=ExtResource("3_xf8s4")]
 transform = Transform3D(-0.483247, -0.0701216, 0.000287572, 0.0720071, -0.45387, -0.0876048, 0.0139772, -0.0861573, 0.461261, 5.48563, -11.7638, -14.8325)
 
-[node name="Sphere" parent="SubViewportContainer/SubViewport/meshes/clouds/cloud3" index="0"]
+[node name="Sphere" parent="SubViewportContainer/SubViewport/meshes/clouds/cloud3" index="0" unique_id=1486403986]
 surface_material_override/0 = SubResource("ShaderMaterial_hh47q")
 
-[node name="cloud4" parent="SubViewportContainer/SubViewport/meshes/clouds" instance=ExtResource("3_xf8s4")]
+[node name="cloud4" parent="SubViewportContainer/SubViewport/meshes/clouds" unique_id=2041262914 instance=ExtResource("3_xf8s4")]
 transform = Transform3D(0.21754, 0.0165193, -0.00296701, -0.0164069, 0.204396, 0.039004, 0.00624099, -0.0384702, 0.205958, -6.29093, -11.7638, -17.4237)
 
-[node name="Sphere" parent="SubViewportContainer/SubViewport/meshes/clouds/cloud4" index="0"]
+[node name="Sphere" parent="SubViewportContainer/SubViewport/meshes/clouds/cloud4" index="0" unique_id=1486403986]
 transform = Transform3D(1.72586, 1.49012e-08, -3.72529e-09, 2.79397e-09, 1.72586, 0, -7.45058e-09, 0, 1.72586, 0, 0, 0)
 surface_material_override/0 = SubResource("ShaderMaterial_hh47q")
 
-[node name="Sphere2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes/clouds/cloud4"]
+[node name="Sphere2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes/clouds/cloud4" unique_id=994210038]
 transform = Transform3D(-1.69018, -0.0567408, -0.344499, -0.325707, -0.357119, 1.6568, -0.125755, 1.68756, 0.339028, 41.4948, 64.3905, 65.5968)
 mesh = SubResource("ArrayMesh_ng7s3")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_hh47q")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" unique_id=1585334521]
 transform = Transform3D(-0.101372, 0.707474, 0.699432, 0.00664804, -0.702556, 0.711598, 0.994826, 0.076786, 0.0665162, 5.85244, 6.7486, 0)
 light_color = Color(1, 0.948, 0.61, 1)
 light_energy = 2.0
@@ -678,17 +671,15 @@ shadow_enabled = true
 shadow_bias = 0.5
 shadow_blur = 0.1
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport" unique_id=511150451]
 environment = SubResource("Environment_n4gow")
 compositor = SubResource("Compositor_pphgw")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewportContainer/SubViewport"]
-libraries = {
-&"": SubResource("AnimationLibrary_xr1em")
-}
-autoplay = "planet"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewportContainer/SubViewport" unique_id=189310398]
+libraries/ = SubResource("AnimationLibrary_xr1em")
+autoplay = &"planet"
 
-[node name="MainCamera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+[node name="MainCamera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=904923060]
 unique_name_in_owner = true
 physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 6.03694, 7.50437)

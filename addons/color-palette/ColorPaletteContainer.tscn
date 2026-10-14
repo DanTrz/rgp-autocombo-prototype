@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cxwhehvsvk3eg"]
+[gd_scene format=3 uid="uid://cxwhehvsvk3eg"]
 
 [ext_resource type="Script" uid="uid://cjsw26uo3pee1" path="res://addons/color-palette/TileContainer.gd" id="1"]
 [ext_resource type="Script" uid="uid://d3rwtocm20h1j" path="res://addons/color-palette/ColorPaletteContainer.gd" id="4"]
@@ -11,7 +11,7 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 anti_aliasing = false
 
-[node name="ColorPaletteContainer" type="PanelContainer"]
+[node name="ColorPaletteContainer" type="PanelContainer" unique_id=858008434]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -20,68 +20,68 @@ grow_vertical = 2
 focus_mode = 2
 script = ExtResource("4")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2123182795]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=239558011]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=270943010]
 layout_mode = 2
 
-[node name="PaletteNameLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="PaletteNameLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=942693237]
 layout_mode = 2
 text = "Name:"
 
-[node name="PaletteNameLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="PaletteNameLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1844601119]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Palette Name"
 expand_to_text_length = true
 
-[node name="ColumnsCountLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ColumnsCountLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=274681261]
 layout_mode = 2
 text = "Columns:"
 
-[node name="ColumnCountSpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ColumnCountSpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=491160378]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1
 max_value = 255.0
 rounded = true
 
-[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1889976067]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 
-[node name="BtnLoadToPicker" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="BtnLoadToPicker" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=2076843441]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Load into Picker"
 
-[node name="BtnUpdateFromPicker" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="BtnUpdateFromPicker" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=769094920]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Update From Picker"
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=826371069]
 layout_mode = 2
 mouse_filter = 1
 
-[node name="TileContainerScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+[node name="TileContainerScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=1081403620]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/TileContainerScrollContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/TileContainerScrollContainer" unique_id=1669904910]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_sa7hd")
 
-[node name="TileContainerMargin" type="MarginContainer" parent="MarginContainer/VBoxContainer/TileContainerScrollContainer/PanelContainer"]
+[node name="TileContainerMargin" type="MarginContainer" parent="MarginContainer/VBoxContainer/TileContainerScrollContainer/PanelContainer" unique_id=867527863]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -91,7 +91,7 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="TileContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/TileContainerScrollContainer/PanelContainer/TileContainerMargin"]
+[node name="TileContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/TileContainerScrollContainer/PanelContainer/TileContainerMargin" unique_id=795310703]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 4

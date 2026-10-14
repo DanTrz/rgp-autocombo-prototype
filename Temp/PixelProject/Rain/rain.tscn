@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://c8fqeutjlidfw"]
+[gd_scene format=4 uid="uid://c8fqeutjlidfw"]
 
 [ext_resource type="Texture2D" uid="uid://cdnssd5duq152" path="res://Temp/PixelProject/Rain/circle_1.png" id="1_0b62y"]
 
@@ -83,9 +83,9 @@ material = SubResource("StandardMaterial3D_7hlub")
 size = Vector2(0.1, 0.1)
 orientation = 1
 
-[node name="Rain" type="Node3D"]
+[node name="Rain" type="Node3D" unique_id=595135968]
 
-[node name="RainDrops" type="GPUParticles3D" parent="."]
+[node name="RainDrops" type="GPUParticles3D" parent="." unique_id=1048844677]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.94449, 0)
 amount = 128
 sub_emitter = NodePath("../Impact")
@@ -93,12 +93,12 @@ lifetime = 2.0
 process_material = SubResource("ParticleProcessMaterial_ju881")
 draw_pass_1 = SubResource("ArrayMesh_c6gds")
 
-[node name="Impact" type="GPUParticles3D" parent="."]
+[node name="Impact" type="GPUParticles3D" parent="." unique_id=1172670113]
 amount = 400
 lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_7wt40")
 draw_pass_1 = SubResource("QuadMesh_ns8xc")
 
-[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="." unique_id=914770467]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.005514, 0)
 size = Vector3(5, 0.1, 5)

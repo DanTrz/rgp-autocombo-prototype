@@ -1,4 +1,4 @@
-[gd_resource type="QuadMesh" load_steps=9 format=3 uid="uid://djnpg8ltllh1a"]
+[gd_resource type="QuadMesh" format=3 uid="uid://djnpg8ltllh1a"]
 
 [ext_resource type="Shader" uid="uid://bqiyg2awc4j13" path="res://Temp/PixelProject/godray_singlemesh.gdshader" id="1_62lax"]
 

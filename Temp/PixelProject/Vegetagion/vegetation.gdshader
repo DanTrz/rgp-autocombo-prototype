@@ -35,7 +35,7 @@ void fragment() {
     // Apply night tint - lerp between original color and night color based on nightAmount
     //vec3 finalColor = mix(loadAlbedo.rgb, loadAlbedo.rgb * nightColor , nightTime);
 	
-	    // Night/day blending
+	 // Night/day blending
 	vec3 daycolor = mix(loadAlbedo.rgb, loadAlbedo.rgb * dayColor.rgb , 1.0f);
 	vec3 finalcolor = mix(daycolor.rgb, daycolor.rgb  * nightColor , nightTime);
 	

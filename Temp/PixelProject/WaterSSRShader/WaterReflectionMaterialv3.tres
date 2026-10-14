@@ -1,6 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://bhgd1pfhckih7"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bhgd1pfhckih7"]
 
-[ext_resource type="Shader" uid="uid://csrxv4t014t47" path="res://Temp/PixelProject/WaterSSRShader/waterSSR_reflection_goodVersion_testing.gdshader" id="1_kdcka"]
+[ext_resource type="Shader" uid="uid://hbvlayjahqn6" path="res://Temp/PixelProject/WaterSSRShader/waterSSR_reflection_goodVersion_testing.gdshader" id="1_kdcka"]
 [ext_resource type="Texture2D" uid="uid://stensn7vpvqw" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/Water_SurfaceNormalsA.tres" id="2_uqyj4"]
 [ext_resource type="Texture2D" uid="uid://ytfjx71fbpho" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/Water_SurfaceNormalsB.tres" id="3_pki3g"]
 [ext_resource type="Texture2D" uid="uid://bi6i3uj4mgj0t" path="res://Temp/PixelProject/WaterSSRShader/WaterShaderTextures/Water_NoiseWaveA.tres" id="4_1iayj"]
@@ -37,6 +37,7 @@ shader_parameter/ssr_max_travel = 30.0
 shader_parameter/ssr_max_diff = 4.0
 shader_parameter/ssr_mix_strength = 0.8
 shader_parameter/ssr_screen_border_fadeout = 0.3
+shader_parameter/ssr_binary_search_steps = 4
 shader_parameter/reflection_angle_bias = -0.1
 shader_parameter/reflection_angle_scale = 1.0
 shader_parameter/reflection_fresnel_power = 0.3

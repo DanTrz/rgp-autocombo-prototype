@@ -1,6 +1,6 @@
-[gd_scene load_steps=47 format=3 uid="uid://c7ea5wxf3exug"]
+[gd_scene format=3 uid="uid://c7ea5wxf3exug"]
 
-[ext_resource type="Texture2D" uid="uid://b1wq3xhiw4aog" path="res://Assets/Sprites/GrassAnimation_48PX_SpriteSheet.png" id="1_xxgce"]
+[ext_resource type="Texture2D" uid="uid://b1wq3xhiw4aog" path="res://assets/Sprites/GrassAnimation_48PX_SpriteSheet.png" id="1_xxgce"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xxgce"]
 atlas = ExtResource("1_xxgce")
@@ -313,12 +313,12 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yparh")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Grass",
 "speed": 15.0
 }]
 
-[node name="GrassAnimated" type="AnimatedSprite3D"]
+[node name="GrassAnimated" type="AnimatedSprite3D" unique_id=2117108479]
 billboard = 1
 shaded = true
 alpha_antialiasing_edge = 1.0

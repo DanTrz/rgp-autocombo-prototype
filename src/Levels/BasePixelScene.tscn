@@ -1,11 +1,11 @@
-[gd_scene load_steps=90 format=4 uid="uid://cn2qk3nydgqp2"]
+[gd_scene format=4 uid="uid://cn2qk3nydgqp2"]
 
 [ext_resource type="Script" uid="uid://dn18a71b8kfu3" path="res://Temp/PixelProject/GodRayManager.cs" id="1_24jmh"]
 [ext_resource type="Shader" uid="uid://yj6f3wexteuo" path="res://Temp/PixelProject/godraytestingv2.gdshader" id="1_c101j"]
 [ext_resource type="PackedScene" uid="uid://c7kjke7mmdjoa" path="res://Temp/CSharpPixelPerfect/world.tscn" id="1_ijthh"]
 [ext_resource type="Shader" uid="uid://dbbtefdburb7w" path="res://Temp/PixelProject/godray_singlemeshv3.gdshader" id="1_yhdrs"]
-[ext_resource type="Texture2D" uid="uid://bc6w8id6oj8m0" path="res://Assets/Shaders/PixelShaders/ShaderGradient1.tres" id="2_oce25"]
-[ext_resource type="Shader" uid="uid://d4q5ai1l6seh" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale.gdshader" id="2_rwce8"]
+[ext_resource type="Texture2D" uid="uid://bc6w8id6oj8m0" path="res://assets/shaders/PixelShaders/ShaderGradient1.tres" id="2_oce25"]
+[ext_resource type="Shader" uid="uid://d4q5ai1l6seh" path="res://assets/shaders/PixelShaders/pixel_art_upscale.gdshader" id="2_rwce8"]
 [ext_resource type="QuadMesh" uid="uid://djnpg8ltllh1a" path="res://Temp/PixelProject/RayQuadMesh.tres" id="2_sstk2"]
 [ext_resource type="Shader" uid="uid://ypw4081hx6nq" path="res://Temp/PixelProject/godraytestingv1.gdshader" id="2_yhdrs"]
 [ext_resource type="Shader" uid="uid://ojb0vvgoy4o5" path="res://Temp/PixelProject/godray_singlemeshv4.gdshader" id="3_3evjc"]
@@ -15,7 +15,7 @@
 [ext_resource type="Shader" uid="uid://dwe75ee7poeyf" path="res://Temp/PixelProject/godraytestingv11.gdshader" id="5_vhr60"]
 [ext_resource type="Script" uid="uid://dlmmwimo0htcj" path="res://Temp/PixelProject/GodRaYTests/LightShaft3DUpdated.gd" id="5_wlawu"]
 [ext_resource type="Script" uid="uid://c1u7eyhigk821" path="res://Temp/PixelProject/GodRaYTests/light_shafts/local_transform_listener.gd" id="6_24jmh"]
-[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://Assets/Shaders/OtherShadersRepo/flexible_toon_v2.gdshader" id="7_wlawu"]
+[ext_resource type="Shader" uid="uid://dn6156u2j1knc" path="res://assets/shaders/OtherShadersRepo/flexible_toon_v2.gdshader" id="7_wlawu"]
 [ext_resource type="PackedScene" uid="uid://cedw1iorowriy" path="res://Temp/TempPlayer3dModel/TemplPlayer3dModel.tscn" id="8_yhdrs"]
 [ext_resource type="Shader" uid="uid://bmht2u8lxtb0j" path="res://Temp/PixelProject/godraytestingv11_Oclusion.gdshader" id="18_6wpf3"]
 
@@ -323,7 +323,7 @@ points = PackedVector3Array(-0.5, -1, 0, -0.497651, -1, -0.0490407, -0.497651, -
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ynhhl"]
 _surfaces = [{
-"aabb": AABB(0.130096, -30.579, -11.047, 4.60952, 31.9952, 11.1546),
+"aabb": AABB(0.13009644, -30.578974, -11.046997, 4.609523, 31.99522, 11.154644),
 "attribute_data": PackedByteArray("/tlhTAAAAAAAAIA//tlhTAAAAAAAAAAA/tlhTAyklUAAAIA//tlhTAyklUAAAAAA/tlhTJGMR0EAAIA//tlhTJGMR0EAAAAA"),
 "format": 34359742495,
 "index_count": 18,
@@ -345,7 +345,7 @@ point_count = 3
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_wlawu"]
 _surfaces = [{
-"aabb": AABB(0.127464, -24.6994, -25.3338, 15.392, 24.7886, 24.8105),
+"aabb": AABB(0.12746394, -24.699356, -25.333767, 15.3920355, 24.788582, 24.810461),
 "attribute_data": PackedByteArray("/tlhTAAAAAAAAIA//tlhTAAAAAAAAAAA/tlhTEqkFUAAAIA//tlhTEqkFUAAAAAA/tlhTJqMx0AAAIA//tlhTJqMx0AAAAAA"),
 "format": 34359742495,
 "index_count": 18,
@@ -485,46 +485,46 @@ shader_parameter/alpha_factor = 0.4
 shader_parameter/hGradient = SubResource("GradientTexture2D_7mag8")
 shader_parameter/vGradient = SubResource("GradientTexture2D_3qwvp")
 
-[node name="BasePixelScene" type="Node3D"]
+[node name="BasePixelScene" type="Node3D" unique_id=1610025323]
 metadata/_edit_horizontal_guides_ = [-50.0]
 
-[node name="ShaderV4_Gemini" type="MeshInstance3D" parent="."]
+[node name="ShaderV4_Gemini" type="MeshInstance3D" parent="." unique_id=1184844390]
 transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, 11.2017, 8.50664, 8.59355)
 visible = false
 mesh = SubResource("CylinderMesh_yhdrs")
 surface_material_override/0 = SubResource("ShaderMaterial_g2fjo")
 
-[node name="ShaderV3_Claude" type="MeshInstance3D" parent="."]
+[node name="ShaderV3_Claude" type="MeshInstance3D" parent="." unique_id=60250084]
 transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, 7.83256, 8.50664, 8.59355)
 visible = false
 mesh = SubResource("CylinderMesh_yhdrs")
 surface_material_override/0 = SubResource("ShaderMaterial_3evjc")
 
-[node name="ShaderV2_ChatGpt" type="MeshInstance3D" parent="."]
+[node name="ShaderV2_ChatGpt" type="MeshInstance3D" parent="." unique_id=837789935]
 transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, 6.02805, 8.50664, 8.59355)
 visible = false
 mesh = SubResource("CylinderMesh_yhdrs")
 surface_material_override/0 = SubResource("ShaderMaterial_yhdrs")
 
-[node name="ShaderV1_MyVersion" type="MeshInstance3D" parent="."]
+[node name="ShaderV1_MyVersion" type="MeshInstance3D" parent="." unique_id=78032049]
 transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, -0.869864, 8.50664, 8.59355)
 visible = false
 mesh = SubResource("CylinderMesh_vhr60")
 surface_material_override/0 = SubResource("ShaderMaterial_pibme")
 
-[node name="ShaderV1_MyVersionOriginal" type="MeshInstance3D" parent="."]
+[node name="ShaderV1_MyVersionOriginal" type="MeshInstance3D" parent="." unique_id=1611024375]
 transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, 2.01451, 8.50664, 8.59355)
 visible = false
 mesh = SubResource("CylinderMesh_r51qw")
 surface_material_override/0 = SubResource("ShaderMaterial_jvtjn")
 
-[node name="ShaderV1_MyVersion2" type="MeshInstance3D" parent="."]
+[node name="ShaderV1_MyVersion2" type="MeshInstance3D" parent="." unique_id=824708886]
 transform = Transform3D(0.950076, 0.31202, 0, -0.31202, 0.950076, 0, 0, 0, 1, -4.24619, 8.50664, 8.59355)
 visible = false
 mesh = SubResource("CylinderMesh_ugax2")
 surface_material_override/0 = SubResource("ShaderMaterial_vqddq")
 
-[node name="GodRayManager" type="Node3D" parent="." node_paths=PackedStringArray("_mainDirectionalLight", "_mainCamera", "_rayMultiMeshInstance")]
+[node name="GodRayManager" type="Node3D" parent="." unique_id=992486007 node_paths=PackedStringArray("_mainDirectionalLight", "_mainCamera", "_rayMultiMeshInstance")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.08657, -8.90515)
 script = ExtResource("1_24jmh")
 _meshResource = ExtResource("2_sstk2")
@@ -536,12 +536,12 @@ InitialRayColor = Color(0.764706, 0.615686, 0, 0.458824)
 RayIntensity = 1.0
 RayDecay = 1.0
 
-[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="GodRayManager"]
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="GodRayManager" unique_id=47785343]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.28688, 1.32828, 7.16241)
 material_override = ExtResource("4_h8kal")
 multimesh = SubResource("MultiMesh_h8kal")
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=639908898]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -550,7 +550,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=655541308]
 visible = false
 material = SubResource("ShaderMaterial_vcwgk")
 layout_mode = 1
@@ -565,200 +565,185 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("ViewportTexture_rwce8")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1318323486]
 handle_input_locally = false
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="directionalLight" type="DirectionalLight3D" parent="SubViewport"]
+[node name="directionalLight" type="DirectionalLight3D" parent="SubViewport" unique_id=977119218]
 transform = Transform3D(0.797142, -2.63926e-08, 0.603792, -0.603792, -3.48442e-08, 0.797142, 0, -1, -4.37114e-08, 0.141691, 8.2153, 0.484218)
 light_bake_mode = 0
 shadow_enabled = true
 
-[node name="TemplPlayer3dModel" parent="SubViewport" groups=["snap"] instance=ExtResource("8_yhdrs")]
+[node name="TemplPlayer3dModel" parent="SubViewport" unique_id=2009090724 groups=["snap"] instance=ExtResource("8_yhdrs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.03993, 0.151859, 1.56188)
 collision_layer = 524289
 collision_mask = 524289
 
-[node name="Camera3D2" type="Camera3D" parent="SubViewport/TemplPlayer3dModel"]
+[node name="Camera3D2" type="Camera3D" parent="SubViewport/TemplPlayer3dModel" unique_id=383203247]
 transform = Transform3D(1, 0, 0, 0, 0.866026, 0.5, 0, -0.5, 0.866026, 0.230505, 13.5293, 20.6874)
 projection = 1
 current = true
 size = 15.0
 far = 100.0
 
-[node name="World" parent="SubViewport" instance=ExtResource("1_ijthh")]
+[node name="World" parent="SubViewport" unique_id=100697036 instance=ExtResource("1_ijthh")]
 
-[node name="Objects" type="Node3D" parent="SubViewport"]
+[node name="Objects" type="Node3D" parent="SubViewport" unique_id=305622913]
 
-[node name="BOX4" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="BOX4" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=255715917]
 transform = Transform3D(0.601272, -0.577648, -0.552083, 0.692798, 0.721132, 0, 0.398124, -0.382482, 0.833789, -2.3098, 0.585743, -2.30492)
 mesh = SubResource("BoxMesh_24jmh")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOX4"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOX4" unique_id=224685096]
 collision_layer = 524289
 collision_mask = 524289
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOX4/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOX4/StaticBody3D" unique_id=155030141]
 shape = SubResource("ConvexPolygonShape3D_sstk2")
 
-[node name="BOXEX" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="BOXEX" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=461254901]
 transform = Transform3D(0.989589, 0, -0.143924, 0, 1, 0, 0.143924, 0, 0.989589, -3.92628, 0.622586, 0)
 mesh = SubResource("BoxMesh_24jmh")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX" unique_id=685089023]
 collision_layer = 524289
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/StaticBody3D" unique_id=1407482828]
 shape = SubResource("ConvexPolygonShape3D_h8kal")
 
-[node name="BOX2" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX"]
+[node name="BOX2" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX" unique_id=2039191084]
 transform = Transform3D(0.943616, 0, 0.331041, 0, 1, 0, -0.331041, 0, 0.943616, 0.402432, 1, -0.157584)
 mesh = SubResource("BoxMesh_24jmh")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX/BOX2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX/BOX2" unique_id=761370625]
 collision_layer = 524289
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/BOX2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/BOX2/StaticBody3D" unique_id=1274927315]
 shape = SubResource("ConvexPolygonShape3D_h8kal")
 
-[node name="BOX3" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX/BOX2"]
+[node name="BOX3" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX/BOX2" unique_id=310537870]
 transform = Transform3D(0.705921, 0, 0.708291, 0, 1, 0, -0.708291, 0, 0.705921, 0.0710177, 0.776454, 0.100634)
 mesh = SubResource("BoxMesh_c101j")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX3" unique_id=1987768139]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX3/StaticBody3D" unique_id=403502652]
 shape = SubResource("ConvexPolygonShape3D_yhdrs")
 
-[node name="BOX4" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX/BOX2"]
+[node name="BOX4" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX/BOX2" unique_id=2071836447]
 transform = Transform3D(0.705921, 0, 0.708292, 0, 1, 0, -0.708292, 0, 0.705921, 2.08946, -1.0536, 6.27616)
 mesh = SubResource("BoxMesh_c101j")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX4"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX4" unique_id=793734464]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX4/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX/BOX2/BOX4/StaticBody3D" unique_id=826584455]
 shape = SubResource("ConvexPolygonShape3D_yhdrs")
 
-[node name="BOXEX2" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="BOXEX2" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1909821854]
 transform = Transform3D(1.97918, 0, -0.287848, 0, 2, 0, 0.287848, 0, 1.97918, -2.64736, 0.622586, 4.89439)
 mesh = SubResource("BoxMesh_24jmh")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX2" unique_id=904202831]
 collision_layer = 524289
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX2/StaticBody3D" unique_id=855702953]
 shape = SubResource("ConvexPolygonShape3D_h8kal")
 
-[node name="BOX2" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX2"]
+[node name="BOX2" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX2" unique_id=958663412]
 transform = Transform3D(0.943616, 0, 0.331041, 0, 1, 0, -0.331041, 0, 0.943616, 0.402432, 1, -0.157584)
 mesh = SubResource("BoxMesh_24jmh")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX2/BOX2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX2/BOX2" unique_id=2092389324]
 collision_layer = 524289
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX2/BOX2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX2/BOX2/StaticBody3D" unique_id=978867107]
 shape = SubResource("ConvexPolygonShape3D_h8kal")
 
-[node name="BOX3" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX2/BOX2"]
+[node name="BOX3" type="MeshInstance3D" parent="SubViewport/Objects/BOXEX2/BOX2" unique_id=1418044775]
 transform = Transform3D(0.705921, 0, 0.708291, 0, 1, 0, -0.708291, 0, 0.705921, 0.0710177, 0.776454, 0.100634)
 mesh = SubResource("BoxMesh_c101j")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX2/BOX2/BOX3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/BOXEX2/BOX2/BOX3" unique_id=461739271]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX2/BOX2/BOX3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/BOXEX2/BOX2/BOX3/StaticBody3D" unique_id=1117148854]
 shape = SubResource("ConvexPolygonShape3D_yhdrs")
 
-[node name="Cilinder" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="Cilinder" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=597426418]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31126, 1.08574, -5.43965)
 mesh = SubResource("CylinderMesh_3evjc")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder" unique_id=1089372881]
 collision_layer = 524289
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder/StaticBody3D" unique_id=1352196364]
 shape = SubResource("ConvexPolygonShape3D_g2fjo")
 
-[node name="Cilinder2" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="Cilinder2" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=723993773]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.04593, 3.08574, -5.75373)
 mesh = SubResource("CylinderMesh_3evjc")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder2" unique_id=2052820909]
 collision_layer = 524289
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder2/StaticBody3D" unique_id=1192221921]
 shape = SubResource("ConvexPolygonShape3D_g2fjo")
 
-[node name="Cilinder3" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="Cilinder3" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=839747363]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.05534, 4.21766, 3.18981)
 mesh = SubResource("CylinderMesh_3evjc")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder3" unique_id=127198303]
 collision_layer = 524289
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder3/StaticBody3D" unique_id=1667529305]
 shape = SubResource("ConvexPolygonShape3D_g2fjo")
 
-[node name="Cilinder7" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="Cilinder7" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1961372739]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 5)
 mesh = SubResource("CylinderMesh_3evjc")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder7"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder7" unique_id=1641217957]
 collision_layer = 524289
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder7/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder7/StaticBody3D" unique_id=550441621]
 shape = SubResource("ConvexPolygonShape3D_g2fjo")
 
-[node name="Cilinder5" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="Cilinder5" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=480403028]
 transform = Transform3D(1.5, 0, 0, 0, 3, 0, 0, 0, 2, -0.0441983, 1.08574, -3.85725)
 mesh = SubResource("CylinderMesh_3evjc")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder5"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder5" unique_id=1809871711]
 collision_layer = 524289
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder5/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder5/StaticBody3D" unique_id=850340440]
 shape = SubResource("ConvexPolygonShape3D_g2fjo")
 
-[node name="Cilinder6" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="Cilinder6" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=993717655]
 transform = Transform3D(1.5, 0, 0, 0, 3, 0, 0, 0, 2, -0.0441983, 1.08574, -3.85725)
 mesh = SubResource("CylinderMesh_3evjc")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder6"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder6" unique_id=2077983140]
 collision_layer = 524289
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder6/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder6/StaticBody3D" unique_id=1246917392]
 shape = SubResource("ConvexPolygonShape3D_g2fjo")
 
-[node name="Cilinder4" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="Cilinder4" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1502318717]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 8.71161, 1.08574, -0.213041)
 mesh = SubResource("CylinderMesh_3evjc")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder4"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Objects/Cilinder4" unique_id=1265585686]
 collision_layer = 524289
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder4/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/Cilinder4/StaticBody3D" unique_id=1000244148]
 shape = SubResource("ConvexPolygonShape3D_g2fjo")
 
-[node name="SunRayLightsPivot" type="Node3D" parent="."]
+[node name="SunRayLightsPivot" type="Node3D" parent="." unique_id=751340699]
 transform = Transform3D(-0.860384, 0.155022, -0.485498, -0.402283, 0.378294, 0.833704, 0.312904, 0.912612, -0.263116, -7.25753, 25.8741, -2.54778)
 visible = false
 
-[node name="InnerRayLights" type="MeshInstance3D" parent="SunRayLightsPivot" node_paths=PackedStringArray("outline", "origin")]
+[node name="InnerRayLights" type="MeshInstance3D" parent="SunRayLightsPivot" unique_id=1086541623 node_paths=PackedStringArray("outline", "origin")]
 transform = Transform3D(-0.971144, -0.234179, -0.0451589, -0.0235588, -0.0942282, 0.995271, -0.237326, 0.967618, 0.0859925, -3.68317, -0.718194, -1.33424)
 mesh = SubResource("ArrayMesh_ynhhl")
 skeleton = NodePath("../..")
@@ -770,18 +755,18 @@ color = Color(0.999998, 0.852129, 0.382459, 0.3)
 uv_tile_count = 20
 metadata/_custom_type_script = "uid://bslqtjuwuelro"
 
-[node name="outline" type="Path3D" parent="SunRayLightsPivot/InnerRayLights" node_paths=PackedStringArray("parent")]
+[node name="outline" type="Path3D" parent="SunRayLightsPivot/InnerRayLights" unique_id=1126617881 node_paths=PackedStringArray("parent")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00263214, 1.32702, 0.630953)
 curve = SubResource("Curve3D_h8kal")
 script = ExtResource("6_24jmh")
 parent = NodePath("..")
 
-[node name="origin" type="Marker3D" parent="SunRayLightsPivot/InnerRayLights" node_paths=PackedStringArray("parent")]
+[node name="origin" type="Marker3D" parent="SunRayLightsPivot/InnerRayLights" unique_id=461041996 node_paths=PackedStringArray("parent")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.372375, 7.15192, 2.03508)
 script = ExtResource("6_24jmh")
 parent = NodePath("..")
 
-[node name="OuterRayLights" type="MeshInstance3D" parent="SunRayLightsPivot" node_paths=PackedStringArray("outline", "origin")]
+[node name="OuterRayLights" type="MeshInstance3D" parent="SunRayLightsPivot" unique_id=1372537670 node_paths=PackedStringArray("outline", "origin")]
 transform = Transform3D(-0.971144, -0.234179, -0.0451589, -0.0235588, -0.0942282, 0.995271, -0.237326, 0.967618, 0.0859925, 0.661284, 2.36414, -1.09528)
 mesh = SubResource("ArrayMesh_wlawu")
 skeleton = NodePath("../..")
@@ -793,42 +778,42 @@ color = Color(0.999998, 0.852129, 0.382459, 0.3)
 uv_tile_count = 10
 metadata/_custom_type_script = "uid://bslqtjuwuelro"
 
-[node name="outlineOuter" type="Path3D" parent="SunRayLightsPivot/OuterRayLights" node_paths=PackedStringArray("parent")]
+[node name="outlineOuter" type="Path3D" parent="SunRayLightsPivot/OuterRayLights" unique_id=1697241734 node_paths=PackedStringArray("parent")]
 curve = SubResource("Curve3D_h8kal")
 script = ExtResource("6_24jmh")
 parent = NodePath("..")
 
-[node name="originOuter" type="Marker3D" parent="SunRayLightsPivot/OuterRayLights" node_paths=PackedStringArray("parent")]
+[node name="originOuter" type="Marker3D" parent="SunRayLightsPivot/OuterRayLights" unique_id=1541041678 node_paths=PackedStringArray("parent")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.526606, 1.52435, 0.912056)
 script = ExtResource("6_24jmh")
 parent = NodePath("..")
 
-[node name="ShaderV1_MyVersion3" type="MeshInstance3D" parent="."]
+[node name="ShaderV1_MyVersion3" type="MeshInstance3D" parent="." unique_id=1236823454]
 transform = Transform3D(0.894669, -0.445779, 0.0291163, 0.446729, 0.892767, -0.0583116, -5.88545e-09, 0.0651767, 0.997874, -7.50983, 4.01772, -8.38815)
 mesh = SubResource("CylinderMesh_00ydq")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_r51qw")
 
-[node name="ShaderV1_MyVersion_Oclusion" type="MeshInstance3D" parent="."]
+[node name="ShaderV1_MyVersion_Oclusion" type="MeshInstance3D" parent="." unique_id=434212718]
 transform = Transform3D(0.902065, -0.430616, 0.0291163, 0.431598, 0.900179, -0.0583117, -0.00109999, 0.0651674, 0.997874, -1.52438, 0.290924, -8.41462)
 visible = false
 mesh = SubResource("CylinderMesh_mkkhn")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_adand")
 
-[node name="ShaderV1_MyVersion4" type="MeshInstance3D" parent="."]
+[node name="ShaderV1_MyVersion4" type="MeshInstance3D" parent="." unique_id=1109375658]
 transform = Transform3D(0.894669, -0.445779, 0.0291163, 0.446729, 0.892767, -0.0583116, -5.88546e-09, 0.0651767, 0.997874, -0.297982, 2.54573, -9.48262)
 mesh = SubResource("CylinderMesh_3qwvp")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_y41l6")
 
-[node name="ShaderV1_MyVersion5" type="MeshInstance3D" parent="."]
+[node name="ShaderV1_MyVersion5" type="MeshInstance3D" parent="." unique_id=1147478410]
 transform = Transform3D(0.894669, -0.445779, 0.0291163, 0.446729, 0.892767, -0.0583116, -7.84208e-09, 0.0651767, 0.997874, -2.3853, 2.83922, -6.62905)
 mesh = SubResource("CylinderMesh_3qwvp")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_y41l6")
 
-[node name="ShaderV1_MyVersionOriginal2" type="MeshInstance3D" parent="."]
+[node name="ShaderV1_MyVersionOriginal2" type="MeshInstance3D" parent="." unique_id=1520488156]
 transform = Transform3D(0.894669, -0.445779, 0.0291163, 0.446729, 0.892767, -0.0583116, -5.88546e-09, 0.0651767, 0.997874, 5.37325, 1.20179, -6.77583)
 mesh = SubResource("CylinderMesh_jvtjn")
 skeleton = NodePath("../../../..")

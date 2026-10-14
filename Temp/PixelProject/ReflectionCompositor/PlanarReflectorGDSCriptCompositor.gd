@@ -6,6 +6,8 @@ var reflect_camera: Camera3D
 var reflect_viewport: SubViewport
 var editor_camera: Camera3D = null
 @export var main_camera: Camera3D = null
+
+#region EXPORTED VARIABLES
 @export var reflection_camera_resolution: Vector2i = Vector2i(1920, 1080):
 	set(value):
 		reflection_camera_resolution = value
@@ -16,19 +18,22 @@ var editor_camera: Camera3D = null
 @export var ortho_scale_multiplier: float = 1.0
 @export var ortho_uv_scale: float = 1.0
 @export var auto_detect_camera_mode: bool = true
+
 @export_group("Reflection Layers and Environment")
 @export_flags_3d_render var reflection_layers: int = 1
-@export var use_custom_environment: bool = false
+@export var use_custom_environment: bool = false:
+	set(value):
+		use_custom_environment = value
+		if is_inside_tree():
+			setup_reflection_environment()
 @export var custom_environment: Environment = null
 
-#NEW EXPORTS
 @export_group("Reflection Compositor Effects")
 @export var use_custom_compositor: bool = false:
 	set(value):
 		use_custom_compositor = value
 		if is_inside_tree():
 			setup_compositor_reflection_effect(reflect_camera)
-
 @export var custom_compositor: Compositor = null
 @export var hide_intersect_reflections: bool = true:
 	set(value):
@@ -37,70 +42,93 @@ var editor_camera: Camera3D = null
 			setup_compositor_reflection_effect(reflect_camera)
 		else:
 			clear_compositor_reflection_effect(reflect_camera)
-
-
 @export var override_YAxis_height: bool = false:
 	set(value):
-		use_custom_compositor = value
+		override_YAxis_height = value
 		if is_inside_tree():
 			setup_compositor_reflection_effect(reflect_camera)
-
 @export var new_YAxis_height: float = 0.0:
 	set(value):
-		use_custom_compositor = value
+		new_YAxis_height = value
 		if is_inside_tree():
 			setup_compositor_reflection_effect(reflect_camera)
-
-@export var fill_reflection: bool = false:
+@export var fill_reflection_experimental: bool = false:
 	set(value):
-		use_custom_compositor = value
+		fill_reflection_experimental = value
 		if is_inside_tree():
 			setup_compositor_reflection_effect(reflect_camera)
-
 
 @export_group("Reflection Offset Control")
-@export var enable_reflection_offset: bool = false
+@export var enable_reflection_offset: bool = false:
+	set(value):
+		enable_reflection_offset = value
+		if is_inside_tree():
+			update_offset_cache()
+			set_reflection_camera_transform()
 @export var reflection_offset_position: Vector3 = Vector3(0.0, 0.0, 0.0)
 @export var reflection_offset_rotation: Vector3 = Vector3(0.0, 0.0, 0.0)
 @export var reflection_offset_scale: float = 1.0
 @export var offset_blend_mode: int = 0
+
 @export_group("Performance Controls")
 @export var update_frequency: int = 2
-@export var use_lod: bool = true
-@export var lod_distance_near: float = 8.0
-@export var lod_distance_far: float = 24.0
-@export var lod_resolution_multiplier: float = 0.65
+@export var use_lod: bool = true:
+	set(value):
+		use_lod = value
+		if is_inside_tree():
+			update_reflect_viewport_size()
+@export var lod_distance_near: float = 8.0:
+	set(value):
+		lod_distance_near = value
+		if is_inside_tree():
+			update_reflect_viewport_size()
+@export var lod_distance_far: float = 24.0:
+	set(value):
+		lod_distance_far = value
+		if is_inside_tree():
+			update_reflect_viewport_size()
+@export var lod_resolution_multiplier: float = 0.45:
+	set(value):
+		lod_resolution_multiplier = value
+		if is_inside_tree():
+			update_reflect_viewport_size()
+#endregion EXPORTED VARIABLES
 
-#TODO:
-#1 - add a export bool under Reflection Layers and Environment" to enable CompositorEffect "WaterMask"
-#2 Add exporrt variables to be passed to the CompositorEffect: EffectEnabled, WaterHeight, etc. # Need to make sure this are constantly synced (in Process) as we can change water height in the editor
-#3 Merge/Pass the Updates from this script to the CPP version and push the latest WaterShader to my projects
-#debug test
-# @onready var test_camera: Camera3D = %ReflectionCamera3D
-# @onready var test_sprite: Sprite3D = %MainSceneSprite3D
-
+# Core internal variables
 var editor_helper: Node = null
 var active_shader_material: ShaderMaterial = null
 var reflection_compositor_effect: ReflectionCompositor = null
 
+# Performance tracking variables
 var frame_counter: int = 0
 var last_camera_position: Vector3 = Vector3.ZERO
 var last_camera_rotation: Basis = Basis()
 var position_threshold: float = 0.01
 var rotation_threshold: float = 0.001
 
+# Cached calculations
 var cached_reflection_plane: Plane = Plane()
 var is_layer_one_active: bool = true
-
 var cached_offset_transform: Transform3D = Transform3D.IDENTITY
 var last_offset_position: Vector3 = Vector3.ZERO
 var last_offset_rotation: Vector3 = Vector3.ZERO
 
-# Performance optimization caches
+# IMPROVEMENT 1: Enhanced material caching with proper invalidation  
+var cached_material_reference: WeakRef = null
+var material_cache_valid: bool = false
+
+# IMPROVEMENT 2: Batch shader parameter updates with change detection
+var cached_shader_params: Dictionary = {}
+var last_reflection_texture: Texture2D = null
+
+# IMPROVEMENT 3: Optimized viewport size checking
 var cached_viewport_size: Vector2i = Vector2i.ZERO
 var last_viewport_check_frame: int = -1
-var cached_shader_params: Dictionary = {}
-var shader_params_dirty: bool = true
+var viewport_check_frequency: int = 5
+
+# IMPROVEMENT 5: Cached reflection plane calculations
+var last_global_transform: Transform3D = Transform3D.IDENTITY
+var reflection_plane_cache_valid: bool = false
 var last_distance_check: float = -1.0
 var cached_lod_factor: float = 1.0
 
@@ -109,45 +137,45 @@ func _ready() -> void:
 
 func _notification(what):
 	if what == NOTIFICATION_TRANSFORM_CHANGED:
+		# IMPROVEMENT 5: Invalidate reflection plane cache when transform changes
+		reflection_plane_cache_valid = false
 		if reflect_camera and reflect_camera.compositor:
 			set_reflection_effect(get_reflection_effect(reflect_camera.compositor))
 
 func intial_setup() -> void:
-	#Core Setup
+	# Core Setup - KEEP ORIGINAL WORKING STRUCTURE
 	add_to_group("planar_reflectors")
 	find_editor_helper()
 	setup_reflection_camera_and_viewport()
 	update_offset_cache()
 
-	#Regular update loop
+	# Initialize performance caches
+	invalidate_all_caches()
+
+	# Regular update loop
 	update_reflect_viewport_size()
 	set_reflection_camera_transform()
 
 func _process(_delta: float) -> void:
-	update_reflect_viewport_size()
+	# Keep original structure but add safety checks
+	if not is_inside_tree():
+		return
+	
 	frame_counter += 1
 	update_offset_cache()
-	var should_update: bool = (frame_counter % update_frequency == 0)
+	
+	# IMPROVEMENT 3: Less frequent viewport size updates with safety
+	if viewport_check_frequency > 0 and frame_counter % viewport_check_frequency == 0:
+		update_reflect_viewport_size()
+	
+	var should_update: bool = (update_frequency > 0 and frame_counter % update_frequency == 0)
 	if should_update:
 		var active_cam: Camera3D = editor_camera if Engine.is_editor_hint() else main_camera
-		if active_cam:
-			var current_pos: Vector3 = active_cam.global_transform.origin
-			var current_basis: Basis = active_cam.global_transform.basis
-			
-			# Optimized: Use is_equal_approx for faster comparison
-			if last_camera_position != Vector3.ZERO:
-				if current_pos.is_equal_approx(last_camera_position):
-					var current_euler = current_basis.get_euler()
-					var last_euler = last_camera_rotation.get_euler()
-					if current_euler.is_equal_approx(last_euler):
-						return
-			
-			last_camera_position = current_pos
-			last_camera_rotation = current_basis
+		if active_cam and should_update_reflection(active_cam):
 			set_reflection_camera_transform()
 
 func setup_reflection_camera_and_viewport() -> void:
-	#Setup the reflection viewport
+	# KEEP YOUR ORIGINAL WORKING STRUCTURE - NO CHANGES TO VIEWPORT CREATION ORDER
 	reflect_viewport = SubViewport.new()
 	reflect_viewport.name = "ReflectionViewPort"
 	add_child(reflect_viewport)
@@ -159,40 +187,35 @@ func setup_reflection_camera_and_viewport() -> void:
 	reflect_viewport.transparent_bg = true
 	reflect_viewport.handle_input_locally = false
 
-	#Setup the reflection camera
+	# Setup the reflection camera
 	reflect_camera = Camera3D.new()
 	reflect_viewport.add_child(reflect_camera)
 	
-	#Setup the reflection camera cull mask / layers
+	# Setup the reflection camera cull mask / layers
 	var cull_mask: int = reflection_layers
 	reflect_camera.cull_mask = cull_mask
 	is_layer_one_active = bool(cull_mask & (1 << 0))
 	if not is_layer_one_active:
 		print("Layer 1 not active, make sure to add the layers to the scene Lights cull masks")
 	
-	#copy main camera properties to reflection camera
+	# Copy main camera properties to reflection camera
 	if main_camera:
 		reflect_camera.attributes = main_camera.attributes
 		reflect_camera.doppler_tracking = main_camera.doppler_tracking
 	reflect_camera.current = true
 	reflect_camera.make_current()
 
-	#TODO: CHECK IF THE CODE BELOW NEEDS TO BE IN THIS METHOD THAT RUNS IN "PROCCESS" OR JUST IN THE INTIIAL SETUP
-	#debug
-
-	#after camera setup, we can set the camera environment
+	# After camera setup, we can set the camera environment
 	setup_reflection_environment()
 
-	#Setup the reflection camera CompositorEffect
+	# Setup the reflection camera CompositorEffect
 	if hide_intersect_reflections:
 		setup_compositor_reflection_effect(reflect_camera)
-		# setup_compositor_reflection_effect(test_camera) # debug test
 	else:
 		clear_compositor_reflection_effect(reflect_camera)
-		# clear_compositor_reflection_effect(test_camera)# debug test
 
 func setup_reflection_environment() -> void:
-	#Prepare or copy the environment for the reflection camera
+	# Prepare or copy the environment for the reflection camera
 	var reflection_env: Environment = Environment.new()
 	if use_custom_environment:
 		if custom_environment:
@@ -206,12 +229,28 @@ func setup_reflection_environment() -> void:
 	reflect_camera.environment = reflection_env
 
 func calculate_reflection_plane() -> Plane:
-	var reflection_transform: Transform3D = global_transform * Transform3D().rotated(Vector3.RIGHT, PI/2)
+	# IMPROVEMENT 5: Cache reflection plane calculations when transform unchanged
+	if not is_inside_tree():
+		return Plane()
+		
+	var current_transform = global_transform
+	if reflection_plane_cache_valid and current_transform.is_equal_approx(last_global_transform):
+		return cached_reflection_plane
+	
+	var reflection_transform: Transform3D = current_transform * Transform3D().rotated(Vector3.RIGHT, PI/2)
 	var plane_origin: Vector3 = reflection_transform.origin
 	var plane_normal: Vector3 = reflection_transform.basis.z.normalized()
-	return Plane(plane_normal, plane_origin.dot(plane_normal))
+	
+	cached_reflection_plane = Plane(plane_normal, plane_origin.dot(plane_normal))
+	last_global_transform = current_transform
+	reflection_plane_cache_valid = true
+	
+	return cached_reflection_plane
 
 func set_reflection_camera_transform() -> void:
+	if not is_inside_tree():
+		return
+		
 	var active_camera: Camera3D = main_camera
 	find_editor_helper()
 	if Engine.is_editor_hint():
@@ -221,9 +260,9 @@ func set_reflection_camera_transform() -> void:
 
 	if active_camera == null:
 		return
+		
 	update_camera_projection()
 	var reflection_plane: Plane = calculate_reflection_plane()
-	cached_reflection_plane = reflection_plane
 	var cam_pos: Vector3 = active_camera.global_transform.origin
 	var proj_pos: Vector3 = reflection_plane.project(cam_pos)
 	var mirrored_pos: Vector3 = cam_pos + (proj_pos - cam_pos) * 2.0
@@ -240,17 +279,19 @@ func set_reflection_camera_transform() -> void:
 	var final_reflection_transform: Transform3D = apply_reflection_offset(base_reflection_transform)
 	reflect_camera.global_transform = final_reflection_transform
 	
-	#To ensure sync, we update shaders afterr the camera render data is updated
+	# To ensure sync, we update shaders after the camera render data is updated
 	update_shader_parameters()
 
 func update_shader_parameters() -> void:
-	if active_shader_material == null:
-		active_shader_material = get_active_material(0)
-	var material: ShaderMaterial = active_shader_material
+	# IMPROVEMENT 1: Enhanced material caching with proper invalidation
+	if not is_material_cache_valid():
+		refresh_material_cache()
+	
+	var material: ShaderMaterial = get_cached_material()
 	if material == null:
 		return
 	
-	# Optimized: Batch shader parameter updates and cache values
+	# IMPROVEMENT 2: Batch shader parameter updates with change detection
 	var reflection_texture = reflect_viewport.get_texture()
 	var is_orthogonal: bool = false
 	if Engine.is_editor_hint():
@@ -258,7 +299,7 @@ func update_shader_parameters() -> void:
 	else:
 		is_orthogonal = (main_camera and main_camera.projection == Camera3D.PROJECTION_ORTHOGONAL)
 	
-	# Prepare all parameters in a dictionary
+	# Prepare all parameters in a dictionary for batch comparison
 	var new_params = {
 		"reflection_screen_texture": reflection_texture,
 		"is_orthogonal_camera": is_orthogonal,
@@ -271,15 +312,12 @@ func update_shader_parameters() -> void:
 		"planar_surface_y": global_transform.origin.y
 	}
 	
-	# Only update changed parameters
+	# Only update parameters that have changed
 	for param_name in new_params:
 		var new_value = new_params[param_name]
-		if not cached_shader_params.has(param_name) or cached_shader_params[param_name] != new_value:
+		if not cached_shader_params.has(param_name) or not _values_equal(cached_shader_params[param_name], new_value):
 			material.set_shader_parameter(param_name, new_value)
 			cached_shader_params[param_name] = new_value
-	
-	# #debug #todo: remove this
-	# test_sprite.texture = reflection_texture
 
 func update_camera_projection() -> void:
 	var active_cam: Camera3D = editor_camera if Engine.is_editor_hint() else main_camera
@@ -293,37 +331,16 @@ func update_camera_projection() -> void:
 		reflect_camera.fov = active_cam.fov
 
 func update_reflect_viewport_size() -> void:
-	# Optimized: Check viewport size less frequently
-	if frame_counter - last_viewport_check_frame < 5: # Check every 5 frames instead of every frame
+	# IMPROVEMENT 3: Optimized viewport size checking frequency  
+	if frame_counter - last_viewport_check_frame < viewport_check_frequency:
 		return
 	last_viewport_check_frame = frame_counter
 	
-	var target_size: Vector2i
-
-	if Engine.is_editor_hint() and editor_helper and editor_helper.has_method("get_editor_viewport_size"):
-		target_size = editor_helper.call("get_editor_viewport_size")
-		if typeof(target_size) != TYPE_VECTOR2I:
-			target_size = get_viewport().get_visible_rect().size
-	else:
-		target_size = get_viewport().get_visible_rect().size
-
+	var target_size: Vector2i = get_target_viewport_size()
 	var active_cam: Camera3D = editor_camera if Engine.is_editor_hint() else main_camera
 	
 	if use_lod and active_cam:
-		var distance: float = global_transform.origin.distance_to(active_cam.global_transform.origin)
-		
-		# Optimized: Cache LOD calculations when distance hasn't changed much
-		if abs(distance - last_distance_check) > 1.0: # Only recalculate if distance changed significantly
-			var lod_factor: float = 1.0
-			if distance > lod_distance_near:
-				var lerp_factor: float = clamp((distance - lod_distance_near) / (lod_distance_far - lod_distance_near), 0.0, 1.0)
-				lod_factor = lerp(1.0, lod_resolution_multiplier, lerp_factor)
-			cached_lod_factor = lod_factor
-			last_distance_check = distance
-		
-		target_size = Vector2i(target_size * cached_lod_factor)
-		target_size.x = max(target_size.x, 128)
-		target_size.y = max(target_size.y, 128)
+		target_size = apply_lod_to_size(target_size, active_cam)
 	
 	# Only update if size actually changed
 	if cached_viewport_size != target_size:
@@ -367,8 +384,102 @@ func update_offset_cache() -> void:
 	last_offset_position = reflection_offset_position
 	last_offset_rotation = reflection_offset_rotation
 
-#region - EDITOR AND PLUGIN HELPER METHODS
-#EDITOR HELPER METHOS
+#region PERFORMANCE IMPROVEMENT HELPER FUNCTIONS
+
+# IMPROVEMENT 1: Enhanced material caching
+func is_material_cache_valid() -> bool:
+	if not material_cache_valid or cached_material_reference == null:
+		return false
+	return cached_material_reference.get_ref() != null
+
+func refresh_material_cache() -> void:
+	var material = get_active_material(0)
+	if material != null and material is ShaderMaterial:
+		cached_material_reference = weakref(material)
+		material_cache_valid = true
+	else:
+		cached_material_reference = null
+		material_cache_valid = false
+
+func get_cached_material() -> ShaderMaterial:
+	if is_material_cache_valid():
+		return cached_material_reference.get_ref() as ShaderMaterial
+	return null
+
+# IMPROVEMENT 2: Helper for value comparison
+func _values_equal(a, b) -> bool:
+	if a == b:
+		return true
+	if a is Vector3 and b is Vector3:
+		return a.is_equal_approx(b)
+	if a is float and b is float:
+		return is_equal_approx(a, b)
+	return false
+
+# IMPROVEMENT 3: Helper functions for viewport calculations
+func get_target_viewport_size() -> Vector2i:
+	var target_size: Vector2i
+	if Engine.is_editor_hint() and editor_helper and editor_helper.has_method("get_editor_viewport_size"):
+		var result = editor_helper.call("get_editor_viewport_size")
+		if typeof(result) == TYPE_VECTOR2I:
+			target_size = result
+		else:
+			target_size = get_viewport().get_visible_rect().size
+	else:
+		target_size = get_viewport().get_visible_rect().size
+	return target_size
+
+func apply_lod_to_size(target_size: Vector2i, active_cam: Camera3D) -> Vector2i:
+	if not is_inside_tree():
+		return target_size
+		
+	var distance: float = global_transform.origin.distance_to(active_cam.global_transform.origin)
+	
+	# Cache LOD calculations when distance hasn't changed much
+	if abs(distance - last_distance_check) > 1.0:
+		var lod_factor: float = 1.0
+		if distance > lod_distance_near:
+			var lerp_factor: float = clamp((distance - lod_distance_near) / (lod_distance_far - lod_distance_near), 0.0, 1.0)
+			lod_factor = lerp(1.0, lod_resolution_multiplier, lerp_factor)
+		cached_lod_factor = lod_factor
+		last_distance_check = distance
+	
+	var result_size = Vector2i(target_size * cached_lod_factor)
+	result_size.x = max(result_size.x, 128)
+	result_size.y = max(result_size.y, 128)
+	return result_size
+
+# IMPROVEMENT 5: Enhanced reflection update detection
+func should_update_reflection(active_cam: Camera3D) -> bool:
+	if not active_cam or not is_inside_tree():
+		return false
+		
+	var current_pos: Vector3 = active_cam.global_transform.origin
+	var current_basis: Basis = active_cam.global_transform.basis
+	
+	# Optimized: Use is_equal_approx for faster comparison (FIXED - removed extra parameters)
+	if last_camera_position != Vector3.ZERO:
+		if current_pos.is_equal_approx(last_camera_position):
+			var current_euler = current_basis.get_euler()
+			var last_euler = last_camera_rotation.get_euler()
+			if current_euler.is_equal_approx(last_euler):
+				return false
+	
+	last_camera_position = current_pos
+	last_camera_rotation = current_basis
+	return true
+
+func invalidate_all_caches() -> void:
+	material_cache_valid = false
+	cached_material_reference = null
+	cached_shader_params.clear()
+	reflection_plane_cache_valid = false
+	last_viewport_check_frame = -1
+	cached_viewport_size = Vector2i.ZERO
+
+#endregion
+
+#region EDITOR AND PLUGIN HELPER METHODS
 func find_editor_helper() -> void:
 	if Engine.is_editor_hint():
 		if Engine.has_singleton("PlanarReflectorEditorHelper"):
@@ -376,7 +487,8 @@ func find_editor_helper() -> void:
 
 func set_editor_camera(viewport_camera: Camera3D) -> void:
 	editor_camera = viewport_camera
-	# printt("GDSCript SET Editor Camera: ", editor_camera.name)
+	# Invalidate caches when editor camera changes
+	invalidate_all_caches()
 	update_reflect_viewport_size()
 	set_reflection_camera_transform()
 
@@ -385,111 +497,51 @@ func is_planar_reflector_active() -> bool:
 
 func get_active_camera() -> Camera3D:
 	return main_camera
-
 #endregion
 
-#region- REFLECTION COMPOSITOR AND REFLECTION MASK METHODS
+#region REFLECTION COMPOSITOR AND REFLECTION MASK METHODS
 
-# LATEST VERSION to WORK WITH THE ReflectionPrePass.gd
 func setup_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
 	if use_custom_compositor and custom_compositor:
 		reflect_cam.compositor = custom_compositor
-		var active_effect = reflect_cam.compositor.compositor_effects[0] 
-		if active_effect is ReflectionPrePass:
+		var active_effect = reflect_cam.compositor.compositor_effects[0] if reflect_cam.compositor.compositor_effects.size() > 0 else null
+		if active_effect is ReflectionEffectPrePass:
 			reflect_cam.compositor.set_compositor_effects([set_reflection_effect(active_effect)])
 	else:
 		if reflect_cam.compositor == null:
 			create_new_compositor_effect(reflect_cam)
-
+		else:
+			var active_effect = reflect_cam.compositor.compositor_effects[0] if reflect_cam.compositor.compositor_effects.size() > 0 else null
+			if active_effect is ReflectionEffectPrePass:
+				set_reflection_effect(active_effect)
 
 func create_new_compositor_effect(reflect_cam: Camera3D) -> void:
 	if reflect_cam.compositor:
 		clear_compositor_reflection_effect(reflect_cam)
 	
 	reflect_cam.compositor = Compositor.new()
-	
-	var prepass_effect := ReflectionPrePass.new() # TODO and questions: dOes this class need to exist in the CPP version? How?? Can CPP see GDScript Classes? Or would we need this CompositorEffect in CPP as well?
-
+	var prepass_effect := ReflectionEffectPrePass.new()
 	reflect_cam.compositor.set_compositor_effects([set_reflection_effect(prepass_effect)])
-	
 
 func set_reflection_effect(comp_effect: CompositorEffect) -> CompositorEffect:
-	if comp_effect is ReflectionPrePass:
+	if comp_effect is ReflectionEffectPrePass:
 		comp_effect.intersect_height = new_YAxis_height if override_YAxis_height else global_transform.origin.y
 		comp_effect.effect_enabled = true
-		comp_effect.fill_enabled = fill_reflection
+		comp_effect.fill_enabled = fill_reflection_experimental
 		return comp_effect
 	return null
-		
 
 func clear_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
 	if reflect_cam.compositor:
-		# reflect_cam.compositor.free()
 		reflect_cam.compositor.compositor_effects.clear()	
 		reflect_cam.compositor = null
-		print("Compositor Set to null for: ", reflect_cam.name)
 
 func get_reflection_effect(comp: Compositor) -> Variant:
 	if comp == null:
-		return false
+		return null
 	for effect in comp.compositor_effects:
-		if effect is ReflectionCompositor:
+		if effect is ReflectionEffectPrePass:
 			return effect
 	return null
 
-# PREVIOUS VERSION to WORK WITH THE ReflectionCompositor.gd
-# #region- REFLECTION COMPOSITOR AND REFLECTION MASK METHODS
-# func setup_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
-# 	# If we use a Custom Compositor (Local Exported Node), we set it to the camera
-# 	if use_custom_compositor and custom_compositor:
-# 		reflect_cam.compositor = custom_compositor
-# 		return
-	
-# 	#If we don't use a Custom Compositor (Local Exported Node), we create a new one
-# 	if reflect_cam.compositor == null:
-# 		if reflect_cam.compositor:
-# 			clear_compositor_reflection_effect(reflect_cam)
-# 		reflect_cam.compositor = Compositor.new()
-
-# 	#Check if the compositor already has the Compositor effect required "ReflectionCompositor". We update the params if it exists. Create new if it does not
-# 	var active_reflection_effect = get_reflection_effect(reflect_cam.compositor)
-# 	if active_reflection_effect != null:
-# 		# print("Compositor Effect already exist: ", reflect_cam.name)
-# 		set_reflection_effect(active_reflection_effect)
-# 		# if override_YAxis_height:
-# 		# 	active_reflection_effect.intersect_height = new_YAxis_height
-# 	else:
-# 		# print("Creating Compositor Effect for camera: ", reflect_cam.name)
-# 		reflection_compositor_effect = ReflectionCompositor.new()
-# 		set_reflection_effect(reflection_compositor_effect)
-# 		reflect_cam.compositor.set_compositor_effects([reflection_compositor_effect])
-	
-
-# func set_reflection_effect(comp_effect: CompositorEffect) -> void:
-# 	if use_custom_compositor and custom_compositor and reflect_camera:
-# 		reflect_camera.compositor = custom_compositor
-# 		return
-	
-# 	if comp_effect:
-# 		comp_effect.effect_enabled = true
-# 		comp_effect.needs_normal_roughness = true
-# 		comp_effect.intersect_height = global_transform.origin.y
-# 		if override_YAxis_height:
-# 			comp_effect.intersect_height = new_YAxis_height
-
-# func clear_compositor_reflection_effect(reflect_cam: Camera3D) -> void:
-# 	if reflect_cam.compositor:
-# 		# reflect_cam.compositor.free()
-# 		reflect_cam.compositor.compositor_effects.clear()	
-# 		reflect_cam.compositor = null
-# 		print("Compositor Set to null for: ", reflect_cam.name)
-
-# func get_reflection_effect(comp: Compositor) -> Variant:
-# 	if comp == null:
-# 		return false
-# 	for effect in comp.compositor_effects:
-# 		if effect is ReflectionCompositor:
-# 			return effect
-# 	return null
-
-# #endregion
+#endregion

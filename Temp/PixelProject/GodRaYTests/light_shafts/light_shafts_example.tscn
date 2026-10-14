@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://fpmpy2gic58s"]
+[gd_scene format=4 uid="uid://fpmpy2gic58s"]
 
 [ext_resource type="LightmapGIData" uid="uid://cwad5k10jt5r" path="res://Temp/PixelProject/GodRaYTests/light_shafts/light_shafts_example.lmbake" id="1_qtan3"]
 [ext_resource type="Material" uid="uid://dqgh45ow7ygkh" path="res://Temp/PixelProject/GodRaYTests/light_shafts/default_light_shaft.material" id="2_otrt7"]
@@ -231,17 +231,17 @@ point_count = 13
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_r54g3"]
 
-[node name="light_shafts_example" type="Node3D"]
+[node name="light_shafts_example" type="Node3D" unique_id=1423860251]
 
-[node name="world_env" type="WorldEnvironment" parent="."]
+[node name="world_env" type="WorldEnvironment" parent="." unique_id=2115510682]
 environment = SubResource("Environment_t70p2")
 
-[node name="dummy_light" type="DirectionalLight3D" parent="."]
+[node name="dummy_light" type="DirectionalLight3D" parent="." unique_id=999683019]
 transform = Transform3D(-0.913216, -0.0556656, -0.403655, -0.40452, 0.00475196, 0.914517, -0.048989, 0.998438, -0.0268574, -0.266114, 4.91018, 0)
 visible = false
 light_bake_mode = 0
 
-[node name="main_light" type="SpotLight3D" parent="."]
+[node name="main_light" type="SpotLight3D" parent="." unique_id=1900793780]
 transform = Transform3D(-0.190371, 0.886816, -0.42109, -0.0316435, 0.423168, 0.905499, 0.981202, 0.185705, -0.052497, -4.72378, 14.2762, -0.497378)
 visible = false
 light_color = Color(1, 0.959959, 0.740909, 1)
@@ -253,13 +253,13 @@ spot_attenuation = 0.0
 spot_angle = 10.0
 spot_angle_attenuation = 0.0647041
 
-[node name="remote_transform_3d" type="RemoteTransform3D" parent="main_light"]
+[node name="remote_transform_3d" type="RemoteTransform3D" parent="main_light" unique_id=1973324189]
 visible = false
 remote_path = NodePath("../../light_shaft_3d/origin")
 update_rotation = false
 update_scale = false
 
-[node name="lightmap_gi" type="LightmapGI" parent="."]
+[node name="lightmap_gi" type="LightmapGI" parent="." unique_id=678671387]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.831257, 0)
 bounces = 8
 denoiser_range = 20
@@ -267,11 +267,11 @@ environment_mode = 3
 environment_custom_energy = 0.05
 light_data = ExtResource("1_qtan3")
 
-[node name="room" type="MeshInstance3D" parent="."]
+[node name="room" type="MeshInstance3D" parent="." unique_id=1483359864]
 transform = Transform3D(0.998146, 0, -0.0608569, 0, 1, 0, 0.0608569, 0, 0.998146, 0, 0, 0)
 mesh = SubResource("ArrayMesh_bed4n")
 
-[node name="light_shaft_3d" type="MeshInstance3D" parent="." node_paths=PackedStringArray("outline", "origin")]
+[node name="light_shaft_3d" type="MeshInstance3D" parent="." unique_id=2010080365 node_paths=PackedStringArray("outline", "origin")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.49556, 3.85103, 0)
 mesh = SubResource("ArrayMesh_tgovr")
 script = SubResource("GDScript_pnruy")
@@ -280,15 +280,15 @@ outline = NodePath("outline")
 origin = NodePath("origin")
 metadata/_custom_type_script = "uid://bslqtjuwuelro"
 
-[node name="outline" type="Path3D" parent="light_shaft_3d"]
+[node name="outline" type="Path3D" parent="light_shaft_3d" unique_id=1749132578]
 transform = Transform3D(-0.627583, 0, -0.77855, 0, 1, 0, 0.77855, 0, -0.627583, -3.09362, 0, 0)
 curve = SubResource("Curve3D_tgovr")
 script = ExtResource("4_fac11")
 
-[node name="origin" type="Marker3D" parent="light_shaft_3d"]
-transform = Transform3D(-0.190371, 0.886816, -0.42109, -0.0316435, 0.423168, 0.905499, 0.981202, 0.185705, -0.0524969, -8.21934, 10.4252, -0.497378)
+[node name="origin" type="Marker3D" parent="light_shaft_3d" unique_id=1379392831]
+transform = Transform3D(-0.190371, 0.886816, -0.42109, -0.0316435, 0.423168, 0.905499, 0.981202, 0.185705, -0.0524969, -8.21934, 10.42517, -0.497378)
 script = ExtResource("4_fac11")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=309610321]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.328569, 2.28381, -0.368264)
 mesh = SubResource("CylinderMesh_r54g3")

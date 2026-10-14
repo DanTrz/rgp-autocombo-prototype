@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://c4p4jr823j1gw"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://c4p4jr823j1gw"]
 
 [ext_resource type="Shader" uid="uid://dcwsr43gaiw4m" path="res://water_gd_planar_reflections/planar_reflection_ortho_working.gdshader" id="1_vxc2r"]
 
@@ -9,14 +9,14 @@ viewport_path = NodePath("PlanarReflector/@SubViewport@54083")
 seed = 10
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ffsgu"]
+noise = SubResource("FastNoiseLite_hqcwr")
 seamless = true
 as_normal_map = true
-noise = SubResource("FastNoiseLite_hqcwr")
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_w63yn"]
+noise = SubResource("FastNoiseLite_hqcwr")
 seamless = true
 as_normal_map = true
-noise = SubResource("FastNoiseLite_hqcwr")
 
 [resource]
 resource_local_to_scene = true

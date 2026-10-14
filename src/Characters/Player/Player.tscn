@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bgl60s3lk782m"]
+[gd_scene format=3 uid="uid://bgl60s3lk782m"]
 
 [ext_resource type="Script" uid="uid://cacru6rngrblp" path="res://src/Characters/Player/Player.cs" id="1_dccqb"]
 [ext_resource type="PackedScene" uid="uid://co43x2woraq8u" path="res://src/Characters/Player/PlayerStates/StateMachineManagerCS.tscn" id="2_1gqxp"]
@@ -472,43 +472,41 @@ _data = {
 &"walk_west": SubResource("Animation_0pajg")
 }
 
-[node name="Player" type="CharacterBody3D" groups=["character"]]
+[node name="Player" type="CharacterBody3D" unique_id=144249148 groups=["character"]]
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_dccqb")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1389791289]
 shape = SubResource("CapsuleShape3D_fxi4e")
 
-[node name="AnimationPlayerWorld" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayerWorld" type="AnimationPlayer" parent="." unique_id=2051091624]
 unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_buopq")
-}
+libraries/ = SubResource("AnimationLibrary_buopq")
 playback_auto_capture_ease_type = 2
 playback_default_blend_time = 0.01
 next/idle_east = &"run_east"
 blend_times = [&"walk_south", &"idle_east", 0.5, &"walk_south", &"idle_north", 0.5, &"walk_south", &"idle_north_east", 0.5, &"walk_south", &"idle_north_west", 0.5, &"walk_south", &"idle_south", 0.5, &"walk_south", &"idle_south_east", 0.5, &"walk_south", &"idle_south_west", 0.5, &"walk_south", &"idle_west", 0.5, &"walk_south", &"run_east", 0.5, &"walk_south", &"run_north", 0.5, &"walk_south", &"run_north_east", 0.5, &"walk_south", &"run_north_west", 0.5, &"walk_south", &"run_south", 0.5, &"walk_south", &"run_south_east", 0.5, &"walk_south", &"run_south_west", 0.5, &"walk_south", &"run_west", 0.5]
 
-[node name="StateMachineManager" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("2_1gqxp")]
+[node name="StateMachineManager" parent="." unique_id=1868768527 node_paths=PackedStringArray("_initialState") instance=ExtResource("2_1gqxp")]
 _initialState = NodePath("PlayerIdleState")
 
-[node name="PlayerWalkState" type="Node" parent="StateMachineManager"]
+[node name="PlayerWalkState" type="Node" parent="StateMachineManager" unique_id=2117163441]
 script = ExtResource("3_leb0m")
 WalkSpeed = 15.0
 WalkAcceleration = 50.0
 
-[node name="PlayerIdleState" type="Node" parent="StateMachineManager"]
+[node name="PlayerIdleState" type="Node" parent="StateMachineManager" unique_id=981153197]
 script = ExtResource("4_od3vv")
 
-[node name="PlayerJumpState" type="Node" parent="StateMachineManager"]
+[node name="PlayerJumpState" type="Node" parent="StateMachineManager" unique_id=1524305449]
 script = ExtResource("5_hnn2c")
 
-[node name="PlayerFallState" type="Node" parent="StateMachineManager"]
+[node name="PlayerFallState" type="Node" parent="StateMachineManager" unique_id=1830535607]
 script = ExtResource("6_hkqm1")
 fallSpeed = 1.5
 
-[node name="Sprite2DWorld" type="Sprite3D" parent="."]
+[node name="Sprite2DWorld" type="Sprite3D" parent="." unique_id=487432497]
 unique_name_in_owner = true
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
 billboard = 1
@@ -518,4 +516,4 @@ hframes = 16
 vframes = 12
 frame = 16
 
-[node name="ComboManager" parent="." instance=ExtResource("8_qjua4")]
+[node name="ComboManager" parent="." unique_id=1183670224 instance=ExtResource("8_qjua4")]

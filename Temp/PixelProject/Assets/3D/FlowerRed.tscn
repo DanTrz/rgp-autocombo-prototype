@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=4 uid="uid://dxujm0rnahgrd"]
+[gd_scene format=4 uid="uid://dxujm0rnahgrd"]
 
-[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="1_b07f1"]
-[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_8kr0n"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://assets/shaders/PixelShaders/3dOutlineHighlight.gdshader" id="1_b07f1"]
+[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://assets/shaders/PixelShaders/flexible_toon_v3.gdshader" id="2_8kr0n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b07f1"]
 render_priority = 0
@@ -141,13 +141,12 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_qb1ha")
 
-[node name="flower_redA2" type="Node3D"]
+[node name="flower_redA2" type="Node3D" unique_id=615361611]
 
-[node name="tmpParent" type="Node3D" parent="."]
+[node name="tmpParent" type="Node3D" parent="." unique_id=2010436338]
 
-[node name="flower_redA" type="MeshInstance3D" parent="tmpParent"]
+[node name="flower_redA" type="MeshInstance3D" parent="tmpParent" unique_id=2099591433]
 transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 4, 0, -0.0789396, 0)
 mesh = SubResource("ArrayMesh_1vvom")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_8kr0n")
 surface_material_override/1 = SubResource("ShaderMaterial_idw6q")

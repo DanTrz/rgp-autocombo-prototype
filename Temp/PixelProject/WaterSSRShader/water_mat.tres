@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cr8yf6r3utjih"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cr8yf6r3utjih"]
 
 [ext_resource type="Shader" uid="uid://dqqt6ocptx5is" path="res://Temp/PixelProject/WaterSSRShader/toon_water_no_reflection.gdshader" id="1_rq3q3"]
 

@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://brgr6gj7lpkrt"]
+
+[ext_resource type="Shader" uid="uid://dwqjdvt4ltcoy" path="res://assets/shaders/PixelShaders/SpriteAnimationShader.gdshader" id="1_7ej05"]
+[ext_resource type="Shader" uid="uid://pj5xyecektv6" path="res://Temp/PixelProject/Vegetagion/vegetation_sway.gdshader" id="1_yybf0"]
+[ext_resource type="Texture2D" uid="uid://de7x8lf63koec" path="res://Temp/PixelProject/Assets/2D/tree1C_.png" id="3_qh36c"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7ej05"]
+load_path = "res://.godot/imported/Grass_leafs.png-1039e8025529cb02d76a88c8d99738a3.s3tc.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yybf0"]
+render_priority = 0
+shader = ExtResource("1_yybf0")
+shader_parameter/billboard_all_axis = true
+shader_parameter/billboard_y_only = true
+shader_parameter/windSpeed = 1.0
+shader_parameter/albedo = SubResource("CompressedTexture2D_7ej05")
+shader_parameter/dayColor = Color(0.596729, 0.8735176, 0.4069847, 1)
+shader_parameter/nightColor = Color(0.23180157, 0.38283053, 0.21821365, 1)
+shader_parameter/nightTime = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_tej7l"]
+size = Vector2(0.25, 0.25)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qh36c"]
+render_priority = 0
+shader = ExtResource("1_7ej05")
+shader_parameter/billboard_all_axis = false
+shader_parameter/billboard_y_only = false
+shader_parameter/columns = 4
+shader_parameter/rows = 3
+shader_parameter/total_valid_frames = 9
+shader_parameter/animationDuration = 1.0
+shader_parameter/timeOffset = 0.0
+shader_parameter/timeScale = 1.0
+shader_parameter/albedor_tex = ExtResource("3_qh36c")
+shader_parameter/albedor_color = Color(1, 1, 1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_obxsm"]
+
+[node name="Node3D" type="Node3D" unique_id=1651302731]
+
+[node name="FoliageSway" type="MeshInstance3D" parent="." unique_id=1227134543]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5364995, 0, 0)
+material_override = SubResource("ShaderMaterial_yybf0")
+mesh = SubResource("QuadMesh_tej7l")
+
+[node name="AnimSpriteVegetation" type="MeshInstance3D" parent="." unique_id=1945078806]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6415005, 0, 0)
+material_override = SubResource("ShaderMaterial_qh36c")
+mesh = SubResource("QuadMesh_obxsm")

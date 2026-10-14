@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bok06l3ildw4l"]
+[gd_scene format=3 uid="uid://bok06l3ildw4l"]
 
 [ext_resource type="PackedScene" uid="uid://cnhr158fl1b4f" path="res://src/Levels/LevelComponents/GrassSingleSpriteShaderMesh.tscn" id="1_e8dsl"]
 [ext_resource type="Script" uid="uid://bho2n2ejru0fu" path="res://src/Levels/LevelComponents/GrassMeshAnimated.cs" id="1_wlmg1"]
@@ -42,11 +42,11 @@ shader_parameter/debug_test = 2
 material = SubResource("ShaderMaterial_bnv5h")
 size = Vector2(0.5, 0.4)
 
-[node name="GrasMeshAnimated" type="Node3D" node_paths=PackedStringArray("meshInstance3D")]
+[node name="GrasMeshAnimated" type="Node3D" unique_id=994020393 node_paths=PackedStringArray("meshInstance3D")]
 script = ExtResource("1_wlmg1")
 meshInstance3D = NodePath("GrassMeshAnimatedMesh")
 
-[node name="GrassMeshAnimatedMesh" parent="." instance=ExtResource("1_e8dsl")]
+[node name="GrassMeshAnimatedMesh" parent="." unique_id=1007444594 instance=ExtResource("1_e8dsl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.207983, 0)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_bnv5h")

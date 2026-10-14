@@ -91,6 +91,10 @@ public partial class CloudManager : MeshInstance3D
 
 	public void UpdateCloudShadows()
 	{
+		// The _alphaScissor setter defers this call, so it can run on a node that is not (or no longer) in the tree.
+		// GlobalTransform is invalid there; _Ready re-runs this once the node enters the tree.
+		if (!IsInsideTree()) return;
+
 		try
 		{
 			Texture2D textureToUse = GetCloudTexture();
@@ -142,7 +146,7 @@ public partial class CloudManager : MeshInstance3D
 
 			// Light direction support
 			Vector3 lightDirection = Vector3.Down; // Default fallback
-			if (enableDirectionalShadows && sunLight != null)
+			if (enableDirectionalShadows && sunLight != null && sunLight.IsInsideTree())
 			{
 				lightDirection = -sunLight.GlobalTransform.Basis.Z; // Light forward direction
 

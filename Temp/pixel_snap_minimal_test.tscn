@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://dnhgl8oy1nda0"]
+
+[ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="1_cam"]
+[ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="2_rig"]
+[ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="3_disp"]
+[ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://assets/shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="4_up"]
+[ext_resource type="Texture2D" uid="uid://cx4j7g2ipla75" path="res://addons/tilemap_layer_3d_cpp/demo_scene/temp_tileset/Demo_texture_v03.png" id="5_tex"]
+
+[sub_resource type="Environment" id="Env_test"]
+background_mode = 1
+background_color = Color(0.25, 0.3, 0.38, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.6, 0.6, 0.6, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_floor"]
+albedo_texture = ExtResource("5_tex")
+uv1_scale = Vector3(4, 4, 1)
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="Mesh_floor"]
+material = SubResource("Mat_floor")
+size = Vector2(120, 120)
+
+[sub_resource type="StandardMaterial3D" id="Mat_box"]
+albedo_texture = ExtResource("5_tex")
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="Mesh_box"]
+material = SubResource("Mat_box")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="ShaderMaterial" id="Mat_upscale"]
+shader = ExtResource("4_up")
+shader_parameter/shadow_boost = 1.0
+shader_parameter/shadow_threshold = 0.0
+shader_parameter/shadow_color_override = Color(1, 1, 1, 1)
+shader_parameter/use_shadow_color_override = false
+shader_parameter/light_boost = 1.0
+
+[sub_resource type="ViewportTexture" id="VpTex_main"]
+viewport_path = NodePath("MainSubViewport")
+
+[node name="PixelSnapMinimalTest" type="Node" unique_id=1508943928]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2010912155]
+environment = SubResource("Env_test")
+
+[node name="MainSubViewport" type="SubViewport" parent="." unique_id=133103423]
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="Sun" type="DirectionalLight3D" parent="MainSubViewport" unique_id=1061556701]
+transform = Transform3D(0.770746, 0.456309, -0.444671, 0.179378, 0.514278, 0.838655, 0.61137, -0.726154, 0.314526, 0, 7, 0)
+
+[node name="Floor" type="MeshInstance3D" parent="MainSubViewport" unique_id=287003475]
+mesh = SubResource("Mesh_floor")
+
+[node name="Box1" type="MeshInstance3D" parent="MainSubViewport" unique_id=1269944073]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -2)
+mesh = SubResource("Mesh_box")
+
+[node name="Box2" type="MeshInstance3D" parent="MainSubViewport" unique_id=1794360395]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 3, 1, 1)
+mesh = SubResource("Mesh_box")
+
+[node name="Box3" type="MeshInstance3D" parent="MainSubViewport" unique_id=605526388]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 7, 2, -6)
+mesh = SubResource("Mesh_box")
+
+[node name="Box4" type="MeshInstance3D" parent="MainSubViewport" unique_id=1081579009]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -8, 1, 5)
+mesh = SubResource("Mesh_box")
+
+[node name="CameraRig" type="Node3D" parent="MainSubViewport" unique_id=1522777846 node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 70)
+script = ExtResource("2_rig")
+RotationPivotPoint = NodePath("Pivot")
+MainCamera = NodePath("MainCamera3D")
+
+[node name="MainCamera3D" type="Camera3D" parent="MainSubViewport/CameraRig" unique_id=426620123]
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0, 0)
+projection = 1
+current = true
+size = 18.0
+far = 350.0
+script = ExtResource("1_cam")
+SnapObjects = false
+
+[node name="Pivot" type="Node3D" parent="MainSubViewport/CameraRig" unique_id=2022756608]
+
+[node name="Display" type="Control" parent="." unique_id=322498251 node_paths=PackedStringArray("_mainSubViewport", "_mainRendereSprite")]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_disp")
+_mainSubViewport = NodePath("../MainSubViewport")
+_mainRendereSprite = NodePath("MainRenderSprite")
+_userDualRender = false
+
+[node name="MainRenderSprite" type="Sprite2D" parent="Display" unique_id=1471897490]
+texture_filter = 2
+material = SubResource("Mat_upscale")
+texture = SubResource("VpTex_main")
+centered = false

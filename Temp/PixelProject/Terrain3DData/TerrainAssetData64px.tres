@@ -1,4 +1,4 @@
-[gd_resource type="Terrain3DAssets" load_steps=44 format=3 uid="uid://vjyk3bb4hqui"]
+[gd_resource type="Terrain3DAssets" format=3 uid="uid://vjyk3bb4hqui"]
 
 [ext_resource type="PackedScene" uid="uid://bok06l3ildw4l" path="res://src/Levels/LevelComponents/GrassMeshAnimated.tscn" id="1_srmo4"]
 [ext_resource type="Shader" uid="uid://dsw64lg3jycdr" path="res://Temp/PixelProject/FoliageAnimation_v2_CorrectedColors_Depth.gdshader" id="1_t8n78"]
@@ -19,21 +19,20 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5o0mk"]
 render_priority = -1
 shader = ExtResource("1_t8n78")
-shader_parameter/disable_ambient_light = false
-shader_parameter/Use_fake_ambient_light = false
-shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
+shader_parameter/override_global_shadow = false
+shader_parameter/real_shadow_threshold = 0.99
+shader_parameter/enable_cloud_shadows = true
+shader_parameter/cloud_shadow_intensity = 1.0
+shader_parameter/use_granular_shadows = false
+shader_parameter/white_shadow_intensity = 0.0
+shader_parameter/gray_shadow_intensity = 0.5
+shader_parameter/black_shadow_intensity = 1.0
+shader_parameter/color_threshold = 0.2
+shader_parameter/debug_mode = false
+shader_parameter/debug_test = 0
 shader_parameter/albedo_tex = ExtResource("4_a4ikv")
 shader_parameter/albedo_color = Color(0.321569, 0.592157, 0.345098, 1)
-shader_parameter/use_vertex_color = false
-shader_parameter/use_emission = false
-shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/billboard = true
-shader_parameter/draw_order_offset = 0.0
-shader_parameter/wind_sway_strength = 0.1
-shader_parameter/wind_sway_speed = 1.0
-shader_parameter/wind_time_scale = 1.0
-shader_parameter/wind_time_offset = 0.0
-shader_parameter/sway_from_bottom = false
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_a4ikv"]
 name = "GrassMeshAnimated"
@@ -51,21 +50,20 @@ load_path = "res://.godot/imported/Grass_4.png-e257c332d8b5bcfdfdb336bc25502118.
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ocm65"]
 render_priority = -1
 shader = ExtResource("1_t8n78")
-shader_parameter/disable_ambient_light = false
-shader_parameter/Use_fake_ambient_light = false
-shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
+shader_parameter/override_global_shadow = false
+shader_parameter/real_shadow_threshold = 0.99
+shader_parameter/enable_cloud_shadows = true
+shader_parameter/cloud_shadow_intensity = 1.0
+shader_parameter/use_granular_shadows = false
+shader_parameter/white_shadow_intensity = 0.0
+shader_parameter/gray_shadow_intensity = 0.5
+shader_parameter/black_shadow_intensity = 1.0
+shader_parameter/color_threshold = 0.2
+shader_parameter/debug_mode = false
+shader_parameter/debug_test = 0
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_t8n78")
 shader_parameter/albedo_color = Color(0.52549, 0.709804, 0.360784, 1)
-shader_parameter/use_vertex_color = false
-shader_parameter/use_emission = false
-shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/billboard = true
-shader_parameter/draw_order_offset = 0.0
-shader_parameter/wind_sway_strength = 0.1
-shader_parameter/wind_sway_speed = 1.0
-shader_parameter/wind_time_scale = 1.0
-shader_parameter/wind_time_offset = 0.0
-shader_parameter/sway_from_bottom = false
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_t8n78"]
 name = "GrassMeshAnimated"
@@ -92,21 +90,20 @@ load_path = "res://.godot/imported/Grass_4.png-e257c332d8b5bcfdfdb336bc25502118.
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t8n78"]
 render_priority = -1
 shader = ExtResource("1_t8n78")
-shader_parameter/disable_ambient_light = false
-shader_parameter/Use_fake_ambient_light = false
-shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
+shader_parameter/override_global_shadow = false
+shader_parameter/real_shadow_threshold = 0.99
+shader_parameter/enable_cloud_shadows = true
+shader_parameter/cloud_shadow_intensity = 1.0
+shader_parameter/use_granular_shadows = false
+shader_parameter/white_shadow_intensity = 0.0
+shader_parameter/gray_shadow_intensity = 0.5
+shader_parameter/black_shadow_intensity = 1.0
+shader_parameter/color_threshold = 0.2
+shader_parameter/debug_mode = false
+shader_parameter/debug_test = 0
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_itovh")
 shader_parameter/albedo_color = Color(0.760784, 0.827451, 0.407843, 1)
-shader_parameter/use_vertex_color = false
-shader_parameter/use_emission = false
-shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/billboard = true
-shader_parameter/draw_order_offset = 0.0
-shader_parameter/wind_sway_strength = 0.1
-shader_parameter/wind_sway_speed = 1.0
-shader_parameter/wind_time_scale = 1.0
-shader_parameter/wind_time_offset = 0.0
-shader_parameter/sway_from_bottom = false
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_srmo4"]
 name = "GrassMeshAnimated"
@@ -139,21 +136,20 @@ lod0_range = 128.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_itovh"]
 render_priority = -1
 shader = ExtResource("1_t8n78")
-shader_parameter/disable_ambient_light = false
-shader_parameter/Use_fake_ambient_light = false
-shader_parameter/fake_ambient_light = Color(1, 1, 1, 1)
+shader_parameter/override_global_shadow = false
+shader_parameter/real_shadow_threshold = 0.99
+shader_parameter/enable_cloud_shadows = true
+shader_parameter/cloud_shadow_intensity = 1.0
+shader_parameter/use_granular_shadows = false
+shader_parameter/white_shadow_intensity = 0.0
+shader_parameter/gray_shadow_intensity = 0.5
+shader_parameter/black_shadow_intensity = 1.0
+shader_parameter/color_threshold = 0.2
+shader_parameter/debug_mode = false
+shader_parameter/debug_test = 0
 shader_parameter/albedo_tex = SubResource("CompressedTexture2D_t8n78")
 shader_parameter/albedo_color = Color(0.439216, 0.607843, 0.403922, 1)
-shader_parameter/use_vertex_color = true
-shader_parameter/use_emission = false
-shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/billboard = true
-shader_parameter/draw_order_offset = 0.0
-shader_parameter/wind_sway_strength = 0.1
-shader_parameter/wind_sway_speed = 1.0
-shader_parameter/wind_time_scale = 1.0
-shader_parameter/wind_time_offset = 0.0
-shader_parameter/sway_from_bottom = false
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_5o0mk"]
 id = 5

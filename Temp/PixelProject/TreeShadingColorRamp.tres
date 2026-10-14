@@ -1,4 +1,4 @@
-[gd_resource type="GradientTexture1D" load_steps=2 format=3 uid="uid://dy8m3lwaewb78"]
+[gd_resource type="GradientTexture1D" format=3 uid="uid://dy8m3lwaewb78"]
 
 [sub_resource type="Gradient" id="Gradient_72eyv"]
 resource_local_to_scene = true

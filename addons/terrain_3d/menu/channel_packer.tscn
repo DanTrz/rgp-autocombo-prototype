@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://nud6dwjcnj5v"]
+[gd_scene format=3 uid="uid://nud6dwjcnj5v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ysabf"]
 bg_color = Color(0.211765, 0.239216, 0.290196, 1)
@@ -34,14 +34,15 @@ corner_radius_bottom_left = 5
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_bs6ki"]
 
-[node name="Window" type="Window"]
+[node name="Window" type="Window" unique_id=1266866520]
+oversampling_override = 1.0
 title = "Terrain3D Channel Packer"
 initial_position = 1
 size = Vector2i(583, 856)
 wrap_controls = true
 always_on_top = true
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1824885611]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -49,65 +50,65 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ysabf")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=909476852]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1444734939]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="AlbedoHeightPanel" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="AlbedoHeightPanel" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1618406763]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_lcvna")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel" unique_id=1960549285]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer" unique_id=1743736994]
 layout_mode = 2
 
-[node name="AlbedoVBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer"]
+[node name="AlbedoVBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer" unique_id=955153693]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AlbedoLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox"]
+[node name="AlbedoLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox" unique_id=503613430]
 layout_mode = 2
 text = "Albedo texture"
 
-[node name="AlbedoHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox"]
+[node name="AlbedoHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox" unique_id=2014414295]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/AlbedoHBox"]
+[node name="LineEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/AlbedoHBox" unique_id=1311170001]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PickButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/AlbedoHBox"]
+[node name="PickButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/AlbedoHBox" unique_id=1261472559]
 layout_mode = 2
 
-[node name="ClearButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/AlbedoHBox"]
+[node name="ClearButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/AlbedoHBox" unique_id=412987944]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox" unique_id=998669909]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/margin_top = 10
 
-[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/MarginContainer"]
+[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/MarginContainer" unique_id=1083085965]
 custom_minimum_size = Vector2(110, 110)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_cb0xf")
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/MarginContainer/Panel"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/MarginContainer/Panel" unique_id=233173390]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -122,7 +123,7 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 1
 
-[node name="TextureButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/MarginContainer/Panel"]
+[node name="TextureButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/MarginContainer/Panel" unique_id=666416998]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -131,61 +132,61 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_7qdas")
 
-[node name="AlbedoWHHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox"]
+[node name="AlbedoWHHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox" unique_id=1270622106]
 layout_mode = 2
 alignment = 1
 
-[node name="AlbedoW" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/AlbedoWHHBox"]
+[node name="AlbedoW" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/AlbedoWHHBox" unique_id=2115647000]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="AlbedoH" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/AlbedoWHHBox"]
+[node name="AlbedoH" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/AlbedoWHHBox" unique_id=640509780]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox" unique_id=203589877]
 layout_mode = 2
 alignment = 1
 
-[node name="LuminanceAsHeightButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/HBoxContainer2"]
+[node name="LuminanceAsHeightButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/AlbedoVBox/HBoxContainer2" unique_id=1655440430]
 layout_mode = 2
 text = " Generate Height from Luminance"
 icon_alignment = 2
 
-[node name="HeightVBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer"]
+[node name="HeightVBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer" unique_id=1167892083]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HeightLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox"]
+[node name="HeightLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox" unique_id=717009031]
 layout_mode = 2
 text = "Height texture"
 
-[node name="HeightHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox"]
+[node name="HeightHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox" unique_id=172391912]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HeightHBox"]
+[node name="LineEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HeightHBox" unique_id=1701949900]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PickButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HeightHBox"]
+[node name="PickButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HeightHBox" unique_id=737601645]
 layout_mode = 2
 
-[node name="ClearButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HeightHBox"]
+[node name="ClearButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HeightHBox" unique_id=649971882]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox" unique_id=460740527]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/margin_top = 10
 
-[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/MarginContainer"]
+[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/MarginContainer" unique_id=965416798]
 custom_minimum_size = Vector2(110, 110)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_cb0xf")
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/MarginContainer/Panel"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/MarginContainer/Panel" unique_id=2116266326]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -200,7 +201,7 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 1
 
-[node name="TextureButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/MarginContainer/Panel"]
+[node name="TextureButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/MarginContainer/Panel" unique_id=1808330179]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -209,109 +210,109 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_7qdas")
 
-[node name="HeightWHHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox"]
+[node name="HeightWHHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox" unique_id=1865443407]
 layout_mode = 2
 alignment = 1
 
-[node name="HeightW" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HeightWHHBox"]
+[node name="HeightW" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HeightWHHBox" unique_id=594891325]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="HeightH" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HeightWHHBox"]
+[node name="HeightH" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HeightWHHBox" unique_id=1885714672]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox" unique_id=1773180385]
 layout_mode = 2
 alignment = 1
 
-[node name="ConvertDepthToHeight" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HBoxContainer2"]
+[node name="ConvertDepthToHeight" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HBoxContainer2" unique_id=64585305]
 layout_mode = 2
 text = " Convert Depth to Height"
 icon_alignment = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox" unique_id=757434941]
 layout_mode = 2
 alignment = 1
 
-[node name="HeightChannelLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HBoxContainer"]
+[node name="HeightChannelLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HBoxContainer" unique_id=1554719755]
 layout_mode = 2
 text = " Source Channel: "
 horizontal_alignment = 2
 
-[node name="HeightChannelR" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HBoxContainer"]
+[node name="HeightChannelR" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HBoxContainer" unique_id=823987312]
 layout_mode = 2
 toggle_mode = true
 button_pressed = true
 button_group = SubResource("ButtonGroup_wnxik")
 text = "R"
 
-[node name="HeightChannelB" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HBoxContainer"]
+[node name="HeightChannelB" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HBoxContainer" unique_id=1220840367]
 layout_mode = 2
 toggle_mode = true
 button_group = SubResource("ButtonGroup_wnxik")
 text = "G"
 
-[node name="HeightChannelG" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HBoxContainer"]
+[node name="HeightChannelG" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HBoxContainer" unique_id=6573302]
 layout_mode = 2
 toggle_mode = true
 button_group = SubResource("ButtonGroup_wnxik")
 text = "B"
 
-[node name="HeightChannelA" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HBoxContainer"]
+[node name="HeightChannelA" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/AlbedoHeightPanel/MarginContainer/HBoxContainer/HeightVBox/HBoxContainer" unique_id=207739573]
 layout_mode = 2
 toggle_mode = true
 button_group = SubResource("ButtonGroup_wnxik")
 text = "A"
 
-[node name="NormalRoughnessPanel" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="NormalRoughnessPanel" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=840407553]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_lcvna")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel" unique_id=1415111266]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer" unique_id=704980026]
 layout_mode = 2
 
-[node name="NormalVBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer"]
+[node name="NormalVBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer" unique_id=509985470]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NormalLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox"]
+[node name="NormalLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox" unique_id=678716950]
 layout_mode = 2
 text = "Normal texture"
 
-[node name="NormalHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox"]
+[node name="NormalHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox" unique_id=90520404]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/NormalHBox"]
+[node name="LineEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/NormalHBox" unique_id=372316719]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PickButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/NormalHBox"]
+[node name="PickButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/NormalHBox" unique_id=1430978491]
 layout_mode = 2
 
-[node name="ClearButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/NormalHBox"]
+[node name="ClearButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/NormalHBox" unique_id=603933653]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox" unique_id=1286587803]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/margin_top = 10
 
-[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/MarginContainer"]
+[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/MarginContainer" unique_id=106725897]
 custom_minimum_size = Vector2(110, 110)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_cb0xf")
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/MarginContainer/Panel"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/MarginContainer/Panel" unique_id=71563809]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -326,7 +327,7 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 1
 
-[node name="TextureButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/MarginContainer/Panel"]
+[node name="TextureButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/MarginContainer/Panel" unique_id=1916431653]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -335,68 +336,68 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_7qdas")
 
-[node name="NormalWHHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox"]
+[node name="NormalWHHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox" unique_id=943082455]
 layout_mode = 2
 alignment = 1
 
-[node name="NormalW" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/NormalWHHBox"]
+[node name="NormalW" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/NormalWHHBox" unique_id=1476213169]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="NormalH" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/NormalWHHBox"]
+[node name="NormalH" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/NormalWHHBox" unique_id=602149907]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox" unique_id=1220460863]
 layout_mode = 2
 alignment = 1
 
-[node name="InvertGreenChannelCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/HBoxContainer"]
+[node name="InvertGreenChannelCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/HBoxContainer" unique_id=656098622]
 layout_mode = 2
 text = " Convert DirectX to OpenGL"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox" unique_id=327775864]
 layout_mode = 2
 alignment = 1
 
-[node name="AlignNormalsCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/HBoxContainer2"]
+[node name="AlignNormalsCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/NormalVBox/HBoxContainer2" unique_id=417749012]
 layout_mode = 2
 text = " Orthoganolise Normals"
 
-[node name="RoughnessVBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer"]
+[node name="RoughnessVBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer" unique_id=1345679330]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RoughnessLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox"]
+[node name="RoughnessLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox" unique_id=168088694]
 layout_mode = 2
 text = "Roughness texture"
 
-[node name="RoughnessHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox"]
+[node name="RoughnessHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox" unique_id=1100609023]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/RoughnessHBox"]
+[node name="LineEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/RoughnessHBox" unique_id=270146447]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PickButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/RoughnessHBox"]
+[node name="PickButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/RoughnessHBox" unique_id=471529285]
 layout_mode = 2
 
-[node name="ClearButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/RoughnessHBox"]
+[node name="ClearButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/RoughnessHBox" unique_id=646790589]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox" unique_id=1748754159]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/margin_top = 10
 
-[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/MarginContainer"]
+[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/MarginContainer" unique_id=1010996499]
 custom_minimum_size = Vector2(110, 110)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_cb0xf")
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/MarginContainer/Panel"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/MarginContainer/Panel" unique_id=987772238]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -411,7 +412,7 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 1
 
-[node name="TextureButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/MarginContainer/Panel"]
+[node name="TextureButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/MarginContainer/Panel" unique_id=641536888]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -420,75 +421,75 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_7qdas")
 
-[node name="RoughnessWHHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox"]
+[node name="RoughnessWHHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox" unique_id=1258958710]
 layout_mode = 2
 alignment = 1
 
-[node name="RoughnessW" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/RoughnessWHHBox"]
+[node name="RoughnessW" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/RoughnessWHHBox" unique_id=1714197864]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="RoughnessH" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/RoughnessWHHBox"]
+[node name="RoughnessH" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/RoughnessWHHBox" unique_id=2039663594]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox" unique_id=660102640]
 layout_mode = 2
 alignment = 1
 
-[node name="InvertSmoothCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/HBoxContainer2"]
+[node name="InvertSmoothCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/HBoxContainer2" unique_id=2026062812]
 layout_mode = 2
 text = " Convert Smoothness to Roughness"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox" unique_id=203232671]
 layout_mode = 2
 alignment = 1
 
-[node name="RoughnessChannelLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/HBoxContainer"]
+[node name="RoughnessChannelLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/HBoxContainer" unique_id=1855689472]
 layout_mode = 2
 text = " Source Channel: "
 horizontal_alignment = 2
 
-[node name="RoughnessChannelR" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/HBoxContainer"]
+[node name="RoughnessChannelR" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/HBoxContainer" unique_id=1875654427]
 layout_mode = 2
 toggle_mode = true
 button_pressed = true
 button_group = SubResource("ButtonGroup_bs6ki")
 text = "R"
 
-[node name="RoughnessChannelG" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/HBoxContainer"]
+[node name="RoughnessChannelG" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/HBoxContainer" unique_id=125767691]
 layout_mode = 2
 toggle_mode = true
 button_group = SubResource("ButtonGroup_bs6ki")
 text = "G"
 
-[node name="RoughnessChannelB" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/HBoxContainer"]
+[node name="RoughnessChannelB" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/HBoxContainer" unique_id=1112855341]
 layout_mode = 2
 toggle_mode = true
 button_group = SubResource("ButtonGroup_bs6ki")
 text = "B"
 
-[node name="RoughnessChannelA" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/HBoxContainer"]
+[node name="RoughnessChannelA" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/NormalRoughnessPanel/MarginContainer/HBoxContainer/RoughnessVBox/HBoxContainer" unique_id=631349472]
 layout_mode = 2
 toggle_mode = true
 button_group = SubResource("ButtonGroup_bs6ki")
 text = "A"
 
-[node name="GeneralOptionsLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="GeneralOptionsLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=838659590]
 layout_mode = 2
 text = "General Options"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GeneralOptionsHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="GeneralOptionsHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1430470498]
 layout_mode = 2
 alignment = 1
 
-[node name="ResizeToggle" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/GeneralOptionsHBox"]
+[node name="ResizeToggle" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/GeneralOptionsHBox" unique_id=1584248042]
 layout_mode = 2
 text = " Resize Packed Image"
 
-[node name="ResizeOptionButton" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/GeneralOptionsHBox"]
+[node name="ResizeOptionButton" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/GeneralOptionsHBox" unique_id=1976841134]
 visible = false
 layout_mode = 2
 tooltip_text = "A value of 0 disables resizing."
@@ -497,33 +498,33 @@ max_value = 4096.0
 step = 128.0
 value = 1024.0
 
-[node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/GeneralOptionsHBox"]
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/GeneralOptionsHBox" unique_id=1060825921]
 layout_mode = 2
 
-[node name="GenerateMipmapsCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/GeneralOptionsHBox"]
+[node name="GenerateMipmapsCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/GeneralOptionsHBox" unique_id=1017182549]
 layout_mode = 2
 button_pressed = true
 text = "Generate Mipmaps"
 
-[node name="HighQualityCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/GeneralOptionsHBox"]
+[node name="HighQualityCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/GeneralOptionsHBox" unique_id=400913971]
 layout_mode = 2
 text = "Import High Quality"
 
-[node name="PackButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PackButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=736349489]
 layout_mode = 2
 text = "Pack textures as..."
 
-[node name="StatusLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="StatusLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1065945076]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1845662832]
 layout_mode = 2
 alignment = 1
 
-[node name="CloseButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="CloseButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1581089271]
 layout_mode = 2
 text = "Close"
 

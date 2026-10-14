@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://dftx2rlgbrpiq"]
+[gd_scene format=4 uid="uid://dftx2rlgbrpiq"]
 
 [sub_resource type="Curve" id="Curve_motfh"]
 _data = [Vector2(0.151119, 1), 0.0, 0.0, 0, 0, Vector2(0.276119, 0), 0.0, 0.0, 0, 0, Vector2(0.356343, 1), 0.0, 0.0, 0, 0, Vector2(0.526119, 0), 0.0, 0.0, 0, 0, Vector2(0.610075, 1), 0.0, 0.0, 0, 0, Vector2(0.720149, 0), 0.0, 0.0, 0, 0, Vector2(0.81903, 1), 0.0, 0.0, 0, 0, Vector2(0.942164, 0.997144), 0.0, 0.0, 0, 0]
@@ -74,7 +74,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_udcdq")
 
-[node name="Fireflies" type="GPUParticles3D"]
+[node name="Fireflies" type="GPUParticles3D" unique_id=424676712]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 amount = 24
 lifetime = 4.0

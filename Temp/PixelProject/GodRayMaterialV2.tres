@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://k18sr2wv7xcd"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://k18sr2wv7xcd"]
 
 [ext_resource type="Shader" uid="uid://c7rtgebul6rxm" path="res://Temp/PixelProject/godray_singlemeshv2.gdshader" id="1_nbtww"]
 

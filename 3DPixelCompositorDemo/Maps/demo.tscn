@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c3dywxs16624x"]
+[gd_scene format=3 uid="uid://c3dywxs16624x"]
 
 [ext_resource type="Shader" uid="uid://c6qhkhar3xobg" path="res://3DPixelCompositorDemo/Shaders/edge_detection.gdshader" id="1_m0rpm"]
 [ext_resource type="Texture2D" uid="uid://ci38v0jfp4220" path="res://3DPixelCompositorDemo/Assets/checker.jpg" id="2_o52xj"]
@@ -222,9 +222,9 @@ _data = {
 &"moving_objects": SubResource("Animation_rjqes")
 }
 
-[node name="World" type="Node3D"]
+[node name="World" type="Node3D" unique_id=683969155]
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1903139609]
 texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -234,103 +234,101 @@ grow_vertical = 2
 stretch = true
 stretch_shrink = 7
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=55211029]
 handle_input_locally = false
-size = Vector2i(164, 92)
+size = Vector2i(274, 154)
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=1847507902]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 6.03694, 7.50437)
 projection = 1
 size = 6.0
 far = 200.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D" unique_id=288036865]
 cast_shadow = 0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_hp20k")
 surface_material_override/0 = SubResource("ShaderMaterial_odkjl")
 
-[node name="meshes" type="Node3D" parent="SubViewportContainer/SubViewport"]
+[node name="meshes" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=1516122284]
 
-[node name="ground" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes"]
+[node name="ground" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes" unique_id=560713768]
 transform = Transform3D(11.6393, 0, 11.6393, 0, 16.4604, 0, -11.6393, 0, 11.6393, 0, 0, 0)
 mesh = SubResource("PlaneMesh_uqnki")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_tfxb1")
 
-[node name="icoshpere" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes"]
+[node name="icoshpere" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes" unique_id=1721577815]
 transform = Transform3D(60, 0, 0, 0, 59.9999, 0, 0, 0, 60, 0, 3.34115, 0)
 mesh = ExtResource("3_c6xj6")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_m0rpm")
 
-[node name="cube" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes"]
+[node name="cube" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes" unique_id=190871327]
 transform = Transform3D(0.998333, 0, 0.998333, 0, 1.41186, 0, -0.998333, 0, 0.998333, 0, 0.819036, 0)
 mesh = SubResource("BoxMesh_dqaes")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_gi8eg")
 
-[node name="cube9" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes"]
+[node name="cube9" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes" unique_id=1298429260]
 transform = Transform3D(0.58539, 0, 0.58539, 0, 0.827869, 0, -0.58539, 0, 0.58539, -2.00928, 1.06355, 2.62341)
 mesh = SubResource("BoxMesh_dqaes")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_dkr1p")
 
-[node name="cube7" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes"]
+[node name="cube7" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes" unique_id=582590347]
 transform = Transform3D(0.672609, 0, 0.672609, 0, 0.951216, 0, -0.672609, 0, 0.672609, -4.4321, 1.42611, -0.0344589)
 mesh = SubResource("BoxMesh_dqaes")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_gi8eg")
 
-[node name="cube8" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes"]
+[node name="cube8" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes" unique_id=1447474448]
 transform = Transform3D(0.672609, 0, 0.672609, 0, 0.951216, 0, -0.672609, 0, 0.672609, -3.47073, 2.96076, -1.08467)
 mesh = SubResource("BoxMesh_dqaes")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_gi8eg")
 
-[node name="cube2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes"]
+[node name="cube2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes" unique_id=1362337738]
 transform = Transform3D(0.998333, 0, 0.998333, 0, 2.29213, 0, -0.998333, 0, 0.998333, 4.12221, 1.24502, -0.197803)
 mesh = SubResource("BoxMesh_dqaes")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_gi8eg")
 
-[node name="cube3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes"]
+[node name="cube3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes" unique_id=27753785]
 transform = Transform3D(0.998333, 0, 0.998333, 0, 3.01124, 0, -0.998333, 0, 0.998333, 3.12605, 1.58668, -1.19744)
 mesh = SubResource("BoxMesh_dqaes")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_gi8eg")
 
-[node name="cube4" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes"]
+[node name="cube4" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes" unique_id=1737835956]
 transform = Transform3D(0.998333, 0, 0.998333, 0, 1.65436, 0, -0.998333, 0, 0.998333, 3.13411, 0.928415, 0.811643)
 mesh = SubResource("BoxMesh_dqaes")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_gi8eg")
 
-[node name="cube5" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes"]
+[node name="cube5" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes" unique_id=1199299374]
 transform = Transform3D(1.43963, 0, 1.42278, 0, 2.49326, 0, -1.43963, 0, 1.42278, -3.45486, 1.23364, -1.18273)
 mesh = SubResource("BoxMesh_dqaes")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_gi8eg")
 
-[node name="cube6" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes"]
+[node name="cube6" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/meshes" unique_id=1215807359]
 transform = Transform3D(4.28778, 0, 3.53859, 0, 0.453113, 0, -4.28778, 0, 3.53859, 2.18025, 0.217412, -0.176708)
 mesh = SubResource("BoxMesh_dqaes")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_gi8eg")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" unique_id=1826260006]
 transform = Transform3D(-0.130521, 0.749389, 0.649138, -1.65989e-06, -0.654743, 0.755851, 0.991446, 0.0986538, 0.0854584, 0, 4.76559, 0)
 shadow_enabled = true
 shadow_bias = 0.2
 shadow_blur = 0.1
 directional_shadow_mode = 1
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport" unique_id=763920485]
 environment = SubResource("Environment_n4gow")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewportContainer/SubViewport"]
-libraries = {
-&"": SubResource("AnimationLibrary_xr1em")
-}
-autoplay = "moving_objects"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewportContainer/SubViewport" unique_id=650063433]
+libraries/ = SubResource("AnimationLibrary_xr1em")
+autoplay = &"moving_objects"

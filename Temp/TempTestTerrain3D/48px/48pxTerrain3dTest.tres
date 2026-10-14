@@ -1,4 +1,4 @@
-[gd_resource type="Terrain3DAssets" load_steps=28 format=3 uid="uid://ba70e4aca171v"]
+[gd_resource type="Terrain3DAssets" format=3 uid="uid://ba70e4aca171v"]
 
 [ext_resource type="PackedScene" uid="uid://uu41wp2c58on" path="res://src/Levels/LevelComponents/GrassSpriteSheetShaderMesh.tscn" id="1_or0mn"]
 [ext_resource type="Texture2D" uid="uid://w4pspq4seu3h" path="res://Temp/TempTestTerrain3D/48px/grassText48Px.png" id="2_7cycn"]

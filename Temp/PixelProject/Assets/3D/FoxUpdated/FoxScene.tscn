@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c3cxasrvb50k3"]
+[gd_scene format=3 uid="uid://c3cxasrvb50k3"]
 
 [ext_resource type="Script" uid="uid://jgihbw55npga" path="res://src/Characters/Player/PlayerStates/FoxStates/FoxCharacter.cs" id="1_i4r35"]
 [ext_resource type="ArrayMesh" uid="uid://bpl3c6j6clapn" path="res://Temp/PixelProject/Assets/3D/FoxUpdated/source/fox.res" id="2_5c5wx"]
@@ -718,21 +718,21 @@ _data = {
 &"fox_walk_in_place": ExtResource("11_mjrde")
 }
 
-[node name="Fox" type="CharacterBody3D"]
+[node name="Fox" type="CharacterBody3D" unique_id=1818032547]
 script = ExtResource("1_i4r35")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=420529726]
 transform = Transform3D(1, 0, 0, 0, 0.027311, -0.999627, 0, 0.999627, 0.027311, 0, 0.338697, 0)
 visible = false
 shape = SubResource("CapsuleShape3D_0srfa")
 
-[node name="Skin" type="Node3D" parent="."]
+[node name="Skin" type="Node3D" parent="." unique_id=985546457]
 unique_name_in_owner = true
 
-[node name="FoxTransform" type="Node3D" parent="Skin"]
+[node name="FoxTransform" type="Node3D" parent="Skin" unique_id=1238147309]
 transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, 0.1, 0, -0.1, -4.37114e-09, 0, 0, 0)
 
-[node name="Skeleton3D" type="Skeleton3D" parent="Skin/FoxTransform"]
+[node name="Skeleton3D" type="Skeleton3D" parent="Skin/FoxTransform" unique_id=369593335]
 unique_name_in_owner = true
 bones/0/name = "Fox_Pelvis"
 bones/0/parent = -1
@@ -1008,34 +1008,33 @@ bones/38/position = Vector3(3.25395, 0.0775132, 0)
 bones/38/rotation = Quaternion(-0.000171913, -0.000733929, 0.227982, 0.973665)
 bones/38/scale = Vector3(1, 1, 1)
 
-[node name="fox" type="MeshInstance3D" parent="Skin/FoxTransform/Skeleton3D"]
+[node name="fox" type="MeshInstance3D" parent="Skin/FoxTransform/Skeleton3D" unique_id=244834473]
 transform = Transform3D(1, 0, 0, 0, 1, 2.84217e-14, 0, -2.84217e-14, 1, -0.294403, 0.0513506, 0.316301)
 layers = 524289
 mesh = ExtResource("2_5c5wx")
 skin = SubResource("Skin_tw5h6")
+skeleton = NodePath("..")
 surface_material_override/0 = SubResource("ShaderMaterial_kupfj")
 
-[node name="StateMachineManager" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("5_0srfa")]
+[node name="StateMachineManager" parent="." unique_id=1014024123 node_paths=PackedStringArray("_initialState") instance=ExtResource("5_0srfa")]
 _initialState = NodePath("FoxIdleState")
 
-[node name="FoxWalkState" type="Node" parent="StateMachineManager"]
+[node name="FoxWalkState" type="Node" parent="StateMachineManager" unique_id=1789988038]
 script = ExtResource("6_0srfa")
 
-[node name="FoxIdleState" type="Node" parent="StateMachineManager"]
+[node name="FoxIdleState" type="Node" parent="StateMachineManager" unique_id=1996719341]
 script = ExtResource("7_yg4hu")
 _switchAnimTime = 3.0
 
-[node name="FoxJumpState" type="Node" parent="StateMachineManager"]
+[node name="FoxJumpState" type="Node" parent="StateMachineManager" unique_id=1787517673]
 script = ExtResource("8_sssmq")
 
-[node name="FoxFallState" type="Node" parent="StateMachineManager"]
+[node name="FoxFallState" type="Node" parent="StateMachineManager" unique_id=1613788624]
 script = ExtResource("9_c55lm")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1631262261]
 unique_name_in_owner = true
 root_node = NodePath("../Skin")
-libraries = {
-&"": SubResource("AnimationLibrary_1ddyf")
-}
-autoplay = "fox_idle"
+libraries/ = SubResource("AnimationLibrary_1ddyf")
+autoplay = &"fox_idle"
 blend_times = [&"fox_idle", &"fox_idle", 0.5, &"fox_idle", &"fox_run_in_place", 0.5, &"fox_idle", &"fox_sit", 0.5, &"fox_idle", &"fox_walk_in_place", 0.5, &"fox_idle_sitting", &"fox_idle", 0.5, &"fox_idle_sitting", &"fox_idle_sitting", 0.5, &"fox_idle_sitting", &"fox_run_in_place", 1.0, &"fox_idle_sitting", &"fox_walk_in_place", 1.0, &"fox_run_in_place", &"fox_idle", 0.25, &"fox_run_in_place", &"fox_walk_in_place", 0.25, &"fox_sit", &"fox_idle", 0.25, &"fox_sit", &"fox_idle_sitting", 0.5, &"fox_walk_in_place", &"fox_idle", 0.25, &"fox_walk_in_place", &"fox_run_in_place", 0.25, &"fox_walk_in_place", &"fox_walk_in_place", 0.25]

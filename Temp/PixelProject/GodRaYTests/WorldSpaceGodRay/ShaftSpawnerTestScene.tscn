@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://b3a4clvljya0c"]
+[gd_scene format=3 uid="uid://b3a4clvljya0c"]
 
 [ext_resource type="Shader" uid="uid://p8l4gns07mpy" path="res://Temp/PixelProject/DissolveShader_CloudFocused_v2.gdshader" id="1_vti57"]
 [ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="1_yp6g0"]
@@ -10,7 +10,7 @@
 [ext_resource type="Shader" uid="uid://c6350ai2nbwbh" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/godray_shadow_occlusion_multi_point_sample_offset_PLAYTESTING.gdshader" id="5_tsdta"]
 [ext_resource type="Texture2D" uid="uid://bifn2watmqnhg" path="res://Temp/PixelProject/GodRaYTests/WorldSpaceGodRay/GodRayGradient.tres" id="6_1v7uf"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="9_tsdta"]
-[ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="10_1v7uf"]
+[ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://assets/shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="10_1v7uf"]
 
 [sub_resource type="CSharpScript" id="CSharpScript_1v7uf"]
 script/source = "using System;
@@ -436,7 +436,7 @@ void light() {
 offsets = PackedFloat32Array(0, 0.155789, 0.353684, 0.402105, 0.932632)
 colors = PackedColorArray(0, 0, 0, 0, 0.819608, 0.819608, 0.819608, 0.0509804, 0.756863, 0.756863, 0.756863, 0.196078, 0.8, 0.8, 0.8, 0.258824, 0.741176, 0.741176, 0.741176, 0.313726)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_lfdt2"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gb41b"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_5pwqe")
 
@@ -444,7 +444,7 @@ gradient = SubResource("Gradient_5pwqe")
 offsets = PackedFloat32Array(0.573394)
 colors = PackedColorArray(1, 1, 1, 0.333333)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_vti57"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lfdt2"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_i1ns1")
 
@@ -452,7 +452,7 @@ gradient = SubResource("Gradient_i1ns1")
 offsets = PackedFloat32Array(0.0321101, 0.0412844, 0.427368, 0.44, 0.866973)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.337255, 1, 1, 1, 0.501961, 1, 1, 1, 0.262327, 1, 1, 1, 0.227451)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1bdby"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vti57"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_x5wsi")
 
@@ -477,7 +477,7 @@ colors = PackedColorArray(1, 1, 1, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ofadk"]
 gradient = SubResource("Gradient_brkdl")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ofadk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1bdby"]
 resource_local_to_scene = true
 render_priority = 0
 shader = SubResource("Shader_1v7uf")
@@ -500,308 +500,16 @@ shader_parameter/hide_entire_ray_on_shadow = true
 shader_parameter/noise_texture = SubResource("GradientTexture2D_oa6h0")
 shader_parameter/selected_gradient = 0.0
 shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_lfdt2")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_vti57")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_1bdby")
+shader_parameter/gradient0 = SubResource("GradientTexture2D_gb41b")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_lfdt2")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_vti57")
 shader_parameter/gradient3 = SubResource("GradientTexture2D_uir4v")
 shader_parameter/uv1_scale = Vector2(4, 0.1)
 shader_parameter/uv1_offset = Vector2(0, 0.85)
 shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
 shader_parameter/max_world_bounds = Vector3(500, 500, 500)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_usnyq"]
-resource_local_to_scene = true
-material = SubResource("ShaderMaterial_ofadk")
-height = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
-
-[sub_resource type="MultiMesh" id="MultiMesh_tcjc1"]
-resource_local_to_scene = true
-transform_format = 1
-use_colors = true
-use_custom_data = true
-mesh = SubResource("CylinderMesh_usnyq")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_1t6qn"]
-size = Vector3(33.9113, 0.1, 14.4612)
-
-[sub_resource type="Shader" id="Shader_gb41b"]
-resource_local_to_scene = true
-code = "shader_type spatial;
-render_mode blend_add, depth_draw_opaque, cull_back, diffuse_toon, specular_toon;
-
-
-// Uniforms for controlling the look of the rays
-group_uniforms CoreSetup;
-uniform vec4 albedo_color : source_color = vec4(1.0, 1.0, 0.8, 1.0);
-uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
-
-
-uniform float brightness : hint_range(0.0, 5.0) = 1.0;
-uniform float alpha : hint_range(0.0, 1.0) = 0.5;
-// Where the fade begins (0.0 = bottom, 1.0 = top of the mesh)
-uniform float fadeout_start_point : hint_range(0.0, 1.00, 0.001) = 0.1;
-// How long the fade is. 0.1 is a short, sharp fade. 1.0 is a full, soft fade.
-uniform float fadeout_length : hint_range(0.00, 0.2, 0.001) = 0.008;
-// A switch to decide if we fade from the bottom up, or the top down.
-uniform bool fade_from_bottom = false;
-uniform float rim_power : hint_range(0.0, 5.0) = 1.0;
-
-group_uniforms Animation;
-uniform float speed : hint_range(0.1, 10.0) = 0.5;
-uniform float shadow_detection_threshold : hint_range(0.01, 1.0) = 0.2;
-uniform float noise_movement : hint_range(0.0, 0.5) = 0.2;
-uniform bool random_noise_movement = true;
-
-
-
-group_uniforms Occlusion;
-// SIMPLE BUT EFFECTIVE: Multi-point shadow sampling
-uniform bool enable_distributed_sampling = true;
-uniform bool use_custom_data_position = true;
-
-//uniform float sampling_offset_x : hint_range(-20.0, 20.0) = 0.0; // Offset sample point in X
-//uniform float sampling_offset_y : hint_range(-20.0, 20.0) = 0.0; // Offset sample point in Y
-//uniform float sampling_offset_z : hint_range(-20.0, 20.0) = 0.0; // Offset sample point in Z
-uniform vec3 sampling_offset= vec3(.0,.0,.0); // Offset sample point in Z
-uniform bool hide_entire_ray_on_shadow = true; // Hide entire ray if ANY shadow detected
-
-group_uniforms Textures;
-uniform sampler2D noise_texture : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
-
-// Control parameter
-uniform float selected_gradient : hint_range(0.0, 0.4, 0.1) = 0.0;
-uniform bool random_gradient = true;
-//uniform sampler2D gradient : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
-uniform sampler2D gradient0 : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
-uniform sampler2D gradient1 : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
-uniform sampler2D gradient2 : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
-uniform sampler2D gradient3 : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
-
-group_uniforms OtherandUtil;
-uniform vec2 uv1_scale = vec2(4.0, 0.1);
-uniform vec2 uv1_offset = vec2(0.0, 0.85);
-uniform vec3 min_world_bounds = vec3(-500, -500, -500);
-uniform vec3 max_world_bounds = vec3(500, 500, 500);
-
-varying vec3 world_position;
-varying vec3 sample_position;
-varying vec3 sample_position_custom_data;
-varying vec3 object_center;
-varying vec3 world_position_rand;
-varying float position_seed_rand;
-varying float gradient_seed_rand;
-varying float custom_data_alpha;
-
-
-
-
-float rand (vec2 uv) {
-    return fract(sin(dot(uv.xy,
-        vec2(12.9898,78.233))) * 43758.5453123);
-}
-
-void vertex() {
-
-	custom_data_alpha = INSTANCE_CUSTOM.a;
-	//These are going to be used for Randomization of NoiseValue and GradientTexture
-	world_position_rand = NODE_POSITION_WORLD * vec3(1.05, 1.14, 1.33) * 10.0;
-	position_seed_rand = fract(world_position_rand.x + world_position_rand.y + world_position_rand.z); // Get a value between 0 and 1.0f
-
-    UV = UV * uv1_scale + uv1_offset;
-
-    // Calculate world position of this vertex // Could also just use NODE_POSITION_WORLD
-    world_position = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-
-    if (enable_distributed_sampling) {
-        // Calculate a strategic sample position
-        object_center = MODEL_MATRIX[3].xyz;
-        vec3 offset = sampling_offset;
-        // You can experiment with different sampling strategies:
-        // Option 1: Fixed offset from center
-        sample_position = object_center + offset;
-
-        // Option 2: Use vertex position with offset (distributed across ray)
-        //sample_position = world_position + offset;
-
-        // Option 3: Sample at edges of the ray object
-        // vec3 to_vertex = world_position - object_center;
-        // sample_position = object_center + normalize(to_vertex) * length(offset);
-
-    } else {
-        // Use vertex position directly
-        sample_position = world_position;
-    }
-
-	if(use_custom_data_position)
-	{
-		//Option 1: Fixed world position
-		vec3 packed_position = INSTANCE_CUSTOM.rgb;
-		sample_position_custom_data = mix(min_world_bounds, max_world_bounds, packed_position);
-
-		////Option 2: Fixed offset from object center
-		//vec3 offset = sample_position_custom_data;
-		//sample_position_custom_data = object_center + offset;
-	}
-
-}
-
-vec4 select_gradient_texture(vec2 uv) {
-    if (gradient_seed_rand <= 0.1) return texture(gradient0, uv);
-    if (gradient_seed_rand <= 0.2) return texture(gradient1, uv);
-    if (gradient_seed_rand <= 0.3) return texture(gradient2, uv);
-    return texture(gradient3, uv);
-}
-
-void fragment() {
-    // --- Calculate the visual texture and transparency of the ray ---
-	vec2 base_uv = UV;
-    vec2 moving_noise_uv = UV + vec2(TIME * speed * 0.1, 0.0);
-    vec4 noise_value = texture(noise_texture, moving_noise_uv);
-    vec2 noise_offset = vec2(noise_value.r * noise_movement, 0.0);
-	if(random_noise_movement)
-	{
-		noise_offset = vec2(noise_value.r * (position_seed_rand * 0.5), 0.0); //multiple position_seed by a value below 1 to set it's max
-	}
-
-	//Define the Gradient to use or a random one
-	vec2 gradient_uv = UV + noise_offset;
-	gradient_seed_rand = selected_gradient;
-	if(random_gradient)
-	{
-		gradient_seed_rand = position_seed_rand * 0.4; //Limits to 0.4 (as we will use 4 gradients)
-	}
-	vec4 final_gradient = select_gradient_texture(gradient_uv);   //vec4 final_gradient = texture(gradient, gradient_uv);
-
-    // Use Fresnel to fade the ray at sharp angles to the camera
-    //float fresnel = pow(1.0 - dot(normalize(NORMAL), normalize(VIEW)), rim_power);
-    float fresnel = rim_power;
-
-    // The base transparency from your noise and gradient textures
-
-    float noise_alpha = noise_value.r * final_gradient.a * alpha; //custom_data_alpha
-    //float noise_alpha = noise_value.r * final_gradient.a * custom_data_alpha;
-
-
-    // --- NEW FADEOUT CALCULATION ---
-    float fade_uv = fade_from_bottom ? UV.y : 1.0 - UV.y;
-    float fade_start = fadeout_start_point;
-    float fade_end = fade_start + fadeout_length;
-    float fadeout_multiplier = smoothstep(fade_start, fade_end, fade_uv);
-
-	vec4 albedo_tex = texture(texture_albedo, base_uv);
-    // --- DEFINE THE MATERIAL'S PROPERTIES ---
-
-    albedo_tex *= COLOR;
-	//vec4 fake_color = vec4(0.0);
-    //albedo_tex *= fake_color * COLOR;
-
-	ALBEDO = albedo_color.rgb * final_gradient.rgb * albedo_tex.rgb; // I've also multiplied by the gradient color here for more visual variety
-	//ALBEDO = albedo_color.rgb * final_gradient.rgb; // I've also multiplied by the gradient color here for more visual variety
-	EMISSION = vec3(0.0);
-
-    // --- MODIFIED ALPHA CALCULATION ---
-    // We take the original alpha and multiply it by our new fadeout_multiplier.
-    // If the pixel is outside the fade area, the multiplier is 1.0, having no effect.
-    // If it's inside the fade area, the multiplier will be between 0.0 and 1.0, causing it to fade.
-    ALPHA = clamp(fresnel * noise_alpha * fadeout_multiplier, 0.0, 1.0);
-    ROUGHNESS = 1.0;
-    SPECULAR = 0.0;
-
-
-    // Use our calculated sample position for shadow detection
-	if(use_custom_data_position)
-	{
-		LIGHT_VERTEX = (VIEW_MATRIX * vec4(sample_position_custom_data, 1.0)).xyz;
-	}
-	else
-	{
-		LIGHT_VERTEX = (VIEW_MATRIX * vec4(sample_position, 1.0)).xyz;
-	}
-
-
-}
-
-void light() {
-    float NdotL = max(0.0, dot(NORMAL, LIGHT));
-
-    // Get shadow value at our sample position
-    float shadow_sample = ATTENUATION;
-
-    float light_contribution = 0.0;
-
-    if (hide_entire_ray_on_shadow) {
-        // SIMPLE STRATEGY: If ANY shadow detected, hide entire ray
-        if (shadow_sample < shadow_detection_threshold) {
-            // Complete ray hiding
-            light_contribution = 0.0;
-            ALPHA = 0.0;
-        } else {
-            // No shadow detected - full brightness
-            light_contribution = NdotL * brightness;
-        }
-    } else {
-        // GRADIENT STRATEGY: Apply shadow proportionally
-        if (shadow_sample < shadow_detection_threshold) {
-            // Partial ray dimming
-            light_contribution = shadow_sample * NdotL * brightness;
-            ALPHA *= shadow_sample;
-        } else {
-            light_contribution = NdotL * brightness;
-        }
-    }
-
-    //Uncomment this light if you want to affect the pixel brightness based on receiving light
-    //DIFFUSE_LIGHT += ALBEDO * light_contribution * LIGHT_COLOR;
-}"
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tcjc1"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_5pwqe")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1t6qn"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_i1ns1")
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_xxt2h"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_x5wsi")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1bdby"]
-resource_local_to_scene = true
-render_priority = 0
-shader = SubResource("Shader_gb41b")
-shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture1D_ofadk")
-shader_parameter/brightness = 1.0
-shader_parameter/alpha = 0.75
-shader_parameter/fadeout_start_point = 0.1
-shader_parameter/fadeout_length = 0.008
-shader_parameter/fade_from_bottom = false
-shader_parameter/rim_power = 1.2
-shader_parameter/speed = 1.0
-shader_parameter/shadow_detection_threshold = 0.2
-shader_parameter/noise_movement = 0.5
-shader_parameter/random_noise_movement = true
-shader_parameter/enable_distributed_sampling = true
-shader_parameter/use_custom_data_position = true
-shader_parameter/sampling_offset = Vector3(0, 0, 0)
-shader_parameter/hide_entire_ray_on_shadow = true
-shader_parameter/noise_texture = SubResource("GradientTexture2D_oa6h0")
-shader_parameter/selected_gradient = 0.0
-shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_tcjc1")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_1t6qn")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_xxt2h")
-shader_parameter/gradient3 = SubResource("GradientTexture2D_uir4v")
-shader_parameter/uv1_scale = Vector2(4, 0.1)
-shader_parameter/uv1_offset = Vector2(0, 0.85)
-shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
-shader_parameter/max_world_bounds = Vector3(500, 500, 500)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_pjdk5"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_uir4v"]
 resource_local_to_scene = true
 material = SubResource("ShaderMaterial_1bdby")
 height = 1.0
@@ -814,9 +522,12 @@ resource_local_to_scene = true
 transform_format = 1
 use_colors = true
 use_custom_data = true
-mesh = SubResource("CylinderMesh_pjdk5")
+mesh = SubResource("CylinderMesh_uir4v")
 
-[sub_resource type="Shader" id="Shader_lfdt2"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_1t6qn"]
+size = Vector3(33.9113, 0.1, 14.4612)
+
+[sub_resource type="Shader" id="Shader_ofadk"]
 resource_local_to_scene = true
 code = "shader_type spatial;
 render_mode blend_add, depth_draw_opaque, cull_back, diffuse_toon, specular_toon;
@@ -1046,22 +757,22 @@ void light() {
     //DIFFUSE_LIGHT += ALBEDO * light_contribution * LIGHT_COLOR;
 }"
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_h8a62"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_usnyq"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_5pwqe")
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_r70uc"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tcjc1"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_i1ns1")
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_w1e46"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1t6qn"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_x5wsi")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xxt2h"]
 resource_local_to_scene = true
 render_priority = 0
-shader = SubResource("Shader_lfdt2")
+shader = SubResource("Shader_ofadk")
 shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
 shader_parameter/texture_albedo = SubResource("GradientTexture1D_ofadk")
 shader_parameter/brightness = 1.0
@@ -1081,16 +792,16 @@ shader_parameter/hide_entire_ray_on_shadow = true
 shader_parameter/noise_texture = SubResource("GradientTexture2D_oa6h0")
 shader_parameter/selected_gradient = 0.0
 shader_parameter/random_gradient = true
-shader_parameter/gradient0 = SubResource("GradientTexture2D_h8a62")
-shader_parameter/gradient1 = SubResource("GradientTexture2D_r70uc")
-shader_parameter/gradient2 = SubResource("GradientTexture2D_w1e46")
+shader_parameter/gradient0 = SubResource("GradientTexture2D_usnyq")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_tcjc1")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_1t6qn")
 shader_parameter/gradient3 = SubResource("GradientTexture2D_uir4v")
 shader_parameter/uv1_scale = Vector2(4, 0.1)
 shader_parameter/uv1_offset = Vector2(0, 0.85)
 shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
 shader_parameter/max_world_bounds = Vector3(500, 500, 500)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_bkg3p"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_pjdk5"]
 resource_local_to_scene = true
 material = SubResource("ShaderMaterial_xxt2h")
 height = 1.0
@@ -1103,7 +814,296 @@ resource_local_to_scene = true
 transform_format = 1
 use_colors = true
 use_custom_data = true
-mesh = SubResource("CylinderMesh_bkg3p")
+mesh = SubResource("CylinderMesh_pjdk5")
+
+[sub_resource type="Shader" id="Shader_r70uc"]
+resource_local_to_scene = true
+code = "shader_type spatial;
+render_mode blend_add, depth_draw_opaque, cull_back, diffuse_toon, specular_toon;
+
+
+// Uniforms for controlling the look of the rays
+group_uniforms CoreSetup;
+uniform vec4 albedo_color : source_color = vec4(1.0, 1.0, 0.8, 1.0);
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+
+
+uniform float brightness : hint_range(0.0, 5.0) = 1.0;
+uniform float alpha : hint_range(0.0, 1.0) = 0.5;
+// Where the fade begins (0.0 = bottom, 1.0 = top of the mesh)
+uniform float fadeout_start_point : hint_range(0.0, 1.00, 0.001) = 0.1;
+// How long the fade is. 0.1 is a short, sharp fade. 1.0 is a full, soft fade.
+uniform float fadeout_length : hint_range(0.00, 0.2, 0.001) = 0.008;
+// A switch to decide if we fade from the bottom up, or the top down.
+uniform bool fade_from_bottom = false;
+uniform float rim_power : hint_range(0.0, 5.0) = 1.0;
+
+group_uniforms Animation;
+uniform float speed : hint_range(0.1, 10.0) = 0.5;
+uniform float shadow_detection_threshold : hint_range(0.01, 1.0) = 0.2;
+uniform float noise_movement : hint_range(0.0, 0.5) = 0.2;
+uniform bool random_noise_movement = true;
+
+
+
+group_uniforms Occlusion;
+// SIMPLE BUT EFFECTIVE: Multi-point shadow sampling
+uniform bool enable_distributed_sampling = true;
+uniform bool use_custom_data_position = true;
+
+//uniform float sampling_offset_x : hint_range(-20.0, 20.0) = 0.0; // Offset sample point in X
+//uniform float sampling_offset_y : hint_range(-20.0, 20.0) = 0.0; // Offset sample point in Y
+//uniform float sampling_offset_z : hint_range(-20.0, 20.0) = 0.0; // Offset sample point in Z
+uniform vec3 sampling_offset= vec3(.0,.0,.0); // Offset sample point in Z
+uniform bool hide_entire_ray_on_shadow = true; // Hide entire ray if ANY shadow detected
+
+group_uniforms Textures;
+uniform sampler2D noise_texture : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
+
+// Control parameter
+uniform float selected_gradient : hint_range(0.0, 0.4, 0.1) = 0.0;
+uniform bool random_gradient = true;
+//uniform sampler2D gradient : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
+uniform sampler2D gradient0 : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
+uniform sampler2D gradient1 : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
+uniform sampler2D gradient2 : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
+uniform sampler2D gradient3 : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
+
+group_uniforms OtherandUtil;
+uniform vec2 uv1_scale = vec2(4.0, 0.1);
+uniform vec2 uv1_offset = vec2(0.0, 0.85);
+uniform vec3 min_world_bounds = vec3(-500, -500, -500);
+uniform vec3 max_world_bounds = vec3(500, 500, 500);
+
+varying vec3 world_position;
+varying vec3 sample_position;
+varying vec3 sample_position_custom_data;
+varying vec3 object_center;
+varying vec3 world_position_rand;
+varying float position_seed_rand;
+varying float gradient_seed_rand;
+varying float custom_data_alpha;
+
+
+
+
+float rand (vec2 uv) {
+    return fract(sin(dot(uv.xy,
+        vec2(12.9898,78.233))) * 43758.5453123);
+}
+
+void vertex() {
+
+	custom_data_alpha = INSTANCE_CUSTOM.a;
+	//These are going to be used for Randomization of NoiseValue and GradientTexture
+	world_position_rand = NODE_POSITION_WORLD * vec3(1.05, 1.14, 1.33) * 10.0;
+	position_seed_rand = fract(world_position_rand.x + world_position_rand.y + world_position_rand.z); // Get a value between 0 and 1.0f
+
+    UV = UV * uv1_scale + uv1_offset;
+
+    // Calculate world position of this vertex // Could also just use NODE_POSITION_WORLD
+    world_position = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+
+    if (enable_distributed_sampling) {
+        // Calculate a strategic sample position
+        object_center = MODEL_MATRIX[3].xyz;
+        vec3 offset = sampling_offset;
+        // You can experiment with different sampling strategies:
+        // Option 1: Fixed offset from center
+        sample_position = object_center + offset;
+
+        // Option 2: Use vertex position with offset (distributed across ray)
+        //sample_position = world_position + offset;
+
+        // Option 3: Sample at edges of the ray object
+        // vec3 to_vertex = world_position - object_center;
+        // sample_position = object_center + normalize(to_vertex) * length(offset);
+
+    } else {
+        // Use vertex position directly
+        sample_position = world_position;
+    }
+
+	if(use_custom_data_position)
+	{
+		//Option 1: Fixed world position
+		vec3 packed_position = INSTANCE_CUSTOM.rgb;
+		sample_position_custom_data = mix(min_world_bounds, max_world_bounds, packed_position);
+
+		////Option 2: Fixed offset from object center
+		//vec3 offset = sample_position_custom_data;
+		//sample_position_custom_data = object_center + offset;
+	}
+
+}
+
+vec4 select_gradient_texture(vec2 uv) {
+    if (gradient_seed_rand <= 0.1) return texture(gradient0, uv);
+    if (gradient_seed_rand <= 0.2) return texture(gradient1, uv);
+    if (gradient_seed_rand <= 0.3) return texture(gradient2, uv);
+    return texture(gradient3, uv);
+}
+
+void fragment() {
+    // --- Calculate the visual texture and transparency of the ray ---
+	vec2 base_uv = UV;
+    vec2 moving_noise_uv = UV + vec2(TIME * speed * 0.1, 0.0);
+    vec4 noise_value = texture(noise_texture, moving_noise_uv);
+    vec2 noise_offset = vec2(noise_value.r * noise_movement, 0.0);
+	if(random_noise_movement)
+	{
+		noise_offset = vec2(noise_value.r * (position_seed_rand * 0.5), 0.0); //multiple position_seed by a value below 1 to set it's max
+	}
+
+	//Define the Gradient to use or a random one
+	vec2 gradient_uv = UV + noise_offset;
+	gradient_seed_rand = selected_gradient;
+	if(random_gradient)
+	{
+		gradient_seed_rand = position_seed_rand * 0.4; //Limits to 0.4 (as we will use 4 gradients)
+	}
+	vec4 final_gradient = select_gradient_texture(gradient_uv);   //vec4 final_gradient = texture(gradient, gradient_uv);
+
+    // Use Fresnel to fade the ray at sharp angles to the camera
+    //float fresnel = pow(1.0 - dot(normalize(NORMAL), normalize(VIEW)), rim_power);
+    float fresnel = rim_power;
+
+    // The base transparency from your noise and gradient textures
+
+    float noise_alpha = noise_value.r * final_gradient.a * alpha; //custom_data_alpha
+    //float noise_alpha = noise_value.r * final_gradient.a * custom_data_alpha;
+
+
+    // --- NEW FADEOUT CALCULATION ---
+    float fade_uv = fade_from_bottom ? UV.y : 1.0 - UV.y;
+    float fade_start = fadeout_start_point;
+    float fade_end = fade_start + fadeout_length;
+    float fadeout_multiplier = smoothstep(fade_start, fade_end, fade_uv);
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+    // --- DEFINE THE MATERIAL'S PROPERTIES ---
+
+    albedo_tex *= COLOR;
+	//vec4 fake_color = vec4(0.0);
+    //albedo_tex *= fake_color * COLOR;
+
+	ALBEDO = albedo_color.rgb * final_gradient.rgb * albedo_tex.rgb; // I've also multiplied by the gradient color here for more visual variety
+	//ALBEDO = albedo_color.rgb * final_gradient.rgb; // I've also multiplied by the gradient color here for more visual variety
+	EMISSION = vec3(0.0);
+
+    // --- MODIFIED ALPHA CALCULATION ---
+    // We take the original alpha and multiply it by our new fadeout_multiplier.
+    // If the pixel is outside the fade area, the multiplier is 1.0, having no effect.
+    // If it's inside the fade area, the multiplier will be between 0.0 and 1.0, causing it to fade.
+    ALPHA = clamp(fresnel * noise_alpha * fadeout_multiplier, 0.0, 1.0);
+    ROUGHNESS = 1.0;
+    SPECULAR = 0.0;
+
+
+    // Use our calculated sample position for shadow detection
+	if(use_custom_data_position)
+	{
+		LIGHT_VERTEX = (VIEW_MATRIX * vec4(sample_position_custom_data, 1.0)).xyz;
+	}
+	else
+	{
+		LIGHT_VERTEX = (VIEW_MATRIX * vec4(sample_position, 1.0)).xyz;
+	}
+
+
+}
+
+void light() {
+    float NdotL = max(0.0, dot(NORMAL, LIGHT));
+
+    // Get shadow value at our sample position
+    float shadow_sample = ATTENUATION;
+
+    float light_contribution = 0.0;
+
+    if (hide_entire_ray_on_shadow) {
+        // SIMPLE STRATEGY: If ANY shadow detected, hide entire ray
+        if (shadow_sample < shadow_detection_threshold) {
+            // Complete ray hiding
+            light_contribution = 0.0;
+            ALPHA = 0.0;
+        } else {
+            // No shadow detected - full brightness
+            light_contribution = NdotL * brightness;
+        }
+    } else {
+        // GRADIENT STRATEGY: Apply shadow proportionally
+        if (shadow_sample < shadow_detection_threshold) {
+            // Partial ray dimming
+            light_contribution = shadow_sample * NdotL * brightness;
+            ALPHA *= shadow_sample;
+        } else {
+            light_contribution = NdotL * brightness;
+        }
+    }
+
+    //Uncomment this light if you want to affect the pixel brightness based on receiving light
+    //DIFFUSE_LIGHT += ALBEDO * light_contribution * LIGHT_COLOR;
+}"
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_w1e46"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_5pwqe")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bkg3p"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_i1ns1")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qrdju"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_x5wsi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l0t43"]
+resource_local_to_scene = true
+render_priority = 0
+shader = SubResource("Shader_r70uc")
+shader_parameter/albedo_color = Color(0.999999, 0.991596, 0.577532, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture1D_ofadk")
+shader_parameter/brightness = 1.0
+shader_parameter/alpha = 0.75
+shader_parameter/fadeout_start_point = 0.1
+shader_parameter/fadeout_length = 0.008
+shader_parameter/fade_from_bottom = false
+shader_parameter/rim_power = 1.2
+shader_parameter/speed = 1.0
+shader_parameter/shadow_detection_threshold = 0.2
+shader_parameter/noise_movement = 0.5
+shader_parameter/random_noise_movement = true
+shader_parameter/enable_distributed_sampling = true
+shader_parameter/use_custom_data_position = true
+shader_parameter/sampling_offset = Vector3(0, 0, 0)
+shader_parameter/hide_entire_ray_on_shadow = true
+shader_parameter/noise_texture = SubResource("GradientTexture2D_oa6h0")
+shader_parameter/selected_gradient = 0.0
+shader_parameter/random_gradient = true
+shader_parameter/gradient0 = SubResource("GradientTexture2D_w1e46")
+shader_parameter/gradient1 = SubResource("GradientTexture2D_bkg3p")
+shader_parameter/gradient2 = SubResource("GradientTexture2D_qrdju")
+shader_parameter/gradient3 = SubResource("GradientTexture2D_uir4v")
+shader_parameter/uv1_scale = Vector2(4, 0.1)
+shader_parameter/uv1_offset = Vector2(0, 0.85)
+shader_parameter/min_world_bounds = Vector3(-500, -500, -500)
+shader_parameter/max_world_bounds = Vector3(500, 500, 500)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ph0jc"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_l0t43")
+height = 1.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="MultiMesh" id="MultiMesh_7eqg5"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = SubResource("CylinderMesh_ph0jc")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gb41b"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -1238,9 +1238,9 @@ shader_parameter/light_boost = 1.0
 [sub_resource type="ViewportTexture" id="ViewportTexture_1bdby"]
 viewport_path = NodePath("SubViewport/SubViewport2")
 
-[node name="ShaftSpawnerTestScene" type="Node3D"]
+[node name="ShaftSpawnerTestScene" type="Node3D" unique_id=1257679743]
 
-[node name="ShaftChunksSpawner" type="Node3D" parent="." node_paths=PackedStringArray("_mainCamera")]
+[node name="ShaftChunksSpawner" type="Node3D" parent="." unique_id=1255718615 node_paths=PackedStringArray("_mainCamera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 55, 0)
 script = SubResource("CSharpScript_1v7uf")
 _activationRange = null
@@ -1269,61 +1269,60 @@ _showDebugSpheres = true
 _showOnlyColliders = null
 _mainCamera = NodePath("../SubViewport/CameraRigYaw/Camera3D")
 
-[node name="ShaftChunkMMController" parent="ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_lfdt2")]
+[node name="ShaftChunkMMController" parent="ShaftChunksSpawner" unique_id=204131017 node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_lfdt2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0514, 0, 1.46939)
-multimesh = SubResource("MultiMesh_tcjc1")
-_collisionShape = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksSpawner/ShaftChunkMMController"]
-shape = SubResource("BoxShape3D_1t6qn")
-disabled = true
-
-[node name="ShaftChunkMMController2" parent="ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_lfdt2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0514, 0, -16.7625)
 multimesh = SubResource("MultiMesh_oa6h0")
 _collisionShape = NodePath("CollisionShape3D")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksSpawner/ShaftChunkMMController2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksSpawner/ShaftChunkMMController" unique_id=999930269]
 shape = SubResource("BoxShape3D_1t6qn")
 disabled = true
 
-[node name="ShaftChunkMMController3" parent="ShaftChunksSpawner" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_lfdt2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0514, 0, -33.8527)
+[node name="ShaftChunkMMController2" parent="ShaftChunksSpawner" unique_id=1727061015 node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_lfdt2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0514, 0, -16.7625)
 multimesh = SubResource("MultiMesh_h8a62")
 _collisionShape = NodePath("CollisionShape3D")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksSpawner/ShaftChunkMMController3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksSpawner/ShaftChunkMMController2" unique_id=196865584]
+shape = SubResource("BoxShape3D_1t6qn")
+disabled = true
+
+[node name="ShaftChunkMMController3" parent="ShaftChunksSpawner" unique_id=154120670 node_paths=PackedStringArray("_collisionShape") instance=ExtResource("4_lfdt2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0514, 0, -33.8527)
+multimesh = SubResource("MultiMesh_7eqg5")
+_collisionShape = NodePath("CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShaftChunksSpawner/ShaftChunkMMController3" unique_id=633194602]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.50912)
 shape = SubResource("BoxShape3D_1t6qn")
 disabled = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1873760363]
 environment = SubResource("Environment_lfdt2")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1057957276]
 transform = Transform3D(0.762499, 0.100508, 0.639135, -0.6193, 0.399287, 0.676045, -0.18725, -0.9113, 0.366701, -2.23113, 24.646, 0.496677)
 layers = 262145
 shadow_enabled = true
 shadow_caster_mask = 4294705151
 
-[node name="Clouds" type="MeshInstance3D" parent="."]
+[node name="Clouds" type="MeshInstance3D" parent="." unique_id=1374036435]
 transform = Transform3D(0.999999, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 197.083, 0)
 visible = false
 mesh = SubResource("QuadMesh_uir4v")
-skeleton = NodePath("")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1860182341]
 handle_input_locally = false
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="CameraRigYaw" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
+[node name="CameraRigYaw" type="Node3D" parent="SubViewport" unique_id=576929396 node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 70)
 script = ExtResource("1_yp6g0")
 RotationPivotPoint = NodePath("WorldCentralPivot")
 MainCamera = NodePath("Camera3D")
 
-[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw"]
+[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw" unique_id=1733710142]
 unique_name_in_owner = true
 physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0, 0)
@@ -1336,327 +1335,327 @@ far = 275.0
 script = ExtResource("2_dyepu")
 SnapObjects = false
 
-[node name="WorldCentralPivot" type="Node3D" parent="SubViewport/CameraRigYaw"]
+[node name="WorldCentralPivot" type="Node3D" parent="SubViewport/CameraRigYaw" unique_id=1634724081]
 
-[node name="Floor2" type="MeshInstance3D" parent="SubViewport"]
+[node name="Floor2" type="MeshInstance3D" parent="SubViewport" unique_id=870287237]
 transform = Transform3D(-0.002461, 0, -0.999997, 0, 1, 0, 0.999997, 0, -0.002461, 0, 0, -108.527)
 mesh = SubResource("PlaneMesh_vti57")
 surface_material_override/0 = SubResource("StandardMaterial3D_1bdby")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Floor2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewport/Floor2" unique_id=1655020231]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Floor2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Floor2/StaticBody3D" unique_id=444330638]
 shape = SubResource("ConvexPolygonShape3D_vti57")
 
-[node name="Objects" type="Node3D" parent="SubViewport"]
+[node name="Objects" type="Node3D" parent="SubViewport" unique_id=838718936]
 transform = Transform3D(-0.002461, 0, -0.999997, 0, 1, 0, 0.999997, 0, -0.002461, 0, 0, 0)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewport/Objects"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewport/Objects" unique_id=1003927588]
 transform = Transform3D(-4.37114e-08, -1, 2.07219e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -3.6182, 6.98438, -6.87637)
 use_collision = true
 size = Vector3(0.4, 10, 12)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="SubViewport/Objects"]
+[node name="CSGBox3D3" type="CSGBox3D" parent="SubViewport/Objects" unique_id=1845177894]
 transform = Transform3D(-4.37114e-08, -1, 6.77537e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, 7.30798, 1.54734, -4.42277)
 use_collision = true
 size = Vector3(3.22231, 2.80182, 3.56592)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="SubViewport/Objects"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="SubViewport/Objects" unique_id=514595326]
 transform = Transform3D(-4.37114e-08, -1, 6.82194e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -6.91621, 2.04117, -16.1789)
 use_collision = true
 size = Vector3(3.22231, 2.80182, 3.56592)
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="SubViewport/Objects"]
+[node name="CSGBox3D5" type="CSGBox3D" parent="SubViewport/Objects" unique_id=1317795569]
 transform = Transform3D(-4.37114e-08, -1, 6.8685e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -9.22232, 2.04117, 2.26259)
 use_collision = true
 size = Vector3(3.22231, 2.80182, 3.56592)
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="SubViewport/Objects"]
+[node name="CSGBox3D6" type="CSGBox3D" parent="SubViewport/Objects" unique_id=7893048]
 transform = Transform3D(-4.37114e-08, -1, 6.91507e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -13.3968, 2.04117, 6.95808)
 use_collision = true
 size = Vector3(3.22231, 2.80182, 3.56592)
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="SubViewport/Objects"]
+[node name="CSGBox3D7" type="CSGBox3D" parent="SubViewport/Objects" unique_id=2116976651]
 transform = Transform3D(-4.37114e-08, -1, 7.0082e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -20.7975, 1.55261, -16.2341)
 use_collision = true
 size = Vector3(3.22231, 2.80182, 3.56592)
 
-[node name="CSGBox3D8" type="CSGBox3D" parent="SubViewport/Objects"]
+[node name="CSGBox3D8" type="CSGBox3D" parent="SubViewport/Objects" unique_id=1171922449]
 transform = Transform3D(-4.37114e-08, -1, 7.05477e-08, 0.999999, -4.37114e-08, 0, 0, 2.09548e-09, 0.999999, -36.0824, 1.55261, -8.29797)
 use_collision = true
 size = Vector3(3.22231, 2.80182, 3.56592)
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1850070495]
 transform = Transform3D(0.97935, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.97935, -8.40685, 2.06411, -2.41095)
 use_collision = true
 height = 4.0
 
-[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=978522068]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.978681, -4.58093, 0.883915, -2.42036)
 use_collision = true
 height = 4.0
 
-[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=375914379]
 transform = Transform3D(0.97935, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.97935, -6.0343, 2.06411, 2.32791)
 use_collision = true
 height = 4.0
 
-[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=840642671]
 transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, 7.50811, 2.02999, 13.6073)
 use_collision = true
 height = 4.0
 
-[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1772938912]
 transform = Transform3D(0.97935, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.97935, 0.328959, 1.91419, 8.69017)
 use_collision = true
 height = 4.0
 
-[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1661072993]
 transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -0.00162929, 5.03225, 8.81347)
 use_collision = true
 height = 4.0
 
-[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1220188232]
 transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -23.3112, 5.03225, 8.87083)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=501201442]
 transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -18.3067, 5.03225, 2.47164)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D11" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D11" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=250978911]
 transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -21.5768, 5.03225, 2.47968)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D12" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D12" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1272290796]
 transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -16.9469, 5.03225, 2.46829)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D53" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D53" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=2053891063]
 transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -14.1482, 5.03225, -5.01018)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D54" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D54" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=387309271]
 transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -16.2192, 5.03225, -0.473145)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D55" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D55" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1564318712]
 transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -14.8906, 5.03225, -8.07047)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D56" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D56" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1192707478]
 transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -19.3136, 5.03225, -13.5714)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D13" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D13" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1788538573]
 transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -19.9127, 5.03225, 2.47559)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D14" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D14" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1418626633]
 transform = Transform3D(0.979349, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979349, -19.925, 5.03225, -2.53339)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D15" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D15" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1713678503]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -29.2783, 5.03225, -2.51038)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D16" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D16" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=87579375]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -29.2887, 5.03225, -6.71322)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D17" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D17" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=735064074]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -26.1199, 5.03225, -6.72101)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D18" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D18" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=344596040]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -26.1395, 5.03225, -14.6908)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D51" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D51" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1989566476]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -20.9259, 5.03225, -21.7562)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D52" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D52" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=607011719]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -17.238, 5.03225, -10.4102)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D19" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D19" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1773737112]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -32.8179, 5.03225, -14.6744)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D20" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D20" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=772749161]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -32.8179, 5.03225, -14.6744)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D21" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D21" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1059366276]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -69.1742, 5.03225, -14.5849)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D22" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D22" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1652067030]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -69.1742, 5.03225, -14.5849)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D23" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D23" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1188740076]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -106.271, 5.03225, -14.4936)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D24" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D24" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=9423962]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -106.271, 5.03225, -14.4936)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D25" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D25" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1940985630]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -106.263, 5.03225, -11.4108)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D26" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D26" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=974340481]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -106.263, 5.03225, -11.4108)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D27" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D27" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1003175226]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -155.92, 5.03225, -14.3714)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D28" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D28" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1244768863]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -155.92, 5.03225, -14.3714)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D29" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D29" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1923691634]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -155.913, 5.03225, -11.2886)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D30" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D30" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1928161976]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -155.913, 5.03225, -11.2886)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D31" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D31" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1128117492]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -155.913, 5.03225, -11.4416)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D32" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D32" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=882887530]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -155.913, 5.03225, -11.4416)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D33" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D33" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=209223821]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -155.905, 5.03225, -8.35876)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D34" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D34" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1856428454]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -155.905, 5.03225, -8.35876)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D35" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D35" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1688884505]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -216.527, 5.03225, -14.2223)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D36" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D36" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1041046547]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -216.527, 5.03225, -14.2223)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D37" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D37" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=397494019]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -216.52, 5.03225, -11.1395)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D38" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D38" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=965731295]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -216.52, 5.03225, -11.1395)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D39" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D39" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1711771682]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -216.52, 5.03225, -11.2924)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D40" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D40" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1414225638]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -216.52, 5.03225, -11.2924)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D41" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D41" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=663444237]
 transform = Transform3D(0.979347, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979347, -216.512, 5.03225, -8.20961)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D42" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D42" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=37479272]
 transform = Transform3D(0.979347, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979347, -216.512, 5.03225, -8.20961)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D43" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D43" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1351924323]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -216.507, 5.03225, -5.98805)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D44" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D44" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=79167821]
 transform = Transform3D(0.979348, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979348, -216.507, 5.03225, -5.98805)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D45" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D45" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1173223992]
 transform = Transform3D(0.979347, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979347, -216.499, 5.03225, -2.90524)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D46" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D46" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=208138433]
 transform = Transform3D(0.979347, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979347, -216.499, 5.03225, -2.90524)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D47" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D47" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1498971047]
 transform = Transform3D(0.979347, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979347, -216.5, 5.03225, -3.05818)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D48" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D48" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=279470536]
 transform = Transform3D(0.979347, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979347, -216.5, 5.03225, -3.05818)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D49" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D49" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1857074662]
 transform = Transform3D(0.979347, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979347, -216.492, 5.03225, 0.0246248)
 use_collision = true
 height = 20.0
 
-[node name="CSGCylinder3D50" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D50" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1951318297]
 transform = Transform3D(0.979347, 0, 0.202172, 0, 1, 0, -0.202172, 0, 0.979347, -216.492, 5.03225, 0.0246248)
 use_collision = true
 height = 20.0
 
-[node name="ShadowCylinder" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="ShadowCylinder" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=299392065]
 transform = Transform3D(0.688406, 0.0203479, 0.725033, -0.0157353, 0.999777, -0.0131191, -0.725151, -0.00237679, 0.688582, 4.77843, 0.441797, 12.6711)
 layers = 524288
 material_override = SubResource("ShaderMaterial_oa6h0")
@@ -1664,177 +1663,177 @@ use_collision = true
 height = 5.62549
 sides = 12
 
-[node name="CSGBox3D" type="CSGBox3D" parent="SubViewport/Objects"]
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewport/Objects" unique_id=952247244]
 transform = Transform3D(-0.0624111, 0.996665, -0.0525663, -0.196082, 0.0393978, 0.979796, 0.978598, 0.0714575, 0.19297, -1.31866, 1.94971, 5.12548)
 use_collision = true
 size = Vector3(0.4, 10, 12)
 
-[node name="ShadowMesh" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="ShadowMesh" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1938296817]
 transform = Transform3D(-0.965633, -0.259718, -0.00960549, -0.259856, 0.965458, 0.0190571, 0.00432419, 0.0208981, -0.999773, 4.19044, 1.87276, 1.66745)
 visible = false
 layers = 524288
 mesh = SubResource("CylinderMesh_ofadk")
 surface_material_override/0 = SubResource("ShaderMaterial_usnyq")
 
-[node name="FakeShadowMesh2" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="FakeShadowMesh2" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=2101521002]
 transform = Transform3D(-0.00672931, 0.0279457, -0.999584, -0.0546223, -0.998127, -0.0275374, -0.998481, 0.0544119, 0.00824311, 2.08719, 9.82716, 6.68405)
 visible = false
 layers = 524288
 mesh = SubResource("CylinderMesh_tcjc1")
 surface_material_override/0 = SubResource("ShaderMaterial_1t6qn")
 
-[node name="LargeCylinders" type="Node3D" parent="SubViewport/Objects"]
+[node name="LargeCylinders" type="Node3D" parent="SubViewport/Objects" unique_id=1532352765]
 visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewport/Objects/LargeCylinders" unique_id=24498374]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.4077, 0, 0.121593)
 shape = SubResource("ConvexPolygonShape3D_uir4v")
 
-[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=2000102479]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.978681, -52.6356, 19.1, -2.3021)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D11" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D11" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=1180868577]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.978681, -52.6511, 19.1, -8.59387)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D12" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D12" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=14232866]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.978681, -52.5956, 19.1, 13.9568)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D13" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D13" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=57892491]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.978681, -52.6195, 19.1, 4.23661)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D14" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D14" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=1841133162]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.978681, -36.3396, 19.1, 4.19655)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D15" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D15" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=1195721238]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.978681, -36.3707, 19.1, -8.44015)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D16" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D16" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=1306706827]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.97868, -36.3202, 19.1, 12.102)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D17" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D17" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=2014334307]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.97868, -36.3538, 19.1, -1.5445)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D18" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D18" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=1686757677]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.97868, -36.3299, 19.1, 8.12907)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D19" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D19" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=1344729601]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.97868, -45.4215, 19.1, 8.15144)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D20" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D20" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=1530383455]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.97868, -45.4429, 19.1, -0.55709)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D21" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D21" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=109973118]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -45.4578, 19.1, -6.58951)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D22" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D22" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=1829841918]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -45.4688, 19.1, -11.0625)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D23" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D23" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=832191593]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -61.2925, 19.1, -11.0236)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D24" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D24" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=984273535]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -61.2751, 19.1, -3.97016)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D25" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D25" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=1507604920]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -61.2528, 19.1, 5.09566)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D26" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D26" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=1600211876]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -61.2317, 19.1, 13.659)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D27" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D27" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=1108185541]
 transform = Transform3D(0.97935, -9.09098e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -31.1996, 19.1, 13.5851)
 extra_cull_margin = 1.0
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D28" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D28" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=1530882090]
 transform = Transform3D(0.97935, -9.09098e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -31.2153, 19.1, 7.19522)
 extra_cull_margin = 1.0
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D29" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D29" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=1359774859]
 transform = Transform3D(0.97935, -9.09098e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -31.2288, 19.1, 1.73645)
 extra_cull_margin = 10.0
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D30" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D30" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=744858156]
 transform = Transform3D(0.97935, -9.09098e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -31.2417, 19.1, -3.5459)
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D31" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D31" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=2053036104]
 transform = Transform3D(0.97935, -9.09098e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -31.2417, 19.1, -3.5459)
 extra_cull_margin = 10.0
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D32" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D32" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=229239174]
 transform = Transform3D(0.97935, -9.09098e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.03694, 0.97868, -31.2606, 19.1, -11.2272)
 extra_cull_margin = 10.0
 use_collision = true
 height = 45.0
 
-[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders"]
+[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="SubViewport/Objects/LargeCylinders" unique_id=1756046643]
 transform = Transform3D(0.97935, -9.09099e-05, 0.20217, -0.00737922, 0.999317, 0.0361957, -0.202036, -0.0369401, 0.978681, -52.6108, 11.4838, 7.77345)
 use_collision = true
 height = 45.0
 
-[node name="CSGPolygon3D" type="CSGPolygon3D" parent="SubViewport/Objects"]
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="SubViewport/Objects" unique_id=917303432]
 transform = Transform3D(0.107882, 0.000145265, 0.994163, 0.0586673, 0.998256, -0.00651217, -0.992431, 0.0590274, 0.107685, -14.7494, 0.75526, 15.6021)
 polygon = PackedVector2Array(0, 0, 0.201127, 1.74263, 0.797626, 7.30291, 2.23836, -0.852112)
 mode = 1
 spin_degrees = 360.0
 spin_sides = 8
 
-[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="SubViewport/Objects"]
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="SubViewport/Objects" unique_id=595087171]
 transform = Transform3D(0.107882, 0.000145265, 0.994163, 0.0586673, 0.998256, -0.00651217, -0.99243, 0.0590274, 0.107685, -2.32268, 12.8007, -24.8549)
 polygon = PackedVector2Array(0, 0, 0.201127, 1.74263, 0.797626, 7.30291, 8.47795, -2.00781)
 mode = 1
 spin_degrees = 360.0
 spin_sides = 8
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SubViewport/Objects"]
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SubViewport/Objects" unique_id=1395188322]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.28406, 4.94165, -25.737)
 radius = 7.06299
 height = 11.8833
 
-[node name="Display" type="Control" parent="." node_paths=PackedStringArray("_mainSubViewport", "_mainRendereSprite", "_secondRenderSprite")]
+[node name="Display" type="Control" parent="." unique_id=210816987 node_paths=PackedStringArray("_mainSubViewport", "_mainRendereSprite", "_secondRenderSprite")]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 15
@@ -1851,7 +1850,7 @@ _mainSubViewport = NodePath("../SubViewport")
 _mainRendereSprite = NodePath("MainRenderSprite")
 _secondRenderSprite = NodePath("ShaftRender")
 
-[node name="MainRenderSprite" type="Sprite2D" parent="Display"]
+[node name="MainRenderSprite" type="Sprite2D" parent="Display" unique_id=419984913]
 texture_filter = 2
 material = SubResource("ShaderMaterial_gb41b")
 position = Vector2(-0.985153, 3.95636)
@@ -1859,7 +1858,7 @@ scale = Vector2(2.93853, 2.96452)
 texture = SubResource("ViewportTexture_lfdt2")
 centered = false
 
-[node name="ShaftRender" type="Sprite2D" parent="Display"]
+[node name="ShaftRender" type="Sprite2D" parent="Display" unique_id=1154166561]
 texture_filter = 2
 material = SubResource("ShaderMaterial_lfdt2")
 position = Vector2(-0.985153, 3.95636)

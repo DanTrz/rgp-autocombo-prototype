@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://cge4mkh3rsc1r"]
+[gd_scene format=4 uid="uid://cge4mkh3rsc1r"]
 
 [ext_resource type="Script" uid="uid://bp03tdiuh1st5" path="res://addons/PlanarReflectorCpp/DemoScene/demo_scene.gd" id="1_wdduv"]
 [ext_resource type="Shader" uid="uid://bawxq16vak6cv" path="res://addons/PlanarReflectorCpp/SupportFiles/planar_reflection_base.gdshader" id="2_rsaeb"]
@@ -16,25 +16,25 @@ viewport_path = NodePath("PlanarReflectorCPP1/@SubViewport@22538")
 seed = 10
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_y4tsx"]
+noise = SubResource("FastNoiseLite_xt6ul")
 seamless = true
 as_normal_map = true
-noise = SubResource("FastNoiseLite_xt6ul")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_rnerp"]
 seed = 10
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8p2q0"]
+noise = SubResource("FastNoiseLite_rnerp")
 seamless = true
 as_normal_map = true
-noise = SubResource("FastNoiseLite_rnerp")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_vn44f"]
 seed = 10
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sgdnf"]
+noise = SubResource("FastNoiseLite_vn44f")
 seamless = true
 as_normal_map = true
-noise = SubResource("FastNoiseLite_vn44f")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_udttw"]
 resource_local_to_scene = true
@@ -116,30 +116,29 @@ shadow_mesh = SubResource("ArrayMesh_onoc1")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rsaeb"]
 albedo_color = Color(100, 0.8, 0, 1)
 
-[node name="DemoScene" type="Node3D"]
+[node name="DemoScene" type="Node3D" unique_id=1128045249]
 script = ExtResource("1_wdduv")
 
-[node name="PlanarReflectorCPP1" type="PlanarReflectorCPP" parent="." node_paths=PackedStringArray("main_camera")]
+[node name="PlanarReflectorCPP1" type="PlanarReflectorCPP" parent="." unique_id=1888376718 node_paths=PackedStringArray("main_camera")]
 main_camera = NodePath("../CamRig/MainCamera3D")
 reflection_camera_resolution = Vector2i(640, 360)
 transform = Transform3D(0.99965, 0.026436, 0.000376986, -0.0264386, 0.999549, 0.0142539, 2.84939e-08, -0.0142589, 0.999898, 0, 0, 0)
 mesh = SubResource("PlaneMesh_c2an6")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_udttw")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=144498767]
 environment = SubResource("Environment_l6cok")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1796233535]
 transform = Transform3D(0.107943, -0.777325, 0.619769, 0.301942, 0.619597, 0.724521, -0.947196, 0.108927, 0.301589, 0, 1.46073, 0)
 shadow_enabled = true
 
-[node name="CamRig" type="Node3D" parent="."]
+[node name="CamRig" type="Node3D" parent="." unique_id=1094985128]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18.0103)
 script = ExtResource("3_k5kf3")
 move_speed = 15.0
 
-[node name="MainCamera3D" type="Camera3D" parent="CamRig"]
+[node name="MainCamera3D" type="Camera3D" parent="CamRig" unique_id=1033997565]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 40.6438, 84.5759)
 fov = 18.0
@@ -148,27 +147,26 @@ far = 100.0
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="Objects" type="Node3D" parent="."]
+[node name="Objects" type="Node3D" parent="." unique_id=872861128]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Objects"]
+[node name="CSGBox3D" type="CSGBox3D" parent="Objects" unique_id=311315833]
 transform = Transform3D(0.718739, -0.695223, -0.0089446, 0.69517, 0.718794, -0.00865129, 0.0124439, 0, 0.999923, 4.9381, 0.607033, 0)
 material = SubResource("StandardMaterial3D_86h7w")
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Objects"]
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Objects" unique_id=287740081]
 transform = Transform3D(0.972764, -0.231799, 0, 0.230024, 0.965315, 0.123515, -0.0286306, -0.120151, 0.992343, -5.75364, 0.985645, 0)
 material = SubResource("StandardMaterial3D_ad0vc")
 
-[node name="BlenderMonkey" type="MeshInstance3D" parent="Objects"]
+[node name="BlenderMonkey" type="MeshInstance3D" parent="Objects" unique_id=1530538796]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.07136, 0)
 mesh = SubResource("ArrayMesh_ijvbd")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_rsaeb")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=961309321]
 
-[node name="LabelFPS" type="Label" parent="CanvasLayer"]
+[node name="LabelFPS" type="Label" parent="CanvasLayer" unique_id=1523626042]
 unique_name_in_owner = true
 offset_right = 40.0
 offset_bottom = 23.0

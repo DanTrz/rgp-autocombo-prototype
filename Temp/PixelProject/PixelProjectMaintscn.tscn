@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=4 uid="uid://dlpqebqa8g70y"]
+[gd_scene format=4 uid="uid://dlpqebqa8g70y"]
 
 [ext_resource type="Script" uid="uid://cih20r8djkwwk" path="res://src/DisplayAndCamera/CameraPixelSnap.cs" id="1_3re8p"]
 [ext_resource type="Script" uid="uid://bjw4vo4kncqf0" path="res://src/DisplayAndCamera/DisplayPixelRenderer.cs" id="1_28obu"]
@@ -7,15 +7,15 @@
 [ext_resource type="Shader" uid="uid://md0oksqn1iqg" path="res://Temp/PixelProject/WaterShader.gdshader" id="1_kdpg5"]
 [ext_resource type="PackedScene" uid="uid://geceh0jd4ur7" path="res://Temp/PixelProject/GlobalDebuggerUI.tscn" id="1_r56na"]
 [ext_resource type="Texture2D" uid="uid://dwju7eckq0ngo" path="res://Temp/PixelProject/WaterNoiseText.tres" id="3_0tgxd"]
-[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://Assets/Shaders/PixelShaders/3dOutlineHighlight.gdshader" id="3_sn2ok"]
+[ext_resource type="Shader" uid="uid://bdoiaivuob1gt" path="res://assets/shaders/PixelShaders/3dOutlineHighlight.gdshader" id="3_sn2ok"]
 [ext_resource type="Material" uid="uid://bhgd1pfhckih7" path="res://Temp/PixelProject/WaterSSRShader/WaterReflectionMaterialv3.tres" id="4_0tgxd"]
-[ext_resource type="Gradient" uid="uid://cul0xese4g3dd" path="res://Assets/Shaders/PixelShaders/ShaderSupportingAssets/GradientBaseColors.tres" id="4_qrd22"]
+[ext_resource type="Gradient" uid="uid://cul0xese4g3dd" path="res://assets/shaders/PixelShaders/ShaderSupportingAssets/GradientBaseColors.tres" id="4_qrd22"]
 [ext_resource type="Terrain3DAssets" uid="uid://vjyk3bb4hqui" path="res://Temp/PixelProject/Terrain3DData/TerrainAssetData64px.tres" id="4_sn2ok"]
-[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://Assets/Shaders/PixelShaders/flexible_toon_v3.gdshader" id="4_xs314"]
+[ext_resource type="Shader" uid="uid://pnexpjirsibo" path="res://assets/shaders/PixelShaders/flexible_toon_v3.gdshader" id="4_xs314"]
 [ext_resource type="Shader" uid="uid://cco2sdkamag4i" path="res://Temp/PixelProject/DissolveShader.gdshader" id="5_mj2jh"]
 [ext_resource type="PackedScene" uid="uid://c0vp8bbpb2ceg" path="res://Temp/PixelProject/LightShaft.tscn" id="6_40g6u"]
 [ext_resource type="Script" uid="uid://3tymjwcdughs" path="res://src/DisplayAndCamera/CameraRigController.cs" id="6_mj2jh"]
-[ext_resource type="Material" uid="uid://bhs5wo5aw14xm" path="res://Assets/Materials/PixelToonAndHighlightShader.tres" id="6_seb0h"]
+[ext_resource type="Material" uid="uid://bhs5wo5aw14xm" path="res://assets/Materials/PixelToonAndHighlightShader.tres" id="6_seb0h"]
 [ext_resource type="Texture2D" uid="uid://bn68wamoyf7f7" path="res://Temp/PixelProject/Assets/2D/Textures/whiteTerrain_1_Height.png" id="6_xs314"]
 [ext_resource type="Texture2D" uid="uid://c84ir4n47xsow" path="res://Temp/PixelProject/Assets/2D/Ref Image.png" id="7_3m67x"]
 [ext_resource type="Shader" uid="uid://bfo02glixxnme" path="res://Temp/PixelProject/Terrain3DMaterialNightEnabled.gdshader" id="7_k125l"]
@@ -31,7 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://c3h70ofd8ip63" path="res://Temp/PixelProject/Assets/3D/bridge.tscn" id="25_ehk3l"]
 [ext_resource type="PackedScene" uid="uid://cr7chpr2pn7kq" path="res://Temp/PixelProject/Assets/3D/tower-square-arch.glb" id="26_ehk3l"]
 [ext_resource type="PackedScene" uid="uid://br1ibv6dd3gff" path="res://Temp/PixelProject/Assets/3D/tower-hexagon-base.glb" id="27_kdpg5"]
-[ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://Assets/Shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="31_e6aum"]
+[ext_resource type="Shader" uid="uid://b8w6ukv0awrxw" path="res://assets/shaders/PixelShaders/pixel_art_upscale_v2.gdshader" id="31_e6aum"]
 [ext_resource type="Texture2D" uid="uid://caojhe1die2he" path="res://Temp/PixelProject/Assets/2D/Referece.png" id="31_u2oii"]
 [ext_resource type="PackedScene" uid="uid://bibgujm38ntn2" path="res://Temp/PixelProject/Assets/3D/statue.glb" id="34_e6aum"]
 
@@ -75,9 +75,9 @@ domain_warp_fractal_lacunarity = 1.5
 domain_warp_fractal_gain = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mj2jh"]
-seamless = true
-color_ramp = SubResource("Gradient_k125l")
 noise = SubResource("FastNoiseLite_5qlt3")
+color_ramp = SubResource("Gradient_k125l")
+seamless = true
 
 [sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_qrd22"]
 _shader_parameters = {
@@ -1145,32 +1145,32 @@ shader_parameter/light_boost = 1.0
 [sub_resource type="ViewportTexture" id="ViewportTexture_28obu"]
 viewport_path = NodePath("SubViewport")
 
-[node name="PixelProject" type="Node3D"]
+[node name="PixelProject" type="Node3D" unique_id=959037777]
 
-[node name="GDebuggerUI" parent="." instance=ExtResource("1_r56na")]
+[node name="GDebuggerUI" parent="." unique_id=320597005 instance=ExtResource("1_r56na")]
 offset_right = 945.0
 offset_bottom = 526.0
 
-[node name="WorldEnvironmentBKUP" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironmentBKUP" type="WorldEnvironment" parent="." unique_id=998534529]
 environment = SubResource("Environment_0tgxd")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=519116202]
 transform = Transform3D(1.28635, -0.0488913, 0.181439, -0.0102962, 1.23501, 0.405788, -0.187628, -0.402963, 1.22165, -5.23934, 4.37075, -7.47451)
 texture_filter = 1
 texture = ExtResource("7_3m67x")
 
-[node name="Sprite3D2" type="Sprite3D" parent="."]
+[node name="Sprite3D2" type="Sprite3D" parent="." unique_id=1375459188]
 transform = Transform3D(1.07578, -0.189899, 0.704728, -0.0968953, 1.20696, 0.473146, -0.723404, -0.444065, 0.984632, -17.6942, 4.37075, -3.45255)
 texture_filter = 1
 texture = ExtResource("31_u2oii")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1338290278]
 handle_input_locally = false
 anisotropic_filtering_level = 0
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="Terrain3D" type="Terrain3D" parent="SubViewport"]
+[node name="Terrain3D" type="Terrain3D" parent="SubViewport" unique_id=813461096]
 data_directory = "res://Temp/PixelProject/Terrain3DData"
 material = SubResource("Terrain3DMaterial_qrd22")
 assets = ExtResource("4_sn2ok")
@@ -1179,31 +1179,31 @@ top_level = true
 script = ExtResource("15_cjd6h")
 metadata/_edit_lock_ = true
 
-[node name="WaterSRROption2" type="Node3D" parent="SubViewport"]
+[node name="WaterSRROption2" type="Node3D" parent="SubViewport" unique_id=1841897949]
 
-[node name="WaterSSR" type="MeshInstance3D" parent="SubViewport/WaterSRROption2"]
+[node name="WaterSSR" type="MeshInstance3D" parent="SubViewport/WaterSRROption2" unique_id=25040706]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.8033, -1.10962, -16.6314)
 mesh = SubResource("BoxMesh_u2oii")
 surface_material_override/0 = ExtResource("4_0tgxd")
 
-[node name="WaterOption1" type="Node3D" parent="SubViewport"]
+[node name="WaterOption1" type="Node3D" parent="SubViewport" unique_id=652692903]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.172949, 0)
 visible = false
 
-[node name="WaterFloor" type="MeshInstance3D" parent="SubViewport/WaterOption1"]
+[node name="WaterFloor" type="MeshInstance3D" parent="SubViewport/WaterOption1" unique_id=1137086601]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 21.7495, -0.867263, -15.8074)
 visible = false
 cast_shadow = 0
 mesh = SubResource("QuadMesh_5qlt3")
 surface_material_override/0 = SubResource("StandardMaterial3D_mj2jh")
 
-[node name="Water" type="MeshInstance3D" parent="SubViewport/WaterOption1"]
+[node name="Water" type="MeshInstance3D" parent="SubViewport/WaterOption1" unique_id=1670155500]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 21.7252, -0.693817, -15.8262)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_mj2jh")
 surface_material_override/0 = SubResource("ShaderMaterial_6kfxr")
 
-[node name="WeatherController" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("_lightDirectionNode", "_dayLight", "_cloudsMesh", "_lightShafts", "_cycleDurationTimer", "_cycleState", "_cycleProgress")]
+[node name="WeatherController" type="Node3D" parent="SubViewport" unique_id=907874440 node_paths=PackedStringArray("_lightDirectionNode", "_dayLight", "_cloudsMesh", "_lightShafts", "_cycleDurationTimer", "_cycleState", "_cycleProgress")]
 script = ExtResource("1_40g6u")
 _lightDirectionNode = NodePath("LightDirection")
 _dayLight = NodePath("LightDirection/DayLight")
@@ -1213,10 +1213,10 @@ _cycleDurationTimer = NodePath("LightDirection/CycleDurationTimer")
 _cycleState = NodePath("../../GDebuggerUI/CanvasLayer/Weather/cycleStateLabel")
 _cycleProgress = NodePath("../../GDebuggerUI/CanvasLayer/Weather/DayCyleProgressBar")
 
-[node name="LightDirection" type="Node3D" parent="SubViewport/WeatherController"]
+[node name="LightDirection" type="Node3D" parent="SubViewport/WeatherController" unique_id=1593858512]
 transform = Transform3D(0.817283, -0.497722, 0.290381, 0.397131, 0.851651, 0.34202, -0.417534, -0.164208, 0.893701, 0, 11.1071, 0)
 
-[node name="DayLight" type="DirectionalLight3D" parent="SubViewport/WeatherController/LightDirection"]
+[node name="DayLight" type="DirectionalLight3D" parent="SubViewport/WeatherController/LightDirection" unique_id=1506075986]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 light_energy = 1.1
 shadow_enabled = true
@@ -1225,38 +1225,37 @@ directional_shadow_mode = 0
 directional_shadow_split_1 = 0.9
 directional_shadow_split_2 = 1.0
 
-[node name="Clouds" type="MeshInstance3D" parent="SubViewport/WeatherController/LightDirection"]
+[node name="Clouds" type="MeshInstance3D" parent="SubViewport/WeatherController/LightDirection" unique_id=1426185203]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 29.0076, 0)
 mesh = SubResource("QuadMesh_k125l")
-skeleton = NodePath("")
 
-[node name="SunLightShafts" type="Node3D" parent="SubViewport/WeatherController/LightDirection"]
+[node name="SunLightShafts" type="Node3D" parent="SubViewport/WeatherController/LightDirection" unique_id=1715411663]
 transform = Transform3D(0.999567, 0.0294394, 0, -0.0294394, 0.999567, 0, 0, 0, 1, 0, -4.14621, 3.32289)
 visible = false
 
-[node name="LightShaft1" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
+[node name="LightShaft1" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" unique_id=1507294450 instance=ExtResource("6_40g6u")]
 transform = Transform3D(0.438639, -0.0165333, -0.898512, -0.0165333, 0.999513, -0.0264631, 0.898512, 0.0264631, 0.438151, -7.60134, 7.77862, 6.52081)
 _maxRadius = 2.0
 
-[node name="LightShaft2" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
+[node name="LightShaft2" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" unique_id=818044726 instance=ExtResource("6_40g6u")]
 transform = Transform3D(0.438639, -0.0165333, -0.898512, -0.0165333, 0.999513, -0.0264631, 0.898512, 0.0264631, 0.438151, 7.96388, 8.23705, 6.52081)
 _maxRadius = 2.0
 
-[node name="LightShaft3" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" instance=ExtResource("6_40g6u")]
+[node name="LightShaft3" parent="SubViewport/WeatherController/LightDirection/SunLightShafts" unique_id=1692562182 instance=ExtResource("6_40g6u")]
 transform = Transform3D(0.438639, -0.0165333, -0.898512, -0.0165333, 0.999513, -0.0264631, 0.898512, 0.0264631, 0.438151, -0.202107, 7.99654, 6.52081)
 _maxRadius = 2.0
 
-[node name="CycleDurationTimer" type="Timer" parent="SubViewport/WeatherController/LightDirection"]
+[node name="CycleDurationTimer" type="Timer" parent="SubViewport/WeatherController/LightDirection" unique_id=711367009]
 wait_time = 4.0
 one_shot = true
 
-[node name="CameraRigYaw" type="Node3D" parent="SubViewport" node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
+[node name="CameraRigYaw" type="Node3D" parent="SubViewport" unique_id=1897271450 node_paths=PackedStringArray("RotationPivotPoint", "MainCamera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.0861, 15.285, 36.9729)
 script = ExtResource("6_mj2jh")
 RotationPivotPoint = NodePath("Camera3D/WorldCentralPivot")
 MainCamera = NodePath("Camera3D")
 
-[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw"]
+[node name="Camera3D" type="Camera3D" parent="SubViewport/CameraRigYaw" unique_id=84766051]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0, -32.0503)
 projection = 1
@@ -1265,370 +1264,337 @@ size = 12.0
 far = 100.0
 script = ExtResource("1_3re8p")
 
-[node name="WorldCentralPivot" type="Node3D" parent="SubViewport/CameraRigYaw/Camera3D"]
+[node name="WorldCentralPivot" type="Node3D" parent="SubViewport/CameraRigYaw/Camera3D" unique_id=2080913800]
 transform = Transform3D(1, 0, 0, 0, 0.848048, -0.529919, 0, 0.529919, 0.848048, 0.00210667, -0.583457, -55.7407)
 
-[node name="Trees" type="Node3D" parent="SubViewport"]
+[node name="Trees" type="Node3D" parent="SubViewport" unique_id=1637652067]
 
-[node name="TreeMultiLeafGPUParticule5" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+[node name="TreeMultiLeafGPUParticule5" parent="SubViewport/Trees" unique_id=1661817980 instance=ExtResource("24_5qlt3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.22415, 0, 3.63185)
 _totalParticulesCount = 300
 _colorShadingRamp = null
 _colorNoise = 0.01
 
-[node name="TreeMultiLeafGPUParticule" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+[node name="TreeMultiLeafGPUParticule" parent="SubViewport/Trees" unique_id=593155435 instance=ExtResource("24_5qlt3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.56689, 0, 6.87558)
 _totalParticulesCount = 300
 _internalMeshColorAdjust = Color(0.813258, 0.813258, 0.813258, 1)
 _colorShadingRamp = null
 _colorNoise = 0.01
 
-[node name="TreeMultiLeafGPUParticule14" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+[node name="TreeMultiLeafGPUParticule14" parent="SubViewport/Trees" unique_id=362514906 instance=ExtResource("24_5qlt3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.61736, 0, -2.32522)
 _totalParticulesCount = 300
 _internalMeshColorAdjust = Color(0.695503, 0.695503, 0.695503, 1)
 _colorShadingRamp = null
 _colorNoise = 0.01
 
-[node name="TreeMultiLeafGPUParticule12" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+[node name="TreeMultiLeafGPUParticule12" parent="SubViewport/Trees" unique_id=1244847468 instance=ExtResource("24_5qlt3")]
 transform = Transform3D(0.999813, 2.31226e-10, -0.019337, -0.0029316, 0.988441, -0.151577, 0.0191135, 0.151606, 0.988256, 21.6247, -0.107938, -11.3941)
 _totalParticulesCount = 300
 _colorShadingRamp = null
 _colorNoise = 0.01
 
-[node name="TreeMultiLeafGPUParticule7" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+[node name="TreeMultiLeafGPUParticule7" parent="SubViewport/Trees" unique_id=888839217 instance=ExtResource("24_5qlt3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4805, 0, 0.734221)
 _totalParticulesCount = 300
 _colorShadingRamp = null
 _colorNoise = 0.01
 
-[node name="TreeMultiLeafGPUParticule13" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+[node name="TreeMultiLeafGPUParticule13" parent="SubViewport/Trees" unique_id=45522985 instance=ExtResource("24_5qlt3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4805, 0, -3.76369)
 _totalParticulesCount = 300
 _colorShadingRamp = null
 _colorNoise = 0.01
 
-[node name="TreeMultiLeafGPUParticule8" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+[node name="TreeMultiLeafGPUParticule8" parent="SubViewport/Trees" unique_id=858640356 instance=ExtResource("24_5qlt3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.43145, 0, -9.61499)
 _totalParticulesCount = 350
 _colorShadingRamp = null
 _colorNoise = 0.01
 
-[node name="TreeMultiLeafGPUParticule4" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+[node name="TreeMultiLeafGPUParticule4" parent="SubViewport/Trees" unique_id=214897312 instance=ExtResource("24_5qlt3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.828, 0, -1.19443)
 _totalParticulesCount = 300
 _colorShadingRamp = null
 _colorNoise = 0.01
 
-[node name="TreeMultiLeafGPUParticule11" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+[node name="TreeMultiLeafGPUParticule11" parent="SubViewport/Trees" unique_id=48375290 instance=ExtResource("24_5qlt3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.62122, 0, -4.81029)
 _totalParticulesCount = 300
 _colorShadingRamp = null
 _colorNoise = 0.01
 
-[node name="TreeMultiLeafGPUParticule9" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+[node name="TreeMultiLeafGPUParticule9" parent="SubViewport/Trees" unique_id=1976326920 instance=ExtResource("24_5qlt3")]
 transform = Transform3D(0.999967, 0.00816805, 0, -0.00816805, 0.999967, 0, 0, 0, 1, 6.20814, 0, -7.73865)
 _totalParticulesCount = 350
 _colorShadingRamp = null
 _colorNoise = 0.01
 
-[node name="TreeMultiLeafGPUParticule2" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+[node name="TreeMultiLeafGPUParticule2" parent="SubViewport/Trees" unique_id=451732324 instance=ExtResource("24_5qlt3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4171, 0, 0.680903)
 _totalParticulesCount = 300
 _colorShadingRamp = null
 _colorNoise = 0.01
 
-[node name="TreeMultiLeafGPUParticule10" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+[node name="TreeMultiLeafGPUParticule10" parent="SubViewport/Trees" unique_id=663794484 instance=ExtResource("24_5qlt3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8289, 0, -20.5988)
 _totalParticulesCount = 300
 _colorShadingRamp = null
 _colorNoise = 0.01
 
-[node name="TreeMultiLeafGPUParticule3" parent="SubViewport/Trees" instance=ExtResource("24_5qlt3")]
+[node name="TreeMultiLeafGPUParticule3" parent="SubViewport/Trees" unique_id=1863599119 instance=ExtResource("24_5qlt3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.1974, 0, 5.02947)
 _totalParticulesCount = 300
 _colorShadingRamp = null
 _colorNoise = 0.01
 
-[node name="Objects" type="Node3D" parent="SubViewport"]
+[node name="Objects" type="Node3D" parent="SubViewport" unique_id=49856147]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
-[node name="column" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="column" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1098195364]
 transform = Transform3D(1.28229, 0, -0.778295, 0, 2.5, 0, 0.778295, 0, 1.28229, -2.86279, 0, -1.14953)
 mesh = SubResource("ArrayMesh_pfqju")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="column6" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="column6" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=528732177]
 transform = Transform3D(1.28953, -0.124099, -0.76261, -0.109291, 2.43294, -0.327334, 0.758402, 0.561612, 1.24952, 18.4382, -0.774697, -8.37799)
 mesh = SubResource("ArrayMesh_pfqju")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="column7" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="column7" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1432496104]
 transform = Transform3D(-1.34292, -0.122019, -0.664244, -0.11716, 2.48945, 0.0722341, 0.657916, 0.194252, -1.34297, 12.669, -1.91455, -5.40182)
 mesh = SubResource("ArrayMesh_pfqju")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="column4" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="column4" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=2106624835]
 transform = Transform3D(0.545642, -2.25785, -0.342119, 1.39471, 0.917014, 0.0456894, 0.0842252, -0.55787, 1.45975, 0.145774, -0.517706, 6.14948)
 mesh = SubResource("ArrayMesh_pfqju")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="column5" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="column5" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1456244247]
 transform = Transform3D(1.49119, 0.191439, -0.114698, -0.130438, 2.46464, -0.214905, 0.0966169, 0.372694, 1.48009, -5.14799, 0.147034, 4.51027)
 mesh = SubResource("ArrayMesh_pfqju")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="column2" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="column2" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1377174646]
 transform = Transform3D(0.786067, 4.09652e-08, -1.27754, 0.430569, 2.35373, 0.264928, 1.2028, -0.842574, 0.740077, -3.06114, -1.26268, 0.460001)
 mesh = SubResource("ArrayMesh_pfqju")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="tree_oak_dark2" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="tree_oak_dark2" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1731582050]
 transform = Transform3D(2.41255, 0.0635232, 0.652358, -0.0613209, 2.49919, -0.0165813, -0.652568, 4.38434e-09, 2.41333, 3.74185, -0.0170122, 2.67663)
 visible = false
 mesh = SubResource("ArrayMesh_evxjx")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_wjrta")
 surface_material_override/1 = SubResource("ShaderMaterial_758kt")
 
-[node name="Floor" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="Floor" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1010573431]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.554695, 0)
 visible = false
 mesh = SubResource("BoxMesh_sn2ok")
 surface_material_override/0 = SubResource("StandardMaterial3D_pfqju")
 metadata/_edit_lock_ = true
 
-[node name="log_stack2" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="log_stack2" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=616783614]
 transform = Transform3D(1.13138, 0, -0.98488, 0, 1.5, 0, 0.98488, 0, 1.13138, 1.98862, -0.0128242, 2.4818)
 layers = 524289
 mesh = SubResource("ArrayMesh_x3ngp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_ae06m")
 surface_material_override/1 = SubResource("StandardMaterial3D_tvlrs")
 
-[node name="log_stack4" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="log_stack4" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1044001162]
 transform = Transform3D(0.744825, 0, -1.30201, 0, 1.5, 0, 1.30201, 0, 0.744825, 1.88976, 0.438791, 2.20169)
 layers = 524289
 mesh = SubResource("ArrayMesh_x3ngp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_vhx68")
 surface_material_override/1 = SubResource("StandardMaterial3D_tvlrs")
 
-[node name="log_stack5" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="log_stack5" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=926026776]
 transform = Transform3D(0.378079, 0, -1.45157, 0, 1.5, 0, 1.45157, 0, 0.378079, 1.67301, -0.0744464, 1.9926)
 layers = 524289
 mesh = SubResource("ArrayMesh_x3ngp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_ae06m")
 surface_material_override/1 = SubResource("StandardMaterial3D_tvlrs")
 
-[node name="mushroom_redGroup8" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="mushroom_redGroup8" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=2138410140]
 transform = Transform3D(0.0161124, 0.517974, 1.40764, -0.223046, 1.3929, -0.509996, -1.48324, -0.203834, 0.091983, -4.29099, 0.0261589, 3.10235)
 mesh = SubResource("ArrayMesh_ldpem")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_f4kyh")
 surface_material_override/1 = SubResource("ShaderMaterial_7ty4u")
 
-[node name="mushroom_redGroup9" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="mushroom_redGroup9" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=226653900]
 transform = Transform3D(1.20782, 0.469926, 0.755222, -0.223046, 1.3929, -0.509996, -0.86107, 0.298354, 1.19145, -3.70892, 0.0261589, 2.93382)
 mesh = SubResource("ArrayMesh_ldpem")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_f4kyh")
 surface_material_override/1 = SubResource("ShaderMaterial_7ty4u")
 
-[node name="mushroom_redGroup11" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="mushroom_redGroup11" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=342871038]
 transform = Transform3D(0.537237, 0.556574, 1.28515, -0.223046, 1.3929, -0.509996, -1.38262, -0.00843936, 0.581637, -0.747676, 0.0261589, 2.27856)
 mesh = SubResource("ArrayMesh_ldpem")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_f4kyh")
 surface_material_override/1 = SubResource("ShaderMaterial_7ty4u")
 
-[node name="mushroom_redGroup12" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="mushroom_redGroup12" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=317946088]
 transform = Transform3D(1.43363, 0.334812, 0.287442, -0.223046, 1.3929, -0.509996, -0.380752, 0.444687, 1.38105, -0.143542, 0.0261589, 2.32573)
 mesh = SubResource("ArrayMesh_ldpem")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_f4kyh")
 surface_material_override/1 = SubResource("ShaderMaterial_7ty4u")
 
-[node name="mushroom_redGroup15" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="mushroom_redGroup15" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=52789970]
 transform = Transform3D(1.43363, 0.334812, 0.287442, -0.223046, 1.3929, -0.509996, -0.380752, 0.444687, 1.38105, 7.68691, 0.0261589, -3.54887)
 mesh = SubResource("ArrayMesh_ldpem")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_f4kyh")
 surface_material_override/1 = SubResource("ShaderMaterial_7ty4u")
 
-[node name="mushroom_redGroup16" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="mushroom_redGroup16" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=251925640]
 transform = Transform3D(0.776802, -0.0748336, -1.28101, -0.357819, 1.42542, -0.30025, 1.2323, 0.461069, 0.720328, 8.07753, 0.0261589, -3.54887)
 mesh = SubResource("ArrayMesh_ldpem")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_f4kyh")
 surface_material_override/1 = SubResource("ShaderMaterial_7ty4u")
 
-[node name="mushroom_redGroup13" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="mushroom_redGroup13" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1841001794]
 transform = Transform3D(0.537237, 0.556574, 1.28515, -0.223046, 1.3929, -0.509996, -1.38262, -0.00843936, 0.581637, 1.54653, 0.0261589, -1.87854)
 mesh = SubResource("ArrayMesh_ldpem")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_f4kyh")
 surface_material_override/1 = SubResource("ShaderMaterial_7ty4u")
 
-[node name="mushroom_redGroup14" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="mushroom_redGroup14" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1323134963]
 transform = Transform3D(1.43363, 0.334812, 0.287442, -0.223046, 1.3929, -0.509996, -0.380752, 0.444687, 1.38105, 2.15066, 0.0261589, -1.83137)
 mesh = SubResource("ArrayMesh_ldpem")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_f4kyh")
 surface_material_override/1 = SubResource("ShaderMaterial_7ty4u")
 
-[node name="mushroom_redGroup10" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="mushroom_redGroup10" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1761524223]
 transform = Transform3D(1.20782, 0.469926, 0.755222, -0.223046, 1.3929, -0.509996, -0.86107, 0.298354, 1.19145, -3.66018, 0.0261589, 1.28957)
 mesh = SubResource("ArrayMesh_ldpem")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_f4kyh")
 surface_material_override/1 = SubResource("ShaderMaterial_7ty4u")
 
-[node name="rock_tallG2" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="rock_tallG2" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=336029584]
 transform = Transform3D(-1.06539, -0.403894, 1.64372, -0.230121, 1.95876, 0.332149, -1.6769, -0.0121935, -1.08989, -0.201293, -0.05, 1.76223)
 layers = 524289
 mesh = SubResource("ArrayMesh_655su")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 surface_material_override/2 = SubResource("ShaderMaterial_bkwni")
 
-[node name="rock_tallG5" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="rock_tallG5" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1908560988]
 transform = Transform3D(-1.06539, -0.403894, 1.64372, -0.230121, 1.95876, 0.332149, -1.6769, -0.0121935, -1.08989, -0.201293, -0.174626, 1.76223)
 layers = 524289
 mesh = SubResource("ArrayMesh_655su")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 surface_material_override/2 = SubResource("ShaderMaterial_bkwni")
 
-[node name="rock_tallG4" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="rock_tallG4" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1953428417]
 transform = Transform3D(0.925623, -0.190156, 1.76269, -0.230121, 1.95876, 0.332149, -1.75792, -0.356539, 0.884655, -1.0937, -0.174626, 1.79259)
 layers = 524289
 mesh = SubResource("ArrayMesh_655su")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 surface_material_override/2 = SubResource("ShaderMaterial_bkwni")
 
-[node name="rock_tallG3" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="rock_tallG3" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=746856988]
 transform = Transform3D(-1.93016, -0.491441, 0.181524, -0.511955, 1.91644, -0.255291, -0.11121, -0.292843, -1.97531, -21.0155, -0.05, 1.75562)
 mesh = SubResource("ArrayMesh_655su")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_kdpg5")
 surface_material_override/1 = SubResource("ShaderMaterial_g2sps")
 surface_material_override/2 = SubResource("ShaderMaterial_u2oii")
 
-[node name="BolderRockv4" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="BolderRockv4" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=181983596]
 transform = Transform3D(0.497315, -0.0517522, 0, 0.0517522, 0.497315, 0, 0, 0, 0.5, -22.2092, 0, 5.34237)
 mesh = SubResource("ArrayMesh_2a7r4")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_7p7qj")
 
-[node name="BolderRockv6" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="BolderRockv6" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=525775809]
 transform = Transform3D(0.497315, -0.0517522, 0, 0.0517522, 0.497315, 0, 0, 0, 0.5, -17.2667, 0, 5.34237)
 mesh = SubResource("ArrayMesh_2a7r4")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_0tgxd")
 
-[node name="BolderRockv9" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="BolderRockv9" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=217116129]
 transform = Transform3D(-0.0374072, 0.398247, 0, -0.398247, -0.0374072, 0, 0, 0, 0.4, -1.03867, 0.64619, -1.74038)
 mesh = SubResource("ArrayMesh_2a7r4")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="BolderRockv13" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="BolderRockv13" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=214351213]
 transform = Transform3D(-0.0374072, 0.398247, 0, -0.398247, -0.0374072, 0, 0, 0, 0.4, 8.60689, -0.379058, -18.4058)
 mesh = SubResource("ArrayMesh_2a7r4")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="BolderRockv14" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="BolderRockv14" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1790255975]
 transform = Transform3D(-0.00568406, 0.060514, -0.395355, -0.398247, -0.0374072, 0, -0.0369728, 0.393623, 0.0607804, 10.6029, -0.379058, -21.233)
 mesh = SubResource("ArrayMesh_2a7r4")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="BolderRockv10" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="BolderRockv10" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1244641056]
 transform = Transform3D(-0.0443691, 0.339076, -0.364773, -0.0211613, -0.367171, -0.33873, -0.497578, -0.0146202, 0.0469325, -5.83393, 1.83686, 2.05941)
 mesh = SubResource("ArrayMesh_2a7r4")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="BolderRockv11" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="BolderRockv11" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1645652603]
 transform = Transform3D(-0.0109586, 0.981789, 0.189659, -0.0977015, 0.187711, -0.977353, -0.995156, -0.0292404, 0.0938651, -7.27069, 1.31537, -6.56126)
 layers = 524289
 mesh = SubResource("ArrayMesh_2a7r4")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="BolderRockv15" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="BolderRockv15" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=916929392]
 transform = Transform3D(-0.751292, 0.630154, 0.196131, 0.0848608, 0.386953, -0.918186, -0.654492, -0.673182, -0.34419, -2.47807, 0.69037, -7.2924)
 layers = 524289
 mesh = SubResource("ArrayMesh_2a7r4")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="BolderRockv12" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="BolderRockv12" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=131816215]
 transform = Transform3D(0.0858894, 0.206015, 0.974772, -0.0478403, 0.978112, -0.202505, -0.995156, -0.0292404, 0.0938651, 5.95396, -3.7724, -16.151)
 layers = 524289
 mesh = SubResource("ArrayMesh_2a7r4")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="BolderRockv5" type="MeshInstance3D" parent="SubViewport/Objects"]
+[node name="BolderRockv5" type="MeshInstance3D" parent="SubViewport/Objects" unique_id=1824949916]
 transform = Transform3D(0.497315, -0.0517522, 0, 0.0517522, 0.497315, 0, 0, 0, 0.5, -26.3478, 0, 5.34237)
 mesh = SubResource("ArrayMesh_2a7r4")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("6_seb0h")
 
-[node name="column-damaged3" parent="SubViewport/Objects" instance=ExtResource("21_758kt")]
+[node name="column-damaged3" parent="SubViewport/Objects" unique_id=1942119855 instance=ExtResource("21_758kt")]
 transform = Transform3D(1.12211, 0, -0.995419, -0.102546, 1.98936, -0.115598, 0.990123, 0.206036, 1.11614, 12.6758, 0.0176336, -8.92572)
 
-[node name="column-damaged" parent="SubViewport/Objects/column-damaged3" index="0"]
+[node name="column-damaged" parent="SubViewport/Objects/column-damaged3" index="0" unique_id=67951246]
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="lily_large2" parent="SubViewport/Objects" instance=ExtResource("1_ehk3l")]
+[node name="lily_large2" parent="SubViewport/Objects" unique_id=1774230586 instance=ExtResource("1_ehk3l")]
 transform = Transform3D(3.333, 0, 0, 0, 5.99883, -0.0659044, 0, 0.11864, 3.33235, 17.366, -0.20157, -5.22377)
 
-[node name="lily_large4" parent="SubViewport/Objects" instance=ExtResource("1_ehk3l")]
+[node name="lily_large4" parent="SubViewport/Objects" unique_id=1773498099 instance=ExtResource("1_ehk3l")]
 transform = Transform3D(3.33264, -0.087623, 0.00114708, 0.0486786, 5.99373, -0.144387, 0.000962723, 0.259925, 3.32987, 16.0088, -0.220992, -5.72313)
 
-[node name="lily_large3" parent="SubViewport/Objects" instance=ExtResource("1_ehk3l")]
+[node name="lily_large3" parent="SubViewport/Objects" unique_id=201961031 instance=ExtResource("1_ehk3l")]
 transform = Transform3D(-1.13814, -0.0876473, 3.13228, 0.0453177, 5.99819, 0.068259, -3.13233, 0.118627, -1.13713, 16.0021, -0.241459, -4.03502)
 
-[node name="overworldRocksBlend" parent="SubViewport/Objects" instance=ExtResource("23_kdpg5")]
+[node name="overworldRocksBlend" parent="SubViewport/Objects" unique_id=1084065859 instance=ExtResource("23_kdpg5")]
 transform = Transform3D(-0.299799, 0, 0.0109774, 0, 0.1, 0, -0.0109774, 0, -0.299799, -8.13628, 7.603, 29.3987)
 
-[node name="tower-square-arch2" parent="SubViewport/Objects" instance=ExtResource("26_ehk3l")]
+[node name="tower-square-arch2" parent="SubViewport/Objects" unique_id=1193033974 instance=ExtResource("26_ehk3l")]
 transform = Transform3D(4.66667, 0, 0, 0, 3.33333, 0, 0, 0, 4.66667, 15.559, -3.19905, -11.0124)
 
-[node name="tower-square-arch" parent="SubViewport/Objects/tower-square-arch2" index="0"]
+[node name="tower-square-arch" parent="SubViewport/Objects/tower-square-arch2" index="0" unique_id=809122064]
 transform = Transform3D(0.988292, 5.31815e-10, 0.152572, -0.00285177, 0.999825, 0.0184726, -0.152545, -0.0186913, 0.98812, 0.100822, 0.00454956, -0.054076)
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="tower-hexagon-base2" parent="SubViewport/Objects" instance=ExtResource("27_kdpg5")]
+[node name="tower-hexagon-base2" parent="SubViewport/Objects" unique_id=1883146769 instance=ExtResource("27_kdpg5")]
 transform = Transform3D(1.5, 0, 0, 0, 2, 0, 0, 0, 1.5, 14.145, -2.94751, -4.05122)
 
-[node name="tower-hexagon-base" parent="SubViewport/Objects/tower-hexagon-base2" index="0"]
+[node name="tower-hexagon-base" parent="SubViewport/Objects/tower-hexagon-base2" index="0" unique_id=1365729067]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0879773, 0)
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="bridge" parent="SubViewport/Objects" instance=ExtResource("25_ehk3l")]
+[node name="bridge" parent="SubViewport/Objects" unique_id=227868372 instance=ExtResource("25_ehk3l")]
 transform = Transform3D(0.052266, 0, -0.144787, 0, 0.3, 0, 0.19305, 0, 0.0391995, 8.79411, -0.106164, -7.57308)
 
-[node name="statue2" parent="SubViewport" instance=ExtResource("34_e6aum")]
+[node name="statue2" parent="SubViewport" unique_id=2074038303 instance=ExtResource("34_e6aum")]
 transform = Transform3D(0.784395, 0, 1.27856, 0, 1.5, 0, -1.27856, 0, 0.784395, 21.2022, -0.345693, -5.97276)
 
-[node name="statue" parent="SubViewport/statue2" index="0"]
+[node name="statue" parent="SubViewport/statue2" index="0" unique_id=780650048]
 transform = Transform3D(1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, 1, 0, 0.07931, 0)
 surface_material_override/0 = SubResource("ShaderMaterial_40g6u")
 
-[node name="Display" type="Control" parent="." node_paths=PackedStringArray("_viewport", "_mainRendereSprite")]
+[node name="Display" type="Control" parent="." unique_id=674622163 node_paths=PackedStringArray("_mainRendereSprite")]
 texture_filter = 2
 clip_contents = true
 layout_mode = 3
@@ -1642,10 +1608,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("1_28obu")
-_viewport = NodePath("../SubViewport")
 _mainRendereSprite = NodePath("Sprite2D")
 
-[node name="Sprite2D" type="Sprite2D" parent="Display"]
+[node name="Sprite2D" type="Sprite2D" parent="Display" unique_id=798162117]
 texture_filter = 2
 material = SubResource("ShaderMaterial_642rp")
 position = Vector2(0.985153, 3.95636)

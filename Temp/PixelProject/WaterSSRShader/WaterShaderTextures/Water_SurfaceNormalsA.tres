@@ -1,4 +1,4 @@
-[gd_resource type="NoiseTexture2D" load_steps=2 format=3 uid="uid://stensn7vpvqw"]
+[gd_resource type="NoiseTexture2D" format=3 uid="uid://stensn7vpvqw"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_d0y3h"]
 noise_type = 0
@@ -6,7 +6,7 @@ frequency = 0.007
 
 [resource]
 generate_mipmaps = false
-seamless = true
-seamless_blend_skirt = 0.5
-as_normal_map = true
 noise = SubResource("FastNoiseLite_d0y3h")
+seamless = true
+as_normal_map = true
+seamless_blend_skirt = 0.5

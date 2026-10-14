@@ -1,4 +1,4 @@
-[gd_resource type="Terrain3DMaterial" load_steps=5 format=3 uid="uid://rrojnnulormj"]
+[gd_resource type="Terrain3DMaterial" format=3 uid="uid://rrojnnulormj"]
 
 [ext_resource type="Shader" uid="uid://daid6pdwyfsue" path="res://Temp/TempTestTerrain3D/TestTerrain3DFlexibleBlend.gdshader" id="1_lw2un"]
 
@@ -19,9 +19,9 @@ domain_warp_fractal_lacunarity = 1.5
 domain_warp_fractal_gain = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fws7k"]
-seamless = true
-color_ramp = SubResource("Gradient_7mibi")
 noise = SubResource("FastNoiseLite_klsjy")
+color_ramp = SubResource("Gradient_7mibi")
+seamless = true
 
 [resource]
 _shader_parameters = {

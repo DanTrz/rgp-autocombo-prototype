@@ -15,9 +15,13 @@ dest_files=["res://.godot/imported/BaseModelHD_CLOTHED.glb-a7d2d5f433f699fc8e2c0
 
 nodes/root_type=""
 nodes/root_name=""
+nodes/root_script=null
+mesh_library/use_node_names_as_mesh_names=false
+array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
@@ -32,31 +36,40 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
 _subresources={
 "materials": {
 "ARM_SLEEVE": {
 "use_external/enabled": true,
-"use_external/path": "res://Temp/TempPlayer3dModel/ARM_SLEEVE.tres"
+"use_external/fallback_path": "res://Temp/TempPlayer3dModel/ARM_SLEEVE.tres",
+"use_external/path": "uid://cthr34br8lva1"
 },
 "BOOTS": {
 "use_external/enabled": true,
-"use_external/path": "res://Temp/TempPlayer3dModel/BOOTS.tres"
+"use_external/fallback_path": "res://Temp/TempPlayer3dModel/BOOTS.tres",
+"use_external/path": "uid://dycbhqbwxv71n"
 },
 "BaseModel.LowPoly.Skin": {
 "use_external/enabled": true,
-"use_external/path": "res://Temp/TempPlayer3dModel/BaseModel.LowPoly.Skin.tres"
+"use_external/fallback_path": "res://Temp/TempPlayer3dModel/BaseModel.LowPoly.Skin.tres",
+"use_external/path": "uid://c1g6mbhxp88w6"
 },
 "HAIR": {
 "use_external/enabled": true,
-"use_external/path": "res://Temp/TempPlayer3dModel/HAIR.tres"
+"use_external/fallback_path": "res://Temp/TempPlayer3dModel/HAIR.tres",
+"use_external/path": "uid://df0rnid05puse"
 },
 "LEGS": {
 "use_external/enabled": true,
-"use_external/path": "res://Temp/TempPlayer3dModel/LEGS.tres"
+"use_external/fallback_path": "res://Temp/TempPlayer3dModel/LEGS.tres",
+"use_external/path": "uid://b0r3sq4m0c8c6"
 },
 "SHIRT": {
 "use_external/enabled": true,
-"use_external/path": "res://Temp/TempPlayer3dModel/SHIRT.tres"
+"use_external/fallback_path": "res://Temp/TempPlayer3dModel/SHIRT.tres",
+"use_external/path": "uid://dsgl2h6fmdjia"
 }
 },
 "meshes": {
@@ -66,7 +79,8 @@ _subresources={
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 60.0,
 "save_to_file/enabled": true,
-"save_to_file/path": "res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_SHIRT_002.res"
+"save_to_file/fallback_path": "res://Temp/TempPlayer3dModel/BaseModelHD_CLOTHED_SHIRT_002.res",
+"save_to_file/path": "uid://bfshqh0tvekd"
 }
 },
 "nodes": {
@@ -79,3 +93,4 @@ _subresources={
 }
 gltf/naming_version=1
 gltf/embedded_image_handling=1
+gltf/texture_map_mode=0

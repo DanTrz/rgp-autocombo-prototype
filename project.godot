@@ -12,8 +12,8 @@ config_version=5
 
 config/name="RGP AutoCombo Prototype"
 run/main_scene="uid://d1fonqxidgbmt"
-config/features=PackedStringArray("4.4", "C#", "Forward Plus")
-run/max_fps=200
+config/features=PackedStringArray("4.7", "C#", "Forward Plus")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [autoload]
@@ -26,7 +26,6 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/window_width_override=1280
 window/size/window_height_override=720
-window/vsync/vsync_mode=0
 
 [dotnet]
 
@@ -34,7 +33,7 @@ project/assembly_name="RGP AutoCombo Prototype"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/PlanarReflectorCpp/plugin.cfg", "res://addons/color-palette/plugin.cfg", "res://addons/proton_scatter/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
+enabled=PackedStringArray("res://addons/PlanarReflectorCpp/plugin.cfg", "res://addons/mm_plus_editor/plugin.cfg", "res://addons/terrain_3d/plugin.cfg", "res://addons/tilemap_layer_3d_cpp/plugin.cfg")
 
 [global_group]
 
